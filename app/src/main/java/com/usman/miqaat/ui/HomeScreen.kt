@@ -31,6 +31,8 @@ import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material.icons.outlined.NotificationsNone
 import androidx.compose.material.icons.outlined.NotificationsOff
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Flight
 import androidx.compose.material.icons.outlined.SystemUpdateAlt
 import androidx.compose.material.icons.outlined.WbTwilight
 import androidx.compose.material3.Icon
@@ -73,6 +75,8 @@ fun HomeScreen(
     onOpenAbout: () -> Unit = {},
     onToggleRelative: () -> Unit = {}
 ) {
+    var why by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<Prayer?>(null) }
+    why?.let { WhyDialog(settings, state.today, it) { why = null } }
     BoxWithConstraints(Modifier.fillMaxSize()) {
         // 1 unit = 1% of width, capped by height so short/wide tablets scale down instead of overlapping
         val u: Dp = minOf(maxWidth / 100, maxHeight / 56)
@@ -115,6 +119,8 @@ fun HomeScreen(
                             if (settings.adhkarEnabled && eveningWindow) Chip(Icons.Outlined.WbTwilight, "Evening adhkār", u, gold = true) { onOpenAdhkar(false) }
                             if (friday) Chip(Icons.Outlined.MenuBook, "Jumuʿah · Sūrat al-Kahf · ṣalawāt", u)
                             if (updateAvailable) Chip(Icons.Outlined.SystemUpdateAlt, "Update available", u, gold = true, onClick = onOpenAbout)
+                            if (settings.travellerMode && PrayerEngine.isTravelling(settings)) Chip(Icons.Outlined.Flight, "Travelling · %.0f km from home".format(PrayerEngine.distanceKm(settings.homeLat!!, settings.homeLng!!, settings.latitude, settings.longitude)), u, gold = true, onClick = onOpenLocation)
+                            if (state.today.fromMasjid) Chip(Icons.Outlined.LocationOn, settings.masjidName.ifBlank { "Masjid timetable" }, u, onClick = onOpenLocation)
                         }
                     }
                     Column(horizontalAlignment = Alignment.End) {
@@ -172,6 +178,9 @@ fun HomeScreen(
                         )
                     }
                 }
+                if (settings.showDisliked) {
+                    DayTimeline(settings, state.today, state.now, height = u * 0.7f, modifier = Modifier.fillMaxWidth().padding(horizontal = u * 1, bottom = u * 0.5f))
+                }
 
                 // ---------- rail
                 val shown = if (settings.showSunrise) Prayer.entries else Prayer.prayersOnly
@@ -188,11 +197,13 @@ fun HomeScreen(
                             else -> p.english
                         }
                         val iq = PrayerEngine.iqamah(settings, state.today, p)
+                        val endT = if (settings.showEndTimes) PrayerEngine.endOf(settings, state.today, p) else null
                         PrayerCard(p, label,
                             if (settings.showRelative) PrayerEngine.relative(t, state.now) else PrayerEngine.clock(t, settings.use24h),
                             if (settings.showRelative) "" else PrayerEngine.suffix(t, settings.use24h),
                             done = done, isNow = isNow, isNext = isNext, azaanOn = settings.azaanEnabled[p] == true, u = u,
                             iqamah = iq?.let { PrayerEngine.clock(it, settings.use24h) }, relative = settings.showRelative,
+                            ends = endT?.let { "ends " + PrayerEngine.clock(it, settings.use24h) }, onWhy = { why = p },
                             modifier = Modifier.weight(1f).clickable(onClick = onToggleRelative))
                     }
                 }
@@ -264,7 +275,8 @@ private fun FastProgress(state: PrayerState, u: Dp) {
 @Composable
 fun PrayerCard(
     p: Prayer, label: String, time: String, suffix: String,
-    done: Boolean, isNow: Boolean, isNext: Boolean, azaanOn: Boolean, u: Dp, iqamah: String? = null, relative: Boolean = false, modifier: Modifier = Modifier
+    done: Boolean, isNow: Boolean, isNext: Boolean, azaanOn: Boolean, u: Dp, iqamah: String? = null, relative: Boolean = false,
+    ends: String? = null, onWhy: (() -> Unit)? = null, modifier: Modifier = Modifier
 ) {
     val shape = RoundedCornerShape(u * 1.6f)
     val bg = when { isNow -> Palette.gold.copy(alpha = 0.18f); p.isPrayer -> Color.White.copy(alpha = 0.07f); else -> Color.Transparent }
@@ -282,15 +294,19 @@ fun PrayerCard(
                 done && p.isPrayer -> Icon(Icons.Outlined.Check, null, Modifier.size(u * 1.6f), tint = Palette.mint)
                 p.isPrayer -> Icon(if (azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(u * 1.6f), tint = Palette.ivory.copy(alpha = 0.7f))
             }
+            if (onWhy != null) Icon(Icons.Outlined.Info, "Why this time?", Modifier.padding(start = u * 0.5f).size(u * 1.6f).clickable(onClick = onWhy), tint = Palette.ivory.copy(alpha = 0.55f))
         }
         Text(p.arabic, fontFamily = Amiri, fontSize = (u.value * 2.1f).sp, lineHeight = (u.value * 2.3f).sp, color = Palette.goldSoft)
         Row(verticalAlignment = Alignment.Bottom) {
             Text(time, fontFamily = if (relative) Nunito else Cormorant, fontWeight = if (relative) FontWeight.SemiBold else FontWeight.Normal, fontSize = (u.value * (if (relative) 1.7f else 2.9f)).sp, lineHeight = (u.value * 3f).sp, color = Palette.ivory, maxLines = 1)
             if (suffix.isNotEmpty()) Text(" $suffix", fontFamily = Cormorant, fontSize = (u.value * 1.4f).sp, color = Palette.ivory, modifier = Modifier.padding(bottom = u * 0.35f))
         }
-        if (iqamah != null) Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("IQAMAH ", fontFamily = Nunito, fontSize = (u.value * 1.05f).sp, letterSpacing = (u.value * 0.1f).sp, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = 0.6f))
-            Text(iqamah, fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
+        if (ends != null || iqamah != null) Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 0.8f)) {
+            if (ends != null) Text(ends, fontFamily = Nunito, fontSize = (u.value * 1.05f).sp, color = Palette.ivory.copy(alpha = 0.6f), maxLines = 1)
+            if (iqamah != null) Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("IQ ", fontFamily = Nunito, fontSize = (u.value * 1.05f).sp, letterSpacing = (u.value * 0.1f).sp, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = 0.6f))
+                Text(iqamah, fontFamily = Nunito, fontSize = (u.value * 1.2f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft, maxLines = 1)
+            }
         }
     }
 }

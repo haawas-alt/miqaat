@@ -71,4 +71,5 @@ dependencies {
     // High-precision prayer time calculation (Meeus algorithms), pure Java, no deps
     implementation("com.batoulapps.adhan:adhan:1.2.1")
     debugImplementation("androidx.compose.ui:ui-tooling")
+    testImplementation("junit:junit:4.13.2")
 }

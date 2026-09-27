@@ -15,7 +15,7 @@ import java.time.temporal.ChronoField
 import java.util.Locale
 
 /** All six times for one calendar day, in the device's zone. */
-data class DayTimes(val date: LocalDate, val times: Map<Prayer, ZonedDateTime>) {
+data class DayTimes(val date: LocalDate, val times: Map<Prayer, ZonedDateTime>, val fromMasjid: Boolean = false) {
     operator fun get(p: Prayer): ZonedDateTime = times.getValue(p)
 }
 
@@ -42,17 +42,117 @@ object PrayerEngine {
         fun z(d: java.util.Date) = ZonedDateTime.ofInstant(Instant.ofEpochMilli(d.time), zone)
         val dhuhr = if (settings.jumuahEnabled && date.dayOfWeek == java.time.DayOfWeek.FRIDAY)
             date.atStartOfDay(zone).plusMinutes(settings.jumuahMinutes.toLong()) else z(pt.dhuhr)
-        return DayTimes(
-            date,
-            mapOf(
-                Prayer.FAJR to z(pt.fajr),
-                Prayer.SUNRISE to z(pt.sunrise),
-                Prayer.DHUHR to dhuhr,
-                Prayer.ASR to z(pt.asr),
-                Prayer.MAGHRIB to z(pt.maghrib),
-                Prayer.ISHA to z(pt.isha)
-            )
+        val calc = mapOf(
+            Prayer.FAJR to z(pt.fajr),
+            Prayer.SUNRISE to z(pt.sunrise),
+            Prayer.DHUHR to dhuhr,
+            Prayer.ASR to z(pt.asr),
+            Prayer.MAGHRIB to z(pt.maghrib),
+            Prayer.ISHA to z(pt.isha)
         )
+        // Masjid timetable wins for any day it covers.
+        val ov = if (settings.useOverrides) settings.overrides[date.toString()] else null
+        if (ov != null) {
+            val start = date.atStartOfDay(zone)
+            val m = Prayer.entries.mapIndexed { i, p -> p to start.plusMinutes(ov[i].toLong()) }.toMap()
+            return DayTimes(date, m, fromMasjid = true)
+        }
+        return DayTimes(date, calc)
+    }
+
+    /** Pure astronomical times, ignoring any masjid override (for the "why this time?" comparison). */
+    fun calculated(settings: AppSettings, date: LocalDate): DayTimes = times(settings.copy(useOverrides = false), date)
+
+    /** Same day computed with the other Asr madhab. */
+    fun asrOther(settings: AppSettings, date: LocalDate): ZonedDateTime =
+        calculated(settings.copy(asrMethod = if (settings.asrMethod == AsrMethod.HANAFI) AsrMethod.STANDARD else AsrMethod.HANAFI), date)[Prayer.ASR]
+
+    /** Sharʿī midnight: halfway from Maghrib to the next Fajr. Isha is best prayed before it. */
+    fun midnight(settings: AppSettings, day: DayTimes): ZonedDateTime {
+        val nextFajr = times(settings, day.date.plusDays(1), day[Prayer.FAJR].zone)[Prayer.FAJR]
+        return day[Prayer.MAGHRIB].plus(Duration.between(day[Prayer.MAGHRIB], nextFajr).dividedBy(2))
+    }
+
+    /** Last third of the night begins (for qiyām / suhoor planning). */
+    fun lastThird(settings: AppSettings, day: DayTimes): ZonedDateTime {
+        val nextFajr = times(settings, day.date.plusDays(1), day[Prayer.FAJR].zone)[Prayer.FAJR]
+        val night = Duration.between(day[Prayer.MAGHRIB], nextFajr)
+        return nextFajr.minus(night.dividedBy(3))
+    }
+
+    /** When a prayer's time ends. Isha: sharʿī midnight (preferred end); it remains valid until Fajr. */
+    fun endOf(settings: AppSettings, day: DayTimes, p: Prayer): ZonedDateTime? = when (p) {
+        Prayer.FAJR -> day[Prayer.SUNRISE]
+        Prayer.SUNRISE -> null
+        Prayer.DHUHR -> day[Prayer.ASR]
+        Prayer.ASR -> day[Prayer.MAGHRIB]
+        Prayer.MAGHRIB -> day[Prayer.ISHA]
+        Prayer.ISHA -> midnight(settings, day)
+    }
+
+    data class Window(val start: ZonedDateTime, val end: ZonedDateTime, val label: String)
+
+    /** Times when voluntary prayer is disliked: after sunrise (~15 min), at zawāl (~10 min before Dhuhr), after ʿAsr until Maghrib. */
+    fun dislikedWindows(day: DayTimes): List<Window> = listOf(
+        Window(day[Prayer.SUNRISE], day[Prayer.SUNRISE].plusMinutes(15), "Sunrise · until the sun has risen a spear's length (~15 min)"),
+        Window(day[Prayer.DHUHR].minusMinutes(10), day[Prayer.DHUHR], "Zawāl · the sun at its zenith, just before Dhuhr"),
+        Window(day[Prayer.ASR], day[Prayer.MAGHRIB], "After ʿAsr · until the sun has set")
+    )
+
+    /** Great-circle distance in km. */
+    fun distanceKm(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Double {
+        val r = 6371.0
+        val dLat = Math.toRadians(lat2 - lat1); val dLng = Math.toRadians(lng2 - lng1)
+        val a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.sin(dLng / 2) * Math.sin(dLng / 2)
+        return 2 * r * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    }
+
+    /** True when the current location is far enough from home that travel rules may apply (~80 km). */
+    fun isTravelling(settings: AppSettings): Boolean {
+        val hl = settings.homeLat ?: return false; val hg = settings.homeLng ?: return false
+        return distanceKm(hl, hg, settings.latitude, settings.longitude) >= 80.0
+    }
+
+    // ---- masjid timetable import -----------------------------------------
+
+    data class ImportResult(val rows: Map<String, List<Int>>, val skipped: Int, val notes: List<String>)
+
+    /**
+     * Parses a CSV/TSV/text timetable. Accepts lines like
+     *   4/10/2026, 5:15, 6:37, 12:58, 4:07, 6:22, 7:38 [, iq1..iq5]
+     *   2026-10-04  05:15 06:37 12:58 16:07 18:22 19:38
+     * Times may be 12h without AM/PM: values are read in prayer order and pushed into the afternoon as needed.
+     */
+    fun parseTimetable(text: String, year: Int): ImportResult {
+        val rows = linkedMapOf<String, List<Int>>(); var skipped = 0; val notes = mutableListOf<String>()
+        val timeRe = Regex("""\b(\d{1,2})[:.](\d{2})\s*(am|pm|AM|PM)?""")
+        val dateRe = Regex("""\b(\d{4})-(\d{1,2})-(\d{1,2})\b|\b(\d{1,2})[/.-](\d{1,2})(?:[/.-](\d{2,4}))?\b""")
+        for (raw in text.lines()) {
+            val line = raw.trim(); if (line.isEmpty()) continue
+            val dm = dateRe.find(line) ?: run { skipped++; continue }
+            val date: LocalDate = runCatching {
+                if (dm.groupValues[1].isNotEmpty()) LocalDate.of(dm.groupValues[1].toInt(), dm.groupValues[2].toInt(), dm.groupValues[3].toInt())
+                else {
+                    val d = dm.groupValues[4].toInt(); val mth = dm.groupValues[5].toInt()
+                    val y = dm.groupValues[6].let { if (it.isEmpty()) year else if (it.length == 2) 2000 + it.toInt() else it.toInt() }
+                    LocalDate.of(y, mth, d)
+                }
+            }.getOrNull() ?: run { skipped++; continue }
+            val rest = line.substring(dm.range.last + 1)
+            val ts = timeRe.findAll(rest).map { m ->
+                var h = m.groupValues[1].toInt(); val mi = m.groupValues[2].toInt(); val ap = m.groupValues[3].lowercase()
+                if (ap == "pm" && h < 12) h += 12; if (ap == "am" && h == 12) h = 0
+                h * 60 + mi
+            }.toMutableList()
+            if (ts.size < 6) { skipped++; continue }
+            // 12-hour sheets without AM/PM: make the sequence monotonic (Dhuhr onward is afternoon)
+            for (i in 1 until ts.size) if (ts[i] < ts[i - 1] && ts[i] + 720 > ts[i - 1]) ts[i] += 720
+            rows[date.toString()] = ts.take(11)
+        }
+        if (rows.isEmpty()) notes += "No rows with a date and at least six times were found."
+        else notes += "Read ${rows.size} days (${rows.keys.first()} → ${rows.keys.last()})" + if (rows.values.any { it.size >= 11 }) ", with iqamah times." else "."
+        if (skipped > 0) notes += "$skipped line(s) skipped (headers or incomplete)."
+        return ImportResult(rows, skipped, notes)
     }
 
     fun state(settings: AppSettings, now: ZonedDateTime = ZonedDateTime.now(settings.zone())): PrayerState {
@@ -113,6 +213,11 @@ object PrayerEngine {
     /** Iqamah time for a prayer on a day, or null if iqamah is off for it. */
     fun iqamah(settings: AppSettings, day: DayTimes, p: Prayer): ZonedDateTime? {
         if (!settings.iqamahEnabled || !p.isPrayer) return null
+        if (day.fromMasjid && settings.useOverrides) {
+            val ov = settings.overrides[day.date.toString()]
+            val idx = 6 + Prayer.prayersOnly.indexOf(p)
+            if (ov != null && ov.size > idx) return day.date.atStartOfDay(day[p].zone).plusMinutes(ov[idx].toLong())
+        }
         if (p == Prayer.DHUHR && settings.jumuahEnabled && day.date.dayOfWeek == java.time.DayOfWeek.FRIDAY)
             return day.date.atStartOfDay(day[p].zone).plusMinutes(settings.jumuahIqamahMinutes.toLong())
         if (settings.iqamahIsFixed[p] == true) {

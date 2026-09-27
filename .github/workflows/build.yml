@@ -31,12 +31,12 @@ jobs:
       - name: Build release APK
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-        run: set -o pipefail; ./gradlew --no-daemon assembleRelease 2>&1 | tee build.log
+        run: set -o pipefail; ./gradlew --no-daemon testReleaseUnitTest assembleRelease 2>&1 | tee build.log
 
       - name: Publish build log on failure
         if: failure()
         run: |
-          grep -E "^e: |error:|FAILURE|What went wrong|Caused by" build.log | sed 's#file:///home/runner/work/miqaat/miqaat/##' | head -200 > errors.txt || true
+          grep -E "^e: |error:|FAILURE|What went wrong|Caused by|FAILED|expected|Assertion" build.log | sed 's#file:///home/runner/work/miqaat/miqaat/##' | head -200 > errors.txt || true
           git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
           git fetch origin ci-logs || true
           git checkout -B ci-logs

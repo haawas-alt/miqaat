@@ -250,12 +250,56 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
         }
         HorizontalDivider(color = Palette.line)
     }
+
+    // ---- Traveller
+    Spacer(Modifier.height(22.dp))
+    Text("Travelling", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    val homeSet = s.homeLat != null && s.homeLng != null
+    val dist = if (homeSet) PrayerEngine.distanceKm(s.homeLat!!, s.homeLng!!, s.latitude, s.longitude) else 0.0
+    SettingRow("Home", if (homeSet) "%.0f km from the current location".format(dist) else "Not set. Detect your location at home once, or set it now.") {
+        TextButton(onClick = { store.update { it.copy(homeLat = it.latitude, homeLng = it.longitude) } }) { Text(if (homeSet) "Set home to here" else "Set home", color = Palette.goldSoft) }
+    }
+    SettingRow("Traveller mode", "When you are 80 km or more from home, show a travel chip and the options below. Times always follow the current place.") { Toggle(s.travellerMode) { on -> store.update { it.copy(travellerMode = on) } } }
+    if (s.travellerMode) {
+        SettingRow("Shorten 4-rakʿah prayers (qaṣr)", "A reminder on the cards for Dhuhr, ʿAsr and Isha while travelling. Permitted for a traveller who has not settled; conditions differ by madhab.") { Toggle(s.travelQasr) { on -> store.update { it.copy(travelQasr = on) } } }
+        SettingRow("Combining prayers (jamʿ)", "Shows Dhuhr + ʿAsr and Maghrib + Isha as pairs and plays one azaan per pair. Ask your imam about your situation; this is a convenience, not a ruling.") { Toggle(s.travelJam) { on -> store.update { it.copy(travelJam = on) } } }
+    }
+
+    // ---- Masjid timetable
+    Spacer(Modifier.height(22.dp))
+    Text("Masjid timetable", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text("Use your masjid's published times instead of the calculation for the days it covers. Import a CSV or text file with one line per day: date, then Fajr, Sunrise, Dhuhr, ʿAsr, Maghrib, Isha, and optionally the five iqamah times. Calculated times take over again after the last day.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f), lineHeight = 20.sp)
+    var importNotes by remember { mutableStateOf<List<String>>(emptyList()) }
+    val pickSheet = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
+        uri ?: return@rememberLauncherForActivityResult
+        val text = runCatching { ctx.contentResolver.openInputStream(uri)?.bufferedReader()?.readText() }.getOrNull() ?: ""
+        val r = PrayerEngine.parseTimetable(text, LocalDate.now().year)
+        importNotes = r.notes
+        if (r.rows.isNotEmpty()) store.update { it.copy(overrides = it.overrides + r.rows, useOverrides = true) }
+    }
+    OutlinedTextField(value = s.masjidName, onValueChange = { v -> store.update { it.copy(masjidName = v) } }, placeholder = { Text("Masjid name, e.g. Lakemba Masjid") }, singleLine = true, modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp))
+    val days = s.overrides.keys.sorted()
+    SettingRow("Imported days", if (days.isEmpty()) "None yet" else "${days.size} days · ${days.first()} → ${days.last()}" + if (s.overrides.values.any { it.size >= 11 }) " · with iqamah" else "") {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            GoldButton("Import file") { pickSheet.launch(arrayOf("text/*", "text/csv", "text/comma-separated-values", "application/csv", "*/*")) }
+            if (days.isNotEmpty()) TextButton(onClick = { store.update { it.copy(overrides = emptyMap()) } }) { Text("Clear", color = Palette.ivory.copy(alpha = 0.7f)) }
+        }
+    }
+    if (days.isNotEmpty()) SettingRow("Use masjid times", "Off keeps the file but shows calculated times") { Toggle(s.useOverrides) { on -> store.update { it.copy(useOverrides = on) } } }
+    importNotes.forEach { Text(it, fontFamily = Nunito, fontSize = 13.sp, color = Palette.goldSoft, modifier = Modifier.padding(top = 4.dp)) }
+    if (days.isNotEmpty()) {
+        val first = s.overrides.getValue(days.first())
+        val calc = PrayerEngine.calculated(s, LocalDate.parse(days.first()))
+        Text("Check · ${days.first()}: masjid Fajr %d:%02d vs calculated %s · Maghrib %d:%02d vs %s".format(first[0] / 60, first[0] % 60, PrayerEngine.clock(calc[Prayer.FAJR], true), first[4] / 60, first[4] % 60, PrayerEngine.clock(calc[Prayer.MAGHRIB], true)),
+            fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.6f), modifier = Modifier.padding(top = 6.dp))
+    }
 }
 
 suspend fun detect(ctx: Context, store: SettingsStore): String {
     val loc = LocationRepo.current(ctx) ?: return "Could not get a location fix. Is location turned on in the tablet's settings?"
     val name = LocationRepo.name(ctx, loc.latitude, loc.longitude) ?: store.value.locationName
-    store.update { it.copy(latitude = loc.latitude, longitude = loc.longitude, locationName = name, autoLocation = true, zoneId = null) }
+    store.update { it.copy(latitude = loc.latitude, longitude = loc.longitude, locationName = name, autoLocation = true, zoneId = null,
+        homeLat = it.homeLat ?: loc.latitude, homeLng = it.homeLng ?: loc.longitude) }
     return "Location set to $name"
 }
 
@@ -269,6 +313,8 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
         Chips(AsrMethod.entries.map { it.label }, AsrMethod.entries.indexOf(s.asrMethod)) { i -> store.update { it.copy(asrMethod = AsrMethod.entries[i]) } }
     }
     SettingRow("High-latitude rule", "Only matters above 48° latitude", onClick = { pickLat = true }) { Value(s.latitudeRule.label + " ›") }
+    SettingRow("Show end times", "\"ends 5:57\" under each prayer · Isha ends at sharʿī midnight") { Toggle(s.showEndTimes) { on -> store.update { it.copy(showEndTimes = on) } } }
+    SettingRow("Show disliked times for voluntary prayer", "A thin day bar: after sunrise, zawāl, after ʿAsr. Tap ⓘ on any prayer for \"why this time?\"") { Toggle(s.showDisliked) { on -> store.update { it.copy(showDisliked = on) } } }
     SettingRow("Show Sunrise on the home screen", "Marks the end of Fajr time") { Toggle(s.showSunrise) { on -> store.update { it.copy(showSunrise = on) } } }
     SettingRow("Show \"azaan was … ago\" after each prayer", "Then the screen moves on to the next prayer") {
         Stepper(s.afterWindowMinutes, 0, 120, 5, " min") { v -> store.update { it.copy(afterWindowMinutes = v) } }
@@ -482,6 +528,21 @@ private fun HijriSection(store: SettingsStore, s: AppSettings) {
     SettingRow("Show Hijri date", "On the home screen and timetable") { Toggle(s.showHijri) { on -> store.update { it.copy(showHijri = on) } } }
     SettingRow("Adjustment", "Today is ${h.english}") {
         Stepper(s.hijriOffsetDays, -2, 2, 1, " day", signed = true) { v -> store.update { it.copy(hijriOffsetDays = v) } }
+    }
+    val tomorrow = PrayerEngine.hijri(LocalDate.now().plusDays(1), s.hijriOffsetDays)
+    if (h.day >= 29) {
+        Spacer(Modifier.height(14.dp))
+        Text("Moon sighting tonight", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+        Text(
+            if (tomorrow.day == 1) "The calendar already turns to ${tomorrow.english.substringAfter(' ')} tomorrow. If the moon was not sighted in your community, complete 30 days instead."
+            else "Tomorrow is day 30 by calculation. If the moon was sighted in your community tonight, start the new month tomorrow.",
+            fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f), lineHeight = 20.sp
+        )
+        Row(Modifier.padding(top = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            if (tomorrow.day != 1) GoldButton("Moon sighted · new month tomorrow") { store.update { it.copy(hijriOffsetDays = it.hijriOffsetDays + 1) } }
+            else GoldButton("Not sighted · complete 30 days") { store.update { it.copy(hijriOffsetDays = it.hijriOffsetDays - 1) } }
+        }
+        Text("This shifts the Hijri date by one day; Ramaḍān mode and Friday/Eid features follow it.", fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.55f), modifier = Modifier.padding(top = 6.dp))
     }
     Spacer(Modifier.height(16.dp))
     Text(h.arabic, fontFamily = Amiri, fontSize = 40.sp, color = Palette.goldSoft)

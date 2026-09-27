@@ -24,6 +24,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Settings
@@ -62,6 +63,8 @@ fun PortraitHome(
     onToggleRelative: () -> Unit = {}
 ) {
     val kiswah = settings.theme == AppTheme.KISWAH
+    var why by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<Prayer?>(null) }
+    why?.let { WhyDialog(settings, state.today, it) { why = null } }
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val u: Dp = minOf(maxWidth / 100, maxHeight / 205)
         fun fs(x: Float) = (u.value * x).sp
@@ -139,6 +142,7 @@ fun PortraitHome(
                 }
                 }
 
+                if (settings.showDisliked) DayTimeline(settings, state.today, state.now, height = u * 1.4f, modifier = Modifier.fillMaxWidth().padding(horizontal = u * 2, bottom = u * 2.2f))
                 // prayer rows
                 val shown = if (settings.showSunrise) Prayer.entries else Prayer.prayersOnly
                 Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(u * 4)).background(Color.White.copy(alpha = if (kiswah) 0.04f else 0.07f)).border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(u * 4))) {
@@ -171,8 +175,13 @@ fun PortraitHome(
                                     val s2 = PrayerEngine.suffix(t, settings.use24h)
                                     if (s2.isNotEmpty()) Text(" $s2", fontFamily = numFont, fontSize = fs(3.4f), color = ivory, modifier = Modifier.padding(bottom = u * 0.8f))
                                 }
-                                if (iq != null) Text("Iqamah ${PrayerEngine.clock(iq, settings.use24h)}", fontFamily = Nunito, fontSize = fs(2.8f), fontWeight = FontWeight.Bold, color = gold.copy(alpha = 0.8f))
+                                val endT = if (settings.showEndTimes) PrayerEngine.endOf(settings, state.today, p) else null
+                                Row(horizontalArrangement = Arrangement.spacedBy(u * 2)) {
+                                    if (endT != null) Text("ends ${PrayerEngine.clock(endT, settings.use24h)}", fontFamily = Nunito, fontSize = fs(2.6f), color = ivory.copy(alpha = 0.55f))
+                                    if (iq != null) Text("Iqamah ${PrayerEngine.clock(iq, settings.use24h)}", fontFamily = Nunito, fontSize = fs(2.6f), fontWeight = FontWeight.Bold, color = gold.copy(alpha = 0.8f))
+                                }
                             }
+                            Icon(Icons.Outlined.Info, "Why this time?", Modifier.padding(start = u * 2).size(u * 4.2f).clickable { why = p }, tint = ivory.copy(alpha = 0.45f))
                         }
                         if (i < shown.lastIndex) Box(Modifier.fillMaxWidth().padding(horizontal = u * 4).height(1.dp).background(Color.White.copy(alpha = 0.08f)))
                     }

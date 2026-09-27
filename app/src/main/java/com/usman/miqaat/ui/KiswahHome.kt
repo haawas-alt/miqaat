@@ -3,6 +3,7 @@ package com.usman.miqaat.ui
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -66,6 +67,8 @@ fun KiswahHome(
     onOpenQibla: () -> Unit, onOpenAdhkar: (Boolean) -> Unit, updateAvailable: Boolean, onOpenAbout: () -> Unit,
     onToggleRelative: () -> Unit = {}
 ) {
+    var why by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<Prayer?>(null) }
+    why?.let { WhyDialog(settings, state.today, it) { why = null } }
     BoxWithConstraints(Modifier.fillMaxSize().background(Kiswah.silk)) {
         val u: Dp = minOf(maxWidth / 100, maxHeight / 56)
         fun fs(x: Float) = (u.value * x).sp
@@ -151,7 +154,8 @@ fun KiswahHome(
                     val next = p == state.hero && state.nextTime.toLocalDate() == state.now.toLocalDate()
                     val label = when { p == Prayer.DHUHR && isFri -> "Jumuʿah"; ramadan && p == Prayer.FAJR -> "Suhoor"; ramadan && p == Prayer.MAGHRIB -> "Iftar"; else -> p.english }
                     val iq = PrayerEngine.iqamah(settings, state.today, p)
-                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.alpha(if (done) 0.4f else 1f).clickable(onClick = onToggleRelative)) {
+                    @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
+                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.alpha(if (done) 0.4f else 1f).combinedClickable(onClick = onToggleRelative, onLongClick = { why = p })) {
                         Text(label.uppercase(), fontFamily = Cinzel, fontSize = fs(1.15f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.75f))
                         if (settings.showRelative) Text(PrayerEngine.relative(t, state.now).uppercase(), fontFamily = Cinzel, fontSize = fs(1.5f), letterSpacing = fs(0.1f), color = if (next) Kiswah.highlight else Kiswah.ivory)
                         else Row(verticalAlignment = Alignment.Bottom) {

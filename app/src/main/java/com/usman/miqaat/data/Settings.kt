@@ -76,6 +76,16 @@ data class AppSettings(
     val longitude: Double = 150.77,
     val locationName: String = "Gledswood Hills, NSW",
     val zoneId: String? = null,        // null = the device's zone
+    /** Home coordinates, set the first time location is detected; used to notice travel. */
+    val homeLat: Double? = null,
+    val homeLng: Double? = null,
+    val travellerMode: Boolean = false,
+    val travelQasr: Boolean = false,
+    val travelJam: Boolean = false,
+    /** Masjid timetable overrides: "yyyy-MM-dd" → minutes-from-midnight for Fajr,Sunrise,Dhuhr,Asr,Maghrib,Isha and optionally 5 iqamah values. */
+    val masjidName: String = "",
+    val overrides: Map<String, List<Int>> = emptyMap(),
+    val useOverrides: Boolean = true,
     val autoLocation: Boolean = true,
     val method: Method = Method.MWL,
     val asrMethod: AsrMethod = AsrMethod.STANDARD,
@@ -110,7 +120,9 @@ data class AppSettings(
     val hijriOffsetDays: Int = 0,
     val showSunrise: Boolean = true,
     val use24h: Boolean = false,
-    val showRelative: Boolean = false,   // tap a prayer: show "in 2 h 5 min" / "40 min ago" instead of clock times
+    val showRelative: Boolean = false,
+    val showEndTimes: Boolean = true,
+    val showDisliked: Boolean = true,   // tap a prayer: show "in 2 h 5 min" / "40 min ago" instead of clock times
     val keepScreenOn: Boolean = true,
     val nightDim: Boolean = true,
     val artTheme: ArtTheme = ArtTheme.GEOMETRIC,
@@ -135,6 +147,15 @@ data class AppSettings(
     }
 }
 
+/** "2026-10-04=315,397,718,907,1042,1118;2026-10-05=..." — compact, human-readable, no JSON dependency. */
+fun encodeOverrides(m: Map<String, List<Int>>): String = m.entries.joinToString(";") { it.key + "=" + it.value.joinToString(",") }
+fun decodeOverrides(s: String): Map<String, List<Int>> =
+    if (s.isBlank()) emptyMap() else s.split(';').mapNotNull { e ->
+        val (k, v) = e.split('=').takeIf { it.size == 2 } ?: return@mapNotNull null
+        val nums = v.split(',').mapNotNull { it.trim().toIntOrNull() }
+        if (nums.size >= 6) k to nums else null
+    }.toMap()
+
 class SettingsStore(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences("miqaat", Context.MODE_PRIVATE)
     private val _settings = MutableStateFlow(load())
@@ -155,6 +176,14 @@ class SettingsStore(context: Context) {
             longitude = prefs.getFloat("lng", d.longitude.toFloat()).toDouble(),
             locationName = prefs.getString("locName", d.locationName) ?: d.locationName,
             zoneId = prefs.getString("zone", null),
+            homeLat = if (prefs.contains("homeLat")) prefs.getFloat("homeLat", 0f).toDouble() else null,
+            homeLng = if (prefs.contains("homeLng")) prefs.getFloat("homeLng", 0f).toDouble() else null,
+            travellerMode = prefs.getBoolean("travel", false),
+            travelQasr = prefs.getBoolean("travelQasr", false),
+            travelJam = prefs.getBoolean("travelJam", false),
+            masjidName = prefs.getString("masjid", "") ?: "",
+            overrides = decodeOverrides(prefs.getString("overrides", "") ?: ""),
+            useOverrides = prefs.getBoolean("useOverrides", true),
             autoLocation = prefs.getBoolean("autoLoc", d.autoLocation),
             method = runCatching { Method.valueOf(enumOr("method", d.method.name)) }.getOrDefault(d.method),
             asrMethod = runCatching { AsrMethod.valueOf(enumOr("asr", d.asrMethod.name)) }.getOrDefault(d.asrMethod),
@@ -188,6 +217,8 @@ class SettingsStore(context: Context) {
             showSunrise = prefs.getBoolean("sunrise", d.showSunrise),
             use24h = prefs.getBoolean("h24", d.use24h),
             showRelative = prefs.getBoolean("rel", d.showRelative),
+            showEndTimes = prefs.getBoolean("ends", d.showEndTimes),
+            showDisliked = prefs.getBoolean("disliked", d.showDisliked),
             keepScreenOn = prefs.getBoolean("keepOn", d.keepScreenOn),
             nightDim = prefs.getBoolean("nightDim", d.nightDim),
             artTheme = runCatching { ArtTheme.valueOf(enumOr("art", d.artTheme.name)) }.getOrDefault(d.artTheme),
@@ -200,7 +231,11 @@ class SettingsStore(context: Context) {
     private fun save(s: AppSettings) {
         prefs.edit().apply {
             putFloat("lat", s.latitude.toFloat()); putFloat("lng", s.longitude.toFloat())
-            putString("locName", s.locationName); putString("zone", s.zoneId); putBoolean("autoLoc", s.autoLocation)
+            putString("locName", s.locationName); putString("zone", s.zoneId);
+            if (s.homeLat != null) putFloat("homeLat", s.homeLat.toFloat()) else remove("homeLat")
+            if (s.homeLng != null) putFloat("homeLng", s.homeLng.toFloat()) else remove("homeLng")
+            putBoolean("travel", s.travellerMode); putBoolean("travelQasr", s.travelQasr); putBoolean("travelJam", s.travelJam)
+            putString("masjid", s.masjidName); putString("overrides", encodeOverrides(s.overrides)); putBoolean("useOverrides", s.useOverrides) putBoolean("autoLoc", s.autoLocation)
             putString("method", s.method.name); putString("asr", s.asrMethod.name); putString("latRule", s.latitudeRule.name)
             s.adjustments.forEach { (p, v) -> putInt("adj_${p.key}", v) }
             s.azaanEnabled.forEach { (p, v) -> putBoolean("az_${p.key}", v) }
@@ -212,7 +247,7 @@ class SettingsStore(context: Context) {
             putBoolean("iqEn", s.iqamahEnabled); s.iqamahOffsets.forEach { (p, v) -> putInt("iq_${p.key}", v) }
             putInt("iqJum", s.jumuahIqamahMinutes); s.iqamahIsFixed.forEach { (p, v) -> putBoolean("iqFixed_${p.key}", v) }; s.iqamahFixed.forEach { (p, v) -> putInt("iqAt_${p.key}", v) }; putString("iqSnd", s.iqamahSound.name); putInt("iqCd", s.iqamahCountdownSeconds); putInt("quiet", s.quietMinutes)
             putBoolean("hijri", s.showHijri); putInt("hijriOff", s.hijriOffsetDays); putBoolean("sunrise", s.showSunrise)
-            putBoolean("h24", s.use24h); putBoolean("rel", s.showRelative); putBoolean("keepOn", s.keepScreenOn); putBoolean("nightDim", s.nightDim)
+            putBoolean("h24", s.use24h); putBoolean("rel", s.showRelative); putBoolean("ends", s.showEndTimes); putBoolean("disliked", s.showDisliked); putBoolean("keepOn", s.keepScreenOn); putBoolean("nightDim", s.nightDim)
             putString("art", s.artTheme.name); putString("theme", s.theme.name); putBoolean("boot", s.launchOnBoot); putBoolean("setupDone", s.setupDone)
         }.apply()
     }
