@@ -74,8 +74,13 @@ object LocationRepo {
         runCatching {
             val g = Geocoder(ctx, Locale.ENGLISH)
             val list = if (Build.VERSION.SDK_INT >= 33) {
-                suspendCancellableCoroutine { cont ->
-                    g.getFromLocation(lat, lng, 1) { cont.resume(it) }
+                withTimeoutOrNull(8_000) {
+                    suspendCancellableCoroutine { cont ->
+                        g.getFromLocation(lat, lng, 1, object : Geocoder.GeocodeListener {
+                            override fun onGeocode(addresses: MutableList<android.location.Address>) { if (cont.isActive) cont.resume(addresses) }
+                            override fun onError(errorMessage: String?) { if (cont.isActive) cont.resume(null) }
+                        })
+                    }
                 }
             } else @Suppress("DEPRECATION") g.getFromLocation(lat, lng, 1)
             val a = list?.firstOrNull() ?: return@runCatching null

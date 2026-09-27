@@ -145,6 +145,12 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                         Text(if (cur.count > 1) "$c of ${cur.count}" else "", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.ivory.copy(alpha = 0.6f))
                     }
                     Spacer(Modifier.weight(1f))
+                    if (!compact) {
+                        if (index > 0) Nav("‹ Previous", u.value) { index-- }
+                        if (index < list.size - 1) Nav("Next ›", u.value) { index++ } else Nav("Finish", u.value, primary = true, onClick = onBack)
+                    }
+                }
+                if (compact) Row(Modifier.fillMaxWidth().padding(top = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.End)) {
                     if (index > 0) Nav("‹ Previous", u.value) { index-- }
                     if (index < list.size - 1) Nav("Next ›", u.value) { index++ } else Nav("Finish", u.value, primary = true, onClick = onBack)
                 }

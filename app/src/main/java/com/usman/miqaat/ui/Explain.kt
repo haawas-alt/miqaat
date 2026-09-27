@@ -75,7 +75,7 @@ fun WhyDialog(settings: AppSettings, day: DayTimes, p: Prayer, onDismiss: () -> 
                 Line("Location", settings.locationName, "%.4f, %.4f · ${settings.zone().id}".format(settings.latitude, settings.longitude))
                 Spacer(Modifier.height(8.dp))
                 Text("Disliked for voluntary prayer today", fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
-                PrayerEngine.dislikedWindows(day).forEach { w -> Text("${c(w.start)} – ${c(w.end)}  ·  ${w.label}", fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory.copy(alpha = 0.8f), modifier = Modifier.padding(top = 4.dp)) }
+                PrayerEngine.dislikedWindows(day, settings).forEach { w -> Text("${c(w.start)} – ${c(w.end)}  ·  ${w.label}", fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory.copy(alpha = 0.8f), modifier = Modifier.padding(top = 4.dp)) }
                 Text("Ṣaḥīḥ Muslim 831 · obligatory prayers, and missed ones, are not restricted by these windows.", fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.55f), modifier = Modifier.padding(top = 6.dp))
             }
         },
@@ -104,7 +104,7 @@ fun DayTimeline(settings: AppSettings, day: DayTimes, now: ZonedDateTime, height
     val start = day[Prayer.FAJR]; val end = day[Prayer.ISHA].plusMinutes(30)
     val total = Duration.between(start, end).toMillis().toFloat().coerceAtLeast(1f)
     fun f(z: ZonedDateTime) = (Duration.between(start, z).toMillis() / total).coerceIn(0f, 1f)
-    val windows = PrayerEngine.dislikedWindows(day)
+    val windows = PrayerEngine.dislikedWindows(day, settings)
     val marks = Prayer.entries.map { f(day[it]) }
     Canvas(modifier.height(height)) {
         val r = size.height / 2

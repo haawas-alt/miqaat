@@ -185,11 +185,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun FirstRun(onDone: () -> Unit, onDetect: () -> Unit) {
     var status by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
     val notif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
     val loc = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { g ->
         if (Build.VERSION.SDK_INT >= 33) notif.launch(Manifest.permission.POST_NOTIFICATIONS)
-        if (g.values.any { it }) onDetect() else status = "You can pick a city in Settings › Location."
-        onDone()
+        if (g.values.any { it }) { status = "Detecting your location…"; onDetect() } else status = "You can pick a city in Settings › Location."
+        scope.launch { kotlinx.coroutines.delay(1800); onDone() }
     }
     Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.55f)), contentAlignment = Alignment.Center) {
         Column(

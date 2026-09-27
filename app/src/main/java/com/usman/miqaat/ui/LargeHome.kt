@@ -34,7 +34,7 @@ fun LargeHome(state: PrayerState, settings: AppSettings, onTap: () -> Unit) {
     val urdu = L10n.isUrdu(settings)
     BoxWithConstraints(Modifier.fillMaxSize().background(if (kiswah) Brush.verticalGradient(listOf(Color(0xFF0B0B0B), Kiswah.silk)) else Brush.verticalGradient(listOf(sky.top, sky.bottom))).clickable(onClick = onTap)) {
         val portrait = maxHeight > maxWidth
-        val u = if (portrait) maxWidth / 60 else minOf(maxWidth / 100, maxHeight / 56)
+        val u = if (portrait) minOf(maxWidth / 74, maxHeight / 120) else minOf(maxWidth / 100, maxHeight / 56)
         fun fs(x: Float) = (u.value * x).sp
         if (kiswah) Weave(Modifier.fillMaxSize()) else Stars(Modifier.fillMaxSize(), sky.stars)
         val gold = if (kiswah) Kiswah.threadSoft else Palette.goldSoft

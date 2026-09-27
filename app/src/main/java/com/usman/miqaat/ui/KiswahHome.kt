@@ -92,21 +92,22 @@ fun KiswahHome(
         Column(Modifier.fillMaxSize().padding(horizontal = u * 4, vertical = u * 2)) {
             // top line
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 2)) {
+                @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+                androidx.compose.foundation.layout.FlowRow(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(u * 2), verticalArrangement = Arrangement.spacedBy(u * 0.5f)) {
                     Caps(settings.locationName, fs(1.3f), Modifier.clickable(onClick = onOpenLocation))
-                    if (settings.showQibla) { val q = PrayerEngine.qibla(settings); Caps("· Qibla ${q.toInt()}° ${PrayerEngine.compass(q)}", fs(1.1f), Modifier.clickable(onClick = onOpenQibla), alpha = 0.55f) }
-                    if (settings.adhkarEnabled && morningWindow) Caps("· Morning adhkār", fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.MORNING) }, bright = true)
-                    if (settings.adhkarEnabled && eveningWindow) Caps("· Evening adhkār", fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.EVENING) }, bright = true)
-                    if (updateAvailable) Caps("· Update available", fs(1.1f), Modifier.clickable(onClick = onOpenAbout), bright = true)
-                    if (settings.fridayReminders && PrayerEngine.isJumuahWindow(settings, state.now)) Caps("· Jumuʿah", fs(1.1f), Modifier.clickable(onClick = onOpenFriday))
-                    if (settings.postPrayerAdhkar && state.current != null && java.time.Duration.between(state.today[state.current], state.now).toMinutes() in 5..40) Caps("· After-prayer adhkār", fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.POST) }, bright = true)
+                    if (settings.showQibla) { val q = PrayerEngine.qibla(settings); Caps("· ${L10n.word(settings, "Qibla")} ${q.toInt()}° ${PrayerEngine.compass(q)}", fs(1.1f), Modifier.clickable(onClick = onOpenQibla), alpha = 0.55f) }
+                    if (settings.adhkarEnabled && morningWindow) Caps("· " + L10n.word(settings, "Morning adhkār"), fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.MORNING) }, bright = true)
+                    if (settings.adhkarEnabled && eveningWindow) Caps("· " + L10n.word(settings, "Evening adhkār"), fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.EVENING) }, bright = true)
+                    if (updateAvailable) Caps("· " + L10n.word(settings, "Update available"), fs(1.1f), Modifier.clickable(onClick = onOpenAbout), bright = true)
+                    if (settings.fridayReminders && PrayerEngine.isJumuahWindow(settings, state.now)) Caps("· " + L10n.word(settings, "Jumuʿah"), fs(1.1f), Modifier.clickable(onClick = onOpenFriday))
+                    if (settings.postPrayerAdhkar && state.current != null && java.time.Duration.between(state.today[state.current], state.now).toMinutes() in 5..40) Caps("· " + L10n.word(settings, "After-prayer adhkār"), fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.POST) }, bright = true)
                 }
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.6f)) {
                     val h = PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)
                     Caps((if (settings.showHijri) h.english + "  ·  " else "") + state.now.format(DateTimeFormatter.ofPattern("EEE d MMM", Locale.ENGLISH)), fs(1.3f))
-                    if (settings.kidsMode) Icon(androidx.compose.material.icons.Icons.Outlined.MenuBook, null, Modifier.size(u * 2.2f).clickable(onClick = onOpenLearn), tint = Kiswah.threadSoft.copy(alpha = 0.7f))
-                    Icon(Icons.Outlined.CalendarMonth, null, Modifier.size(u * 2.2f).clickable(onClick = onOpenTimetable), tint = Kiswah.threadSoft.copy(alpha = 0.7f))
-                    Icon(Icons.Outlined.Settings, null, Modifier.size(u * 2.2f).clickable(onClick = onOpenSettings), tint = Kiswah.threadSoft.copy(alpha = 0.7f))
+                    if (settings.kidsMode) Icon(androidx.compose.material.icons.Icons.Outlined.MenuBook, null, Modifier.size(maxOf(u * 2.2f, 40.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenLearn).padding(maxOf(u * 0.4f, 8.dp)), tint = Kiswah.threadSoft.copy(alpha = 0.7f))
+                    Icon(Icons.Outlined.CalendarMonth, null, Modifier.size(maxOf(u * 2.2f, 40.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenTimetable).padding(maxOf(u * 0.4f, 8.dp)), tint = Kiswah.threadSoft.copy(alpha = 0.7f))
+                    Icon(Icons.Outlined.Settings, null, Modifier.size(maxOf(u * 2.2f, 40.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenSettings).padding(maxOf(u * 0.4f, 8.dp)), tint = Kiswah.threadSoft.copy(alpha = 0.7f))
                 }
             }
 
@@ -179,14 +180,16 @@ fun KiswahHome(
                 }
             }
         }
-        Text("DESIGNED BY UZR  ·  MAKE DUʿĀ FOR ME", fontFamily = Cinzel, fontSize = fs(1.0f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.45f), modifier = Modifier.align(Alignment.BottomStart).padding(start = u * 4, bottom = u * 0.7f))
+        Text(if (urdu) L10n.word(settings, "Designed by UZR · Make duʿā for me") else "DESIGNED BY UZR  ·  MAKE DUʿĀ FOR ME", fontFamily = if (urdu) Nastaliq else Cinzel, fontSize = fs(1.0f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.45f), modifier = Modifier.align(Alignment.BottomStart).padding(start = u * 4, bottom = u * 0.7f))
     }
 }
 
 @Composable
-private fun Caps(t: String, size: androidx.compose.ui.unit.TextUnit, modifier: Modifier = Modifier, alpha: Float = 0.7f, bright: Boolean = false) =
-    Text(t.uppercase(), fontFamily = Nunito, fontSize = size, letterSpacing = size * 0.18f, fontWeight = FontWeight.Bold,
+private fun Caps(t: String, size: androidx.compose.ui.unit.TextUnit, modifier: Modifier = Modifier, alpha: Float = 0.7f, bright: Boolean = false) {
+    val urdu = t.any { it in '\u0600'..'\u06FF' }
+    Text(if (urdu) t else t.uppercase(), fontFamily = if (urdu) Nastaliq else Nunito, fontSize = if (urdu) size * 1.25f else size, letterSpacing = if (urdu) 0.sp else size * 0.18f, fontWeight = FontWeight.Bold, maxLines = 1,
         color = if (bright) Kiswah.highlight else Kiswah.threadSoft.copy(alpha = alpha), modifier = modifier)
+}
 
 @Composable
 private fun GoldRule(width: Dp?, u: Dp) {

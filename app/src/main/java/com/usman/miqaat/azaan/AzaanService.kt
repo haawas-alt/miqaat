@@ -122,13 +122,19 @@ class AzaanService : Service() {
         stopPlayer()
         player = MediaPlayer().apply {
             setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build())
-            runCatching { setDataSource(this@AzaanService, soundUri(prayer, settings.azaanUri, settings.fajrAzaanUri)) }
-                .onFailure { setDataSource(this@AzaanService, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)) }
             isLooping = false
             setOnCompletionListener { afterAzaan(prayer, preview) }
             setOnErrorListener { _, _, _ -> afterAzaan(prayer, preview); true }
-            prepare()
-            start()
+            val ok = runCatching { setDataSource(this@AzaanService, soundUri(prayer, settings.azaanUri, settings.fajrAzaanUri)); prepare(); start() }
+                .recoverCatching {
+                    reset()
+                    val fallback = soundUri(prayer, null, null)   // bundled recording, ignoring a broken custom file
+                    setDataSource(this@AzaanService, fallback); prepare(); start()
+                }
+            if (ok.isFailure) {
+                com.usman.miqaat.data.Health.log(this@AzaanService, com.usman.miqaat.data.Health.Kind.MISSED, "${prayer.english} azaan could not play", ok.exceptionOrNull()?.message ?: "audio error")
+                handler.post { afterAzaan(prayer, preview) }
+            }
         }
         _phase.value = Phase.Azaan(prayer, preview)
         if (!preview) { showScreen(prayer); com.usman.miqaat.data.Health.log(this, com.usman.miqaat.data.Health.Kind.INFO, "${prayer.english} azaan playing", "Recording started") }
@@ -138,7 +144,7 @@ class AzaanService : Service() {
         stopPlayer()
         val settings = (application as MiqaatApp).settings.value
         if (preview || !settings.afterAzaanEnabled) finishAll()
-        else if (prayer == Prayer.MAGHRIB && com.usman.miqaat.data.PrayerEngine.isRamadan(settings, java.time.LocalDate.now())) startIftar(prayer)
+        else if (prayer == Prayer.MAGHRIB && com.usman.miqaat.data.PrayerEngine.isRamadan(settings, java.time.LocalDate.now(settings.zone()))) startIftar(prayer)
         else startDua(prayer)
     }
 
@@ -329,7 +335,7 @@ class AzaanService : Service() {
         val id = resources.getIdentifier(rawName, "raw", packageName).takeIf { it != 0 }
             ?: resources.getIdentifier("azaan", "raw", packageName)
         if (id != 0) return Uri.parse("android.resource://$packageName/$id")
-        return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM) ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) ?: Uri.EMPTY
     }
 
     private fun showReminder(prayer: Prayer, note: String?) {

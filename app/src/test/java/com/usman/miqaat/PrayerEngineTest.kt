@@ -97,6 +97,25 @@ class PrayerEngineTest {
         assertEquals(1, r.skipped)
     }
 
+    @Test fun wallClockAcrossDst() {
+        // Sydney DST starts 2026-10-04 at 02:00 → 03:00. A 5:30 masjid Fajr must still read 05:30.
+        val dst = LocalDate.of(2026, 10, 4)
+        val t = PrayerEngine.at(dst, syd, 5 * 60 + 30)
+        assertEquals(5, t.hour); assertEquals(30, t.minute)
+        val ov = mapOf("2026-10-04" to listOf(330, 400, 780, 960, 1100, 1180))
+        assertEquals(5, PrayerEngine.times(s.copy(overrides = ov), dst)[Prayer.FAJR].hour)
+        val fixed = s.copy(iqamahEnabled = true, iqamahIsFixed = mapOf(Prayer.ISHA to true), iqamahFixed = mapOf(Prayer.ISHA to 20 * 60))
+        assertEquals(20, PrayerEngine.iqamah(fixed, PrayerEngine.times(fixed, dst), Prayer.ISHA)!!.hour)
+    }
+
+    @Test fun twelveHourSheetWithIqamah() {
+        val r = PrayerEngine.parseTimetable("7/6/2026 5:45 7:00 12:05 3:10 5:05 6:15 6:30 12:30 3:30 5:15 7:30", 2026)
+        val row = r.rows["2026-06-07"]!!
+        assertEquals(6 * 60 + 30, row[6])       // Fajr iqamah stays in the morning
+        assertEquals(19 * 60 + 30, row[10])     // Isha iqamah in the evening
+        assertEquals(17 * 60 + 5, row[4])
+    }
+
     @Test fun travelDistance() {
         assertTrue(PrayerEngine.distanceKm(-34.02, 150.77, -37.81, 144.96) in 600.0..760.0)
         assertTrue(PrayerEngine.isTravelling(s.copy(homeLat = -34.02, homeLng = 150.77, latitude = -37.81, longitude = 144.96)))

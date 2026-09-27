@@ -41,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -71,7 +72,7 @@ fun PortraitHome(
     var why by remember { mutableStateOf<Prayer?>(null) }
     why?.let { WhyDialog(settings, state.today, it) { why = null } }
     BoxWithConstraints(Modifier.fillMaxSize()) {
-        val u: Dp = minOf(maxWidth / 100, maxHeight / 205)
+        val u: Dp = minOf(maxWidth / 100, maxHeight / 235)
         fun fs(x: Float) = (u.value * x).sp
         val sky = skyFor(state.period)
         val top by animateColorAsState(if (kiswah) Color(0xFF0B0B0B) else sky.top, tween(1500), label = "t")
@@ -111,16 +112,16 @@ fun PortraitHome(
                 // chips
                 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
                 androidx.compose.foundation.layout.FlowRow(Modifier.padding(top = u * 2.5f), horizontalArrangement = Arrangement.spacedBy(u * 2), verticalArrangement = Arrangement.spacedBy(u * 1.5f)) {
-                    if (settings.showQibla) { val q = PrayerEngine.qibla(settings); SmallChip(Icons.Outlined.Explore, "${L10n.word(settings, "Qibla")} ${q.toInt()}° ${PrayerEngine.compass(q)}", u, ivory, gold, onClick = onOpenQibla) }
-                    if (settings.adhkarEnabled && state.current == Prayer.FAJR) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "Morning adhkār"), u, ivory, gold, gold = true) { onOpenAdhkar(AdhkarMode.MORNING) }
-                    if (settings.adhkarEnabled && (state.current == Prayer.ASR || state.current == Prayer.MAGHRIB)) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "Evening adhkār"), u, ivory, gold, gold = true) { onOpenAdhkar(AdhkarMode.EVENING) }
-                    if (updateAvailable) SmallChip(Icons.Outlined.Settings, "Update", u, ivory, gold, gold = true, onClick = onOpenAbout)
-                    if (settings.fridayReminders && PrayerEngine.isJumuahWindow(settings, state.now)) SmallChip(Icons.Outlined.Check, L10n.word(settings, "Jumuʿah"), u, ivory, gold, onClick = onOpenFriday)
-                    if (settings.postPrayerAdhkar && state.current != null && java.time.Duration.between(state.today[state.current], state.now).toMinutes() in 5..40) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, ivory, gold, gold = true) { onOpenAdhkar(AdhkarMode.POST) }
+                    if (settings.showQibla) { val q = PrayerEngine.qibla(settings); SmallChip(Icons.Outlined.Explore, "${L10n.word(settings, "Qibla")} ${q.toInt()}° ${PrayerEngine.compass(q)}", u, ivory, gold, font = F, onClick = onOpenQibla) }
+                    if (settings.adhkarEnabled && state.current == Prayer.FAJR) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "Morning adhkār"), u, ivory, gold, gold = true, font = F) { onOpenAdhkar(AdhkarMode.MORNING) }
+                    if (settings.adhkarEnabled && (state.current == Prayer.ASR || state.current == Prayer.MAGHRIB)) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "Evening adhkār"), u, ivory, gold, gold = true, font = F) { onOpenAdhkar(AdhkarMode.EVENING) }
+                    if (updateAvailable) SmallChip(Icons.Outlined.Settings, "Update", u, ivory, gold, gold = true, font = F, onClick = onOpenAbout)
+                    if (settings.fridayReminders && PrayerEngine.isJumuahWindow(settings, state.now)) SmallChip(Icons.Outlined.Check, L10n.word(settings, "Jumuʿah"), u, ivory, gold, font = F, onClick = onOpenFriday)
+                    if (settings.postPrayerAdhkar && state.current != null && java.time.Duration.between(state.today[state.current], state.now).toMinutes() in 5..40) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, ivory, gold, gold = true, font = F) { onOpenAdhkar(AdhkarMode.POST) }
                 }
 
                 // hero takes whatever height is left between the header and the list
-                Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                Box(Modifier.weight(1f).fillMaxWidth().clipToBounds(), contentAlignment = Alignment.Center) {
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                     val kicker = when {
                         ramadan && state.current == null -> "Ramaḍān · Suhoor ends"
@@ -192,7 +193,7 @@ fun PortraitHome(
                                     if (iq != null) Text("${L10n.word(settings, "Iqamah")} ${PrayerEngine.clock(iq, settings.use24h)}", fontFamily = F, fontSize = fs(2.6f), fontWeight = FontWeight.Bold, color = gold.copy(alpha = 0.8f))
                                 }
                             }
-                            Icon(Icons.Outlined.Info, "Why this time?", Modifier.padding(start = u * 2).size(u * 4.2f).clickable { why = p }, tint = ivory.copy(alpha = 0.45f))
+                            Box(Modifier.padding(start = u * 1).size(40.dp).clip(CircleShape).clickable { why = p }, contentAlignment = Alignment.Center) { Icon(Icons.Outlined.Info, "Why this time?", Modifier.size(u * 4.2f), tint = ivory.copy(alpha = 0.45f)) }
                         }
                         if (i < shown.lastIndex) Box(Modifier.fillMaxWidth().padding(horizontal = u * 4).height(1.dp).background(Color.White.copy(alpha = 0.08f)))
                     }
@@ -214,7 +215,7 @@ private fun RoundIcon(icon: androidx.compose.ui.graphics.vector.ImageVector, u: 
 }
 
 @Composable
-private fun SmallChip(icon: androidx.compose.ui.graphics.vector.ImageVector, label: String, u: Dp, ivory: Color, goldC: Color, gold: Boolean = false, onClick: (() -> Unit)? = null) {
+private fun SmallChip(icon: androidx.compose.ui.graphics.vector.ImageVector, label: String, u: Dp, ivory: Color, goldC: Color, gold: Boolean = false, font: FontFamily = Nunito, onClick: (() -> Unit)? = null) {
     val shape = RoundedCornerShape(50)
     Row(
         Modifier.clip(shape).background(if (gold) Palette.gold.copy(alpha = 0.18f) else Color.White.copy(alpha = 0.08f)).border(1.dp, if (gold) Palette.gold.copy(alpha = 0.7f) else Color.White.copy(alpha = 0.16f), shape)
@@ -223,6 +224,6 @@ private fun SmallChip(icon: androidx.compose.ui.graphics.vector.ImageVector, lab
     ) {
         Icon(icon, null, Modifier.size(u * 3.4f), tint = if (gold) goldC else ivory)
         Spacer(Modifier.width(u * 1.2f))
-        Text(label, fontSize = (u.value * 3f).sp, fontWeight = FontWeight.SemiBold, color = if (gold) goldC else ivory, fontFamily = Nunito)
+        Text(label, fontSize = (u.value * 3f).sp, fontWeight = FontWeight.SemiBold, color = if (gold) goldC else ivory, fontFamily = font, maxLines = 1)
     }
 }

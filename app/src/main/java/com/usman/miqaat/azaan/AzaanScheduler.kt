@@ -25,8 +25,9 @@ object AzaanScheduler {
     const val EXTRA_NOTE = "note"     // generic reminder text: suhoor, Friday hour
     data class Upcoming(val prayer: Prayer, val at: ZonedDateTime, val reminder: Boolean, val iqamah: Boolean = false, val note: String? = null)
 
-    fun nextEvent(ctx: Context, from: ZonedDateTime = ZonedDateTime.now()): Upcoming? {
+    fun nextEvent(ctx: Context, fromIn: ZonedDateTime? = null): Upcoming? {
         val s = (ctx.applicationContext as MiqaatApp).settings.value
+        val from = (fromIn ?: ZonedDateTime.now(s.zone())).withZoneSameInstant(s.zone())
         val candidates = mutableListOf<Upcoming>()
         for (dayOffset in 0L..1L) {
             val day = PrayerEngine.times(s, from.toLocalDate().plusDays(dayOffset), from.zone)
@@ -35,7 +36,7 @@ object AzaanScheduler {
                 if (s.azaanEnabled[p] != true) {
                     PrayerEngine.iqamah(s, day, p)?.let { iq ->
                         val start = iq.minusSeconds(s.iqamahCountdownSeconds.toLong())
-                        if (start.isAfter(from)) candidates += Upcoming(p, start, reminder = false, iqamah = true)
+                        if (iq.isAfter(from.plusSeconds(20))) candidates += Upcoming(p, if (start.isAfter(from)) start else from.plusSeconds(5), reminder = false, iqamah = true)
                     }
                     continue
                 }
@@ -46,7 +47,7 @@ object AzaanScheduler {
                 if (t.isAfter(from)) candidates += Upcoming(p, t, reminder = false)
                 PrayerEngine.iqamah(s, day, p)?.let { iq ->
                     val start = iq.minusSeconds(s.iqamahCountdownSeconds.toLong())
-                    if (start.isAfter(from)) candidates += Upcoming(p, start, reminder = false, iqamah = true)
+                    if (iq.isAfter(from.plusSeconds(20))) candidates += Upcoming(p, if (start.isAfter(from)) start else from.plusSeconds(5), reminder = false, iqamah = true)
                 }
             }
         }
@@ -71,7 +72,7 @@ object AzaanScheduler {
         val am = ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val pi = pendingIntent(ctx, null)
         am.cancel(pi)
-        val next = nextEvent(ctx) ?: run { Log.i(TAG, "No azaan enabled; nothing scheduled"); return }
+        val next = nextEvent(ctx) ?: run { com.usman.miqaat.data.Health.setPlanned(ctx, 0L, ""); Log.i(TAG, "No azaan enabled; nothing scheduled"); return }
         val fire = pendingIntent(ctx, next)
         val whenMs = next.at.toInstant().toEpochMilli()
         val canExact = Build.VERSION.SDK_INT < 31 || am.canScheduleExactAlarms()

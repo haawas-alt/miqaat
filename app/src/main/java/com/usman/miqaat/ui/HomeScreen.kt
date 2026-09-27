@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -120,22 +121,23 @@ fun HomeScreen(
                             Spacer(Modifier.width(u * 0.7f))
                             Text(settings.locationName, fontSize = fs(1.7f), fontWeight = FontWeight.SemiBold, color = Palette.ivory, fontFamily = F)
                         }
-                        Row(Modifier.padding(top = u * 0.8f), horizontalArrangement = Arrangement.spacedBy(u * 0.9f)) {
+                        @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+                        androidx.compose.foundation.layout.FlowRow(Modifier.padding(top = u * 0.8f).widthIn(max = u * 62), horizontalArrangement = Arrangement.spacedBy(u * 0.9f), verticalArrangement = Arrangement.spacedBy(u * 0.6f)) {
                             if (settings.showQibla) {
                                 val q = PrayerEngine.qibla(settings)
-                                Chip(Icons.Outlined.Explore, "${L10n.word(settings, "Qibla")} ${q.toInt()}° ${PrayerEngine.compass(q)}", u, onClick = onOpenQibla)
+                                Chip(Icons.Outlined.Explore, "${L10n.word(settings, "Qibla")} ${q.toInt()}° ${PrayerEngine.compass(q)}", u, font = F, onClick = onOpenQibla)
                             }
-                            if (settings.adhkarEnabled && morningWindow) Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "Morning adhkār"), u, gold = true) { onOpenAdhkar(AdhkarMode.MORNING) }
-                            if (settings.adhkarEnabled && eveningWindow) Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "Evening adhkār"), u, gold = true) { onOpenAdhkar(AdhkarMode.EVENING) }
-                            if (friday) Chip(Icons.Outlined.MenuBook, "Jumuʿah · al-Kahf · ṣalawāt", u, onClick = onOpenFriday)
+                            if (settings.adhkarEnabled && morningWindow) Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "Morning adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.MORNING) }
+                            if (settings.adhkarEnabled && eveningWindow) Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "Evening adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.EVENING) }
+                            if (friday) Chip(Icons.Outlined.MenuBook, "Jumuʿah · al-Kahf · ṣalawāt", u, font = F, onClick = onOpenFriday)
                             if (settings.postPrayerAdhkar && state.current != null && state.justPassed.not() && java.time.Duration.between(state.today[state.current], state.now).toMinutes() in 5..40)
-                                Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, gold = true) { onOpenAdhkar(AdhkarMode.POST) }
+                                Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.POST) }
                             if (settings.postPrayerAdhkar && state.current != null && state.justPassed && java.time.Duration.between(state.today[state.current], state.now).toMinutes() >= 5)
-                                Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, gold = true) { onOpenAdhkar(AdhkarMode.POST) }
-                            if (ramadan && hij.day >= 27) Chip(Icons.Outlined.Info, "Zakāt al-Fiṭr before Eid prayer", u)
-                            if (updateAvailable) Chip(Icons.Outlined.SystemUpdateAlt, L10n.word(settings, "Update available"), u, gold = true, onClick = onOpenAbout)
-                            if (settings.travellerMode && PrayerEngine.isTravelling(settings)) Chip(Icons.Outlined.Flight, "Travelling · %.0f km from home".format(PrayerEngine.distanceKm(settings.homeLat!!, settings.homeLng!!, settings.latitude, settings.longitude)), u, gold = true, onClick = onOpenLocation)
-                            if (state.today.fromMasjid) Chip(Icons.Outlined.LocationOn, settings.masjidName.ifBlank { "Masjid timetable" }, u, onClick = onOpenLocation)
+                                Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.POST) }
+                            if (ramadan && hij.day >= 27) Chip(Icons.Outlined.Info, "Zakāt al-Fiṭr before Eid prayer", u, font = F)
+                            if (updateAvailable) Chip(Icons.Outlined.SystemUpdateAlt, L10n.word(settings, "Update available"), u, gold = true, font = F, onClick = onOpenAbout)
+                            if (settings.travellerMode && PrayerEngine.isTravelling(settings)) Chip(Icons.Outlined.Flight, "Travelling · %.0f km from home".format(PrayerEngine.distanceKm(settings.homeLat!!, settings.homeLng!!, settings.latitude, settings.longitude)), u, gold = true, font = F, onClick = onOpenLocation)
+                            if (state.today.fromMasjid) Chip(Icons.Outlined.LocationOn, settings.masjidName.ifBlank { "Masjid timetable" }, u, font = F, onClick = onOpenLocation)
                         }
                     }
                     Column(horizontalAlignment = Alignment.End) {
@@ -242,7 +244,7 @@ fun HomeScreen(
 }
 
 @Composable
-private fun Chip(icon: ImageVector, label: String, u: Dp, gold: Boolean = false, onClick: (() -> Unit)? = null) {
+private fun Chip(icon: ImageVector, label: String, u: Dp, gold: Boolean = false, font: FontFamily = Nunito, onClick: (() -> Unit)? = null) {
     val shape = RoundedCornerShape(50)
     Row(
         Modifier.clip(shape).background(if (gold) Palette.gold.copy(alpha = 0.18f) else Color.White.copy(alpha = 0.08f))
@@ -253,7 +255,7 @@ private fun Chip(icon: ImageVector, label: String, u: Dp, gold: Boolean = false,
     ) {
         Icon(icon, null, Modifier.size(u * 1.5f), tint = if (gold) Palette.goldSoft else Palette.ivory)
         Spacer(Modifier.width(u * 0.6f))
-        Text(label, fontSize = (u.value * 1.3f).sp, fontWeight = FontWeight.SemiBold, color = if (gold) Palette.goldSoft else Palette.ivory, fontFamily = Nunito)
+        Text(label, fontSize = (u.value * 1.3f).sp, fontWeight = FontWeight.SemiBold, color = if (gold) Palette.goldSoft else Palette.ivory, fontFamily = font, maxLines = 1)
     }
 }
 
@@ -317,7 +319,7 @@ fun PrayerCard(
                 done && p.isPrayer -> Icon(Icons.Outlined.Check, null, Modifier.size(u * 1.6f), tint = Palette.mint)
                 p.isPrayer -> Icon(if (azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(u * 1.6f), tint = Palette.ivory.copy(alpha = 0.7f))
             }
-            if (onWhy != null) Icon(Icons.Outlined.Info, "Why this time?", Modifier.padding(start = u * 0.5f).size(u * 1.6f).clickable(onClick = onWhy), tint = Palette.ivory.copy(alpha = 0.55f))
+            if (onWhy != null) Box(Modifier.padding(start = u * 0.3f).size(maxOf(u * 2.4f, 36.dp)).clip(CircleShape).clickable(onClick = onWhy), contentAlignment = Alignment.Center) { Icon(Icons.Outlined.Info, "Why this time?", Modifier.size(u * 1.6f), tint = Palette.ivory.copy(alpha = 0.55f)) }
         }
         Text(p.arabic, fontFamily = Amiri, fontSize = (u.value * 2.1f).sp, lineHeight = (u.value * 2.3f).sp, color = Palette.goldSoft)
         Row(verticalAlignment = Alignment.Bottom) {

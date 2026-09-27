@@ -162,7 +162,7 @@ fun decodeOverrides(s: String): Map<String, List<Int>> =
     if (s.isBlank()) emptyMap() else s.split(';').mapNotNull { e ->
         val (k, v) = e.split('=').takeIf { it.size == 2 } ?: return@mapNotNull null
         val nums = v.split(',').mapNotNull { it.trim().toIntOrNull() }
-        if (nums.size >= 6) k to nums else null
+        if (nums.size >= 6 && runCatching { java.time.LocalDate.parse(k) }.isSuccess) k to nums else null
     }.toMap()
 
 class SettingsStore(context: Context) {
@@ -170,6 +170,9 @@ class SettingsStore(context: Context) {
     private val _settings = MutableStateFlow(load())
     val settings: StateFlow<AppSettings> = _settings
     val value: AppSettings get() = _settings.value
+
+    /** Re-read from disk (after a restore). */
+    fun reload() { _settings.value = load() }
 
     fun update(transform: (AppSettings) -> AppSettings) {
         val next = transform(_settings.value)

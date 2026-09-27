@@ -115,7 +115,9 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
     var section by rememberSaveable { mutableStateOf(initial) }
     val ctx = LocalContext.current
     // Any change that affects times re-arms the alarm chain.
-    LaunchedEffect(settings) { AzaanScheduler.reschedule(ctx) }
+    // Re-arm alarms only when something that affects timing changes (not on every keystroke or slider frame).
+    val timingKey = settings.copy(masjidName = "", azaanVolume = 0, locationName = "", theme = settings.theme, showRelative = false)
+    LaunchedEffect(timingKey) { AzaanScheduler.reschedule(ctx) }
 
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
     val compact = maxWidth < 720.dp
@@ -355,7 +357,7 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
             Stepper(s.adjustments[p] ?: 0, -30, 30, 1, " min", signed = true) { v -> store.update { it.copy(adjustments = it.adjustments + (p to v)) } }
         }
     }
-    val today = remember(s) { PrayerEngine.times(s, LocalDate.now()) }
+    val today = remember(s) { PrayerEngine.times(s, LocalDate.now(s.zone())) }
     Spacer(Modifier.height(14.dp))
     Text(
         "Today with these settings:  " + Prayer.entries.joinToString("   ") { "${it.english} ${PrayerEngine.clock(today[it], s.use24h)}" },
@@ -454,7 +456,7 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
 
 @Composable
 private fun IqamahSection(store: SettingsStore, s: AppSettings) {
-    val today = remember(s) { PrayerEngine.times(s, LocalDate.now()) }
+    val today = remember(s) { PrayerEngine.times(s, LocalDate.now(s.zone())) }
     Heading("Iqamah", "For praying in congregation at home. A full-screen countdown starts before each iqamah, a sound marks the iqamah itself, then the screen goes quiet for the prayer.")
     SettingRow("Iqamah times", "Shown under each azaan time and announced with the countdown") { Toggle(s.iqamahEnabled) { on -> store.update { it.copy(iqamahEnabled = on) } } }
     if (s.iqamahEnabled) {
@@ -584,7 +586,8 @@ private fun HealthSection(store: SettingsStore, s: AppSettings) {
         uri ?: return@rememberLauncherForActivityResult
         val text = runCatching { ctx.contentResolver.openInputStream(uri)?.bufferedReader()?.readText() }.getOrNull() ?: ""
         val n = com.usman.miqaat.data.Health.importSettings(ctx, text)
-        msg = if (n > 0) "$n settings restored · restart Miqaat to apply everything" else "That file isn't a Miqaat backup"
+        if (n > 0) store.reload()
+        msg = if (n > 0) "$n settings restored" else "That file isn't a Miqaat backup"
     }
     SettingRow("Settings file", "Everything in Settings, as one small text file. Move it to a new tablet or keep it with your key.") {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -610,13 +613,13 @@ private fun PrivacySection() {
 
 @Composable
 private fun HijriSection(store: SettingsStore, s: AppSettings) {
-    val h = PrayerEngine.hijri(LocalDate.now(), s.hijriOffsetDays)
+    val h = PrayerEngine.hijri(LocalDate.now(s.zone()), s.hijriOffsetDays)
     Heading("Hijri calendar", "Dates follow the Umm al-Qura calendar. If your local community's moon sighting differs, shift by a day.")
     SettingRow("Show Hijri date", "On the home screen and timetable") { Toggle(s.showHijri) { on -> store.update { it.copy(showHijri = on) } } }
     SettingRow("Adjustment", "Today is ${h.english}") {
         Stepper(s.hijriOffsetDays, -2, 2, 1, " day", signed = true) { v -> store.update { it.copy(hijriOffsetDays = v) } }
     }
-    val tomorrow = PrayerEngine.hijri(LocalDate.now().plusDays(1), s.hijriOffsetDays)
+    val tomorrow = PrayerEngine.hijri(LocalDate.now(s.zone()).plusDays(1), s.hijriOffsetDays)
     if (h.day >= 29) {
         Spacer(Modifier.height(14.dp))
         Text("Moon sighting tonight", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)

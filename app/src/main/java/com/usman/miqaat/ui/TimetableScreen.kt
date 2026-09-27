@@ -88,7 +88,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                    else listOf("Date", "Hijri", "Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha")
         val weights = listOf(1.5f, 1.2f, 1f, 1f, 1f, 1f, 1f, 1f)
         val shape = RoundedCornerShape(14.dp)
-        Column(Modifier.fillMaxSize().clip(shape).border(1.dp, Palette.line, shape).then(if (compact) Modifier.horizontalScroll(rememberScrollState()) else Modifier)) {
+        Column(Modifier.fillMaxWidth().weight(1f).clip(shape).border(1.dp, Palette.line, shape).then(if (compact) Modifier.horizontalScroll(rememberScrollState()) else Modifier)) {
             val rowMod = if (compact) Modifier.width(760.dp) else Modifier.fillMaxWidth()
             Row(rowMod.background(Palette.panelRaised).padding(vertical = 10.dp, horizontal = 14.dp)) {
                 cols.forEachIndexed { i, c ->

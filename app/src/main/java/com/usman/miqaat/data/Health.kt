@@ -70,12 +70,18 @@ object Health {
     }
 
     fun importSettings(ctx: Context, text: String): Int {
-        val p = ctx.getSharedPreferences("miqaat", Context.MODE_PRIVATE).edit()
+        val prefs = ctx.getSharedPreferences("miqaat", Context.MODE_PRIVATE)
+        val existing = prefs.all
+        val p = prefs.edit()
         var n = 0
         text.lines().forEach { l ->
             if (l.startsWith("#") || l.isBlank() || l.length < 3 || l[1] != ':') return@forEach
             val t = l[0]; val eq = l.indexOf('='); if (eq < 2) return@forEach
             val k = l.substring(2, eq); val v = l.substring(eq + 1).replace("\\n", "\n")
+            // never change the stored type of a key the app already has (a hand-edited file could otherwise crash load())
+            val cur = existing[k]
+            val expected = when (cur) { is Boolean -> 'b'; is Int -> 'i'; is Float -> 'f'; is Long -> 'l'; is String -> 's'; else -> t }
+            if (expected != t) return@forEach
             runCatching {
                 when (t) { 'b' -> p.putBoolean(k, v.toBoolean()); 'i' -> p.putInt(k, v.toInt()); 'f' -> p.putFloat(k, v.toFloat()); 'l' -> p.putLong(k, v.toLong()); else -> p.putString(k, v) }
                 n++

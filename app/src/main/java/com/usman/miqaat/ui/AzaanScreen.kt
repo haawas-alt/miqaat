@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -237,14 +238,15 @@ private fun HadithBody(p: Phase.HadithPhase, u: Dp) {
 private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Unit) {
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(1000) } }
-    Row(Modifier.fillMaxWidth().padding(horizontal = u * 3.6f, vertical = u * 2.6f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+    @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+    androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth().padding(horizontal = u * 3.6f, vertical = u * 2.6f), verticalArrangement = Arrangement.spacedBy(u * 1f), horizontalArrangement = Arrangement.spacedBy(u * 1.2f), itemVerticalAlignment = Alignment.CenterVertically) {
         // left: narration state
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
+        Row(Modifier.weight(1f, fill = false), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
             val narrating = when (phase) { is Phase.Azaan -> true; is Phase.Dua, is Phase.Iftar -> true; is Phase.HadithPhase -> phase.narrating; is Phase.IqamahNow -> true; else -> false }
             if (narrating) Wave(Modifier.width(u * 6).height(u * 2.4f), bars = 5)
             Text(
                 when (phase) { is Phase.Azaan -> "Azaan playing"; is Phase.Iftar -> "Reading the iftar dua"; is Phase.Dua -> "Reading the dua"; is Phase.HadithPhase -> if (phase.narrating) "Reading the hadith" else "Take a moment"; is Phase.IqamahCountdown -> "Tap Skip if the imam is ready"; is Phase.IqamahNow -> "Iqamah"; is Phase.Quiet -> "" },
-                fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory
+                fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
             )
         }
         // middle: countdown ring for hadith
@@ -284,8 +286,9 @@ private fun Pill(label: String, primary: Boolean, u: Float, onClick: () -> Unit)
     Box(
         Modifier.clip(shape).background(if (primary) Palette.gold else Color.Transparent)
             .border(1.dp, if (primary) Palette.gold else Color.White.copy(alpha = 0.25f), shape)
-            .clickable(onClick = onClick).padding(horizontal = (u * 2.4f).dp, vertical = (u * 1.1f).dp)
-    ) { Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = (u * 1.5f).sp, color = if (primary) Color(0xFF160C2A) else Palette.ivory) }
+            .clickable(onClick = onClick).heightIn(min = 44.dp).padding(horizontal = (u * 2.4f).dp, vertical = (u * 1.1f).dp),
+        contentAlignment = Alignment.Center
+    ) { Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = (u * 1.5f).sp, color = if (primary) Color(0xFF160C2A) else Palette.ivory, maxLines = 1) }
 }
 
 @Composable
