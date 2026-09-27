@@ -67,6 +67,7 @@ object AzaanScheduler {
     }
 
     fun reschedule(ctx: Context) {
+        runCatching { com.usman.miqaat.MiqaatWidget.refresh(ctx) }
         val am = ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val pi = pendingIntent(ctx, null)
         am.cancel(pi)

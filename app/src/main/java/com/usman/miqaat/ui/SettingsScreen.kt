@@ -81,6 +81,7 @@ import com.usman.miqaat.data.Method
 import com.usman.miqaat.data.Narration
 import com.usman.miqaat.data.RamadanMode
 import com.usman.miqaat.data.AppTheme
+import com.usman.miqaat.data.Language
 import com.usman.miqaat.data.IqamahSound
 import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material.icons.outlined.PlayCircle
@@ -557,6 +558,11 @@ private fun DisplaySection(store: SettingsStore, s: AppSettings) {
     SettingRow("Theme", "Changes the home screen and the azaan screens immediately; go back to the clock to see it") {
         Chips(AppTheme.entries.map { it.label }, AppTheme.entries.indexOf(s.theme)) { i -> store.update { it.copy(theme = AppTheme.entries[i]) } }
     }
+    SettingRow("Language", "Home screen and widget. Urdu is set in Nastaʿlīq; settings stay in English for now.") {
+        Chips(Language.entries.map { it.label }, Language.entries.indexOf(s.language)) { i -> store.update { it.copy(language = Language.entries[i]) } }
+    }
+    SettingRow("Large type", "One prayer, one time, one line, readable across a big room. Tap the screen to see everything for 25 seconds.") { Toggle(s.largeType) { on -> store.update { it.copy(largeType = on) } } }
+    SettingRow("Home-screen widget", "Long-press your phone's home screen › Widgets › Miqaat. Shows the next prayer, countdown and the following two.") { Value("Phone") }
     SettingRow("Time format", null) { Chips(listOf("12-hour", "24-hour"), if (s.use24h) 1 else 0) { i -> store.update { it.copy(use24h = i == 1) } } }
     SettingRow("Keep the screen on", "While Miqaat is open. Best with the device plugged in.") { Toggle(s.keepScreenOn) { on -> store.update { it.copy(keepScreenOn = on) } } }
     SettingRow("Dim after Isha", "Softens the screen through the night until Fajr") { Toggle(s.nightDim) { on -> store.update { it.copy(nightDim = on) } } }

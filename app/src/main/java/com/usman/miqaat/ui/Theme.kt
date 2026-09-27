@@ -42,6 +42,10 @@ fun skyFor(period: Prayer): Sky = when (period) {
 val Amiri = FontFamily(Font(R.font.amiri_regular, FontWeight.Normal), Font(R.font.amiri_bold, FontWeight.Bold))
 val Cormorant = FontFamily(Font(R.font.cormorant_garamond_medium, FontWeight.Medium))
 val Nunito = FontFamily(Font(R.font.nunito_sans, FontWeight.Normal))
+val Nastaliq = FontFamily(Font(R.font.noto_nastaliq_urdu, FontWeight.Normal))
+
+/** Body face for the chosen language: Nastaʿlīq for Urdu, Nunito otherwise. */
+fun uiFont(s: com.usman.miqaat.data.AppSettings): FontFamily = if (s.language == com.usman.miqaat.data.Language.UR) Nastaliq else Nunito
 
 private val scheme: ColorScheme = darkColorScheme(
     primary = Palette.gold,

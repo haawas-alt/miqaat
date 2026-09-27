@@ -93,6 +93,8 @@ class MainActivity : ComponentActivity() {
                 val settings by store.settings.collectAsState()
                 var screen by rememberSaveable { mutableStateOf(Screen.HOME) }
                 var settingsSection by remember { mutableStateOf(Section.TIMES) }
+                var peek by remember { mutableStateOf(false) }
+                LaunchedEffect(peek) { if (peek) { delay(25_000); peek = false } }
                 var adhkarMode by remember { mutableStateOf(com.usman.miqaat.ui.AdhkarMode.MORNING) }
                 val phase by AzaanService.phase.collectAsState()
                 val updateState by Updater.state.collectAsState()
@@ -122,7 +124,8 @@ class MainActivity : ComponentActivity() {
                 Box(Modifier.fillMaxSize().background(Palette.night)) {
                     Crossfade(targetState = screen, label = "screen") { s ->
                         when (s) {
-                            Screen.HOME -> if (androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT) com.usman.miqaat.ui.PortraitHome(
+                            Screen.HOME -> if (settings.largeType && !peek) com.usman.miqaat.ui.LargeHome(state, settings) { peek = true }
+                            else if (androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT) com.usman.miqaat.ui.PortraitHome(
                                 state, settings,
                                 onOpenTimetable = { screen = Screen.TIMETABLE },
                                 onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },

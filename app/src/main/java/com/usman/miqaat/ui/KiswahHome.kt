@@ -47,6 +47,7 @@ import com.usman.miqaat.data.AppSettings
 import com.usman.miqaat.data.Prayer
 import com.usman.miqaat.data.PrayerEngine
 import com.usman.miqaat.data.PrayerState
+import com.usman.miqaat.data.L10n
 import java.time.Duration
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -83,6 +84,8 @@ fun KiswahHome(
         val morningWindow = state.current == Prayer.FAJR
         val eveningWindow = state.current == Prayer.ASR || state.current == Prayer.MAGHRIB
         val minuteLeft = !state.justPassed && state.delta.toMinutes() < 1
+        val urdu = L10n.isUrdu(settings)
+        val F = if (urdu) Nastaliq else Cinzel
 
         Weave(Modifier.fillMaxSize())
 
@@ -124,9 +127,9 @@ fun KiswahHome(
                         ramadan && state.current == null -> "Ramaḍān · Suhoor ends"
                         ramadan && state.hero == Prayer.MAGHRIB -> "Ramaḍān · Iftar"
                         isFri && state.hero == Prayer.DHUHR -> "Jumuʿah"
-                        else -> state.hero.english
+                        else -> L10n.prayer(settings, state.hero)
                     }
-                    Text(kicker.uppercase(), fontFamily = Cinzel, fontSize = fs(2.1f), letterSpacing = fs(0.6f), color = Kiswah.threadSoft)
+                    Text(if (urdu) kicker else kicker.uppercase(), fontFamily = F, fontSize = fs(2.1f), letterSpacing = fs(0.6f), color = Kiswah.threadSoft)
                     Text(state.hero.arabic, fontFamily = ReemKufi, fontSize = fs(5.4f), lineHeight = fs(7f), color = Color(0xFFF6E7B8))
                     Row(verticalAlignment = Alignment.Top) {
                         Text(
@@ -137,11 +140,11 @@ fun KiswahHome(
                         val suf = PrayerEngine.suffix(state.heroTime, settings.use24h)
                         if (suf.isNotEmpty()) Text(suf, fontFamily = Cinzel, fontSize = fs(2.8f), letterSpacing = fs(0.2f), color = Color(0xFFE3C36A), modifier = Modifier.padding(start = u * 0.8f, top = u * 2))
                     }
-                    val pill = if (state.justPassed) "azaan was ${PrayerEngine.humanDuration(state.delta)} ago" else "in ${PrayerEngine.humanDuration(state.delta)}"
+                    val pill = if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inFor(settings, state.delta)
                     Box(Modifier.padding(top = u * 0.8f)) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             GoldRule(u * 26, u)
-                            Text(pill.uppercase(), fontFamily = Cinzel, fontSize = fs(1.5f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft, modifier = Modifier.padding(vertical = u * 0.6f))
+                            Text(if (urdu) pill else pill.uppercase(), fontFamily = F, fontSize = fs(if (urdu) 2f else 1.5f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft, modifier = Modifier.padding(vertical = u * 0.6f))
                             GoldRule(u * 26, u)
                         }
                     }
@@ -161,11 +164,11 @@ fun KiswahHome(
                     val t = PrayerEngine.rowTime(state, p)
                     val done = !t.isAfter(state.now) && !(state.justPassed && p == state.hero)
                     val next = p == state.hero && state.nextTime.toLocalDate() == state.now.toLocalDate()
-                    val label = when { p == Prayer.DHUHR && isFri -> "Jumuʿah"; ramadan && p == Prayer.FAJR -> "Suhoor"; ramadan && p == Prayer.MAGHRIB -> "Iftar"; else -> p.english }
+                    val label = when { p == Prayer.DHUHR && isFri -> L10n.word(settings, "Jumuʿah"); ramadan && p == Prayer.FAJR -> L10n.word(settings, "Suhoor"); ramadan && p == Prayer.MAGHRIB -> L10n.word(settings, "Iftar"); else -> L10n.prayer(settings, p) }
                     val iq = PrayerEngine.iqamah(settings, state.today, p)
                     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.alpha(if (done) 0.4f else 1f).combinedClickable(onClick = onToggleRelative, onLongClick = { why = p })) {
-                        Text(label.uppercase(), fontFamily = Cinzel, fontSize = fs(1.15f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.75f))
-                        if (settings.showRelative) Text(PrayerEngine.relative(t, state.now).uppercase(), fontFamily = Cinzel, fontSize = fs(1.5f), letterSpacing = fs(0.1f), color = if (next) Kiswah.highlight else Kiswah.ivory)
+                        Text(if (urdu) label else label.uppercase(), fontFamily = F, fontSize = fs(if (urdu) 1.6f else 1.15f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.75f))
+                        if (settings.showRelative) Text(L10n.relative(settings, t, state.now).let { if (urdu) it else it.uppercase() }, fontFamily = F, fontSize = fs(1.5f), letterSpacing = fs(0.1f), color = if (next) Kiswah.highlight else Kiswah.ivory)
                         else Row(verticalAlignment = Alignment.Bottom) {
                             Text(PrayerEngine.clock(t, settings.use24h), fontFamily = Cinzel, fontSize = fs(2.4f), color = if (next) Kiswah.highlight else Kiswah.ivory)
                             val s = PrayerEngine.suffix(t, settings.use24h)

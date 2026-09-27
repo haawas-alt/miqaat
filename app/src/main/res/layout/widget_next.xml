@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/w_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_bg"
+    android:padding="14dp">
+    <TextView android:id="@+id/w_name" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textColor="#E9CF88" android:textSize="12sp" android:letterSpacing="0.12" android:textAllCaps="true" android:fontFamily="sans-serif-medium" android:text="Maghrib · المغرب"/>
+    <TextView android:id="@+id/w_time" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textColor="#F3E9D2" android:textSize="34sp" android:fontFamily="serif" android:includeFontPadding="false" android:text="5:57 PM"/>
+    <TextView android:id="@+id/w_state" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textColor="#F3E9D2" android:textSize="14sp" android:fontFamily="sans-serif-medium" android:text="in 25 min"/>
+    <TextView android:id="@+id/w_next" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp"
+        android:textColor="#B9B3C8" android:textSize="12sp" android:singleLine="true" android:ellipsize="end" android:text="Isha 7:16   Iqamah 6:05"/>
+</LinearLayout>
