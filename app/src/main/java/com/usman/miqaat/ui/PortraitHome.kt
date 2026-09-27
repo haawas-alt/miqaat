@@ -19,10 +19,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Check
@@ -65,7 +63,7 @@ fun PortraitHome(
 ) {
     val kiswah = settings.theme == AppTheme.KISWAH
     BoxWithConstraints(Modifier.fillMaxSize()) {
-        val u: Dp = maxWidth / 100
+        val u: Dp = minOf(maxWidth / 100, maxHeight / 205)
         fun fs(x: Float) = (u.value * x).sp
         val sky = skyFor(state.period)
         val top by animateColorAsState(if (kiswah) Color(0xFF0B0B0B) else sky.top, tween(1500), label = "t")
@@ -80,7 +78,7 @@ fun PortraitHome(
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(top, bottom)))) {
             if (kiswah) Weave(Modifier.fillMaxSize()) else { Glow(Modifier.fillMaxSize(), sky.glow); Stars(Modifier.fillMaxSize(), sky.stars); GirihLattice(Modifier.fillMaxSize(), tile = u.value * 22f) }
 
-            Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().verticalScroll(rememberScrollState()).padding(horizontal = u * 5, vertical = u * 3)) {
+            Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().padding(horizontal = u * 5, vertical = u * 2)) {
                 // top bar
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Row(Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation), verticalAlignment = Alignment.CenterVertically) {
@@ -107,8 +105,9 @@ fun PortraitHome(
                     if (updateAvailable) SmallChip(Icons.Outlined.Settings, "Update", u, ivory, gold, gold = true, onClick = onOpenAbout)
                 }
 
-                // hero
-                Column(Modifier.fillMaxWidth().padding(top = u * 7, bottom = u * 5), horizontalAlignment = Alignment.CenterHorizontally) {
+                // hero takes whatever height is left between the header and the list
+                Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                     val kicker = when {
                         ramadan && state.current == null -> "Ramaḍān · Suhoor ends"
                         ramadan && state.hero == Prayer.MAGHRIB -> "Ramaḍān · Iftar"
@@ -116,10 +115,10 @@ fun PortraitHome(
                         else -> null
                     }
                     if (kicker != null) Text(kicker.uppercase(), fontFamily = Nunito, fontSize = fs(2.8f), letterSpacing = fs(0.6f), fontWeight = FontWeight.Bold, color = gold)
-                    Text(state.hero.arabic, fontFamily = arabicFont, fontSize = fs(if (kiswah) 12f else 16f), lineHeight = fs(18f), color = Color(0xFFF6E7B8))
+                    Text(state.hero.arabic, fontFamily = arabicFont, fontSize = fs(if (kiswah) 10f else 13f), lineHeight = fs(15f), color = Color(0xFFF6E7B8))
                     Text(state.hero.english.uppercase() + if (state.justPassed) "  ·  NOW" else "", fontFamily = numFont, fontSize = fs(5f), letterSpacing = fs(1.2f), color = ivory.copy(alpha = 0.9f))
                     Row(verticalAlignment = Alignment.Top) {
-                        Text(PrayerEngine.clock(state.heroTime, settings.use24h), style = TextStyle(fontFamily = numFont, fontSize = fs(if (kiswah) 22f else 24f), lineHeight = fs(24f), brush = if (kiswah) Kiswah.goldText else Brush.verticalGradient(listOf(ivory, ivory))))
+                        Text(PrayerEngine.clock(state.heroTime, settings.use24h), style = TextStyle(fontFamily = numFont, fontSize = fs(if (kiswah) 19f else 21f), lineHeight = fs(21f), brush = if (kiswah) Kiswah.goldText else Brush.verticalGradient(listOf(ivory, ivory))))
                         val suf = PrayerEngine.suffix(state.heroTime, settings.use24h)
                         if (suf.isNotEmpty()) Text(" $suf", fontFamily = numFont, fontSize = fs(6f), color = ivory, modifier = Modifier.padding(top = u * 3))
                     }
@@ -138,6 +137,7 @@ fun PortraitHome(
                         }
                     }
                 }
+                }
 
                 // prayer rows
                 val shown = if (settings.showSunrise) Prayer.entries else Prayer.prayersOnly
@@ -151,7 +151,7 @@ fun PortraitHome(
                         val iq = PrayerEngine.iqamah(settings, state.today, p)
                         Row(
                             Modifier.fillMaxWidth().background(if (isNow || isNext) Palette.gold.copy(alpha = 0.14f) else Color.Transparent).alpha(if (done) 0.5f else 1f)
-                                .clickable { onToggleRelative() }.padding(horizontal = u * 4, vertical = u * 3),
+                                .clickable { onToggleRelative() }.padding(horizontal = u * 4, vertical = u * 1.9f),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Column(Modifier.weight(1f)) {
@@ -160,14 +160,14 @@ fun PortraitHome(
                                     if (isNext) Box(Modifier.padding(start = u * 2).clip(RoundedCornerShape(4.dp)).background(Palette.gold).padding(horizontal = u * 1.2f, vertical = u * 0.3f)) { Text("NEXT", fontSize = fs(2.4f), fontWeight = FontWeight.Bold, color = Palette.night, fontFamily = Nunito) }
                                     if (done && p.isPrayer) Icon(Icons.Outlined.Check, null, Modifier.padding(start = u * 2).size(u * 3.6f), tint = Palette.mint)
                                 }
-                                Text(p.arabic, fontFamily = arabicFont, fontSize = fs(4.6f), lineHeight = fs(5.4f), color = gold)
+                                Text(p.arabic, fontFamily = arabicFont, fontSize = fs(4f), lineHeight = fs(4.6f), color = gold)
                             }
                             Column(horizontalAlignment = Alignment.End) {
                                 if (settings.showRelative) {
                                     Text(PrayerEngine.relative(t, state.now), fontFamily = Nunito, fontSize = fs(4.6f), fontWeight = FontWeight.SemiBold, color = ivory)
                                     Text(PrayerEngine.clock(t, settings.use24h) + " " + PrayerEngine.suffix(t, settings.use24h), fontFamily = Nunito, fontSize = fs(2.8f), color = ivory.copy(alpha = 0.6f))
                                 } else Row(verticalAlignment = Alignment.Bottom) {
-                                    Text(PrayerEngine.clock(t, settings.use24h), fontFamily = numFont, fontSize = fs(7f), lineHeight = fs(7.4f), color = ivory)
+                                    Text(PrayerEngine.clock(t, settings.use24h), fontFamily = numFont, fontSize = fs(6.2f), lineHeight = fs(6.6f), color = ivory)
                                     val s2 = PrayerEngine.suffix(t, settings.use24h)
                                     if (s2.isNotEmpty()) Text(" $s2", fontFamily = numFont, fontSize = fs(3.4f), color = ivory, modifier = Modifier.padding(bottom = u * 0.8f))
                                 }
@@ -177,8 +177,10 @@ fun PortraitHome(
                         if (i < shown.lastIndex) Box(Modifier.fillMaxWidth().padding(horizontal = u * 4).height(1.dp).background(Color.White.copy(alpha = 0.08f)))
                     }
                 }
-                Text(if (settings.showRelative) "Tap a prayer to show clock times" else "Tap a prayer to show time until / since", fontFamily = Nunito, fontSize = fs(2.8f), color = ivory.copy(alpha = 0.45f), modifier = Modifier.padding(top = u * 2).align(Alignment.CenterHorizontally))
-                Text("Designed by UZR · Make duʿā for me", fontFamily = numFont, fontSize = fs(3f), color = gold.copy(alpha = 0.55f), modifier = Modifier.padding(top = u * 4, bottom = u * 2).align(Alignment.CenterHorizontally))
+                Row(Modifier.fillMaxWidth().padding(top = u * 1.6f), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                    Text("Designed by UZR · Make duʿā for me", fontFamily = numFont, fontSize = fs(2.8f), color = gold.copy(alpha = 0.55f))
+                    Text(if (settings.showRelative) "tap: clock times" else "tap: time until / since", fontFamily = Nunito, fontSize = fs(2.4f), color = ivory.copy(alpha = 0.4f))
+                }
             }
         }
     }
