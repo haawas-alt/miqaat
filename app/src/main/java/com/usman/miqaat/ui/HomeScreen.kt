@@ -104,7 +104,7 @@ fun HomeScreen(
                         Row(Modifier.padding(top = u * 0.8f), horizontalArrangement = Arrangement.spacedBy(u * 0.9f)) {
                             if (settings.showQibla) {
                                 val q = PrayerEngine.qibla(settings)
-                                Chip(Icons.Outlined.Explore, "Qibla ${q.toInt()}° ${PrayerEngine.compass(q)}", u, onOpenQibla)
+                                Chip(Icons.Outlined.Explore, "Qibla ${q.toInt()}° ${PrayerEngine.compass(q)}", u, onClick = onOpenQibla)
                             }
                             if (settings.adhkarEnabled && morningWindow) Chip(Icons.Outlined.WbTwilight, "Morning adhkār", u, gold = true) { onOpenAdhkar(true) }
                             if (settings.adhkarEnabled && eveningWindow) Chip(Icons.Outlined.WbTwilight, "Evening adhkār", u, gold = true) { onOpenAdhkar(false) }
