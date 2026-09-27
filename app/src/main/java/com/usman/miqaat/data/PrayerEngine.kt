@@ -154,6 +154,14 @@ object PrayerEngine {
     fun clock(t: ZonedDateTime, use24h: Boolean): String = if (use24h) t.format(f24) else t.format(f12)
     fun suffix(t: ZonedDateTime, use24h: Boolean): String = if (use24h) "" else t.format(fAmPm).uppercase()
 
+    /** "in 2 h 5 min" or "40 min ago". */
+    fun relative(t: ZonedDateTime, now: ZonedDateTime): String =
+        if (t.isAfter(now)) "in " + humanDuration(Duration.between(now, t)) else humanDuration(Duration.between(t, now)) + " ago"
+
+    /** The time to show on a prayer's row: after Isha, Fajr means tomorrow's Fajr. */
+    fun rowTime(state: PrayerState, p: Prayer): ZonedDateTime =
+        if (p == Prayer.FAJR && state.current == Prayer.ISHA) state.nextTime else state.today[p]
+
     fun humanDuration(d: Duration): String {
         val total = d.abs().toMinutes()
         val h = total / 60

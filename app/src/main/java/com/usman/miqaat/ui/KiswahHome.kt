@@ -63,7 +63,8 @@ object Kiswah {
 fun KiswahHome(
     state: PrayerState, settings: AppSettings,
     onOpenTimetable: () -> Unit, onOpenSettings: () -> Unit, onOpenLocation: () -> Unit,
-    onOpenQibla: () -> Unit, onOpenAdhkar: (Boolean) -> Unit, updateAvailable: Boolean, onOpenAbout: () -> Unit
+    onOpenQibla: () -> Unit, onOpenAdhkar: (Boolean) -> Unit, updateAvailable: Boolean, onOpenAbout: () -> Unit,
+    onToggleRelative: () -> Unit = {}
 ) {
     BoxWithConstraints(Modifier.fillMaxSize().background(Kiswah.silk)) {
         val u: Dp = minOf(maxWidth / 100, maxHeight / 56)
@@ -145,14 +146,15 @@ fun KiswahHome(
             val shown = if (settings.showSunrise) Prayer.entries else Prayer.prayersOnly
             Row(Modifier.fillMaxWidth().padding(top = u * 1.2f, bottom = u * 1.6f), horizontalArrangement = Arrangement.SpaceBetween) {
                 shown.forEach { p ->
-                    val t = state.today[p]
+                    val t = PrayerEngine.rowTime(state, p)
                     val done = !t.isAfter(state.now) && !(state.justPassed && p == state.hero)
                     val next = p == state.hero && state.nextTime.toLocalDate() == state.now.toLocalDate()
                     val label = when { p == Prayer.DHUHR && isFri -> "Jumuʿah"; ramadan && p == Prayer.FAJR -> "Suhoor"; ramadan && p == Prayer.MAGHRIB -> "Iftar"; else -> p.english }
                     val iq = PrayerEngine.iqamah(settings, state.today, p)
-                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.alpha(if (done) 0.4f else 1f)) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.alpha(if (done) 0.4f else 1f).clickable(onClick = onToggleRelative)) {
                         Text(label.uppercase(), fontFamily = Cinzel, fontSize = fs(1.15f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.75f))
-                        Row(verticalAlignment = Alignment.Bottom) {
+                        if (settings.showRelative) Text(PrayerEngine.relative(t, state.now).uppercase(), fontFamily = Cinzel, fontSize = fs(1.5f), letterSpacing = fs(0.1f), color = if (next) Kiswah.highlight else Kiswah.ivory)
+                        else Row(verticalAlignment = Alignment.Bottom) {
                             Text(PrayerEngine.clock(t, settings.use24h), fontFamily = Cinzel, fontSize = fs(2.4f), color = if (next) Kiswah.highlight else Kiswah.ivory)
                             val s = PrayerEngine.suffix(t, settings.use24h)
                             if (s.isNotEmpty()) Text(" $s", fontFamily = Cinzel, fontSize = fs(1.2f), color = if (next) Kiswah.highlight else Kiswah.ivory, modifier = Modifier.padding(bottom = u * 0.3f))

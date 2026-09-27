@@ -130,7 +130,8 @@ class MainActivity : ComponentActivity() {
                                 onOpenQibla = { screen = Screen.QIBLA },
                                 onOpenAdhkar = { m -> adhkarMorning = m; screen = Screen.ADHKAR },
                                 updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
-                                onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS }
+                                onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
+                                onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
                             ) else if (settings.theme == com.usman.miqaat.data.AppTheme.KISWAH) com.usman.miqaat.ui.KiswahHome(
                                 state, settings,
                                 onOpenTimetable = { screen = Screen.TIMETABLE },
@@ -139,7 +140,8 @@ class MainActivity : ComponentActivity() {
                                 onOpenQibla = { screen = Screen.QIBLA },
                                 onOpenAdhkar = { m -> adhkarMorning = m; screen = Screen.ADHKAR },
                                 updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
-                                onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS }
+                                onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
+                                onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
                             ) else HomeScreen(
                                 state, settings,
                                 onOpenTimetable = { screen = Screen.TIMETABLE },
@@ -148,7 +150,8 @@ class MainActivity : ComponentActivity() {
                                 onOpenQibla = { screen = Screen.QIBLA },
                                 onOpenAdhkar = { m -> adhkarMorning = m; screen = Screen.ADHKAR },
                                 updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
-                                onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS }
+                                onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
+                                onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
                             )
                             Screen.QIBLA -> QiblaScreen(settings) { screen = Screen.HOME }
                             Screen.ADHKAR -> AdhkarScreen(adhkarMorning) { screen = Screen.HOME }

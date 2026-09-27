@@ -70,7 +70,8 @@ fun HomeScreen(
     onOpenQibla: () -> Unit,
     onOpenAdhkar: (morning: Boolean) -> Unit,
     updateAvailable: Boolean = false,
-    onOpenAbout: () -> Unit = {}
+    onOpenAbout: () -> Unit = {},
+    onToggleRelative: () -> Unit = {}
 ) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
         // 1 unit = 1% of width, capped by height so short/wide tablets scale down instead of overlapping
@@ -176,7 +177,7 @@ fun HomeScreen(
                 val shown = if (settings.showSunrise) Prayer.entries else Prayer.prayersOnly
                 Row(Modifier.fillMaxWidth().padding(top = u * 1.2f), horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
                     shown.forEach { p ->
-                        val t = state.today[p]
+                        val t = PrayerEngine.rowTime(state, p)
                         val done = !t.isAfter(state.now) && !(state.justPassed && p == state.hero)
                         val isNow = state.justPassed && p == state.hero
                         val isNext = !state.justPassed && p == state.hero && state.nextTime.toLocalDate() == state.now.toLocalDate()
@@ -187,9 +188,12 @@ fun HomeScreen(
                             else -> p.english
                         }
                         val iq = PrayerEngine.iqamah(settings, state.today, p)
-                        PrayerCard(p, label, PrayerEngine.clock(t, settings.use24h), PrayerEngine.suffix(t, settings.use24h),
+                        PrayerCard(p, label,
+                            if (settings.showRelative) PrayerEngine.relative(t, state.now) else PrayerEngine.clock(t, settings.use24h),
+                            if (settings.showRelative) "" else PrayerEngine.suffix(t, settings.use24h),
                             done = done, isNow = isNow, isNext = isNext, azaanOn = settings.azaanEnabled[p] == true, u = u,
-                            iqamah = iq?.let { PrayerEngine.clock(it, settings.use24h) }, modifier = Modifier.weight(1f))
+                            iqamah = iq?.let { PrayerEngine.clock(it, settings.use24h) }, relative = settings.showRelative,
+                            modifier = Modifier.weight(1f).clickable(onClick = onToggleRelative))
                     }
                 }
             }
@@ -260,7 +264,7 @@ private fun FastProgress(state: PrayerState, u: Dp) {
 @Composable
 fun PrayerCard(
     p: Prayer, label: String, time: String, suffix: String,
-    done: Boolean, isNow: Boolean, isNext: Boolean, azaanOn: Boolean, u: Dp, iqamah: String? = null, modifier: Modifier = Modifier
+    done: Boolean, isNow: Boolean, isNext: Boolean, azaanOn: Boolean, u: Dp, iqamah: String? = null, relative: Boolean = false, modifier: Modifier = Modifier
 ) {
     val shape = RoundedCornerShape(u * 1.6f)
     val bg = when { isNow -> Palette.gold.copy(alpha = 0.18f); p.isPrayer -> Color.White.copy(alpha = 0.07f); else -> Color.Transparent }
@@ -281,7 +285,7 @@ fun PrayerCard(
         }
         Text(p.arabic, fontFamily = Amiri, fontSize = (u.value * 2.1f).sp, lineHeight = (u.value * 2.3f).sp, color = Palette.goldSoft)
         Row(verticalAlignment = Alignment.Bottom) {
-            Text(time, fontFamily = Cormorant, fontSize = (u.value * 2.9f).sp, lineHeight = (u.value * 3f).sp, color = Palette.ivory)
+            Text(time, fontFamily = if (relative) Nunito else Cormorant, fontWeight = if (relative) FontWeight.SemiBold else FontWeight.Normal, fontSize = (u.value * (if (relative) 1.7f else 2.9f)).sp, lineHeight = (u.value * 3f).sp, color = Palette.ivory, maxLines = 1)
             if (suffix.isNotEmpty()) Text(" $suffix", fontFamily = Cormorant, fontSize = (u.value * 1.4f).sp, color = Palette.ivory, modifier = Modifier.padding(bottom = u * 0.35f))
         }
         if (iqamah != null) Row(verticalAlignment = Alignment.CenterVertically) {

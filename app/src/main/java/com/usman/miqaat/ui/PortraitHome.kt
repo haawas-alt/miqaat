@@ -60,7 +60,8 @@ import java.util.Locale
 fun PortraitHome(
     state: PrayerState, settings: AppSettings,
     onOpenTimetable: () -> Unit, onOpenSettings: () -> Unit, onOpenLocation: () -> Unit,
-    onOpenQibla: () -> Unit, onOpenAdhkar: (Boolean) -> Unit, updateAvailable: Boolean, onOpenAbout: () -> Unit
+    onOpenQibla: () -> Unit, onOpenAdhkar: (Boolean) -> Unit, updateAvailable: Boolean, onOpenAbout: () -> Unit,
+    onToggleRelative: () -> Unit = {}
 ) {
     val kiswah = settings.theme == AppTheme.KISWAH
     BoxWithConstraints(Modifier.fillMaxSize()) {
@@ -142,14 +143,15 @@ fun PortraitHome(
                 val shown = if (settings.showSunrise) Prayer.entries else Prayer.prayersOnly
                 Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(u * 4)).background(Color.White.copy(alpha = if (kiswah) 0.04f else 0.07f)).border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(u * 4))) {
                     shown.forEachIndexed { i, p ->
-                        val t = state.today[p]
+                        val t = PrayerEngine.rowTime(state, p)
                         val done = !t.isAfter(state.now) && !(state.justPassed && p == state.hero)
                         val isNow = state.justPassed && p == state.hero
                         val isNext = !state.justPassed && p == state.hero && state.nextTime.toLocalDate() == state.now.toLocalDate()
                         val label = when { p == Prayer.DHUHR && isFri -> "Jumuʿah"; ramadan && p == Prayer.FAJR -> "Fajr · Suhoor"; ramadan && p == Prayer.MAGHRIB -> "Maghrib · Iftar"; else -> p.english }
                         val iq = PrayerEngine.iqamah(settings, state.today, p)
                         Row(
-                            Modifier.fillMaxWidth().background(if (isNow || isNext) Palette.gold.copy(alpha = 0.14f) else Color.Transparent).alpha(if (done) 0.5f else 1f).padding(horizontal = u * 4, vertical = u * 3),
+                            Modifier.fillMaxWidth().background(if (isNow || isNext) Palette.gold.copy(alpha = 0.14f) else Color.Transparent).alpha(if (done) 0.5f else 1f)
+                                .clickable { onToggleRelative() }.padding(horizontal = u * 4, vertical = u * 3),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Column(Modifier.weight(1f)) {
@@ -161,7 +163,10 @@ fun PortraitHome(
                                 Text(p.arabic, fontFamily = arabicFont, fontSize = fs(4.6f), lineHeight = fs(5.4f), color = gold)
                             }
                             Column(horizontalAlignment = Alignment.End) {
-                                Row(verticalAlignment = Alignment.Bottom) {
+                                if (settings.showRelative) {
+                                    Text(PrayerEngine.relative(t, state.now), fontFamily = Nunito, fontSize = fs(4.6f), fontWeight = FontWeight.SemiBold, color = ivory)
+                                    Text(PrayerEngine.clock(t, settings.use24h) + " " + PrayerEngine.suffix(t, settings.use24h), fontFamily = Nunito, fontSize = fs(2.8f), color = ivory.copy(alpha = 0.6f))
+                                } else Row(verticalAlignment = Alignment.Bottom) {
                                     Text(PrayerEngine.clock(t, settings.use24h), fontFamily = numFont, fontSize = fs(7f), lineHeight = fs(7.4f), color = ivory)
                                     val s2 = PrayerEngine.suffix(t, settings.use24h)
                                     if (s2.isNotEmpty()) Text(" $s2", fontFamily = numFont, fontSize = fs(3.4f), color = ivory, modifier = Modifier.padding(bottom = u * 0.8f))
@@ -172,6 +177,7 @@ fun PortraitHome(
                         if (i < shown.lastIndex) Box(Modifier.fillMaxWidth().padding(horizontal = u * 4).height(1.dp).background(Color.White.copy(alpha = 0.08f)))
                     }
                 }
+                Text(if (settings.showRelative) "Tap a prayer to show clock times" else "Tap a prayer to show time until / since", fontFamily = Nunito, fontSize = fs(2.8f), color = ivory.copy(alpha = 0.45f), modifier = Modifier.padding(top = u * 2).align(Alignment.CenterHorizontally))
                 Text("Designed by UZR · Make duʿā for me", fontFamily = numFont, fontSize = fs(3f), color = gold.copy(alpha = 0.55f), modifier = Modifier.padding(top = u * 4, bottom = u * 2).align(Alignment.CenterHorizontally))
             }
         }

@@ -106,6 +106,7 @@ data class AppSettings(
     val hijriOffsetDays: Int = 0,
     val showSunrise: Boolean = true,
     val use24h: Boolean = false,
+    val showRelative: Boolean = false,   // tap a prayer: show "in 2 h 5 min" / "40 min ago" instead of clock times
     val keepScreenOn: Boolean = true,
     val nightDim: Boolean = true,
     val artTheme: ArtTheme = ArtTheme.GEOMETRIC,
@@ -180,6 +181,7 @@ class SettingsStore(context: Context) {
             hijriOffsetDays = prefs.getInt("hijriOff", d.hijriOffsetDays),
             showSunrise = prefs.getBoolean("sunrise", d.showSunrise),
             use24h = prefs.getBoolean("h24", d.use24h),
+            showRelative = prefs.getBoolean("rel", d.showRelative),
             keepScreenOn = prefs.getBoolean("keepOn", d.keepScreenOn),
             nightDim = prefs.getBoolean("nightDim", d.nightDim),
             artTheme = runCatching { ArtTheme.valueOf(enumOr("art", d.artTheme.name)) }.getOrDefault(d.artTheme),
@@ -204,7 +206,7 @@ class SettingsStore(context: Context) {
             putBoolean("iqEn", s.iqamahEnabled); s.iqamahOffsets.forEach { (p, v) -> putInt("iq_${p.key}", v) }
             putInt("iqJum", s.jumuahIqamahMinutes); putString("iqSnd", s.iqamahSound.name); putInt("iqCd", s.iqamahCountdownSeconds); putInt("quiet", s.quietMinutes)
             putBoolean("hijri", s.showHijri); putInt("hijriOff", s.hijriOffsetDays); putBoolean("sunrise", s.showSunrise)
-            putBoolean("h24", s.use24h); putBoolean("keepOn", s.keepScreenOn); putBoolean("nightDim", s.nightDim)
+            putBoolean("h24", s.use24h); putBoolean("rel", s.showRelative); putBoolean("keepOn", s.keepScreenOn); putBoolean("nightDim", s.nightDim)
             putString("art", s.artTheme.name); putString("theme", s.theme.name); putBoolean("boot", s.launchOnBoot); putBoolean("setupDone", s.setupDone)
         }.apply()
     }
