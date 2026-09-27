@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.Icon
@@ -88,6 +90,22 @@ fun QiblaScreen(settings: AppSettings, onBack: () -> Unit) {
     BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
         val u = minOf(maxWidth / 100, maxHeight / 56)
         GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.08f)
+        val portrait = maxHeight > maxWidth
+        if (portrait) {
+            Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = u * 4, vertical = u * 2), horizontalAlignment = Alignment.CenterHorizontally) {
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+                    IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
+                    Text("Qibla", fontFamily = Cormorant, fontSize = (u.value * 8f).sp, color = Palette.ivory)
+                    Text("  القبلة", fontFamily = Amiri, fontSize = (u.value * 6.5f).sp, color = Palette.goldSoft)
+                }
+                Box(Modifier.fillMaxWidth().aspectRatio(1f).padding(u * 4), contentAlignment = Alignment.Center) { Compass(needle, heading = if (hasSensor) heading else 0f, u = u.value) }
+                Text("${bearing.toInt()}°  ${PrayerEngine.compass(bearing)}", fontFamily = Cormorant, fontSize = (u.value * 14f).sp, lineHeight = (u.value * 14f).sp, color = Color(0xFFF6E7B8))
+                Text("from true north, at ${settings.locationName}", fontFamily = Nunito, fontSize = (u.value * 3.2f).sp, color = Palette.ivory.copy(alpha = 0.7f))
+                Text(if (!hasSensor) "No compass sensor: face the phone's top edge north and read the gold needle." else if (accuracyLow) "Move the phone in a figure-of-eight to calibrate." else "Hold the phone flat and turn until the gold needle points up.",
+                    fontFamily = Nunito, fontSize = (u.value * 3.4f).sp, lineHeight = (u.value * 5f).sp, color = Palette.ivory.copy(alpha = 0.8f), textAlign = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.padding(top = u * 4))
+            }
+            return@BoxWithConstraints
+        }
         Row(Modifier.fillMaxSize().padding(horizontal = u * 3, vertical = u * 2)) {
             Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.Center) {
                 Row(verticalAlignment = Alignment.CenterVertically) {

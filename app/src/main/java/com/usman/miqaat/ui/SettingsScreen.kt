@@ -25,6 +25,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -107,7 +110,38 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
     // Any change that affects times re-arms the alarm chain.
     LaunchedEffect(settings) { AzaanScheduler.reschedule(ctx) }
 
-    Row(Modifier.fillMaxSize().background(Palette.panel)) {
+    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
+    val compact = maxWidth < 720.dp
+    if (compact) {
+        Column(Modifier.fillMaxSize().statusBarsPadding()) {
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 4.dp, top = 8.dp)) {
+                IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
+                Text("Settings", fontFamily = Cormorant, fontSize = 30.sp, color = Palette.ivory)
+            }
+            Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Section.entries.forEach { sec ->
+                    val cur = sec == section
+                    Box(Modifier.clip(RoundedCornerShape(50)).background(if (cur) Palette.gold else Color.Transparent).border(1.dp, if (cur) Palette.gold else Color.White.copy(alpha = 0.25f), RoundedCornerShape(50)).clickable { section = sec }.padding(horizontal = 14.dp, vertical = 8.dp)) {
+                        Text(sec.label, fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = if (cur) Palette.night else Palette.ivory)
+                    }
+                }
+            }
+            Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp).navigationBarsPadding()) {
+                when (section) {
+                    Section.LOCATION -> LocationSection(store, settings)
+                    Section.TIMES -> TimesSection(store, settings)
+                    Section.AZAAN -> AzaanSection(store, settings)
+                    Section.IQAMAH -> IqamahSection(store, settings)
+                    Section.TEST -> TestSection(store, settings)
+                    Section.HIJRI -> HijriSection(store, settings)
+                    Section.DISPLAY -> DisplaySection(store, settings)
+                    Section.ABOUT -> AboutSection(settings)
+                }
+            }
+        }
+        return@BoxWithConstraints
+    }
+    Row(Modifier.fillMaxSize()) {
         Column(Modifier.width(300.dp).fillMaxHeight().background(Color.Black.copy(alpha = 0.18f)).padding(vertical = 20.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 12.dp, bottom = 16.dp)) {
                 IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
@@ -140,6 +174,7 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
                 Section.ABOUT -> AboutSection(settings)
             }
         }
+    }
     }
 }
 

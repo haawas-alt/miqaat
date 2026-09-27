@@ -14,6 +14,14 @@ class MiqaatApp : Application() {
         super.onCreate()
         instance = this
         settings = SettingsStore(this)
+        val prefs = getSharedPreferences("miqaat_meta", MODE_PRIVATE)
+        if (!prefs.getBoolean("defaultsApplied", false)) {
+            if (!com.usman.miqaat.data.Device.isTablet(this)) {
+                // Pocket defaults: the wall-tablet extras stay available but start off.
+                settings.update { it.copy(afterAzaanEnabled = false, keepScreenOn = false, nightDim = false, quietMinutes = 0) }
+            }
+            prefs.edit().putBoolean("defaultsApplied", true).apply()
+        }
         createChannels()
         AzaanScheduler.reschedule(this)
     }

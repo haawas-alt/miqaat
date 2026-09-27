@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -73,7 +74,7 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(bg))) {
             if (kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
             // Option A: a quiet status tag, top-left, instead of any system pop-up
-            Row(Modifier.padding(start = u * 3.6f, top = u * 2.6f), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.statusBarsPadding().padding(start = u * 3.6f, top = u * 2.6f), verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.size(u * 0.9f).clip(androidx.compose.foundation.shape.CircleShape).background(Palette.gold))
                 Spacer(Modifier.width(u * 0.9f))
                 Text(
@@ -85,7 +86,7 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
                     fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.16f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft.copy(alpha = 0.85f)
                 )
             }
-            Column(Modifier.fillMaxSize()) {
+            Column(Modifier.fillMaxSize().statusBarsPadding().padding(top = if (portrait) u * 3 else 0.dp)) {
                 StepsBar(phase, u)
                 Box(Modifier.weight(1f).fillMaxWidth()) {
                     Crossfade(targetState = phase::class, label = "phase") { cls ->
@@ -115,7 +116,8 @@ private fun StepsBar(phase: Phase, u: Dp) {
         iftar -> listOf("Azaan", "Iftar dua", "Dua after azaan", "Hadith", "Home")
         else -> listOf("Azaan", "Dua after azaan", "Hadith", "Home")
     }
-    Row(Modifier.fillMaxWidth().padding(top = u * 2.4f), horizontalArrangement = Arrangement.spacedBy(u * 1, Alignment.CenterHorizontally)) {
+    @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+    androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth().padding(top = u * 2.4f), horizontalArrangement = Arrangement.spacedBy(u * 1, Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(u * 0.6f)) {
         labels.forEachIndexed { i, l ->
             val done = i < idx; val cur = i == idx
             val shape = RoundedCornerShape(50)

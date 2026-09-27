@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -80,6 +82,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        com.usman.miqaat.data.Device.applyOrientation(this)
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         hideSystemBars()
@@ -119,7 +122,16 @@ class MainActivity : ComponentActivity() {
                 Box(Modifier.fillMaxSize().background(Palette.night)) {
                     Crossfade(targetState = screen, label = "screen") { s ->
                         when (s) {
-                            Screen.HOME -> if (settings.theme == com.usman.miqaat.data.AppTheme.KISWAH) com.usman.miqaat.ui.KiswahHome(
+                            Screen.HOME -> if (androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT) com.usman.miqaat.ui.PortraitHome(
+                                state, settings,
+                                onOpenTimetable = { screen = Screen.TIMETABLE },
+                                onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
+                                onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
+                                onOpenQibla = { screen = Screen.QIBLA },
+                                onOpenAdhkar = { m -> adhkarMorning = m; screen = Screen.ADHKAR },
+                                updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
+                                onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS }
+                            ) else if (settings.theme == com.usman.miqaat.data.AppTheme.KISWAH) com.usman.miqaat.ui.KiswahHome(
                                 state, settings,
                                 onOpenTimetable = { screen = Screen.TIMETABLE },
                                 onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
@@ -167,7 +179,7 @@ private fun FirstRun(onDone: () -> Unit, onDetect: () -> Unit) {
     }
     Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.55f)), contentAlignment = Alignment.Center) {
         Column(
-            Modifier.width(560.dp).clip(RoundedCornerShape(24.dp)).background(Palette.panelRaised).padding(36.dp),
+            Modifier.fillMaxWidth(0.92f).widthIn(max = 560.dp).clip(RoundedCornerShape(24.dp)).background(Palette.panelRaised).padding(36.dp),
             horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             Text("ميقات", fontFamily = Amiri, fontSize = 56.sp, color = Palette.goldSoft)

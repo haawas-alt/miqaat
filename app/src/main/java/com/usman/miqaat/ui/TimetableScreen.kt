@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
@@ -56,13 +59,16 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
     val hijriRange = if (hStart.month == hEnd.month) "${hStart.english.substringAfter(' ')}" else
         "${hStart.english.substringAfter(' ').substringBeforeLast(' ')} – ${hEnd.english.substringAfter(' ')}"
 
-    Column(Modifier.fillMaxSize().background(Palette.panel).padding(horizontal = 28.dp, vertical = 20.dp)) {
+    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
+    val compact = maxWidth < 720.dp
+    val pad = if (compact) 14.dp else 28.dp
+    Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = pad, vertical = if (compact) 8.dp else 20.dp)) {
         Row(verticalAlignment = Alignment.Bottom) {
             IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
             Column(Modifier.weight(1f).padding(start = 4.dp)) {
                 Row(verticalAlignment = Alignment.Bottom) {
-                    Text(ym.format(DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH)), fontFamily = Cormorant, fontSize = 38.sp, color = Palette.ivory, lineHeight = 40.sp)
-                    if (settings.showHijri) Text("   $hijriRange", fontFamily = Amiri, fontSize = 22.sp, color = Palette.goldSoft, modifier = Modifier.padding(bottom = 6.dp))
+                    Text(ym.format(DateTimeFormatter.ofPattern(if (compact) "MMM yyyy" else "MMMM yyyy", Locale.ENGLISH)), fontFamily = Cormorant, fontSize = if (compact) 26.sp else 38.sp, color = Palette.ivory, lineHeight = 40.sp)
+                    if (settings.showHijri && !compact) Text("   $hijriRange", fontFamily = Amiri, fontSize = 22.sp, color = Palette.goldSoft, modifier = Modifier.padding(bottom = 6.dp))
                 }
                 Text(
                     "${settings.locationName} · ${settings.method.label} · Asr: ${settings.asrMethod.label.substringBefore(',')}",
@@ -82,8 +88,9 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                    else listOf("Date", "Hijri", "Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha")
         val weights = listOf(1.5f, 1.2f, 1f, 1f, 1f, 1f, 1f, 1f)
         val shape = RoundedCornerShape(14.dp)
-        Column(Modifier.fillMaxSize().clip(shape).border(1.dp, Palette.line, shape)) {
-            Row(Modifier.fillMaxWidth().background(Palette.panelRaised).padding(vertical = 10.dp, horizontal = 14.dp)) {
+        Column(Modifier.fillMaxSize().clip(shape).border(1.dp, Palette.line, shape).then(if (compact) Modifier.horizontalScroll(rememberScrollState()) else Modifier)) {
+            val rowMod = if (compact) Modifier.width(760.dp) else Modifier.fillMaxWidth()
+            Row(rowMod.background(Palette.panelRaised).padding(vertical = 10.dp, horizontal = 14.dp)) {
                 cols.forEachIndexed { i, c ->
                     Text(c.uppercase(), Modifier.weight(weights[i]), fontFamily = Nunito, fontSize = 11.sp, letterSpacing = 1.5.sp, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = 0.9f))
                 }
@@ -95,7 +102,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                     val color = when { isToday -> Color(0xFFF6E7B8); fri -> Color(0xFFBFE3C9); else -> Palette.ivory }
                     val h = PrayerEngine.hijri(d.date, settings.hijriOffsetDays)
                     Row(
-                        Modifier.fillMaxWidth().background(if (isToday) Palette.gold.copy(alpha = 0.16f) else Color.Transparent)
+                        rowMod.background(if (isToday) Palette.gold.copy(alpha = 0.16f) else Color.Transparent)
                             .padding(vertical = 8.dp, horizontal = 14.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -109,7 +116,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                             )
                         }
                     }
-                    Box(Modifier.fillMaxWidth().padding(horizontal = 14.dp).background(Palette.line).padding(top = 1.dp))
+                    Box(rowMod.padding(horizontal = 14.dp).background(Palette.line).padding(top = 1.dp))
                 }
             }
         }
@@ -117,6 +124,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
             "Fridays in green · Jumuʿah at your masjid may differ from Dhuhr · ☾ marks Ramaḍān",
             fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.6f), modifier = Modifier.padding(top = 8.dp)
         )
+    }
     }
 }
 

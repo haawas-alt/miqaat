@@ -23,6 +23,7 @@ class AzaanActivity : ComponentActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        com.usman.miqaat.data.Device.applyOrientation(this)
         enableEdgeToEdge()
         setShowWhenLocked(true); setTurnScreenOn(true)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

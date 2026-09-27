@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -63,11 +64,13 @@ fun AdhkarScreen(morning: Boolean, onBack: () -> Unit) {
     val listState = rememberLazyListState()
 
     BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
-        val u = minOf(maxWidth / 100, maxHeight / 56)
+        val u0 = minOf(maxWidth / 100, maxHeight / 56)
+        val u = if (maxWidth < 600.dp) u0 * 2.2f else u0
         GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.07f)
-        Row(Modifier.fillMaxSize()) {
+        val compact = maxWidth < 600.dp
+        Row(Modifier.fillMaxSize().statusBarsPadding()) {
             // ---- list
-            Column(Modifier.width(u * 30).fillMaxHeight().background(Color.Black.copy(alpha = 0.18f)).padding(vertical = u * 1.6f)) {
+            if (!compact) Column(Modifier.width(u * 30).fillMaxHeight().background(Color.Black.copy(alpha = 0.18f)).padding(vertical = u * 1.6f)) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = u * 1)) {
                     IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
                     Column {
@@ -108,7 +111,11 @@ fun AdhkarScreen(morning: Boolean, onBack: () -> Unit) {
                     .padding(horizontal = u * 4, vertical = u * 2.4f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(cur.title.uppercase(), fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
+                if (compact) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
+                    Text((if (morning) "Morning adhkār" else "Evening adhkār") + "  ·  ${index + 1} of ${list.size}", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.8f))
+                }
+                Text(cur.title.uppercase(), fontFamily = Nunito, fontSize = (u.value * (if (compact) 3f else 1.3f)).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
                 Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                     val longText = cur.arabic.length > 220
                     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
