@@ -2,7 +2,7 @@ name: Build APK
 
 on:
   push:
-    branches: [main]
+    branches: [main, stable]
   workflow_dispatch:
 
 permissions:
@@ -56,11 +56,32 @@ jobs:
           name: Miqaat-apk
           path: Miqaat.apk
 
-      - name: Publish as latest release
+      - name: Publish as latest release (main only)
+        if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
           name: Miqaat (latest build)
           body: "build=${{ github.run_number }}\n\nDownload Miqaat.apk on the tablet and open it to install, or use Settings › About › Check for updates inside the app."
+          files: Miqaat.apk
+          prerelease: false
+
+      - name: Keep a permanent copy of this build (main only)
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Miqaat build ${{ github.run_number }}
+          body: "Permanent copy of build ${{ github.run_number }} from ${{ github.sha }}."
+          files: Miqaat.apk
+          prerelease: true
+
+      - name: Publish the stable backup (stable branch only)
+        if: github.ref == 'refs/heads/stable'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: stable
+          name: Miqaat (stable backup)
+          body: "Backup of the stable branch. Install this if a newer build misbehaves."
           files: Miqaat.apk
           prerelease: false
