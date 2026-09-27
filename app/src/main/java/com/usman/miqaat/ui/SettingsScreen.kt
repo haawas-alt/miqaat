@@ -65,6 +65,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -198,8 +199,29 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
         else permission.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
     }
 
-    Heading("Location", "Prayer times are calculated for these coordinates. The name is what the home screen shows.")
+    Heading("Location", "Prayer times are calculated for these coordinates. Looking up the place name and searching for places uses Android's geocoder, which sends the coordinates or search text to Google. Nothing else leaves the device.")
     SettingRow("Current location", "%.4f, %.4f".format(s.latitude, s.longitude)) { GoldValue(s.locationName) }
+    var pickZone by remember { mutableStateOf(false) }
+    var zoneQuery by remember { mutableStateOf("") }
+    SettingRow("Time zone for prayer times", "Must match the place above. Detected locations use the device's zone automatically.", onClick = { pickZone = true }) {
+        GoldValue((s.zoneId ?: "Device · ${java.time.ZoneId.systemDefault().id}") + " ›")
+    }
+    if (pickZone) AlertDialog(
+        onDismissRequest = { pickZone = false }, containerColor = Palette.panelRaised,
+        title = { Text("Time zone", fontFamily = Cormorant, fontSize = 28.sp, color = Palette.ivory) },
+        text = {
+            Column {
+                OutlinedTextField(value = zoneQuery, onValueChange = { zoneQuery = it }, placeholder = { Text("Search, e.g. Karachi, London") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                val opts = listOf("Device · ${java.time.ZoneId.systemDefault().id}") + java.time.ZoneId.getAvailableZoneIds().filter { it.contains('/') && !it.startsWith("Etc") && (zoneQuery.isBlank() || it.contains(zoneQuery, true)) }.sorted().take(60)
+                Column(Modifier.verticalScroll(rememberScrollState()).padding(top = 8.dp)) {
+                    opts.forEach { z ->
+                        Text(z, fontFamily = Nunito, fontSize = 15.sp, color = Palette.ivory, modifier = Modifier.fillMaxWidth().clickable { store.update { it.copy(zoneId = if (z.startsWith("Device")) null else z) }; pickZone = false }.padding(vertical = 10.dp))
+                    }
+                }
+            }
+        },
+        confirmButton = { TextButton(onClick = { pickZone = false }) { Text("Close", color = Palette.goldSoft) } }
+    )
     SettingRow("Use the tablet's location", "Re-detects each time the app opens") {
         Toggle(s.autoLocation) { on -> store.update { it.copy(autoLocation = on) }; if (on) detectNow() }
     }
@@ -218,7 +240,7 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     (if (query.isBlank()) LocationRepo.presets else results).take(10).forEach { p ->
         Row(
             Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp))
-                .clickable { store.update { it.copy(latitude = p.lat, longitude = p.lng, locationName = p.name, autoLocation = false) }; status = "Set to ${p.name}" }
+                .clickable { store.update { it.copy(latitude = p.lat, longitude = p.lng, locationName = p.name, autoLocation = false, zoneId = p.zone) }; status = "Set to ${p.name}" + (if (p.zone == null) " · times shown in the device's time zone" else "") }
                 .padding(horizontal = 8.dp, vertical = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -232,7 +254,7 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
 suspend fun detect(ctx: Context, store: SettingsStore): String {
     val loc = LocationRepo.current(ctx) ?: return "Could not get a location fix. Is location turned on in the tablet's settings?"
     val name = LocationRepo.name(ctx, loc.latitude, loc.longitude) ?: store.value.locationName
-    store.update { it.copy(latitude = loc.latitude, longitude = loc.longitude, locationName = name, autoLocation = true) }
+    store.update { it.copy(latitude = loc.latitude, longitude = loc.longitude, locationName = name, autoLocation = true, zoneId = null) }
     return "Location set to $name"
 }
 
@@ -359,6 +381,14 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
     SettingRow("Battery optimisation", if (ignoring) "Miqaat is exempt, so the azaan fires on time" else "Recommended: exempt Miqaat so Android never delays the azaan",
         onClick = { runCatching { ctx.startActivity(Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Uri.parse("package:${ctx.packageName}"))) } }) {
         Value(if (ignoring) "Exempt ✓" else "Fix ›")
+    }
+    if (Build.VERSION.SDK_INT >= 34) {
+        val nm = ctx.getSystemService(android.app.NotificationManager::class.java)
+        if (!nm.canUseFullScreenIntent()) SettingRow("Full-screen azaan", "Needed to show the azaan when the screen is locked", onClick = { runCatching { ctx.startActivity(Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT, Uri.parse("package:${ctx.packageName}"))) } }) { Value("Allow ›") }
+    }
+    if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(ctx, Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+        val ask = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
+        SettingRow("Notifications", "Needed for the azaan to wake the screen", onClick = { ask.launch(Manifest.permission.POST_NOTIFICATIONS) }) { Value("Allow ›") }
     }
     if (Build.VERSION.SDK_INT >= 31) SettingRow("Exact alarms", "Needed on Android 12 and newer", onClick = { runCatching { ctx.startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)) } }) { Value("Open ›") }
 }
@@ -490,7 +520,7 @@ private fun AboutSection(s: AppSettings) {
     Spacer(Modifier.height(14.dp))
     Text(
         "Prayer times are computed on the tablet with the Adhan library (Batoul Apps, MIT licence), using the high-precision astronomical algorithms of Jean Meeus. " +
-            "No account, no advertising, no analytics, and nothing leaves the device except the optional address lookup for your location name.\n\n" +
+            "No account, no advertising, no analytics. Network is used for three things only: the place-name lookup and place search (Android's geocoder, which contacts Google), and the update check against GitHub.\n\n" +
             "Current: ${s.method.label}, Asr ${s.asrMethod.label}, ${s.locationName} (%.3f, %.3f).".format(s.latitude, s.longitude),
         fontFamily = Nunito, fontSize = 15.sp, color = Palette.ivory.copy(alpha = 0.8f), lineHeight = 22.sp
     )

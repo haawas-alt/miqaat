@@ -35,7 +35,7 @@ data class PrayerState(
 
 object PrayerEngine {
 
-    fun times(settings: AppSettings, date: LocalDate, zone: ZoneId = ZoneId.systemDefault()): DayTimes {
+    fun times(settings: AppSettings, date: LocalDate, zone: ZoneId = settings.zone()): DayTimes {
         val coords = Coordinates(settings.latitude, settings.longitude)
         val comps = DateComponents(date.year, date.monthValue, date.dayOfMonth)
         val pt = PrayerTimes(coords, comps, settings.calculationParameters())
@@ -55,8 +55,9 @@ object PrayerEngine {
         )
     }
 
-    fun state(settings: AppSettings, now: ZonedDateTime = ZonedDateTime.now()): PrayerState {
-        val zone = now.zone
+    fun state(settings: AppSettings, now: ZonedDateTime = ZonedDateTime.now(settings.zone())): PrayerState {
+        val zone = settings.zone()
+        val now = now.withZoneSameInstant(zone)
         val today = times(settings, now.toLocalDate(), zone)
         val prayers = Prayer.prayersOnly
 

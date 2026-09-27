@@ -50,7 +50,7 @@ import java.util.Locale
 fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
     var ym by remember { mutableStateOf(YearMonth.now()) }
     val days = remember(ym, settings) { PrayerEngine.month(settings, ym.year, ym.monthValue) }
-    val today = LocalDate.now()
+    val today = LocalDate.now(settings.zone())
     val listState = rememberLazyListState()
     LaunchedEffect(ym) { if (ym == YearMonth.now()) listState.scrollToItem((today.dayOfMonth - 3).coerceAtLeast(0)) }
 

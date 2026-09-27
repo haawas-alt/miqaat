@@ -16,32 +16,32 @@ import java.util.Locale
 import java.util.concurrent.Executors
 import kotlin.coroutines.resume
 
-data class Place(val name: String, val lat: Double, val lng: Double)
+data class Place(val name: String, val lat: Double, val lng: Double, val zone: String? = null)
 
 object LocationRepo {
 
     /** Offline fallback list so the app works with no network and no GPS. */
     val presets = listOf(
-        Place("Gledswood Hills, NSW", -34.02, 150.77),
-        Place("Sydney, NSW", -33.87, 151.21),
-        Place("Lakemba, NSW", -33.92, 151.08),
-        Place("Parramatta, NSW", -33.82, 151.00),
-        Place("Melbourne, VIC", -37.81, 144.96),
-        Place("Brisbane, QLD", -27.47, 153.03),
-        Place("Perth, WA", -31.95, 115.86),
-        Place("Adelaide, SA", -34.93, 138.60),
-        Place("Canberra, ACT", -35.28, 149.13),
-        Place("Auckland, NZ", -36.85, 174.76),
-        Place("Wellington, NZ", -41.29, 174.78),
-        Place("Christchurch, NZ", -43.53, 172.64),
-        Place("Lahore, Pakistan", 31.55, 74.34),
-        Place("Karachi, Pakistan", 24.86, 67.01),
-        Place("Islamabad, Pakistan", 33.69, 73.04),
-        Place("Makkah, Saudi Arabia", 21.39, 39.86),
-        Place("Madinah, Saudi Arabia", 24.47, 39.61),
-        Place("Dubai, UAE", 25.20, 55.27),
-        Place("London, UK", 51.51, -0.13),
-        Place("Kuala Lumpur, Malaysia", 3.14, 101.69)
+        Place("Gledswood Hills, NSW", -34.02, 150.77, "Australia/Sydney"),
+        Place("Sydney, NSW", -33.87, 151.21, "Australia/Sydney"),
+        Place("Lakemba, NSW", -33.92, 151.08, "Australia/Sydney"),
+        Place("Parramatta, NSW", -33.82, 151.00, "Australia/Sydney"),
+        Place("Melbourne, VIC", -37.81, 144.96, "Australia/Melbourne"),
+        Place("Brisbane, QLD", -27.47, 153.03, "Australia/Brisbane"),
+        Place("Perth, WA", -31.95, 115.86, "Australia/Perth"),
+        Place("Adelaide, SA", -34.93, 138.60, "Australia/Adelaide"),
+        Place("Canberra, ACT", -35.28, 149.13, "Australia/Sydney"),
+        Place("Auckland, NZ", -36.85, 174.76, "Pacific/Auckland"),
+        Place("Wellington, NZ", -41.29, 174.78, "Pacific/Auckland"),
+        Place("Christchurch, NZ", -43.53, 172.64, "Pacific/Auckland"),
+        Place("Lahore, Pakistan", 31.55, 74.34, "Asia/Karachi"),
+        Place("Karachi, Pakistan", 24.86, 67.01, "Asia/Karachi"),
+        Place("Islamabad, Pakistan", 33.69, 73.04, "Asia/Karachi"),
+        Place("Makkah, Saudi Arabia", 21.39, 39.86, "Asia/Riyadh"),
+        Place("Madinah, Saudi Arabia", 24.47, 39.61, "Asia/Riyadh"),
+        Place("Dubai, UAE", 25.20, 55.27, "Asia/Dubai"),
+        Place("London, UK", 51.51, -0.13, "Europe/London"),
+        Place("Kuala Lumpur, Malaysia", 3.14, 101.69, "Asia/Kuala_Lumpur")
     )
 
     fun hasPermission(ctx: Context) =

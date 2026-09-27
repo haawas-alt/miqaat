@@ -75,6 +75,7 @@ data class AppSettings(
     val latitude: Double = -34.02,
     val longitude: Double = 150.77,
     val locationName: String = "Gledswood Hills, NSW",
+    val zoneId: String? = null,        // null = the device's zone
     val autoLocation: Boolean = true,
     val method: Method = Method.MWL,
     val asrMethod: AsrMethod = AsrMethod.STANDARD,
@@ -112,6 +113,9 @@ data class AppSettings(
     val launchOnBoot: Boolean = false,
     val setupDone: Boolean = false
 ) {
+    /** Zone the prayer times are shown in: the chosen place's zone, else the device's. */
+    fun zone(): java.time.ZoneId = zoneId?.let { runCatching { java.time.ZoneId.of(it) }.getOrNull() } ?: java.time.ZoneId.systemDefault()
+
     fun calculationParameters(): CalculationParameters {
         val p = method.parameters()
         p.madhab = asrMethod.madhab
@@ -145,6 +149,7 @@ class SettingsStore(context: Context) {
             latitude = prefs.getFloat("lat", d.latitude.toFloat()).toDouble(),
             longitude = prefs.getFloat("lng", d.longitude.toFloat()).toDouble(),
             locationName = prefs.getString("locName", d.locationName) ?: d.locationName,
+            zoneId = prefs.getString("zone", null),
             autoLocation = prefs.getBoolean("autoLoc", d.autoLocation),
             method = runCatching { Method.valueOf(enumOr("method", d.method.name)) }.getOrDefault(d.method),
             asrMethod = runCatching { AsrMethod.valueOf(enumOr("asr", d.asrMethod.name)) }.getOrDefault(d.asrMethod),
@@ -187,7 +192,7 @@ class SettingsStore(context: Context) {
     private fun save(s: AppSettings) {
         prefs.edit().apply {
             putFloat("lat", s.latitude.toFloat()); putFloat("lng", s.longitude.toFloat())
-            putString("locName", s.locationName); putBoolean("autoLoc", s.autoLocation)
+            putString("locName", s.locationName); putString("zone", s.zoneId); putBoolean("autoLoc", s.autoLocation)
             putString("method", s.method.name); putString("asr", s.asrMethod.name); putString("latRule", s.latitudeRule.name)
             s.adjustments.forEach { (p, v) -> putInt("adj_${p.key}", v) }
             s.azaanEnabled.forEach { (p, v) -> putBoolean("az_${p.key}", v) }

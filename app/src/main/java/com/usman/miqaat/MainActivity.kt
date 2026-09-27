@@ -106,7 +106,7 @@ class MainActivity : ComponentActivity() {
 
                 // tick once a second so the countdown and sky stay current
                 var now by remember { mutableStateOf(ZonedDateTime.now()) }
-                LaunchedEffect(Unit) { while (true) { now = ZonedDateTime.now(); delay(1000L - (System.currentTimeMillis() % 1000)) } }
+                LaunchedEffect(settings.zoneId) { while (true) { now = ZonedDateTime.now(settings.zone()); delay(1000L - (System.currentTimeMillis() % 1000)) } }
                 val state = remember(settings, now.withSecond(0).withNano(0)) { PrayerEngine.state(settings, now) }
 
                 // On every return to the foreground: refresh location (if auto) and make sure an alarm is armed.
@@ -185,7 +185,7 @@ private fun FirstRun(onDone: () -> Unit, onDetect: () -> Unit) {
             Text("ميقات", fontFamily = Amiri, fontSize = 56.sp, color = Palette.goldSoft)
             Text("As-salāmu ʿalaykum", fontFamily = Cormorant, fontSize = 34.sp, color = Palette.ivory)
             Text(
-                "Miqaat needs your location once to calculate prayer times for where the tablet lives. Nothing is sent anywhere. " +
+                "Miqaat needs your location once to calculate prayer times for where the tablet lives. Times are calculated on the device; only the optional place-name lookup contacts Google's geocoder. " +
                     "Times default to the Muslim World League method used by most Australian mosques; you can change that in Settings.",
                 fontFamily = Nunito, fontSize = 15.sp, color = Palette.ivory.copy(alpha = 0.8f), lineHeight = 22.sp
             )
@@ -195,7 +195,7 @@ private fun FirstRun(onDone: () -> Unit, onDetect: () -> Unit) {
                     onClick = { loc.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) },
                     colors = ButtonDefaults.buttonColors(containerColor = Palette.gold, contentColor = Palette.night)
                 ) { Text("Use my location", fontFamily = Nunito, fontWeight = FontWeight.Bold) }
-                TextButton(onClick = onDone) { Text("Continue", color = Palette.ivory) }
+                TextButton(onClick = { if (Build.VERSION.SDK_INT >= 33) notif.launch(Manifest.permission.POST_NOTIFICATIONS); onDone() }) { Text("Continue", color = Palette.ivory) }
             }
         }
     }

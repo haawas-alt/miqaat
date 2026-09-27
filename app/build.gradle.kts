@@ -19,12 +19,18 @@ android {
         buildConfigField("String", "REPO", "\"haawas-alt/miqaat\"")
     }
 
+    // The signing key never lives in the repository. CI decodes it from the KEYSTORE_BASE64 secret
+    // into keystore/miqaat.jks (git-ignored) and passes the password via KEYSTORE_PASSWORD.
     signingConfigs {
         create("release") {
-            storeFile = rootProject.file("keystore/miqaat.jks")
-            storePassword = "miqaat2026"
-            keyAlias = "miqaat"
-            keyPassword = "miqaat2026"
+            val ks = rootProject.file("keystore/miqaat.jks")
+            val pw = System.getenv("KEYSTORE_PASSWORD")
+            if (ks.exists() && pw != null) {
+                storeFile = ks
+                storePassword = pw
+                keyAlias = "miqaat"
+                keyPassword = pw
+            }
         }
     }
 
