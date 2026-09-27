@@ -681,6 +681,7 @@ private fun AboutSection(s: AppSettings) {
         Updater.State.Idle -> SettingRow("Updates", "New builds are published automatically") { GoldButton("Check for updates") { scope.launch { Updater.check(ctx, force = true) } } }
     }
     Spacer(Modifier.height(14.dp))
+    SettingRow("Content sources", "Every hadith, dhikr and dua with its collection and number, as a review pack a scholar can sign: REVIEW.md in the repository.") { Value("REVIEW.md") }
     Text(
         "Prayer times are computed on the tablet with the Adhan library (Batoul Apps, MIT licence), using the high-precision astronomical algorithms of Jean Meeus. " +
             "No account, no advertising, no analytics. Network is used for three things only: the place-name lookup and place search (Android's geocoder, which contacts Google), and the update check against GitHub.\n\n" +

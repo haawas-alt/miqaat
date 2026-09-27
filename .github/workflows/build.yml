@@ -48,8 +48,12 @@ jobs:
           git commit -qm "build log ${{ github.run_number }}" || true
           git push -f origin ci-logs
 
-      - name: Rename APK
-        run: cp app/build/outputs/apk/release/app-release.apk Miqaat.apk
+      - name: Rename APK and compute checksum
+        run: |
+          cp app/build/outputs/apk/release/app-release.apk Miqaat.apk
+          sha256sum Miqaat.apk | cut -d' ' -f1 > Miqaat.apk.sha256
+          echo "SHA=$(cat Miqaat.apk.sha256)" >> $GITHUB_ENV
+          { echo "NOTES<<EOF"; git log -5 --pretty=format:'- %s'; echo; echo "EOF"; } >> $GITHUB_ENV
 
       - uses: actions/upload-artifact@v4
         with:
@@ -62,8 +66,18 @@ jobs:
         with:
           tag_name: latest
           name: Miqaat (latest build)
-          body: "build=${{ github.run_number }}\n\nDownload Miqaat.apk on the tablet and open it to install, or use Settings › About › Check for updates inside the app."
-          files: Miqaat.apk
+          body: |
+            build=${{ github.run_number }}
+
+            Download Miqaat.apk on the device and open it to install, or use Settings › About › Check for updates inside the app.
+
+            **Recent changes**
+            ${{ env.NOTES }}
+
+            SHA-256 `${{ env.SHA }}` · built from `${{ github.sha }}` by GitHub Actions · content sources in REVIEW.md
+          files: |
+            Miqaat.apk
+            Miqaat.apk.sha256
           prerelease: false
 
       - name: Keep a permanent copy of this build (main only)
