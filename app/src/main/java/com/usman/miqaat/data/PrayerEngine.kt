@@ -159,7 +159,7 @@ object PrayerEngine {
                 if (ts[i] < ts[i - 1] && ts[i] + 720 > ts[i - 1]) ts[i] += 720
             }
             // each iqamah must follow its own azaan
-            for (k in 0 until 5) { val a = k + (if (k == 0) 0 else k + 1); val iq = 6 + k; if (ts.size > iq && ts[iq] < ts[a] && ts[iq] + 720 >= ts[a]) ts[iq] += 720 }
+            for (k in 0 until 5) { val a = if (k == 0) 0 else k + 1; val iq = 6 + k; if (ts.size > iq && ts[iq] < ts[a] && ts[iq] + 720 >= ts[a]) ts[iq] += 720 }
             rows[date.toString()] = ts.take(11)
         }
         if (rows.isEmpty()) notes += "No rows with a date and at least six times were found."
