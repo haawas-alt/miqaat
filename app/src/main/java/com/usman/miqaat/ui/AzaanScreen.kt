@@ -60,7 +60,8 @@ import kotlin.math.sin
 @Composable
 fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
-        val u = maxWidth / 100
+        val portrait = maxHeight > maxWidth
+        val u = if (portrait) maxWidth / 62 else maxWidth / 100
         if (phase is Phase.Quiet) { QuietBody(phase, u, onStop); return@BoxWithConstraints }
         val isAzaan = phase is Phase.Azaan
         val isIq = phase is Phase.IqamahCountdown || phase is Phase.IqamahNow
