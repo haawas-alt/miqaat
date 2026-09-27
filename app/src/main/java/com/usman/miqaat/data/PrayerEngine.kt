@@ -15,11 +15,13 @@ import java.time.temporal.ChronoField
 import java.util.Locale
 
 /** All six times for one calendar day, in the device's zone. */
+@androidx.compose.runtime.Immutable   // lets Compose skip the rail, timeline and cards when only the seconds tick changed
 data class DayTimes(val date: LocalDate, val times: Map<Prayer, ZonedDateTime>, val fromMasjid: Boolean = false) {
     operator fun get(p: Prayer): ZonedDateTime = times.getValue(p)
 }
 
-/** What the home screen should be showing right now. */
+/** What the home screen should be showing right now. Rebuilt once a minute (see MainActivity), not once a second. */
+@androidx.compose.runtime.Immutable
 data class PrayerState(
     val now: ZonedDateTime,
     val today: DayTimes,
@@ -99,9 +101,9 @@ object PrayerEngine {
     fun dislikedWindows(day: DayTimes, settings: AppSettings? = null): List<Window> {
         val noon = settings?.let { calculated(it.copy(jumuahEnabled = false), day.date)[Prayer.DHUHR] } ?: day[Prayer.DHUHR]
         return listOf(
-        Window(day[Prayer.SUNRISE], day[Prayer.SUNRISE].plusMinutes(15), "Sunrise · until the sun has risen a spear's length (~15 min)"),
-        Window(noon.minusMinutes(10), noon, "Zawāl · the sun at its zenith, just before Dhuhr"),
-        Window(day[Prayer.ASR], day[Prayer.MAGHRIB], "After ʿAsr · until the sun has set")
+        Window(day[Prayer.SUNRISE], day[Prayer.SUNRISE].plusMinutes(15), "After sunrise · until the sun has risen a spear's length (shown as ≈15 min; the event, not the number, is what the texts describe)"),
+        Window(noon.minusMinutes(10), noon, "Zawāl · the sun at its zenith just before Dhuhr (shown as ≈10 min; a conservative estimate)"),
+        Window(day[Prayer.ASR], day[Prayer.MAGHRIB], "After praying ʿAsr · until sunset (schools differ on whether this attaches to the time or to having prayed)")
     ) }
 
     /** Great-circle distance in km. */
@@ -259,7 +261,32 @@ object PrayerEngine {
     }
 
     /** Qibla bearing in degrees clockwise from true north. */
-    fun qibla(settings: AppSettings): Double = com.batoulapps.adhan.Qibla(Coordinates(settings.latitude, settings.longitude)).direction
+    /** Great-circle bearing to the Kaʿbah from TRUE north, 0..360. */
+    fun qibla(settings: AppSettings): Double = qibla(settings.latitude, settings.longitude)
+    fun qibla(lat: Double, lng: Double): Double = norm360(com.batoulapps.adhan.Qibla(Coordinates(lat, lng)).direction)
+
+    fun norm360(deg: Double): Double = ((deg % 360.0) + 360.0) % 360.0
+
+    /**
+     * A compass sensor reports a heading from MAGNETIC north; the Qibla bearing is from TRUE north.
+     * true = magnetic + declination (declination is positive when magnetic north lies east of true north).
+     */
+    fun trueHeading(magneticHeading: Double, declinationDeg: Double): Double = norm360(magneticHeading + declinationDeg)
+
+    /** Signed degrees to turn (−180..180): positive = turn right/clockwise. */
+    fun turnTo(bearing: Double, heading: Double): Double { val d = norm360(bearing - heading); return if (d > 180) d - 360 else d }
+
+    /** Plain-language direction for screen readers and the sensor-less fallback. */
+    fun qiblaWords(bearing: Double, heading: Double?): String {
+        val b = "%.0f degrees, %s, from true north".format(bearing, compass(bearing))
+        if (heading == null) return "Qibla is at $b."
+        val t = turnTo(bearing, heading)
+        return when {
+            kotlin.math.abs(t) <= 3 -> "You are facing the Qibla ($b)."
+            t > 0 -> "Turn right %.0f degrees to face the Qibla ($b).".format(t)
+            else -> "Turn left %.0f degrees to face the Qibla ($b).".format(-t)
+        }
+    }
 
     fun compass(deg: Double): String {
         val dirs = listOf("N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW")

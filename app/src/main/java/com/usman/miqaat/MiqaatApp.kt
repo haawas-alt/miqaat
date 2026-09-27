@@ -23,6 +23,7 @@ class MiqaatApp : Application() {
             prefs.edit().putBoolean("defaultsApplied", true).apply()
         }
         createChannels()
+        com.usman.miqaat.azaan.AlarmVolume.restoreIfStale(this)   // crash-safe: undo a volume change a dead sequence left behind
         AzaanScheduler.reschedule(this)
     }
 
@@ -42,7 +43,7 @@ class MiqaatApp : Application() {
         )
         // Used while Miqaat itself is on screen: no heads-up pop-up, just a quiet entry in the shade.
         nm.createNotificationChannel(
-            NotificationChannel(CHANNEL_AZAAN_QUIET, "Azaan (while app is open)", NotificationManager.IMPORTANCE_LOW).apply {
+            NotificationChannel(CHANNEL_AZAAN_QUIET, getString(R.string.channel_azaan_quiet), NotificationManager.IMPORTANCE_LOW).apply {
                 setSound(null, null); enableVibration(false); setShowBadge(false)
             }
         )

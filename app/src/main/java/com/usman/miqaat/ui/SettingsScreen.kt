@@ -21,6 +21,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -105,7 +113,7 @@ enum class Section(val label: String, val icon: ImageVector) {
     HIJRI("Hijri calendar", Icons.Outlined.CalendarMonth),
     DISPLAY("Display & art", Icons.Outlined.Brush),
     TEST("Test & preview", Icons.Outlined.PlayCircle),
-    HEALTH("Health & backup", Icons.Outlined.MonitorHeart),
+    HEALTH("Reliability & backup", Icons.Outlined.MonitorHeart),
     PRIVACY("Privacy", Icons.Outlined.Lock),
     ABOUT("About", Icons.Outlined.Info)
 }
@@ -212,28 +220,13 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     }
 
     Heading("Location", "Prayer times are calculated for these coordinates. Looking up the place name and searching for places uses Android's geocoder, which sends the coordinates or search text to Google. Nothing else leaves the device.")
-    SettingRow("Current location", "%.4f, %.4f".format(s.latitude, s.longitude)) { GoldValue(s.locationName) }
+    SettingRow("Current location", if (s.locationSet) "%.4f, %.4f".format(s.latitude, s.longitude) else "Not set yet — detect it or choose a place below") { GoldValue(if (s.locationSet) s.locationName else "—") }
     var pickZone by remember { mutableStateOf(false) }
-    var zoneQuery by remember { mutableStateOf("") }
-    SettingRow("Time zone for prayer times", "Must match the place above. Detected locations use the device's zone automatically.", onClick = { pickZone = true }) {
+    val zoneWarn = s.locationSet && com.usman.miqaat.data.Setup.zoneLooksWrong(s.longitude, s.zone())
+    SettingRow("Time zone for prayer times", if (zoneWarn) "⚠ This zone is several hours away from the place above — times will be wrong until it matches." else "Must match the place above. Detected locations use the device's zone automatically.", onClick = { pickZone = true }) {
         GoldValue((s.zoneId ?: "Device · ${java.time.ZoneId.systemDefault().id}") + " ›")
     }
-    if (pickZone) AlertDialog(
-        onDismissRequest = { pickZone = false }, containerColor = Palette.panelRaised,
-        title = { Text("Time zone", fontFamily = Cormorant, fontSize = 28.sp, color = Palette.ivory) },
-        text = {
-            Column {
-                OutlinedTextField(value = zoneQuery, onValueChange = { zoneQuery = it }, placeholder = { Text("Search, e.g. Karachi, London") }, singleLine = true, modifier = Modifier.fillMaxWidth())
-                val opts = listOf("Device · ${java.time.ZoneId.systemDefault().id}") + java.time.ZoneId.getAvailableZoneIds().filter { it.contains('/') && !it.startsWith("Etc") && (zoneQuery.isBlank() || it.contains(zoneQuery, true)) }.sorted().take(60)
-                Column(Modifier.verticalScroll(rememberScrollState()).padding(top = 8.dp)) {
-                    opts.forEach { z ->
-                        Text(z, fontFamily = Nunito, fontSize = 15.sp, color = Palette.ivory, modifier = Modifier.fillMaxWidth().clickable { store.update { it.copy(zoneId = if (z.startsWith("Device")) null else z) }; pickZone = false }.padding(vertical = 10.dp))
-                    }
-                }
-            }
-        },
-        confirmButton = { TextButton(onClick = { pickZone = false }) { Text("Close", color = Palette.goldSoft) } }
-    )
+    if (pickZone) ZonePicker(current = s.zoneId, onPick = { pickZone = false }, onDismiss = { pickZone = false }, store = store)
     SettingRow("Use the tablet's location", "Re-detects each time the app opens") {
         Toggle(s.autoLocation) { on -> store.update { it.copy(autoLocation = on) }; if (on) detectNow() }
     }
@@ -252,12 +245,12 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     (if (query.isBlank()) LocationRepo.presets else results).take(10).forEach { p ->
         Row(
             Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp))
-                .clickable { store.update { it.copy(latitude = p.lat, longitude = p.lng, locationName = p.name, autoLocation = false, zoneId = p.zone) }; status = "Set to ${p.name}" + (if (p.zone == null) " · times shown in the device's time zone" else "") }
+                .clickable { store.update { it.copy(latitude = p.lat, longitude = p.lng, locationName = p.name, locationSet = true, autoLocation = false, zoneId = p.zone) }; AzaanScheduler.reschedule(ctx); status = "Set to ${p.name}" + (if (p.zone == null) " · times shown in the device's time zone" else "") }
                 .padding(horizontal = 8.dp, vertical = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(p.name, fontFamily = Nunito, fontSize = 16.sp, color = Palette.ivory)
-            Text("%.2f, %.2f".format(p.lat, p.lng), fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.5f))
+            Text("%.2f, %.2f".format(p.lat, p.lng), fontFamily = Nunito, fontSize = 14.sp, color = Palette.textMuted)
         }
         HorizontalDivider(color = Palette.line)
     }
@@ -270,16 +263,12 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     SettingRow("Home", if (homeSet) "%.0f km from the current location".format(dist) else "Not set. Detect your location at home once, or set it now.") {
         TextButton(onClick = { store.update { it.copy(homeLat = it.latitude, homeLng = it.longitude) } }) { Text(if (homeSet) "Set home to here" else "Set home", color = Palette.goldSoft) }
     }
-    SettingRow("Traveller mode", "When you are 80 km or more from home, show a travel chip and the options below. Times always follow the current place.") { Toggle(s.travellerMode) { on -> store.update { it.copy(travellerMode = on) } } }
-    if (s.travellerMode) {
-        SettingRow("Shorten 4-rakʿah prayers (qaṣr)", "A reminder on the cards for Dhuhr, ʿAsr and Isha while travelling. Permitted for a traveller who has not settled; conditions differ by madhab.") { Toggle(s.travelQasr) { on -> store.update { it.copy(travelQasr = on) } } }
-        SettingRow("Combining prayers (jamʿ)", "Shows Dhuhr + ʿAsr and Maghrib + Isha as pairs and plays one azaan per pair. Ask your imam about your situation; this is a convenience, not a ruling.") { Toggle(s.travelJam) { on -> store.update { it.copy(travelJam = on) } } }
-    }
+    SettingRow("Traveller mode", "When you are 80 km or more from home, a travel chip appears on the home screen. Times always follow the current place. Miqaat does not shorten or combine prayers for you — rulings on qaṣr and jamʿ depend on your journey and your school; ask your imam.") { Toggle(s.travellerMode) { on -> store.update { it.copy(travellerMode = on) } } }
 
     // ---- Masjid timetable
     Spacer(Modifier.height(22.dp))
     Text("Masjid timetable", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
-    Text("Use your masjid's published times instead of the calculation for the days it covers. Import a CSV or text file with one line per day: date, then Fajr, Sunrise, Dhuhr, ʿAsr, Maghrib, Isha, and optionally the five iqamah times. Calculated times take over again after the last day.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f), lineHeight = 20.sp)
+    Text("Use your masjid's published times instead of the calculation for the days it covers. Import a CSV or text file with one line per day: date, then Fajr, Sunrise, Dhuhr, ʿAsr, Maghrib, Isha, and optionally the five iqamah times. Calculated times take over again after the last day.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary, lineHeight = 20.sp)
     var importNotes by remember { mutableStateOf<List<String>>(emptyList()) }
     val pickSheet = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
         uri ?: return@rememberLauncherForActivityResult
@@ -293,7 +282,7 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     SettingRow("Imported days", if (days.isEmpty()) "None yet" else "${days.size} days · ${days.first()} → ${days.last()}" + if (s.overrides.values.any { it.size >= 11 }) " · with iqamah" else "") {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             GoldButton("Import file") { pickSheet.launch(arrayOf("text/*", "text/csv", "text/comma-separated-values", "application/csv", "*/*")) }
-            if (days.isNotEmpty()) TextButton(onClick = { store.update { it.copy(overrides = emptyMap()) } }) { Text("Clear", color = Palette.ivory.copy(alpha = 0.7f)) }
+            if (days.isNotEmpty()) TextButton(onClick = { store.update { it.copy(overrides = emptyMap()) } }) { Text("Clear", color = Palette.textSecondary) }
         }
     }
     if (days.isNotEmpty()) SettingRow("Use masjid times", "Off keeps the file but shows calculated times") { Toggle(s.useOverrides) { on -> store.update { it.copy(useOverrides = on) } } }
@@ -302,30 +291,40 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
         val first = s.overrides.getValue(days.first())
         val calc = PrayerEngine.calculated(s, LocalDate.parse(days.first()))
         Text("Check · ${days.first()}: masjid Fajr %d:%02d vs calculated %s · Maghrib %d:%02d vs %s".format(first[0] / 60, first[0] % 60, PrayerEngine.clock(calc[Prayer.FAJR], true), first[4] / 60, first[4] % 60, PrayerEngine.clock(calc[Prayer.MAGHRIB], true)),
-            fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.6f), modifier = Modifier.padding(top = 6.dp))
+            fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary, modifier = Modifier.padding(top = 6.dp))
     }
 }
 
-suspend fun detect(ctx: Context, store: SettingsStore): String {
-    val loc = LocationRepo.current(ctx) ?: return "Could not get a location fix. Is location turned on in the tablet's settings?"
-    val name = LocationRepo.name(ctx, loc.latitude, loc.longitude) ?: store.value.locationName
-    store.update { it.copy(latitude = loc.latitude, longitude = loc.longitude, locationName = name, autoLocation = true, zoneId = null,
-        homeLat = it.homeLat ?: loc.latitude, homeLng = it.homeLng ?: loc.longitude) }
-    return "Location set to $name"
+/**
+ * Detects the device's position and, only on success, makes it the active place.
+ * On failure nothing is changed and the reason is returned — a failed detection must never
+ * leave a previous or placeholder city looking like the user's own.
+ */
+suspend fun detect(ctx: Context, store: SettingsStore): String = when (val r = LocationRepo.fix(ctx)) {
+    is LocationRepo.Fix.Failed -> r.why.message
+    is LocationRepo.Fix.Ok -> {
+        val loc = r.location
+        // If the geocoder fails we still have a valid place: show its coordinates rather than a stale name.
+        val name = LocationRepo.name(ctx, loc.latitude, loc.longitude) ?: com.usman.miqaat.data.Setup.coordLabel(loc.latitude, loc.longitude)
+        store.update { it.copy(latitude = loc.latitude, longitude = loc.longitude, locationName = name, locationSet = true, autoLocation = true, zoneId = null,
+            homeLat = it.homeLat ?: loc.latitude, homeLng = it.homeLng ?: loc.longitude) }
+        AzaanScheduler.reschedule(ctx)
+        "Location set to $name"
+    }
 }
 
 @Composable
 private fun TimesSection(store: SettingsStore, s: AppSettings) {
     var pickMethod by remember { mutableStateOf(false) }
     var pickLat by remember { mutableStateOf(false) }
-    Heading("Prayer times", "Match your local masjid exactly. Most Australian mosques follow the Muslim World League convention (Fajr 18°, Isha 17°).")
+    Heading("Prayer times", "Match your local masjid. Conventions differ by country and community; the Muslim World League angles (Fajr 18°, Isha 17°) are a common starting point — check your masjid's timetable and adjust, or import it under Location.")
     SettingRow("Calculation method", s.method.detail, onClick = { pickMethod = true }) { GoldValue(s.method.label + " ›") }
     SettingRow("Asr juristic method", "Hanafi Asr begins later (shadow = 2× object)") {
         Chips(AsrMethod.entries.map { it.label }, AsrMethod.entries.indexOf(s.asrMethod)) { i -> store.update { it.copy(asrMethod = AsrMethod.entries[i]) } }
     }
     SettingRow("High-latitude rule", "Only matters above 48° latitude", onClick = { pickLat = true }) { Value(s.latitudeRule.label + " ›") }
-    SettingRow("Show end times", "\"ends 5:57\" under each prayer · Isha ends at sharʿī midnight") { Toggle(s.showEndTimes) { on -> store.update { it.copy(showEndTimes = on) } } }
-    SettingRow("Show disliked times for voluntary prayer", "A thin day bar: after sunrise, zawāl, after ʿAsr. Tap ⓘ on any prayer for \"why this time?\"") { Toggle(s.showDisliked) { on -> store.update { it.copy(showDisliked = on) } } }
+    SettingRow("Show end times", "\"ends 5:57\" under each prayer. Isha's end is shown at sharʿī midnight, the time preferred by many scholars; others hold it valid until Fajr — ask your imam.") { Toggle(s.showEndTimes) { on -> store.update { it.copy(showEndTimes = on) } } }
+    SettingRow("Show disliked times for voluntary prayer", "A thin day bar marking approximate windows: about 15 min after sunrise, about 10 min around zawāl, and after ʿAsr. These are conservative estimates, and schools differ on details. Tap ⓘ on any prayer for \"why this time?\"") { Toggle(s.showDisliked) { on -> store.update { it.copy(showDisliked = on) } } }
     SettingRow("Show Sunrise on the home screen", "Marks the end of Fajr time") { Toggle(s.showSunrise) { on -> store.update { it.copy(showSunrise = on) } } }
     SettingRow("Show \"azaan was … ago\" after each prayer", "Then the screen moves on to the next prayer") {
         Stepper(s.afterWindowMinutes, 0, 120, 5, " min") { v -> store.update { it.copy(afterWindowMinutes = v) } }
@@ -351,7 +350,7 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
     SettingRow("Tarāwīḥ", "Shown on the home screen in Ramaḍān as minutes after Isha") { Stepper(s.tarawihMinutesAfterIsha, 0, 120, 5, " min") { v -> store.update { it.copy(tarawihMinutesAfterIsha = v) } } }
     Spacer(Modifier.height(18.dp))
     Text("Minute adjustments", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
-    Text("Nudge each time by a few minutes to match the timetable printed at your masjid.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f))
+    Text("Nudge each time by a few minutes to match the timetable printed at your masjid.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary)
     Prayer.entries.forEach { p ->
         SettingRow(p.english, null) {
             Stepper(s.adjustments[p] ?: 0, -30, 30, 1, " min", signed = true) { v -> store.update { it.copy(adjustments = it.adjustments + (p to v)) } }
@@ -399,14 +398,14 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
         }
     }
     SettingRow("Volume", "${s.azaanVolume}% of the alarm volume") {
-        Slider(value = s.azaanVolume / 100f, onValueChange = { v -> store.update { it.copy(azaanVolume = (v * 100).toInt()) } }, modifier = Modifier.width(220.dp))
+        Slider(value = s.azaanVolume / 100f, onValueChange = { v -> store.update { it.copy(azaanVolume = (v * 100).toInt()) } }, modifier = Modifier.width(220.dp).semantics { contentDescription = "Azaan volume"; stateDescription = "${s.azaanVolume} percent" })
     }
     SettingRow("Reminder before azaan", "A quiet notification, no sound") {
         Stepper(s.preReminderMinutes, 0, 30, 5, " min", zeroLabel = "Off") { v -> store.update { it.copy(preReminderMinutes = v) } }
     }
     Spacer(Modifier.height(18.dp))
     Text("After the azaan", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
-    Text("When the azaan finishes: the dua after azaan (held until its narration ends), then one ṣaḥīḥ hadith, then back to the clock.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f))
+    Text("When the azaan finishes: the dua after azaan (held until its narration ends), then one ṣaḥīḥ hadith, then back to the clock.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary)
     SettingRow("Dua and hadith after each azaan", "For all five prayers") { Toggle(s.afterAzaanEnabled) { on -> store.update { it.copy(afterAzaanEnabled = on) } } }
     SettingRow("Narration", "Studio recordings are built in for the dua and every hadith, Arabic and English. The tablet's voice is only used if a recording is missing.") {
         Chips(Narration.entries.map { it.label }, Narration.entries.indexOf(s.narration)) { i -> store.update { it.copy(narration = Narration.entries[i]) } }
@@ -421,37 +420,44 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
     Text("Azaan recording", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     Text(
         "Two recordings are built in: one for Fajr and one for the other prayers. You can replace either with any MP3 on the tablet.",
-        fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f)
+        fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary
     )
     SettingRow("Azaan file", s.azaanUri?.let { Uri.parse(it).lastPathSegment } ?: "Built-in", onClick = { pickFile.launch(arrayOf("audio/*")) }) {
         Row {
-            if (s.azaanUri != null) TextButton(onClick = { store.update { it.copy(azaanUri = null) } }) { Text("Reset", color = Palette.ivory.copy(alpha = 0.7f)) }
+            if (s.azaanUri != null) TextButton(onClick = { store.update { it.copy(azaanUri = null) } }) { Text("Reset", color = Palette.textSecondary) }
             Value("Choose ›")
         }
     }
     SettingRow("Fajr azaan file", s.fajrAzaanUri?.let { Uri.parse(it).lastPathSegment } ?: "Same as above", onClick = { pickFajr.launch(arrayOf("audio/*")) }) {
         Row {
-            if (s.fajrAzaanUri != null) TextButton(onClick = { store.update { it.copy(fajrAzaanUri = null) } }) { Text("Reset", color = Palette.ivory.copy(alpha = 0.7f)) }
+            if (s.fajrAzaanUri != null) TextButton(onClick = { store.update { it.copy(fajrAzaanUri = null) } }) { Text("Reset", color = Palette.textSecondary) }
             Value("Choose ›")
         }
     }
     Spacer(Modifier.height(18.dp))
-    Text("Reliability", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
-    val pm = ctx.getSystemService(Context.POWER_SERVICE) as PowerManager
-    val ignoring = pm.isIgnoringBatteryOptimizations(ctx.packageName)
-    SettingRow("Battery optimisation", if (ignoring) "Miqaat is exempt, so the azaan fires on time" else "Recommended: exempt Miqaat so Android never delays the azaan",
-        onClick = { runCatching { ctx.startActivity(Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Uri.parse("package:${ctx.packageName}"))) } }) {
-        Value(if (ignoring) "Exempt ✓" else "Fix ›")
+    Text("Reliability", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory, modifier = Modifier.semantics { heading() })
+    ReliabilityRows()
+}
+
+/** Granted / Not granted for each thing that can stop the azaan, each with a one-tap fix. Shared with setup. */
+@Composable
+internal fun ReliabilityRows() {
+    val ctx = LocalContext.current
+    var tick by remember { mutableStateOf(0) }
+    androidx.lifecycle.compose.LifecycleResumeEffect(Unit) { tick++; onPauseOrDispose { } }
+    val checks = remember(tick) { com.usman.miqaat.data.Reliability.checks(ctx) }
+    val askNotif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { tick++ }
+    checks.forEach { c ->
+        val fix: (() -> Unit)? = when {
+            c.label == "Notifications" && !c.ok && Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(ctx, Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED -> { { askNotif.launch(Manifest.permission.POST_NOTIFICATIONS) } }
+            c.fix != null && !c.ok -> { { c.fix.invoke(ctx) } }
+            else -> null
+        }
+        SettingRow(c.label, c.detail, onClick = fix) {
+            Text(if (c.ok) "Granted ✓" else if (fix != null) "Not granted · Fix ›" else "Not granted", fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold,
+                color = if (c.ok) Palette.mint else Palette.gold, modifier = Modifier.semantics { stateDescription = if (c.ok) "Granted" else "Not granted" })
+        }
     }
-    if (Build.VERSION.SDK_INT >= 34) {
-        val nm = ctx.getSystemService(android.app.NotificationManager::class.java)
-        if (!nm.canUseFullScreenIntent()) SettingRow("Full-screen azaan", "Needed to show the azaan when the screen is locked", onClick = { runCatching { ctx.startActivity(Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT, Uri.parse("package:${ctx.packageName}"))) } }) { Value("Allow ›") }
-    }
-    if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(ctx, Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-        val ask = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
-        SettingRow("Notifications", "Needed for the azaan to wake the screen", onClick = { ask.launch(Manifest.permission.POST_NOTIFICATIONS) }) { Value("Allow ›") }
-    }
-    if (Build.VERSION.SDK_INT >= 31) SettingRow("Exact alarms", "Needed on Android 12 and newer", onClick = { runCatching { ctx.startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)) } }) { Value("Open ›") }
 }
 
 @Composable
@@ -462,7 +468,7 @@ private fun IqamahSection(store: SettingsStore, s: AppSettings) {
     if (s.iqamahEnabled) {
         Spacer(Modifier.height(10.dp))
         Text("Iqamah for each prayer", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
-        Text("Either a number of minutes after the azaan, or a fixed clock time (for example Fajr always at 5:00). If a fixed time would fall before the azaan on a given day, that day uses azaan + 5 min instead.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f))
+        Text("Either a number of minutes after the azaan, or a fixed clock time (for example Fajr always at 5:00). If a fixed time would fall before the azaan on a given day, that day uses azaan + 5 min instead.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary)
         Prayer.prayersOnly.forEach { p ->
             val fixed = s.iqamahIsFixed[p] == true
             val off = s.iqamahOffsets[p] ?: 0
@@ -547,7 +553,7 @@ private fun HealthSection(store: SettingsStore, s: AppSettings) {
     val next = remember(s) { AzaanScheduler.nextEvent(ctx) }
     val pm = ctx.getSystemService(Context.POWER_SERVICE) as PowerManager
 
-    Heading("Health & backup", "Did it fire? Every azaan, iqamah and reminder is logged on this device with the time it actually happened.")
+    Heading("Reliability & backup", "Did it fire? Every azaan, iqamah and reminder is logged on this device with the time it actually happened.")
     Text("Last 7 days · $fired played" + (if (late > 0) " · $late late" else "") + (if (missed > 0) " · $missed missed" else " · none missed"), fontFamily = Cormorant, fontSize = 26.sp, color = if (missed > 0) Color(0xFFF08C8C) else if (late > 0) Color(0xFFF0A050) else Palette.mint)
     Spacer(Modifier.height(6.dp))
     SettingRow("Next alarm armed", next?.let { "${it.prayer.english} ${if (it.iqamah) "iqamah" else if (it.reminder) "reminder" else "azaan"} · ${PrayerEngine.clock(it.at, s.use24h)} ${PrayerEngine.suffix(it.at, s.use24h)}" } ?: "Nothing scheduled: turn on an azaan or iqamah") { Value(if (next != null) "✓" else "!") }
@@ -557,7 +563,7 @@ private fun HealthSection(store: SettingsStore, s: AppSettings) {
 
     Spacer(Modifier.height(16.dp))
     Text("Log", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
-    if (log.isEmpty()) Text("Nothing yet. Entries appear after the first azaan.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.6f))
+    if (log.isEmpty()) Text("Nothing yet. Entries appear after the first azaan.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary)
     log.take(40).forEach { e ->
         val col = when (e.kind) { com.usman.miqaat.data.Health.Kind.MISSED -> Color(0xFFF08C8C); com.usman.miqaat.data.Health.Kind.TIME_CHANGE, com.usman.miqaat.data.Health.Kind.BOOT -> Palette.goldSoft; else -> if (e.lateBy > 1) Color(0xFFF0A050) else Palette.mint }
         Row(Modifier.fillMaxWidth().padding(vertical = 7.dp), verticalAlignment = Alignment.Top) {
@@ -565,14 +571,14 @@ private fun HealthSection(store: SettingsStore, s: AppSettings) {
             Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
                 Text(e.title, fontFamily = Nunito, fontSize = 15.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
-                Text(e.detail, fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.6f))
+                Text(e.detail, fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
             }
             val t = e.time(s.zone())
-            Text(t.format(java.time.format.DateTimeFormatter.ofPattern("EEE d MMM · " + (if (s.use24h) "HH:mm" else "h:mm a"), java.util.Locale.ENGLISH)), fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.6f))
+            Text(t.format(java.time.format.DateTimeFormatter.ofPattern("EEE d MMM · " + (if (s.use24h) "HH:mm" else "h:mm a"), java.util.Locale.ENGLISH)), fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
         }
         HorizontalDivider(color = Palette.line)
     }
-    if (log.isNotEmpty()) TextButton(onClick = { com.usman.miqaat.data.Health.clear(ctx); tick++ }) { Text("Clear log", color = Palette.ivory.copy(alpha = 0.7f)) }
+    if (log.isNotEmpty()) TextButton(onClick = { com.usman.miqaat.data.Health.clear(ctx); tick++ }) { Text("Clear log", color = Palette.textSecondary) }
 
     Spacer(Modifier.height(16.dp))
     Text("Backup & restore", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
@@ -589,7 +595,7 @@ private fun HealthSection(store: SettingsStore, s: AppSettings) {
         if (n > 0) store.reload()
         msg = if (n > 0) "$n settings restored" else "That file isn't a Miqaat backup"
     }
-    SettingRow("Settings file", "Everything in Settings, as one small text file. Move it to a new tablet or keep it with your key.") {
+    SettingRow("Settings file", "Everything in Settings, as one small readable text file — including your coordinates, place name and prayer preferences. Keep it somewhere private.") {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             GoldButton("Save") { save.launch("miqaat-settings-${LocalDate.now()}.txt") }
             TextButton(onClick = { load.launch(arrayOf("text/*", "*/*")) }) { Text("Restore", color = Palette.goldSoft) }
@@ -603,11 +609,13 @@ private fun PrivacySection() {
     Heading("Privacy", "What Miqaat does with your data, on one screen, and it is true.")
     SettingRow("Prayer times", "Calculated on this device from your coordinates with the Adhan library. Never uploaded.") { Value("On device") }
     SettingRow("Place name & search", "Android's geocoder sends your coordinates, or the text you search, to Google to get a name back. Only when you detect or search a location.") { GoldValue("Google") }
-    SettingRow("Updates", "Miqaat asks github.com whether a newer build exists and downloads it from there. GitHub sees your IP address, nothing else.") { GoldValue("GitHub") }
+    if (Updater.enabled) SettingRow("Updates", "Miqaat asks github.com whether a newer build exists and downloads it from there. GitHub sees your IP address, nothing else. Nothing is checked until setup is complete.") { GoldValue("GitHub") }
+    else SettingRow("Updates", "Delivered by Google Play. Miqaat itself makes no update requests.") { Value("Play") }
     SettingRow("Narration", "The dua and hadith recordings are inside the app. The tablet's own text-to-speech is used only if a recording is missing.") { Value("On device") }
     SettingRow("Health log, adhkār counts, Friday tracker", "Stored in the app's private storage on this device. Cleared when you uninstall.") { Value("On device") }
     SettingRow("Analytics, advertising, accounts, crash reporting", "None. There is no Miqaat server.") { Value("None") }
-    SettingRow("Permissions", "Location (once, for times), notifications (azaan), exact alarms, install packages (self-update), ignore battery optimisation (reliability). No contacts, camera, microphone or storage beyond files you pick.") { Value("Minimal") }
+    SettingRow("Permissions", "Location (once, for times), notifications (azaan), exact alarms, ignore battery optimisation (reliability)" + (if (Updater.enabled) ", install packages (self-update)" else "") + ". No contacts, camera, microphone or storage beyond files you pick.") { Value("Minimal") }
+    SettingRow("Android backup", "Off. Your settings are never copied to a cloud backup; use the settings file in Reliability & backup instead.") { Value("Off") }
     SettingRow("Source code", "github.com/haawas-alt/miqaat · builds are produced by GitHub Actions from the public source and signed with a private key.") { Value("Open") }
 }
 
@@ -626,13 +634,13 @@ private fun HijriSection(store: SettingsStore, s: AppSettings) {
         Text(
             if (tomorrow.day == 1) "The calendar already turns to ${tomorrow.english.substringAfter(' ')} tomorrow. If the moon was not sighted in your community, complete 30 days instead."
             else "Tomorrow is day 30 by calculation. If the moon was sighted in your community tonight, start the new month tomorrow.",
-            fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f), lineHeight = 20.sp
+            fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary, lineHeight = 20.sp
         )
         Row(Modifier.padding(top = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             if (tomorrow.day != 1) GoldButton("Moon sighted · new month tomorrow") { store.update { it.copy(hijriOffsetDays = it.hijriOffsetDays + 1) } }
             else GoldButton("Not sighted · complete 30 days") { store.update { it.copy(hijriOffsetDays = it.hijriOffsetDays - 1) } }
         }
-        Text("This shifts the Hijri date by one day; Ramaḍān mode and Friday/Eid features follow it.", fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.55f), modifier = Modifier.padding(top = 6.dp))
+        Text("This shifts the Hijri date by one day; Ramaḍān mode and Friday/Eid features follow it.", fontFamily = Nunito, fontSize = 12.sp, color = Palette.textMuted, modifier = Modifier.padding(top = 6.dp))
     }
     Spacer(Modifier.height(16.dp))
     Text(h.arabic, fontFamily = Amiri, fontSize = 40.sp, color = Palette.goldSoft)
@@ -655,7 +663,7 @@ private fun DisplaySection(store: SettingsStore, s: AppSettings) {
     SettingRow("Qibla direction on the home screen", "Tap it for the compass") { Toggle(s.showQibla) { on -> store.update { it.copy(showQibla = on) } } }
     SettingRow("Morning and evening adhkār", "A prompt after Fajr and after ʿAsr, with sourced texts and a tap counter") { Toggle(s.adhkarEnabled) { on -> store.update { it.copy(adhkarEnabled = on) } } }
     SettingRow("After-prayer adhkār", "A prompt for 40 minutes after each prayer: istighfār, the tasbīḥ, Āyat al-Kursī, the Quls") { Toggle(s.postPrayerAdhkar) { on -> store.update { it.copy(postPrayerAdhkar = on) } } }
-    SettingRow("Learn to pray (children)", "A book icon on the home screen opens the words of the prayer, one position at a time") { Toggle(s.kidsMode) { on -> store.update { it.copy(kidsMode = on) } } }
+    SettingRow("Learn Salah", "A book icon on the home screen opens the words of the prayer, one position at a time — for children and adult beginners. Shows one common form; some details differ between schools.") { Toggle(s.kidsMode) { on -> store.update { it.copy(kidsMode = on) } } }
     SettingRow("Art theme", null) { Chips(ArtTheme.entries.map { it.label }, ArtTheme.entries.indexOf(s.artTheme)) { i -> store.update { it.copy(artTheme = ArtTheme.entries[i]) } } }
     SettingRow("Open Miqaat when the device starts", "So the wall tablet comes back after a power cut") { Toggle(s.launchOnBoot) { on -> store.update { it.copy(launchOnBoot = on) } } }
 }
@@ -667,9 +675,11 @@ private fun AboutSection(s: AppSettings) {
     val up by Updater.state.collectAsState()
     LaunchedEffect(Unit) { Updater.check(ctx) }
     Heading("About Miqaat", "ميقات · an appointed time")
-    Text("Version ${Updater.currentName} · build ${Updater.currentBuild}", fontFamily = Nunito, fontSize = 15.sp, color = Palette.goldSoft)
+    Text("Version ${Updater.currentName} · build ${Updater.currentBuild} · ${if (Updater.enabled) "direct-download edition" else "Google Play edition"}", fontFamily = Nunito, fontSize = 15.sp, color = Palette.goldSoft)
+    Text("Built from commit ${com.usman.miqaat.BuildConfig.GIT_SHA.take(12)} · release tag ${com.usman.miqaat.BuildConfig.BUILD_TAG}. The SHA-256 of every release is published next to it on GitHub.", fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, lineHeight = 18.sp)
     Spacer(Modifier.height(10.dp))
-    when (val u = up) {
+    if (!Updater.enabled) SettingRow("Updates", "This edition is updated by Google Play.") { Value("Play") }
+    else when (val u = up) {
         is Updater.State.Available -> {
             SettingRow("Update available: version ${u.info.versionName}", if (Updater.canInstall(ctx)) "Downloads from GitHub and opens the installer. Your settings are kept." else "First allow Miqaat to install updates (one-time Android permission), then come back here.") {
                 if (Updater.canInstall(ctx)) GoldButton("Download & install") { Updater.download(ctx, u.info) }
@@ -681,45 +691,47 @@ private fun AboutSection(s: AppSettings) {
         is Updater.State.Failed -> SettingRow("Update check failed", u.reason) { GoldButton("Try again") { scope.launch { Updater.check(ctx, force = true) } } }
         Updater.State.Checking -> SettingRow("Checking for updates…", null) { Value("…") }
         Updater.State.UpToDate -> SettingRow("You have the latest version", "Checked just now") { TextButton(onClick = { scope.launch { Updater.check(ctx, force = true) } }) { Text("Check again", color = Palette.goldSoft) } }
-        Updater.State.Idle -> SettingRow("Updates", "New builds are published automatically") { GoldButton("Check for updates") { scope.launch { Updater.check(ctx, force = true) } } }
+        Updater.State.Idle -> SettingRow("Updates", "New builds are published automatically; each download is verified against its published SHA-256 before installing") { GoldButton("Check for updates") { scope.launch { Updater.check(ctx, force = true) } } }
     }
+    SettingRow("Report a content correction", "Found an error in a hadith, translation or ruling? Open an issue on GitHub — every item is versioned in ISLAMIC_REVIEW_PACK.md.", onClick = { runCatching { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/${com.usman.miqaat.BuildConfig.REPO}/issues/new?title=Content%20correction"))) } }) { Value("GitHub ›") }
     Spacer(Modifier.height(14.dp))
-    SettingRow("Content sources", "Every hadith, dhikr and dua with its collection and number, as a review pack a scholar can sign: REVIEW.md in the repository.") { Value("REVIEW.md") }
+    SettingRow("Content sources", "Every hadith, dhikr, dua and ruling with its source, as a review pack a scholar can sign: ISLAMIC_REVIEW_PACK.md in the repository. No scholarly review has been signed yet — texts are presented with their sources for you to verify.") { Value("Unsigned") }
     Text(
         "Prayer times are computed on the tablet with the Adhan library (Batoul Apps, MIT licence), using the high-precision astronomical algorithms of Jean Meeus. " +
             "No account, no advertising, no analytics. Network is used for three things only: the place-name lookup and place search (Android's geocoder, which contacts Google), and the update check against GitHub.\n\n" +
             "Current: ${s.method.label}, Asr ${s.asrMethod.label}, ${s.locationName} (%.3f, %.3f).".format(s.latitude, s.longitude),
-        fontFamily = Nunito, fontSize = 15.sp, color = Palette.ivory.copy(alpha = 0.8f), lineHeight = 22.sp
+        fontFamily = Nunito, fontSize = 15.sp, color = Palette.textSecondary, lineHeight = 22.sp
     )
 }
 
 // ---------------------------------------------------------------- controls
 
 @Composable
-private fun Heading(title: String, desc: String) {
-    Text(title, fontFamily = Cormorant, fontSize = 34.sp, color = Palette.ivory)
-    Text(desc, fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f), lineHeight = 20.sp, modifier = Modifier.padding(top = 2.dp, bottom = 14.dp))
+internal fun Heading(title: String, desc: String) {
+    Text(title, fontFamily = Cormorant, fontSize = 34.sp, color = Palette.ivory, modifier = Modifier.semantics { heading() })
+    Text(desc, fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary, lineHeight = 20.sp, modifier = Modifier.padding(top = 2.dp, bottom = 14.dp))
 }
 
 @Composable
-private fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)? = null, trailing: @Composable () -> Unit) {
+internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)? = null, trailing: @Composable () -> Unit) {
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxWidth()) {
         val compact = maxWidth < 560.dp
+        // The row reads as one element to TalkBack ("title, subtitle") and the control keeps its own role.
+        val rowMod = Modifier.fillMaxWidth().then(if (onClick != null) Modifier.clickable(onClick = onClick, role = androidx.compose.ui.semantics.Role.Button) else Modifier).padding(vertical = 14.dp)
         if (compact) {
             // Phone: label on top, control underneath, so neither squeezes the other.
-            Column(Modifier.fillMaxWidth().then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier).padding(vertical = 14.dp)) {
-                Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
-                if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory.copy(alpha = 0.6f), lineHeight = 18.sp)
+            Column(rowMod) {
+                Column(Modifier.semantics(mergeDescendants = true) {}) {
+                    Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
+                    if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, lineHeight = 18.sp)
+                }
                 Box(Modifier.padding(top = 10.dp).fillMaxWidth(), contentAlignment = Alignment.CenterStart) { trailing() }
             }
         } else {
-            Row(
-                Modifier.fillMaxWidth().then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier).padding(vertical = 14.dp),
-                verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column(Modifier.weight(1f).padding(end = 20.dp)) {
+            Row(rowMod, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                Column(Modifier.weight(1f).padding(end = 20.dp).semantics(mergeDescendants = true) {}) {
                     Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
-                    if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory.copy(alpha = 0.6f))
+                    if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, lineHeight = 18.sp)
                 }
                 trailing()
             }
@@ -728,32 +740,34 @@ private fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)? 
     HorizontalDivider(color = Palette.line)
 }
 
-@Composable private fun Value(t: String) = Text(t, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory.copy(alpha = 0.85f))
-@Composable private fun GoldValue(t: String) = Text(t, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft)
+@Composable internal fun Value(t: String) = Text(t, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
+@Composable internal fun GoldValue(t: String) = Text(t, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft)
 
 @Composable
-private fun Toggle(on: Boolean, onChange: (Boolean) -> Unit) = Switch(
+internal fun Toggle(on: Boolean, onChange: (Boolean) -> Unit) = Switch(
     checked = on, onCheckedChange = onChange,
     colors = SwitchDefaults.colors(checkedThumbColor = Palette.night, checkedTrackColor = Palette.gold, uncheckedThumbColor = Color.White, uncheckedTrackColor = Color.White.copy(alpha = 0.2f))
 )
 
 @Composable
-private fun GoldButton(label: String, enabled: Boolean = true, onClick: () -> Unit) =
-    Button(onClick = onClick, enabled = enabled, colors = ButtonDefaults.buttonColors(containerColor = Palette.gold, contentColor = Palette.night)) {
+internal fun GoldButton(label: String, enabled: Boolean = true, onClick: () -> Unit) =
+    Button(onClick = onClick, enabled = enabled, modifier = Modifier.heightIn(min = 48.dp), colors = ButtonDefaults.buttonColors(containerColor = Palette.gold, contentColor = Palette.night, disabledContainerColor = Palette.gold.copy(alpha = 0.35f), disabledContentColor = Palette.night)) {
         Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold)
     }
 
+/** Single-choice chip row. Exposed to TalkBack as radio buttons with a selected state. */
 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
-private fun Chips(labels: List<String>, selected: Int, onSelect: (Int) -> Unit) {
-    androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+internal fun Chips(labels: List<String>, selected: Int, onSelect: (Int) -> Unit) {
+    androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.selectableGroup()) {
         labels.forEachIndexed { i, l ->
             val cur = i == selected
             Box(
-                Modifier.clip(RoundedCornerShape(50)).background(if (cur) Palette.gold else Color.Transparent)
-                    .border(1.dp, if (cur) Palette.gold else Color.White.copy(alpha = 0.25f), RoundedCornerShape(50))
-                    .clickable { onSelect(i) }.padding(horizontal = 14.dp, vertical = 8.dp)
-            ) { Text(l, fontFamily = Nunito, fontSize = 13.sp, fontWeight = if (cur) FontWeight.Bold else FontWeight.Normal, color = if (cur) Palette.night else Palette.ivory) }
+                Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).background(if (cur) Palette.gold else Color.Transparent)
+                    .border(1.dp, if (cur) Palette.gold else Palette.lineStrong, RoundedCornerShape(50))
+                    .selectable(selected = cur, role = androidx.compose.ui.semantics.Role.RadioButton) { onSelect(i) }.padding(horizontal = 16.dp, vertical = 8.dp),
+                contentAlignment = Alignment.Center
+            ) { Text(l, fontFamily = Nunito, fontSize = 14.sp, fontWeight = if (cur) FontWeight.Bold else FontWeight.Normal, color = if (cur) Palette.night else Palette.ivory) }
         }
     }
 }
@@ -767,7 +781,7 @@ private fun Stepper(value: Int, min: Int, max: Int, step: Int, unit: String, sig
             signed && value > 0 -> "+$value$unit"
             else -> "$value$unit"
         }
-        Text(label, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.width(78.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+        Text(label, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.width(78.dp).semantics { liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite }, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
         StepBtn("+", value < max) { onChange((value + step).coerceAtMost(max)) }
     }
 }
@@ -779,18 +793,19 @@ private fun TimeStepper(minutes: Int, use24h: Boolean, onChange: (Int) -> Unit) 
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         StepBtn("−1h", minutes >= 60) { onChange(minutes - 60) }
         StepBtn("−5", minutes >= 5) { onChange(minutes - 5) }
-        Text(fmt(minutes), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.width(92.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+        Text(fmt(minutes), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.width(92.dp).semantics { liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite }, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
         StepBtn("+5", minutes <= 24 * 60 - 10) { onChange(minutes + 5) }
         StepBtn("+1h", minutes <= 23 * 60 - 5) { onChange(minutes + 60) }
     }
 }
 
 @Composable
-private fun StepBtn(t: String, enabled: Boolean, onClick: () -> Unit) {
+internal fun StepBtn(t: String, enabled: Boolean, onClick: () -> Unit) {
+    val label = when (t) { "−" -> "Decrease"; "+" -> "Increase"; "−1h" -> "One hour earlier"; "+1h" -> "One hour later"; "−5" -> "Five minutes earlier"; "+5" -> "Five minutes later"; else -> t }
     Box(
-        Modifier.height(38.dp).widthIn(min = 38.dp).clip(RoundedCornerShape(10.dp)).border(1.dp, Color.White.copy(alpha = if (enabled) 0.3f else 0.1f), RoundedCornerShape(10.dp))
-            .clickable(enabled = enabled, onClick = onClick).padding(horizontal = 8.dp), contentAlignment = Alignment.Center
-    ) { Text(t, fontSize = if (t.length > 1) 13.sp else 20.sp, fontFamily = Nunito, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = if (enabled) 1f else 0.3f)) }
+        Modifier.size(width = 48.dp, height = 48.dp).clip(RoundedCornerShape(12.dp)).border(1.dp, if (enabled) Palette.lineStrong else Palette.line, RoundedCornerShape(12.dp))
+            .clickable(enabled = enabled, onClick = onClick, role = androidx.compose.ui.semantics.Role.Button).semantics { contentDescription = label }, contentAlignment = Alignment.Center
+    ) { Text(t, fontSize = if (t.length > 1) 13.sp else 22.sp, fontFamily = Nunito, fontWeight = FontWeight.Bold, color = if (enabled) Palette.ivory else Palette.textDisabled) }
 }
 
 @Composable
@@ -809,7 +824,7 @@ private fun PickerDialog(title: String, options: List<Pair<String, String>>, sel
                         RadioButton(selected = i == selected, onClick = { onPick(i); onDismiss() })
                         Column {
                             Text(l, fontFamily = Nunito, fontSize = 16.sp, color = Palette.ivory)
-                            if (d.isNotEmpty()) Text(d, fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory.copy(alpha = 0.6f))
+                            if (d.isNotEmpty()) Text(d, fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary)
                         }
                     }
                 }

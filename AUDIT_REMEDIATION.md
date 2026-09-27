@@ -1,0 +1,163 @@
+# Miqaat · audit remediation log
+
+Source: *Executive Product, UX, Islamic Content, Accessibility, and Engineering Audit* of build 33
+(commit `adb454b`). This log maps every finding and every item of the audit's "Prioritized roadmap" (1–50) to
+what changed, where, how it is evidenced, and what remains.
+
+**Status key**
+- **CODE** — fixed in code (file(s) named; test named where one exists)
+- **COPY** — fixed through wording, design or configuration
+- **DEVICE** — implemented, but only real-device testing can confirm it (see DEVICE_TEST_PLAN.md)
+- **SCHOLAR** — requires qualified scholarly approval (see ISLAMIC_REVIEW_PACK.md)
+- **DEFERRED** — intentionally not done in this pass, with the reason
+
+Verification performed in this pass: unit tests (`testGithubReleaseUnitTest`, 20 tests) and lint run in CI on
+every push; release builds of both editions (`assembleGithubRelease`, `assemblePlayRelease`, `bundlePlayRelease`).
+**Not performed:** anything requiring an Android device or emulator — the workspace has none. No claim below
+about on-device behaviour should be read as tested.
+
+---
+
+## The six release blockers
+
+| # | Finding | Status | What changed | Evidence |
+|---|---|---|---|---|
+| 1 | First run can silently leave Gledswood Hills active | **CODE** | `AppSettings.locationSet` (new, default false; placeholder coordinates are the Kaʿbah, name empty). `Setup.ready()` gates the home screens, the scheduler (`AzaanScheduler.nextEvent` returns null) and the widget. New 4-step `SetupScreen` (welcome → place → confirm zone/method/today's times → alerts); "Next" is disabled until a place is chosen or detected; manual search/presets are offered *before* any permission request. `detect()` changes nothing on failure and reports the reason (`LocationRepo.Fix/Problem`); geocoder failure falls back to coordinates, never a stale name. Legacy migration: installs that had detected (homeLat present) or picked a non-default place are treated as configured; others see setup. | `TrustTest.freshInstallIsUnconfigured`, `finishingSetupWithoutAPlaceIsNotReady`, `readyOnlyWhenPlaceChosenAndSetupFinished`, `zoneMismatchIsNoticed`; files `data/Settings.kt`, `data/Setup.kt`, `data/LocationRepo.kt`, `ui/SetupScreen.kt`, `MainActivity.kt`, `MiqaatWidget.kt`, `azaan/AzaanScheduler.kt` |
+| 2 | Qibla mixes true bearing with magnetic heading | **CODE + DEVICE** | `GeomagneticField(lat,lng,0,now).declination` added to the magnetic azimuth (`PrayerEngine.trueHeading`); accuracy taken from the magnetometer's own `onAccuracyChanged`; screen shows "Compass accuracy … · Magnetic declination ±x° applied"; unreliable state tells the user to treat the needle as approximate; sensor-less fallback keeps the numeric true bearing; spoken description for TalkBack (`qiblaWords`). | `TrustTest.qiblaBearingsForKnownCities` (8 cities), `magneticHeadingIsCorrectedByDeclination`, `bearingNormalisation`, `turnDirectionsAreShortestWay`; `ui/QiblaScreen.kt`; on-device matrix in DEVICE_TEST_PLAN § D |
+| 3 | Traveller qaṣr/jamʿ toggles do nothing | **CODE + SCHOLAR** | Both toggles removed from Settings; description now states plainly that Miqaat does not shorten or combine prayers. Prefs kept for compatibility, never read. Re-introduction conditions recorded in ISLAMIC_REVIEW_PACK § J6. | `ui/SettingsScreen.kt` (LocationSection) |
+| 4 | Accessibility fundamentally incomplete | **CODE + DEVICE** | See § E below: named icons, merged card semantics with spoken state, headings, roles, 48 dp targets, contrast tokens, sky scrim, reduce-motion, live regions, compass/wave/widget descriptions. TalkBack traversal and 200 % font remain device-verified. | lint `ContentDescription` = error; DEVICE_TEST_PLAN § E |
+| 5 | Not publishable: API 34, REQUEST_INSTALL_PACKAGES, both exact-alarm permissions | **CODE** | `compileSdk/targetSdk 36` (AGP 8.10.1); product flavours `play` (no updater, no install permission) and `github` (updater, permission in `src/github/AndroidManifest.xml`); `SCHEDULE_EXACT_ALARM maxSdkVersion=32` + `USE_EXACT_ALARM`; CI builds APK + AAB for both. | `app/build.gradle.kts`, `AndroidManifest.xml`, `.github/workflows/build.yml` |
+| 6 | Religious review prepared but not completed | **SCHOLAR** | `ISLAMIC_REVIEW_PACK.md`: versioned register (2026.09-a) of every ruling-like statement with before/after wording, engine behaviour and approval fields; app says "Unsigned" and links a correction channel. Disputed items reworded toward caution (J1–J7) without changing any calculation or Arabic text. | ISLAMIC_REVIEW_PACK.md; Settings › About |
+
+## Screen-by-screen findings
+
+| Screen | Finding | Status | Change |
+|---|---|---|---|
+| First run | chained permissions, no manual path, unsafe Continue | **CODE** | replaced by `SetupScreen` (above); notification permission asked in its own step with the reason shown |
+| Home (landscape) | chip accumulation | **DEFERRED** | kept: chips already wrap and are contextual; the owner asked for these features. Priority/overflow rules are a design task for a later pass |
+| Home | hidden tap-to-toggle on cards | **CODE** | cards expose `onClick(label = "Switch between clock time and time until")` and a `stateDescription`; Kiswah long-press exposes `onLongClickLabel = "Why this time?"`; the hint text under the portrait rail stays |
+| Home | daytime contrast (ivory on Dhuhr ≈ 2.15:1) | **CODE** | `DaySkyScrim` over the lower 70 % of daytime skies (0.34–0.62 alpha near-black), all three home layouts; secondary text uses solid tokens instead of alpha |
+| Kiswah | 40 dp unlabelled icons, undiscoverable long-press, faint caps | **CODE** | 48 dp named icons; long-press label; Caps default alpha 0.9; iqamah/signature alpha raised |
+| Portrait | 40 dp targets, unlabelled icons | **CODE** | 48 dp; labels; merged row semantics |
+| Large type | tap-anywhere not self-evident | **DEFERRED** | the tap surface is the whole screen (≥ 48 dp) and the mode is opt-in; configurable peek duration deferred |
+| Why-this-time | mixes calculation with fiqh | **COPY** | split into "Calculated from", "Your settings", "Islamic guidance · scholarly views, not calculation"; key/value rows wrap (FlowRow) on narrow screens |
+| Qibla | see blocker 2 | **CODE** | plus 48 dp back button |
+| Timetable | 760 dp horizontal table, no scroll cue, no export | **DEFERRED** | not changed in this pass (usable, not misleading); export and phone-day cards are roadmap items 37/16 |
+| Settings | density, 38 dp steppers | **CODE (partial)** | steppers 48 dp with names ("Increase", "One hour later"…) and live region on the value; chips 48 dp radio semantics; "Essential vs Advanced" split deferred |
+| Azaan & alerts | exact-alarm status says "Open" | **CODE** | `ReliabilityRows`: Granted ✓ / Not granted · Fix › for exact alarms, notifications, battery, full-screen; shared with setup |
+| Full-screen azaan | alarm-stream change not crash-safe, no audio focus | **CODE + DEVICE** | `AlarmVolume` persists the prior volume before changing it and restores on finish/destroy; `restoreIfStale` on app start undoes a change older than 30 min; `AudioFocusRequest(GAIN_TRANSIENT)` requested in `begin()` and abandoned in `finishAll()`; focus loss stops the sequence |
+| Post-azaan | "Hadith of the hour" vague | **COPY** | kicker now "A hadith after Fajr · Ṣaḥīḥ al-Bukhārī 614"-style with the source |
+| Post-azaan | default on for phones | already off on phones since build 20 (`MiqaatApp` pocket defaults) | — |
+| Iqamah | quiet-screen text 30 % | **CODE** | token `textSecondary` |
+| Adhkār | unlabelled count circle | **DEFERRED** | counter text uses tokens; role/state on the circle is in the next accessibility pass |
+| Friday | hour-of-acceptance stated as certainty | **COPY + SCHOLAR** | states the view and names the other; J5 |
+| Learn | children-only framing, one form as universal | **COPY + SCHOLAR** | renamed Learn Salah; notes name where schools differ; 48 dp controls; J7 |
+| Widget | stale/no a11y | **CODE (partial)** | `contentDescription` on the root; unconfigured state; multi-size widgets deferred |
+| Health/backup | ambiguous label, backup sensitivity, allowBackup, unverified update, mutable tag | **CODE + COPY** | renamed Reliability & backup; backup row warns that coordinates are included; `allowBackup=false`; updater SHA-256 verification; `v1.<run>` immutable tags and `latest` moved to the built commit; commit shown in About |
+
+## Functional/technical findings
+
+| Area | Finding | Status | Change |
+|---|---|---|---|
+| Calculation | "most Australian mosques use MWL" unsubstantiated | **COPY** | reworded (J1) |
+| Calculation | presets Australia-centric | **CODE** | +15 presets across Asia, Europe, Africa, the Americas; developer's suburb removed from the top |
+| Calculation | detected location uses device zone without confirmation | **CODE** | zone shown in setup Confirm; `Setup.zoneLooksWrong` (> 3 h from lng/15) blocks "These look right" and warns in Settings › Location |
+| Calculation | permissive timetable import | **DEFERRED** | row-level review UI not built; existing 12-h monotonic check and the Fajr/Maghrib comparison line remain |
+| Calculation | Jumuʿah replaces Dhuhr | **SCHOLAR** | J9 |
+| Alarms | both exact permissions | **CODE** | maxSdkVersion 32 |
+| Alarms | no permission-state listener | **CODE** | `BootReceiver` handles `SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED`: logs and re-arms |
+| Alarms | inexact fallback presented as exact | **CODE** | planned label "(approximate)", home chip "Azaan may be late · fix", reliability rows |
+| Alarms | direct activity start from service + full-screen intent | **DEVICE** | unchanged; DEVICE_TEST_PLAN § A |
+| Alarms | volume restore / audio focus | **CODE** | see above |
+| Perf | executor leak in `LocationRepo.current` | **CODE** | main executor + `CancellationSignal` tied to coroutine cancellation |
+| Perf | per-second whole-screen recomposition | **CODE (partial)** | `@Immutable` on `DayTimes`, `PrayerState`, `AppSettings` so rail/cards/timeline skip; `state` already rebuilt once per minute. Frame timing must be measured on device |
+| Perf | unminified 43 MB APK | **CODE** | R8 + resource shrinking (`-dontobfuscate`); raw audio kept by `res/raw/keep.xml`. Size after shrink is reported by CI (`ls -la Miqaat*`) |
+| Perf | no baseline profile / macrobenchmark | **DEFERRED** | needs a device to generate; tracked in RELEASE_CHECKLIST |
+| Perf | update check each foreground, throttle in memory | **CODE** | throttle persisted in prefs; no check before setup; Play edition never checks |
+| Privacy | `allowBackup=true` | **CODE** | false |
+| Privacy | updater does not verify SHA-256 | **CODE** | verifies the published `.sha256`; refuses releases without one; deletes mismatches |
+| Privacy | mutable `latest` tag pointing at an older commit | **CODE** | CI force-moves `latest` to the built commit and creates immutable `v1.<run>`; body carries `commit=` |
+| Privacy | backup editable/unauthenticated | **COPY** | sensitivity note; type validation unchanged |
+| Privacy | REQUEST_INSTALL_PACKAGES blocks Play | **CODE** | flavour manifest |
+
+## Prioritized roadmap (audit items 1–50)
+
+| # | Item | Status | Where |
+|---|---|---|---|
+| 1 | Remove live default; block output until place confirmed | CODE | blocker 1 |
+| 2 | Manual city before permission requests | CODE | `SetupScreen.PlaceStep` |
+| 3 | Qibla declination + known-bearing tests | CODE + DEVICE | blocker 2 |
+| 4 | Remove/implement traveller features | CODE | blocker 3 |
+| 5 | Signed scholarly review | SCHOLAR | pack written, unsigned |
+| 6 | Screen-reader semantics + 48 dp | CODE + DEVICE | § E |
+| 7 | Contrast failures | CODE | tokens + scrim |
+| 8 | Target API 36 | CODE | gradle |
+| 9 | Remove REQUEST_INSTALL_PACKAGES from Play | CODE | flavours |
+| 10 | Exact-alarm manifest + state recovery | CODE | manifest, BootReceiver |
+| 11 | Audio focus, route handling, crash-safe volume | CODE (focus + volume) · DEFERRED (per-route rules) | AzaanService, AlarmVolume |
+| 12 | Location executor leak | CODE | LocationRepo |
+| 13 | Locked/Doze/reboot/DST OEM tests | DEVICE | DEVICE_TEST_PLAN § A–B |
+| 14 | Immutable releases + checksum verification | CODE | workflow, Updater |
+| 15 | Wall Mode flagship, simplify phone | DEFERRED | product direction; owner decision |
+| 16 | Home to one hero/one rail/two prompts | DEFERRED | owner requested these chips; wrap + contextual only |
+| 17 | Advanced settings gate | DEFERRED | next UX pass |
+| 18 | Reliability status card | CODE | `ReliabilityRows` in Settings and setup; home chip |
+| 19 | Per-prayer alert modes, short azaan | DEFERRED | feature, not a blocker |
+| 20 | Post-azaan optional per prayer, quiet default on phones | PARTIAL | already off by default on phones; per-prayer control deferred |
+| 21 | Replace hidden gestures with labelled actions | CODE (semantics) | on-screen buttons unchanged; ⓘ exists on Miqaat/portrait themes |
+| 22 | Settings search / undo | DEFERRED | |
+| 23 | Phone navigation, foldables | DEFERRED | |
+| 24 | Resourceize strings, complete Urdu | DEFERRED | large mechanical change; Settings › Language already says settings stay English |
+| 25 | Arabic + five languages | DEFERRED | needs translators |
+| 26 | Font-size and reduce-motion controls | PARTIAL | reduce motion respected from system; sizes are sp (scale with system) — overflow to be checked on device |
+| 27 | Validate timetable imports before activation | DEFERRED | see Calculation row |
+| 28 | Qibla accuracy/calibration/environment warnings | CODE | QiblaScreen |
+| 29 | Child/adult Learn Salah with madhhab notes | COPY + SCHOLAR | J7 |
+| 30 | Creator signature → About | **DEFERRED (owner decision)** | the owner asked for it on the home screen; contrast raised to token level instead |
+| 31 | Rename Health → Reliability & backup | COPY | Settings |
+| 32 | Exact-alarm Granted/Not granted | CODE | ReliabilityRows |
+| 33 | Labels on Calendar/Settings/Qibla/Learn/location icons | CODE | all three homes |
+| 34 | 36/38/40/44 dp → 48 | CODE | homes, settings controls, Learn, azaan pills, Qibla back |
+| 35 | Scrim on Sunrise/Dhuhr/Asr | CODE | `DaySkyScrim` |
+| 36 | Replace 30–45 % helper text | CODE | tokens |
+| 37 | Timetable "Today" + scroll cue | DEFERRED | |
+| 38 | Location/zone/method summary in details | CODE | Why-this-time "Calculated from" section already lists all three; setup Confirm too |
+| 39 | "Test next azaan" after onboarding | CODE | setup Alerts step: Play a test azaan |
+| 40 | Inexact-alarm warning | CODE | chip + rows + planned label |
+| 41 | Backup privacy note | COPY | Reliability & backup |
+| 42 | Checksum + source commit in About | CODE | BuildConfig GIT_SHA/BUILD_TAG |
+| 43 | Correction/report link | CODE | About → GitHub issue |
+| 44 | No update check before setup; persist last-check | CODE | Updater |
+| 45 | R8 / resource shrinking | CODE | gradle + keep.xml |
+| 46 | Baseline profile + cold-start benchmark | DEFERRED | needs device |
+| 47 | Cache static drawing layers | PARTIAL | `@Immutable` prevents needless redraw; explicit `drawWithCache` deferred |
+| 48 | Phone post-azaan hadith as dismissible card | DEFERRED | off by default on phones |
+| 49 | "Mute today" / "skip this prayer" | DEFERRED | feature |
+| 50 | Plain-language reliability & privacy page | PARTIAL | in-app Privacy page updated for both editions; a web page is a store-launch task |
+
+## § E · Accessibility changes in detail
+- **Names:** every icon-only control in the three home layouts, Learn, Qibla and the widget has a `contentDescription`; decorative icons inside labelled rows stay `null` (correct exclusion).
+- **Roles/state:** chips are `selectable` radio buttons in a `selectableGroup`; settings rows that open something are `Role.Button`; steppers announce "Increase/Decrease/One hour later…" and their value is a polite live region; reliability values carry `stateDescription` Granted/Not granted; volume slider has a name and state.
+- **Merged semantics:** each prayer card/row reads as one sentence (name, time, relative time, now/next/passed, iqamah, end, azaan off) and offers a custom action; the hero is a heading with a minute-rounded description (no per-second announcements).
+- **Headings:** section titles in Settings, setup steps and the Why dialog.
+- **Targets:** ≥ 48 dp on all changed controls (list in roadmap #34).
+- **Contrast:** `Palette.textSecondary` (#CFC7B4, ≈10:1 on night) and `textMuted` (#AEA792, ≈7:1) replace alpha text; `DaySkyScrim` brings ivory over the Dhuhr bright end from ≈2.2:1 to > 4.5:1 in the text region (to be confirmed with Accessibility Scanner on device).
+- **Motion:** `reduceMotion()` reads the animator duration scale; the azaan wave freezes when it is 0.
+- **Canvas alternatives:** compass (`qiblaWords`), wave ("Audio playing"), widget root description.
+- **Not done:** explicit traversal order, RTL layout verification, 200 % font-scale overflow audit, Adhkār counter role/state, timetable row semantics — all need a device and are in DEVICE_TEST_PLAN § E.
+
+## Known risks after this pass
+- Legacy migration heuristics may still show setup to an existing user who picked the old default deliberately (Gledswood Hills residents) — one-time, low cost.
+- `USE_EXACT_ALARM` is reserved for alarm/clock apps; Play review may ask for justification (prepared in RELEASE_CHECKLIST).
+- Android 16 ignores orientation locks on large screens; the tablet layout will rotate — portrait layout exists but has not been seen on a large portrait screen.
+- Resource shrinking with `getIdentifier` lookups depends on `res/raw/keep.xml`; a missing clip would be caught by the fallback (TTS) and a log entry, not a crash, but must be confirmed on device (DEVICE_TEST_PLAN § G smoke).
+- Alarm-volume manipulation remains a global side-effect by design (owner wants a guaranteed loudness); it is now crash-safe but still visible to the user.
+
+## Files changed in this pass
+`app/build.gradle.kts`, `build.gradle.kts`, `app/proguard-rules.pro`, `app/src/main/AndroidManifest.xml`, `app/src/github/AndroidManifest.xml`, `app/src/main/res/raw/keep.xml`, `app/src/main/res/values/strings.xml`, `.github/workflows/build.yml`,
+`MainActivity.kt`, `MiqaatApp.kt`, `MiqaatWidget.kt`,
+`data/Settings.kt`, `data/Setup.kt` (new), `data/Reliability.kt` (new), `data/LocationRepo.kt`, `data/PrayerEngine.kt`, `data/Updater.kt`, `data/Adhkar.kt`,
+`azaan/AzaanService.kt`, `azaan/AlarmVolume.kt` (new), `azaan/AzaanScheduler.kt`, `azaan/BootReceiver.kt`,
+`ui/SetupScreen.kt` (new), `ui/SettingsScreen.kt`, `ui/HomeScreen.kt`, `ui/PortraitHome.kt`, `ui/KiswahHome.kt`, `ui/QiblaScreen.kt`, `ui/Explain.kt`, `ui/Theme.kt`, `ui/AzaanScreen.kt`, `ui/LearnScreen.kt`, `ui/FridayScreen.kt`, plus token replacements in `TimetableScreen.kt`, `AdhkarScreen.kt`, `LargeHome.kt`,
+`app/src/test/.../TrustTest.kt` (new),
+`ISLAMIC_REVIEW_PACK.md`, `DEVICE_TEST_PLAN.md`, `RELEASE_CHECKLIST.md`, this file.

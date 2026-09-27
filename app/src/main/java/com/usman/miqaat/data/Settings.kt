@@ -23,7 +23,7 @@ enum class Prayer(val key: String, val english: String, val arabic: String, val 
 }
 
 enum class Method(val label: String, val detail: String) {
-    MWL("Muslim World League", "Fajr 18°, Isha 17° · used by most Australian mosques"),
+    MWL("Muslim World League", "Fajr 18°, Isha 17° · widely used in Europe, Australia and much of the world · confirm with your masjid"),
     ISNA("ISNA (North America)", "Fajr 15°, Isha 15°"),
     EGYPT("Egyptian General Authority", "Fajr 19.5°, Isha 17.5°"),
     UMM_AL_QURA("Umm al-Qura, Makkah", "Fajr 18.5°, Isha 90 min after Maghrib"),
@@ -73,10 +73,17 @@ enum class Language(val label: String, val tag: String) { EN("English", "en"), U
 
 enum class ArtTheme(val label: String) { GEOMETRIC("Geometric lattice"), CALLIGRAPHY("Calligraphy only"), MINIMAL("Minimal") }
 
+@androidx.compose.runtime.Immutable
 data class AppSettings(
-    val latitude: Double = -34.02,
-    val longitude: Double = 150.77,
-    val locationName: String = "Gledswood Hills, NSW",
+    /**
+     * Coordinates are only meaningful once [locationSet] is true. Until then the app is in an
+     * unconfigured state and must not present prayer times as valid (the placeholder below is the
+     * Kaʿbah, so nothing city-specific can leak through).
+     */
+    val latitude: Double = 21.4225,
+    val longitude: Double = 39.8262,
+    val locationName: String = "",
+    val locationSet: Boolean = false,
     val zoneId: String? = null,        // null = the device's zone
     /** Home coordinates, set the first time location is detected; used to notice travel. */
     val homeLat: Double? = null,
@@ -183,10 +190,17 @@ class SettingsStore(context: Context) {
     private fun load(): AppSettings {
         val d = AppSettings()
         fun enumOr(key: String, default: String) = prefs.getString(key, default) ?: default
+        // Migration for installs made before the unconfigured state existed (build ≤ 33): a place
+        // counts as chosen only if the user detected it (home coordinates were recorded) or picked
+        // one (coordinates differ from the old shipped default). Anyone else is asked again.
+        val legacyLocationSet = prefs.getBoolean("setupDone", false) &&
+            (prefs.contains("homeLat") || prefs.getFloat("lat", -34.02f) != -34.02f || prefs.getFloat("lng", 150.77f) != 150.77f)
+        val locationSet = prefs.getBoolean("locSet", legacyLocationSet)
         return AppSettings(
             latitude = prefs.getFloat("lat", d.latitude.toFloat()).toDouble(),
             longitude = prefs.getFloat("lng", d.longitude.toFloat()).toDouble(),
             locationName = prefs.getString("locName", d.locationName) ?: d.locationName,
+            locationSet = locationSet,
             zoneId = prefs.getString("zone", null),
             homeLat = if (prefs.contains("homeLat")) prefs.getFloat("homeLat", 0f).toDouble() else null,
             homeLng = if (prefs.contains("homeLng")) prefs.getFloat("homeLng", 0f).toDouble() else null,
@@ -250,7 +264,7 @@ class SettingsStore(context: Context) {
     private fun save(s: AppSettings) {
         prefs.edit().apply {
             putFloat("lat", s.latitude.toFloat()); putFloat("lng", s.longitude.toFloat())
-            putString("locName", s.locationName); putString("zone", s.zoneId);
+            putString("locName", s.locationName); putString("zone", s.zoneId); putBoolean("locSet", s.locationSet)
             if (s.homeLat != null) putFloat("homeLat", s.homeLat.toFloat()) else remove("homeLat")
             if (s.homeLng != null) putFloat("homeLng", s.homeLng.toFloat()) else remove("homeLng")
             putBoolean("travel", s.travellerMode); putBoolean("travelQasr", s.travelQasr); putBoolean("travelJam", s.travelJam)

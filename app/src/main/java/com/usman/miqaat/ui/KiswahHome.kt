@@ -30,6 +30,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
@@ -94,8 +96,8 @@ fun KiswahHome(
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
                 androidx.compose.foundation.layout.FlowRow(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(u * 2), verticalArrangement = Arrangement.spacedBy(u * 0.5f)) {
-                    Caps(settings.locationName, fs(1.3f), Modifier.clickable(onClick = onOpenLocation))
-                    if (settings.showQibla) { val q = PrayerEngine.qibla(settings); Caps("· ${L10n.word(settings, "Qibla")} ${q.toInt()}° ${PrayerEngine.compass(q)}", fs(1.1f), Modifier.clickable(onClick = onOpenQibla), alpha = 0.55f) }
+                    Caps(settings.locationName, fs(1.3f), Modifier.clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).semantics { contentDescription = "Location: ${settings.locationName}. Opens location settings" }, alpha = 1f)
+                    if (settings.showQibla) { val q = PrayerEngine.qibla(settings); Caps("· ${L10n.word(settings, "Qibla")} ${q.toInt()}° ${PrayerEngine.compass(q)}", fs(1.1f), Modifier.clickable(onClick = onOpenQibla, role = androidx.compose.ui.semantics.Role.Button), alpha = 0.85f) }
                     if (settings.adhkarEnabled && morningWindow) Caps("· " + L10n.word(settings, "Morning adhkār"), fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.MORNING) }, bright = true)
                     if (settings.adhkarEnabled && eveningWindow) Caps("· " + L10n.word(settings, "Evening adhkār"), fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.EVENING) }, bright = true)
                     if (updateAvailable) Caps("· " + L10n.word(settings, "Update available"), fs(1.1f), Modifier.clickable(onClick = onOpenAbout), bright = true)
@@ -105,9 +107,9 @@ fun KiswahHome(
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.6f)) {
                     val h = PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)
                     Caps((if (settings.showHijri) h.english + "  ·  " else "") + state.now.format(DateTimeFormatter.ofPattern("EEE d MMM", Locale.ENGLISH)), fs(1.3f))
-                    if (settings.kidsMode) Icon(androidx.compose.material.icons.Icons.Outlined.MenuBook, null, Modifier.size(maxOf(u * 2.2f, 40.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenLearn).padding(maxOf(u * 0.4f, 8.dp)), tint = Kiswah.threadSoft.copy(alpha = 0.7f))
-                    Icon(Icons.Outlined.CalendarMonth, null, Modifier.size(maxOf(u * 2.2f, 40.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenTimetable).padding(maxOf(u * 0.4f, 8.dp)), tint = Kiswah.threadSoft.copy(alpha = 0.7f))
-                    Icon(Icons.Outlined.Settings, null, Modifier.size(maxOf(u * 2.2f, 40.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenSettings).padding(maxOf(u * 0.4f, 8.dp)), tint = Kiswah.threadSoft.copy(alpha = 0.7f))
+                    if (settings.kidsMode) Icon(androidx.compose.material.icons.Icons.Outlined.MenuBook, "Learn Salah", Modifier.size(maxOf(u * 2.6f, 48.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenLearn, role = androidx.compose.ui.semantics.Role.Button).padding(maxOf(u * 0.5f, 10.dp)), tint = Kiswah.threadSoft)
+                    Icon(Icons.Outlined.CalendarMonth, "Monthly timetable", Modifier.size(maxOf(u * 2.6f, 48.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenTimetable, role = androidx.compose.ui.semantics.Role.Button).padding(maxOf(u * 0.5f, 10.dp)), tint = Kiswah.threadSoft)
+                    Icon(Icons.Outlined.Settings, "Settings", Modifier.size(maxOf(u * 2.6f, 48.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenSettings, role = androidx.compose.ui.semantics.Role.Button).padding(maxOf(u * 0.5f, 10.dp)), tint = Kiswah.threadSoft)
                 }
             }
 
@@ -167,7 +169,14 @@ fun KiswahHome(
                     val next = p == state.hero && state.nextTime.toLocalDate() == state.now.toLocalDate()
                     val label = when { p == Prayer.DHUHR && isFri -> L10n.word(settings, "Jumuʿah"); ramadan && p == Prayer.FAJR -> L10n.word(settings, "Suhoor"); ramadan && p == Prayer.MAGHRIB -> L10n.word(settings, "Iftar"); else -> L10n.prayer(settings, p) }
                     val iq = PrayerEngine.iqamah(settings, state.today, p)
-                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.alpha(if (done) 0.4f else 1f).combinedClickable(onClick = onToggleRelative, onLongClick = { why = p })) {
+                    val words = buildString {
+                        append(label); append(", "); append(PrayerEngine.clock(t, settings.use24h)); append(' '); append(PrayerEngine.suffix(t, settings.use24h))
+                        append(", "); append(L10n.relative(settings, t, state.now)); if (next) append(", next prayer") else if (done) append(", passed")
+                        if (iq != null) { append(", iqamah "); append(PrayerEngine.clock(iq, settings.use24h)) }
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.alpha(if (done) 0.6f else 1f)
+                        .combinedClickable(onClick = onToggleRelative, onLongClick = { why = p }, onClickLabel = "Switch between clock time and time until", onLongClickLabel = "Why this time?", role = androidx.compose.ui.semantics.Role.Button)
+                        .semantics(mergeDescendants = true) { contentDescription = words }) {
                         Text(if (urdu) label else label.uppercase(), fontFamily = F, fontSize = fs(if (urdu) 1.6f else 1.15f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.75f))
                         if (settings.showRelative) Text(L10n.relative(settings, t, state.now).let { if (urdu) it else it.uppercase() }, fontFamily = F, fontSize = fs(1.5f), letterSpacing = fs(0.1f), color = if (next) Kiswah.highlight else Kiswah.ivory)
                         else Row(verticalAlignment = Alignment.Bottom) {
@@ -175,17 +184,17 @@ fun KiswahHome(
                             val s = PrayerEngine.suffix(t, settings.use24h)
                             if (s.isNotEmpty()) Text(" $s", fontFamily = Cinzel, fontSize = fs(1.2f), color = if (next) Kiswah.highlight else Kiswah.ivory, modifier = Modifier.padding(bottom = u * 0.3f))
                         }
-                        if (iq != null) Text("IQ ${PrayerEngine.clock(iq, settings.use24h)}", fontFamily = Cinzel, fontSize = fs(1.05f), letterSpacing = fs(0.15f), color = Kiswah.threadSoft.copy(alpha = 0.6f))
+                        if (iq != null) Text("IQ ${PrayerEngine.clock(iq, settings.use24h)}", fontFamily = Cinzel, fontSize = fs(1.05f), letterSpacing = fs(0.15f), color = Kiswah.threadSoft.copy(alpha = 0.85f))
                     }
                 }
             }
         }
-        Text(if (urdu) L10n.word(settings, "Designed by UZR · Make duʿā for me") else "DESIGNED BY UZR  ·  MAKE DUʿĀ FOR ME", fontFamily = if (urdu) Nastaliq else Cinzel, fontSize = fs(1.0f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.45f), modifier = Modifier.align(Alignment.BottomStart).padding(start = u * 4, bottom = u * 0.7f))
+        Text(if (urdu) L10n.word(settings, "Designed by UZR · Make duʿā for me") else "DESIGNED BY UZR  ·  MAKE DUʿĀ FOR ME", fontFamily = if (urdu) Nastaliq else Cinzel, fontSize = fs(1.0f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.85f), modifier = Modifier.align(Alignment.BottomStart).padding(start = u * 4, bottom = u * 0.7f))
     }
 }
 
 @Composable
-private fun Caps(t: String, size: androidx.compose.ui.unit.TextUnit, modifier: Modifier = Modifier, alpha: Float = 0.7f, bright: Boolean = false) {
+private fun Caps(t: String, size: androidx.compose.ui.unit.TextUnit, modifier: Modifier = Modifier, alpha: Float = 0.9f, bright: Boolean = false) {
     val urdu = t.any { it in '\u0600'..'\u06FF' }
     Text(if (urdu) t else t.uppercase(), fontFamily = if (urdu) Nastaliq else Nunito, fontSize = if (urdu) size * 1.25f else size, letterSpacing = if (urdu) 0.sp else size * 0.18f, fontWeight = FontWeight.Bold, maxLines = 1,
         color = if (bright) Kiswah.highlight else Kiswah.threadSoft.copy(alpha = alpha), modifier = modifier)

@@ -6,6 +6,10 @@ import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.background
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -24,7 +28,16 @@ object Palette {
     val panelRaised = Color(0xFF1B2340)
     val mint = Color(0xFF8FD3A7)
     val line = Color(0x1FFFFFFF)
+    val lineStrong = Color(0x66FFFFFF)
     val glass = Color(0x12FFFFFF)
+
+    // Semantic text tokens (solid colours, so contrast is predictable on the dark surfaces):
+    // ivory 15.4:1, textSecondary ≈ 10:1, textMuted ≈ 7:1 on night/panel; textDisabled is for disabled controls only.
+    val textSecondary = Color(0xFFCFC7B4)
+    val textMuted = Color(0xFFAEA792)
+    val textDisabled = Color(0xFF7F7A6C)
+    /** Laid over the lower part of daytime skies so ivory text keeps ≥4.5:1 at the bright end of the gradient. */
+    val scrim = Color(0xFF05070F)
 }
 
 /** Sky palette per prayer period: top, bottom, glow, star opacity. */
@@ -43,6 +56,23 @@ val Amiri = FontFamily(Font(R.font.amiri_regular, FontWeight.Normal), Font(R.fon
 val Cormorant = FontFamily(Font(R.font.cormorant_garamond_medium, FontWeight.Medium))
 val Nunito = FontFamily(Font(R.font.nunito_sans, FontWeight.Normal))
 val Nastaliq = FontFamily(Font(R.font.noto_nastaliq_urdu, FontWeight.Normal))
+
+/** True when the user has turned animations off in Android accessibility / developer settings. */
+@androidx.compose.runtime.Composable
+fun reduceMotion(): Boolean {
+    val ctx = androidx.compose.ui.platform.LocalContext.current
+    return androidx.compose.runtime.remember {
+        runCatching { android.provider.Settings.Global.getFloat(ctx.contentResolver, android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f }.getOrDefault(false)
+    }
+}
+
+/** Darkens the lower part of a bright daytime sky so ivory text keeps ≥4.5:1 (WCAG AA) at the gradient's bright end. */
+@androidx.compose.runtime.Composable
+fun DaySkyScrim(period: Prayer, modifier: Modifier = Modifier.fillMaxSize()) {
+    val day = period == Prayer.SUNRISE || period == Prayer.DHUHR || period == Prayer.ASR
+    val k = if (day) 1f else 0.35f
+    Box(modifier.background(androidx.compose.ui.graphics.Brush.verticalGradient(0f to Palette.scrim.copy(alpha = 0.10f * k), 0.30f to Palette.scrim.copy(alpha = 0.34f * k), 1f to Palette.scrim.copy(alpha = 0.62f * k))))
+}
 
 /** Body face for the chosen language: Nastaʿlīq for Urdu, Nunito otherwise. */
 fun uiFont(s: com.usman.miqaat.data.AppSettings): FontFamily = if (s.language == com.usman.miqaat.data.Language.UR) Nastaliq else Nunito

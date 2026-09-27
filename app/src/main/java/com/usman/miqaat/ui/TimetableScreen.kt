@@ -72,7 +72,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                 }
                 Text(
                     "${settings.locationName} · ${settings.method.label} · Asr: ${settings.asrMethod.label.substringBefore(',')}",
-                    fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory.copy(alpha = 0.7f)
+                    fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary
                 )
             }
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -122,7 +122,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
         }
         Text(
             "Fridays in green · Jumuʿah at your masjid may differ from Dhuhr · ☾ marks Ramaḍān",
-            fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.6f), modifier = Modifier.padding(top = 8.dp)
+            fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary, modifier = Modifier.padding(top = 8.dp)
         )
     }
     }

@@ -56,7 +56,7 @@ fun LargeHome(state: PrayerState, settings: AppSettings, onTap: () -> Unit) {
         val nxt = Prayer.prayersOnly.firstOrNull { it != state.hero && state.today[it].isAfter(state.now) }
         Text(
             (if (urdu) "سب نمازیں دیکھنے کے لیے چھوئیں" else "Tap for all prayers") + (nxt?.let { "  ·  ${L10n.prayer(settings, it)} ${PrayerEngine.clock(state.today[it], settings.use24h)} ${PrayerEngine.suffix(state.today[it], settings.use24h)}" } ?: ""),
-            fontFamily = if (urdu) Nastaliq else Nunito, fontSize = fs(1.8f), color = Palette.ivory.copy(alpha = 0.55f),
+            fontFamily = if (urdu) Nastaliq else Nunito, fontSize = fs(1.8f), color = Palette.textMuted,
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = u * 2.5f)
         )
     }

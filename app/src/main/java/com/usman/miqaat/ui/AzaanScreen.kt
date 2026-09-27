@@ -36,6 +36,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
@@ -141,7 +143,7 @@ private fun AzaanBody(phase: Phase, u: Dp) {
         Text("ٱللَّٰهُ أَكْبَرُ", fontFamily = Amiri, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 14f).sp, color = Color(0xFFF6E7B8), textAlign = TextAlign.Center)
         Text("${phase.prayer.english.uppercase()} AZAAN  ·  ${phase.prayer.arabic}", fontFamily = Cormorant, fontSize = (u.value * 2.6f).sp, letterSpacing = (u.value * 0.6f).sp, color = Palette.ivory.copy(alpha = 0.85f), modifier = Modifier.padding(top = u * 1))
         Wave(Modifier.padding(top = u * 4).width(u * 22).height(u * 8))
-        Text("Hayya ʿalaṣ-ṣalāh · Come to prayer", fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, letterSpacing = (u.value * 0.1f).sp, color = Palette.ivory.copy(alpha = 0.7f), modifier = Modifier.padding(top = u * 3))
+        Text("Hayya ʿalaṣ-ṣalāh · Come to prayer", fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, letterSpacing = (u.value * 0.1f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 3))
     }
 }
 
@@ -182,11 +184,11 @@ private fun CountdownBody(p: Phase.IqamahCountdown, u: Dp) {
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("$secs", fontFamily = Cormorant, fontSize = (u.value * 10.5f).sp, lineHeight = (u.value * 10.5f).sp, color = Palette.ivory)
-                Text("SECONDS", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = 0.7f), modifier = Modifier.padding(top = u * 0.6f))
+                Text("SECONDS", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 0.6f))
             }
         }
         Text("سَوُّوا صُفُوفَكُمْ  ·  Straighten your rows", fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = Palette.ivory.copy(alpha = 0.9f))
-        Text("Ṣaḥīḥ al-Bukhārī 723", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.ivory.copy(alpha = 0.6f), modifier = Modifier.padding(top = u * 0.6f))
+        Text("Ṣaḥīḥ al-Bukhārī 723", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 0.6f))
     }
 }
 
@@ -209,17 +211,17 @@ private fun QuietBody(p: Phase.Quiet, u: Dp, onStop: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
     ) {
         val t = java.time.LocalTime.now()
-        Text("%d:%02d".format(if (t.hour % 12 == 0) 12 else t.hour % 12, t.minute), fontFamily = Cormorant, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 12f).sp, color = Palette.ivory.copy(alpha = 0.55f))
+        Text("%d:%02d".format(if (t.hour % 12 == 0) 12 else t.hour % 12, t.minute), fontFamily = Cormorant, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 12f).sp, color = Palette.textMuted)
         Text(p.prayer.arabic, fontFamily = Amiri, fontSize = (u.value * 3.4f).sp, color = Color(0xFFF6E7B8).copy(alpha = 0.5f))
         val left = ((p.endsAt - now).coerceAtLeast(0) / 60_000) + 1
-        Text("in prayer · screen wakes in $left min · tap to wake now", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.08f).sp, color = Palette.ivory.copy(alpha = 0.3f), modifier = Modifier.padding(top = u * 2))
+        Text("in prayer · screen wakes in $left min · tap to wake now", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.08f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 2))
     }
 }
 
 @Composable
 private fun HadithBody(p: Phase.HadithPhase, u: Dp) {
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Kicker("Hadith of the hour · ${p.prayer.english}", u)
+        Kicker("A hadith after ${p.prayer.english} · ${p.hadith.source}", u)
         val long = p.hadith.arabic.length > 110
         Arabic("قَالَ رَسُولُ اللَّهِ ﷺ: " + p.hadith.arabic, u, size = if (long) 3.3f else 4f)
         Translation("The Messenger of Allah ﷺ said: “${p.hadith.english}”", u, size = if (p.hadith.english.length > 160) 2f else 2.35f)
@@ -286,15 +288,17 @@ private fun Pill(label: String, primary: Boolean, u: Float, onClick: () -> Unit)
     Box(
         Modifier.clip(shape).background(if (primary) Palette.gold else Color.Transparent)
             .border(1.dp, if (primary) Palette.gold else Color.White.copy(alpha = 0.25f), shape)
-            .clickable(onClick = onClick).heightIn(min = 44.dp).padding(horizontal = (u * 2.4f).dp, vertical = (u * 1.1f).dp),
+            .clickable(onClick = onClick, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).padding(horizontal = (u * 2.4f).dp, vertical = (u * 1.1f).dp),
         contentAlignment = Alignment.Center
     ) { Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = (u * 1.5f).sp, color = if (primary) Color(0xFF160C2A) else Palette.ivory, maxLines = 1) }
 }
 
 @Composable
 private fun Wave(modifier: Modifier, bars: Int = 15) {
-    val t by rememberInfiniteTransition(label = "wave").animateFloat(0f, 1f, infiniteRepeatable(tween(1400, easing = LinearEasing), RepeatMode.Restart), label = "t")
-    Canvas(modifier) {
+    val still = reduceMotion()
+    val anim by rememberInfiniteTransition(label = "wave").animateFloat(0f, 1f, infiniteRepeatable(tween(1400, easing = LinearEasing), RepeatMode.Restart), label = "t")
+    val t = if (still) 0.25f else anim
+    Canvas(modifier.semantics { contentDescription = "Audio playing" }) {
         val gap = size.width / bars
         for (i in 0 until bars) {
             val phase = (i / bars.toFloat()) * PI * 2

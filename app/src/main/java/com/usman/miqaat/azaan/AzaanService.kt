@@ -55,7 +55,6 @@ class AzaanService : Service() {
     private val handler = Handler(Looper.getMainLooper())
     private var pendingAfterTts: (() -> Unit)? = null
     private var sequenceId = 0
-    private var savedAlarmVolume: Int = -1
 
     override fun onBind(intent: Intent?): IBinder? = null
 
@@ -94,6 +93,8 @@ class AzaanService : Service() {
 
     // ------------------------------------------------------------ phases
 
+    private var focusRequest: android.media.AudioFocusRequest? = null
+
     private fun begin(prayer: Prayer) {
         sequenceId++
         handler.removeCallbacksAndMessages(null)
@@ -101,20 +102,29 @@ class AzaanService : Service() {
         val n = buildNotification(prayer)
         if (Build.VERSION.SDK_INT >= 29) startForeground(NOTIF_ID, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK) else startForeground(NOTIF_ID, n)
         acquireWakeLock()
-        val settings = (application as MiqaatApp).settings.value
-        val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        val max = am.getStreamMaxVolume(AudioManager.STREAM_ALARM)
-        if (savedAlarmVolume < 0) savedAlarmVolume = am.getStreamVolume(AudioManager.STREAM_ALARM)
-        runCatching { am.setStreamVolume(AudioManager.STREAM_ALARM, (max * settings.azaanVolume / 100f).toInt().coerceAtLeast(1), 0) }
+        requestFocus()
+        AlarmVolume.raise(this, (application as MiqaatApp).settings.value.azaanVolume)
     }
 
-    private fun restoreAlarmVolume() {
-        if (savedAlarmVolume >= 0) {
-            val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-            runCatching { am.setStreamVolume(AudioManager.STREAM_ALARM, savedAlarmVolume, 0) }
-            savedAlarmVolume = -1
-        }
+    /** Ask other audio (music, podcasts) to duck/pause for the duration of the sequence; released in [finishAll]. */
+    private fun requestFocus() {
+        val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        if (focusRequest != null) return
+        val attrs = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
+        val req = android.media.AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT).setAudioAttributes(attrs).setAcceptsDelayedFocusGain(false)
+            .setOnAudioFocusChangeListener { change -> if (change == AudioManager.AUDIOFOCUS_LOSS) { /* another alarm/call took over: stop cleanly rather than fight it */ handler.post { finishAll() } } }
+            .build()
+        focusRequest = req
+        runCatching { am.requestAudioFocus(req) }
     }
+
+    private fun abandonFocus() {
+        val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        focusRequest?.let { runCatching { am.abandonAudioFocusRequest(it) } }
+        focusRequest = null
+    }
+
+    private fun restoreAlarmVolume() = AlarmVolume.restore(this)
 
     private fun startAzaan(prayer: Prayer, preview: Boolean) {
         begin(prayer)
@@ -393,6 +403,7 @@ class AzaanService : Service() {
 
     private fun finishAll() {
         restoreAlarmVolume()
+        abandonFocus()
         shortPlayer?.runCatching { release() }; shortPlayer = null
         stopNarration()
         sequenceId++
@@ -409,6 +420,7 @@ class AzaanService : Service() {
 
     override fun onDestroy() {
         restoreAlarmVolume()
+        abandonFocus()
         handler.removeCallbacksAndMessages(null)
         stopPlayer(); stopNarration()
         tts?.runCatching { stop(); shutdown() }

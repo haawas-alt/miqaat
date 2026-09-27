@@ -37,6 +37,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -74,7 +77,7 @@ fun LearnScreen(onBack: () -> Unit) {
         Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = u * 4, vertical = u * 2)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Color.White) }
-                Text("LEARN TO PRAY  ·  STEP ${i + 1} OF ${steps.size}", fontFamily = Nunito, fontSize = fs(1.4f), letterSpacing = fs(0.25f), fontWeight = FontWeight.Bold, color = Palette.goldSoft)
+                Text("LEARN SALAH  ·  STEP ${i + 1} OF ${steps.size}", fontFamily = Nunito, fontSize = fs(1.4f), letterSpacing = fs(0.25f), fontWeight = FontWeight.Bold, color = Palette.goldSoft)
             }
             val picture: @Composable (Modifier) -> Unit = { m -> Box(m.clip(RoundedCornerShape(u * 2)).background(Color.White.copy(alpha = 0.1f)), contentAlignment = Alignment.Center) { Text(step.emoji, fontSize = fs(if (compact) 18f else 12f)) } }
             val words: @Composable (Modifier) -> Unit = { m ->
@@ -85,26 +88,26 @@ fun LearnScreen(onBack: () -> Unit) {
                     }
                     Text(step.transliteration, fontFamily = Cormorant, fontSize = fs(2.3f), lineHeight = fs(3f), color = Color.White)
                     Text(step.meaning, fontFamily = Nunito, fontSize = fs(1.7f), lineHeight = fs(2.5f), color = Color.White.copy(alpha = 0.85f), modifier = Modifier.padding(top = u * 0.8f))
-                    Text(step.note, fontFamily = Nunito, fontSize = fs(1.35f), lineHeight = fs(2f), color = Color.White.copy(alpha = 0.6f), modifier = Modifier.padding(top = u * 0.8f))
+                    Text(step.note, fontFamily = Nunito, fontSize = fs(1.35f), lineHeight = fs(2f), color = Color.White.copy(alpha = 0.8f), modifier = Modifier.padding(top = u * 0.8f))
                 }
             }
             if (compact) Column(Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(u * 1.5f)) { picture(Modifier.fillMaxWidth().height(u * 14)); words(Modifier.weight(1f)) }
             else Row(Modifier.weight(1f).fillMaxWidth().padding(top = u * 1), horizontalArrangement = Arrangement.spacedBy(u * 3)) { picture(Modifier.fillMaxHeight().aspectRatio(1f, matchHeightConstraintsFirst = true)); words(Modifier.weight(1f).fillMaxHeight()) }
             Row(Modifier.fillMaxWidth().padding(top = u * 1.5f), horizontalArrangement = Arrangement.spacedBy(u * 1.2f), verticalAlignment = Alignment.CenterVertically) {
                 Big("‹", enabled = i > 0, u = u.value) { i-- }
-                Box(Modifier.weight(1f).height(u * 5).clip(RoundedCornerShape(50)).background(Palette.gold).clickable { if (i < steps.lastIndex) i++ else onBack() }, contentAlignment = Alignment.Center) {
+                Box(Modifier.weight(1f).heightIn(min = 48.dp).height(u * 5).clip(RoundedCornerShape(50)).background(Palette.gold).clickable(role = androidx.compose.ui.semantics.Role.Button) { if (i < steps.lastIndex) i++ else onBack() }, contentAlignment = Alignment.Center) {
                     Text(if (i < steps.lastIndex) "Next: ${steps[i + 1].position}  ›" else "Finished · well done!", fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = fs(1.9f), color = Palette.night)
                 }
-                Box(Modifier.size(u * 5).clip(CircleShape).border(1.dp, Color.White.copy(alpha = 0.5f), CircleShape).clickable { speak() }, contentAlignment = Alignment.Center) { Icon(Icons.AutoMirrored.Outlined.VolumeUp, "Hear it", Modifier.size(u * 2.4f), tint = Color.White) }
+                Box(Modifier.size(maxOf(u * 5, 48.dp)).clip(CircleShape).border(1.dp, Color.White.copy(alpha = 0.5f), CircleShape).clickable(role = androidx.compose.ui.semantics.Role.Button) { speak() }, contentAlignment = Alignment.Center) { Icon(Icons.AutoMirrored.Outlined.VolumeUp, "Hear it", Modifier.size(u * 2.4f), tint = Color.White) }
             }
-            Text(steps.indices.joinToString(" ") { if (it <= i) "●" else "○" }, fontFamily = Nunito, fontSize = fs(1.4f), letterSpacing = fs(0.2f), color = Color.White.copy(alpha = 0.6f), modifier = Modifier.padding(top = u * 1).align(Alignment.CenterHorizontally))
+            Text(steps.indices.joinToString(" ") { if (it <= i) "●" else "○" }, fontFamily = Nunito, fontSize = fs(1.4f), letterSpacing = fs(0.2f), color = Color.White.copy(alpha = 0.75f), modifier = Modifier.padding(top = u * 1).align(Alignment.CenterHorizontally).semantics { contentDescription = "Step ${i + 1} of ${steps.size}" })
         }
     }
 }
 
 @Composable
 private fun Big(t: String, enabled: Boolean, u: Float, onClick: () -> Unit) {
-    Box(Modifier.size((u * 5).dp).clip(CircleShape).border(1.dp, Color.White.copy(alpha = if (enabled) 0.5f else 0.15f), CircleShape).clickable(enabled = enabled, onClick = onClick), contentAlignment = Alignment.Center) {
-        Text(t, fontSize = (u * 3).sp, color = Color.White.copy(alpha = if (enabled) 1f else 0.3f))
+    Box(Modifier.size(maxOf((u * 5).dp, 48.dp)).clip(CircleShape).border(1.dp, Color.White.copy(alpha = if (enabled) 0.5f else 0.15f), CircleShape).clickable(enabled = enabled, onClick = onClick, role = androidx.compose.ui.semantics.Role.Button).semantics { contentDescription = "Previous step" }, contentAlignment = Alignment.Center) {
+        Text(t, fontSize = (u * 3).sp, color = Color.White.copy(alpha = if (enabled) 1f else 0.4f))
     }
 }

@@ -18,6 +18,11 @@ class BootReceiver : BroadcastReceiver() {
                     "Self-check passed · next: " + (next?.let { "${it.prayer.english} ${if (it.iqamah) "iqamah" else if (it.reminder) "reminder" else "azaan"} at ${it.at.toLocalTime().withSecond(0).withNano(0)} ${it.at.zone.id}" } ?: "nothing scheduled"))
             }
             Intent.ACTION_MY_PACKAGE_REPLACED -> Health.log(context, Health.Kind.INFO, "Miqaat updated", "Version ${com.usman.miqaat.BuildConfig.VERSION_NAME} · alarms re-armed")
+            "android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" -> {
+                val ok = com.usman.miqaat.data.Reliability.exactAlarmsGranted(context)
+                Health.log(context, if (ok) Health.Kind.INFO else Health.Kind.MISSED, if (ok) "Exact alarms granted" else "Exact alarms revoked",
+                    if (ok) "Azaan re-armed to the second" else "Android will only allow approximate alarms until this is granted again (Settings › Azaan & alerts)")
+            }
         }
         AzaanScheduler.reschedule(context)
         if (intent.action == Intent.ACTION_BOOT_COMPLETED) {

@@ -45,12 +45,24 @@ class MiqaatWidget : AppWidgetProvider() {
             val following = Prayer.prayersOnly.filter { it != st.hero && st.today[it].isAfter(st.now) }.take(2)
             for (id in ids) {
                 val v = RemoteViews(ctx.packageName, R.layout.widget_next)
+                if (!com.usman.miqaat.data.Setup.ready(s)) {
+                    // Unconfigured: never show placeholder times on the home screen.
+                    v.setTextViewText(R.id.w_name, "Miqaat")
+                    v.setTextViewText(R.id.w_time, "Set up")
+                    v.setTextViewText(R.id.w_state, "Tap to choose your place")
+                    v.setTextViewText(R.id.w_next, "")
+                    v.setContentDescription(R.id.w_root, "Miqaat is not set up yet. Tap to choose your place.")
+                    v.setOnClickPendingIntent(R.id.w_root, open)
+                    mgr.updateAppWidget(id, v)
+                    continue
+                }
                 v.setTextViewText(R.id.w_name, "${L10n.prayer(s, st.hero)}  ·  ${st.hero.arabic}")
                 v.setTextViewText(R.id.w_time, PrayerEngine.clock(st.heroTime, s.use24h) + " " + PrayerEngine.suffix(st.heroTime, s.use24h))
                 v.setTextViewText(R.id.w_state, if (st.justPassed) L10n.ago(s, st.delta) else L10n.inFor(s, st.delta))
                 val iq = st.current?.let { PrayerEngine.iqamah(s, st.today, it) }?.takeIf { it.isAfter(st.now) }
                 val tail = following.joinToString("   ") { "${L10n.prayer(s, it)} ${PrayerEngine.clock(st.today[it], s.use24h)}" } + (iq?.let { "   ${L10n.word(s, "Iqamah")} ${PrayerEngine.clock(it, s.use24h)}" } ?: "")
                 v.setTextViewText(R.id.w_next, tail)
+                v.setContentDescription(R.id.w_root, "${if (st.justPassed) "" else "Next prayer "}${L10n.prayer(s, st.hero)} at ${PrayerEngine.clock(st.heroTime, s.use24h)} ${PrayerEngine.suffix(st.heroTime, s.use24h)}, ${if (st.justPassed) L10n.ago(s, st.delta) else L10n.inFor(s, st.delta)}. $tail. Opens Miqaat.")
                 v.setOnClickPendingIntent(R.id.w_root, open)
                 mgr.updateAppWidget(id, v)
             }

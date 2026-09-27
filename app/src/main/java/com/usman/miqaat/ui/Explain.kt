@@ -21,6 +21,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -52,6 +54,7 @@ fun WhyDialog(settings: AppSettings, day: DayTimes, p: Prayer, onDismiss: () -> 
         title = { Text("Why ${PrayerEngine.clock(t, h24)}?  ·  ${p.english}  ${p.arabic}", fontFamily = Cormorant, fontSize = 26.sp, color = Palette.ivory) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
+                SectionLabel("Calculated from")
                 if (day.fromMasjid) Line("Source", "${settings.masjidName.ifBlank { "Masjid timetable" }} for ${day.date}", "Calculated would be ${c(calc[p])}")
                 else Line("Source", "Calculated on this device", "Adhan library · Meeus astronomical algorithms")
                 Line("Method", settings.method.label, settings.method.detail)
@@ -64,19 +67,22 @@ fun WhyDialog(settings: AppSettings, day: DayTimes, p: Prayer, onDismiss: () -> 
                     Prayer.MAGHRIB -> Line("Rule", "Sunset: the sun's disc fully below the horizon", "")
                     Prayer.ISHA -> Line("Rule", settings.method.parameters().let { if (it.ishaInterval > 0) "${it.ishaInterval} min after Maghrib" else "Sun ${it.ishaAngle}° below the horizon after sunset" }, "Disappearance of the red twilight")
                 }
+                Line("Location", settings.locationName, "%.4f, %.4f · ${settings.zone().id}".format(settings.latitude, settings.longitude))
+                SectionLabel("Your settings")
                 val adj = settings.adjustments[p] ?: 0
                 Line("Your adjustment", if (adj == 0) "None" else (if (adj > 0) "+$adj min" else "$adj min"), "Settings › Prayer times › Minute adjustments")
+                SectionLabel("Islamic guidance · scholarly views, not calculation")
                 if (end != null) Line("Ends", c(end), when (p) {
-                    Prayer.ISHA -> "Sharʿī midnight; Isha stays valid until Fajr ${c(PrayerEngine.times(settings, day.date.plusDays(1))[Prayer.FAJR])}, but praying before midnight is preferred"
-                    Prayer.FAJR -> "At sunrise"
-                    Prayer.ASR -> "At sunset; the preferred time ends when the sun yellows"
+                    Prayer.ISHA -> "Shown at sharʿī midnight (halfway from sunset to dawn), the end of the preferred time in many views. Other scholars hold Isha valid until Fajr ${c(PrayerEngine.times(settings, day.date.plusDays(1))[Prayer.FAJR])}. Ask your imam."
+                    Prayer.FAJR -> "At sunrise (agreed)"
+                    Prayer.ASR -> "At sunset. Many scholars call the time after the sun yellows the time of necessity; ʿAsr already prayed is not affected."
+                    Prayer.DHUHR -> "When ʿAsr begins — which itself depends on the ʿAsr view chosen above"
                     else -> "When the next prayer begins"
                 })
-                Line("Location", settings.locationName, "%.4f, %.4f · ${settings.zone().id}".format(settings.latitude, settings.longitude))
                 Spacer(Modifier.height(8.dp))
-                Text("Disliked for voluntary prayer today", fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
-                PrayerEngine.dislikedWindows(day, settings).forEach { w -> Text("${c(w.start)} – ${c(w.end)}  ·  ${w.label}", fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory.copy(alpha = 0.8f), modifier = Modifier.padding(top = 4.dp)) }
-                Text("Ṣaḥīḥ Muslim 831 · obligatory prayers, and missed ones, are not restricted by these windows.", fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.55f), modifier = Modifier.padding(top = 6.dp))
+                Text("Disliked for voluntary prayer today · approximate", fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
+                PrayerEngine.dislikedWindows(day, settings).forEach { w -> Text("${c(w.start)} – ${c(w.end)}  ·  ${w.label}", fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory, modifier = Modifier.padding(top = 4.dp)) }
+                Text("These windows are conservative estimates (≈15 min after sunrise, ≈10 min around zawāl, after ʿAsr until sunset); the texts describe events, not minute counts, and schools differ on the details. Obligatory and missed prayers are not restricted by them — Ṣaḥīḥ Muslim 831.", fontFamily = Nunito, fontSize = 12.sp, color = Palette.textMuted, lineHeight = 17.sp, modifier = Modifier.padding(top = 6.dp))
             }
         },
         confirmButton = { TextButton(onClick = onDismiss) { Text("Close", color = Palette.goldSoft) } }
@@ -84,13 +90,18 @@ fun WhyDialog(settings: AppSettings, day: DayTimes, p: Prayer, onDismiss: () -> 
 }
 
 @Composable
+private fun SectionLabel(t: String) = Text(t.uppercase(), fontFamily = Nunito, fontSize = 11.sp, letterSpacing = 1.4.sp, fontWeight = FontWeight.Bold, color = Palette.textMuted, modifier = Modifier.padding(top = 10.dp, bottom = 2.dp).semantics { heading() })
+
+@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+@Composable
 private fun Line(k: String, v: String, sub: String) {
-    Column(Modifier.padding(vertical = 6.dp)) {
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(k, fontFamily = Nunito, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
-            Text(v, fontFamily = Nunito, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.padding(start = 12.dp), textAlign = androidx.compose.ui.text.style.TextAlign.End)
+    Column(Modifier.padding(vertical = 6.dp).semantics(mergeDescendants = true) {}) {
+        // Key and value wrap onto two lines on narrow screens instead of squeezing.
+        androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text(k, fontFamily = Nunito, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory, modifier = Modifier.padding(end = 12.dp))
+            Text(v, fontFamily = Nunito, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft)
         }
-        if (sub.isNotEmpty()) Text(sub, fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.6f))
+        if (sub.isNotEmpty()) Text(sub, fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
     }
     HorizontalDivider(color = Palette.line)
 }

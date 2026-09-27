@@ -3,5 +3,6 @@
     <string name="channel_azaan">Azaan</string>
     <string name="channel_azaan_desc">Plays the azaan at each prayer time</string>
     <string name="channel_silent">Prayer reminders</string>
+    <string name="channel_azaan_quiet">Azaan (while Miqaat is open)</string>
     <string name="widget_desc">Next prayer with countdown</string>
 </resources>

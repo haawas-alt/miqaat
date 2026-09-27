@@ -112,10 +112,13 @@ class MainActivity : ComponentActivity() {
                 val state = remember(settings, now.withSecond(0).withNano(0)) { PrayerEngine.state(settings, now) }
 
                 // On every return to the foreground: refresh location (if auto) and make sure an alarm is armed.
-                LifecycleResumeEffect(Unit) {
-                    AzaanScheduler.reschedule(this@MainActivity)
-                    scope.launch { Updater.check(this@MainActivity) }
-                    if (settings.autoLocation && settings.setupDone && LocationRepo.hasPermission(this@MainActivity)) scope.launch { detect(this@MainActivity, store) }
+                val ready = com.usman.miqaat.data.Setup.ready(settings)
+                LifecycleResumeEffect(ready) {
+                    if (ready) {
+                        AzaanScheduler.reschedule(this@MainActivity)
+                        scope.launch { Updater.check(this@MainActivity) }
+                        if (settings.autoLocation && LocationRepo.hasPermission(this@MainActivity)) scope.launch { detect(this@MainActivity, store) }
+                    }
                     onPauseOrDispose { }
                 }
 
@@ -174,43 +177,9 @@ class MainActivity : ComponentActivity() {
                         val preview = (ph as? AzaanService.Phase.Azaan)?.preview == true
                         if (!preview) AzaanScreen(phase = ph, onStop = { AzaanService.stop(this@MainActivity) }, onSkip = { AzaanService.skip(this@MainActivity) })
                     }
-                    if (!settings.setupDone) FirstRun(onDone = { store.update { it.copy(setupDone = true) } }, onDetect = { scope.launch { detect(this@MainActivity, store) } })
+                    // Unconfigured state: no prayer times are shown as valid until a place is chosen or detected.
+                    if (!ready) com.usman.miqaat.ui.SetupScreen(store, settings, onDone = { })
                 }
-            }
-        }
-    }
-}
-
-/** One-time welcome: asks for location + notification permission, then gets out of the way. */
-@Composable
-private fun FirstRun(onDone: () -> Unit, onDetect: () -> Unit) {
-    var status by remember { mutableStateOf<String?>(null) }
-    val scope = rememberCoroutineScope()
-    val notif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
-    val loc = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { g ->
-        if (Build.VERSION.SDK_INT >= 33) notif.launch(Manifest.permission.POST_NOTIFICATIONS)
-        if (g.values.any { it }) { status = "Detecting your location…"; onDetect() } else status = "You can pick a city in Settings › Location."
-        scope.launch { kotlinx.coroutines.delay(1800); onDone() }
-    }
-    Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.55f)), contentAlignment = Alignment.Center) {
-        Column(
-            Modifier.fillMaxWidth(0.92f).widthIn(max = 560.dp).clip(RoundedCornerShape(24.dp)).background(Palette.panelRaised).padding(36.dp),
-            horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(14.dp)
-        ) {
-            Text("ميقات", fontFamily = Amiri, fontSize = 56.sp, color = Palette.goldSoft)
-            Text("As-salāmu ʿalaykum", fontFamily = Cormorant, fontSize = 34.sp, color = Palette.ivory)
-            Text(
-                "Miqaat needs your location once to calculate prayer times for where the tablet lives. Times are calculated on the device; only the optional place-name lookup contacts Google's geocoder. " +
-                    "Times default to the Muslim World League method used by most Australian mosques; you can change that in Settings.",
-                fontFamily = Nunito, fontSize = 15.sp, color = Palette.ivory.copy(alpha = 0.8f), lineHeight = 22.sp
-            )
-            status?.let { Text(it, fontFamily = Nunito, fontSize = 14.sp, color = Palette.goldSoft) }
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Button(
-                    onClick = { loc.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) },
-                    colors = ButtonDefaults.buttonColors(containerColor = Palette.gold, contentColor = Palette.night)
-                ) { Text("Use my location", fontFamily = Nunito, fontWeight = FontWeight.Bold) }
-                TextButton(onClick = { if (Build.VERSION.SDK_INT >= 33) notif.launch(Manifest.permission.POST_NOTIFICATIONS); onDone() }) { Text("Continue", color = Palette.ivory) }
             }
         }
     }

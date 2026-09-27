@@ -27,6 +27,7 @@ object AzaanScheduler {
 
     fun nextEvent(ctx: Context, fromIn: ZonedDateTime? = null): Upcoming? {
         val s = (ctx.applicationContext as MiqaatApp).settings.value
+        if (!com.usman.miqaat.data.Setup.ready(s)) return null   // unconfigured: never alarm for a placeholder place
         val from = (fromIn ?: ZonedDateTime.now(s.zone())).withZoneSameInstant(s.zone())
         val candidates = mutableListOf<Upcoming>()
         for (dayOffset in 0L..1L) {
@@ -61,7 +62,7 @@ object AzaanScheduler {
             }
             if (s.fridayHourReminder && date.dayOfWeek == java.time.DayOfWeek.FRIDAY) {
                 val t = day[Prayer.MAGHRIB].minusMinutes(60)
-                if (t.isAfter(from)) candidates += Upcoming(Prayer.MAGHRIB, t, reminder = true, note = "Friday's last hour before Maghrib: a time when duʿā is answered (Abū Dāwūd 1048)")
+                if (t.isAfter(from)) candidates += Upcoming(Prayer.MAGHRIB, t, reminder = true, note = "Friday's last hour before Maghrib — held by many scholars to be the hour when duʿā is answered (Abū Dāwūd 1048)")
             }
         }
         return candidates.minByOrNull { it.at }
@@ -80,9 +81,10 @@ object AzaanScheduler {
             // Alarm-clock semantics: highest priority, shows in the status bar, fires even in Doze.
             am.setAlarmClock(AlarmManager.AlarmClockInfo(whenMs, fire), fire)
         } else {
+            // Truthfully inexact: Android may deliver this minutes late. The UI shows a warning while this is the case.
             am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, whenMs, fire)
         }
-        val label = "${next.prayer.english} ${if (next.iqamah) "iqamah" else if (next.reminder) "reminder" else "azaan"}"
+        val label = "${next.prayer.english} ${if (next.iqamah) "iqamah" else if (next.reminder) "reminder" else "azaan"}" + if (canExact) "" else " (approximate)"
         com.usman.miqaat.data.Health.setPlanned(ctx, whenMs, label)
         Log.i(TAG, "Scheduled $label at ${next.at}")
     }

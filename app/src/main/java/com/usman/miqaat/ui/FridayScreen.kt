@@ -83,7 +83,7 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
                 Card(m, "Sūrat al-Kahf", "سورة الكهف", "\"Whoever reads Sūrat al-Kahf on Friday, a light shines for him between the two Fridays\" · ${Ramadan.KAHF_SRC}") {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                         Pill(if (kahf) "Read this Friday ✓" else "Mark as read", kahf) { kahf = !kahf; prefs.edit().putBoolean("kahf_$weekKey", kahf).apply() }
-                        Text(if (kahf) "" else "From Thursday Maghrib to Friday Maghrib", fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.6f))
+                        Text(if (kahf) "" else "From Thursday Maghrib to Friday Maghrib", fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
                     }
                 }
                 Card(m, "Ṣalawāt", "الصلاة على النبي ﷺ", "\"Increase your ṣalawāt upon me on Friday\" · ${Ramadan.SALAWAT_SRC}") {
@@ -93,11 +93,11 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
                         }
                         Column {
                             Text("اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", fontFamily = Amiri, fontSize = 20.sp, color = Color(0xFFF6E7B8))
-                            Text("Tap the circle for each one · this Friday's count", fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.6f))
+                            Text("Tap the circle for each one · this Friday's count", fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
                         }
                     }
                 }
-                Card(m, "Hour of acceptance", "ساعة الإجابة", "The last hour before Maghrib on Friday, when duʿā is answered · Abū Dāwūd 1048 (ṣaḥīḥ), an-Nasāʾī 1389") {
+                Card(m, "Hour of acceptance", "ساعة الإجابة", "An hour on Friday when duʿā is answered (Bukhārī 935). Shown here as the last hour before Maghrib — the view of many scholars, from Abū Dāwūd 1048 and an-Nasāʾī 1389; another well-known view places it between the imam sitting and the end of the prayer.") {
                     Column {
                         Text("${c(hourStart)}  →  ${c(day[Prayer.MAGHRIB])}", fontFamily = Cormorant, fontSize = 26.sp, color = Palette.ivory)
                         Text(when {
@@ -124,7 +124,7 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
                 Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.Outlined.Check, null, Modifier.size(18.dp), tint = Palette.mint)
                     Spacer(Modifier.width(10.dp))
-                    Column { Text(t, fontFamily = Nunito, fontSize = 15.sp, color = Palette.ivory); Text(src, fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.55f)) }
+                    Column { Text(t, fontFamily = Nunito, fontSize = 15.sp, color = Palette.ivory); Text(src, fontFamily = Nunito, fontSize = 12.sp, color = Palette.textMuted) }
                 }
             }
             if (settings.jumuahEnabled) {
@@ -141,7 +141,7 @@ private fun Card(m: Modifier, title: String, arabic: String, source: String, con
     Column(m.clip(RoundedCornerShape(16.dp)).background(Color.White.copy(alpha = 0.06f)).border(1.dp, Palette.line, RoundedCornerShape(16.dp)).padding(16.dp)) {
         Text(title.uppercase(), fontFamily = Nunito, fontSize = 11.sp, letterSpacing = 1.6.sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
         Text(arabic, fontFamily = Amiri, fontSize = 24.sp, color = Color(0xFFF6E7B8))
-        Text(source, fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.6f), lineHeight = 16.sp, modifier = Modifier.padding(bottom = 12.dp))
+        Text(source, fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary, lineHeight = 16.sp, modifier = Modifier.padding(bottom = 12.dp))
         content()
     }
 }

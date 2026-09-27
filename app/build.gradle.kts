@@ -6,17 +6,30 @@ plugins {
 
 android {
     namespace = "com.usman.miqaat"
-    compileSdk = 35
+    // Google Play (from 31 Aug 2026): new apps and updates must target API 36.
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.usman.miqaat"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 36
         // CI stamps the GitHub run number so every build is newer than the last
         val run = (System.getenv("GITHUB_RUN_NUMBER") ?: "0").toInt()
         versionCode = 100 + run
         versionName = "1.$run"
         buildConfigField("String", "REPO", "\"haawas-alt/miqaat\"")
+        // Provenance: every build names the exact source commit it was built from (shown in About).
+        buildConfigField("String", "GIT_SHA", "\"${System.getenv("GITHUB_SHA") ?: "local"}\"")
+        buildConfigField("String", "BUILD_TAG", "\"${if (run > 0) "v1.$run" else "local"}\"")
+    }
+
+    // Two editions from one code base:
+    //  • play   – for Google Play. No self-updater, no REQUEST_INSTALL_PACKAGES; Play delivers updates.
+    //  • github – direct download from GitHub Releases. In-app updater that verifies the published SHA-256 before installing.
+    flavorDimensions += "dist"
+    productFlavors {
+        create("play") { dimension = "dist"; buildConfigField("Boolean", "SELF_UPDATE", "false") }
+        create("github") { dimension = "dist"; buildConfigField("Boolean", "SELF_UPDATE", "true") }
     }
 
     // The signing key never lives in the repository. CI decodes it from the KEYSTORE_BASE64 secret
@@ -36,7 +49,10 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            // R8 without renaming: dead code and unused resources go, stack traces stay readable.
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("release")
         }
         debug {
@@ -51,6 +67,17 @@ android {
     kotlinOptions { jvmTarget = "17" }
     buildFeatures { compose = true; buildConfig = true }
     packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }
+    lint {
+        // Accessibility and correctness checks fail the build; the report is published by CI.
+        warningsAsErrors = false
+        abortOnError = true
+        checkReleaseBuilds = true
+        error += listOf("ContentDescription", "MissingPermission")
+        warning += listOf("UnusedResources")
+        disable += listOf("ObsoleteLintCustomCheck", "GradleDependency", "AndroidGradlePluginVersion", "OldTargetApi")
+        xmlReport = true
+        htmlReport = true
+    }
 }
 
 dependencies {

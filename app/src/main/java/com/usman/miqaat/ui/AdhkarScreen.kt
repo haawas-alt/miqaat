@@ -84,7 +84,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                     }
                 }
                 val finished = list.count { (counts[it.id] ?: 0) >= it.count }
-                Text("$finished of ${list.size} complete", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.ivory.copy(alpha = 0.6f), modifier = Modifier.padding(start = u * 2.6f, bottom = u * 1))
+                Text("$finished of ${list.size} complete", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.textSecondary, modifier = Modifier.padding(start = u * 2.6f, bottom = u * 1))
                 LazyColumn(state = listState) {
                     items(list.size) { i ->
                         val d = list[i]
@@ -102,7 +102,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                             Spacer(Modifier.width(u * 1.2f))
                             Column(Modifier.weight(1f)) {
                                 Text(d.title, fontFamily = Nunito, fontSize = (u.value * 1.55f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory.copy(alpha = if (isCur) 1f else 0.8f))
-                                Text(if (d.count > 1) "$c / ${d.count}" else if (c > 0) "done" else "once", fontFamily = Nunito, fontSize = (u.value * 1.15f).sp, color = Palette.ivory.copy(alpha = 0.55f))
+                                Text(if (d.count > 1) "$c / ${d.count}" else if (c > 0) "done" else "once", fontFamily = Nunito, fontSize = (u.value * 1.15f).sp, color = Palette.textMuted)
                             }
                         }
                     }
@@ -127,7 +127,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                         Text(cur.arabic, fontFamily = Amiri, fontSize = (u.value * (if (longText) 2.7f else 3.6f)).sp, lineHeight = (u.value * (if (longText) 4.6f else 6.2f)).sp, color = Color(0xFFF6E7B8), textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = u * 1))
                     }
                     Text(cur.english, fontFamily = Cormorant, fontSize = (u.value * (if (longText) 1.8f else 2.1f)).sp, lineHeight = (u.value * 2.9f).sp, color = Palette.ivory, textAlign = TextAlign.Center)
-                    Text(cur.source, fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, color = Palette.ivory.copy(alpha = 0.65f), textAlign = TextAlign.Center, modifier = Modifier.padding(top = u * 1.2f))
+                    Text(cur.source, fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, color = Palette.textSecondary, textAlign = TextAlign.Center, modifier = Modifier.padding(top = u * 1.2f))
                 }
                 // counter
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.6f), modifier = Modifier.padding(top = u * 1)) {
@@ -142,7 +142,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                     }
                     Column {
                         Text(if (done) "Complete" else if (cur.count == 1) "Tap when read" else "Tap for each recitation", fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
-                        Text(if (cur.count > 1) "$c of ${cur.count}" else "", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.ivory.copy(alpha = 0.6f))
+                        Text(if (cur.count > 1) "$c of ${cur.count}" else "", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.textSecondary)
                     }
                     Spacer(Modifier.weight(1f))
                     if (!compact) {
