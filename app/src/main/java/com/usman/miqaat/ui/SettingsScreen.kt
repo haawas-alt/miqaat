@@ -481,17 +481,17 @@ private fun HijriSection(store: SettingsStore, s: AppSettings) {
 
 @Composable
 private fun DisplaySection(store: SettingsStore, s: AppSettings) {
-    Heading("Display & art", "Made for a tablet that stays on. Everything here is about how it looks from across the room.")
+    Heading("Display & art", "How Miqaat looks, on the wall or in your hand.")
     SettingRow("Theme", "Changes the home screen and the azaan screens immediately; go back to the clock to see it") {
         Chips(AppTheme.entries.map { it.label }, AppTheme.entries.indexOf(s.theme)) { i -> store.update { it.copy(theme = AppTheme.entries[i]) } }
     }
     SettingRow("Time format", null) { Chips(listOf("12-hour", "24-hour"), if (s.use24h) 1 else 0) { i -> store.update { it.copy(use24h = i == 1) } } }
-    SettingRow("Keep the screen on", "While Miqaat is open. Best with the tablet plugged in.") { Toggle(s.keepScreenOn) { on -> store.update { it.copy(keepScreenOn = on) } } }
+    SettingRow("Keep the screen on", "While Miqaat is open. Best with the device plugged in.") { Toggle(s.keepScreenOn) { on -> store.update { it.copy(keepScreenOn = on) } } }
     SettingRow("Dim after Isha", "Softens the screen through the night until Fajr") { Toggle(s.nightDim) { on -> store.update { it.copy(nightDim = on) } } }
     SettingRow("Qibla direction on the home screen", "Tap it for the compass") { Toggle(s.showQibla) { on -> store.update { it.copy(showQibla = on) } } }
     SettingRow("Morning and evening adhkār", "A prompt after Fajr and after ʿAsr, with sourced texts and a tap counter") { Toggle(s.adhkarEnabled) { on -> store.update { it.copy(adhkarEnabled = on) } } }
     SettingRow("Art theme", null) { Chips(ArtTheme.entries.map { it.label }, ArtTheme.entries.indexOf(s.artTheme)) { i -> store.update { it.copy(artTheme = ArtTheme.entries[i]) } } }
-    SettingRow("Open Miqaat when the tablet starts", "So it comes back after a power cut") { Toggle(s.launchOnBoot) { on -> store.update { it.copy(launchOnBoot = on) } } }
+    SettingRow("Open Miqaat when the device starts", "So the wall tablet comes back after a power cut") { Toggle(s.launchOnBoot) { on -> store.update { it.copy(launchOnBoot = on) } } }
 }
 
 @Composable
@@ -536,15 +536,27 @@ private fun Heading(title: String, desc: String) {
 
 @Composable
 private fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)? = null, trailing: @Composable () -> Unit) {
-    Row(
-        Modifier.fillMaxWidth().then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier).padding(vertical = 14.dp),
-        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Column(Modifier.weight(1f).padding(end = 20.dp)) {
-            Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
-            if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory.copy(alpha = 0.6f))
+    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxWidth()) {
+        val compact = maxWidth < 560.dp
+        if (compact) {
+            // Phone: label on top, control underneath, so neither squeezes the other.
+            Column(Modifier.fillMaxWidth().then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier).padding(vertical = 14.dp)) {
+                Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
+                if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory.copy(alpha = 0.6f), lineHeight = 18.sp)
+                Box(Modifier.padding(top = 10.dp).fillMaxWidth(), contentAlignment = Alignment.CenterStart) { trailing() }
+            }
+        } else {
+            Row(
+                Modifier.fillMaxWidth().then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier).padding(vertical = 14.dp),
+                verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(Modifier.weight(1f).padding(end = 20.dp)) {
+                    Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
+                    if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory.copy(alpha = 0.6f))
+                }
+                trailing()
+            }
         }
-        trailing()
     }
     HorizontalDivider(color = Palette.line)
 }
@@ -564,9 +576,10 @@ private fun GoldButton(label: String, enabled: Boolean = true, onClick: () -> Un
         Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold)
     }
 
+@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
 private fun Chips(labels: List<String>, selected: Int, onSelect: (Int) -> Unit) {
-    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         labels.forEachIndexed { i, l ->
             val cur = i == selected
             Box(
