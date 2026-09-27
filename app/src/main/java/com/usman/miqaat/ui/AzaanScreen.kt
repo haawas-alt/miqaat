@@ -70,6 +70,19 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
         }
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(bg))) {
             GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
+            // Option A: a quiet status tag, top-left, instead of any system pop-up
+            Row(Modifier.padding(start = u * 3.6f, top = u * 2.6f), verticalAlignment = Alignment.CenterVertically) {
+                Box(Modifier.size(u * 0.9f).clip(androidx.compose.foundation.shape.CircleShape).background(Palette.gold))
+                Spacer(Modifier.width(u * 0.9f))
+                Text(
+                    when (phase) {
+                        is Phase.Azaan -> "${phase.prayer.english} azaan · playing"
+                        is Phase.IqamahCountdown, is Phase.IqamahNow -> "${phase.prayer.english} · iqamah"
+                        else -> "${phase.prayer.english} · after the azaan"
+                    }.uppercase(),
+                    fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.16f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft.copy(alpha = 0.85f)
+                )
+            }
             Column(Modifier.fillMaxSize()) {
                 StepsBar(phase, u)
                 Box(Modifier.weight(1f).fillMaxWidth()) {

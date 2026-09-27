@@ -32,11 +32,18 @@ class MiqaatApp : Application() {
         nm.createNotificationChannel(
             NotificationChannel(CHANNEL_SILENT, getString(R.string.channel_silent), NotificationManager.IMPORTANCE_LOW)
         )
+        // Used while Miqaat itself is on screen: no heads-up pop-up, just a quiet entry in the shade.
+        nm.createNotificationChannel(
+            NotificationChannel(CHANNEL_AZAAN_QUIET, "Azaan (while app is open)", NotificationManager.IMPORTANCE_LOW).apply {
+                setSound(null, null); enableVibration(false); setShowBadge(false)
+            }
+        )
     }
 
     companion object {
         const val CHANNEL_AZAAN = "azaan"
         const val CHANNEL_SILENT = "silent"
+        const val CHANNEL_AZAAN_QUIET = "azaan_quiet"
         lateinit var instance: MiqaatApp
             private set
     }

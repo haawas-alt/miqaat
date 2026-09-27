@@ -330,24 +330,33 @@ class AzaanService : Service() {
         getSystemService(android.app.NotificationManager::class.java).notify(NOTIF_ID + 1, n)
     }
 
+    /** Heads-up + full-screen intent only when the tablet is dark or locked; otherwise a silent entry. */
+    private fun needsWakeUp(): Boolean {
+        val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
+        val km = getSystemService(Context.KEYGUARD_SERVICE) as android.app.KeyguardManager
+        return !pm.isInteractive || km.isKeyguardLocked
+    }
+
     private fun buildNotification(prayer: Prayer): Notification {
+        val wake = needsWakeUp()
         val full = PendingIntent.getActivity(this, 0,
             Intent(this, AzaanActivity::class.java).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         val stop = PendingIntent.getService(this, 1, Intent(this, AzaanService::class.java).setAction(ACTION_STOP),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-        return NotificationCompat.Builder(this, MiqaatApp.CHANNEL_AZAAN)
+        val b = NotificationCompat.Builder(this, if (wake) MiqaatApp.CHANNEL_AZAAN else MiqaatApp.CHANNEL_AZAAN_QUIET)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("${prayer.english} azaan  ·  ${prayer.arabic}")
             .setContentText("It is time for ${prayer.english} prayer")
-            .setCategory(NotificationCompat.CATEGORY_ALARM)
-            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setCategory(if (wake) NotificationCompat.CATEGORY_ALARM else NotificationCompat.CATEGORY_SERVICE)
+            .setPriority(if (wake) NotificationCompat.PRIORITY_MAX else NotificationCompat.PRIORITY_LOW)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setOngoing(true)
-            .setFullScreenIntent(full, true)
+            .setSilent(!wake)
             .setContentIntent(full)
             .addAction(0, "Stop", stop)
-            .build()
+        if (wake) b.setFullScreenIntent(full, true)
+        return b.build()
     }
 
     private fun acquireWakeLock() {
