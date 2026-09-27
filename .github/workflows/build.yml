@@ -22,7 +22,22 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Build release APK
-        run: ./gradlew --no-daemon assembleRelease
+        run: set -o pipefail; ./gradlew --no-daemon assembleRelease 2>&1 | tee build.log
+
+      - name: Publish build log on failure
+        if: failure()
+        run: |
+          grep -E "^e: |error:|FAILURE|What went wrong|Caused by" build.log | sed 's#file:///home/runner/work/miqaat/miqaat/##' | head -200 > errors.txt || true
+          git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
+          git fetch origin ci-logs || true
+          git checkout -B ci-logs
+          git rm -rq --cached . || true
+          mkdir -p /tmp/keep && cp errors.txt build.log /tmp/keep/
+          git clean -fdxq || true
+          cp /tmp/keep/* .
+          git add errors.txt build.log
+          git commit -qm "build log ${{ github.run_number }}" || true
+          git push -f origin ci-logs
 
       - name: Rename APK
         run: cp app/build/outputs/apk/release/app-release.apk Miqaat.apk
