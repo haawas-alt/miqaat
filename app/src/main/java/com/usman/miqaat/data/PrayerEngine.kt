@@ -115,6 +115,11 @@ object PrayerEngine {
         if (!settings.iqamahEnabled || !p.isPrayer) return null
         if (p == Prayer.DHUHR && settings.jumuahEnabled && day.date.dayOfWeek == java.time.DayOfWeek.FRIDAY)
             return day.date.atStartOfDay(day[p].zone).plusMinutes(settings.jumuahIqamahMinutes.toLong())
+        if (settings.iqamahIsFixed[p] == true) {
+            val at = day.date.atStartOfDay(day[p].zone).plusMinutes((settings.iqamahFixed[p] ?: 0).toLong())
+            // A fixed time can't be before the azaan (winter Fajr, say): fall back to azaan + 5 min that day.
+            return if (at.isBefore(day[p].plusMinutes(1))) day[p].plusMinutes(5) else at
+        }
         val off = settings.iqamahOffsets[p] ?: 0
         return if (off <= 0) null else day[p].plusMinutes(off.toLong())
     }

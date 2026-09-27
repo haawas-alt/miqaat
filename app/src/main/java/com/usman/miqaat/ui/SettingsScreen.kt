@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -400,12 +401,19 @@ private fun IqamahSection(store: SettingsStore, s: AppSettings) {
     SettingRow("Iqamah times", "Shown under each azaan time and announced with the countdown") { Toggle(s.iqamahEnabled) { on -> store.update { it.copy(iqamahEnabled = on) } } }
     if (s.iqamahEnabled) {
         Spacer(Modifier.height(10.dp))
-        Text("Minutes after each azaan", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+        Text("Iqamah for each prayer", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+        Text("Either a number of minutes after the azaan, or a fixed clock time (for example Fajr always at 5:00). If a fixed time would fall before the azaan on a given day, that day uses azaan + 5 min instead.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f))
         Prayer.prayersOnly.forEach { p ->
+            val fixed = s.iqamahIsFixed[p] == true
             val off = s.iqamahOffsets[p] ?: 0
+            val at = s.iqamahFixed[p] ?: 12 * 60
             val iq = PrayerEngine.iqamah(s, today, p)
-            SettingRow("${p.english}  ${p.arabic}", if (iq != null) "Today: azaan ${PrayerEngine.clock(today[p], s.use24h)} → iqamah ${PrayerEngine.clock(iq, s.use24h)}" else "Off for this prayer") {
-                Stepper(off, 0, 60, 1, " min", zeroLabel = "Off") { v -> store.update { it.copy(iqamahOffsets = it.iqamahOffsets + (p to v)) } }
+            SettingRow("${p.english}  ${p.arabic}", if (iq != null) "Today: azaan ${PrayerEngine.clock(today[p], s.use24h)} ${PrayerEngine.suffix(today[p], s.use24h)} → iqamah ${PrayerEngine.clock(iq, s.use24h)} ${PrayerEngine.suffix(iq, s.use24h)}" else "Off for this prayer") {
+                Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Chips(listOf("After azaan", "Fixed time"), if (fixed) 1 else 0) { i -> store.update { it.copy(iqamahIsFixed = it.iqamahIsFixed + (p to (i == 1))) } }
+                    if (fixed) TimeStepper(at, s.use24h) { v -> store.update { it.copy(iqamahFixed = it.iqamahFixed + (p to v)) } }
+                    else Stepper(off, 0, 60, 1, " min", zeroLabel = "Off") { v -> store.update { it.copy(iqamahOffsets = it.iqamahOffsets + (p to v)) } }
+                }
             }
         }
         if (s.jumuahEnabled) SettingRow("Jumuʿah iqamah (fixed time)", "Used instead of the Dhuhr offset on Fridays") {
@@ -605,12 +613,25 @@ private fun Stepper(value: Int, min: Int, max: Int, step: Int, unit: String, sig
     }
 }
 
+/** Clock-time control: ±1 h and ±5 min around a minutes-from-midnight value. */
+@Composable
+private fun TimeStepper(minutes: Int, use24h: Boolean, onChange: (Int) -> Unit) {
+    fun fmt(m: Int): String { val h = (m / 60) % 24; val mi = m % 60; return if (use24h) "%02d:%02d".format(h, mi) else "%d:%02d %s".format((h + 11) % 12 + 1, mi, if (h >= 12) "PM" else "AM") }
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        StepBtn("−1h", minutes >= 60) { onChange(minutes - 60) }
+        StepBtn("−5", minutes >= 5) { onChange(minutes - 5) }
+        Text(fmt(minutes), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.width(92.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+        StepBtn("+5", minutes <= 24 * 60 - 10) { onChange(minutes + 5) }
+        StepBtn("+1h", minutes <= 23 * 60 - 5) { onChange(minutes + 60) }
+    }
+}
+
 @Composable
 private fun StepBtn(t: String, enabled: Boolean, onClick: () -> Unit) {
     Box(
-        Modifier.size(38.dp).clip(RoundedCornerShape(10.dp)).border(1.dp, Color.White.copy(alpha = if (enabled) 0.3f else 0.1f), RoundedCornerShape(10.dp))
-            .clickable(enabled = enabled, onClick = onClick), contentAlignment = Alignment.Center
-    ) { Text(t, fontSize = 20.sp, color = Palette.ivory.copy(alpha = if (enabled) 1f else 0.3f)) }
+        Modifier.height(38.dp).widthIn(min = 38.dp).clip(RoundedCornerShape(10.dp)).border(1.dp, Color.White.copy(alpha = if (enabled) 0.3f else 0.1f), RoundedCornerShape(10.dp))
+            .clickable(enabled = enabled, onClick = onClick).padding(horizontal = 8.dp), contentAlignment = Alignment.Center
+    ) { Text(t, fontSize = if (t.length > 1) 13.sp else 20.sp, fontFamily = Nunito, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = if (enabled) 1f else 0.3f)) }
 }
 
 @Composable
