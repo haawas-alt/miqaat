@@ -70,6 +70,7 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
                         when (cls) {
                             Phase.Azaan::class -> AzaanBody(phase, u)
                             Phase.Dua::class -> DuaBody(u)
+                            Phase.Iftar::class -> IftarBody(u)
                             else -> (phase as? Phase.HadithPhase)?.let { HadithBody(it, u) }
                         }
                     }
@@ -82,8 +83,9 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
 
 @Composable
 private fun StepsBar(phase: Phase, u: Dp) {
-    val idx = when (phase) { is Phase.Azaan -> 0; is Phase.Dua -> 1; is Phase.HadithPhase -> 2 }
-    val labels = listOf("Azaan", "Dua after azaan", "Hadith", "Home")
+    val iftar = phase is Phase.Iftar
+    val idx = when (phase) { is Phase.Azaan -> 0; is Phase.Iftar -> 1; is Phase.Dua -> if (iftar) 2 else 1; is Phase.HadithPhase -> if (iftar) 3 else 2 }
+    val labels = if (iftar) listOf("Azaan", "Iftar dua", "Dua after azaan", "Hadith", "Home") else listOf("Azaan", "Dua after azaan", "Hadith", "Home")
     Row(Modifier.fillMaxWidth().padding(top = u * 2.4f), horizontalArrangement = Arrangement.spacedBy(u * 1, Alignment.CenterHorizontally)) {
         labels.forEachIndexed { i, l ->
             val done = i < idx; val cur = i == idx
@@ -121,6 +123,16 @@ private fun DuaBody(u: Dp) {
 }
 
 @Composable
+private fun IftarBody(u: Dp) {
+    Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Kicker("Ramaḍān · dua at iftar", u)
+        Arabic(com.usman.miqaat.data.Ramadan.IFTAR_AR, u, size = 4.8f)
+        Translation(com.usman.miqaat.data.Ramadan.IFTAR_EN, u)
+        Source(com.usman.miqaat.data.Ramadan.IFTAR_SRC, u)
+    }
+}
+
+@Composable
 private fun HadithBody(p: Phase.HadithPhase, u: Dp) {
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Kicker("Hadith of the hour · ${p.prayer.english}", u)
@@ -145,10 +157,10 @@ private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Uni
     Row(Modifier.fillMaxWidth().padding(horizontal = u * 3.6f, vertical = u * 2.6f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
         // left: narration state
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
-            val narrating = when (phase) { is Phase.Azaan -> true; is Phase.Dua -> true; is Phase.HadithPhase -> phase.narrating }
+            val narrating = when (phase) { is Phase.Azaan -> true; is Phase.Dua, is Phase.Iftar -> true; is Phase.HadithPhase -> phase.narrating }
             if (narrating) Wave(Modifier.width(u * 6).height(u * 2.4f), bars = 5)
             Text(
-                when (phase) { is Phase.Azaan -> "Azaan playing"; is Phase.Dua -> "Reading the dua"; is Phase.HadithPhase -> if (phase.narrating) "Reading the hadith" else "Take a moment" },
+                when (phase) { is Phase.Azaan -> "Azaan playing"; is Phase.Iftar -> "Reading the iftar dua"; is Phase.Dua -> "Reading the dua"; is Phase.HadithPhase -> if (phase.narrating) "Reading the hadith" else "Take a moment" },
                 fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory
             )
         }

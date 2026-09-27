@@ -77,7 +77,9 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
         }
         Spacer(Modifier.padding(6.dp))
 
-        val cols = listOf("Date", "Hijri", "Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha")
+        val ramadanMonth = days.any { PrayerEngine.isRamadan(settings, it.date) }
+        val cols = if (ramadanMonth) listOf("Date", "Hijri", "Fajr · Suhoor", "Sunrise", "Dhuhr", "Asr", "Maghrib · Iftar", "Isha")
+                   else listOf("Date", "Hijri", "Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha")
         val weights = listOf(1.5f, 1.2f, 1f, 1f, 1f, 1f, 1f, 1f)
         val shape = RoundedCornerShape(14.dp)
         Column(Modifier.fillMaxSize().clip(shape).border(1.dp, Palette.line, shape)) {

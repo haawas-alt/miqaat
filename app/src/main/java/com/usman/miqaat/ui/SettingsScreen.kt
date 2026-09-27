@@ -74,6 +74,7 @@ import com.usman.miqaat.data.LatitudeRule
 import com.usman.miqaat.data.LocationRepo
 import com.usman.miqaat.data.Method
 import com.usman.miqaat.data.Narration
+import com.usman.miqaat.data.RamadanMode
 import com.usman.miqaat.data.HadithLibrary
 import com.usman.miqaat.data.Place
 import com.usman.miqaat.data.Prayer
@@ -205,6 +206,22 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
         Stepper(s.afterWindowMinutes, 0, 120, 5, " min") { v -> store.update { it.copy(afterWindowMinutes = v) } }
     }
     Spacer(Modifier.height(18.dp))
+    Text("Jumuʿah", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    SettingRow("Use a Jumuʿah time on Fridays", "Replaces Dhuhr on Fridays for the display and the azaan") { Toggle(s.jumuahEnabled) { on -> store.update { it.copy(jumuahEnabled = on) } } }
+    if (s.jumuahEnabled) SettingRow("Jumuʿah azaan time", "Your masjid's first azaan; adjust in 5-minute steps") {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            StepBtn("−", s.jumuahMinutes > 11 * 60) { store.update { it.copy(jumuahMinutes = it.jumuahMinutes - 5) } }
+            Text("%d:%02d %s".format(((s.jumuahMinutes / 60) + 11) % 12 + 1, s.jumuahMinutes % 60, if (s.jumuahMinutes >= 720) "PM" else "AM"), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.width(90.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+            StepBtn("+", s.jumuahMinutes < 15 * 60) { store.update { it.copy(jumuahMinutes = it.jumuahMinutes + 5) } }
+        }
+    }
+    SettingRow("Friday reminders", "Sūrat al-Kahf and ṣalawāt, shown from Thursday Maghrib to Friday Maghrib") { Toggle(s.fridayReminders) { on -> store.update { it.copy(fridayReminders = on) } } }
+    Spacer(Modifier.height(18.dp))
+    Text("Ramaḍān", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    SettingRow("Ramaḍān mode", "Suhoor and Iftar labels, fasting progress, and the iftar dua after Maghrib azaan. Automatic follows the Hijri date.") {
+        Chips(RamadanMode.entries.map { it.label }, RamadanMode.entries.indexOf(s.ramadanMode)) { i -> store.update { it.copy(ramadanMode = RamadanMode.entries[i]) } }
+    }
+    Spacer(Modifier.height(18.dp))
     Text("Minute adjustments", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     Text("Nudge each time by a few minutes to match the timetable printed at your masjid.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f))
     Prayer.entries.forEach { p ->
@@ -319,6 +336,8 @@ private fun DisplaySection(store: SettingsStore, s: AppSettings) {
     SettingRow("Time format", null) { Chips(listOf("12-hour", "24-hour"), if (s.use24h) 1 else 0) { i -> store.update { it.copy(use24h = i == 1) } } }
     SettingRow("Keep the screen on", "While Miqaat is open. Best with the tablet plugged in.") { Toggle(s.keepScreenOn) { on -> store.update { it.copy(keepScreenOn = on) } } }
     SettingRow("Dim after Isha", "Softens the screen through the night until Fajr") { Toggle(s.nightDim) { on -> store.update { it.copy(nightDim = on) } } }
+    SettingRow("Qibla direction on the home screen", "Tap it for the compass") { Toggle(s.showQibla) { on -> store.update { it.copy(showQibla = on) } } }
+    SettingRow("Morning and evening adhkār", "A prompt after Fajr and after ʿAsr, with sourced texts and a tap counter") { Toggle(s.adhkarEnabled) { on -> store.update { it.copy(adhkarEnabled = on) } } }
     SettingRow("Art theme", null) { Chips(ArtTheme.entries.map { it.label }, ArtTheme.entries.indexOf(s.artTheme)) { i -> store.update { it.copy(artTheme = ArtTheme.entries[i]) } } }
     SettingRow("Open Miqaat when the tablet starts", "So it comes back after a power cut") { Toggle(s.launchOnBoot) { on -> store.update { it.copy(launchOnBoot = on) } } }
 }

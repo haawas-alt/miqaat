@@ -17,6 +17,10 @@ import com.usman.miqaat.ui.MiqaatTheme
 
 /** Full-screen "azaan in progress" view. Finishes itself when playback ends. */
 class AzaanActivity : ComponentActivity() {
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) WindowInsetsControllerCompat(window, window.decorView).hide(WindowInsetsCompat.Type.systemBars())
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

@@ -63,6 +63,8 @@ enum class LatitudeRule(val label: String, val rule: HighLatitudeRule) {
 
 enum class Narration(val label: String) { OFF("Off"), ENGLISH("English"), BOTH("Arabic + English") }
 
+enum class RamadanMode(val label: String) { AUTO("Automatic"), ON("On"), OFF("Off") }
+
 enum class ArtTheme(val label: String) { GEOMETRIC("Geometric lattice"), CALLIGRAPHY("Calligraphy only"), MINIMAL("Minimal") }
 
 data class AppSettings(
@@ -83,6 +85,12 @@ data class AppSettings(
     val afterAzaanEnabled: Boolean = true,
     val narration: Narration = Narration.BOTH,
     val hadithMinutes: Int = 3,
+    val ramadanMode: RamadanMode = RamadanMode.AUTO,
+    val jumuahEnabled: Boolean = false,
+    val jumuahMinutes: Int = 13 * 60 + 15,      // minutes from midnight, default 1:15 PM
+    val fridayReminders: Boolean = true,
+    val adhkarEnabled: Boolean = true,
+    val showQibla: Boolean = true,
     val showHijri: Boolean = true,
     val hijriOffsetDays: Int = 0,
     val showSunrise: Boolean = true,
@@ -140,6 +148,12 @@ class SettingsStore(context: Context) {
             afterAzaanEnabled = prefs.getBoolean("afterAz", d.afterAzaanEnabled),
             narration = runCatching { Narration.valueOf(enumOr("narr", d.narration.name)) }.getOrDefault(d.narration),
             hadithMinutes = prefs.getInt("hadMin", d.hadithMinutes),
+            ramadanMode = runCatching { RamadanMode.valueOf(enumOr("ramadan", d.ramadanMode.name)) }.getOrDefault(d.ramadanMode),
+            jumuahEnabled = prefs.getBoolean("jumuah", d.jumuahEnabled),
+            jumuahMinutes = prefs.getInt("jumuahMin", d.jumuahMinutes),
+            fridayReminders = prefs.getBoolean("friRem", d.fridayReminders),
+            adhkarEnabled = prefs.getBoolean("adhkar", d.adhkarEnabled),
+            showQibla = prefs.getBoolean("qibla", d.showQibla),
             showHijri = prefs.getBoolean("hijri", d.showHijri),
             hijriOffsetDays = prefs.getInt("hijriOff", d.hijriOffsetDays),
             showSunrise = prefs.getBoolean("sunrise", d.showSunrise),
@@ -162,6 +176,8 @@ class SettingsStore(context: Context) {
             putInt("azVol", s.azaanVolume); putString("azUri", s.azaanUri); putString("azFajrUri", s.fajrAzaanUri)
             putInt("preMin", s.preReminderMinutes); putInt("afterMin", s.afterWindowMinutes)
             putBoolean("afterAz", s.afterAzaanEnabled); putString("narr", s.narration.name); putInt("hadMin", s.hadithMinutes)
+            putString("ramadan", s.ramadanMode.name); putBoolean("jumuah", s.jumuahEnabled); putInt("jumuahMin", s.jumuahMinutes)
+            putBoolean("friRem", s.fridayReminders); putBoolean("adhkar", s.adhkarEnabled); putBoolean("qibla", s.showQibla)
             putBoolean("hijri", s.showHijri); putInt("hijriOff", s.hijriOffsetDays); putBoolean("sunrise", s.showSunrise)
             putBoolean("h24", s.use24h); putBoolean("keepOn", s.keepScreenOn); putBoolean("nightDim", s.nightDim)
             putString("art", s.artTheme.name); putBoolean("boot", s.launchOnBoot); putBoolean("setupDone", s.setupDone)

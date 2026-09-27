@@ -40,6 +40,7 @@ class AzaanService : Service() {
     sealed class Phase(val prayer: Prayer) {
         class Azaan(prayer: Prayer, val preview: Boolean) : Phase(prayer)
         class Dua(prayer: Prayer) : Phase(prayer)
+        class Iftar(prayer: Prayer) : Phase(prayer)
         class HadithPhase(prayer: Prayer, val hadith: Hadith, val startedAt: Long, val endsAt: Long, val narrating: Boolean) : Phase(prayer)
     }
 
@@ -120,10 +121,22 @@ class AzaanService : Service() {
     private fun afterAzaan(prayer: Prayer, preview: Boolean) {
         stopPlayer()
         val settings = (application as MiqaatApp).settings.value
-        if (preview || !settings.afterAzaanEnabled) finishAll() else startDua(prayer)
+        if (preview || !settings.afterAzaanEnabled) finishAll()
+        else if (prayer == Prayer.MAGHRIB && com.usman.miqaat.data.PrayerEngine.isRamadan(settings, java.time.LocalDate.now())) startIftar(prayer)
+        else startDua(prayer)
+    }
+
+    private fun startIftar(prayer: Prayer) {
+        _phase.value = Phase.Iftar(prayer)
+        val settings = (application as MiqaatApp).settings.value
+        val seq = sequenceId
+        val spoken = narrate(settings.narration, com.usman.miqaat.data.Ramadan.IFTAR_AR, com.usman.miqaat.data.Ramadan.IFTAR_EN) { if (seq == sequenceId) startDua(prayer) }
+        if (!spoken) handler.postDelayed({ if (seq == sequenceId) startDua(prayer) }, 25_000)
+        else handler.postDelayed({ if (seq == sequenceId && _phase.value is Phase.Iftar) startDua(prayer) }, 90_000)
     }
 
     private fun startDua(prayer: Prayer) {
+        handler.removeCallbacksAndMessages(null)
         _phase.value = Phase.Dua(prayer)
         val settings = (application as MiqaatApp).settings.value
         val seq = sequenceId
@@ -169,7 +182,8 @@ class AzaanService : Service() {
     private fun skip() {
         when (val p = _phase.value) {
             is Phase.Azaan -> afterAzaan(p.prayer, p.preview)
-            is Phase.Dua -> { tts?.stop(); pendingAfterTts = null; startHadith(p.prayer) }
+            is Phase.Iftar -> { tts?.stop(); pendingAfterTts = null; handler.removeCallbacksAndMessages(null); startDua(p.prayer) }
+            is Phase.Dua -> { tts?.stop(); pendingAfterTts = null; handler.removeCallbacksAndMessages(null); startHadith(p.prayer) }
             is Phase.HadithPhase, null -> finishAll()
         }
     }

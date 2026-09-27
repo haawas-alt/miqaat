@@ -40,12 +40,14 @@ object PrayerEngine {
         val comps = DateComponents(date.year, date.monthValue, date.dayOfMonth)
         val pt = PrayerTimes(coords, comps, settings.calculationParameters())
         fun z(d: java.util.Date) = ZonedDateTime.ofInstant(Instant.ofEpochMilli(d.time), zone)
+        val dhuhr = if (settings.jumuahEnabled && date.dayOfWeek == java.time.DayOfWeek.FRIDAY)
+            date.atStartOfDay(zone).plusMinutes(settings.jumuahMinutes.toLong()) else z(pt.dhuhr)
         return DayTimes(
             date,
             mapOf(
                 Prayer.FAJR to z(pt.fajr),
                 Prayer.SUNRISE to z(pt.sunrise),
-                Prayer.DHUHR to z(pt.dhuhr),
+                Prayer.DHUHR to dhuhr,
                 Prayer.ASR to z(pt.asr),
                 Prayer.MAGHRIB to z(pt.maghrib),
                 Prayer.ISHA to z(pt.isha)
@@ -105,6 +107,30 @@ object PrayerEngine {
     fun hijri(date: LocalDate, offsetDays: Int): Hijri {
         val h: HijrahDate = HijrahChronology.INSTANCE.date(date.plusDays(offsetDays.toLong()))
         return Hijri(h.get(ChronoField.DAY_OF_MONTH), h.get(ChronoField.MONTH_OF_YEAR), h.get(ChronoField.YEAR))
+    }
+
+    fun isRamadan(settings: AppSettings, date: LocalDate): Boolean = when (settings.ramadanMode) {
+        RamadanMode.ON -> true
+        RamadanMode.OFF -> false
+        RamadanMode.AUTO -> hijri(date, settings.hijriOffsetDays).isRamadan
+    }
+
+    /** Thursday after Maghrib until Friday Maghrib, when Friday reminders apply. */
+    fun isJumuahWindow(settings: AppSettings, now: ZonedDateTime): Boolean {
+        val d = now.toLocalDate()
+        return when (d.dayOfWeek) {
+            java.time.DayOfWeek.FRIDAY -> now.isBefore(times(settings, d, now.zone)[Prayer.MAGHRIB])
+            java.time.DayOfWeek.THURSDAY -> !now.isBefore(times(settings, d, now.zone)[Prayer.MAGHRIB])
+            else -> false
+        }
+    }
+
+    /** Qibla bearing in degrees clockwise from true north. */
+    fun qibla(settings: AppSettings): Double = com.batoulapps.adhan.Qibla(Coordinates(settings.latitude, settings.longitude)).direction
+
+    fun compass(deg: Double): String {
+        val dirs = listOf("N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW")
+        return dirs[((deg % 360 + 360) % 360 / 22.5 + 0.5).toInt() % 16]
     }
 
     fun toArabicDigits(n: Int): String = n.toString().map { c -> if (c.isDigit()) '٠' + (c - '0') else c }.joinToString("")

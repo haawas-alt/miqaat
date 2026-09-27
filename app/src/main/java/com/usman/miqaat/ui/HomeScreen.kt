@@ -12,10 +12,11 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -24,10 +25,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.LocationOn
+import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material.icons.outlined.NotificationsNone
 import androidx.compose.material.icons.outlined.NotificationsOff
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.WbTwilight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +42,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -49,6 +54,7 @@ import com.usman.miqaat.data.ArtTheme
 import com.usman.miqaat.data.Prayer
 import com.usman.miqaat.data.PrayerEngine
 import com.usman.miqaat.data.PrayerState
+import java.time.Duration
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
@@ -58,110 +64,143 @@ fun HomeScreen(
     settings: AppSettings,
     onOpenTimetable: () -> Unit,
     onOpenSettings: () -> Unit,
-    onOpenLocation: () -> Unit
+    onOpenLocation: () -> Unit,
+    onOpenQibla: () -> Unit,
+    onOpenAdhkar: (morning: Boolean) -> Unit
 ) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
-        val u: Dp = maxWidth / 100          // 1 "unit" = 1% of screen width, like the mockup's cqw
+        // 1 unit = 1% of width, capped by height so short/wide tablets scale down instead of overlapping
+        val u: Dp = minOf(maxWidth / 100, maxHeight / 56)
         fun fs(x: Float): TextUnit = (u.value * x).sp
         val sky = skyFor(state.period)
         val top by animateColorAsState(sky.top, tween(1500), label = "top")
         val bottom by animateColorAsState(sky.bottom, tween(1500), label = "bottom")
         val glow by animateColorAsState(sky.glow, tween(1500), label = "glow")
         val starAlpha by animateFloatAsState(sky.stars, tween(1500), label = "stars")
+        val dim = settings.nightDim && state.period == Prayer.ISHA && !state.justPassed
 
-        // Night dimming after Isha until Fajr
-        val dim = settings.nightDim && (state.period == Prayer.ISHA) && !state.justPassed
+        val ramadan = PrayerEngine.isRamadan(settings, state.now.toLocalDate())
+        val friday = settings.fridayReminders && PrayerEngine.isJumuahWindow(settings, state.now)
+        val isFri = state.now.dayOfWeek == java.time.DayOfWeek.FRIDAY && settings.jumuahEnabled
+        // adhkār window: after Fajr until Dhuhr (morning), after ʿAsr until Isha (evening)
+        val morningWindow = state.current == Prayer.FAJR
+        val eveningWindow = state.current == Prayer.ASR || state.current == Prayer.MAGHRIB
 
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(top, bottom)))) {
             Glow(Modifier.fillMaxSize(), glow)
             Stars(Modifier.fillMaxSize(), starAlpha)
             if (settings.artTheme == ArtTheme.GEOMETRIC) GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f)
-            if (settings.artTheme != ArtTheme.MINIMAL) {
-                MihrabArch(
-                    Modifier.align(Alignment.TopCenter).offset(y = u * 9).width(u * 44).height(u * 44)
-                )
-            }
 
-            // ---- top bar
-            Row(
-                Modifier.fillMaxWidth().padding(horizontal = u * 3.6f, vertical = u * 3f),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Top
-            ) {
-                Row(
-                    Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation).padding(u * 0.6f),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.2f), tint = Palette.ivory)
-                    Spacer(Modifier.width(u * 0.8f))
-                    Text(settings.locationName, fontSize = fs(1.7f), fontWeight = FontWeight.SemiBold, color = Palette.ivory, fontFamily = Nunito)
-                }
-                Column(horizontalAlignment = Alignment.End) {
-                    Text(
-                        state.now.format(DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.ENGLISH)),
-                        fontSize = fs(1.6f), color = Palette.ivory, fontFamily = Nunito
-                    )
-                    if (settings.showHijri) {
-                        val h = PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)
-                        Text(h.english + "  ·  " + h.arabic, fontSize = fs(1.9f), color = Palette.goldSoft, fontFamily = Amiri)
+            Column(Modifier.fillMaxSize().padding(horizontal = u * 3.6f, vertical = u * 2.6f)) {
+
+                // ---------- top bar
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top) {
+                    Column {
+                        Row(Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation).padding(u * 0.5f), verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.2f), tint = Palette.ivory)
+                            Spacer(Modifier.width(u * 0.7f))
+                            Text(settings.locationName, fontSize = fs(1.7f), fontWeight = FontWeight.SemiBold, color = Palette.ivory, fontFamily = Nunito)
+                        }
+                        Row(Modifier.padding(top = u * 0.8f), horizontalArrangement = Arrangement.spacedBy(u * 0.9f)) {
+                            if (settings.showQibla) {
+                                val q = PrayerEngine.qibla(settings)
+                                Chip(Icons.Outlined.Explore, "Qibla ${q.toInt()}° ${PrayerEngine.compass(q)}", u, onOpenQibla)
+                            }
+                            if (settings.adhkarEnabled && morningWindow) Chip(Icons.Outlined.WbTwilight, "Morning adhkār", u, gold = true) { onOpenAdhkar(true) }
+                            if (settings.adhkarEnabled && eveningWindow) Chip(Icons.Outlined.WbTwilight, "Evening adhkār", u, gold = true) { onOpenAdhkar(false) }
+                            if (friday) Chip(Icons.Outlined.MenuBook, "Jumuʿah · Sūrat al-Kahf · ṣalawāt", u)
+                        }
                     }
-                    Row(Modifier.padding(top = u * 1.2f), horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
-                        IconChip(Icons.Outlined.CalendarMonth, u, onOpenTimetable)
-                        IconChip(Icons.Outlined.Settings, u, onOpenSettings)
+                    Column(horizontalAlignment = Alignment.End) {
+                        Text(state.now.format(DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.ENGLISH)), fontSize = fs(1.6f), color = Palette.ivory, fontFamily = Nunito)
+                        if (settings.showHijri) {
+                            val h = PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)
+                            Text(h.english + "  ·  " + h.arabic, fontSize = fs(1.9f), color = Palette.goldSoft, fontFamily = Amiri)
+                        }
+                        Row(Modifier.padding(top = u * 1f), horizontalArrangement = Arrangement.spacedBy(u * 1.1f)) {
+                            IconChip(Icons.Outlined.CalendarMonth, u, onOpenTimetable)
+                            IconChip(Icons.Outlined.Settings, u, onOpenSettings)
+                        }
+                    }
+                }
+
+                // ---------- hero (takes whatever height is left)
+                Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    if (settings.artTheme != ArtTheme.MINIMAL) {
+                        MihrabArch(Modifier.fillMaxHeight(0.98f).aspectRatio(0.96f, matchHeightConstraintsFirst = true))
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        val kicker = when {
+                            ramadan && state.current == null -> "Ramaḍān · Suhoor ends at Fajr"
+                            ramadan && state.hero == Prayer.MAGHRIB && !state.justPassed -> "Ramaḍān · Iftar"
+                            ramadan && state.hero == Prayer.MAGHRIB && state.justPassed -> "Ramaḍān · Iftar time"
+                            isFri && state.hero == Prayer.DHUHR -> "Jumuʿah"
+                            else -> null
+                        }
+                        if (kicker != null) Text(kicker.uppercase(), fontFamily = Nunito, fontSize = fs(1.35f), letterSpacing = fs(0.3f), fontWeight = FontWeight.Bold, color = Palette.goldSoft, modifier = Modifier.padding(bottom = u * 0.6f))
+                        Text(state.hero.arabic, fontFamily = Amiri, fontSize = fs(7.2f), lineHeight = fs(8f), color = Color(0xFFF6E7B8))
+                        Text(
+                            (if (isFri && state.hero == Prayer.DHUHR) "Jumuʿah" else state.hero.english).uppercase() + if (state.justPassed) "  ·  NOW" else "",
+                            fontFamily = Cormorant, fontSize = fs(2.6f), letterSpacing = fs(0.6f), color = Palette.ivory.copy(alpha = 0.9f)
+                        )
+                        Row(verticalAlignment = Alignment.Top) {
+                            Text(PrayerEngine.clock(state.heroTime, settings.use24h), fontFamily = Cormorant, fontSize = fs(8.6f), lineHeight = fs(8.6f), color = Palette.ivory)
+                            val suf = PrayerEngine.suffix(state.heroTime, settings.use24h)
+                            if (suf.isNotEmpty()) Text(" $suf", fontFamily = Cormorant, fontSize = fs(3f), letterSpacing = fs(0.3f), color = Palette.ivory, modifier = Modifier.padding(top = u * 1.3f))
+                        }
+                        StatePill(state, u)
+                        if (ramadan && state.current != null && state.current != Prayer.MAGHRIB && state.current != Prayer.ISHA) {
+                            FastProgress(state, u)
+                        }
+                        Text(
+                            state.now.format(DateTimeFormatter.ofPattern(if (settings.use24h) "HH:mm" else "h:mm a", Locale.ENGLISH)),
+                            fontSize = fs(1.5f), letterSpacing = fs(0.3f), color = Palette.ivory.copy(alpha = 0.7f), fontFamily = Nunito, modifier = Modifier.padding(top = u * 0.8f)
+                        )
+                    }
+                }
+
+                // ---------- rail
+                val shown = if (settings.showSunrise) Prayer.entries else Prayer.prayersOnly
+                Row(Modifier.fillMaxWidth().padding(top = u * 1.2f), horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
+                    shown.forEach { p ->
+                        val t = state.today[p]
+                        val done = !t.isAfter(state.now) && !(state.justPassed && p == state.hero)
+                        val isNow = state.justPassed && p == state.hero
+                        val isNext = !state.justPassed && p == state.hero && state.nextTime.toLocalDate() == state.now.toLocalDate()
+                        val label = when {
+                            p == Prayer.DHUHR && isFri -> "Jumuʿah"
+                            ramadan && p == Prayer.FAJR -> "Fajr · Suhoor"
+                            ramadan && p == Prayer.MAGHRIB -> "Maghrib · Iftar"
+                            else -> p.english
+                        }
+                        PrayerCard(p, label, PrayerEngine.clock(t, settings.use24h), PrayerEngine.suffix(t, settings.use24h),
+                            done = done, isNow = isNow, isNext = isNext, azaanOn = settings.azaanEnabled[p] == true, u = u, modifier = Modifier.weight(1f))
                     }
                 }
             }
-
-            // ---- hero
-            Column(
-                Modifier.align(Alignment.TopCenter).offset(y = u * 15.5f).width(u * 56),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(state.hero.arabic, fontFamily = Amiri, fontSize = fs(8.5f), lineHeight = fs(9.5f), color = Color(0xFFF6E7B8))
-                Text(
-                    state.hero.english.uppercase() + if (state.justPassed) "  ·  NOW" else "",
-                    fontFamily = Cormorant, fontSize = fs(2.8f), letterSpacing = fs(0.7f), color = Palette.ivory.copy(alpha = 0.9f)
-                )
-                Row(verticalAlignment = Alignment.Top, modifier = Modifier.padding(top = u * 0.6f)) {
-                    Text(
-                        PrayerEngine.clock(state.heroTime, settings.use24h),
-                        fontFamily = Cormorant, fontSize = fs(9.5f), lineHeight = fs(9.5f), color = Palette.ivory
-                    )
-                    val suf = PrayerEngine.suffix(state.heroTime, settings.use24h)
-                    if (suf.isNotEmpty()) Text(" $suf", fontFamily = Cormorant, fontSize = fs(3.2f), letterSpacing = fs(0.3f), color = Palette.ivory, modifier = Modifier.padding(top = u * 1.4f))
-                }
-                StatePill(state, u)
-                Text(
-                    state.now.format(DateTimeFormatter.ofPattern(if (settings.use24h) "HH:mm" else "h:mm a", Locale.ENGLISH)),
-                    fontSize = fs(1.5f), letterSpacing = fs(0.3f), color = Palette.ivory.copy(alpha = 0.7f), fontFamily = Nunito,
-                    modifier = Modifier.padding(top = u * 1f)
-                )
-            }
-
-            // ---- rail
-            val shown = if (settings.showSunrise) Prayer.entries else Prayer.prayersOnly
-            Row(
-                Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(horizontal = u * 3.6f, vertical = u * 3f),
-                horizontalArrangement = Arrangement.spacedBy(u * 1.2f)
-            ) {
-                shown.forEach { p ->
-                    val t = state.today[p]
-                    val done = !t.isAfter(state.now) && !(state.justPassed && p == state.hero)
-                    val isNow = state.justPassed && p == state.hero
-                    val isNext = !state.justPassed && p == state.hero && state.nextTime.toLocalDate() == state.now.toLocalDate()
-                    PrayerCard(p, PrayerEngine.clock(t, settings.use24h), PrayerEngine.suffix(t, settings.use24h),
-                        done = done, isNow = isNow, isNext = isNext, azaanOn = settings.azaanEnabled[p] == true, u = u,
-                        modifier = Modifier.weight(1f))
-                }
-            }
-
             if (dim) Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.45f)))
         }
     }
 }
 
 @Composable
-private fun IconChip(icon: androidx.compose.ui.graphics.vector.ImageVector, u: Dp, onClick: () -> Unit) {
+private fun Chip(icon: ImageVector, label: String, u: Dp, gold: Boolean = false, onClick: (() -> Unit)? = null) {
+    val shape = RoundedCornerShape(50)
+    Row(
+        Modifier.clip(shape).background(if (gold) Palette.gold.copy(alpha = 0.18f) else Color.White.copy(alpha = 0.08f))
+            .border(1.dp, if (gold) Palette.gold.copy(alpha = 0.7f) else Color.White.copy(alpha = 0.16f), shape)
+            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
+            .padding(horizontal = u * 1.1f, vertical = u * 0.45f),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(icon, null, Modifier.size(u * 1.5f), tint = if (gold) Palette.goldSoft else Palette.ivory)
+        Spacer(Modifier.width(u * 0.6f))
+        Text(label, fontSize = (u.value * 1.3f).sp, fontWeight = FontWeight.SemiBold, color = if (gold) Palette.goldSoft else Palette.ivory, fontFamily = Nunito)
+    }
+}
+
+@Composable
+private fun IconChip(icon: ImageVector, u: Dp, onClick: () -> Unit) {
     Box(
         Modifier.size(u * 3.6f).clip(CircleShape).background(Color.White.copy(alpha = 0.10f))
             .border(1.dp, Color.White.copy(alpha = 0.18f), CircleShape).clickable(onClick = onClick),
@@ -172,47 +211,58 @@ private fun IconChip(icon: androidx.compose.ui.graphics.vector.ImageVector, u: D
 @Composable
 private fun StatePill(state: PrayerState, u: Dp) {
     val dot = if (state.justPassed) Palette.mint else Palette.gold
-    val text = if (state.justPassed) "azaan was ${PrayerEngine.humanDuration(state.delta)} ago"
-    else "in ${PrayerEngine.humanDuration(state.delta)}"
+    val text = if (state.justPassed) "azaan was ${PrayerEngine.humanDuration(state.delta)} ago" else "in ${PrayerEngine.humanDuration(state.delta)}"
     Row(
-        Modifier.padding(top = u * 1.2f).clip(RoundedCornerShape(50)).background(Color.Black.copy(alpha = 0.28f))
-            .border(1.dp, Color.White.copy(alpha = 0.15f), RoundedCornerShape(50))
-            .padding(horizontal = u * 1.8f, vertical = u * 0.7f),
+        Modifier.padding(top = u * 1f).clip(RoundedCornerShape(50)).background(Color.Black.copy(alpha = 0.28f))
+            .border(1.dp, Color.White.copy(alpha = 0.15f), RoundedCornerShape(50)).padding(horizontal = u * 1.8f, vertical = u * 0.65f),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(Modifier.size(u * 0.9f).clip(CircleShape).background(dot))
         Spacer(Modifier.width(u * 0.8f))
-        Text(text, fontSize = (u.value * 1.9f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory, fontFamily = Nunito)
+        Text(text, fontSize = (u.value * 1.8f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory, fontFamily = Nunito)
+    }
+}
+
+/** Thin bar: how far through today's fast we are (Fajr → Maghrib). */
+@Composable
+private fun FastProgress(state: PrayerState, u: Dp) {
+    val start = state.today[Prayer.FAJR]; val end = state.today[Prayer.MAGHRIB]
+    val total = Duration.between(start, end).toMinutes().coerceAtLeast(1)
+    val done = Duration.between(start, state.now).toMinutes().coerceIn(0, total)
+    Column(Modifier.padding(top = u * 1f).width(u * 34), horizontalAlignment = Alignment.CenterHorizontally) {
+        Box(Modifier.fillMaxWidth().height(u * 0.45f).clip(RoundedCornerShape(50)).background(Color.White.copy(alpha = 0.18f))) {
+            Box(Modifier.fillMaxWidth(done / total.toFloat()).fillMaxHeight().background(Palette.gold))
+        }
+        Text("Iftar in ${PrayerEngine.humanDuration(Duration.between(state.now, end))}", fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, color = Palette.goldSoft, modifier = Modifier.padding(top = u * 0.4f), textAlign = TextAlign.Center)
     }
 }
 
 @Composable
 fun PrayerCard(
-    p: Prayer, time: String, suffix: String,
+    p: Prayer, label: String, time: String, suffix: String,
     done: Boolean, isNow: Boolean, isNext: Boolean, azaanOn: Boolean, u: Dp, modifier: Modifier = Modifier
 ) {
     val shape = RoundedCornerShape(u * 1.6f)
     val bg = when { isNow -> Palette.gold.copy(alpha = 0.18f); p.isPrayer -> Color.White.copy(alpha = 0.07f); else -> Color.Transparent }
     val border = when { isNow -> Palette.gold; isNext -> Palette.gold.copy(alpha = 0.6f); else -> Color.White.copy(alpha = 0.12f) }
     Column(
-        modifier.alpha(if (done) 0.55f else 1f).clip(shape).background(bg).border(1.dp, border, shape)
-            .padding(horizontal = u * 1.5f, vertical = u * 1.5f),
-        verticalArrangement = Arrangement.spacedBy(u * 0.35f)
+        modifier.alpha(if (done) 0.55f else 1f).clip(shape).background(bg).border(1.dp, border, shape).padding(horizontal = u * 1.4f, vertical = u * 1.3f),
+        verticalArrangement = Arrangement.spacedBy(u * 0.3f)
     ) {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-            Text(p.english.uppercase(), fontSize = (u.value * 1.35f).sp, letterSpacing = (u.value * 0.18f).sp, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = 0.85f), fontFamily = Nunito)
+            Text(label.uppercase(), fontSize = (u.value * 1.2f).sp, letterSpacing = (u.value * 0.14f).sp, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = 0.85f), fontFamily = Nunito, maxLines = 1, modifier = Modifier.weight(1f, fill = false))
             when {
-                isNext -> Box(Modifier.clip(RoundedCornerShape(4.dp)).background(Palette.gold).padding(horizontal = u * 0.5f, vertical = u * 0.1f)) {
-                    Text("NEXT", fontSize = (u.value * 1.05f).sp, fontWeight = FontWeight.Bold, color = Palette.night, fontFamily = Nunito)
+                isNext -> Box(Modifier.padding(start = u * 0.4f).clip(RoundedCornerShape(4.dp)).background(Palette.gold).padding(horizontal = u * 0.5f, vertical = u * 0.1f)) {
+                    Text("NEXT", fontSize = (u.value * 1.0f).sp, fontWeight = FontWeight.Bold, color = Palette.night, fontFamily = Nunito)
                 }
                 done && p.isPrayer -> Icon(Icons.Outlined.Check, null, Modifier.size(u * 1.6f), tint = Palette.mint)
                 p.isPrayer -> Icon(if (azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(u * 1.6f), tint = Palette.ivory.copy(alpha = 0.7f))
             }
         }
-        Text(p.arabic, fontFamily = Amiri, fontSize = (u.value * 2.2f).sp, lineHeight = (u.value * 2.4f).sp, color = Palette.goldSoft)
+        Text(p.arabic, fontFamily = Amiri, fontSize = (u.value * 2.1f).sp, lineHeight = (u.value * 2.3f).sp, color = Palette.goldSoft)
         Row(verticalAlignment = Alignment.Bottom) {
-            Text(time, fontFamily = Cormorant, fontSize = (u.value * 3f).sp, lineHeight = (u.value * 3.2f).sp, color = Palette.ivory)
-            if (suffix.isNotEmpty()) Text(" $suffix", fontFamily = Cormorant, fontSize = (u.value * 1.5f).sp, color = Palette.ivory, modifier = Modifier.padding(bottom = u * 0.4f))
+            Text(time, fontFamily = Cormorant, fontSize = (u.value * 2.9f).sp, lineHeight = (u.value * 3f).sp, color = Palette.ivory)
+            if (suffix.isNotEmpty()) Text(" $suffix", fontFamily = Cormorant, fontSize = (u.value * 1.4f).sp, color = Palette.ivory, modifier = Modifier.padding(bottom = u * 0.35f))
         }
     }
 }

@@ -52,6 +52,8 @@ import com.usman.miqaat.ui.Amiri
 import com.usman.miqaat.ui.AzaanScreen
 import com.usman.miqaat.ui.Cormorant
 import com.usman.miqaat.ui.HomeScreen
+import com.usman.miqaat.ui.QiblaScreen
+import com.usman.miqaat.ui.AdhkarScreen
 import com.usman.miqaat.ui.MiqaatTheme
 import com.usman.miqaat.ui.Nunito
 import com.usman.miqaat.ui.Palette
@@ -63,17 +65,23 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.ZonedDateTime
 
-private enum class Screen { HOME, TIMETABLE, SETTINGS }
+private enum class Screen { HOME, TIMETABLE, SETTINGS, QIBLA, ADHKAR }
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+    private fun hideSystemBars() {
         WindowInsetsControllerCompat(window, window.decorView).apply {
             hide(WindowInsetsCompat.Type.systemBars())
             systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
+    }
+    override fun onWindowFocusChanged(hasFocus: Boolean) { super.onWindowFocusChanged(hasFocus); if (hasFocus) hideSystemBars() }
+    override fun onResume() { super.onResume(); hideSystemBars() }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        hideSystemBars()
         val store = (application as MiqaatApp).settings
 
         setContent {
@@ -81,6 +89,7 @@ class MainActivity : ComponentActivity() {
                 val settings by store.settings.collectAsState()
                 var screen by rememberSaveable { mutableStateOf(Screen.HOME) }
                 var settingsSection by remember { mutableStateOf(Section.TIMES) }
+                var adhkarMorning by remember { mutableStateOf(true) }
                 val phase by AzaanService.phase.collectAsState()
                 val scope = rememberCoroutineScope()
 
@@ -111,8 +120,12 @@ class MainActivity : ComponentActivity() {
                                 state, settings,
                                 onOpenTimetable = { screen = Screen.TIMETABLE },
                                 onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
-                                onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS }
+                                onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
+                                onOpenQibla = { screen = Screen.QIBLA },
+                                onOpenAdhkar = { m -> adhkarMorning = m; screen = Screen.ADHKAR }
                             )
+                            Screen.QIBLA -> QiblaScreen(settings) { screen = Screen.HOME }
+                            Screen.ADHKAR -> AdhkarScreen(adhkarMorning) { screen = Screen.HOME }
                             Screen.TIMETABLE -> TimetableScreen(settings) { screen = Screen.HOME }
                             Screen.SETTINGS -> SettingsScreen(store, settings, settingsSection) { screen = Screen.HOME }
                         }
