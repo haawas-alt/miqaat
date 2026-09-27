@@ -73,6 +73,8 @@ import com.usman.miqaat.data.AsrMethod
 import com.usman.miqaat.data.LatitudeRule
 import com.usman.miqaat.data.LocationRepo
 import com.usman.miqaat.data.Method
+import com.usman.miqaat.data.Narration
+import com.usman.miqaat.data.HadithLibrary
 import com.usman.miqaat.data.Place
 import com.usman.miqaat.data.Prayer
 import com.usman.miqaat.data.PrayerEngine
@@ -258,9 +260,22 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
         Stepper(s.preReminderMinutes, 0, 30, 5, " min", zeroLabel = "Off") { v -> store.update { it.copy(preReminderMinutes = v) } }
     }
     Spacer(Modifier.height(18.dp))
+    Text("After the azaan", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text("When the azaan finishes: the dua after azaan (held until its narration ends), then one ṣaḥīḥ hadith, then back to the clock.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f))
+    SettingRow("Dua and hadith after each azaan", "For all five prayers") { Toggle(s.afterAzaanEnabled) { on -> store.update { it.copy(afterAzaanEnabled = on) } } }
+    SettingRow("Narration", "Uses the tablet's text-to-speech voice. Arabic is read only if an Arabic voice is installed.") {
+        Chips(Narration.entries.map { it.label }, Narration.entries.indexOf(s.narration)) { i -> store.update { it.copy(narration = Narration.entries[i]) } }
+    }
+    SettingRow("Hadith stays on screen for", "Counted from when the hadith appears") {
+        Stepper(s.hadithMinutes, 1, 10, 1, " min") { v -> store.update { it.copy(hadithMinutes = v) } }
+    }
+    SettingRow("Hadith source", "${HadithLibrary.all.size} narrations from Ṣaḥīḥ al-Bukhārī and Ṣaḥīḥ Muslim, each cited with its number. One per azaan, no repeats until all have been shown.") {
+        TextButton(onClick = { AzaanService.previewAfter(ctx, Prayer.DHUHR) }) { Text("Preview", color = Palette.goldSoft) }
+    }
+    Spacer(Modifier.height(18.dp))
     Text("Azaan recording", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     Text(
-        "Miqaat plays the recording built into the app. You can replace it with any MP3 on the tablet, and give Fajr its own (with \"as-salatu khayrun min an-nawm\").",
+        "Two recordings are built in: one for Fajr and one for the other prayers. You can replace either with any MP3 on the tablet.",
         fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f)
     )
     SettingRow("Azaan file", s.azaanUri?.let { Uri.parse(it).lastPathSegment } ?: "Built-in", onClick = { pickFile.launch(arrayOf("audio/*")) }) {

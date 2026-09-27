@@ -29,9 +29,9 @@ class AzaanActivity : ComponentActivity() {
         val prayer = intent.getStringExtra(AzaanScheduler.EXTRA_PRAYER)?.let { runCatching { Prayer.valueOf(it) }.getOrNull() } ?: Prayer.DHUHR
         setContent {
             MiqaatTheme {
-                val playing by AzaanService.playing.collectAsState()
-                LaunchedEffect(playing) { if (playing == null) finish() }
-                AzaanScreen(prayer = playing?.prayer ?: prayer, onStop = { AzaanService.stop(this); finish() })
+                val phase by AzaanService.phase.collectAsState()
+                LaunchedEffect(phase) { if (phase == null) finish() }
+                phase?.let { AzaanScreen(phase = it, onStop = { AzaanService.stop(this); finish() }, onSkip = { AzaanService.skip(this) }) }
             }
         }
     }

@@ -81,7 +81,7 @@ class MainActivity : ComponentActivity() {
                 val settings by store.settings.collectAsState()
                 var screen by rememberSaveable { mutableStateOf(Screen.HOME) }
                 var settingsSection by remember { mutableStateOf(Section.TIMES) }
-                val playing by AzaanService.playing.collectAsState()
+                val phase by AzaanService.phase.collectAsState()
                 val scope = rememberCoroutineScope()
 
                 // keep-screen-on follows the setting
@@ -117,8 +117,9 @@ class MainActivity : ComponentActivity() {
                             Screen.SETTINGS -> SettingsScreen(store, settings, settingsSection) { screen = Screen.HOME }
                         }
                     }
-                    if (playing != null && playing?.preview == false) {
-                        AzaanScreen(prayer = playing!!.prayer, onStop = { AzaanService.stop(this@MainActivity) })
+                    phase?.let { ph ->
+                        val preview = (ph as? AzaanService.Phase.Azaan)?.preview == true
+                        if (!preview) AzaanScreen(phase = ph, onStop = { AzaanService.stop(this@MainActivity) }, onSkip = { AzaanService.skip(this@MainActivity) })
                     }
                     if (!settings.setupDone) FirstRun(onDone = { store.update { it.copy(setupDone = true) } }, onDetect = { scope.launch { detect(this@MainActivity, store) } })
                 }

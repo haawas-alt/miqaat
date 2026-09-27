@@ -61,6 +61,8 @@ enum class LatitudeRule(val label: String, val rule: HighLatitudeRule) {
     ANGLE("Twilight angle", HighLatitudeRule.TWILIGHT_ANGLE)
 }
 
+enum class Narration(val label: String) { OFF("Off"), ENGLISH("English"), BOTH("Arabic + English") }
+
 enum class ArtTheme(val label: String) { GEOMETRIC("Geometric lattice"), CALLIGRAPHY("Calligraphy only"), MINIMAL("Minimal") }
 
 data class AppSettings(
@@ -78,6 +80,9 @@ data class AppSettings(
     val fajrAzaanUri: String? = null,
     val preReminderMinutes: Int = 0,
     val afterWindowMinutes: Int = 45,
+    val afterAzaanEnabled: Boolean = true,
+    val narration: Narration = Narration.BOTH,
+    val hadithMinutes: Int = 3,
     val showHijri: Boolean = true,
     val hijriOffsetDays: Int = 0,
     val showSunrise: Boolean = true,
@@ -132,6 +137,9 @@ class SettingsStore(context: Context) {
             fajrAzaanUri = prefs.getString("azFajrUri", null),
             preReminderMinutes = prefs.getInt("preMin", d.preReminderMinutes),
             afterWindowMinutes = prefs.getInt("afterMin", d.afterWindowMinutes),
+            afterAzaanEnabled = prefs.getBoolean("afterAz", d.afterAzaanEnabled),
+            narration = runCatching { Narration.valueOf(enumOr("narr", d.narration.name)) }.getOrDefault(d.narration),
+            hadithMinutes = prefs.getInt("hadMin", d.hadithMinutes),
             showHijri = prefs.getBoolean("hijri", d.showHijri),
             hijriOffsetDays = prefs.getInt("hijriOff", d.hijriOffsetDays),
             showSunrise = prefs.getBoolean("sunrise", d.showSunrise),
@@ -153,6 +161,7 @@ class SettingsStore(context: Context) {
             s.azaanEnabled.forEach { (p, v) -> putBoolean("az_${p.key}", v) }
             putInt("azVol", s.azaanVolume); putString("azUri", s.azaanUri); putString("azFajrUri", s.fajrAzaanUri)
             putInt("preMin", s.preReminderMinutes); putInt("afterMin", s.afterWindowMinutes)
+            putBoolean("afterAz", s.afterAzaanEnabled); putString("narr", s.narration.name); putInt("hadMin", s.hadithMinutes)
             putBoolean("hijri", s.showHijri); putInt("hijriOff", s.hijriOffsetDays); putBoolean("sunrise", s.showSunrise)
             putBoolean("h24", s.use24h); putBoolean("keepOn", s.keepScreenOn); putBoolean("nightDim", s.nightDim)
             putString("art", s.artTheme.name); putBoolean("boot", s.launchOnBoot); putBoolean("setupDone", s.setupDone)
