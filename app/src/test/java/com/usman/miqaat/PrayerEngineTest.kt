@@ -98,7 +98,7 @@ class PrayerEngineTest {
     }
 
     @Test fun travelDistance() {
-        assertTrue(PrayerEngine.distanceKm(-34.02, 150.77, -37.81, 144.96) > 700)
+        assertTrue(PrayerEngine.distanceKm(-34.02, 150.77, -37.81, 144.96) in 600.0..760.0)
         assertTrue(PrayerEngine.isTravelling(s.copy(homeLat = -34.02, homeLng = 150.77, latitude = -37.81, longitude = 144.96)))
         assertFalse(PrayerEngine.isTravelling(s.copy(homeLat = -34.02, homeLng = 150.77)))
     }
