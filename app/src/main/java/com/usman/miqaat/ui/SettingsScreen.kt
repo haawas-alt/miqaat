@@ -75,6 +75,7 @@ import com.usman.miqaat.data.LocationRepo
 import com.usman.miqaat.data.Method
 import com.usman.miqaat.data.Narration
 import com.usman.miqaat.data.RamadanMode
+import com.usman.miqaat.data.AppTheme
 import com.usman.miqaat.data.IqamahSound
 import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material.icons.outlined.PlayCircle
@@ -367,7 +368,18 @@ private fun IqamahSection(store: SettingsStore, s: AppSettings) {
 private fun TestSection(store: SettingsStore, s: AppSettings) {
     val ctx = LocalContext.current
     Heading("Test & preview", "Run any part of the experience right now, without waiting for a prayer time. Each one uses your current settings and the real sounds.")
+    Text("Theme", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    SettingRow("Preview a theme", "Applies straight away; press back to see the home screen") {
+        Chips(AppTheme.entries.map { it.label }, AppTheme.entries.indexOf(s.theme)) { i -> store.update { it.copy(theme = AppTheme.entries[i]) } }
+    }
+    Spacer(Modifier.height(14.dp))
     Text("Azaan", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    SettingRow("Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the clock (about 8 minutes). Iqamah is not included unless one is scheduled.") {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            GoldButton("Fajr") { AzaanService.playFull(ctx, Prayer.FAJR) }
+            GoldButton("Maghrib") { AzaanService.playFull(ctx, Prayer.MAGHRIB) }
+        }
+    }
     SettingRow("Azaan recording", "Plays the full recording with the azaan screen, then stops (no dua or hadith)") {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             GoldButton("Fajr") { AzaanService.preview(ctx, Prayer.FAJR) }
@@ -405,6 +417,9 @@ private fun HijriSection(store: SettingsStore, s: AppSettings) {
 @Composable
 private fun DisplaySection(store: SettingsStore, s: AppSettings) {
     Heading("Display & art", "Made for a tablet that stays on. Everything here is about how it looks from across the room.")
+    SettingRow("Theme", "Changes the home screen and the azaan screens immediately; go back to the clock to see it") {
+        Chips(AppTheme.entries.map { it.label }, AppTheme.entries.indexOf(s.theme)) { i -> store.update { it.copy(theme = AppTheme.entries[i]) } }
+    }
     SettingRow("Time format", null) { Chips(listOf("12-hour", "24-hour"), if (s.use24h) 1 else 0) { i -> store.update { it.copy(use24h = i == 1) } } }
     SettingRow("Keep the screen on", "While Miqaat is open. Best with the tablet plugged in.") { Toggle(s.keepScreenOn) { on -> store.update { it.copy(keepScreenOn = on) } } }
     SettingRow("Dim after Isha", "Softens the screen through the night until Fajr") { Toggle(s.nightDim) { on -> store.update { it.copy(nightDim = on) } } }

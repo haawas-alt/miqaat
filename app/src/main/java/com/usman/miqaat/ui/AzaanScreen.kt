@@ -63,13 +63,15 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
         if (phase is Phase.Quiet) { QuietBody(phase, u, onStop); return@BoxWithConstraints }
         val isAzaan = phase is Phase.Azaan
         val isIq = phase is Phase.IqamahCountdown || phase is Phase.IqamahNow
+        val kiswah = com.usman.miqaat.MiqaatApp.instance.settings.value.theme == com.usman.miqaat.data.AppTheme.KISWAH
         val bg = when {
+            kiswah -> listOf(Color(0xFF0B0B0B), Kiswah.silk)
             isAzaan -> listOf(Color(0xFF2A1440), Color(0xFF0A0716))
             isIq -> listOf(Color(0xFF163A3A), Color(0xFF0B1F24), Color(0xFF06131A))
             else -> listOf(Color(0xFF1E2A5C), Color(0xFF0D1533), Color(0xFF080D24))
         }
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(bg))) {
-            GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
+            if (kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
             // Option A: a quiet status tag, top-left, instead of any system pop-up
             Row(Modifier.padding(start = u * 3.6f, top = u * 2.6f), verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.size(u * 0.9f).clip(androidx.compose.foundation.shape.CircleShape).background(Palette.gold))

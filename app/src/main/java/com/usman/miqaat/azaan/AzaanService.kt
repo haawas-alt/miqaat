@@ -421,6 +421,9 @@ class AzaanService : Service() {
             ctx, Intent(ctx, AzaanService::class.java).setAction(ACTION_IQAMAH_NOW).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name))
         fun testQuiet(ctx: Context, prayer: Prayer) = androidx.core.content.ContextCompat.startForegroundService(
             ctx, Intent(ctx, AzaanService::class.java).setAction(ACTION_QUIET).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name))
+        /** Exactly what happens at prayer time: azaan, then dua, then hadith (and iqamah if scheduled). */
+        fun playFull(ctx: Context, prayer: Prayer) = androidx.core.content.ContextCompat.startForegroundService(
+            ctx, Intent(ctx, AzaanService::class.java).setAction(ACTION_PLAY).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name))
         fun previewAfter(ctx: Context, prayer: Prayer) = androidx.core.content.ContextCompat.startForegroundService(
             ctx, Intent(ctx, AzaanService::class.java).setAction(ACTION_PREVIEW_AFTER).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name))
     }

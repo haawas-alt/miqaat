@@ -67,6 +67,8 @@ enum class RamadanMode(val label: String) { AUTO("Automatic"), ON("On"), OFF("Of
 
 enum class IqamahSound(val label: String) { OFF("Off"), CHIME("Chime"), RECORDING("Iqamah recording") }
 
+enum class AppTheme(val label: String) { MIQAAT("Miqaat · illuminated"), KISWAH("Kiswah · black & gold") }
+
 enum class ArtTheme(val label: String) { GEOMETRIC("Geometric lattice"), CALLIGRAPHY("Calligraphy only"), MINIMAL("Minimal") }
 
 data class AppSettings(
@@ -106,6 +108,7 @@ data class AppSettings(
     val keepScreenOn: Boolean = true,
     val nightDim: Boolean = true,
     val artTheme: ArtTheme = ArtTheme.GEOMETRIC,
+    val theme: AppTheme = AppTheme.MIQAAT,
     val launchOnBoot: Boolean = false,
     val setupDone: Boolean = false
 ) {
@@ -175,6 +178,7 @@ class SettingsStore(context: Context) {
             keepScreenOn = prefs.getBoolean("keepOn", d.keepScreenOn),
             nightDim = prefs.getBoolean("nightDim", d.nightDim),
             artTheme = runCatching { ArtTheme.valueOf(enumOr("art", d.artTheme.name)) }.getOrDefault(d.artTheme),
+            theme = runCatching { AppTheme.valueOf(enumOr("theme", d.theme.name)) }.getOrDefault(d.theme),
             launchOnBoot = prefs.getBoolean("boot", d.launchOnBoot),
             setupDone = prefs.getBoolean("setupDone", d.setupDone)
         )
@@ -196,7 +200,7 @@ class SettingsStore(context: Context) {
             putInt("iqJum", s.jumuahIqamahMinutes); putString("iqSnd", s.iqamahSound.name); putInt("iqCd", s.iqamahCountdownSeconds); putInt("quiet", s.quietMinutes)
             putBoolean("hijri", s.showHijri); putInt("hijriOff", s.hijriOffsetDays); putBoolean("sunrise", s.showSunrise)
             putBoolean("h24", s.use24h); putBoolean("keepOn", s.keepScreenOn); putBoolean("nightDim", s.nightDim)
-            putString("art", s.artTheme.name); putBoolean("boot", s.launchOnBoot); putBoolean("setupDone", s.setupDone)
+            putString("art", s.artTheme.name); putString("theme", s.theme.name); putBoolean("boot", s.launchOnBoot); putBoolean("setupDone", s.setupDone)
         }.apply()
     }
 }

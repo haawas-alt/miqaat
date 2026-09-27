@@ -119,7 +119,16 @@ class MainActivity : ComponentActivity() {
                 Box(Modifier.fillMaxSize().background(Palette.night)) {
                     Crossfade(targetState = screen, label = "screen") { s ->
                         when (s) {
-                            Screen.HOME -> HomeScreen(
+                            Screen.HOME -> if (settings.theme == com.usman.miqaat.data.AppTheme.KISWAH) com.usman.miqaat.ui.KiswahHome(
+                                state, settings,
+                                onOpenTimetable = { screen = Screen.TIMETABLE },
+                                onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
+                                onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
+                                onOpenQibla = { screen = Screen.QIBLA },
+                                onOpenAdhkar = { m -> adhkarMorning = m; screen = Screen.ADHKAR },
+                                updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
+                                onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS }
+                            ) else HomeScreen(
                                 state, settings,
                                 onOpenTimetable = { screen = Screen.TIMETABLE },
                                 onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
