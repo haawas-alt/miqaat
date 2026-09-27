@@ -289,7 +289,7 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
     Text("After the azaan", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     Text("When the azaan finishes: the dua after azaan (held until its narration ends), then one ṣaḥīḥ hadith, then back to the clock.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f))
     SettingRow("Dua and hadith after each azaan", "For all five prayers") { Toggle(s.afterAzaanEnabled) { on -> store.update { it.copy(afterAzaanEnabled = on) } } }
-    SettingRow("Narration", "Uses the tablet's text-to-speech voice. Arabic is read only if an Arabic voice is installed.") {
+    SettingRow("Narration", "Studio recordings are built in for the dua and every hadith, Arabic and English. The tablet's voice is only used if a recording is missing.") {
         Chips(Narration.entries.map { it.label }, Narration.entries.indexOf(s.narration)) { i -> store.update { it.copy(narration = Narration.entries[i]) } }
     }
     SettingRow("Hadith stays on screen for", "Counted from when the hadith appears") {

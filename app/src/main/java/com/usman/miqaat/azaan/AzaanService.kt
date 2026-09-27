@@ -147,7 +147,7 @@ class AzaanService : Service() {
         val settings = (application as MiqaatApp).settings.value
         val seq = sequenceId
         // Hold until the narration is done; a guard timer covers a missing/failed TTS engine.
-        val spoken = narrate(settings.narration, Duas.AFTER_AZAAN_AR, Duas.AFTER_AZAAN_EN) { if (seq == sequenceId) startHadith(prayer) }
+        val spoken = narrate(settings.narration, Duas.AFTER_AZAAN_AR, Duas.AFTER_AZAAN_EN, key = "dua") { if (seq == sequenceId) startHadith(prayer) }
         if (!spoken) handler.postDelayed({ if (seq == sequenceId) startHadith(prayer) }, 40_000)
         else handler.postDelayed({ if (seq == sequenceId && _phase.value is Phase.Dua) startHadith(prayer) }, 120_000)
     }
@@ -159,17 +159,29 @@ class AzaanService : Service() {
         val startedAt = System.currentTimeMillis()
         val endsAt = startedAt + settings.hadithMinutes.coerceAtLeast(1) * 60_000L
         val seq = sequenceId
-        val spoken = narrate(settings.narration, h.arabic, "The Messenger of Allah, peace be upon him, said: " + h.english + ". Narrated by ${h.narrator}. ${h.source.replace("·", ", ")}") {
+        val spoken = narrate(settings.narration, h.arabic, "The Messenger of Allah, peace be upon him, said: " + h.english + ". Narrated by ${h.narrator}. ${h.source.replace("·", ", ")}", key = "h%02d".format(h.id)) {
             if (seq == sequenceId) _phase.value = Phase.HadithPhase(prayer, h, startedAt, endsAt, narrating = false)
         }
         _phase.value = Phase.HadithPhase(prayer, h, startedAt, endsAt, narrating = spoken)
         handler.postDelayed({ if (seq == sequenceId) finishAll() }, endsAt - System.currentTimeMillis())
     }
 
-    /** Returns true if anything was queued to speak. */
-    private fun narrate(mode: Narration, arabic: String, english: String, onDone: () -> Unit): Boolean {
+    /**
+     * Narration. Prefers the bundled studio recordings (res/raw/<key>_ar.mp3 / <key>_en.mp3);
+     * falls back to the tablet's text-to-speech when a recording is missing.
+     * Returns true if anything will play.
+     */
+    private fun narrate(mode: Narration, arabic: String, english: String, key: String? = null, onDone: () -> Unit): Boolean {
+        if (mode == Narration.OFF) return false
+        if (key != null) {
+            val ids = buildList {
+                if (mode == Narration.BOTH) resources.getIdentifier("${key}_ar", "raw", packageName).takeIf { it != 0 }?.let { add(it) }
+                resources.getIdentifier("${key}_en", "raw", packageName).takeIf { it != 0 }?.let { add(it) }
+            }
+            if (ids.isNotEmpty()) { playChain(ids, onDone); return true }
+        }
         val t = tts
-        if (mode == Narration.OFF || t == null || !ttsReady) return false
+        if (t == null || !ttsReady) return false
         val params = Bundle().apply { putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_ALARM) }
         pendingAfterTts = onDone
         t.stop()
@@ -188,8 +200,8 @@ class AzaanService : Service() {
     private fun skip() {
         when (val p = _phase.value) {
             is Phase.Azaan -> afterAzaan(p.prayer, p.preview)
-            is Phase.Iftar -> { tts?.stop(); pendingAfterTts = null; handler.removeCallbacksAndMessages(null); startDua(p.prayer) }
-            is Phase.Dua -> { tts?.stop(); pendingAfterTts = null; handler.removeCallbacksAndMessages(null); startHadith(p.prayer) }
+            is Phase.Iftar -> { stopNarration(); handler.removeCallbacksAndMessages(null); startDua(p.prayer) }
+            is Phase.Dua -> { stopNarration(); handler.removeCallbacksAndMessages(null); startHadith(p.prayer) }
             is Phase.IqamahCountdown -> startIqamahNow(p.prayer)
             is Phase.IqamahNow -> startQuiet(p.prayer)
             is Phase.HadithPhase, is Phase.Quiet, null -> finishAll()
@@ -201,7 +213,7 @@ class AzaanService : Service() {
     /** Takes over whatever is running (hadith included): the countdown always wins. */
     private fun startIqamahCountdown(prayer: Prayer, secondsOverride: Int) {
         val settings = (application as MiqaatApp).settings.value
-        stopPlayer(); tts?.stop(); pendingAfterTts = null
+        stopPlayer(); stopNarration()
         begin(prayer)
         val secs = if (secondsOverride > 0) secondsOverride else settings.iqamahCountdownSeconds
         val start = System.currentTimeMillis()
@@ -252,6 +264,26 @@ class AzaanService : Service() {
         val seq = sequenceId
         // release the wake lock: the screen may sleep during prayer, the activity keeps its own flag
         handler.postDelayed({ if (seq == sequenceId) finishAll() }, end - System.currentTimeMillis())
+    }
+
+    private var narrPlayer: MediaPlayer? = null
+    private fun stopNarration() { narrPlayer?.runCatching { if (isPlaying) stop(); release() }; narrPlayer = null; tts?.stop(); pendingAfterTts = null }
+    private fun playChain(ids: List<Int>, onDone: () -> Unit) {
+        stopNarration()
+        val seq = sequenceId
+        fun playAt(i: Int) {
+            if (seq != sequenceId) return
+            if (i >= ids.size) { handler.postDelayed({ if (seq == sequenceId) onDone() }, 600); return }
+            narrPlayer = MediaPlayer().apply {
+                setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build())
+                runCatching { setDataSource(this@AzaanService, Uri.parse("android.resource://$packageName/${ids[i]}")); prepare() }
+                    .onFailure { release(); narrPlayer = null; playAt(i + 1); return }
+                setOnCompletionListener { it.release(); if (narrPlayer === it) narrPlayer = null; handler.postDelayed({ playAt(i + 1) }, 900) }
+                setOnErrorListener { mp, _, _ -> mp.release(); if (narrPlayer === mp) narrPlayer = null; playAt(i + 1); true }
+                start()
+            }
+        }
+        playAt(0)
     }
 
     private var shortPlayer: MediaPlayer? = null
@@ -332,6 +364,7 @@ class AzaanService : Service() {
 
     private fun finishAll() {
         shortPlayer?.runCatching { release() }; shortPlayer = null
+        stopNarration()
         sequenceId++
         handler.removeCallbacksAndMessages(null)
         pendingAfterTts = null
@@ -346,7 +379,7 @@ class AzaanService : Service() {
 
     override fun onDestroy() {
         handler.removeCallbacksAndMessages(null)
-        stopPlayer()
+        stopPlayer(); stopNarration()
         tts?.runCatching { stop(); shutdown() }
         _phase.value = null
         wakeLock?.runCatching { if (isHeld) release() }
