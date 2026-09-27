@@ -25,6 +25,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Settings
@@ -62,7 +63,7 @@ import java.util.Locale
 fun PortraitHome(
     state: PrayerState, settings: AppSettings,
     onOpenTimetable: () -> Unit, onOpenSettings: () -> Unit, onOpenLocation: () -> Unit,
-    onOpenQibla: () -> Unit, onOpenAdhkar: (Boolean) -> Unit, updateAvailable: Boolean, onOpenAbout: () -> Unit,
+    onOpenQibla: () -> Unit, onOpenAdhkar: (AdhkarMode) -> Unit, onOpenFriday: () -> Unit = {}, onOpenLearn: () -> Unit = {}, updateAvailable: Boolean, onOpenAbout: () -> Unit,
     onToggleRelative: () -> Unit = {}
 ) {
     val kiswah = settings.theme == AppTheme.KISWAH
@@ -93,6 +94,7 @@ fun PortraitHome(
                         Text(settings.locationName, fontSize = fs(3.6f), fontWeight = FontWeight.SemiBold, color = ivory, fontFamily = Nunito)
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(u * 2)) {
+                        if (settings.kidsMode) RoundIcon(Icons.Outlined.MenuBook, u, ivory, onOpenLearn)
                         RoundIcon(Icons.Outlined.CalendarMonth, u, ivory, onOpenTimetable)
                         RoundIcon(Icons.Outlined.Settings, u, ivory, onOpenSettings)
                     }
@@ -104,11 +106,14 @@ fun PortraitHome(
                 }
 
                 // chips
-                Row(Modifier.padding(top = u * 2.5f), horizontalArrangement = Arrangement.spacedBy(u * 2)) {
+                @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+                androidx.compose.foundation.layout.FlowRow(Modifier.padding(top = u * 2.5f), horizontalArrangement = Arrangement.spacedBy(u * 2), verticalArrangement = Arrangement.spacedBy(u * 1.5f)) {
                     if (settings.showQibla) { val q = PrayerEngine.qibla(settings); SmallChip(Icons.Outlined.Explore, "Qibla ${q.toInt()}° ${PrayerEngine.compass(q)}", u, ivory, gold, onClick = onOpenQibla) }
-                    if (settings.adhkarEnabled && state.current == Prayer.FAJR) SmallChip(Icons.Outlined.WbTwilight, "Morning adhkār", u, ivory, gold, gold = true) { onOpenAdhkar(true) }
-                    if (settings.adhkarEnabled && (state.current == Prayer.ASR || state.current == Prayer.MAGHRIB)) SmallChip(Icons.Outlined.WbTwilight, "Evening adhkār", u, ivory, gold, gold = true) { onOpenAdhkar(false) }
+                    if (settings.adhkarEnabled && state.current == Prayer.FAJR) SmallChip(Icons.Outlined.WbTwilight, "Morning adhkār", u, ivory, gold, gold = true) { onOpenAdhkar(AdhkarMode.MORNING) }
+                    if (settings.adhkarEnabled && (state.current == Prayer.ASR || state.current == Prayer.MAGHRIB)) SmallChip(Icons.Outlined.WbTwilight, "Evening adhkār", u, ivory, gold, gold = true) { onOpenAdhkar(AdhkarMode.EVENING) }
                     if (updateAvailable) SmallChip(Icons.Outlined.Settings, "Update", u, ivory, gold, gold = true, onClick = onOpenAbout)
+                    if (settings.fridayReminders && PrayerEngine.isJumuahWindow(settings, state.now)) SmallChip(Icons.Outlined.Check, "Jumuʿah", u, ivory, gold, onClick = onOpenFriday)
+                    if (settings.postPrayerAdhkar && state.current != null && java.time.Duration.between(state.today[state.current], state.now).toMinutes() in 5..40) SmallChip(Icons.Outlined.WbTwilight, "After-prayer adhkār", u, ivory, gold, gold = true) { onOpenAdhkar(AdhkarMode.POST) }
                 }
 
                 // hero takes whatever height is left between the header and the list

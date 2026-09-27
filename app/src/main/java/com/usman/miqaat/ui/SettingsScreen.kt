@@ -329,12 +329,15 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
             StepBtn("+", s.jumuahMinutes < 15 * 60) { store.update { it.copy(jumuahMinutes = it.jumuahMinutes + 5) } }
         }
     }
-    SettingRow("Friday reminders", "Sūrat al-Kahf and ṣalawāt, shown from Thursday Maghrib to Friday Maghrib") { Toggle(s.fridayReminders) { on -> store.update { it.copy(fridayReminders = on) } } }
+    SettingRow("Friday reminders", "A Jumuʿah chip from Thursday Maghrib to Friday Maghrib that opens the Friday routine: al-Kahf, ṣalawāt, the hour of acceptance") { Toggle(s.fridayReminders) { on -> store.update { it.copy(fridayReminders = on) } } }
+    SettingRow("Hour-of-acceptance reminder", "A quiet notification one hour before Friday's Maghrib") { Toggle(s.fridayHourReminder) { on -> store.update { it.copy(fridayHourReminder = on) } } }
     Spacer(Modifier.height(18.dp))
     Text("Ramaḍān", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     SettingRow("Ramaḍān mode", "Suhoor and Iftar labels, fasting progress, and the iftar dua after Maghrib azaan. Automatic follows the Hijri date.") {
         Chips(RamadanMode.entries.map { it.label }, RamadanMode.entries.indexOf(s.ramadanMode)) { i -> store.update { it.copy(ramadanMode = RamadanMode.entries[i]) } }
     }
+    SettingRow("Suhoor alarm", "A chime and notification this many minutes before Fajr, Ramaḍān only") { Stepper(s.suhoorAlarmMinutes, 0, 120, 5, " min", zeroLabel = "Off") { v -> store.update { it.copy(suhoorAlarmMinutes = v) } } }
+    SettingRow("Tarāwīḥ", "Shown on the home screen in Ramaḍān as minutes after Isha") { Stepper(s.tarawihMinutesAfterIsha, 0, 120, 5, " min") { v -> store.update { it.copy(tarawihMinutesAfterIsha = v) } } }
     Spacer(Modifier.height(18.dp))
     Text("Minute adjustments", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     Text("Nudge each time by a few minutes to match the timetable printed at your masjid.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.7f))
@@ -559,6 +562,8 @@ private fun DisplaySection(store: SettingsStore, s: AppSettings) {
     SettingRow("Dim after Isha", "Softens the screen through the night until Fajr") { Toggle(s.nightDim) { on -> store.update { it.copy(nightDim = on) } } }
     SettingRow("Qibla direction on the home screen", "Tap it for the compass") { Toggle(s.showQibla) { on -> store.update { it.copy(showQibla = on) } } }
     SettingRow("Morning and evening adhkār", "A prompt after Fajr and after ʿAsr, with sourced texts and a tap counter") { Toggle(s.adhkarEnabled) { on -> store.update { it.copy(adhkarEnabled = on) } } }
+    SettingRow("After-prayer adhkār", "A prompt for 40 minutes after each prayer: istighfār, the tasbīḥ, Āyat al-Kursī, the Quls") { Toggle(s.postPrayerAdhkar) { on -> store.update { it.copy(postPrayerAdhkar = on) } } }
+    SettingRow("Learn to pray (children)", "A book icon on the home screen opens the words of the prayer, one position at a time") { Toggle(s.kidsMode) { on -> store.update { it.copy(kidsMode = on) } } }
     SettingRow("Art theme", null) { Chips(ArtTheme.entries.map { it.label }, ArtTheme.entries.indexOf(s.artTheme)) { i -> store.update { it.copy(artTheme = ArtTheme.entries[i]) } } }
     SettingRow("Open Miqaat when the device starts", "So the wall tablet comes back after a power cut") { Toggle(s.launchOnBoot) { on -> store.update { it.copy(launchOnBoot = on) } } }
 }

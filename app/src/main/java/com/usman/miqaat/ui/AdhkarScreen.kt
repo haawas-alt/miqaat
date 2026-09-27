@@ -54,11 +54,16 @@ import com.usman.miqaat.data.Dhikr
  * Left: the list with progress ticks. Right: the selected dhikr, large, with a tap counter.
  * Tapping the big card counts one; when the count is reached it moves to the next.
  */
+enum class AdhkarMode(val title: String, val arabic: String) {
+    MORNING("Morning adhkār", "أذكار الصباح"), EVENING("Evening adhkār", "أذكار المساء"), POST("After the prayer", "أذكار بعد الصلاة")
+}
+
 @Composable
-fun AdhkarScreen(morning: Boolean, onBack: () -> Unit) {
-    val list = remember(morning) { if (morning) Adhkar.morning() else Adhkar.evening() }
-    val counts = remember(morning) { mutableStateMapOf<String, Int>() }
-    var index by remember(morning) { mutableIntStateOf(0) }
+fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
+    val morning = mode == AdhkarMode.MORNING
+    val list = remember(mode) { when (mode) { AdhkarMode.MORNING -> Adhkar.morning(); AdhkarMode.EVENING -> Adhkar.evening(); AdhkarMode.POST -> Adhkar.postPrayer } }
+    val counts = remember(mode) { mutableStateMapOf<String, Int>() }
+    var index by remember(mode) { mutableIntStateOf(0) }
     val cur = list[index]
     val done = (counts[cur.id] ?: 0) >= cur.count
     val listState = rememberLazyListState()
@@ -74,8 +79,8 @@ fun AdhkarScreen(morning: Boolean, onBack: () -> Unit) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = u * 1)) {
                     IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
                     Column {
-                        Text(if (morning) "Morning adhkār" else "Evening adhkār", fontFamily = Cormorant, fontSize = (u.value * 3f).sp, color = Palette.ivory, lineHeight = (u.value * 3.2f).sp)
-                        Text(if (morning) "أذكار الصباح" else "أذكار المساء", fontFamily = Amiri, fontSize = (u.value * 2.2f).sp, color = Palette.goldSoft)
+                        Text(mode.title, fontFamily = Cormorant, fontSize = (u.value * 3f).sp, color = Palette.ivory, lineHeight = (u.value * 3.2f).sp)
+                        Text(mode.arabic, fontFamily = Amiri, fontSize = (u.value * 2.2f).sp, color = Palette.goldSoft)
                     }
                 }
                 val finished = list.count { (counts[it.id] ?: 0) >= it.count }
@@ -113,7 +118,7 @@ fun AdhkarScreen(morning: Boolean, onBack: () -> Unit) {
             ) {
                 if (compact) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
-                    Text((if (morning) "Morning adhkār" else "Evening adhkār") + "  ·  ${index + 1} of ${list.size}", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.8f))
+                    Text(mode.title + "  ·  ${index + 1} of ${list.size}", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.8f))
                 }
                 Text(cur.title.uppercase(), fontFamily = Nunito, fontSize = (u.value * (if (compact) 3f else 1.3f)).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
                 Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {

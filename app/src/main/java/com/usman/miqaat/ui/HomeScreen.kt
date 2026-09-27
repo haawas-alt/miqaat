@@ -73,7 +73,7 @@ fun HomeScreen(
     onOpenSettings: () -> Unit,
     onOpenLocation: () -> Unit,
     onOpenQibla: () -> Unit,
-    onOpenAdhkar: (morning: Boolean) -> Unit,
+    onOpenAdhkar: (AdhkarMode) -> Unit, onOpenFriday: () -> Unit = {}, onOpenLearn: () -> Unit = {},
     updateAvailable: Boolean = false,
     onOpenAbout: () -> Unit = {},
     onToggleRelative: () -> Unit = {}
@@ -92,6 +92,9 @@ fun HomeScreen(
         val dim = settings.nightDim && state.period == Prayer.ISHA && !state.justPassed
 
         val ramadan = PrayerEngine.isRamadan(settings, state.now.toLocalDate())
+        val hij = PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)
+        val eidMorning = ((hij.month == 10 && hij.day == 1) || (hij.month == 12 && hij.day == 10)) && state.current != Prayer.DHUHR && state.current != Prayer.ASR && state.current != Prayer.MAGHRIB && state.current != Prayer.ISHA && state.current != null
+        val oddNight = ramadan && hij.day >= 20 && hij.day % 2 == 1 && (state.current == Prayer.MAGHRIB || state.current == Prayer.ISHA)
         val friday = settings.fridayReminders && PrayerEngine.isJumuahWindow(settings, state.now)
         val isFri = state.now.dayOfWeek == java.time.DayOfWeek.FRIDAY && settings.jumuahEnabled
         // adhkār window: after Fajr until Dhuhr (morning), after ʿAsr until Isha (evening)
@@ -118,9 +121,14 @@ fun HomeScreen(
                                 val q = PrayerEngine.qibla(settings)
                                 Chip(Icons.Outlined.Explore, "Qibla ${q.toInt()}° ${PrayerEngine.compass(q)}", u, onClick = onOpenQibla)
                             }
-                            if (settings.adhkarEnabled && morningWindow) Chip(Icons.Outlined.WbTwilight, "Morning adhkār", u, gold = true) { onOpenAdhkar(true) }
-                            if (settings.adhkarEnabled && eveningWindow) Chip(Icons.Outlined.WbTwilight, "Evening adhkār", u, gold = true) { onOpenAdhkar(false) }
-                            if (friday) Chip(Icons.Outlined.MenuBook, "Jumuʿah · Sūrat al-Kahf · ṣalawāt", u)
+                            if (settings.adhkarEnabled && morningWindow) Chip(Icons.Outlined.WbTwilight, "Morning adhkār", u, gold = true) { onOpenAdhkar(AdhkarMode.MORNING) }
+                            if (settings.adhkarEnabled && eveningWindow) Chip(Icons.Outlined.WbTwilight, "Evening adhkār", u, gold = true) { onOpenAdhkar(AdhkarMode.EVENING) }
+                            if (friday) Chip(Icons.Outlined.MenuBook, "Jumuʿah · al-Kahf · ṣalawāt", u, onClick = onOpenFriday)
+                            if (settings.postPrayerAdhkar && state.current != null && state.justPassed.not() && java.time.Duration.between(state.today[state.current], state.now).toMinutes() in 5..40)
+                                Chip(Icons.Outlined.WbTwilight, "After-prayer adhkār", u, gold = true) { onOpenAdhkar(AdhkarMode.POST) }
+                            if (settings.postPrayerAdhkar && state.current != null && state.justPassed && java.time.Duration.between(state.today[state.current], state.now).toMinutes() >= 5)
+                                Chip(Icons.Outlined.WbTwilight, "After-prayer adhkār", u, gold = true) { onOpenAdhkar(AdhkarMode.POST) }
+                            if (ramadan && hij.day >= 27) Chip(Icons.Outlined.Info, "Zakāt al-Fiṭr before Eid prayer", u)
                             if (updateAvailable) Chip(Icons.Outlined.SystemUpdateAlt, "Update available", u, gold = true, onClick = onOpenAbout)
                             if (settings.travellerMode && PrayerEngine.isTravelling(settings)) Chip(Icons.Outlined.Flight, "Travelling · %.0f km from home".format(PrayerEngine.distanceKm(settings.homeLat!!, settings.homeLng!!, settings.latitude, settings.longitude)), u, gold = true, onClick = onOpenLocation)
                             if (state.today.fromMasjid) Chip(Icons.Outlined.LocationOn, settings.masjidName.ifBlank { "Masjid timetable" }, u, onClick = onOpenLocation)
@@ -133,6 +141,7 @@ fun HomeScreen(
                             Text(h.english + "  ·  " + h.arabic, fontSize = fs(1.9f), color = Palette.goldSoft, fontFamily = Amiri)
                         }
                         Row(Modifier.padding(top = u * 1f), horizontalArrangement = Arrangement.spacedBy(u * 1.1f)) {
+                            if (settings.kidsMode) IconChip(Icons.Outlined.MenuBook, u, onOpenLearn)
                             IconChip(Icons.Outlined.CalendarMonth, u, onOpenTimetable)
                             IconChip(Icons.Outlined.Settings, u, onOpenSettings)
                         }
@@ -146,6 +155,8 @@ fun HomeScreen(
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         val kicker = when {
+                            eidMorning -> "ʿĪd mubārak · اللهُ أكبر اللهُ أكبر لا إله إلا الله"
+                            oddNight -> "Ramaḍān ${hij.day} · an odd night · seek Laylat al-Qadr"
                             ramadan && state.current == null -> "Ramaḍān · Suhoor ends at Fajr"
                             ramadan && state.hero == Prayer.MAGHRIB && !state.justPassed -> "Ramaḍān · Iftar"
                             ramadan && state.hero == Prayer.MAGHRIB && state.justPassed -> "Ramaḍān · Iftar time"
@@ -174,6 +185,11 @@ fun HomeScreen(
                         }
                         if (ramadan && state.current != null && state.current != Prayer.MAGHRIB && state.current != Prayer.ISHA) {
                             FastProgress(state, u)
+                        }
+                        if (ramadan && (state.current == Prayer.ISHA || state.current == Prayer.MAGHRIB || state.current == null)) {
+                            val lt = PrayerEngine.lastThird(settings, state.today)
+                            Text("Tarāwīḥ ${PrayerEngine.clock(state.today[Prayer.ISHA].plusMinutes(settings.tarawihMinutesAfterIsha.toLong()), settings.use24h)}  ·  last third of the night from ${PrayerEngine.clock(lt, settings.use24h)} ${PrayerEngine.suffix(lt, settings.use24h)}",
+                                fontFamily = Nunito, fontSize = fs(1.3f), color = Palette.goldSoft.copy(alpha = 0.9f), modifier = Modifier.padding(top = u * 0.8f))
                         }
                         Text(
                             state.now.format(DateTimeFormatter.ofPattern(if (settings.use24h) "HH:mm" else "h:mm a", Locale.ENGLISH)),

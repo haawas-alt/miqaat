@@ -77,6 +77,37 @@ object Adhkar {
 
     fun morning() = all.filter { !it.eveningOnly }
     fun evening() = all.filter { !it.morningOnly }
+
+    /** Said after every obligatory prayer. */
+    val postPrayer: List<Dhikr> = listOf(
+        Dhikr("pp_istighfar", "Astaghfirullāh", "أَسْتَغْفِرُ اللَّهَ", "I seek the forgiveness of Allah.", 3, "Ṣaḥīḥ Muslim 591"),
+        Dhikr("pp_salam", "Allāhumma anta s-salām", "اللَّهُمَّ أَنْتَ السَّلاَمُ وَمِنْكَ السَّلاَمُ، تَبَارَكْتَ يَا ذَا الْجَلاَلِ وَالإِكْرَامِ",
+            "O Allah, You are Peace and from You is peace. Blessed are You, O Owner of majesty and honour.", 1, "Ṣaḥīḥ Muslim 591"),
+        Dhikr("pp_tahlil", "Lā ilāha illallāh…", "لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، اللَّهُمَّ لاَ مَانِعَ لِمَا أَعْطَيْتَ، وَلاَ مُعْطِيَ لِمَا مَنَعْتَ، وَلاَ يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ",
+            "There is no god but Allah alone, without partner; His is the dominion and His is the praise, and He is able to do all things. O Allah, none can withhold what You give, none can give what You withhold, and no wealth avails its owner against You.", 1, "Ṣaḥīḥ al-Bukhārī 844 · Ṣaḥīḥ Muslim 593"),
+        Dhikr("pp_tasbih", "Subḥānallāh", "سُبْحَانَ اللَّهِ", "Glory be to Allah.", 33, "Ṣaḥīḥ Muslim 597"),
+        Dhikr("pp_hamd", "Al-ḥamdu lillāh", "الْحَمْدُ لِلَّهِ", "Praise be to Allah.", 33, "Ṣaḥīḥ Muslim 597"),
+        Dhikr("pp_takbir", "Allāhu akbar", "اللَّهُ أَكْبَرُ", "Allah is the Greatest.", 34, "Ṣaḥīḥ Muslim 597 · completing one hundred"),
+        Dhikr("pp_kursi", "Āyat al-Kursī", AYAT_AL_KURSI, "Allah – there is no god but He, the Ever-Living, the Sustainer of all…", 1, "Qur'an 2:255 · after each prayer: an-Nasāʾī, al-Kubrā 9848 (ṣaḥīḥ)"),
+        Dhikr("pp_ikhlas", "Al-Ikhlāṣ, al-Falaq, an-Nās", IKHLAS + "\n\n" + FALAQ + "\n\n" + NAS, "The three Quls, once each (three times after Fajr and Maghrib).", 1, "Abū Dāwūd 1523, at-Tirmidhī 2903 (ṣaḥīḥ)")
+    )
+
+    /** The words of the prayer, one position at a time, for the children's learn-to-pray mode. */
+    data class Step(val position: String, val emoji: String, val arabic: String, val transliteration: String, val meaning: String, val note: String)
+    val salah: List<Step> = listOf(
+        Step("Standing · start", "🧍", "اللَّهُ أَكْبَرُ", "Allāhu akbar", "Allah is the Greatest", "Raise both hands to the ears, then fold them. This is the opening takbīr."),
+        Step("Standing · opening", "🧍", "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، وَتَبَارَكَ اسْمُكَ، وَتَعَالَى جَدُّكَ، وَلاَ إِلَهَ غَيْرُكَ", "Subḥānaka llāhumma wa bi-ḥamdik, wa tabāraka smuk, wa taʿālā jadduk, wa lā ilāha ghayruk", "Glory be to You, O Allah, and praise; blessed is Your name, exalted is Your majesty, and there is no god but You", "Said quietly, only in the first rakʿah. Abū Dāwūd 775, at-Tirmidhī 243."),
+        Step("Standing · seek refuge", "🧍", "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ ۝ بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "Aʿūdhu billāhi mina sh-shayṭāni r-rajīm · Bismillāhi r-raḥmāni r-raḥīm", "I seek refuge in Allah from the accursed devil · In the name of Allah, the Most Gracious, the Most Merciful", "Quietly, before al-Fātiḥah."),
+        Step("Standing · al-Fātiḥah", "🧍", "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَٰنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ", "Al-ḥamdu lillāhi rabbi l-ʿālamīn · ar-raḥmāni r-raḥīm · māliki yawmi d-dīn · iyyāka naʿbudu wa iyyāka nastaʿīn · ihdina ṣ-ṣirāṭa l-mustaqīm · ṣirāṭa lladhīna anʿamta ʿalayhim ghayri l-maghḍūbi ʿalayhim wa la ḍ-ḍāllīn", "All praise is for Allah, Lord of the worlds… Guide us to the straight path", "Every rakʿah. Then say āmīn. \"There is no prayer for the one who does not recite the Opening of the Book\": Ṣaḥīḥ al-Bukhārī 756."),
+        Step("Standing · a sūrah", "🧍", "قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ", "Qul huwa llāhu aḥad · Allāhu ṣ-ṣamad · lam yalid wa lam yūlad · wa lam yakun lahu kufuwan aḥad", "Say: He is Allah, the One…", "In the first two rakʿahs, any sūrah or verses after al-Fātiḥah. Sūrat al-Ikhlāṣ is a good one to learn first."),
+        Step("Bowing · rukūʿ", "🙇", "اللَّهُ أَكْبَرُ · سُبْحَانَ رَبِّيَ الْعَظِيمِ", "Allāhu akbar · Subḥāna rabbiya l-ʿaẓīm (×3)", "Glory to my Lord, the Most Great", "Say Allāhu akbar while going down; back flat, hands on knees. Ṣaḥīḥ Muslim 772."),
+        Step("Rising from rukūʿ", "🧍", "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ · رَبَّنَا وَلَكَ الْحَمْدُ", "Samiʿa llāhu liman ḥamidah · Rabbanā wa laka l-ḥamd", "Allah hears the one who praises Him · Our Lord, and to You is the praise", "Stand fully upright before going down. Ṣaḥīḥ al-Bukhārī 789."),
+        Step("Prostration · sujūd", "🧎", "اللَّهُ أَكْبَرُ · سُبْحَانَ رَبِّيَ الأَعْلَى", "Allāhu akbar · Subḥāna rabbiya l-aʿlā (×3)", "Glory to my Lord, the Most High", "Forehead, nose, both palms, both knees and the toes touch the ground: seven bones. Ṣaḥīḥ al-Bukhārī 812."),
+        Step("Sitting between the two sujūd", "🧎", "اللَّهُ أَكْبَرُ · رَبِّ اغْفِرْ لِي، رَبِّ اغْفِرْ لِي", "Allāhu akbar · Rabbi ghfir lī, rabbi ghfir lī", "My Lord, forgive me", "Sit up calmly; then a second prostration like the first. Abū Dāwūd 874."),
+        Step("Sitting · tashahhud", "🧎", "التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ، السَّلاَمُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ، السَّلاَمُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ، أَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ", "At-taḥiyyātu lillāhi wa ṣ-ṣalawātu wa ṭ-ṭayyibāt, as-salāmu ʿalayka ayyuha n-nabiyyu wa raḥmatu llāhi wa barakātuh, as-salāmu ʿalaynā wa ʿalā ʿibādi llāhi ṣ-ṣāliḥīn, ashhadu an lā ilāha illa llāh, wa ashhadu anna Muḥammadan ʿabduhu wa rasūluh", "All greetings, prayers and good things are for Allah. Peace be upon you, O Prophet… I bear witness that there is no god but Allah and that Muhammad is His servant and Messenger", "After every second rakʿah and at the end. Raise the index finger at the shahādah. Ṣaḥīḥ al-Bukhārī 831."),
+        Step("Sitting · ṣalāh upon the Prophet ﷺ", "🧎", "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ", "Allāhumma ṣalli ʿalā Muḥammad wa ʿalā āli Muḥammad, kamā ṣallayta ʿalā Ibrāhīm wa ʿalā āli Ibrāhīm, innaka ḥamīdun majīd. Allāhumma bārik ʿalā Muḥammad wa ʿalā āli Muḥammad, kamā bārakta ʿalā Ibrāhīm wa ʿalā āli Ibrāhīm, innaka ḥamīdun majīd", "O Allah, send prayers upon Muhammad and the family of Muhammad, as You sent prayers upon Ibrāhīm…", "In the final sitting, after the tashahhud. Ṣaḥīḥ al-Bukhārī 3370."),
+        Step("Finishing · salām", "🧎", "السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ", "As-salāmu ʿalaykum wa raḥmatu llāh", "Peace and the mercy of Allah be upon you", "Turn the face to the right, then to the left, saying it each time. Ṣaḥīḥ Muslim 582.")
+    )
 }
 
 object Ramadan {

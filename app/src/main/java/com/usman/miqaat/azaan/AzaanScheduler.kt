@@ -22,7 +22,8 @@ object AzaanScheduler {
     const val EXTRA_IQAMAH = "iqamah"
     private const val REQ_AZAAN = 1001
 
-    data class Upcoming(val prayer: Prayer, val at: ZonedDateTime, val reminder: Boolean, val iqamah: Boolean = false)
+    const val EXTRA_NOTE = "note"     // generic reminder text: suhoor, Friday hour
+    data class Upcoming(val prayer: Prayer, val at: ZonedDateTime, val reminder: Boolean, val iqamah: Boolean = false, val note: String? = null)
 
     fun nextEvent(ctx: Context, from: ZonedDateTime = ZonedDateTime.now()): Upcoming? {
         val s = (ctx.applicationContext as MiqaatApp).settings.value
@@ -47,6 +48,19 @@ object AzaanScheduler {
                     val start = iq.minusSeconds(s.iqamahCountdownSeconds.toLong())
                     if (start.isAfter(from)) candidates += Upcoming(p, start, reminder = false, iqamah = true)
                 }
+            }
+        }
+        // Ramaḍān suhoor alarm and the Friday hour-of-acceptance reminder
+        for (dayOffset in 0L..1L) {
+            val date = from.toLocalDate().plusDays(dayOffset)
+            val day = PrayerEngine.times(s, date, from.zone)
+            if (s.suhoorAlarmMinutes > 0 && PrayerEngine.isRamadan(s, date)) {
+                val t = day[Prayer.FAJR].minusMinutes(s.suhoorAlarmMinutes.toLong())
+                if (t.isAfter(from)) candidates += Upcoming(Prayer.FAJR, t, reminder = true, note = "Suhoor ends at Fajr ${PrayerEngine.clock(day[Prayer.FAJR], s.use24h)} ${PrayerEngine.suffix(day[Prayer.FAJR], s.use24h)} · ${s.suhoorAlarmMinutes} minutes left")
+            }
+            if (s.fridayHourReminder && date.dayOfWeek == java.time.DayOfWeek.FRIDAY) {
+                val t = day[Prayer.MAGHRIB].minusMinutes(60)
+                if (t.isAfter(from)) candidates += Upcoming(Prayer.MAGHRIB, t, reminder = true, note = "Friday's last hour before Maghrib: a time when duʿā is answered (Abū Dāwūd 1048)")
             }
         }
         return candidates.minByOrNull { it.at }
@@ -76,6 +90,7 @@ object AzaanScheduler {
                 putExtra(EXTRA_PRAYER, u.prayer.name)
                 putExtra(EXTRA_REMINDER, u.reminder)
                 putExtra(EXTRA_IQAMAH, u.iqamah)
+                putExtra(EXTRA_NOTE, u.note)
             }
         }
         return PendingIntent.getBroadcast(ctx, REQ_AZAAN, i, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)

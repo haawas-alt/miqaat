@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -69,7 +70,7 @@ object Kiswah {
 fun KiswahHome(
     state: PrayerState, settings: AppSettings,
     onOpenTimetable: () -> Unit, onOpenSettings: () -> Unit, onOpenLocation: () -> Unit,
-    onOpenQibla: () -> Unit, onOpenAdhkar: (Boolean) -> Unit, updateAvailable: Boolean, onOpenAbout: () -> Unit,
+    onOpenQibla: () -> Unit, onOpenAdhkar: (AdhkarMode) -> Unit, onOpenFriday: () -> Unit = {}, onOpenLearn: () -> Unit = {}, updateAvailable: Boolean, onOpenAbout: () -> Unit,
     onToggleRelative: () -> Unit = {}
 ) {
     var why by remember { mutableStateOf<Prayer?>(null) }
@@ -91,13 +92,16 @@ fun KiswahHome(
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 2)) {
                     Caps(settings.locationName, fs(1.3f), Modifier.clickable(onClick = onOpenLocation))
                     if (settings.showQibla) { val q = PrayerEngine.qibla(settings); Caps("· Qibla ${q.toInt()}° ${PrayerEngine.compass(q)}", fs(1.1f), Modifier.clickable(onClick = onOpenQibla), alpha = 0.55f) }
-                    if (settings.adhkarEnabled && morningWindow) Caps("· Morning adhkār", fs(1.1f), Modifier.clickable { onOpenAdhkar(true) }, bright = true)
-                    if (settings.adhkarEnabled && eveningWindow) Caps("· Evening adhkār", fs(1.1f), Modifier.clickable { onOpenAdhkar(false) }, bright = true)
+                    if (settings.adhkarEnabled && morningWindow) Caps("· Morning adhkār", fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.MORNING) }, bright = true)
+                    if (settings.adhkarEnabled && eveningWindow) Caps("· Evening adhkār", fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.EVENING) }, bright = true)
                     if (updateAvailable) Caps("· Update available", fs(1.1f), Modifier.clickable(onClick = onOpenAbout), bright = true)
+                    if (settings.fridayReminders && PrayerEngine.isJumuahWindow(settings, state.now)) Caps("· Jumuʿah", fs(1.1f), Modifier.clickable(onClick = onOpenFriday))
+                    if (settings.postPrayerAdhkar && state.current != null && java.time.Duration.between(state.today[state.current], state.now).toMinutes() in 5..40) Caps("· After-prayer adhkār", fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.POST) }, bright = true)
                 }
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.6f)) {
                     val h = PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)
                     Caps((if (settings.showHijri) h.english + "  ·  " else "") + state.now.format(DateTimeFormatter.ofPattern("EEE d MMM", Locale.ENGLISH)), fs(1.3f))
+                    if (settings.kidsMode) Icon(androidx.compose.material.icons.Icons.Outlined.MenuBook, null, Modifier.size(u * 2.2f).clickable(onClick = onOpenLearn), tint = Kiswah.threadSoft.copy(alpha = 0.7f))
                     Icon(Icons.Outlined.CalendarMonth, null, Modifier.size(u * 2.2f).clickable(onClick = onOpenTimetable), tint = Kiswah.threadSoft.copy(alpha = 0.7f))
                     Icon(Icons.Outlined.Settings, null, Modifier.size(u * 2.2f).clickable(onClick = onOpenSettings), tint = Kiswah.threadSoft.copy(alpha = 0.7f))
                 }

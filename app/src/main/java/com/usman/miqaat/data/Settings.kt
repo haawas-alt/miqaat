@@ -104,6 +104,11 @@ data class AppSettings(
     val jumuahEnabled: Boolean = false,
     val jumuahMinutes: Int = 13 * 60 + 15,      // minutes from midnight, default 1:15 PM
     val fridayReminders: Boolean = true,
+    val fridayHourReminder: Boolean = true,      // quiet notification 1 h before Friday Maghrib
+    val postPrayerAdhkar: Boolean = true,        // chip for 40 min after each prayer
+    val suhoorAlarmMinutes: Int = 45,            // minutes before Fajr in Ramaḍān; 0 = off
+    val tarawihMinutesAfterIsha: Int = 30,
+    val kidsMode: Boolean = true,                // show "Learn to pray" in the menu
     val adhkarEnabled: Boolean = true,
     val showQibla: Boolean = true,
     val iqamahEnabled: Boolean = false,
@@ -202,6 +207,11 @@ class SettingsStore(context: Context) {
             jumuahEnabled = prefs.getBoolean("jumuah", d.jumuahEnabled),
             jumuahMinutes = prefs.getInt("jumuahMin", d.jumuahMinutes),
             fridayReminders = prefs.getBoolean("friRem", d.fridayReminders),
+            fridayHourReminder = prefs.getBoolean("friHour", d.fridayHourReminder),
+            postPrayerAdhkar = prefs.getBoolean("ppAdhkar", d.postPrayerAdhkar),
+            suhoorAlarmMinutes = prefs.getInt("suhoor", d.suhoorAlarmMinutes),
+            tarawihMinutesAfterIsha = prefs.getInt("tarawih", d.tarawihMinutesAfterIsha),
+            kidsMode = prefs.getBoolean("kids", d.kidsMode),
             adhkarEnabled = prefs.getBoolean("adhkar", d.adhkarEnabled),
             showQibla = prefs.getBoolean("qibla", d.showQibla),
             iqamahEnabled = prefs.getBoolean("iqEn", d.iqamahEnabled),
@@ -243,7 +253,7 @@ class SettingsStore(context: Context) {
             putInt("preMin", s.preReminderMinutes); putInt("afterMin", s.afterWindowMinutes)
             putBoolean("afterAz", s.afterAzaanEnabled); putString("narr", s.narration.name); putInt("hadMin", s.hadithMinutes)
             putString("ramadan", s.ramadanMode.name); putBoolean("jumuah", s.jumuahEnabled); putInt("jumuahMin", s.jumuahMinutes)
-            putBoolean("friRem", s.fridayReminders); putBoolean("adhkar", s.adhkarEnabled); putBoolean("qibla", s.showQibla)
+            putBoolean("friRem", s.fridayReminders); putBoolean("friHour", s.fridayHourReminder); putBoolean("ppAdhkar", s.postPrayerAdhkar); putInt("suhoor", s.suhoorAlarmMinutes); putInt("tarawih", s.tarawihMinutesAfterIsha); putBoolean("kids", s.kidsMode); putBoolean("adhkar", s.adhkarEnabled); putBoolean("qibla", s.showQibla)
             putBoolean("iqEn", s.iqamahEnabled); s.iqamahOffsets.forEach { (p, v) -> putInt("iq_${p.key}", v) }
             putInt("iqJum", s.jumuahIqamahMinutes); s.iqamahIsFixed.forEach { (p, v) -> putBoolean("iqFixed_${p.key}", v) }; s.iqamahFixed.forEach { (p, v) -> putInt("iqAt_${p.key}", v) }; putString("iqSnd", s.iqamahSound.name); putInt("iqCd", s.iqamahCountdownSeconds); putInt("quiet", s.quietMinutes)
             putBoolean("hijri", s.showHijri); putInt("hijriOff", s.hijriOffsetDays); putBoolean("sunrise", s.showSunrise)

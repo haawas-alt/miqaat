@@ -15,6 +15,7 @@ class AzaanAlarmReceiver : BroadcastReceiver() {
             val svc = Intent(context, AzaanService::class.java).apply {
                 action = if (iqamah) AzaanService.ACTION_IQAMAH else if (reminder) AzaanService.ACTION_REMINDER else AzaanService.ACTION_PLAY
                 putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name)
+                putExtra(AzaanScheduler.EXTRA_NOTE, intent.getStringExtra(AzaanScheduler.EXTRA_NOTE))
             }
             ContextCompat.startForegroundService(context, svc)
         }

@@ -68,7 +68,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.ZonedDateTime
 
-private enum class Screen { HOME, TIMETABLE, SETTINGS, QIBLA, ADHKAR }
+private enum class Screen { HOME, TIMETABLE, SETTINGS, QIBLA, ADHKAR, FRIDAY, LEARN }
 
 class MainActivity : ComponentActivity() {
     private fun hideSystemBars() {
@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
                 val settings by store.settings.collectAsState()
                 var screen by rememberSaveable { mutableStateOf(Screen.HOME) }
                 var settingsSection by remember { mutableStateOf(Section.TIMES) }
-                var adhkarMorning by remember { mutableStateOf(true) }
+                var adhkarMode by remember { mutableStateOf(com.usman.miqaat.ui.AdhkarMode.MORNING) }
                 val phase by AzaanService.phase.collectAsState()
                 val updateState by Updater.state.collectAsState()
                 val scope = rememberCoroutineScope()
@@ -128,7 +128,9 @@ class MainActivity : ComponentActivity() {
                                 onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
                                 onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
                                 onOpenQibla = { screen = Screen.QIBLA },
-                                onOpenAdhkar = { m -> adhkarMorning = m; screen = Screen.ADHKAR },
+                                onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
+                                onOpenFriday = { screen = Screen.FRIDAY },
+                                onOpenLearn = { screen = Screen.LEARN },
                                 updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
                                 onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
                                 onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
@@ -138,7 +140,9 @@ class MainActivity : ComponentActivity() {
                                 onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
                                 onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
                                 onOpenQibla = { screen = Screen.QIBLA },
-                                onOpenAdhkar = { m -> adhkarMorning = m; screen = Screen.ADHKAR },
+                                onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
+                                onOpenFriday = { screen = Screen.FRIDAY },
+                                onOpenLearn = { screen = Screen.LEARN },
                                 updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
                                 onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
                                 onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
@@ -148,13 +152,17 @@ class MainActivity : ComponentActivity() {
                                 onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
                                 onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
                                 onOpenQibla = { screen = Screen.QIBLA },
-                                onOpenAdhkar = { m -> adhkarMorning = m; screen = Screen.ADHKAR },
+                                onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
+                                onOpenFriday = { screen = Screen.FRIDAY },
+                                onOpenLearn = { screen = Screen.LEARN },
                                 updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
                                 onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
                                 onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
                             )
                             Screen.QIBLA -> QiblaScreen(settings) { screen = Screen.HOME }
-                            Screen.ADHKAR -> AdhkarScreen(adhkarMorning) { screen = Screen.HOME }
+                            Screen.ADHKAR -> AdhkarScreen(adhkarMode) { screen = Screen.HOME }
+                            Screen.FRIDAY -> com.usman.miqaat.ui.FridayScreen(settings) { screen = Screen.HOME }
+                            Screen.LEARN -> com.usman.miqaat.ui.LearnScreen { screen = Screen.HOME }
                             Screen.TIMETABLE -> TimetableScreen(settings) { screen = Screen.HOME }
                             Screen.SETTINGS -> SettingsScreen(store, settings, settingsSection) { screen = Screen.HOME }
                         }

@@ -82,7 +82,7 @@ class AzaanService : Service() {
         when (intent?.action) {
             ACTION_STOP -> { finishAll(); return START_NOT_STICKY }
             ACTION_SKIP -> { skip(); return START_NOT_STICKY }
-            ACTION_REMINDER -> { if (prayer != null) showReminder(prayer); stopSelf(); return START_NOT_STICKY }
+            ACTION_REMINDER -> { if (prayer != null) showReminder(prayer, intent.getStringExtra(AzaanScheduler.EXTRA_NOTE)); stopSelf(); return START_NOT_STICKY }
             ACTION_PLAY, ACTION_PREVIEW -> if (prayer != null) startAzaan(prayer, preview = intent.action == ACTION_PREVIEW)
             ACTION_PREVIEW_AFTER -> if (prayer != null) { begin(prayer); startDua(prayer) }
             ACTION_IQAMAH -> if (prayer != null) startIqamahCountdown(prayer, intent.getIntExtra(EXTRA_SECONDS, -1))
@@ -331,13 +331,16 @@ class AzaanService : Service() {
         return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
     }
 
-    private fun showReminder(prayer: Prayer) {
-        val n = NotificationCompat.Builder(this, MiqaatApp.CHANNEL_SILENT)
+    private fun showReminder(prayer: Prayer, note: String?) {
+        val suhoor = note?.startsWith("Suhoor") == true
+        val n = NotificationCompat.Builder(this, if (suhoor) MiqaatApp.CHANNEL_AZAAN else MiqaatApp.CHANNEL_SILENT)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("${prayer.english} in a few minutes")
-            .setContentText("Prepare for ${prayer.english} prayer")
+            .setContentTitle(when { suhoor -> "Suhoor"; note != null -> "Jumuʿah"; else -> "${prayer.english} in a few minutes" })
+            .setContentText(note ?: "Prepare for ${prayer.english} prayer")
+            .setStyle(NotificationCompat.BigTextStyle().bigText(note ?: "Prepare for ${prayer.english} prayer"))
             .setAutoCancel(true).build()
         getSystemService(android.app.NotificationManager::class.java).notify(NOTIF_ID + 1, n)
+        if (suhoor) { begin(prayer); playShort("chime", 0.8f); handler.postDelayed({ finishAll() }, 6000) }
     }
 
     /** Heads-up + full-screen intent only when the tablet is dark or locked; otherwise a silent entry. */
