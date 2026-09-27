@@ -81,7 +81,9 @@ object AzaanScheduler {
         } else {
             am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, whenMs, fire)
         }
-        Log.i(TAG, "Scheduled ${next.prayer} ${if (next.iqamah) "iqamah" else if (next.reminder) "reminder" else "azaan"} at ${next.at}")
+        val label = "${next.prayer.english} ${if (next.iqamah) "iqamah" else if (next.reminder) "reminder" else "azaan"}"
+        com.usman.miqaat.data.Health.setPlanned(ctx, whenMs, label)
+        Log.i(TAG, "Scheduled $label at ${next.at}")
     }
 
     private fun pendingIntent(ctx: Context, u: Upcoming?): PendingIntent {

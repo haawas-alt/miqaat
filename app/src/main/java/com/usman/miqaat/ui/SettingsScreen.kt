@@ -85,6 +85,8 @@ import com.usman.miqaat.data.Language
 import com.usman.miqaat.data.IqamahSound
 import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material.icons.outlined.PlayCircle
+import androidx.compose.material.icons.outlined.MonitorHeart
+import androidx.compose.material.icons.outlined.Lock
 import com.usman.miqaat.data.HadithLibrary
 import com.usman.miqaat.data.Place
 import com.usman.miqaat.data.Prayer
@@ -103,6 +105,8 @@ enum class Section(val label: String, val icon: ImageVector) {
     HIJRI("Hijri calendar", Icons.Outlined.CalendarMonth),
     DISPLAY("Display & art", Icons.Outlined.Brush),
     TEST("Test & preview", Icons.Outlined.PlayCircle),
+    HEALTH("Health & backup", Icons.Outlined.MonitorHeart),
+    PRIVACY("Privacy", Icons.Outlined.Lock),
     ABOUT("About", Icons.Outlined.Info)
 }
 
@@ -136,6 +140,8 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
                     Section.AZAAN -> AzaanSection(store, settings)
                     Section.IQAMAH -> IqamahSection(store, settings)
                     Section.TEST -> TestSection(store, settings)
+                    Section.HEALTH -> HealthSection(store, settings)
+                    Section.PRIVACY -> PrivacySection()
                     Section.HIJRI -> HijriSection(store, settings)
                     Section.DISPLAY -> DisplaySection(store, settings)
                     Section.ABOUT -> AboutSection(settings)
@@ -172,6 +178,8 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
                 Section.AZAAN -> AzaanSection(store, settings)
                 Section.IQAMAH -> IqamahSection(store, settings)
                 Section.TEST -> TestSection(store, settings)
+                Section.HEALTH -> HealthSection(store, settings)
+                Section.PRIVACY -> PrivacySection()
                 Section.HIJRI -> HijriSection(store, settings)
                 Section.DISPLAY -> DisplaySection(store, settings)
                 Section.ABOUT -> AboutSection(settings)
@@ -523,6 +531,81 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
         Chips(RamadanMode.entries.map { it.label }, RamadanMode.entries.indexOf(s.ramadanMode)) { i -> store.update { it.copy(ramadanMode = RamadanMode.entries[i]) } }
     }
     SettingRow("Stop anything that is playing", null) { TextButton(onClick = { AzaanService.stop(ctx) }) { Text("Stop", color = Palette.goldSoft) } }
+}
+
+@Composable
+private fun HealthSection(store: SettingsStore, s: AppSettings) {
+    val ctx = LocalContext.current
+    var tick by remember { mutableStateOf(0) }
+    val log = remember(tick) { com.usman.miqaat.data.Health.read(ctx) }
+    val week = log.filter { it.at > System.currentTimeMillis() - 7 * 86_400_000L }
+    val fired = week.count { it.kind == com.usman.miqaat.data.Health.Kind.AZAAN || it.kind == com.usman.miqaat.data.Health.Kind.IQAMAH }
+    val late = week.count { (it.kind == com.usman.miqaat.data.Health.Kind.AZAAN || it.kind == com.usman.miqaat.data.Health.Kind.IQAMAH) && it.lateBy > 1 }
+    val missed = week.count { it.kind == com.usman.miqaat.data.Health.Kind.MISSED }
+    val next = remember(s) { AzaanScheduler.nextEvent(ctx) }
+    val pm = ctx.getSystemService(Context.POWER_SERVICE) as PowerManager
+
+    Heading("Health & backup", "Did it fire? Every azaan, iqamah and reminder is logged on this device with the time it actually happened.")
+    Text("Last 7 days · $fired played" + (if (late > 0) " · $late late" else "") + (if (missed > 0) " · $missed missed" else " · none missed"), fontFamily = Cormorant, fontSize = 26.sp, color = if (missed > 0) Color(0xFFF08C8C) else if (late > 0) Color(0xFFF0A050) else Palette.mint)
+    Spacer(Modifier.height(6.dp))
+    SettingRow("Next alarm armed", next?.let { "${it.prayer.english} ${if (it.iqamah) "iqamah" else if (it.reminder) "reminder" else "azaan"} · ${PrayerEngine.clock(it.at, s.use24h)} ${PrayerEngine.suffix(it.at, s.use24h)}" } ?: "Nothing scheduled: turn on an azaan or iqamah") { Value(if (next != null) "✓" else "!") }
+    SettingRow("Battery optimisation", if (pm.isIgnoringBatteryOptimizations(ctx.packageName)) "Miqaat is exempt" else "Not exempt: Android may delay alarms. Fix in Azaan & alerts.") { Value(if (pm.isIgnoringBatteryOptimizations(ctx.packageName)) "✓" else "!") }
+    SettingRow("Launch on boot", if (s.launchOnBoot) "On" else "Off · recommended for the wall tablet") { Toggle(s.launchOnBoot) { on -> store.update { it.copy(launchOnBoot = on) } } }
+    SettingRow("Time-change self-check", "Runs automatically after any clock or zone change and on daylight-saving nights; result appears in the log") { Value("✓") }
+
+    Spacer(Modifier.height(16.dp))
+    Text("Log", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    if (log.isEmpty()) Text("Nothing yet. Entries appear after the first azaan.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.6f))
+    log.take(40).forEach { e ->
+        val col = when (e.kind) { com.usman.miqaat.data.Health.Kind.MISSED -> Color(0xFFF08C8C); com.usman.miqaat.data.Health.Kind.TIME_CHANGE, com.usman.miqaat.data.Health.Kind.BOOT -> Palette.goldSoft; else -> if (e.lateBy > 1) Color(0xFFF0A050) else Palette.mint }
+        Row(Modifier.fillMaxWidth().padding(vertical = 7.dp), verticalAlignment = Alignment.Top) {
+            Box(Modifier.padding(top = 6.dp).size(9.dp).clip(androidx.compose.foundation.shape.CircleShape).background(col))
+            Spacer(Modifier.width(10.dp))
+            Column(Modifier.weight(1f)) {
+                Text(e.title, fontFamily = Nunito, fontSize = 15.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
+                Text(e.detail, fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.6f))
+            }
+            val t = e.time(s.zone())
+            Text(t.format(java.time.format.DateTimeFormatter.ofPattern("EEE d MMM · " + (if (s.use24h) "HH:mm" else "h:mm a"), java.util.Locale.ENGLISH)), fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory.copy(alpha = 0.6f))
+        }
+        HorizontalDivider(color = Palette.line)
+    }
+    if (log.isNotEmpty()) TextButton(onClick = { com.usman.miqaat.data.Health.clear(ctx); tick++ }) { Text("Clear log", color = Palette.ivory.copy(alpha = 0.7f)) }
+
+    Spacer(Modifier.height(16.dp))
+    Text("Backup & restore", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    var msg by remember { mutableStateOf("") }
+    val save = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri: Uri? ->
+        uri ?: return@rememberLauncherForActivityResult
+        runCatching { ctx.contentResolver.openOutputStream(uri)?.bufferedWriter()?.use { it.write(com.usman.miqaat.data.Health.exportSettings(ctx)) } }
+            .onSuccess { msg = "Settings saved" }.onFailure { msg = "Couldn't save: ${it.message}" }
+    }
+    val load = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
+        uri ?: return@rememberLauncherForActivityResult
+        val text = runCatching { ctx.contentResolver.openInputStream(uri)?.bufferedReader()?.readText() }.getOrNull() ?: ""
+        val n = com.usman.miqaat.data.Health.importSettings(ctx, text)
+        msg = if (n > 0) "$n settings restored · restart Miqaat to apply everything" else "That file isn't a Miqaat backup"
+    }
+    SettingRow("Settings file", "Everything in Settings, as one small text file. Move it to a new tablet or keep it with your key.") {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            GoldButton("Save") { save.launch("miqaat-settings-${LocalDate.now()}.txt") }
+            TextButton(onClick = { load.launch(arrayOf("text/*", "*/*")) }) { Text("Restore", color = Palette.goldSoft) }
+        }
+    }
+    if (msg.isNotEmpty()) Text(msg, fontFamily = Nunito, fontSize = 13.sp, color = Palette.goldSoft, modifier = Modifier.padding(top = 4.dp))
+}
+
+@Composable
+private fun PrivacySection() {
+    Heading("Privacy", "What Miqaat does with your data, on one screen, and it is true.")
+    SettingRow("Prayer times", "Calculated on this device from your coordinates with the Adhan library. Never uploaded.") { Value("On device") }
+    SettingRow("Place name & search", "Android's geocoder sends your coordinates, or the text you search, to Google to get a name back. Only when you detect or search a location.") { GoldValue("Google") }
+    SettingRow("Updates", "Miqaat asks github.com whether a newer build exists and downloads it from there. GitHub sees your IP address, nothing else.") { GoldValue("GitHub") }
+    SettingRow("Narration", "The dua and hadith recordings are inside the app. The tablet's own text-to-speech is used only if a recording is missing.") { Value("On device") }
+    SettingRow("Health log, adhkār counts, Friday tracker", "Stored in the app's private storage on this device. Cleared when you uninstall.") { Value("On device") }
+    SettingRow("Analytics, advertising, accounts, crash reporting", "None. There is no Miqaat server.") { Value("None") }
+    SettingRow("Permissions", "Location (once, for times), notifications (azaan), exact alarms, install packages (self-update), ignore battery optimisation (reliability). No contacts, camera, microphone or storage beyond files you pick.") { Value("Minimal") }
+    SettingRow("Source code", "github.com/haawas-alt/miqaat · builds are produced by GitHub Actions from the public source and signed with a private key.") { Value("Open") }
 }
 
 @Composable

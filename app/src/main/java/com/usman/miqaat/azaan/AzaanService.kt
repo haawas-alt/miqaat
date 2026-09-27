@@ -131,7 +131,7 @@ class AzaanService : Service() {
             start()
         }
         _phase.value = Phase.Azaan(prayer, preview)
-        if (!preview) showScreen(prayer)
+        if (!preview) { showScreen(prayer); com.usman.miqaat.data.Health.log(this, com.usman.miqaat.data.Health.Kind.INFO, "${prayer.english} azaan playing", "Recording started") }
     }
 
     private fun afterAzaan(prayer: Prayer, preview: Boolean) {
@@ -166,6 +166,7 @@ class AzaanService : Service() {
         handler.removeCallbacksAndMessages(null)
         val settings = (application as MiqaatApp).settings.value
         val h = HadithLibrary.next(this)
+        com.usman.miqaat.data.Health.log(this, com.usman.miqaat.data.Health.Kind.INFO, "Hadith #${h.id} shown", h.source)
         val startedAt = System.currentTimeMillis()
         val endsAt = startedAt + settings.hadithMinutes.coerceAtLeast(1) * 60_000L
         val seq = sequenceId
