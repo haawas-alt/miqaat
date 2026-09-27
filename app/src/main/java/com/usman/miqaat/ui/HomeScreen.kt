@@ -153,6 +153,14 @@ fun HomeScreen(
                             if (suf.isNotEmpty()) Text(" $suf", fontFamily = Cormorant, fontSize = fs(3f), letterSpacing = fs(0.3f), color = Palette.ivory, modifier = Modifier.padding(top = u * 1.3f))
                         }
                         StatePill(state, u)
+                        state.current?.let { cur ->
+                            PrayerEngine.iqamah(settings, state.today, cur)?.takeIf { it.isAfter(state.now) }?.let { iq ->
+                                Text(
+                                    "Iqamah in ${PrayerEngine.humanDuration(Duration.between(state.now, iq))}  ·  ${PrayerEngine.clock(iq, settings.use24h)} ${PrayerEngine.suffix(iq, settings.use24h)}",
+                                    fontFamily = Nunito, fontSize = fs(1.6f), fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.padding(top = u * 0.8f)
+                                )
+                            }
+                        }
                         if (ramadan && state.current != null && state.current != Prayer.MAGHRIB && state.current != Prayer.ISHA) {
                             FastProgress(state, u)
                         }
@@ -177,8 +185,10 @@ fun HomeScreen(
                             ramadan && p == Prayer.MAGHRIB -> "Maghrib · Iftar"
                             else -> p.english
                         }
+                        val iq = PrayerEngine.iqamah(settings, state.today, p)
                         PrayerCard(p, label, PrayerEngine.clock(t, settings.use24h), PrayerEngine.suffix(t, settings.use24h),
-                            done = done, isNow = isNow, isNext = isNext, azaanOn = settings.azaanEnabled[p] == true, u = u, modifier = Modifier.weight(1f))
+                            done = done, isNow = isNow, isNext = isNext, azaanOn = settings.azaanEnabled[p] == true, u = u,
+                            iqamah = iq?.let { PrayerEngine.clock(it, settings.use24h) }, modifier = Modifier.weight(1f))
                     }
                 }
             }
@@ -244,7 +254,7 @@ private fun FastProgress(state: PrayerState, u: Dp) {
 @Composable
 fun PrayerCard(
     p: Prayer, label: String, time: String, suffix: String,
-    done: Boolean, isNow: Boolean, isNext: Boolean, azaanOn: Boolean, u: Dp, modifier: Modifier = Modifier
+    done: Boolean, isNow: Boolean, isNext: Boolean, azaanOn: Boolean, u: Dp, iqamah: String? = null, modifier: Modifier = Modifier
 ) {
     val shape = RoundedCornerShape(u * 1.6f)
     val bg = when { isNow -> Palette.gold.copy(alpha = 0.18f); p.isPrayer -> Color.White.copy(alpha = 0.07f); else -> Color.Transparent }
@@ -267,6 +277,10 @@ fun PrayerCard(
         Row(verticalAlignment = Alignment.Bottom) {
             Text(time, fontFamily = Cormorant, fontSize = (u.value * 2.9f).sp, lineHeight = (u.value * 3f).sp, color = Palette.ivory)
             if (suffix.isNotEmpty()) Text(" $suffix", fontFamily = Cormorant, fontSize = (u.value * 1.4f).sp, color = Palette.ivory, modifier = Modifier.padding(bottom = u * 0.35f))
+        }
+        if (iqamah != null) Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("IQAMAH ", fontFamily = Nunito, fontSize = (u.value * 1.05f).sp, letterSpacing = (u.value * 0.1f).sp, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = 0.6f))
+            Text(iqamah, fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
         }
     }
 }

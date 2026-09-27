@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -59,8 +60,14 @@ import kotlin.math.sin
 fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val u = maxWidth / 100
+        if (phase is Phase.Quiet) { QuietBody(phase, u, onStop); return@BoxWithConstraints }
         val isAzaan = phase is Phase.Azaan
-        val bg = if (isAzaan) listOf(Color(0xFF2A1440), Color(0xFF0A0716)) else listOf(Color(0xFF1E2A5C), Color(0xFF0D1533), Color(0xFF080D24))
+        val isIq = phase is Phase.IqamahCountdown || phase is Phase.IqamahNow
+        val bg = when {
+            isAzaan -> listOf(Color(0xFF2A1440), Color(0xFF0A0716))
+            isIq -> listOf(Color(0xFF163A3A), Color(0xFF0B1F24), Color(0xFF06131A))
+            else -> listOf(Color(0xFF1E2A5C), Color(0xFF0D1533), Color(0xFF080D24))
+        }
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(bg))) {
             GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
             Column(Modifier.fillMaxSize()) {
@@ -71,6 +78,8 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
                             Phase.Azaan::class -> AzaanBody(phase, u)
                             Phase.Dua::class -> DuaBody(u)
                             Phase.Iftar::class -> IftarBody(u)
+                            Phase.IqamahCountdown::class -> (phase as? Phase.IqamahCountdown)?.let { CountdownBody(it, u) }
+                            Phase.IqamahNow::class -> IqamahNowBody(phase, u)
                             else -> (phase as? Phase.HadithPhase)?.let { HadithBody(it, u) }
                         }
                     }
@@ -84,8 +93,13 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
 @Composable
 private fun StepsBar(phase: Phase, u: Dp) {
     val iftar = phase is Phase.Iftar
-    val idx = when (phase) { is Phase.Azaan -> 0; is Phase.Iftar -> 1; is Phase.Dua -> if (iftar) 2 else 1; is Phase.HadithPhase -> if (iftar) 3 else 2 }
-    val labels = if (iftar) listOf("Azaan", "Iftar dua", "Dua after azaan", "Hadith", "Home") else listOf("Azaan", "Dua after azaan", "Hadith", "Home")
+    val iq = phase is Phase.IqamahCountdown || phase is Phase.IqamahNow
+    val idx = when (phase) { is Phase.Azaan -> 0; is Phase.Iftar -> 1; is Phase.Dua -> if (iftar) 2 else 1; is Phase.HadithPhase -> if (iftar) 3 else 2; is Phase.IqamahCountdown -> 1; is Phase.IqamahNow -> 2; is Phase.Quiet -> 3 }
+    val labels = when {
+        iq -> listOf("Azaan", "Iqamah countdown", "Iqamah", "Prayer")
+        iftar -> listOf("Azaan", "Iftar dua", "Dua after azaan", "Hadith", "Home")
+        else -> listOf("Azaan", "Dua after azaan", "Hadith", "Home")
+    }
     Row(Modifier.fillMaxWidth().padding(top = u * 2.4f), horizontalArrangement = Arrangement.spacedBy(u * 1, Alignment.CenterHorizontally)) {
         labels.forEachIndexed { i, l ->
             val done = i < idx; val cur = i == idx
@@ -133,6 +147,57 @@ private fun IftarBody(u: Dp) {
 }
 
 @Composable
+private fun CountdownBody(p: Phase.IqamahCountdown, u: Dp) {
+    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(200) } }
+    val total = (p.endsAt - p.startedAt).coerceAtLeast(1)
+    val leftMs = (p.endsAt - now).coerceAtLeast(0)
+    val secs = ((leftMs + 999) / 1000).toInt()
+    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Kicker("${p.prayer.english} · iqamah in", u)
+        Box(Modifier.padding(vertical = u * 1).size(u * 26), contentAlignment = Alignment.Center) {
+            Canvas(Modifier.fillMaxSize()) {
+                val stroke = Stroke(width = size.width * 0.045f, cap = StrokeCap.Round)
+                drawArc(Color.White.copy(alpha = 0.12f), 0f, 360f, false, style = stroke)
+                drawArc(Palette.gold, -90f, 360f * (leftMs / total.toFloat()), false, style = stroke)
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("$secs", fontFamily = Cormorant, fontSize = (u.value * 10.5f).sp, lineHeight = (u.value * 10.5f).sp, color = Palette.ivory)
+                Text("SECONDS", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = 0.7f), modifier = Modifier.padding(top = u * 0.6f))
+            }
+        }
+        Text("سَوُّوا صُفُوفَكُمْ  ·  Straighten your rows", fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = Palette.ivory.copy(alpha = 0.9f))
+        Text("Ṣaḥīḥ al-Bukhārī 723", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.ivory.copy(alpha = 0.6f), modifier = Modifier.padding(top = u * 0.6f))
+    }
+}
+
+@Composable
+private fun IqamahNowBody(phase: Phase, u: Dp) {
+    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Kicker(phase.prayer.english, u)
+        Text("الإقامة", fontFamily = Amiri, fontSize = (u.value * 9f).sp, lineHeight = (u.value * 10f).sp, color = Color(0xFFF6E7B8))
+        Text("قَدْ قَامَتِ الصَّلاَةُ", fontFamily = Amiri, fontSize = (u.value * 4.2f).sp, lineHeight = (u.value * 6f).sp, color = Palette.goldSoft)
+        Text("The prayer has begun", fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = Palette.ivory.copy(alpha = 0.9f), modifier = Modifier.padding(top = u * 0.6f))
+    }
+}
+
+@Composable
+private fun QuietBody(p: Phase.Quiet, u: Dp, onStop: () -> Unit) {
+    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(1000) } }
+    Column(
+        Modifier.fillMaxSize().background(Color(0xFF05090F)).clickable(onClick = onStop),
+        horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
+    ) {
+        val t = java.time.LocalTime.now()
+        Text("%d:%02d".format(if (t.hour % 12 == 0) 12 else t.hour % 12, t.minute), fontFamily = Cormorant, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 12f).sp, color = Palette.ivory.copy(alpha = 0.55f))
+        Text(p.prayer.arabic, fontFamily = Amiri, fontSize = (u.value * 3.4f).sp, color = Color(0xFFF6E7B8).copy(alpha = 0.5f))
+        val left = ((p.endsAt - now).coerceAtLeast(0) / 60_000) + 1
+        Text("in prayer · screen wakes in $left min · tap to wake now", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.08f).sp, color = Palette.ivory.copy(alpha = 0.3f), modifier = Modifier.padding(top = u * 2))
+    }
+}
+
+@Composable
 private fun HadithBody(p: Phase.HadithPhase, u: Dp) {
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Kicker("Hadith of the hour · ${p.prayer.english}", u)
@@ -157,10 +222,10 @@ private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Uni
     Row(Modifier.fillMaxWidth().padding(horizontal = u * 3.6f, vertical = u * 2.6f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
         // left: narration state
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
-            val narrating = when (phase) { is Phase.Azaan -> true; is Phase.Dua, is Phase.Iftar -> true; is Phase.HadithPhase -> phase.narrating }
+            val narrating = when (phase) { is Phase.Azaan -> true; is Phase.Dua, is Phase.Iftar -> true; is Phase.HadithPhase -> phase.narrating; is Phase.IqamahNow -> true; else -> false }
             if (narrating) Wave(Modifier.width(u * 6).height(u * 2.4f), bars = 5)
             Text(
-                when (phase) { is Phase.Azaan -> "Azaan playing"; is Phase.Iftar -> "Reading the iftar dua"; is Phase.Dua -> "Reading the dua"; is Phase.HadithPhase -> if (phase.narrating) "Reading the hadith" else "Take a moment" },
+                when (phase) { is Phase.Azaan -> "Azaan playing"; is Phase.Iftar -> "Reading the iftar dua"; is Phase.Dua -> "Reading the dua"; is Phase.HadithPhase -> if (phase.narrating) "Reading the hadith" else "Take a moment"; is Phase.IqamahCountdown -> "Tap Skip if the imam is ready"; is Phase.IqamahNow -> "Iqamah"; is Phase.Quiet -> "" },
                 fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory
             )
         }
@@ -172,9 +237,13 @@ private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Uni
         } else Spacer(Modifier.width(u * 6.4f))
         // right: actions
         Row(horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
-            if (phase is Phase.Azaan) Pill("Stop azaan", true, u.value, onStop)
-            else Pill("Back to clock", false, u.value, onStop)
-            if (phase !is Phase.HadithPhase) Pill("Skip ›", false, u.value, onSkip)
+            when (phase) {
+                is Phase.Azaan -> { Pill("Stop azaan", true, u.value, onStop); Pill("Skip ›", false, u.value, onSkip) }
+                is Phase.IqamahCountdown -> { Pill("Dismiss", false, u.value, onStop); Pill("Start iqamah now ›", true, u.value, onSkip) }
+                is Phase.IqamahNow -> Pill("Dismiss", false, u.value, onStop)
+                is Phase.HadithPhase -> Pill("Back to clock", false, u.value, onStop)
+                else -> { Pill("Back to clock", false, u.value, onStop); Pill("Skip ›", false, u.value, onSkip) }
+            }
         }
     }
 }

@@ -109,6 +109,15 @@ object PrayerEngine {
         return Hijri(h.get(ChronoField.DAY_OF_MONTH), h.get(ChronoField.MONTH_OF_YEAR), h.get(ChronoField.YEAR))
     }
 
+    /** Iqamah time for a prayer on a day, or null if iqamah is off for it. */
+    fun iqamah(settings: AppSettings, day: DayTimes, p: Prayer): ZonedDateTime? {
+        if (!settings.iqamahEnabled || !p.isPrayer) return null
+        if (p == Prayer.DHUHR && settings.jumuahEnabled && day.date.dayOfWeek == java.time.DayOfWeek.FRIDAY)
+            return day.date.atStartOfDay(day[p].zone).plusMinutes(settings.jumuahIqamahMinutes.toLong())
+        val off = settings.iqamahOffsets[p] ?: 0
+        return if (off <= 0) null else day[p].plusMinutes(off.toLong())
+    }
+
     fun isRamadan(settings: AppSettings, date: LocalDate): Boolean = when (settings.ramadanMode) {
         RamadanMode.ON -> true
         RamadanMode.OFF -> false

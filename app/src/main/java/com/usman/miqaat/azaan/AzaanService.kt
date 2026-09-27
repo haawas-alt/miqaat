@@ -42,6 +42,9 @@ class AzaanService : Service() {
         class Dua(prayer: Prayer) : Phase(prayer)
         class Iftar(prayer: Prayer) : Phase(prayer)
         class HadithPhase(prayer: Prayer, val hadith: Hadith, val startedAt: Long, val endsAt: Long, val narrating: Boolean) : Phase(prayer)
+        class IqamahCountdown(prayer: Prayer, val startedAt: Long, val endsAt: Long) : Phase(prayer)
+        class IqamahNow(prayer: Prayer) : Phase(prayer)
+        class Quiet(prayer: Prayer, val endsAt: Long) : Phase(prayer)
     }
 
     private var player: MediaPlayer? = null
@@ -81,6 +84,9 @@ class AzaanService : Service() {
             ACTION_REMINDER -> { if (prayer != null) showReminder(prayer); stopSelf(); return START_NOT_STICKY }
             ACTION_PLAY, ACTION_PREVIEW -> if (prayer != null) startAzaan(prayer, preview = intent.action == ACTION_PREVIEW)
             ACTION_PREVIEW_AFTER -> if (prayer != null) { begin(prayer); startDua(prayer) }
+            ACTION_IQAMAH -> if (prayer != null) startIqamahCountdown(prayer, intent.getIntExtra(EXTRA_SECONDS, -1))
+            ACTION_IQAMAH_NOW -> if (prayer != null) { begin(prayer); startIqamahNow(prayer) }
+            ACTION_QUIET -> if (prayer != null) { begin(prayer); startQuiet(prayer) }
         }
         return START_NOT_STICKY
     }
@@ -184,7 +190,81 @@ class AzaanService : Service() {
             is Phase.Azaan -> afterAzaan(p.prayer, p.preview)
             is Phase.Iftar -> { tts?.stop(); pendingAfterTts = null; handler.removeCallbacksAndMessages(null); startDua(p.prayer) }
             is Phase.Dua -> { tts?.stop(); pendingAfterTts = null; handler.removeCallbacksAndMessages(null); startHadith(p.prayer) }
-            is Phase.HadithPhase, null -> finishAll()
+            is Phase.IqamahCountdown -> startIqamahNow(p.prayer)
+            is Phase.IqamahNow -> startQuiet(p.prayer)
+            is Phase.HadithPhase, is Phase.Quiet, null -> finishAll()
+        }
+    }
+
+    // ------------------------------------------------------------ iqamah
+
+    /** Takes over whatever is running (hadith included): the countdown always wins. */
+    private fun startIqamahCountdown(prayer: Prayer, secondsOverride: Int) {
+        val settings = (application as MiqaatApp).settings.value
+        stopPlayer(); tts?.stop(); pendingAfterTts = null
+        begin(prayer)
+        val secs = if (secondsOverride > 0) secondsOverride else settings.iqamahCountdownSeconds
+        val start = System.currentTimeMillis()
+        val end = start + secs * 1000L
+        _phase.value = Phase.IqamahCountdown(prayer, start, end)
+        val seq = sequenceId
+        // soft tick for the last ten seconds
+        for (i in 10 downTo 1) {
+            val at = end - i * 1000L
+            if (at > start) handler.postAtTime({ if (seq == sequenceId) playShort("tick", 0.5f) }, android.os.SystemClock.uptimeMillis() + (at - System.currentTimeMillis()))
+        }
+        handler.postDelayed({ if (seq == sequenceId) startIqamahNow(prayer) }, end - System.currentTimeMillis())
+        showScreen(prayer)
+    }
+
+    private fun startIqamahNow(prayer: Prayer) {
+        handler.removeCallbacksAndMessages(null)
+        val settings = (application as MiqaatApp).settings.value
+        _phase.value = Phase.IqamahNow(prayer)
+        val seq = sequenceId
+        var holdMs = 12_000L
+        when (settings.iqamahSound) {
+            com.usman.miqaat.data.IqamahSound.OFF -> {}
+            com.usman.miqaat.data.IqamahSound.CHIME -> playShort("chime", 1f)
+            com.usman.miqaat.data.IqamahSound.RECORDING -> {
+                val id = resources.getIdentifier("iqamah", "raw", packageName)
+                if (id != 0) {
+                    stopPlayer()
+                    player = MediaPlayer().apply {
+                        setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build())
+                        setDataSource(this@AzaanService, Uri.parse("android.resource://$packageName/$id"))
+                        prepare(); start()
+                    }
+                    holdMs = (player!!.duration + 1500L).coerceAtLeast(5_000L)
+                } else playShort("chime", 1f)
+            }
+        }
+        handler.postDelayed({ if (seq == sequenceId) startQuiet(prayer) }, holdMs)
+    }
+
+    private fun startQuiet(prayer: Prayer) {
+        handler.removeCallbacksAndMessages(null)
+        stopPlayer()
+        val settings = (application as MiqaatApp).settings.value
+        if (settings.quietMinutes <= 0) { finishAll(); return }
+        val end = System.currentTimeMillis() + settings.quietMinutes * 60_000L
+        _phase.value = Phase.Quiet(prayer, end)
+        val seq = sequenceId
+        // release the wake lock: the screen may sleep during prayer, the activity keeps its own flag
+        handler.postDelayed({ if (seq == sequenceId) finishAll() }, end - System.currentTimeMillis())
+    }
+
+    private var shortPlayer: MediaPlayer? = null
+    private fun playShort(raw: String, volume: Float) {
+        val id = resources.getIdentifier(raw, "raw", packageName)
+        if (id == 0) return
+        shortPlayer?.runCatching { release() }
+        shortPlayer = MediaPlayer().apply {
+            setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build())
+            setDataSource(this@AzaanService, Uri.parse("android.resource://$packageName/$id"))
+            setVolume(volume, volume)
+            setOnCompletionListener { it.release(); if (shortPlayer === it) shortPlayer = null }
+            prepare(); start()
         }
     }
 
@@ -251,6 +331,7 @@ class AzaanService : Service() {
     }
 
     private fun finishAll() {
+        shortPlayer?.runCatching { release() }; shortPlayer = null
         sequenceId++
         handler.removeCallbacksAndMessages(null)
         pendingAfterTts = null
@@ -279,6 +360,10 @@ class AzaanService : Service() {
         const val ACTION_REMINDER = "com.usman.miqaat.REMINDER"
         const val ACTION_STOP = "com.usman.miqaat.STOP"
         const val ACTION_SKIP = "com.usman.miqaat.SKIP"
+        const val ACTION_IQAMAH = "com.usman.miqaat.IQAMAH"
+        const val ACTION_IQAMAH_NOW = "com.usman.miqaat.IQAMAH_NOW"
+        const val ACTION_QUIET = "com.usman.miqaat.QUIET"
+        const val EXTRA_SECONDS = "seconds"
         private const val NOTIF_ID = 41
 
         private val _phase = MutableStateFlow<Phase?>(null)
@@ -288,6 +373,12 @@ class AzaanService : Service() {
         fun skip(ctx: Context) = ctx.startService(Intent(ctx, AzaanService::class.java).setAction(ACTION_SKIP))
         fun preview(ctx: Context, prayer: Prayer) = androidx.core.content.ContextCompat.startForegroundService(
             ctx, Intent(ctx, AzaanService::class.java).setAction(ACTION_PREVIEW).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name))
+        fun testIqamah(ctx: Context, prayer: Prayer, seconds: Int = -1) = androidx.core.content.ContextCompat.startForegroundService(
+            ctx, Intent(ctx, AzaanService::class.java).setAction(ACTION_IQAMAH).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name).putExtra(EXTRA_SECONDS, seconds))
+        fun testIqamahNow(ctx: Context, prayer: Prayer) = androidx.core.content.ContextCompat.startForegroundService(
+            ctx, Intent(ctx, AzaanService::class.java).setAction(ACTION_IQAMAH_NOW).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name))
+        fun testQuiet(ctx: Context, prayer: Prayer) = androidx.core.content.ContextCompat.startForegroundService(
+            ctx, Intent(ctx, AzaanService::class.java).setAction(ACTION_QUIET).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name))
         fun previewAfter(ctx: Context, prayer: Prayer) = androidx.core.content.ContextCompat.startForegroundService(
             ctx, Intent(ctx, AzaanService::class.java).setAction(ACTION_PREVIEW_AFTER).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name))
     }

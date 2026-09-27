@@ -75,6 +75,9 @@ import com.usman.miqaat.data.LocationRepo
 import com.usman.miqaat.data.Method
 import com.usman.miqaat.data.Narration
 import com.usman.miqaat.data.RamadanMode
+import com.usman.miqaat.data.IqamahSound
+import androidx.compose.material.icons.outlined.Timer
+import androidx.compose.material.icons.outlined.PlayCircle
 import com.usman.miqaat.data.HadithLibrary
 import com.usman.miqaat.data.Place
 import com.usman.miqaat.data.Prayer
@@ -89,8 +92,10 @@ enum class Section(val label: String, val icon: ImageVector) {
     LOCATION("Location", Icons.Outlined.LocationOn),
     TIMES("Prayer times", Icons.Outlined.Schedule),
     AZAAN("Azaan & alerts", Icons.Outlined.NotificationsActive),
+    IQAMAH("Iqamah", Icons.Outlined.Timer),
     HIJRI("Hijri calendar", Icons.Outlined.CalendarMonth),
     DISPLAY("Display & art", Icons.Outlined.Brush),
+    TEST("Test & preview", Icons.Outlined.PlayCircle),
     ABOUT("About", Icons.Outlined.Info)
 }
 
@@ -127,6 +132,8 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
                 Section.LOCATION -> LocationSection(store, settings)
                 Section.TIMES -> TimesSection(store, settings)
                 Section.AZAAN -> AzaanSection(store, settings)
+                Section.IQAMAH -> IqamahSection(store, settings)
+                Section.TEST -> TestSection(store, settings)
                 Section.HIJRI -> HijriSection(store, settings)
                 Section.DISPLAY -> DisplaySection(store, settings)
                 Section.ABOUT -> AboutSection(settings)
@@ -318,6 +325,69 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
         Value(if (ignoring) "Exempt ✓" else "Fix ›")
     }
     if (Build.VERSION.SDK_INT >= 31) SettingRow("Exact alarms", "Needed on Android 12 and newer", onClick = { runCatching { ctx.startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)) } }) { Value("Open ›") }
+}
+
+@Composable
+private fun IqamahSection(store: SettingsStore, s: AppSettings) {
+    val today = remember(s) { PrayerEngine.times(s, LocalDate.now()) }
+    Heading("Iqamah", "For praying in congregation at home. A full-screen countdown starts before each iqamah, a sound marks the iqamah itself, then the screen goes quiet for the prayer.")
+    SettingRow("Iqamah times", "Shown under each azaan time and announced with the countdown") { Toggle(s.iqamahEnabled) { on -> store.update { it.copy(iqamahEnabled = on) } } }
+    if (s.iqamahEnabled) {
+        Spacer(Modifier.height(10.dp))
+        Text("Minutes after each azaan", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+        Prayer.prayersOnly.forEach { p ->
+            val off = s.iqamahOffsets[p] ?: 0
+            val iq = PrayerEngine.iqamah(s, today, p)
+            SettingRow("${p.english}  ${p.arabic}", if (iq != null) "Today: azaan ${PrayerEngine.clock(today[p], s.use24h)} → iqamah ${PrayerEngine.clock(iq, s.use24h)}" else "Off for this prayer") {
+                Stepper(off, 0, 60, 1, " min", zeroLabel = "Off") { v -> store.update { it.copy(iqamahOffsets = it.iqamahOffsets + (p to v)) } }
+            }
+        }
+        if (s.jumuahEnabled) SettingRow("Jumuʿah iqamah (fixed time)", "Used instead of the Dhuhr offset on Fridays") {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                StepBtn("−", s.jumuahIqamahMinutes > 11 * 60) { store.update { it.copy(jumuahIqamahMinutes = it.jumuahIqamahMinutes - 5) } }
+                Text("%d:%02d %s".format(((s.jumuahIqamahMinutes / 60) + 11) % 12 + 1, s.jumuahIqamahMinutes % 60, if (s.jumuahIqamahMinutes >= 720) "PM" else "AM"), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.width(90.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+                StepBtn("+", s.jumuahIqamahMinutes < 16 * 60) { store.update { it.copy(jumuahIqamahMinutes = it.jumuahIqamahMinutes + 5) } }
+            }
+        }
+        Spacer(Modifier.height(10.dp))
+        Text("Countdown and sound", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+        SettingRow("Countdown before iqamah", "Full screen, seconds only, with a soft tick for the last ten. It interrupts the hadith if they overlap.") {
+            Stepper(s.iqamahCountdownSeconds, 30, 180, 15, " s") { v -> store.update { it.copy(iqamahCountdownSeconds = v) } }
+        }
+        SettingRow("Sound at iqamah", "\"Iqamah recording\" plays res/raw/iqamah.mp3 if it has been bundled, otherwise the chime") {
+            Chips(IqamahSound.entries.map { it.label }, IqamahSound.entries.indexOf(s.iqamahSound)) { i -> store.update { it.copy(iqamahSound = IqamahSound.entries[i]) } }
+        }
+        SettingRow("Quiet screen after iqamah", "Dim clock only, nothing moving. Tap the screen to wake early.") {
+            Stepper(s.quietMinutes, 0, 30, 1, " min", zeroLabel = "Off") { v -> store.update { it.copy(quietMinutes = v) } }
+        }
+    }
+}
+
+@Composable
+private fun TestSection(store: SettingsStore, s: AppSettings) {
+    val ctx = LocalContext.current
+    Heading("Test & preview", "Run any part of the experience right now, without waiting for a prayer time. Each one uses your current settings and the real sounds.")
+    Text("Azaan", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    SettingRow("Azaan recording", "Plays the full recording with the azaan screen, then stops (no dua or hadith)") {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            GoldButton("Fajr") { AzaanService.preview(ctx, Prayer.FAJR) }
+            GoldButton("Other prayers") { AzaanService.preview(ctx, Prayer.MAGHRIB) }
+        }
+    }
+    SettingRow("Full sequence after azaan", "Dua after azaan → hadith → back to the clock, with narration") { GoldButton("Start") { AzaanService.previewAfter(ctx, Prayer.DHUHR) } }
+    SettingRow("Ramaḍān Maghrib sequence", "Iftar dua → dua after azaan → hadith") { GoldButton("Start") { AzaanService.previewAfter(ctx, Prayer.MAGHRIB) } }
+    Spacer(Modifier.height(14.dp))
+    Text("Iqamah", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    SettingRow("Countdown → iqamah → quiet screen", "The whole iqamah flow, starting with a ${s.iqamahCountdownSeconds}-second countdown") { GoldButton("Start") { AzaanService.testIqamah(ctx, Prayer.MAGHRIB) } }
+    SettingRow("Short countdown", "Same flow, 15-second countdown, to hear the ticks quickly") { GoldButton("Start") { AzaanService.testIqamah(ctx, Prayer.MAGHRIB, 15) } }
+    SettingRow("Iqamah sound only", "Plays the ${s.iqamahSound.label.lowercase()} and shows the iqamah screen") { GoldButton("Play") { AzaanService.testIqamahNow(ctx, Prayer.MAGHRIB) } }
+    SettingRow("Quiet screen", "Shows the in-prayer screen for ${s.quietMinutes} min; tap it to leave") { GoldButton("Show") { AzaanService.testQuiet(ctx, Prayer.MAGHRIB) } }
+    Spacer(Modifier.height(14.dp))
+    Text("Home screen modes", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    SettingRow("Ramaḍān mode", "Force it on to see Suhoor/Iftar labels and the fasting bar on the home screen") {
+        Chips(RamadanMode.entries.map { it.label }, RamadanMode.entries.indexOf(s.ramadanMode)) { i -> store.update { it.copy(ramadanMode = RamadanMode.entries[i]) } }
+    }
+    SettingRow("Stop anything that is playing", null) { TextButton(onClick = { AzaanService.stop(ctx) }) { Text("Stop", color = Palette.goldSoft) } }
 }
 
 @Composable

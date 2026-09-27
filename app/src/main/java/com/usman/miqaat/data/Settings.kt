@@ -65,6 +65,8 @@ enum class Narration(val label: String) { OFF("Off"), ENGLISH("English"), BOTH("
 
 enum class RamadanMode(val label: String) { AUTO("Automatic"), ON("On"), OFF("Off") }
 
+enum class IqamahSound(val label: String) { OFF("Off"), CHIME("Chime"), RECORDING("Iqamah recording") }
+
 enum class ArtTheme(val label: String) { GEOMETRIC("Geometric lattice"), CALLIGRAPHY("Calligraphy only"), MINIMAL("Minimal") }
 
 data class AppSettings(
@@ -91,6 +93,12 @@ data class AppSettings(
     val fridayReminders: Boolean = true,
     val adhkarEnabled: Boolean = true,
     val showQibla: Boolean = true,
+    val iqamahEnabled: Boolean = false,
+    val iqamahOffsets: Map<Prayer, Int> = mapOf(Prayer.FAJR to 20, Prayer.DHUHR to 10, Prayer.ASR to 10, Prayer.MAGHRIB to 8, Prayer.ISHA to 15),
+    val jumuahIqamahMinutes: Int = 13 * 60 + 30,
+    val iqamahSound: IqamahSound = IqamahSound.CHIME,
+    val iqamahCountdownSeconds: Int = 60,
+    val quietMinutes: Int = 10,
     val showHijri: Boolean = true,
     val hijriOffsetDays: Int = 0,
     val showSunrise: Boolean = true,
@@ -154,6 +162,12 @@ class SettingsStore(context: Context) {
             fridayReminders = prefs.getBoolean("friRem", d.fridayReminders),
             adhkarEnabled = prefs.getBoolean("adhkar", d.adhkarEnabled),
             showQibla = prefs.getBoolean("qibla", d.showQibla),
+            iqamahEnabled = prefs.getBoolean("iqEn", d.iqamahEnabled),
+            iqamahOffsets = Prayer.prayersOnly.associateWith { prefs.getInt("iq_${it.key}", d.iqamahOffsets[it] ?: 10) },
+            jumuahIqamahMinutes = prefs.getInt("iqJum", d.jumuahIqamahMinutes),
+            iqamahSound = runCatching { IqamahSound.valueOf(enumOr("iqSnd", d.iqamahSound.name)) }.getOrDefault(d.iqamahSound),
+            iqamahCountdownSeconds = prefs.getInt("iqCd", d.iqamahCountdownSeconds),
+            quietMinutes = prefs.getInt("quiet", d.quietMinutes),
             showHijri = prefs.getBoolean("hijri", d.showHijri),
             hijriOffsetDays = prefs.getInt("hijriOff", d.hijriOffsetDays),
             showSunrise = prefs.getBoolean("sunrise", d.showSunrise),
@@ -178,6 +192,8 @@ class SettingsStore(context: Context) {
             putBoolean("afterAz", s.afterAzaanEnabled); putString("narr", s.narration.name); putInt("hadMin", s.hadithMinutes)
             putString("ramadan", s.ramadanMode.name); putBoolean("jumuah", s.jumuahEnabled); putInt("jumuahMin", s.jumuahMinutes)
             putBoolean("friRem", s.fridayReminders); putBoolean("adhkar", s.adhkarEnabled); putBoolean("qibla", s.showQibla)
+            putBoolean("iqEn", s.iqamahEnabled); s.iqamahOffsets.forEach { (p, v) -> putInt("iq_${p.key}", v) }
+            putInt("iqJum", s.jumuahIqamahMinutes); putString("iqSnd", s.iqamahSound.name); putInt("iqCd", s.iqamahCountdownSeconds); putInt("quiet", s.quietMinutes)
             putBoolean("hijri", s.showHijri); putInt("hijriOff", s.hijriOffsetDays); putBoolean("sunrise", s.showSunrise)
             putBoolean("h24", s.use24h); putBoolean("keepOn", s.keepScreenOn); putBoolean("nightDim", s.nightDim)
             putString("art", s.artTheme.name); putBoolean("boot", s.launchOnBoot); putBoolean("setupDone", s.setupDone)

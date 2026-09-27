@@ -19,9 +19,10 @@ object AzaanScheduler {
     private const val TAG = "AzaanScheduler"
     const val EXTRA_PRAYER = "prayer"
     const val EXTRA_REMINDER = "reminder"
+    const val EXTRA_IQAMAH = "iqamah"
     private const val REQ_AZAAN = 1001
 
-    data class Upcoming(val prayer: Prayer, val at: ZonedDateTime, val reminder: Boolean)
+    data class Upcoming(val prayer: Prayer, val at: ZonedDateTime, val reminder: Boolean, val iqamah: Boolean = false)
 
     fun nextEvent(ctx: Context, from: ZonedDateTime = ZonedDateTime.now()): Upcoming? {
         val s = (ctx.applicationContext as MiqaatApp).settings.value
@@ -29,13 +30,23 @@ object AzaanScheduler {
         for (dayOffset in 0L..1L) {
             val day = PrayerEngine.times(s, from.toLocalDate().plusDays(dayOffset), from.zone)
             for (p in Prayer.prayersOnly) {
-                if (s.azaanEnabled[p] != true) continue
                 val t = day[p]
+                if (s.azaanEnabled[p] != true) {
+                    PrayerEngine.iqamah(s, day, p)?.let { iq ->
+                        val start = iq.minusSeconds(s.iqamahCountdownSeconds.toLong())
+                        if (start.isAfter(from)) candidates += Upcoming(p, start, reminder = false, iqamah = true)
+                    }
+                    continue
+                }
                 if (s.preReminderMinutes > 0) {
                     val r = t.minusMinutes(s.preReminderMinutes.toLong())
                     if (r.isAfter(from)) candidates += Upcoming(p, r, reminder = true)
                 }
                 if (t.isAfter(from)) candidates += Upcoming(p, t, reminder = false)
+                PrayerEngine.iqamah(s, day, p)?.let { iq ->
+                    val start = iq.minusSeconds(s.iqamahCountdownSeconds.toLong())
+                    if (start.isAfter(from)) candidates += Upcoming(p, start, reminder = false, iqamah = true)
+                }
             }
         }
         return candidates.minByOrNull { it.at }
@@ -55,7 +66,7 @@ object AzaanScheduler {
         } else {
             am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, whenMs, fire)
         }
-        Log.i(TAG, "Scheduled ${next.prayer} ${if (next.reminder) "reminder" else "azaan"} at ${next.at}")
+        Log.i(TAG, "Scheduled ${next.prayer} ${if (next.iqamah) "iqamah" else if (next.reminder) "reminder" else "azaan"} at ${next.at}")
     }
 
     private fun pendingIntent(ctx: Context, u: Upcoming?): PendingIntent {
@@ -64,6 +75,7 @@ object AzaanScheduler {
             if (u != null) {
                 putExtra(EXTRA_PRAYER, u.prayer.name)
                 putExtra(EXTRA_REMINDER, u.reminder)
+                putExtra(EXTRA_IQAMAH, u.iqamah)
             }
         }
         return PendingIntent.getBroadcast(ctx, REQ_AZAAN, i, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
