@@ -45,6 +45,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -94,7 +95,7 @@ fun HomeScreen(
             Stars(Modifier.fillMaxSize(), starAlpha)
             if (settings.artTheme == ArtTheme.GEOMETRIC) GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f)
 
-            Column(Modifier.fillMaxSize().padding(horizontal = u * 3.6f, vertical = u * 2.6f)) {
+            Column(Modifier.fillMaxSize().padding(start = u * 3.6f, end = u * 3.6f, top = u * 2.6f, bottom = u * 3.4f)) {
 
                 // ---------- top bar
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top) {
@@ -191,6 +192,11 @@ fun HomeScreen(
                             iqamah = iq?.let { PrayerEngine.clock(it, settings.use24h) }, modifier = Modifier.weight(1f))
                     }
                 }
+            }
+            // signature
+            Column(Modifier.align(Alignment.BottomStart).padding(start = u * 1.2f, bottom = u * 0.5f)) {
+                Text("Designed by UZR", fontFamily = Cormorant, fontSize = fs(1.45f), letterSpacing = fs(0.12f), color = Palette.goldSoft.copy(alpha = 0.75f))
+                Text("Make duʿā for me", fontFamily = Cormorant, fontSize = fs(1.25f), fontStyle = FontStyle.Italic, color = Palette.ivory.copy(alpha = 0.5f))
             }
             if (dim) Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.45f)))
         }

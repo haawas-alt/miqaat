@@ -96,7 +96,7 @@ data class AppSettings(
     val iqamahEnabled: Boolean = false,
     val iqamahOffsets: Map<Prayer, Int> = mapOf(Prayer.FAJR to 20, Prayer.DHUHR to 10, Prayer.ASR to 10, Prayer.MAGHRIB to 8, Prayer.ISHA to 15),
     val jumuahIqamahMinutes: Int = 13 * 60 + 30,
-    val iqamahSound: IqamahSound = IqamahSound.CHIME,
+    val iqamahSound: IqamahSound = IqamahSound.RECORDING,
     val iqamahCountdownSeconds: Int = 60,
     val quietMinutes: Int = 10,
     val showHijri: Boolean = true,
