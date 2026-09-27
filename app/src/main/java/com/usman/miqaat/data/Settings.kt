@@ -235,7 +235,7 @@ class SettingsStore(context: Context) {
             if (s.homeLat != null) putFloat("homeLat", s.homeLat.toFloat()) else remove("homeLat")
             if (s.homeLng != null) putFloat("homeLng", s.homeLng.toFloat()) else remove("homeLng")
             putBoolean("travel", s.travellerMode); putBoolean("travelQasr", s.travelQasr); putBoolean("travelJam", s.travelJam)
-            putString("masjid", s.masjidName); putString("overrides", encodeOverrides(s.overrides)); putBoolean("useOverrides", s.useOverrides) putBoolean("autoLoc", s.autoLocation)
+            putString("masjid", s.masjidName); putString("overrides", encodeOverrides(s.overrides)); putBoolean("useOverrides", s.useOverrides); putBoolean("autoLoc", s.autoLocation)
             putString("method", s.method.name); putString("asr", s.asrMethod.name); putString("latRule", s.latitudeRule.name)
             s.adjustments.forEach { (p, v) -> putInt("adj_${p.key}", v) }
             s.azaanEnabled.forEach { (p, v) -> putBoolean("az_${p.key}", v) }

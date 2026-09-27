@@ -23,6 +23,10 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -60,6 +64,7 @@ object Kiswah {
 }
 
 /** Black silk, one gold Kufic band, an enormous time. Everything else whispers. */
+@OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
 fun KiswahHome(
     state: PrayerState, settings: AppSettings,
@@ -67,7 +72,7 @@ fun KiswahHome(
     onOpenQibla: () -> Unit, onOpenAdhkar: (Boolean) -> Unit, updateAvailable: Boolean, onOpenAbout: () -> Unit,
     onToggleRelative: () -> Unit = {}
 ) {
-    var why by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<Prayer?>(null) }
+    var why by remember { mutableStateOf<Prayer?>(null) }
     why?.let { WhyDialog(settings, state.today, it) { why = null } }
     BoxWithConstraints(Modifier.fillMaxSize().background(Kiswah.silk)) {
         val u: Dp = minOf(maxWidth / 100, maxHeight / 56)
@@ -154,7 +159,6 @@ fun KiswahHome(
                     val next = p == state.hero && state.nextTime.toLocalDate() == state.now.toLocalDate()
                     val label = when { p == Prayer.DHUHR && isFri -> "Jumuʿah"; ramadan && p == Prayer.FAJR -> "Suhoor"; ramadan && p == Prayer.MAGHRIB -> "Iftar"; else -> p.english }
                     val iq = PrayerEngine.iqamah(settings, state.today, p)
-                    @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
                     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.alpha(if (done) 0.4f else 1f).combinedClickable(onClick = onToggleRelative, onLongClick = { why = p })) {
                         Text(label.uppercase(), fontFamily = Cinzel, fontSize = fs(1.15f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.75f))
                         if (settings.showRelative) Text(PrayerEngine.relative(t, state.now).uppercase(), fontFamily = Cinzel, fontSize = fs(1.5f), letterSpacing = fs(0.1f), color = if (next) Kiswah.highlight else Kiswah.ivory)

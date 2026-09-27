@@ -129,15 +129,18 @@ object PrayerEngine {
         val dateRe = Regex("""\b(\d{4})-(\d{1,2})-(\d{1,2})\b|\b(\d{1,2})[/.-](\d{1,2})(?:[/.-](\d{2,4}))?\b""")
         for (raw in text.lines()) {
             val line = raw.trim(); if (line.isEmpty()) continue
-            val dm = dateRe.find(line) ?: run { skipped++; continue }
-            val date: LocalDate = runCatching {
+            val dm = dateRe.find(line)
+            if (dm == null) { skipped++; continue }
+            val dateOrNull: LocalDate? = runCatching {
                 if (dm.groupValues[1].isNotEmpty()) LocalDate.of(dm.groupValues[1].toInt(), dm.groupValues[2].toInt(), dm.groupValues[3].toInt())
                 else {
                     val d = dm.groupValues[4].toInt(); val mth = dm.groupValues[5].toInt()
                     val y = dm.groupValues[6].let { if (it.isEmpty()) year else if (it.length == 2) 2000 + it.toInt() else it.toInt() }
                     LocalDate.of(y, mth, d)
                 }
-            }.getOrNull() ?: run { skipped++; continue }
+            }.getOrNull()
+            if (dateOrNull == null) { skipped++; continue }
+            val date = dateOrNull
             val rest = line.substring(dm.range.last + 1)
             val ts = timeRe.findAll(rest).map { m ->
                 var h = m.groupValues[1].toInt(); val mi = m.groupValues[2].toInt(); val ap = m.groupValues[3].lowercase()

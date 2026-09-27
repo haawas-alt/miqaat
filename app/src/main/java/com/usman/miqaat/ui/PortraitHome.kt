@@ -33,6 +33,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -63,7 +66,7 @@ fun PortraitHome(
     onToggleRelative: () -> Unit = {}
 ) {
     val kiswah = settings.theme == AppTheme.KISWAH
-    var why by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<Prayer?>(null) }
+    var why by remember { mutableStateOf<Prayer?>(null) }
     why?.let { WhyDialog(settings, state.today, it) { why = null } }
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val u: Dp = minOf(maxWidth / 100, maxHeight / 205)
@@ -142,7 +145,7 @@ fun PortraitHome(
                 }
                 }
 
-                if (settings.showDisliked) DayTimeline(settings, state.today, state.now, height = u * 1.4f, modifier = Modifier.fillMaxWidth().padding(horizontal = u * 2, bottom = u * 2.2f))
+                if (settings.showDisliked) DayTimeline(settings, state.today, state.now, height = u * 1.4f, modifier = Modifier.fillMaxWidth().padding(start = u * 2, end = u * 2, bottom = u * 2.2f))
                 // prayer rows
                 val shown = if (settings.showSunrise) Prayer.entries else Prayer.prayersOnly
                 Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(u * 4)).background(Color.White.copy(alpha = if (kiswah) 0.04f else 0.07f)).border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(u * 4))) {

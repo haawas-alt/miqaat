@@ -39,6 +39,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -75,7 +78,7 @@ fun HomeScreen(
     onOpenAbout: () -> Unit = {},
     onToggleRelative: () -> Unit = {}
 ) {
-    var why by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<Prayer?>(null) }
+    var why by remember { mutableStateOf<Prayer?>(null) }
     why?.let { WhyDialog(settings, state.today, it) { why = null } }
     BoxWithConstraints(Modifier.fillMaxSize()) {
         // 1 unit = 1% of width, capped by height so short/wide tablets scale down instead of overlapping
@@ -179,7 +182,7 @@ fun HomeScreen(
                     }
                 }
                 if (settings.showDisliked) {
-                    DayTimeline(settings, state.today, state.now, height = u * 0.7f, modifier = Modifier.fillMaxWidth().padding(horizontal = u * 1, bottom = u * 0.5f))
+                    DayTimeline(settings, state.today, state.now, height = u * 0.7f, modifier = Modifier.fillMaxWidth().padding(start = u * 1, end = u * 1, bottom = u * 0.5f))
                 }
 
                 // ---------- rail
