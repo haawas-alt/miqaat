@@ -80,6 +80,8 @@ import com.usman.miqaat.data.Place
 import com.usman.miqaat.data.Prayer
 import com.usman.miqaat.data.PrayerEngine
 import com.usman.miqaat.data.SettingsStore
+import com.usman.miqaat.data.Updater
+import androidx.compose.runtime.collectAsState
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -344,7 +346,28 @@ private fun DisplaySection(store: SettingsStore, s: AppSettings) {
 
 @Composable
 private fun AboutSection(s: AppSettings) {
+    val ctx = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val up by Updater.state.collectAsState()
+    LaunchedEffect(Unit) { Updater.check(ctx) }
     Heading("About Miqaat", "ميقات · an appointed time")
+    Text("Version ${Updater.currentName} · build ${Updater.currentBuild}", fontFamily = Nunito, fontSize = 15.sp, color = Palette.goldSoft)
+    Spacer(Modifier.height(10.dp))
+    when (val u = up) {
+        is Updater.State.Available -> {
+            SettingRow("Update available: version ${u.info.versionName}", if (Updater.canInstall(ctx)) "Downloads from GitHub and opens the installer. Your settings are kept." else "First allow Miqaat to install updates (one-time Android permission), then come back here.") {
+                if (Updater.canInstall(ctx)) GoldButton("Download & install") { Updater.download(ctx, u.info) }
+                else GoldButton("Allow installs") { Updater.openInstallPermission(ctx) }
+            }
+        }
+        is Updater.State.Downloading -> SettingRow("Downloading version ${u.info.versionName}…", "The installer opens automatically when it finishes") { Value("…") }
+        is Updater.State.Ready -> SettingRow("Update downloaded", "Tap if the installer didn't open") { GoldButton("Install") { Updater.install(ctx, u.file) } }
+        is Updater.State.Failed -> SettingRow("Update check failed", u.reason) { GoldButton("Try again") { scope.launch { Updater.check(ctx, force = true) } } }
+        Updater.State.Checking -> SettingRow("Checking for updates…", null) { Value("…") }
+        Updater.State.UpToDate -> SettingRow("You have the latest version", "Checked just now") { TextButton(onClick = { scope.launch { Updater.check(ctx, force = true) } }) { Text("Check again", color = Palette.goldSoft) } }
+        Updater.State.Idle -> SettingRow("Updates", "New builds are published automatically") { GoldButton("Check for updates") { scope.launch { Updater.check(ctx, force = true) } } }
+    }
+    Spacer(Modifier.height(14.dp))
     Text(
         "Prayer times are computed on the tablet with the Adhan library (Batoul Apps, MIT licence), using the high-precision astronomical algorithms of Jean Meeus. " +
             "No account, no advertising, no analytics, and nothing leaves the device except the optional address lookup for your location name.\n\n" +

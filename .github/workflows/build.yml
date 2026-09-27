@@ -52,6 +52,6 @@ jobs:
         with:
           tag_name: latest
           name: Miqaat (latest build)
-          body: "Download Miqaat.apk on the tablet and open it to install. Build ${{ github.run_number }} from ${{ github.sha }}."
+          body: "build=${{ github.run_number }}\n\nDownload Miqaat.apk on the tablet and open it to install, or use Settings › About › Check for updates inside the app."
           files: Miqaat.apk
           prerelease: false

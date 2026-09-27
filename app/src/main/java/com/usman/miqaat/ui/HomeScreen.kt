@@ -31,6 +31,7 @@ import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material.icons.outlined.NotificationsNone
 import androidx.compose.material.icons.outlined.NotificationsOff
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.SystemUpdateAlt
 import androidx.compose.material.icons.outlined.WbTwilight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -66,7 +67,9 @@ fun HomeScreen(
     onOpenSettings: () -> Unit,
     onOpenLocation: () -> Unit,
     onOpenQibla: () -> Unit,
-    onOpenAdhkar: (morning: Boolean) -> Unit
+    onOpenAdhkar: (morning: Boolean) -> Unit,
+    updateAvailable: Boolean = false,
+    onOpenAbout: () -> Unit = {}
 ) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
         // 1 unit = 1% of width, capped by height so short/wide tablets scale down instead of overlapping
@@ -109,6 +112,7 @@ fun HomeScreen(
                             if (settings.adhkarEnabled && morningWindow) Chip(Icons.Outlined.WbTwilight, "Morning adhkār", u, gold = true) { onOpenAdhkar(true) }
                             if (settings.adhkarEnabled && eveningWindow) Chip(Icons.Outlined.WbTwilight, "Evening adhkār", u, gold = true) { onOpenAdhkar(false) }
                             if (friday) Chip(Icons.Outlined.MenuBook, "Jumuʿah · Sūrat al-Kahf · ṣalawāt", u)
+                            if (updateAvailable) Chip(Icons.Outlined.SystemUpdateAlt, "Update available", u, gold = true, onClick = onOpenAbout)
                         }
                     }
                     Column(horizontalAlignment = Alignment.End) {

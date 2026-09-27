@@ -48,6 +48,7 @@ import com.usman.miqaat.azaan.AzaanScheduler
 import com.usman.miqaat.azaan.AzaanService
 import com.usman.miqaat.data.LocationRepo
 import com.usman.miqaat.data.PrayerEngine
+import com.usman.miqaat.data.Updater
 import com.usman.miqaat.ui.Amiri
 import com.usman.miqaat.ui.AzaanScreen
 import com.usman.miqaat.ui.Cormorant
@@ -91,6 +92,7 @@ class MainActivity : ComponentActivity() {
                 var settingsSection by remember { mutableStateOf(Section.TIMES) }
                 var adhkarMorning by remember { mutableStateOf(true) }
                 val phase by AzaanService.phase.collectAsState()
+                val updateState by Updater.state.collectAsState()
                 val scope = rememberCoroutineScope()
 
                 // keep-screen-on follows the setting
@@ -107,6 +109,7 @@ class MainActivity : ComponentActivity() {
                 // On every return to the foreground: refresh location (if auto) and make sure an alarm is armed.
                 LifecycleResumeEffect(Unit) {
                     AzaanScheduler.reschedule(this@MainActivity)
+                    scope.launch { Updater.check(this@MainActivity) }
                     if (settings.autoLocation && settings.setupDone && LocationRepo.hasPermission(this@MainActivity)) scope.launch { detect(this@MainActivity, store) }
                     onPauseOrDispose { }
                 }
@@ -122,7 +125,9 @@ class MainActivity : ComponentActivity() {
                                 onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
                                 onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
                                 onOpenQibla = { screen = Screen.QIBLA },
-                                onOpenAdhkar = { m -> adhkarMorning = m; screen = Screen.ADHKAR }
+                                onOpenAdhkar = { m -> adhkarMorning = m; screen = Screen.ADHKAR },
+                                updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
+                                onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS }
                             )
                             Screen.QIBLA -> QiblaScreen(settings) { screen = Screen.HOME }
                             Screen.ADHKAR -> AdhkarScreen(adhkarMorning) { screen = Screen.HOME }
