@@ -239,7 +239,7 @@ private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Uni
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(1000) } }
     @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
-    androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth().padding(horizontal = u * 3.6f, vertical = u * 2.6f), verticalArrangement = Arrangement.spacedBy(u * 1f), horizontalArrangement = Arrangement.spacedBy(u * 1.2f), itemVerticalAlignment = Alignment.CenterVertically) {
+    androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth().padding(horizontal = u * 3.6f, vertical = u * 2.6f), verticalArrangement = Arrangement.spacedBy(u * 1f), horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
         // left: narration state
         Row(Modifier.weight(1f, fill = false), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
             val narrating = when (phase) { is Phase.Azaan -> true; is Phase.Dua, is Phase.Iftar -> true; is Phase.HadithPhase -> phase.narrating; is Phase.IqamahNow -> true; else -> false }
