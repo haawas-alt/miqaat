@@ -68,6 +68,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
 
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
     val compact = maxWidth < 720.dp
+    val wide = maxWidth >= 1000.dp          // room for the Hijri range beside the title; phones in landscape are not
     val pad = if (compact) 14.dp else 28.dp
     val fontScale = androidx.compose.ui.platform.LocalDensity.current.fontScale
     val hScroll = rememberScrollState()          // one horizontal scroll shared by the header and every row
@@ -78,11 +79,11 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
             Column(Modifier.weight(1f).padding(start = 4.dp)) {
                 Row(verticalAlignment = Alignment.Bottom) {
                     Text(ym.format(DateTimeFormatter.ofPattern(if (compact) "MMM yyyy" else "MMMM yyyy", Locale.ENGLISH)), fontFamily = Cormorant, fontSize = if (compact) 26.sp else 38.sp, color = Palette.ivory, lineHeight = 40.sp)
-                    if (settings.showHijri && !compact) Text("   $hijriRange", fontFamily = Amiri, fontSize = 22.sp, color = Palette.goldSoft, modifier = Modifier.padding(bottom = 6.dp))
+                    if (settings.showHijri && wide) Text("   $hijriRange", fontFamily = Amiri, fontSize = 22.sp, color = Palette.goldSoft, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false).padding(bottom = 6.dp))
                 }
                 Text(
-                    "${settings.locationName} · ${settings.method.text} · Asr: ${settings.asrMethod.text.substringBefore('،').substringBefore(',')}",
-                    fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary
+                    (if (settings.showHijri && !wide) "$hijriRange · " else "") + "${settings.locationName} · ${settings.method.text} · Asr: ${settings.asrMethod.text.substringBefore('،').substringBefore(',')}",
+                    fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                 )
             }
             if (!compact) MonthNav(ym, today, listState, scope) { ym = it }
