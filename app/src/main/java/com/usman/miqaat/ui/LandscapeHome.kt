@@ -53,7 +53,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.usman.miqaat.R
-import com.usman.miqaat.data.AdhkarMode
 import com.usman.miqaat.data.AppSettings
 import com.usman.miqaat.data.AppTheme
 import com.usman.miqaat.data.L10n
@@ -121,7 +120,7 @@ fun LandscapeHome(
                 // ── header: one quiet line ─────────────────────────────────────────────────────────────
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Row(
-                        Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = Role.Button).padding(vertical = u * 1, end = u * 2)
+                        Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = Role.Button).padding(top = u * 1, bottom = u * 1, end = u * 2)
                             .semantics(mergeDescendants = true) { contentDescription = "Location: ${settings.locationName}. Opens location settings" },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
