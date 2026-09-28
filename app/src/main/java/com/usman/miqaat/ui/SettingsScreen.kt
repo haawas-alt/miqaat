@@ -132,7 +132,7 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
     if (compact) {
         Column(Modifier.fillMaxSize().statusBarsPadding()) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 4.dp, top = 8.dp)) {
-                IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
+                IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
                 Text("Settings", fontFamily = Cormorant, fontSize = 30.sp, color = Palette.ivory)
             }
             Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -163,7 +163,7 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
     Row(Modifier.fillMaxSize()) {
         Column(Modifier.width(300.dp).fillMaxHeight().background(Color.Black.copy(alpha = 0.18f)).padding(vertical = 20.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 12.dp, bottom = 16.dp)) {
-                IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
+                IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
                 Text("Settings", fontFamily = Cormorant, fontSize = 34.sp, color = Palette.ivory)
             }
             Section.entries.forEach { s ->
@@ -223,7 +223,7 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     SettingRow("Current location", if (s.locationSet) "%.4f, %.4f".format(s.latitude, s.longitude) else "Not set yet — detect it or choose a place below") { GoldValue(if (s.locationSet) s.locationName else "—") }
     var pickZone by remember { mutableStateOf(false) }
     val zoneWarn = s.locationSet && com.usman.miqaat.data.Setup.zoneLooksWrong(s.longitude, s.zone())
-    SettingRow("Time zone for prayer times", if (zoneWarn) "⚠ This zone is several hours away from the place above — times will be wrong until it matches." else "Must match the place above. Detected locations use the device's zone automatically.", onClick = { pickZone = true }) {
+    SettingRow("Time zone for prayer times", if (zoneWarn) "⚠ This zone is several hours away from the place above — times will be wrong until it matches." else if (s.zoneManual) "Chosen by you · automatic location refresh will not change it" else "Follows the device while that is plausible for the place; pick one here to lock it.", onClick = { pickZone = true }) {
         GoldValue((s.zoneId ?: "Device · ${java.time.ZoneId.systemDefault().id}") + " ›")
     }
     if (pickZone) ZonePicker(current = s.zoneId, onPick = { pickZone = false }, onDismiss = { pickZone = false }, store = store)
@@ -245,7 +245,7 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     (if (query.isBlank()) LocationRepo.presets else results).take(10).forEach { p ->
         Row(
             Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp))
-                .clickable { store.update { it.copy(latitude = p.lat, longitude = p.lng, locationName = p.name, locationSet = true, autoLocation = false, zoneId = p.zone) }; AzaanScheduler.reschedule(ctx); status = "Set to ${p.name}" + (if (p.zone == null) " · times shown in the device's time zone" else "") }
+                .clickable { store.update { it.copy(latitude = p.lat, longitude = p.lng, locationName = p.name, locationSet = true, autoLocation = false, zoneId = p.zone, zoneManual = false) }; AzaanScheduler.reschedule(ctx); status = "Set to ${p.name}" + (if (p.zone == null) " · times shown in the device's time zone" else "") }
                 .padding(horizontal = 8.dp, vertical = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -270,12 +270,43 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     Text("Masjid timetable", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     Text("Use your masjid's published times instead of the calculation for the days it covers. Import a CSV or text file with one line per day: date, then Fajr, Sunrise, Dhuhr, ʿAsr, Maghrib, Isha, and optionally the five iqamah times. Calculated times take over again after the last day.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary, lineHeight = 20.sp)
     var importNotes by remember { mutableStateOf<List<String>>(emptyList()) }
+    var pending by remember { mutableStateOf<PrayerEngine.ImportResult?>(null) }
     val pickSheet = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
         uri ?: return@rememberLauncherForActivityResult
         val text = runCatching { ctx.contentResolver.openInputStream(uri)?.bufferedReader()?.readText() }.getOrNull() ?: ""
         val r = PrayerEngine.parseTimetable(text, LocalDate.now().year)
         importNotes = r.notes
-        if (r.rows.isNotEmpty()) store.update { it.copy(overrides = it.overrides + r.rows, useOverrides = true) }
+        if (r.rows.isNotEmpty()) pending = r else importNotes = r.notes + "No usable rows were found in that file."
+    }
+    // Nothing becomes active until the person has seen what was read and confirmed it.
+    pending?.let { r ->
+        val days = r.rows.keys.sorted()
+        val anomalies = remember(r) { PrayerEngine.reviewTimetable(s, r.rows) }
+        val zone = s.zone().id
+        AlertDialog(
+            onDismissRequest = { pending = null }, containerColor = Palette.panelRaised,
+            title = { Text("Check the imported timetable", fontFamily = Cormorant, fontSize = 26.sp, color = Palette.ivory) },
+            text = {
+                Column(Modifier.verticalScroll(rememberScrollState())) {
+                    Text("${days.size} days · ${days.first()} → ${days.last()} · ${r.skipped} line${if (r.skipped == 1) "" else "s"} skipped" + (if (r.rows.values.any { it.size >= 11 }) " · iqamah columns found" else " · no iqamah columns"), fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory, lineHeight = 20.sp)
+                    Text("Times are read as wall-clock in $zone. Columns: Fajr, Sunrise, Dhuhr, ʿAsr, Maghrib, Isha" + (if (r.rows.values.any { it.size >= 11 }) ", then five iqamah times." else "."), fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, lineHeight = 18.sp, modifier = Modifier.padding(top = 6.dp))
+                    listOf(days.first(), days.last()).distinct().forEach { d ->
+                        val row = r.rows.getValue(d); val calc = PrayerEngine.calculated(s, LocalDate.parse(d))
+                        Text(d, fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft, modifier = Modifier.padding(top = 10.dp))
+                        Text("Sheet:  " + row.take(6).joinToString("  ") { PrayerEngine.hm(it) }, fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory)
+                        Text("Calc:   " + Prayer.entries.joinToString("  ") { PrayerEngine.clock(calc[it], true) }, fontFamily = Nunito, fontSize = 13.sp, color = Palette.textMuted)
+                    }
+                    if (anomalies.isEmpty()) Text("No anomalies found: every row is in order, no day jumps by more than 20 minutes, and Fajr and Maghrib are within 15 minutes of the calculation.", fontFamily = Nunito, fontSize = 13.sp, color = Palette.mint, lineHeight = 18.sp, modifier = Modifier.padding(top = 12.dp))
+                    else {
+                        Text("${anomalies.size} thing${if (anomalies.size == 1) "" else "s"} to check before using this:", fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Palette.gold, modifier = Modifier.padding(top = 12.dp))
+                        anomalies.forEach { Text("• $it", fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory, lineHeight = 17.sp) }
+                    }
+                    r.notes.forEach { Text(it, fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary, modifier = Modifier.padding(top = 4.dp)) }
+                }
+            },
+            confirmButton = { GoldButton(if (anomalies.isEmpty()) "Use these times" else "Use anyway") { store.update { it.copy(overrides = it.overrides + r.rows, useOverrides = true) }; AzaanScheduler.reschedule(ctx); pending = null } },
+            dismissButton = { TextButton(onClick = { pending = null }) { Text("Discard", color = Palette.textSecondary) } }
+        )
     }
     OutlinedTextField(value = s.masjidName, onValueChange = { v -> store.update { it.copy(masjidName = v) } }, placeholder = { Text("Masjid name, e.g. Lakemba Masjid") }, singleLine = true, modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp))
     val days = s.overrides.keys.sorted()
@@ -306,11 +337,20 @@ suspend fun detect(ctx: Context, store: SettingsStore): String = when (val r = L
         val loc = r.location
         // If the geocoder fails we still have a valid place: show its coordinates rather than a stale name.
         val name = LocationRepo.name(ctx, loc.latitude, loc.longitude) ?: com.usman.miqaat.data.Setup.coordLabel(loc.latitude, loc.longitude)
-        store.update { it.copy(latitude = loc.latitude, longitude = loc.longitude, locationName = name, locationSet = true, autoLocation = true, zoneId = null,
-            homeLat = it.homeLat ?: loc.latitude, homeLng = it.homeLng ?: loc.longitude) }
+        val applied = com.usman.miqaat.data.Setup.applyFix(store.value, loc.latitude, loc.longitude, name, java.time.ZoneId.systemDefault(), LocationRepo.presets)
+        store.update { applied.settings }
+        ctx.getSharedPreferences("miqaat_meta", Context.MODE_PRIVATE).edit().putLong("lastDetect", System.currentTimeMillis()).apply()
         AzaanScheduler.reschedule(ctx)
-        "Location set to $name"
+        if (applied.needsZoneChoice) "Location set to $name — the device's time zone does not match this place; choose the time zone below."
+        else "Location set to $name" + (applied.settings.zoneId?.let { " · time zone $it" } ?: "")
     }
+}
+
+/** Background refresh on resume: at most every 30 minutes, and never a source of surprise (zone rules live in Setup.applyFix). */
+suspend fun refreshIfDue(ctx: Context, store: SettingsStore) {
+    val prefs = ctx.getSharedPreferences("miqaat_meta", Context.MODE_PRIVATE)
+    if (System.currentTimeMillis() - prefs.getLong("lastDetect", 0L) < 30 * 60_000L) return
+    detect(ctx, store)
 }
 
 @Composable

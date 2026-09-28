@@ -159,7 +159,7 @@ private fun PlaceStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit, 
         Row(
             Modifier.fillMaxWidth().heightIn(min = 48.dp).clip(RoundedCornerShape(10.dp))
                 .clickable(role = androidx.compose.ui.semantics.Role.Button) {
-                    store.update { it.copy(latitude = p.lat, longitude = p.lng, locationName = p.name, locationSet = true, autoLocation = false, zoneId = p.zone) }
+                    store.update { it.copy(latitude = p.lat, longitude = p.lng, locationName = p.name, locationSet = true, autoLocation = false, zoneId = p.zone, zoneManual = false) }
                     status = "Location set to ${p.name}"
                 }
                 .padding(horizontal = 8.dp, vertical = 12.dp).semantics(mergeDescendants = true) {},
@@ -250,7 +250,7 @@ internal fun ZonePicker(current: String?, onPick: (String?) -> Unit, onDismiss: 
                     opts.forEach { z ->
                         val label = z ?: "Device · $device"
                         Text(label, fontFamily = Nunito, fontSize = 15.sp, color = if (z == current) Palette.goldSoft else Palette.ivory,
-                            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = androidx.compose.ui.semantics.Role.RadioButton) { store.update { it.copy(zoneId = z) }; onPick(z) }.padding(vertical = 12.dp))
+                            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = androidx.compose.ui.semantics.Role.RadioButton) { store.update { it.copy(zoneId = z, zoneManual = true) }; onPick(z) }.padding(vertical = 12.dp))
                     }
                 }
             }

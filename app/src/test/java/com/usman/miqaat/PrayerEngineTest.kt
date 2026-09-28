@@ -121,4 +121,17 @@ class PrayerEngineTest {
         assertTrue(PrayerEngine.isTravelling(s.copy(homeLat = -34.02, homeLng = 150.77, latitude = -37.81, longitude = 144.96)))
         assertFalse(PrayerEngine.isTravelling(s.copy(homeLat = -34.02, homeLng = 150.77)))
     }
+
+    @Test fun timetableReviewFlagsOnlyRealProblems() {
+        // Clean sheet built from the calculation itself → no anomalies.
+        val d1 = LocalDate.of(2026, 10, 10); val d2 = d1.plusDays(1)
+        fun row(d: LocalDate) = PrayerEngine.calculated(s, d).let { c -> Prayer.entries.map { c[it].hour * 60 + c[it].minute } }
+        val clean = mapOf(d1.toString() to row(d1), d2.toString() to row(d2))
+        assertTrue(PrayerEngine.reviewTimetable(s, clean).isEmpty())
+        // Fajr typed after sunrise, and Maghrib an hour off → both flagged.
+        val bad = clean + (d2.toString() to row(d2).toMutableList().also { it[0] = it[1] + 5; it[4] = it[4] + 60 })
+        val notes = PrayerEngine.reviewTimetable(s, bad)
+        assertTrue(notes.any { it.contains("Fajr") && it.contains("not before") })
+        assertTrue(notes.any { it.contains("Maghrib") && it.contains("calculated") })
+    }
 }

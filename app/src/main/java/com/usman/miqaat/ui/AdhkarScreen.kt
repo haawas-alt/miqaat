@@ -38,6 +38,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -77,7 +83,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
             // ---- list
             if (!compact) Column(Modifier.width(u * 30).fillMaxHeight().background(Color.Black.copy(alpha = 0.18f)).padding(vertical = u * 1.6f)) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = u * 1)) {
-                    IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
+                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
                     Column {
                         Text(mode.title, fontFamily = Cormorant, fontSize = (u.value * 3f).sp, color = Palette.ivory, lineHeight = (u.value * 3.2f).sp)
                         Text(mode.arabic, fontFamily = Amiri, fontSize = (u.value * 2.2f).sp, color = Palette.goldSoft)
@@ -91,8 +97,9 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                         val c = counts[d.id] ?: 0
                         val isCur = i == index
                         Row(
-                            Modifier.fillMaxWidth().background(if (isCur) Palette.gold.copy(alpha = 0.14f) else Color.Transparent)
-                                .clickable { index = i }.padding(horizontal = u * 2.2f, vertical = u * 1.1f),
+                            Modifier.fillMaxWidth().heightIn(min = 48.dp).background(if (isCur) Palette.gold.copy(alpha = 0.14f) else Color.Transparent)
+                                .selectable(selected = isCur, role = androidx.compose.ui.semantics.Role.Tab) { index = i }.padding(horizontal = u * 2.2f, vertical = u * 1.1f)
+                                .semantics(mergeDescendants = true) { stateDescription = if (c >= d.count) "Completed" else if (d.count > 1) "$c of ${d.count}" else "Not yet read" },
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Box(Modifier.size(u * 2.4f).clip(CircleShape).background(if (c >= d.count) Palette.mint else Color.White.copy(alpha = 0.1f)).border(1.dp, if (isCur) Palette.gold else Color.White.copy(alpha = 0.2f), CircleShape), contentAlignment = Alignment.Center) {
@@ -112,12 +119,12 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
             // ---- reader
             Column(
                 Modifier.weight(1f).fillMaxHeight()
-                    .clickable { if (!done) counts[cur.id] = (counts[cur.id] ?: 0) + 1; if ((counts[cur.id] ?: 0) >= cur.count && index < list.size - 1 && cur.count == 1) index++ }
+                    .clickable(onClickLabel = if (cur.count > 1) "Count one recitation" else "Mark as read") { if (!done) counts[cur.id] = (counts[cur.id] ?: 0) + 1; if ((counts[cur.id] ?: 0) >= cur.count && index < list.size - 1 && cur.count == 1) index++ }
                     .padding(horizontal = u * 4, vertical = u * 2.4f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 if (compact) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
+                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
                     Text(mode.title + "  ·  ${index + 1} of ${list.size}", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.8f))
                 }
                 Text(cur.title.uppercase(), fontFamily = Nunito, fontSize = (u.value * (if (compact) 3f else 1.3f)).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
@@ -133,8 +140,9 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.6f), modifier = Modifier.padding(top = u * 1)) {
                     val c = counts[cur.id] ?: 0
                     Box(
-                        Modifier.size(u * 7.5f).clip(CircleShape).background(if (done) Palette.mint else Palette.gold)
-                            .clickable { if (!done) counts[cur.id] = c + 1 },
+                        Modifier.size(maxOf(u * 7.5f, 56.dp)).clip(CircleShape).background(if (done) Palette.mint else Palette.gold)
+                            .clickable(role = androidx.compose.ui.semantics.Role.Button, onClickLabel = if (cur.count > 1) "Count one recitation" else "Mark as read") { if (!done) counts[cur.id] = c + 1 }
+                            .semantics { contentDescription = if (done) "Complete" else if (cur.count > 1) "${cur.count - c} remaining of ${cur.count}" else "Tap when read"; stateDescription = if (done) "Complete" else "$c of ${cur.count}"; liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite },
                         contentAlignment = Alignment.Center
                     ) {
                         if (done) Icon(Icons.Outlined.Check, null, Modifier.size(u * 3.4f), tint = Palette.night)

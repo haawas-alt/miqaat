@@ -92,3 +92,51 @@ class TrustTest {
         assertTrue(PrayerEngine.qiblaWords(277.5, null).startsWith("Qibla is at"))
     }
 }
+
+/** Re-audit P0: automatic location refresh must never undo a time zone the user chose. */
+class ZoneRefreshTest {
+    private val places = listOf(
+        com.usman.miqaat.data.Place("Sydney, NSW", -33.87, 151.21, "Australia/Sydney"),
+        com.usman.miqaat.data.Place("London, UK", 51.51, -0.13, "Europe/London"),
+        com.usman.miqaat.data.Place("Karachi, Pakistan", 24.86, 67.01, "Asia/Karachi"))
+    private val jan = Instant.parse("2026-01-15T00:00:00Z")
+    private val sydney = ZoneId.of("Australia/Sydney")
+
+    @Test fun manualZoneSurvivesRefresh() {
+        // Traveller in London, phone still on Sydney time, chose Europe/London by hand during setup.
+        val s = AppSettings(latitude = 51.5, longitude = -0.1, locationName = "London", locationSet = true, setupDone = true, zoneId = "Europe/London", zoneManual = true)
+        val r = Setup.applyFix(s, 51.52, -0.12, "London, UK", deviceZone = sydney, places = places, at = jan)
+        assertEquals("Europe/London", r.settings.zoneId)
+        assertTrue(r.settings.zoneManual)
+        assertFalse(r.needsZoneChoice)
+    }
+
+    @Test fun automaticZoneFollowsDeviceWhilePlausible() {
+        val s = AppSettings(latitude = -33.9, longitude = 151.2, locationName = "Sydney", locationSet = true, setupDone = true, zoneId = null)
+        val r = Setup.applyFix(s, -33.8, 151.0, "Parramatta, NSW", deviceZone = sydney, places = places, at = jan)
+        assertEquals(null, r.settings.zoneId)          // device zone, still plausible
+        assertFalse(r.needsZoneChoice)
+    }
+
+    @Test fun automaticZoneSwitchesToNearestKnownZoneWhenDeviceIsWrong() {
+        // Landed in London; phone still on Sydney time; zone was automatic.
+        val s = AppSettings(latitude = -33.9, longitude = 151.2, locationName = "Sydney", locationSet = true, setupDone = true, zoneId = null)
+        val r = Setup.applyFix(s, 51.51, -0.13, "London, UK", deviceZone = sydney, places = places, at = jan)
+        assertEquals("Europe/London", r.settings.zoneId)
+        assertFalse(r.needsZoneChoice)
+        assertTrue(r.moved)
+    }
+
+    @Test fun asksWhenNoPlausibleZoneIsKnown() {
+        // Somewhere in the mid-Atlantic with a Sydney phone: nothing within 600 km, previous zone kept, UI must ask.
+        val s = AppSettings(latitude = 10.0, longitude = -30.0, locationName = "Sea", locationSet = true, setupDone = true, zoneId = "Atlantic/Azores")
+        val r = Setup.applyFix(s, 10.0, -30.0, "Sea", deviceZone = sydney, places = places, at = jan)
+        assertTrue(r.needsZoneChoice)
+        assertEquals("Atlantic/Azores", r.settings.zoneId)
+    }
+
+    @Test fun smallMovesAreNotCountedAsMoves() {
+        val s = AppSettings(latitude = -33.87, longitude = 151.21, locationName = "Sydney", locationSet = true, setupDone = true)
+        assertFalse(Setup.applyFix(s, -33.871, 151.212, "Sydney", sydney, places, jan).moved)
+    }
+}

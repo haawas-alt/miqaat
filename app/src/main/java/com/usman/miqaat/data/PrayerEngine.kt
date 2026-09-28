@@ -130,6 +130,34 @@ object PrayerEngine {
      *   2026-10-04  05:15 06:37 12:58 16:07 18:22 19:38
      * Times may be 12h without AM/PM: values are read in prayer order and pushed into the afternoon as needed.
      */
+    /**
+     * Row-level review of an imported timetable before it is allowed to override the calculation.
+     * Returns human-readable anomalies: order problems, big day-to-day jumps, and rows far from the calculated times.
+     */
+    fun reviewTimetable(settings: AppSettings, rows: Map<String, List<Int>>): List<String> {
+        val out = mutableListOf<String>()
+        val days = rows.keys.sorted()
+        var prev: List<Int>? = null
+        val names = listOf("Fajr", "Sunrise", "Dhuhr", "ʿAsr", "Maghrib", "Isha")
+        for (d in days) {
+            val r = rows.getValue(d)
+            for (i in 0 until 5) if (r[i] >= r[i + 1]) out += "$d: ${names[i]} (${hm(r[i])}) is not before ${names[i + 1]} (${hm(r[i + 1])})"
+            prev?.let { p -> for (i in 0 until 6) if (kotlin.math.abs(r[i] - p[i]) > 20) out += "$d: ${names[i]} jumps ${r[i] - p[i]} min from the day before" }
+            val date = runCatching { LocalDate.parse(d) }.getOrNull()
+            if (date != null) {
+                val calc = calculated(settings.copy(jumuahEnabled = false), date)
+                listOf(0 to Prayer.FAJR, 4 to Prayer.MAGHRIB).forEach { (i, pr) ->
+                    val c = calc[pr]; val cm = c.hour * 60 + c.minute
+                    if (kotlin.math.abs(r[i] - cm) > 15) out += "$d: ${names[i]} ${hm(r[i])} is ${r[i] - cm} min from the calculated ${hm(cm)}"
+                }
+            }
+            if (r.size >= 11) for (k in 0 until 5) { val a = if (k == 0) 0 else k + 1; if (r[6 + k] < r[a]) out += "$d: ${names[a]} iqamah ${hm(r[6 + k])} is before its azaan ${hm(r[a])}" }
+            prev = r
+        }
+        return out.take(40)
+    }
+    fun hm(m: Int) = "%d:%02d".format((m / 60) % 24, m % 60)
+
     fun parseTimetable(text: String, year: Int): ImportResult {
         val rows = linkedMapOf<String, List<Int>>(); var skipped = 0; val notes = mutableListOf<String>()
         val timeRe = Regex("""\b(\d{1,2})[:.](\d{2})\s*(am|pm|AM|PM)?""")
