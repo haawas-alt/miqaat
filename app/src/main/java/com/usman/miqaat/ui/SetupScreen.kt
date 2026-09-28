@@ -121,13 +121,14 @@ private fun PlaceStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit, 
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     var status by remember { mutableStateOf<String?>(null) }
+    var statusOk by remember { mutableStateOf(false) }
     var busy by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
     var results by remember { mutableStateOf<List<Place>>(emptyList()) }
 
-    fun runDetect() { scope.launch { busy = true; status = Str[R.string.s_detecting_your_location]; status = detect(ctx, store); busy = false } }
+    fun runDetect() { scope.launch { busy = true; statusOk = false; status = Str[R.string.s_detecting_your_location]; status = detect(ctx, store); statusOk = lastDetectOk; busy = false } }
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { g ->
-        if (g.values.any { it }) runDetect() else status = LocationRepo.Problem.NO_PERMISSION.message
+        if (g.values.any { it }) runDetect() else { statusOk = false; status = Str[LocationRepo.Problem.NO_PERMISSION.messageRes] }
     }
 
     Text(Str[R.string.s_where_will_miqaat_be_used], fontFamily = Cormorant, fontSize = 30.sp, color = Palette.ivory, modifier = Modifier.semantics { heading() })
@@ -144,12 +145,12 @@ private fun PlaceStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit, 
     }
 
     Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-        GoldButton(if (busy) "Detecting…" else Str[R.string.s_use_my_location], enabled = !busy) {
+        GoldButton(if (busy) Str[R.string.s_detecting] else Str[R.string.s_use_my_location], enabled = !busy) {
             if (LocationRepo.hasPermission(ctx)) runDetect() else permission.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
         }
         Text(Str[R.string.s_one_fix_then_only_when_you], fontFamily = Nunito, fontSize = 13.sp, color = Palette.textMuted)
     }
-    status?.let { Text(it, fontFamily = Nunito, fontSize = 14.sp, color = if (it.startsWith("Location set")) Palette.mint else Palette.gold, lineHeight = 20.sp, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }) }
+    status?.let { Text(it, fontFamily = Nunito, fontSize = 14.sp, color = if (statusOk) Palette.mint else Palette.gold, lineHeight = 20.sp, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }) }
 
     Text(Str[R.string.s_or_search_for_a_place], fontFamily = Cormorant, fontSize = 22.sp, color = Palette.ivory, modifier = Modifier.padding(top = 6.dp).semantics { heading() })
     OutlinedTextField(
@@ -161,7 +162,7 @@ private fun PlaceStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit, 
             Modifier.fillMaxWidth().heightIn(min = 48.dp).clip(RoundedCornerShape(10.dp))
                 .clickable(role = androidx.compose.ui.semantics.Role.Button) {
                     store.update { it.copy(latitude = p.lat, longitude = p.lng, locationName = p.name, locationSet = true, autoLocation = false, zoneId = p.zone, zoneManual = false) }
-                    status = "Location set to ${p.name}"
+                    status = Str.get(R.string.s_location_set_to, p.name); statusOk = true
                 }
                 .padding(horizontal = 8.dp, vertical = 12.dp).semantics(mergeDescendants = true) {},
             horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
@@ -188,7 +189,7 @@ private fun ConfirmStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit
     var pickMethod by remember { mutableStateOf(false) }
 
     Text(Str[R.string.s_check_these_before_trusting_the_times], fontFamily = Cormorant, fontSize = 30.sp, color = Palette.ivory, modifier = Modifier.semantics { heading() })
-    Text("Compare today's Fajr and Maghrib with your masjid. If they differ by more than a couple of minutes, change the convention here or import your masjid's timetable later in Settings › Location.", fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary, lineHeight = 20.sp)
+    Text(Str[R.string.s_compare_todays_fajr], fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary, lineHeight = 20.sp)
 
     SettingRow(Str[R.string.s_place], Setup.coordLabel(s.latitude, s.longitude)) { GoldValue(s.locationName) }
     SettingRow(Str[R.string.s_time_zone], if (zoneWarn) Str[R.string.s_this_zone_is_hours_away_from] else if (s.zoneId == null) Str[R.string.s_using_the_device_s_zone] else Str[R.string.s_from_the_chosen_place], onClick = { pickZone = true }) {
@@ -271,7 +272,7 @@ private fun AlertsStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit,
     Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
         if (phase == null) GoldButton(Str[R.string.s_play_a_test_azaan]) { AzaanService.preview(ctx, Prayer.DHUHR) }
         else GoldButton(Str[R.string.s_stop]) { AzaanService.stop(ctx) }
-        Text("Plays at the azaan volume (${s.azaanVolume}%). Adjust it in Settings › Azaan & alerts.", fontFamily = Nunito, fontSize = 13.sp, color = Palette.textMuted, modifier = Modifier.weight(1f))
+        Text(Str.get(R.string.s_plays_at_azaan_volume, s.azaanVolume), fontFamily = Nunito, fontSize = 13.sp, color = Palette.textMuted, modifier = Modifier.weight(1f))
     }
     Spacer(Modifier.height(4.dp))
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {

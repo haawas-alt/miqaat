@@ -114,7 +114,7 @@ fun PortraitHome(
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(u * 2)) {
                         if (settings.kidsMode) RoundIcon(Icons.Outlined.MenuBook, u, ivory, onOpenLearn, "Learn Salah")
-                        RoundIcon(Icons.Outlined.CalendarMonth, u, ivory, onOpenTimetable, "Monthly timetable")
+                        RoundIcon(Icons.Outlined.CalendarMonth, u, ivory, onOpenTimetable, Str[R.string.s_monthly_timetable])
                         RoundIcon(Icons.Outlined.Settings, u, ivory, onOpenSettings, "Settings")
                     }
                 }

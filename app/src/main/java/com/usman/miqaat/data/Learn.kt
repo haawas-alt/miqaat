@@ -17,10 +17,10 @@ object Learn {
         SALAM("Salām", "Seated, turning the head to the right shoulder, then to the left")
     }
 
-    enum class Lesson(val title: String, val rakat: Int, val subtitle: String) {
-        FAJR("Fajr", 2, "2 rakʿahs · dawn"),
-        MAGHRIB("Maghrib", 3, "3 rakʿahs · sunset"),
-        FOUR("Dhuhr · ʿAsr · Isha", 4, "4 rakʿahs")
+    enum class Lesson(val title: String, val rakat: Int, val subtitle: String, val titleRes: Int, val subtitleRes: Int) {
+        FAJR("Fajr", 2, "2 rakʿahs · dawn", com.usman.miqaat.R.string.l_fajr, com.usman.miqaat.R.string.l_fajr_sub),
+        MAGHRIB("Maghrib", 3, "3 rakʿahs · sunset", com.usman.miqaat.R.string.l_maghrib, com.usman.miqaat.R.string.l_maghrib_sub),
+        FOUR("Dhuhr · ʿAsr · Isha", 4, "4 rakʿahs", com.usman.miqaat.R.string.l_four, com.usman.miqaat.R.string.l_four_sub)
     }
 
     data class Action(val rakah: Int, val step: Adhkar.Step, val posture: Posture, val cue: String)

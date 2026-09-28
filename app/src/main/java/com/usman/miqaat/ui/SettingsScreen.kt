@@ -223,7 +223,7 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     }
 
     Heading(Str[R.string.s_location], Str[R.string.s_prayer_times_are_calculated_for_these])
-    SettingRow("Current location", if (s.locationSet) "%.4f, %.4f".format(s.latitude, s.longitude) else "Not set yet — detect it or choose a place below") { GoldValue(if (s.locationSet) s.locationName else "—") }
+    SettingRow(Str[R.string.s_current_location], if (s.locationSet) "%.4f, %.4f".format(s.latitude, s.longitude) else Str[R.string.s_not_set_yet_detect]) { GoldValue(if (s.locationSet) s.locationName else "—") }
     var pickZone by remember { mutableStateOf(false) }
     val zoneWarn = s.locationSet && (s.zoneNeedsReview || com.usman.miqaat.data.Setup.zoneLooksWrong(s.longitude, s.zone()))
     SettingRow(Str[R.string.s_time_zone_for_prayer_times], if (zoneWarn) Str[R.string.s_this_zone_is_several_hours_away] else if (s.zoneManual) Str[R.string.s_chosen_by_you_automatic_location_refresh] else Str[R.string.s_follows_the_device_while_that_is], onClick = { pickZone = true }) {
@@ -234,7 +234,7 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
         Toggle(s.autoLocation) { on -> store.update { it.copy(autoLocation = on) }; if (on) detectNow() }
     }
     Row(Modifier.padding(vertical = 14.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        GoldButton(if (busy) "Detecting…" else Str[R.string.s_detect_now], enabled = !busy) { detectNow() }
+        GoldButton(if (busy) Str[R.string.s_detecting] else Str[R.string.s_detect_now], enabled = !busy) { detectNow() }
     }
     if (status.isNotEmpty()) Text(status, fontFamily = Nunito, fontSize = 14.sp, color = Palette.goldSoft, modifier = Modifier.padding(bottom = 8.dp))
 
@@ -334,8 +334,11 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
  * On failure nothing is changed and the reason is returned — a failed detection must never
  * leave a previous or placeholder city looking like the user's own.
  */
+/** True after the most recent [detect] call succeeded; lets callers colour the status line without parsing it. */
+@Volatile var lastDetectOk = false
+
 suspend fun detect(ctx: Context, store: SettingsStore): String = when (val r = LocationRepo.fix(ctx)) {
-    is LocationRepo.Fix.Failed -> r.why.message
+    is LocationRepo.Fix.Failed -> { lastDetectOk = false; Str[r.why.messageRes] }
     is LocationRepo.Fix.Ok -> {
         val loc = r.location
         // If the geocoder fails we still have a valid place: show its coordinates rather than a stale name.
@@ -344,8 +347,9 @@ suspend fun detect(ctx: Context, store: SettingsStore): String = when (val r = L
         store.update { applied.settings }
         ctx.getSharedPreferences("miqaat_meta", Context.MODE_PRIVATE).edit().putLong("lastDetect", System.currentTimeMillis()).apply()
         AzaanScheduler.reschedule(ctx)
-        if (applied.needsZoneChoice) "Location set to $name — the device's time zone does not match this place; choose the time zone below."
-        else "Location set to $name" + (applied.settings.zoneId?.let { " · time zone $it" } ?: "")
+        lastDetectOk = true
+        if (applied.needsZoneChoice) Str.get(R.string.s_location_set_zone_mismatch, name)
+        else Str.get(R.string.s_location_set_to, name) + (applied.settings.zoneId?.let { Str.get(R.string.s_time_zone_x, it) } ?: "")
     }
 }
 
@@ -465,13 +469,13 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
         Str[R.string.s_two_recordings_are_built_in_one],
         fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary
     )
-    SettingRow("Azaan file", s.azaanUri?.let { Uri.parse(it).lastPathSegment } ?: "Built-in", onClick = { pickFile.launch(arrayOf("audio/*")) }) {
+    SettingRow(Str[R.string.s_azaan_file], s.azaanUri?.let { Uri.parse(it).lastPathSegment } ?: Str[R.string.s_built_in], onClick = { pickFile.launch(arrayOf("audio/*")) }) {
         Row {
             if (s.azaanUri != null) TextButton(onClick = { store.update { it.copy(azaanUri = null) } }) { Text(Str[R.string.s_reset], color = Palette.textSecondary) }
             Value(Str[R.string.s_choose])
         }
     }
-    SettingRow("Fajr azaan file", s.fajrAzaanUri?.let { Uri.parse(it).lastPathSegment } ?: "Same as above", onClick = { pickFajr.launch(arrayOf("audio/*")) }) {
+    SettingRow(Str[R.string.s_fajr_azaan_file], s.fajrAzaanUri?.let { Uri.parse(it).lastPathSegment } ?: Str[R.string.s_same_as_above], onClick = { pickFajr.launch(arrayOf("audio/*")) }) {
         Row {
             if (s.fajrAzaanUri != null) TextButton(onClick = { store.update { it.copy(fajrAzaanUri = null) } }) { Text(Str[R.string.s_reset], color = Palette.textSecondary) }
             Value(Str[R.string.s_choose])
@@ -555,16 +559,16 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
         Chips(AppTheme.entries.map { it.text }, AppTheme.entries.indexOf(s.theme)) { i -> store.update { it.copy(theme = AppTheme.entries[i]) } }
     }
     Spacer(Modifier.height(14.dp))
-    Text("Azaan", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text(Str[R.string.s_azaan], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     SettingRow(Str[R.string.s_everything_exactly_as_at_prayer_time], Str[R.string.s_azaan_dua_hadith_back_to_the]) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            GoldButton("Fajr") { AzaanService.playFull(ctx, Prayer.FAJR) }
-            GoldButton("Maghrib") { AzaanService.playFull(ctx, Prayer.MAGHRIB) }
+            GoldButton(Str[R.string.s_fajr]) { AzaanService.playFull(ctx, Prayer.FAJR) }
+            GoldButton(Str[R.string.s_maghrib]) { AzaanService.playFull(ctx, Prayer.MAGHRIB) }
         }
     }
     SettingRow(Str[R.string.s_azaan_recording], Str[R.string.s_plays_the_full_recording_with_the]) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            GoldButton("Fajr") { AzaanService.preview(ctx, Prayer.FAJR) }
+            GoldButton(Str[R.string.s_fajr]) { AzaanService.preview(ctx, Prayer.FAJR) }
             GoldButton(Str[R.string.s_other_prayers]) { AzaanService.preview(ctx, Prayer.MAGHRIB) }
         }
     }
@@ -667,7 +671,7 @@ private fun HijriSection(store: SettingsStore, s: AppSettings) {
     val h = PrayerEngine.hijri(LocalDate.now(s.zone()), s.hijriOffsetDays)
     Heading(Str[R.string.s_hijri_calendar], Str[R.string.s_dates_follow_the_umm_al_qura])
     SettingRow(Str[R.string.s_show_hijri_date], Str[R.string.s_on_the_home_screen_and_timetable]) { Toggle(s.showHijri) { on -> store.update { it.copy(showHijri = on) } } }
-    SettingRow("Adjustment", "Today is ${h.english}") {
+    SettingRow(Str[R.string.s_adjustment], Str.get(R.string.s_today_is_x, h.english)) {
         Stepper(s.hijriOffsetDays, -2, 2, 1, Str[R.string.s_day], signed = true) { v -> store.update { it.copy(hijriOffsetDays = v) } }
     }
     val tomorrow = PrayerEngine.hijri(LocalDate.now(s.zone()).plusDays(1), s.hijriOffsetDays)
@@ -675,7 +679,7 @@ private fun HijriSection(store: SettingsStore, s: AppSettings) {
         Spacer(Modifier.height(14.dp))
         Text(Str[R.string.s_moon_sighting_tonight], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
         Text(
-            if (tomorrow.day == 1) "The calendar already turns to ${tomorrow.english.substringAfter(' ')} tomorrow. If the moon was not sighted in your community, complete 30 days instead."
+            if (tomorrow.day == 1) Str.get(R.string.s_calendar_already_turns, tomorrow.english.substringAfter(' '))
             else Str[R.string.s_tomorrow_is_day_30_by_calculation],
             fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary, lineHeight = 20.sp
         )
@@ -722,18 +726,18 @@ private fun AboutSection(s: AppSettings) {
     androidx.lifecycle.compose.LifecycleResumeEffect(Unit) { tick++; onPauseOrDispose { } }
     val canInstall = remember(tick) { Updater.canInstall(ctx) }
     Heading(Str[R.string.s_about_miqaat], Str[R.string.s_an_appointed_time])
-    Text("Version ${Updater.currentName} · build ${Updater.currentBuild} · ${if (Updater.enabled) "direct-download edition" else "Google Play edition"}", fontFamily = Nunito, fontSize = 15.sp, color = Palette.goldSoft)
-    Text("Built from commit ${com.usman.miqaat.BuildConfig.GIT_SHA.take(12)} · release tag ${com.usman.miqaat.BuildConfig.BUILD_TAG}. The SHA-256 of every release is published next to it on GitHub.", fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, lineHeight = 18.sp)
+    Text(Str.get(R.string.s_version_line, Updater.currentName, Updater.currentBuild, Str[if (Updater.enabled) R.string.s_direct_download_edition else R.string.s_google_play_edition]), fontFamily = Nunito, fontSize = 15.sp, color = Palette.goldSoft)
+    Text(Str.get(R.string.s_built_from_commit, com.usman.miqaat.BuildConfig.GIT_SHA.take(12), com.usman.miqaat.BuildConfig.BUILD_TAG), fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, lineHeight = 18.sp)
     Spacer(Modifier.height(10.dp))
     if (!Updater.enabled) SettingRow(Str[R.string.s_updates], Str[R.string.s_this_edition_is_updated_by_google]) { Value(Str[R.string.s_play]) }
     else when (val u = up) {
         is Updater.State.Available -> {
-            SettingRow("Update available: version ${u.info.versionName}", if (canInstall) Str[R.string.s_downloads_from_github_and_opens_the] else Str[R.string.s_first_allow_miqaat_to_install_updates]) {
+            SettingRow(Str.get(R.string.s_update_available_version, u.info.versionName), if (canInstall) Str[R.string.s_downloads_from_github_and_opens_the] else Str[R.string.s_first_allow_miqaat_to_install_updates]) {
                 if (canInstall) GoldButton(Str[R.string.s_download_install]) { Updater.download(ctx, u.info) }
                 else GoldButton(Str[R.string.s_allow_installs]) { Updater.openInstallPermission(ctx) }
             }
         }
-        is Updater.State.Downloading -> SettingRow("Downloading version ${u.info.versionName}…", Str[R.string.s_the_installer_opens_automatically_when_it]) { Value("…") }
+        is Updater.State.Downloading -> SettingRow(Str.get(R.string.s_downloading_version, u.info.versionName), Str[R.string.s_the_installer_opens_automatically_when_it]) { Value("…") }
         is Updater.State.Ready -> SettingRow(Str[R.string.s_update_downloaded], Str[R.string.s_tap_if_the_installer_didn_t]) { GoldButton(Str[R.string.s_install]) { Updater.install(ctx, u.file) } }
         is Updater.State.Failed -> SettingRow(Str[R.string.s_update_check_failed], u.reason) { GoldButton(Str[R.string.s_try_again]) { scope.launch { Updater.check(ctx, force = true) } } }
         Updater.State.Checking -> SettingRow(Str[R.string.s_checking_for_updates], null) { Value("…") }

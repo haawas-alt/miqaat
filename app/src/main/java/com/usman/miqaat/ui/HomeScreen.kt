@@ -151,7 +151,7 @@ fun HomeScreen(
                             if (!alarmsOk) Chip(Icons.Outlined.Info, Str[R.string.s_azaan_may_be_late_fix], u, gold = true, font = F, onClick = onOpenSettings)
                             if (settings.zoneNeedsReview) Chip(Icons.Outlined.Info, Str[R.string.s_time_zone_needs_checking], u, gold = true, font = F, onClick = onOpenLocation)
                             if (settings.travellerMode && PrayerEngine.isTravelling(settings)) Chip(Icons.Outlined.Flight, "Travelling · %.0f km from home".format(PrayerEngine.distanceKm(settings.homeLat!!, settings.homeLng!!, settings.latitude, settings.longitude)), u, gold = true, font = F, onClick = onOpenLocation)
-                            if (state.today.fromMasjid) Chip(Icons.Outlined.LocationOn, settings.masjidName.ifBlank { "Masjid timetable" }, u, font = F, onClick = onOpenLocation)
+                            if (state.today.fromMasjid) Chip(Icons.Outlined.LocationOn, settings.masjidName.ifBlank { Str[R.string.s_masjid_timetable] }, u, font = F, onClick = onOpenLocation)
                         }
                     }
                     Column(horizontalAlignment = Alignment.End) {

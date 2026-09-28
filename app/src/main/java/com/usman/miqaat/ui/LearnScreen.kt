@@ -142,12 +142,12 @@ private fun Library(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) 
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 24.dp).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text("الصَّلَاة", fontFamily = c.arabic, fontSize = 44.sp, color = c.primary, modifier = Modifier.semantics { contentDescription = Str[R.string.s_as_salah_the_prayer] })
             Text(Str[R.string.s_one_common_form_of_the_prayer], fontFamily = Nunito, fontSize = 14.sp, lineHeight = 20.sp, color = c.textSecondary)
-            if (p.lesson != null) LibraryCard(c, "Continue · ${p.lesson.title}", "Resume at step ${p.index + 1} of ${Learn.actions(p.lesson).size}", primary = true) { onLesson(p.lesson) }
+            if (p.lesson != null) LibraryCard(c, Str.get(R.string.s_continue_x, Str[p.lesson.titleRes]), Str.get(R.string.s_resume_at_step, p.index + 1, Learn.actions(p.lesson).size), primary = true) { onLesson(p.lesson) }
             Text(Str[R.string.s_learn_a_complete_prayer], fontFamily = c.display, fontSize = if (c.kiswah) 13.sp else 22.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
             Learn.Lesson.entries.forEach { l ->
-                LibraryCard(c, l.title, l.subtitle + " · ${Learn.actions(l).size} steps", done = l in p.completed) { onLesson(l) }
+                LibraryCard(c, Str[l.titleRes], Str[l.subtitleRes] + " · " + Str.get(R.string.s_n_steps, Learn.actions(l).size), done = l in p.completed) { onLesson(l) }
             }
-            Text("Practise", fontFamily = c.display, fontSize = if (c.kiswah) 13.sp else 22.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
+            Text(Str[R.string.s_practise], fontFamily = c.display, fontSize = if (c.kiswah) 13.sp else 22.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
             LibraryCard(c, Str[R.string.s_the_words], Str[R.string.s_the_twelve_texts_of_the_prayer], onClick = onWords)
             LibraryCard(c, Str[R.string.s_the_movements], Str[R.string.s_six_positions_what_each_looks_like], onClick = onMoves)
             Text(Str[R.string.s_audio_is_the_device_s_own], fontFamily = Nunito, fontSize = 12.sp, lineHeight = 17.sp, color = c.textSecondary, modifier = Modifier.padding(top = 10.dp))
@@ -188,7 +188,7 @@ private fun LessonView(c: LearnColors, lesson: Learn.Lesson, startAt: Int, onExi
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val wide = maxWidth > 720.dp
         Column(Modifier.fillMaxSize()) {
-            TopBar(c, lesson.title, onExit) { Text("${i + 1} / ${actions.size}", fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary) }
+            TopBar(c, Str[lesson.titleRes], onExit) { Text("${i + 1} / ${actions.size}", fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary) }
             RakahMap(c, lesson, actions, i, Modifier.padding(horizontal = 20.dp).semantics { contentDescription = where; liveRegion = LiveRegionMode.Polite })
             val figure: @Composable (Modifier) -> Unit = { m -> PostureCard(c, a.posture, a.cue, m) }
             val words: @Composable (Modifier) -> Unit = { m -> WordsCard(c, a.step, audio, m) }

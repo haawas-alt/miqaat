@@ -57,11 +57,11 @@ object LocationRepo {
     )
 
     /** Why a fix could not be obtained, in words the setup screen can show. */
-    enum class Problem(val message: String) {
-        NO_PERMISSION("Location permission was not granted. You can search for your city instead."),
-        DISABLED("Location is turned off on this device. Turn it on in Android settings, or search for your city."),
-        TIMEOUT("No location fix within 20 seconds. Move near a window or search for your city."),
-        UNAVAILABLE("This device has no location provider. Search for your city instead.")
+    enum class Problem(val message: String, val messageRes: Int) {
+        NO_PERMISSION("Location permission was not granted. You can search for your city instead.", com.usman.miqaat.R.string.p_no_permission),
+        DISABLED("Location is turned off on this device. Turn it on in Android settings, or search for your city.", com.usman.miqaat.R.string.p_disabled),
+        TIMEOUT("No location fix within 20 seconds. Move near a window or search for your city.", com.usman.miqaat.R.string.p_timeout),
+        UNAVAILABLE("This device has no location provider. Search for your city instead.", com.usman.miqaat.R.string.p_unavailable)
     }
 
     sealed class Fix { data class Ok(val location: Location) : Fix(); data class Failed(val why: Problem) : Fix() }
