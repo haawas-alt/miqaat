@@ -112,7 +112,9 @@ class MainActivity : ComponentActivity() {
                 // tick once a second so the countdown and sky stay current
                 var now by remember { mutableStateOf(ZonedDateTime.now()) }
                 LaunchedEffect(settings.zoneId) { while (true) { now = ZonedDateTime.now(settings.zone()); delay(1000L - (System.currentTimeMillis() % 1000)) } }
-                val state = remember(settings, now.withSecond(0).withNano(0)) { PrayerEngine.state(settings, now) }
+                // Rebuilt once a minute, except in the last minute before (or first minute after) an azaan, when it ticks every second.
+                val coarse = remember(settings, now.withSecond(0).withNano(0)) { PrayerEngine.state(settings, now) }
+                val state = if (coarse.delta.seconds < 62 || java.time.Duration.between(now, coarse.nextTime).seconds < 62) remember(settings, now) { PrayerEngine.state(settings, now) } else coarse
 
                 // On every return to the foreground: refresh location (if auto) and make sure an alarm is armed.
                 val ready = com.usman.miqaat.data.Setup.ready(settings)

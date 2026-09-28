@@ -25,6 +25,7 @@ object L10n {
 
     fun duration(s: AppSettings, d: Duration): String {
         if (!isUrdu(s)) return PrayerEngine.humanDuration(d)
+        if (d.abs().seconds < 60) return "${d.abs().seconds} سیکنڈ"
         val total = d.abs().toMinutes(); val h = total / 60; val m = total % 60
         return when { h == 0L -> "$m منٹ"; m == 0L -> "$h گھنٹے"; else -> "$h گھنٹے $m منٹ" }
     }

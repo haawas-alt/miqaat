@@ -341,6 +341,8 @@ object PrayerEngine {
         if (p == Prayer.FAJR && state.current == Prayer.ISHA) state.nextTime else state.today[p]
 
     fun humanDuration(d: Duration): String {
+        val secs = d.abs().seconds
+        if (secs < 60) return "$secs s"          // the last minute counts down second by second
         val total = d.abs().toMinutes()
         val h = total / 60
         val m = total % 60

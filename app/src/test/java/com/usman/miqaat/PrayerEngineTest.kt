@@ -61,6 +61,8 @@ class PrayerEngineTest {
         assertEquals("in 1 h 5 min", PrayerEngine.relative(now.plusMinutes(65), now))
         assertEquals("40 min ago", PrayerEngine.relative(now.minusMinutes(40), now))
         assertEquals("2 h", PrayerEngine.humanDuration(Duration.ofHours(2)))
+        assertEquals("in 42 s", PrayerEngine.relative(now.plusSeconds(42), now))     // last minute counts in seconds
+        assertEquals("1 min", PrayerEngine.humanDuration(Duration.ofSeconds(60)))
     }
 
     @Test fun endTimesAndMidnight() {
