@@ -117,3 +117,8 @@ Settings › About › Content sources from "Unsigned" to "Reviewed by … on �
 
 ## History
 - 2026.09-a — first structured pack; wording changes J1–J7 made in the direction of *more* caution; no Arabic text, source or calculation changed. Unsigned.
+
+
+## Addendum · Learn Ṣalāh recordings (28 Sep 2026)
+
+The twelve Learn Ṣalāh texts (`res/raw/learn_01.mp3` … `learn_12.mp3`) are now human recitations supplied by the app owner, replacing device text-to-speech. Files were loudness-normalised (−16 LUFS) and trimmed of leading/trailing silence only; no other processing. Reciter to be credited in About once confirmed. Reviewer: please listen to each against the printed text in J6.

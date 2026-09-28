@@ -544,4 +544,5 @@
     <string name="s_boost_6">+6 dB</string>
     <string name="s_boost_12">+12 dB</string>
     <string name="s_boost_18">+18 dB</string>
+    <string name="s_recordings_bundled">The words are human recitations bundled in the app. Recordings help with pronunciation; learn the prayer itself with a teacher or at your masjid.</string>
 </resources>

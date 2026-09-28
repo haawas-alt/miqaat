@@ -150,7 +150,9 @@ private fun Library(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) 
             Text(Str[R.string.s_practise], fontFamily = c.display, fontSize = if (c.kiswah) 13.sp else 22.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
             LibraryCard(c, Str[R.string.s_the_words], Str[R.string.s_the_twelve_texts_of_the_prayer], onClick = onWords)
             LibraryCard(c, Str[R.string.s_the_movements], Str[R.string.s_six_positions_what_each_looks_like], onClick = onMoves)
-            Text(Str[R.string.s_audio_is_the_device_s_own], fontFamily = Nunito, fontSize = 12.sp, lineHeight = 17.sp, color = c.textSecondary, modifier = Modifier.padding(top = 10.dp))
+            val ctx = androidx.compose.ui.platform.LocalContext.current
+            val allRecorded = remember { (1..12).all { ctx.resources.getIdentifier("learn_%02d".format(it), "raw", ctx.packageName) != 0 } }
+            Text(Str[if (allRecorded) R.string.s_recordings_bundled else R.string.s_audio_is_the_device_s_own], fontFamily = Nunito, fontSize = 12.sp, lineHeight = 17.sp, color = c.textSecondary, modifier = Modifier.padding(top = 10.dp))
             if (p.completed.isNotEmpty() || p.lesson != null) Text(Str[R.string.s_reset_progress], fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary, modifier = Modifier.heightIn(min = 48.dp).clickable(role = Role.Button, onClick = onReset).padding(vertical = 14.dp))
         }
     }
