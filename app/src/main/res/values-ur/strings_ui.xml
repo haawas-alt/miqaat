@@ -549,4 +549,6 @@
     <string name="s_learn_recitation_detail">بارہ متون کی تلاوت عبد الرحمٰن عثمان ضیاء نے اس ایپ کے لیے ریکارڈ کی ہے۔</string>
     <string name="s_recited_by_named">تلاوت: عبد الرحمٰن عثمان ضیاء · شامل شدہ ریکارڈنگ</string>
     <string name="s_why_this_time">یہ وقت کیوں؟</string>
+    <string name="s_play_one_hadith">ایک حدیث چلائیں</string>
+    <string name="s_play_one_hadith_detail">نمبر (1–36) منتخب کریں تاکہ اس کی عربی اور انگریزی ریکارڈنگ سنیں؛ روزانہ کی ترتیب متاثر نہیں ہوتی</string>
 </resources>

@@ -578,6 +578,13 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
         }
     }
     SettingRow(Str[R.string.s_full_sequence_after_azaan], Str[R.string.s_dua_after_azaan_hadith_back_to]) { GoldButton("Start") { AzaanService.previewAfter(ctx, Prayer.DHUHR) } }
+    var hadithNo by remember { mutableStateOf(1) }
+    SettingRow(Str[R.string.s_play_one_hadith], Str[R.string.s_play_one_hadith_detail]) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Stepper(hadithNo, 1, HadithLibrary.all.size, 1, "") { v -> hadithNo = v }
+            GoldButton(Str[R.string.s_play]) { AzaanService.previewHadith(ctx, hadithNo) }
+        }
+    }
     SettingRow(Str[R.string.s_rama_n_maghrib_sequence], Str[R.string.s_iftar_dua_dua_after_azaan_hadith]) { GoldButton("Start") { AzaanService.previewAfter(ctx, Prayer.MAGHRIB) } }
     Spacer(Modifier.height(14.dp))
     Text(Str[R.string.s_iqamah], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)

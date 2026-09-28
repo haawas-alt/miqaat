@@ -84,6 +84,7 @@ class AzaanService : Service() {
             ACTION_REMINDER -> { if (prayer != null) showReminder(prayer, intent.getStringExtra(AzaanScheduler.EXTRA_NOTE)); stopSelf(); return START_NOT_STICKY }
             ACTION_PLAY, ACTION_PREVIEW -> if (prayer != null) startAzaan(prayer, preview = intent.action == ACTION_PREVIEW)
             ACTION_PREVIEW_AFTER -> if (prayer != null) { begin(prayer); startDua(prayer) }
+            ACTION_PREVIEW_HADITH -> if (prayer != null) { forcedHadith = intent.getIntExtra(EXTRA_HADITH, 0); begin(prayer); startHadith(prayer) }
             ACTION_IQAMAH -> if (prayer != null) startIqamahCountdown(prayer, intent.getIntExtra(EXTRA_SECONDS, -1))
             ACTION_IQAMAH_NOW -> if (prayer != null) { begin(prayer); startIqamahNow(prayer) }
             ACTION_QUIET -> if (prayer != null) { begin(prayer); startQuiet(prayer) }
@@ -178,10 +179,14 @@ class AzaanService : Service() {
         else handler.postDelayed({ if (seq == sequenceId && _phase.value is Phase.Dua) startHadith(prayer) }, 120_000)
     }
 
+    /** A specific hadith, chosen from Settings › Test & preview; does not advance the rotation. */
+    private var forcedHadith: Int = 0
+
     private fun startHadith(prayer: Prayer) {
         handler.removeCallbacksAndMessages(null)
         val settings = (application as MiqaatApp).settings.value
-        val h = HadithLibrary.next(this)
+        val h = HadithLibrary.all.firstOrNull { it.id == forcedHadith } ?: HadithLibrary.next(this)
+        forcedHadith = 0
         com.usman.miqaat.data.Health.log(this, com.usman.miqaat.data.Health.Kind.INFO, "Hadith #${h.id} shown", h.source)
         val startedAt = System.currentTimeMillis()
         val endsAt = startedAt + settings.hadithMinutes.coerceAtLeast(1) * 60_000L
@@ -445,6 +450,8 @@ class AzaanService : Service() {
         const val ACTION_PLAY = "com.usman.miqaat.PLAY"
         const val ACTION_PREVIEW = "com.usman.miqaat.PREVIEW"
         const val ACTION_PREVIEW_AFTER = "com.usman.miqaat.PREVIEW_AFTER"
+        const val ACTION_PREVIEW_HADITH = "com.usman.miqaat.PREVIEW_HADITH"
+        const val EXTRA_HADITH = "hadith"
         const val ACTION_REMINDER = "com.usman.miqaat.REMINDER"
         const val ACTION_STOP = "com.usman.miqaat.STOP"
         const val ACTION_SKIP = "com.usman.miqaat.SKIP"
@@ -472,5 +479,8 @@ class AzaanService : Service() {
             ctx, Intent(ctx, AzaanService::class.java).setAction(ACTION_PLAY).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name))
         fun previewAfter(ctx: Context, prayer: Prayer) = androidx.core.content.ContextCompat.startForegroundService(
             ctx, Intent(ctx, AzaanService::class.java).setAction(ACTION_PREVIEW_AFTER).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name))
+        /** Plays one chosen hadith (Arabic then English recording) on the after-azaan screen, without advancing the rotation. */
+        fun previewHadith(ctx: Context, number: Int) = androidx.core.content.ContextCompat.startForegroundService(
+            ctx, Intent(ctx, AzaanService::class.java).setAction(ACTION_PREVIEW_HADITH).putExtra(AzaanScheduler.EXTRA_PRAYER, Prayer.DHUHR.name).putExtra(EXTRA_HADITH, number))
     }
 }
