@@ -76,6 +76,9 @@ private enum class Step(val title: String) { WELCOME("Welcome"), PLACE(Str[R.str
 fun SetupScreen(store: SettingsStore, settings: AppSettings, onDone: () -> Unit) {
     var step by rememberSaveable { mutableStateOf(Step.WELCOME) }
     val ctx = LocalContext.current
+    // Each step starts at the top — the card's scroll position used to carry over from the previous step.
+    val scroll = rememberScrollState()
+    LaunchedEffect(step) { scroll.scrollTo(0) }
     Box(Modifier.fillMaxSize().background(Palette.night)) {
         GirihLattice(Modifier.fillMaxSize(), tile = 90f, alpha = 0.07f)
         Column(Modifier.fillMaxSize().padding(horizontal = 16.dp).padding(top = 24.dp, bottom = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -84,11 +87,11 @@ fun SetupScreen(store: SettingsStore, settings: AppSettings, onDone: () -> Unit)
                 Step.entries.forEach { s -> Box(Modifier.size(width = 34.dp, height = 4.dp).clip(RoundedCornerShape(2.dp)).background(if (s.ordinal <= step.ordinal) Palette.gold else Palette.line)) }
             }
             Column(
-                Modifier.weight(1f).fillMaxWidth().widthIn(max = 640.dp).clip(RoundedCornerShape(24.dp)).background(Palette.panelRaised).padding(horizontal = 24.dp, vertical = 22.dp).verticalScroll(rememberScrollState()),
+                Modifier.weight(1f).fillMaxWidth().widthIn(max = 640.dp).clip(RoundedCornerShape(24.dp)).background(Palette.panelRaised).padding(horizontal = 24.dp, vertical = 22.dp).verticalScroll(scroll),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 when (step) {
-                    Step.WELCOME -> Welcome { step = Step.PLACE }
+                    Step.WELCOME -> Welcome(store, settings) { step = Step.PLACE }
                     Step.PLACE -> PlaceStep(store, settings, onBack = { step = Step.WELCOME }, onNext = { step = Step.CONFIRM })
                     Step.CONFIRM -> ConfirmStep(store, settings, onBack = { step = Step.PLACE }, onNext = { step = Step.ALERTS })
                     Step.ALERTS -> AlertsStep(store, settings, onBack = { step = Step.CONFIRM }, onFinish = {
@@ -103,8 +106,10 @@ fun SetupScreen(store: SettingsStore, settings: AppSettings, onDone: () -> Unit)
 }
 
 @Composable
-private fun Welcome(onNext: () -> Unit) {
+private fun Welcome(store: SettingsStore, s: AppSettings, onNext: () -> Unit) {
     Text("ميقات", fontFamily = Amiri, fontSize = 56.sp, color = Palette.goldSoft, modifier = Modifier.semantics { contentDescription = "Miqaat" })
+    // Language first, so an Urdu reader never has to get through setup in English.
+    Chips(com.usman.miqaat.data.Language.entries.map { it.label }, com.usman.miqaat.data.Language.entries.indexOf(s.language)) { i -> store.update { it.copy(language = com.usman.miqaat.data.Language.entries[i]) } }
     Text(Str[R.string.s_as_sal_mu_alaykum], fontFamily = Cormorant, fontSize = 34.sp, color = Palette.ivory, modifier = Modifier.semantics { heading() })
     Text(
         Str[R.string.s_miqaat_is_a_prayer_clock_it] +
@@ -138,9 +143,12 @@ private fun PlaceStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit, 
         Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(Palette.gold.copy(alpha = 0.14f)).padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(s.locationName, fontFamily = Nunito, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
-                Text(Setup.coordLabel(s.latitude, s.longitude), fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary)
+                val coords = Setup.coordLabel(s.latitude, s.longitude)
+                if (coords != s.locationName) Text(coords, fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary)
+                Text(Str[R.string.s_chosen], fontFamily = Nunito, fontSize = 13.sp, color = Palette.mint)
             }
-            Text(Str[R.string.s_chosen], fontFamily = Nunito, fontSize = 14.sp, color = Palette.mint)
+            // The preset list below is long on a phone; offer Next right here so nobody has to hunt for it.
+            GoldButton(Str[R.string.s_next], onClick = onNext)
         }
     }
 
@@ -191,7 +199,7 @@ private fun ConfirmStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit
     Text(Str[R.string.s_check_these_before_trusting_the_times], fontFamily = Cormorant, fontSize = 30.sp, color = Palette.ivory, modifier = Modifier.semantics { heading() })
     Text(Str[R.string.s_compare_todays_fajr], fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary, lineHeight = 20.sp)
 
-    SettingRow(Str[R.string.s_place], Setup.coordLabel(s.latitude, s.longitude)) { GoldValue(s.locationName) }
+    SettingRow(Str[R.string.s_place], Setup.coordLabel(s.latitude, s.longitude).takeIf { it != s.locationName }) { GoldValue(s.locationName) }
     SettingRow(Str[R.string.s_time_zone], if (zoneWarn) Str[R.string.s_this_zone_is_hours_away_from] else if (s.zoneId == null) Str[R.string.s_using_the_device_s_zone] else Str[R.string.s_from_the_chosen_place], onClick = { pickZone = true }) {
         Text(zone.id + Str.chev, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = if (zoneWarn) Palette.gold else Palette.goldSoft)
     }
