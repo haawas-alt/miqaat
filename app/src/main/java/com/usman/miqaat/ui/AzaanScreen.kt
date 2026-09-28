@@ -36,6 +36,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.usman.miqaat.R
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.draw.clip
@@ -116,9 +117,9 @@ private fun StepsBar(phase: Phase, u: Dp) {
     val iq = phase is Phase.IqamahCountdown || phase is Phase.IqamahNow
     val idx = when (phase) { is Phase.Azaan -> 0; is Phase.Iftar -> 1; is Phase.Dua -> if (iftar) 2 else 1; is Phase.HadithPhase -> if (iftar) 3 else 2; is Phase.IqamahCountdown -> 1; is Phase.IqamahNow -> 2; is Phase.Quiet -> 3 }
     val labels = when {
-        iq -> listOf("Azaan", "Iqamah countdown", "Iqamah", "Prayer")
-        iftar -> listOf("Azaan", "Iftar dua", "Dua after azaan", "Hadith", "Home")
-        else -> listOf("Azaan", "Dua after azaan", "Hadith", "Home")
+        iq -> listOf("Azaan", Str[R.string.s_iqamah_countdown], Str[R.string.s_iqamah], "Prayer")
+        iftar -> listOf("Azaan", Str[R.string.s_iftar_dua], Str[R.string.s_dua_after_azaan], "Hadith", "Home")
+        else -> listOf("Azaan", Str[R.string.s_dua_after_azaan], "Hadith", "Home")
     }
     @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
     androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth().padding(top = u * 2.4f), horizontalArrangement = Arrangement.spacedBy(u * 1, Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(u * 0.6f)) {
@@ -143,14 +144,14 @@ private fun AzaanBody(phase: Phase, u: Dp) {
         Text("ٱللَّٰهُ أَكْبَرُ", fontFamily = Amiri, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 14f).sp, color = Color(0xFFF6E7B8), textAlign = TextAlign.Center)
         Text("${phase.prayer.english.uppercase()} AZAAN  ·  ${phase.prayer.arabic}", fontFamily = Cormorant, fontSize = (u.value * 2.6f).sp, letterSpacing = (u.value * 0.6f).sp, color = Palette.ivory.copy(alpha = 0.85f), modifier = Modifier.padding(top = u * 1))
         Wave(Modifier.padding(top = u * 4).width(u * 22).height(u * 8))
-        Text("Hayya ʿalaṣ-ṣalāh · Come to prayer", fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, letterSpacing = (u.value * 0.1f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 3))
+        Text(Str[R.string.s_hayya_ala_al_h_come_to], fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, letterSpacing = (u.value * 0.1f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 3))
     }
 }
 
 @Composable
 private fun DuaBody(u: Dp) {
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Kicker("Dua after the azaan", u)
+        Kicker(Str[R.string.s_dua_after_the_azaan], u)
         Arabic(Duas.AFTER_AZAAN_AR, u, size = 4.4f)
         Translation(Duas.AFTER_AZAAN_EN, u)
         Source("${Duas.AFTER_AZAAN_SRC}  ·  ${Duas.AFTER_AZAAN_NOTE}", u)
@@ -160,7 +161,7 @@ private fun DuaBody(u: Dp) {
 @Composable
 private fun IftarBody(u: Dp) {
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Kicker("Ramaḍān · dua at iftar", u)
+        Kicker(Str[R.string.s_rama_n_dua_at_iftar], u)
         Arabic(com.usman.miqaat.data.Ramadan.IFTAR_AR, u, size = 4.8f)
         Translation(com.usman.miqaat.data.Ramadan.IFTAR_EN, u)
         Source(com.usman.miqaat.data.Ramadan.IFTAR_SRC, u)
@@ -187,8 +188,8 @@ private fun CountdownBody(p: Phase.IqamahCountdown, u: Dp) {
                 Text("SECONDS", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 0.6f))
             }
         }
-        Text("سَوُّوا صُفُوفَكُمْ  ·  Straighten your rows", fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = Palette.ivory.copy(alpha = 0.9f))
-        Text("Ṣaḥīḥ al-Bukhārī 723", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 0.6f))
+        Text(Str[R.string.s_straighten_your_rows], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = Palette.ivory.copy(alpha = 0.9f))
+        Text(Str[R.string.s_a_al_bukh_r_723], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 0.6f))
     }
 }
 
@@ -198,7 +199,7 @@ private fun IqamahNowBody(phase: Phase, u: Dp) {
         Kicker(phase.prayer.english, u)
         Text("الإقامة", fontFamily = Amiri, fontSize = (u.value * 9f).sp, lineHeight = (u.value * 10f).sp, color = Color(0xFFF6E7B8))
         Text("قَدْ قَامَتِ الصَّلاَةُ", fontFamily = Amiri, fontSize = (u.value * 4.2f).sp, lineHeight = (u.value * 6f).sp, color = Palette.goldSoft)
-        Text("The prayer has begun", fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = Palette.ivory.copy(alpha = 0.9f), modifier = Modifier.padding(top = u * 0.6f))
+        Text(Str[R.string.s_the_prayer_has_begun], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = Palette.ivory.copy(alpha = 0.9f), modifier = Modifier.padding(top = u * 0.6f))
     }
 }
 
@@ -247,7 +248,7 @@ private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Uni
             val narrating = when (phase) { is Phase.Azaan -> true; is Phase.Dua, is Phase.Iftar -> true; is Phase.HadithPhase -> phase.narrating; is Phase.IqamahNow -> true; else -> false }
             if (narrating) Wave(Modifier.width(u * 6).height(u * 2.4f), bars = 5)
             Text(
-                when (phase) { is Phase.Azaan -> "Azaan playing"; is Phase.Iftar -> "Reading the iftar dua"; is Phase.Dua -> "Reading the dua"; is Phase.HadithPhase -> if (phase.narrating) "Reading the hadith" else "Take a moment"; is Phase.IqamahCountdown -> "Tap Skip if the imam is ready"; is Phase.IqamahNow -> "Iqamah"; is Phase.Quiet -> "" },
+                when (phase) { is Phase.Azaan -> Str[R.string.s_azaan_playing]; is Phase.Iftar -> Str[R.string.s_reading_the_iftar_dua]; is Phase.Dua -> Str[R.string.s_reading_the_dua]; is Phase.HadithPhase -> if (phase.narrating) Str[R.string.s_reading_the_hadith] else Str[R.string.s_take_a_moment]; is Phase.IqamahCountdown -> Str[R.string.s_tap_skip_if_the_imam_is]; is Phase.IqamahNow -> Str[R.string.s_iqamah]; is Phase.Quiet -> "" },
                 fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
             )
         }
@@ -260,11 +261,11 @@ private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Uni
         // right: actions
         Row(horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
             when (phase) {
-                is Phase.Azaan -> { Pill("Stop azaan", true, u.value, onStop); Pill("Skip ›", false, u.value, onSkip) }
-                is Phase.IqamahCountdown -> { Pill("Dismiss", false, u.value, onStop); Pill("Start iqamah now ›", true, u.value, onSkip) }
+                is Phase.Azaan -> { Pill(Str[R.string.s_stop_azaan], true, u.value, onStop); Pill(Str[R.string.s_skip], false, u.value, onSkip) }
+                is Phase.IqamahCountdown -> { Pill("Dismiss", false, u.value, onStop); Pill(Str[R.string.s_start_iqamah_now], true, u.value, onSkip) }
                 is Phase.IqamahNow -> Pill("Dismiss", false, u.value, onStop)
-                is Phase.HadithPhase -> Pill("Back to clock", false, u.value, onStop)
-                else -> { Pill("Back to clock", false, u.value, onStop); Pill("Skip ›", false, u.value, onSkip) }
+                is Phase.HadithPhase -> Pill(Str[R.string.s_back_to_clock], false, u.value, onStop)
+                else -> { Pill(Str[R.string.s_back_to_clock], false, u.value, onStop); Pill(Str[R.string.s_skip], false, u.value, onSkip) }
             }
         }
     }
@@ -298,7 +299,7 @@ private fun Wave(modifier: Modifier, bars: Int = 15) {
     val still = reduceMotion()
     val anim by rememberInfiniteTransition(label = "wave").animateFloat(0f, 1f, infiniteRepeatable(tween(1400, easing = LinearEasing), RepeatMode.Restart), label = "t")
     val t = if (still) 0.25f else anim
-    Canvas(modifier.semantics { contentDescription = "Audio playing" }) {
+    Canvas(modifier.semantics { contentDescription = Str[R.string.s_audio_playing] }) {
         val gap = size.width / bars
         for (i in 0 until bars) {
             val phase = (i / bars.toFloat()) * PI * 2

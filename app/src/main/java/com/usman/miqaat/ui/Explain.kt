@@ -21,6 +21,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.usman.miqaat.R
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.graphics.drawscope.rotate
@@ -59,38 +60,38 @@ fun WhyDialog(settings: AppSettings, day: DayTimes, p: Prayer, onDismiss: () -> 
         title = { Text("Why ${PrayerEngine.clock(t, h24)}?  ·  ${p.english}  ${p.arabic}", fontFamily = Cormorant, fontSize = 26.sp, color = Palette.ivory) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
-                SectionLabel("Calculated from")
-                if (day.fromMasjid) Line("Source", "${settings.masjidName.ifBlank { "Masjid timetable" }} for ${day.date}", "Calculated would be ${c(calc[p])}")
-                else Line("Source", "Calculated on this device", "Adhan library · Meeus astronomical algorithms")
-                Line("Method", settings.method.label, settings.method.detail)
+                SectionLabel(Str[R.string.s_calculated_from])
+                if (day.fromMasjid) Line(Str[R.string.s_source], "${settings.masjidName.ifBlank { "Masjid timetable" }} for ${day.date}", "Calculated would be ${c(calc[p])}")
+                else Line(Str[R.string.s_source], Str[R.string.s_calculated_on_this_device], Str[R.string.s_adhan_library_meeus_astronomical_algorithms])
+                Line(Str[R.string.s_method], settings.method.label, settings.method.detail)
                 when (p) {
-                    Prayer.FAJR -> Line("Rule", "Sun ${settings.method.parameters().fajrAngle}° below the horizon before sunrise", "True dawn (al-fajr aṣ-ṣādiq)")
-                    Prayer.SUNRISE -> Line("Rule", "Upper edge of the sun on the horizon", "Ends Fajr; not a prayer time")
-                    Prayer.DHUHR -> Line("Rule", "Sun passes the meridian (zawāl), plus a minute", if (settings.jumuahEnabled && day.date.dayOfWeek == java.time.DayOfWeek.FRIDAY) "Friday: your Jumuʿah time is used instead" else "")
-                    Prayer.ASR -> Line("Rule", if (settings.asrMethod == AsrMethod.HANAFI) "Shadow = 2 × object + noon shadow (Hanafi)" else "Shadow = object + noon shadow (Shafiʿi, Maliki, Hanbali)",
+                    Prayer.FAJR -> Line(Str[R.string.s_rule], "Sun ${settings.method.parameters().fajrAngle}° below the horizon before sunrise", Str[R.string.s_true_dawn_al_fajr_a_diq])
+                    Prayer.SUNRISE -> Line(Str[R.string.s_rule], Str[R.string.s_upper_edge_of_the_sun_on], Str[R.string.s_ends_fajr_not_a_prayer_time])
+                    Prayer.DHUHR -> Line(Str[R.string.s_rule], Str[R.string.s_sun_passes_the_meridian_zaw_l], if (settings.jumuahEnabled && day.date.dayOfWeek == java.time.DayOfWeek.FRIDAY) Str[R.string.s_friday_your_jumu_ah_time_is] else "")
+                    Prayer.ASR -> Line(Str[R.string.s_rule], if (settings.asrMethod == AsrMethod.HANAFI) Str[R.string.s_shadow_2_object_noon_shadow_hanafi] else Str[R.string.s_shadow_object_noon_shadow_shafi_i],
                         "The other view would give ${c(PrayerEngine.asrOther(settings, day.date))}")
-                    Prayer.MAGHRIB -> Line("Rule", "Sunset: the sun's disc fully below the horizon", "")
-                    Prayer.ISHA -> Line("Rule", settings.method.parameters().let { if (it.ishaInterval > 0) "${it.ishaInterval} min after Maghrib" else "Sun ${it.ishaAngle}° below the horizon after sunset" }, "Disappearance of the red twilight")
+                    Prayer.MAGHRIB -> Line(Str[R.string.s_rule], Str[R.string.s_sunset_the_sun_s_disc_fully], "")
+                    Prayer.ISHA -> Line(Str[R.string.s_rule], settings.method.parameters().let { if (it.ishaInterval > 0) "${it.ishaInterval} min after Maghrib" else "Sun ${it.ishaAngle}° below the horizon after sunset" }, Str[R.string.s_disappearance_of_the_red_twilight])
                 }
                 Line("Location", settings.locationName, "%.4f, %.4f · ${settings.zone().id}".format(settings.latitude, settings.longitude))
-                SectionLabel("Your settings")
+                SectionLabel(Str[R.string.s_your_settings])
                 val adj = settings.adjustments[p] ?: 0
-                Line("Your adjustment", if (adj == 0) "None" else (if (adj > 0) "+$adj min" else "$adj min"), "Settings › Prayer times › Minute adjustments")
-                SectionLabel("Islamic guidance · scholarly views, not calculation")
-                if (end != null) Line("Ends", c(end), when (p) {
+                Line(Str[R.string.s_your_adjustment], if (adj == 0) Str[R.string.s_none] else (if (adj > 0) "+$adj min" else "$adj min"), Str[R.string.s_settings_prayer_times_minute_adjustments])
+                SectionLabel(Str[R.string.s_islamic_guidance_scholarly_views_not_calculation])
+                if (end != null) Line(Str[R.string.s_ends], c(end), when (p) {
                     Prayer.ISHA -> "Shown at sharʿī midnight (halfway from sunset to dawn), the end of the preferred time in many views. Other scholars hold Isha valid until Fajr ${c(PrayerEngine.times(settings, day.date.plusDays(1))[Prayer.FAJR])}. Ask your imam."
-                    Prayer.FAJR -> "At sunrise (agreed)"
-                    Prayer.ASR -> "At sunset. Many scholars call the time after the sun yellows the time of necessity; ʿAsr already prayed is not affected."
-                    Prayer.DHUHR -> "When ʿAsr begins — which itself depends on the ʿAsr view chosen above"
-                    else -> "When the next prayer begins"
+                    Prayer.FAJR -> Str[R.string.s_at_sunrise_agreed]
+                    Prayer.ASR -> Str[R.string.s_at_sunset_many_scholars_call_the]
+                    Prayer.DHUHR -> Str[R.string.s_when_asr_begins_which_itself_depends]
+                    else -> Str[R.string.s_when_the_next_prayer_begins]
                 })
                 Spacer(Modifier.height(8.dp))
-                Text("Disliked for voluntary prayer today · approximate", fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
+                Text(Str[R.string.s_disliked_for_voluntary_prayer_today_approximate], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
                 PrayerEngine.dislikedWindows(day, settings).forEach { w -> Text("${c(w.start)} – ${c(w.end)}  ·  ${w.label}", fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory, modifier = Modifier.padding(top = 4.dp)) }
-                Text("These windows are conservative estimates (≈15 min after sunrise, ≈10 min around zawāl, after ʿAsr until sunset); the texts describe events, not minute counts, and schools differ on the details. Obligatory and missed prayers are not restricted by them — Ṣaḥīḥ Muslim 831.", fontFamily = Nunito, fontSize = 12.sp, color = Palette.textMuted, lineHeight = 17.sp, modifier = Modifier.padding(top = 6.dp))
+                Text(Str[R.string.s_these_windows_are_conservative_estimates_15], fontFamily = Nunito, fontSize = 12.sp, color = Palette.textMuted, lineHeight = 17.sp, modifier = Modifier.padding(top = 6.dp))
             }
         },
-        confirmButton = { TextButton(onClick = onDismiss) { Text("Close", color = Palette.goldSoft) } }
+        confirmButton = { TextButton(onClick = onDismiss) { Text(Str[R.string.s_close], color = Palette.goldSoft) } }
     )
 }
 
@@ -130,7 +131,7 @@ fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier
     val gold = Palette.gold; val thread = if (kiswah) Color(0xFF8A6D2F) else Palette.goldSoft.copy(alpha = 0.45f); val dimThread = if (kiswah) Color(0xFF3A3020) else Color.White.copy(alpha = 0.18f)
     val labelStyle = androidx.compose.ui.text.TextStyle(fontFamily = if (kiswah) Cinzel else Nunito, fontSize = labelSize, letterSpacing = if (kiswah) 1.5.sp else 0.8.sp, fontWeight = FontWeight.SemiBold)
     val shortName = mapOf(Prayer.FAJR to "F", Prayer.SUNRISE to "☼", Prayer.DHUHR to "D", Prayer.ASR to "A", Prayer.MAGHRIB to "M", Prayer.ISHA to "I")
-    val words = "Day line: " + windows.joinToString("; ") { w -> "avoid voluntary prayer ${PrayerEngine.clock(w.start, settings.use24h)} to ${PrayerEngine.clock(w.end, settings.use24h)}" }
+    val words = Str[R.string.s_day_line] + windows.joinToString("; ") { w -> "avoid voluntary prayer ${PrayerEngine.clock(w.start, settings.use24h)} to ${PrayerEngine.clock(w.end, settings.use24h)}" }
     Canvas(modifier.height(with(androidx.compose.ui.platform.LocalDensity.current) { labelSize.toDp() } * 3.4f).semantics { contentDescription = words }) {
         val y = size.height * 0.36f
         val xNow = size.width * f(now)
@@ -244,8 +245,8 @@ fun DayTimeline(settings: AppSettings, day: DayTimes, now: ZonedDateTime, height
 @Composable
 fun TimelineLegend(fs: androidx.compose.ui.unit.TextUnit, color: Color) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically) { Swatch(Color(0xFF8FD3A7).copy(alpha = 0.6f)); Text(" prayer may be offered", fontFamily = Nunito, fontSize = fs, color = color) }
-        Row(verticalAlignment = Alignment.CenterVertically) { Swatch(Color(0xFFF08C8C).copy(alpha = 0.7f)); Text(" disliked for nawāfil: after sunrise · zawāl · after ʿAsr", fontFamily = Nunito, fontSize = fs, color = color) }
+        Row(verticalAlignment = Alignment.CenterVertically) { Swatch(Color(0xFF8FD3A7).copy(alpha = 0.6f)); Text(Str[R.string.s_prayer_may_be_offered], fontFamily = Nunito, fontSize = fs, color = color) }
+        Row(verticalAlignment = Alignment.CenterVertically) { Swatch(Color(0xFFF08C8C).copy(alpha = 0.7f)); Text(Str[R.string.s_disliked_for_naw_fil_after_sunrise], fontFamily = Nunito, fontSize = fs, color = color) }
     }
 }
 @Composable private fun Swatch(c: Color) { androidx.compose.foundation.layout.Box(Modifier.size(9.dp).clip(CircleShape).background(c)) }

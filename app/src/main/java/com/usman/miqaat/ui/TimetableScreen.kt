@@ -32,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.usman.miqaat.R
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -70,7 +71,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
     val pad = if (compact) 14.dp else 28.dp
     Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = pad, vertical = if (compact) 8.dp else 20.dp)) {
         Row(verticalAlignment = Alignment.Bottom) {
-            IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
+            IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
             Column(Modifier.weight(1f).padding(start = 4.dp)) {
                 Row(verticalAlignment = Alignment.Bottom) {
                     Text(ym.format(DateTimeFormatter.ofPattern(if (compact) "MMM yyyy" else "MMMM yyyy", Locale.ENGLISH)), fontFamily = Cormorant, fontSize = if (compact) 26.sp else 38.sp, color = Palette.ivory, lineHeight = 40.sp)
@@ -83,14 +84,14 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
             }
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 NavChip("‹ " + ym.minusMonths(1).format(DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH)), label = "Previous month") { ym = ym.minusMonths(1) }
-                NavChip("Today", current = ym == YearMonth.now(), label = "Go to today") { scope.launch { ym = YearMonth.now(); listState.animateScrollToItem((today.dayOfMonth - 3).coerceAtLeast(0)) } }
+                NavChip(Str[R.string.s_today], current = ym == YearMonth.now(), label = Str[R.string.s_go_to_today]) { scope.launch { ym = YearMonth.now(); listState.animateScrollToItem((today.dayOfMonth - 3).coerceAtLeast(0)) } }
                 NavChip(ym.plusMonths(1).format(DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH)) + " ›", label = "Next month") { ym = ym.plusMonths(1) }
             }
         }
         Spacer(Modifier.padding(6.dp))
 
         val ramadanMonth = days.any { PrayerEngine.isRamadan(settings, it.date) }
-        val cols = if (ramadanMonth) listOf("Date", "Hijri", "Fajr · Suhoor", "Sunrise", "Dhuhr", "Asr", "Maghrib · Iftar", "Isha")
+        val cols = if (ramadanMonth) listOf("Date", "Hijri", Str[R.string.s_fajr_suhoor], "Sunrise", "Dhuhr", "Asr", Str[R.string.s_maghrib_iftar], "Isha")
                    else listOf("Date", "Hijri", "Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha")
         val weights = listOf(1.5f, 1.2f, 1f, 1f, 1f, 1f, 1f, 1f)
         val shape = RoundedCornerShape(14.dp)
@@ -129,7 +130,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
             }
         }
         Text(
-            (if (compact) "Swipe the table sideways for ʿAsr, Maghrib and Isha · " else "") + "Fridays in green · Jumuʿah at your masjid may differ from Dhuhr · ☾ marks Ramaḍān",
+            (if (compact) Str[R.string.s_swipe_the_table_sideways_for_asr] else "") + Str[R.string.s_fridays_in_green_jumu_ah_at],
             fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary, modifier = Modifier.padding(top = 8.dp)
         )
     }

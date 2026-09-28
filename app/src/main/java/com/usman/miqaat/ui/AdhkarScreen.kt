@@ -38,6 +38,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.usman.miqaat.R
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.ui.semantics.liveRegion
@@ -60,8 +61,9 @@ import com.usman.miqaat.data.Dhikr
  * Left: the list with progress ticks. Right: the selected dhikr, large, with a tap counter.
  * Tapping the big card counts one; when the count is reached it moves to the next.
  */
-enum class AdhkarMode(val title: String, val arabic: String) {
-    MORNING("Morning adhkār", "أذكار الصباح"), EVENING("Evening adhkār", "أذكار المساء"), POST("After the prayer", "أذكار بعد الصلاة")
+enum class AdhkarMode(val titleRes: Int, val arabic: String) {
+    MORNING(R.string.s_morning_adhk_r, "أذكار الصباح"), EVENING(R.string.s_evening_adhk_r, "أذكار المساء"), POST(R.string.s_after_the_prayer, "أذكار بعد الصلاة");
+    val title: String get() = Str[titleRes]
 }
 
 @Composable
@@ -83,7 +85,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
             // ---- list
             if (!compact) Column(Modifier.width(u * 30).fillMaxHeight().background(Color.Black.copy(alpha = 0.18f)).padding(vertical = u * 1.6f)) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = u * 1)) {
-                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
+                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
                     Column {
                         Text(mode.title, fontFamily = Cormorant, fontSize = (u.value * 3f).sp, color = Palette.ivory, lineHeight = (u.value * 3.2f).sp)
                         Text(mode.arabic, fontFamily = Amiri, fontSize = (u.value * 2.2f).sp, color = Palette.goldSoft)
@@ -99,7 +101,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                         Row(
                             Modifier.fillMaxWidth().heightIn(min = 48.dp).background(if (isCur) Palette.gold.copy(alpha = 0.14f) else Color.Transparent)
                                 .selectable(selected = isCur, role = androidx.compose.ui.semantics.Role.Tab) { index = i }.padding(horizontal = u * 2.2f, vertical = u * 1.1f)
-                                .semantics(mergeDescendants = true) { stateDescription = if (c >= d.count) "Completed" else if (d.count > 1) "$c of ${d.count}" else "Not yet read" },
+                                .semantics(mergeDescendants = true) { stateDescription = if (c >= d.count) "Completed" else if (d.count > 1) "$c of ${d.count}" else Str[R.string.s_not_yet_read] },
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Box(Modifier.size(u * 2.4f).clip(CircleShape).background(if (c >= d.count) Palette.mint else Color.White.copy(alpha = 0.1f)).border(1.dp, if (isCur) Palette.gold else Color.White.copy(alpha = 0.2f), CircleShape), contentAlignment = Alignment.Center) {
@@ -119,12 +121,12 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
             // ---- reader
             Column(
                 Modifier.weight(1f).fillMaxHeight()
-                    .clickable(onClickLabel = if (cur.count > 1) "Count one recitation" else "Mark as read") { if (!done) counts[cur.id] = (counts[cur.id] ?: 0) + 1; if ((counts[cur.id] ?: 0) >= cur.count && index < list.size - 1 && cur.count == 1) index++ }
+                    .clickable(onClickLabel = if (cur.count > 1) Str[R.string.s_count_one_recitation] else Str[R.string.s_mark_as_read]) { if (!done) counts[cur.id] = (counts[cur.id] ?: 0) + 1; if ((counts[cur.id] ?: 0) >= cur.count && index < list.size - 1 && cur.count == 1) index++ }
                     .padding(horizontal = u * 4, vertical = u * 2.4f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 if (compact) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
+                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
                     Text(mode.title + "  ·  ${index + 1} of ${list.size}", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.8f))
                 }
                 Text(cur.title.uppercase(), fontFamily = Nunito, fontSize = (u.value * (if (compact) 3f else 1.3f)).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
@@ -141,26 +143,26 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                     val c = counts[cur.id] ?: 0
                     Box(
                         Modifier.size(maxOf(u * 7.5f, 56.dp)).clip(CircleShape).background(if (done) Palette.mint else Palette.gold)
-                            .clickable(role = androidx.compose.ui.semantics.Role.Button, onClickLabel = if (cur.count > 1) "Count one recitation" else "Mark as read") { if (!done) counts[cur.id] = c + 1 }
-                            .semantics { contentDescription = if (done) "Complete" else if (cur.count > 1) "${cur.count - c} remaining of ${cur.count}" else "Tap when read"; stateDescription = if (done) "Complete" else "$c of ${cur.count}"; liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite },
+                            .clickable(role = androidx.compose.ui.semantics.Role.Button, onClickLabel = if (cur.count > 1) Str[R.string.s_count_one_recitation] else Str[R.string.s_mark_as_read]) { if (!done) counts[cur.id] = c + 1 }
+                            .semantics { contentDescription = if (done) Str[R.string.s_complete] else if (cur.count > 1) "${cur.count - c} remaining of ${cur.count}" else Str[R.string.s_tap_when_read]; stateDescription = if (done) Str[R.string.s_complete] else "$c of ${cur.count}"; liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite },
                         contentAlignment = Alignment.Center
                     ) {
                         if (done) Icon(Icons.Outlined.Check, null, Modifier.size(u * 3.4f), tint = Palette.night)
                         else Text("${cur.count - c}", fontFamily = Cormorant, fontSize = (u.value * 3.4f).sp, color = Palette.night)
                     }
                     Column {
-                        Text(if (done) "Complete" else if (cur.count == 1) "Tap when read" else "Tap for each recitation", fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
+                        Text(if (done) Str[R.string.s_complete] else if (cur.count == 1) Str[R.string.s_tap_when_read] else Str[R.string.s_tap_for_each_recitation], fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
                         Text(if (cur.count > 1) "$c of ${cur.count}" else "", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.textSecondary)
                     }
                     Spacer(Modifier.weight(1f))
                     if (!compact) {
-                        if (index > 0) Nav("‹ Previous", u.value) { index-- }
-                        if (index < list.size - 1) Nav("Next ›", u.value) { index++ } else Nav("Finish", u.value, primary = true, onClick = onBack)
+                        if (index > 0) Nav(Str[R.string.s_previous], u.value) { index-- }
+                        if (index < list.size - 1) Nav(Str[R.string.s_next_2], u.value) { index++ } else Nav(Str[R.string.s_finish], u.value, primary = true, onClick = onBack)
                     }
                 }
                 if (compact) Row(Modifier.fillMaxWidth().padding(top = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.End)) {
-                    if (index > 0) Nav("‹ Previous", u.value) { index-- }
-                    if (index < list.size - 1) Nav("Next ›", u.value) { index++ } else Nav("Finish", u.value, primary = true, onClick = onBack)
+                    if (index > 0) Nav(Str[R.string.s_previous], u.value) { index-- }
+                    if (index < list.size - 1) Nav(Str[R.string.s_next_2], u.value) { index++ } else Nav(Str[R.string.s_finish], u.value, primary = true, onClick = onBack)
                 }
             }
         }

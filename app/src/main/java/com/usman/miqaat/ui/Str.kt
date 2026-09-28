@@ -1,0 +1,23 @@
+package com.usman.miqaat.ui
+
+import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
+import com.usman.miqaat.data.Language
+
+/**
+ * Resource-backed UI strings that follow the app's own Language setting (not the system locale),
+ * usable from any code path — composables, click handlers and dialogs alike.
+ * MainActivity calls [apply] whenever the language changes; the whole screen tree is re-keyed on it.
+ */
+object Str {
+    @Volatile lateinit var res: Resources
+    fun init(ctx: Context) { if (!::res.isInitialized) res = ctx.resources }
+    fun apply(ctx: Context, language: Language) {
+        val cfg = Configuration(ctx.resources.configuration)
+        cfg.setLocale(java.util.Locale(language.tag))
+        res = ctx.createConfigurationContext(cfg).resources
+    }
+    operator fun get(id: Int): String = res.getString(id)
+    fun get(id: Int, vararg args: Any): String = res.getString(id, *args)
+}

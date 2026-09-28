@@ -50,6 +50,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.usman.miqaat.R
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -128,7 +129,7 @@ fun LearnScreen(settings: AppSettings, onBack: () -> Unit) {
 @Composable
 private fun TopBar(c: LearnColors, title: String, onBack: () -> Unit, trailing: @Composable () -> Unit = {}) {
     Row(Modifier.fillMaxWidth().statusBarsPadding().padding(start = 4.dp, end = 12.dp, top = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-        IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = c.text) }
+        IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = c.text) }
         Text(if (c.kiswah) title.uppercase() else title, fontFamily = c.display, fontSize = if (c.kiswah) 18.sp else 28.sp, letterSpacing = if (c.kiswah) 3.sp else 0.sp, color = c.text, modifier = Modifier.weight(1f).semantics { heading() })
         trailing()
     }
@@ -137,20 +138,20 @@ private fun TopBar(c: LearnColors, title: String, onBack: () -> Unit, trailing: 
 @Composable
 private fun Library(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) -> Unit, onWords: () -> Unit, onMoves: () -> Unit, onBack: () -> Unit, onReset: () -> Unit) {
     Column(Modifier.fillMaxSize()) {
-        TopBar(c, "Learn Salah", onBack)
+        TopBar(c, Str[R.string.s_learn_salah], onBack)
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 24.dp).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("الصَّلَاة", fontFamily = c.arabic, fontSize = 44.sp, color = c.primary, modifier = Modifier.semantics { contentDescription = "As-salah, the prayer" })
-            Text("One common form of the prayer, one action at a time, with the words in Arabic, how to say them and what they mean. Where the schools differ, the note says so. For children and adult beginners alike.", fontFamily = Nunito, fontSize = 14.sp, lineHeight = 20.sp, color = c.textSecondary)
+            Text("الصَّلَاة", fontFamily = c.arabic, fontSize = 44.sp, color = c.primary, modifier = Modifier.semantics { contentDescription = Str[R.string.s_as_salah_the_prayer] })
+            Text(Str[R.string.s_one_common_form_of_the_prayer], fontFamily = Nunito, fontSize = 14.sp, lineHeight = 20.sp, color = c.textSecondary)
             if (p.lesson != null) LibraryCard(c, "Continue · ${p.lesson.title}", "Resume at step ${p.index + 1} of ${Learn.actions(p.lesson).size}", primary = true) { onLesson(p.lesson) }
-            Text("Learn a complete prayer", fontFamily = c.display, fontSize = if (c.kiswah) 13.sp else 22.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
+            Text(Str[R.string.s_learn_a_complete_prayer], fontFamily = c.display, fontSize = if (c.kiswah) 13.sp else 22.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
             Learn.Lesson.entries.forEach { l ->
                 LibraryCard(c, l.title, l.subtitle + " · ${Learn.actions(l).size} steps", done = l in p.completed) { onLesson(l) }
             }
             Text("Practise", fontFamily = c.display, fontSize = if (c.kiswah) 13.sp else 22.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
-            LibraryCard(c, "The words", "The twelve texts of the prayer on their own, with replay and slow speed", onClick = onWords)
-            LibraryCard(c, "The movements", "Six positions, what each looks like and what is said in it", onClick = onMoves)
-            Text("Audio is the device's own text-to-speech, offered as an aid — it is not verified recitation. Learn the words with a teacher or a reciter you trust. Content: ISLAMIC_REVIEW_PACK.md § J7 (unsigned).", fontFamily = Nunito, fontSize = 12.sp, lineHeight = 17.sp, color = c.textSecondary, modifier = Modifier.padding(top = 10.dp))
-            if (p.completed.isNotEmpty() || p.lesson != null) Text("Reset progress", fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary, modifier = Modifier.heightIn(min = 48.dp).clickable(role = Role.Button, onClick = onReset).padding(vertical = 14.dp))
+            LibraryCard(c, Str[R.string.s_the_words], Str[R.string.s_the_twelve_texts_of_the_prayer], onClick = onWords)
+            LibraryCard(c, Str[R.string.s_the_movements], Str[R.string.s_six_positions_what_each_looks_like], onClick = onMoves)
+            Text(Str[R.string.s_audio_is_the_device_s_own], fontFamily = Nunito, fontSize = 12.sp, lineHeight = 17.sp, color = c.textSecondary, modifier = Modifier.padding(top = 10.dp))
+            if (p.completed.isNotEmpty() || p.lesson != null) Text(Str[R.string.s_reset_progress], fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary, modifier = Modifier.heightIn(min = 48.dp).clickable(role = Role.Button, onClick = onReset).padding(vertical = 14.dp))
         }
     }
 }
@@ -196,7 +197,7 @@ private fun LessonView(c: LearnColors, lesson: Learn.Lesson, startAt: Int, onExi
             } else Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 figure(Modifier.fillMaxWidth().height(180.dp)); words(Modifier.fillMaxWidth())
             }
-            BottomBar(c, canBack = i > 0, last = i == actions.lastIndex, nextLabel = if (i < actions.lastIndex) "Continue · ${actions[i + 1].step.position}" else "Finish · well done",
+            BottomBar(c, canBack = i > 0, last = i == actions.lastIndex, nextLabel = if (i < actions.lastIndex) "Continue · ${actions[i + 1].step.position}" else Str[R.string.s_finish_well_done],
                 onBack = { audio.stop(); i-- }, onNext = { audio.stop(); if (i < actions.lastIndex) i++ else onDone() })
         }
     }
@@ -322,7 +323,7 @@ private class Speaker(ctx: android.content.Context) {
     }
     fun stop() { tts.stop(); playing = false }
     fun release() { tts.stop(); tts.shutdown() }
-    val source: String get() = if (arabicOk) "Device text-to-speech, Arabic voice · an aid, not verified recitation" else "Device text-to-speech (no Arabic voice installed): reads the transliteration"
+    val source: String get() = if (arabicOk) Str[R.string.s_device_text_to_speech_arabic_voice] else Str[R.string.s_device_text_to_speech_no_arabic]
 }
 
 @Composable
@@ -345,24 +346,24 @@ private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifie
         // audio: play / stop, slow toggle, disclosed source
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Box(Modifier.size(48.dp).clip(CircleShape).background(c.primary).clickable(role = Role.Button) { if (audio.playing) audio.stop() else audio.speak(step) }
-                .semantics { contentDescription = if (audio.playing) "Stop" else "Hear it"; stateDescription = if (audio.playing) "Playing" else "Not playing" }, contentAlignment = Alignment.Center) {
+                .semantics { contentDescription = if (audio.playing) Str[R.string.s_stop] else Str[R.string.s_hear_it]; stateDescription = if (audio.playing) "Playing" else Str[R.string.s_not_playing] }, contentAlignment = Alignment.Center) {
                 Icon(if (audio.playing) Icons.Outlined.Stop else Icons.AutoMirrored.Outlined.VolumeUp, null, Modifier.size(24.dp), tint = c.onPrimary)
             }
             Box(Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).border(1.dp, if (audio.slow) c.primary else c.divider, RoundedCornerShape(50))
                 .selectable(selected = audio.slow, role = Role.Checkbox) { audio.slow = !audio.slow }.padding(horizontal = 14.dp), contentAlignment = Alignment.Center) {
-                Text("Slow", fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = if (audio.slow) c.primary else c.textSecondary)
+                Text(Str[R.string.s_slow], fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = if (audio.slow) c.primary else c.textSecondary)
             }
-            Text(if (audio.playing) "Playing…" else audio.source, fontFamily = Nunito, fontSize = 11.sp, lineHeight = 15.sp, color = c.textSecondary, modifier = Modifier.weight(1f).semantics { liveRegion = LiveRegionMode.Polite })
+            Text(if (audio.playing) Str[R.string.s_playing] else audio.source, fontFamily = Nunito, fontSize = 11.sp, lineHeight = 15.sp, color = c.textSecondary, modifier = Modifier.weight(1f).semantics { liveRegion = LiveRegionMode.Polite })
         }
         Row(Modifier.fillMaxWidth().heightIn(min = 44.dp).clickable(role = Role.Switch) { showTranslit = !showTranslit }.semantics { stateDescription = if (showTranslit) "Shown" else "Hidden" }, verticalAlignment = Alignment.CenterVertically) {
-            Text("How to say it", fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold, color = c.textSecondary, modifier = Modifier.weight(1f))
+            Text(Str[R.string.s_how_to_say_it], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold, color = c.textSecondary, modifier = Modifier.weight(1f))
             Text(if (showTranslit) "hide" else "show", fontFamily = Nunito, fontSize = 12.sp, color = c.textSecondary)
         }
         AnimatedVisibility(showTranslit) { Text(step.transliteration, fontFamily = Cormorant, fontSize = 20.sp, lineHeight = 27.sp, color = c.text) }
-        Text("Meaning", fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold, color = c.textSecondary)
+        Text(Str[R.string.s_meaning], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold, color = c.textSecondary)
         Text(step.meaning, fontFamily = Nunito, fontSize = 15.sp, lineHeight = 22.sp, color = c.text)
         Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.Button) { showNote = !showNote }.semantics { stateDescription = if (showNote) "Expanded" else "Collapsed" }, verticalAlignment = Alignment.CenterVertically) {
-            Text("Note, schools and source", fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = c.text, modifier = Modifier.weight(1f))
+            Text(Str[R.string.s_note_schools_and_source], fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = c.text, modifier = Modifier.weight(1f))
             Icon(Icons.Outlined.ExpandMore, null, tint = c.textSecondary)
         }
         AnimatedVisibility(showNote) { Text(step.note, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 19.sp, color = c.textSecondary) }
@@ -372,7 +373,7 @@ private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifie
 @Composable
 private fun BottomBar(c: LearnColors, canBack: Boolean, last: Boolean, nextLabel: String, onBack: () -> Unit, onNext: () -> Unit) {
     Row(Modifier.fillMaxWidth().background(c.surfaceRaised.copy(alpha = 0.92f)).navigationBarsPadding().padding(horizontal = 16.dp, vertical = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-        Box(Modifier.size(52.dp).clip(CircleShape).border(1.dp, if (canBack) c.divider else c.divider.copy(alpha = 0.3f), CircleShape).clickable(enabled = canBack, role = Role.Button, onClick = onBack).semantics { contentDescription = "Previous step" }, contentAlignment = Alignment.Center) {
+        Box(Modifier.size(52.dp).clip(CircleShape).border(1.dp, if (canBack) c.divider else c.divider.copy(alpha = 0.3f), CircleShape).clickable(enabled = canBack, role = Role.Button, onClick = onBack).semantics { contentDescription = Str[R.string.s_previous_step] }, contentAlignment = Alignment.Center) {
             Text("‹", fontSize = 26.sp, color = if (canBack) c.text else c.textSecondary.copy(alpha = 0.4f))
         }
         Box(Modifier.weight(1f).heightIn(min = 52.dp).clip(RoundedCornerShape(50)).background(if (last) c.success else c.primary).clickable(role = Role.Button, onClick = onNext).padding(horizontal = 18.dp), contentAlignment = Alignment.Center) {
@@ -389,9 +390,9 @@ private fun WordsView(c: LearnColors, onBack: () -> Unit) {
     var i by rememberSaveable { mutableIntStateOf(0) }
     val audio = rememberSpeaker()
     Column(Modifier.fillMaxSize()) {
-        TopBar(c, "The words", onBack) { Text("${i + 1} / ${words.size}", fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary) }
+        TopBar(c, Str[R.string.s_the_words], onBack) { Text("${i + 1} / ${words.size}", fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary) }
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp)) { WordsCard(c, words[i], audio, Modifier.fillMaxWidth()) }
-        BottomBar(c, canBack = i > 0, last = i == words.lastIndex, nextLabel = if (i < words.lastIndex) "Next · ${words[i + 1].position}" else "Back to Learn Salah",
+        BottomBar(c, canBack = i > 0, last = i == words.lastIndex, nextLabel = if (i < words.lastIndex) "Next · ${words[i + 1].position}" else Str[R.string.s_back_to_learn_salah],
             onBack = { audio.stop(); i-- }, onNext = { audio.stop(); if (i < words.lastIndex) i++ else onBack() })
     }
 }
@@ -399,11 +400,11 @@ private fun WordsView(c: LearnColors, onBack: () -> Unit) {
 @Composable
 private fun MovesView(c: LearnColors, onBack: () -> Unit) {
     val said = mapOf(
-        Learn.Posture.STANDING to "Takbīr, the opening, al-Fātiḥah and a sūrah", Learn.Posture.BOWING to "Subḥāna rabbiya l-ʿaẓīm ×3",
-        Learn.Posture.RISING to "Samiʿa llāhu liman ḥamidah · Rabbanā wa laka l-ḥamd", Learn.Posture.PROSTRATING to "Subḥāna rabbiya l-aʿlā ×3",
-        Learn.Posture.SITTING to "Rabbi ghfir lī between the prostrations · the tashahhud at the end", Learn.Posture.SALAM to "As-salāmu ʿalaykum wa raḥmatu llāh, right then left")
+        Learn.Posture.STANDING to Str[R.string.s_takb_r_the_opening_al_f], Learn.Posture.BOWING to Str[R.string.s_sub_na_rabbiya_l_a_m],
+        Learn.Posture.RISING to Str[R.string.s_sami_a_ll_hu_liman_amidah], Learn.Posture.PROSTRATING to Str[R.string.s_sub_na_rabbiya_l_a_l],
+        Learn.Posture.SITTING to Str[R.string.s_rabbi_ghfir_l_between_the_prostrations], Learn.Posture.SALAM to Str[R.string.s_as_sal_mu_alaykum_wa_ra])
     Column(Modifier.fillMaxSize()) {
-        TopBar(c, "The movements", onBack)
+        TopBar(c, Str[R.string.s_the_movements], onBack)
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 24.dp).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Learn.Posture.entries.forEach { p ->
                 Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(c.surface).border(1.dp, c.divider, RoundedCornerShape(16.dp)).padding(14.dp).semantics(mergeDescendants = true) {}, verticalAlignment = Alignment.CenterVertically) {

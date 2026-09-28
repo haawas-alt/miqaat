@@ -91,6 +91,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             MiqaatTheme {
                 val settings by store.settings.collectAsState()
+                // UI strings follow the in-app language; re-key the tree so every screen picks them up.
+                remember(settings.language) { com.usman.miqaat.ui.Str.apply(this@MainActivity, settings.language); settings.language }
+                androidx.compose.runtime.key(settings.language) {
                 var screen by rememberSaveable { mutableStateOf(Screen.HOME) }
                 var settingsSection by remember { mutableStateOf(Section.TIMES) }
                 var peek by remember { mutableStateOf(false) }
@@ -179,6 +182,7 @@ class MainActivity : ComponentActivity() {
                     }
                     // Unconfigured state: no prayer times are shown as valid until a place is chosen or detected.
                     if (!ready) com.usman.miqaat.ui.SetupScreen(store, settings, onDone = { })
+                }
                 }
             }
         }

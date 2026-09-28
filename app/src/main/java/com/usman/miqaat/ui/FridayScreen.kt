@@ -35,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.usman.miqaat.R
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -71,19 +72,19 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
         GirihLattice(Modifier.fillMaxSize(), tile = 120f, alpha = 0.07f)
         Column(Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState()).padding(horizontal = if (compact) 16.dp else 32.dp, vertical = 12.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Palette.ivory) }
+                IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
                 Column {
-                    Text("Jumuʿah", fontFamily = Cormorant, fontSize = 34.sp, color = Palette.ivory, lineHeight = 36.sp)
+                    Text(Str[R.string.s_jumu_ah], fontFamily = Cormorant, fontSize = 34.sp, color = Palette.ivory, lineHeight = 36.sp)
                     Text("يوم الجمعة  ·  ${friday.dayOfMonth} ${friday.month.name.lowercase().replaceFirstChar { it.uppercase() }}", fontFamily = Amiri, fontSize = 20.sp, color = Palette.goldSoft)
                 }
             }
-            Text("\"The best day on which the sun has risen is Friday.\" · Ṣaḥīḥ Muslim 854", fontFamily = Cormorant, fontSize = 18.sp, color = Palette.ivory.copy(alpha = 0.8f), modifier = Modifier.padding(start = 12.dp, bottom = 14.dp))
+            Text(Str[R.string.s_the_best_day_on_which_the], fontFamily = Cormorant, fontSize = 18.sp, color = Palette.ivory.copy(alpha = 0.8f), modifier = Modifier.padding(start = 12.dp, bottom = 14.dp))
 
             val cards: @Composable (Modifier) -> Unit = { m ->
-                Card(m, "Sūrat al-Kahf", "سورة الكهف", "\"Whoever reads Sūrat al-Kahf on Friday, a light shines for him between the two Fridays\" · ${Ramadan.KAHF_SRC}") {
+                Card(m, Str[R.string.s_s_rat_al_kahf], "سورة الكهف", "\"Whoever reads Sūrat al-Kahf on Friday, a light shines for him between the two Fridays\" · ${Ramadan.KAHF_SRC}") {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Pill(if (kahf) "Read this Friday ✓" else "Mark as read", kahf) { kahf = !kahf; prefs.edit().putBoolean("kahf_$weekKey", kahf).apply() }
-                        Text(if (kahf) "" else "From Thursday Maghrib to Friday Maghrib", fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
+                        Pill(if (kahf) Str[R.string.s_read_this_friday] else Str[R.string.s_mark_as_read], kahf) { kahf = !kahf; prefs.edit().putBoolean("kahf_$weekKey", kahf).apply() }
+                        Text(if (kahf) "" else Str[R.string.s_from_thursday_maghrib_to_friday_maghrib], fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
                     }
                 }
                 Card(m, "Ṣalawāt", "الصلاة على النبي ﷺ", "\"Increase your ṣalawāt upon me on Friday\" · ${Ramadan.SALAWAT_SRC}") {
@@ -93,18 +94,18 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
                         }
                         Column {
                             Text("اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", fontFamily = Amiri, fontSize = 20.sp, color = Color(0xFFF6E7B8))
-                            Text("Tap the circle for each one · this Friday's count", fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
+                            Text(Str[R.string.s_tap_the_circle_for_each_one], fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
                         }
                     }
                 }
-                Card(m, "Hour of acceptance", "ساعة الإجابة", "An hour on Friday when duʿā is answered (Bukhārī 935). Shown here as the last hour before Maghrib — the view of many scholars, from Abū Dāwūd 1048 and an-Nasāʾī 1389; another well-known view places it between the imam sitting and the end of the prayer.") {
+                Card(m, Str[R.string.s_hour_of_acceptance], "ساعة الإجابة", Str[R.string.s_an_hour_on_friday_when_du]) {
                     Column {
                         Text("${c(hourStart)}  →  ${c(day[Prayer.MAGHRIB])}", fontFamily = Cormorant, fontSize = 26.sp, color = Palette.ivory)
                         Text(when {
-                            today != friday -> "This Friday"
-                            now.isBefore(hourStart) -> "Begins in ${PrayerEngine.humanDuration(java.time.Duration.between(now, hourStart))}" + if (settings.fridayHourReminder) " · a quiet reminder will show" else ""
-                            now.isBefore(day[Prayer.MAGHRIB]) -> "Now · make duʿā"
-                            else -> "Passed for this week"
+                            today != friday -> Str[R.string.s_this_friday]
+                            now.isBefore(hourStart) -> "Begins in ${PrayerEngine.humanDuration(java.time.Duration.between(now, hourStart))}" + if (settings.fridayHourReminder) Str[R.string.s_a_quiet_reminder_will_show] else ""
+                            now.isBefore(day[Prayer.MAGHRIB]) -> Str[R.string.s_now_make_du]
+                            else -> Str[R.string.s_passed_for_this_week]
                         }, fontFamily = Nunito, fontSize = 13.sp, color = Palette.goldSoft)
                     }
                 }
@@ -113,13 +114,13 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
             else Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) { cards(Modifier.weight(1f)) }
 
             Spacer(Modifier.height(18.dp))
-            Text("Friday's sunnahs", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+            Text(Str[R.string.s_friday_s_sunnahs], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
             listOf(
-                "Ghusl, clean clothes, and perfume before going" to "Ṣaḥīḥ al-Bukhārī 880, 883",
-                "Go early and walk if you can; sit close to the imam" to "Ṣaḥīḥ al-Bukhārī 881 · Abū Dāwūd 345",
-                "Listen to the khuṭbah in silence" to "Ṣaḥīḥ al-Bukhārī 934",
-                "Sunnah prayers: four after Jumuʿah (or two at home)" to "Ṣaḥīḥ Muslim 881, 882",
-                "Read Sūrat al-Kahf and send many ṣalawāt" to "above",
+                Str[R.string.s_ghusl_clean_clothes_and_perfume_before] to Str[R.string.s_a_al_bukh_r_880_883],
+                Str[R.string.s_go_early_and_walk_if_you] to Str[R.string.s_a_al_bukh_r_881_ab],
+                Str[R.string.s_listen_to_the_khu_bah_in] to Str[R.string.s_a_al_bukh_r_934],
+                Str[R.string.s_sunnah_prayers_four_after_jumu_ah] to Str[R.string.s_a_muslim_881_882],
+                Str[R.string.s_read_s_rat_al_kahf_and] to "above",
             ).forEach { (t, src) ->
                 Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.Outlined.Check, null, Modifier.size(18.dp), tint = Palette.mint)
