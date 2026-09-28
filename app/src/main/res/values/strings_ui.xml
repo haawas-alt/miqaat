@@ -536,4 +536,5 @@
     <string name="p_unavailable">This device has no location provider. Search for your city instead.</string>
     <string name="s_hide">hide</string>
     <string name="s_show">show</string>
+    <string name="s_report_a_content_correction">Report a content correction</string>
 </resources>

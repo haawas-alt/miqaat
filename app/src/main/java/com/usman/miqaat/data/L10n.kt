@@ -26,9 +26,10 @@ object L10n {
 
     fun duration(s: AppSettings, d: Duration): String {
         if (!isUrdu(s)) return PrayerEngine.humanDuration(d)
-        if (d.abs().seconds < 60) return "${d.abs().seconds} سیکنڈ"
+        // Isolated right-to-left so "1 گھنٹے 53 منٹ" keeps its order when it starts with a digit (seen live as "گھنٹے 53 منٹ 1").
+        if (d.abs().seconds < 60) return "\u2067${d.abs().seconds} سیکنڈ\u2069"
         val total = d.abs().toMinutes(); val h = total / 60; val m = total % 60
-        return when { h == 0L -> "$m منٹ"; m == 0L -> "$h گھنٹے"; else -> "$h گھنٹے $m منٹ" }
+        return "\u2067" + when { h == 0L -> "$m منٹ"; m == 0L -> "$h گھنٹے"; else -> "$h گھنٹے $m منٹ" } + "\u2069"
     }
 
     /** Wraps a Latin/number run in Unicode first-strong isolates so it keeps its order inside Urdu text. */
