@@ -26,6 +26,9 @@ android {
     // Two editions from one code base:
     //  • play   – for Google Play. No self-updater, no REQUEST_INSTALL_PACKAGES; Play delivers updates.
     //  • github – direct download from GitHub Releases. In-app updater that verifies the published SHA-256 before installing.
+    // The in-app Language switch needs every language in the base APK: no per-language splits in the bundle.
+    bundle { language { enableSplit = false } }
+
     flavorDimensions += "dist"
     productFlavors {
         create("play") { dimension = "dist"; buildConfigField("Boolean", "SELF_UPDATE", "false") }
