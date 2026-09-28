@@ -86,7 +86,9 @@ fun PortraitHome(
         // are already sized to the screen, so they stay put — otherwise they push everything else off the page.
         fun fs(x: Float) = (u.value * x).sp
         fun fd(x: Float) = with(density) { (u * x).toSp() }
-        val roomy = fontScale > 1.15f   // large text: let the page scroll rather than clip
+        // Let the page scroll instead of clipping the hero when there is not enough height: large text,
+        // Urdu (two-line prayer rows), or a short screen. Seen live: Urdu on a Pixel 8 hid the hero time.
+        val roomy = fontScale > 1.15f || L10n.isUrdu(settings) || maxHeight < 780.dp
         val sky = skyFor(state.period)
         val ctx = androidx.compose.ui.platform.LocalContext.current
         val alarmsOk = remember(state.now.toLocalDate(), state.hero) { com.usman.miqaat.data.Reliability.allGood(ctx) }
