@@ -11,8 +11,13 @@ what changed, where, how it is evidenced, and what remains.
 - **SCHOLAR** — requires qualified scholarly approval (see ISLAMIC_REVIEW_PACK.md)
 - **DEFERRED** — intentionally not done in this pass, with the reason
 
-Verification performed in this pass: unit tests (`testGithubReleaseUnitTest`, 20 tests) and lint run in CI on
-every push; release builds of both editions (`assembleGithubRelease`, `assemblePlayRelease`, `bundlePlayRelease`).
+Verification performed in this pass (GitHub Actions run 35, commit `dd15943`, release `v1.35`):
+`./gradlew testGithubReleaseUnitTest lintGithubRelease assembleGithubRelease assemblePlayRelease bundlePlayRelease` — 20 unit
+tests passed (11 engine + 9 trust), lint passed with `ContentDescription`/`MissingPermission` as errors (run 34 failed on four
+pre-existing `NewApi` errors — `setShowWhenLocked`/`setTurnScreenOn` below API 27, `getCurrentLocation` below API 30, a
+cutout attribute — all fixed with real guards, not suppressions). Shipped size: `Miqaat.apk` 44.7 MB → 35.5 MB after R8 +
+resource shrinking (the remainder is bundled audio and fonts); `Miqaat-play.aab` 35.9 MB. `latest` tag now points at the
+built commit; `v1.35` is the immutable tag.
 **Not performed:** anything requiring an Android device or emulator — the workspace has none. No claim below
 about on-device behaviour should be read as tested.
 

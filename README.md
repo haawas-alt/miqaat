@@ -32,3 +32,13 @@ Then push; the next build includes them. Use recordings you have the right to di
 ## Building locally
 
 Open in Android Studio (Ladybug or newer) or run `./gradlew assembleRelease`.
+
+
+## Production-readiness documents
+- `AUDIT_REMEDIATION.md` — every audit finding mapped to code, tests and status
+- `DEVICE_TEST_PLAN.md` — the physical-device matrix (alarm soak, DST, Qibla, TalkBack) that gates a public launch
+- `ISLAMIC_REVIEW_PACK.md` — versioned register of every ruling-like statement, with approval fields (currently unsigned)
+- `RELEASE_CHECKLIST.md` — Play policy, permissions, signing, immutable tags, checksums
+
+Two editions are built from every commit: `Miqaat.apk` (direct download, SHA-256-verified in-app updater) and
+`Miqaat-play.aab` (Google Play, no self-update, no install permission).
