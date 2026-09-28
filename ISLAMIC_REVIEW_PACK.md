@@ -74,7 +74,7 @@ Legend — **Engine:** what the code computes. **Was:** wording in build 33. **N
 - **Engine:** 12 steps, Arabic/transliteration/meaning/note; one "hear it" TTS button. Arabic and sources unchanged.
 - **Was:** framed for children; notes stated one form as *the* form ("Raise both hands to the ears, then fold them"; "Raise the index finger at the shahādah").
 - **Now:** renamed "Learn Salah — for children and adult beginners. Shows one common form; some details differ between schools." Notes reworded where schools differ: hand height (shoulders or ears), hand placement (chest or below the navel), āmīn (aloud or quietly), the finger in tashahhud (how it is moved differs). Opening supplication described as "one of several reported".
-- **Questions:** confirm the twelve steps are complete for a beginner (e.g. the second sajdah, the second rakʿah, the number of rakʿahs per prayer are not covered) and whether a "pillars vs sunnah" marking should be added.
+- **Structure (v1.39):** the twelve texts are now arranged into complete prayers by `Learn.actions()`: Fajr (2), Maghrib (3), four-rakʿah. Per rakʿah: takbīr (opening duʿā and taʿawwudh in the first only) → al-Fātiḥah → a sūrah (first two rakʿahs only) → rukūʿ → rising → sujūd → sitting → second sujūd; tashahhud after the second rakʿah when more follow; final sitting = tashahhud + ṣalawāt + salām. Six posture drawings, each with a text description (`Learn.Posture.describe`). Please confirm this sequence and the posture descriptions, and whether a "pillars vs sunnah" marking should be added.
 - **Approve:** ☐ ☐ ☐  Notes: ________________________________
 
 ### J8 · Hijri calendar and moon sighting

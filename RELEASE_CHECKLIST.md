@@ -8,7 +8,7 @@ Two editions are built from every commit on `main` by `.github/workflows/build.y
 | `play` | `Miqaat-play.aab` (+ `.sha256`) | Google Play | none | Play Console |
 
 ## Every build (automated, fails the build if not met)
-- [x] Unit tests pass (`testGithubReleaseUnitTest`) — 11 engine tests + 9 trust tests
+- [x] Unit tests pass (`testGithubReleaseUnitTest`) — 26 tests: engine, trust, zone refresh, import review
 - [x] Lint passes with `ContentDescription` and `MissingPermission` as errors
 - [x] R8 shrink + resource shrink, `-dontobfuscate`, raw audio/fonts kept via `res/raw/keep.xml`
 - [x] Signed with the release key held only in GitHub secrets (`KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`)
@@ -32,6 +32,8 @@ Two editions are built from every commit on `main` by `.github/workflows/build.y
 
 ### Trust
 - [x] No prayer times shown until a place is chosen or detected (Setup gate, widget, scheduler) — TrustTest
+- [x] Automatic location refresh cannot overwrite a user-chosen time zone; zone follows device only while plausible, else nearest known zone, else asks — ZoneRefreshTest
+- [x] Masjid timetable import shows a row-level review and needs explicit confirmation before it overrides anything
 - [x] Qibla corrected for magnetic declination; accuracy and declination displayed; sensor-less fallback — TrustTest + DEVICE_TEST_PLAN D
 - [x] No advertised-but-unimplemented control (traveller qaṣr/jamʿ removed)
 - [ ] DEVICE_TEST_PLAN A (14-day soak) signed
