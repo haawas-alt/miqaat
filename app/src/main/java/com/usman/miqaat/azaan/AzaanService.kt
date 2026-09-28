@@ -135,11 +135,11 @@ class AzaanService : Service() {
             isLooping = false
             setOnCompletionListener { afterAzaan(prayer, preview) }
             setOnErrorListener { _, _, _ -> afterAzaan(prayer, preview); true }
-            val ok = runCatching { setDataSource(this@AzaanService, soundUri(prayer, settings.azaanUri, settings.fajrAzaanUri)); prepare(); start() }
+            val ok = runCatching { setDataSource(this@AzaanService, soundUri(prayer, settings.azaanUri, settings.fajrAzaanUri)); prepare(); boost(this); start() }
                 .recoverCatching {
                     reset()
                     val fallback = soundUri(prayer, null, null)   // bundled recording, ignoring a broken custom file
-                    setDataSource(this@AzaanService, fallback); prepare(); start()
+                    setDataSource(this@AzaanService, fallback); prepare(); boost(this); start()
                 }
             if (ok.isFailure) {
                 com.usman.miqaat.data.Health.log(this@AzaanService, com.usman.miqaat.data.Health.Kind.MISSED, "${prayer.english} azaan could not play", ok.exceptionOrNull()?.message ?: "audio error")
@@ -272,7 +272,7 @@ class AzaanService : Service() {
                     player = MediaPlayer().apply {
                         setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build())
                         setDataSource(this@AzaanService, Uri.parse("android.resource://$packageName/$id"))
-                        prepare(); start()
+                        prepare(); boost(this); start()
                     }
                     holdMs = (player!!.duration + 1500L).coerceAtLeast(5_000L)
                 } else playShort("chime", 1f)
@@ -307,6 +307,7 @@ class AzaanService : Service() {
                     .onFailure { release(); narrPlayer = null; playAt(i + 1); return }
                 setOnCompletionListener { it.release(); if (narrPlayer === it) narrPlayer = null; handler.postDelayed({ playAt(i + 1) }, 900) }
                 setOnErrorListener { mp, _, _ -> mp.release(); if (narrPlayer === mp) narrPlayer = null; playAt(i + 1); true }
+                boost(this)
                 start()
             }
         }
@@ -399,6 +400,17 @@ class AzaanService : Service() {
     private fun stopPlayer() {
         player?.runCatching { if (isPlaying) stop(); release() }
         player = null
+        boosters.forEach { it.runCatching { release() } }; boosters.clear()
+    }
+
+    // Loudness boost (Settings › Azaan & alerts › Speaker boost). One enhancer per player session; released with the player.
+    private val boosters = mutableListOf<android.media.audiofx.LoudnessEnhancer>()
+    private fun boost(mp: MediaPlayer) {
+        val db = (application as MiqaatApp).settings.value.azaanBoostDb
+        if (db <= 0) return
+        runCatching {
+            android.media.audiofx.LoudnessEnhancer(mp.audioSessionId).apply { setTargetGain(db * 100); enabled = true; boosters += this }
+        }.onFailure { com.usman.miqaat.data.Health.log(this, com.usman.miqaat.data.Health.Kind.INFO, "Speaker boost unavailable", it.message ?: "effect error") }
     }
 
     private fun finishAll() {

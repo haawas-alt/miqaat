@@ -129,7 +129,7 @@ fun HomeScreen(
             if (settings.artTheme == ArtTheme.GEOMETRIC) GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f)
             DaySkyScrim(state.period)
 
-            Column(Modifier.fillMaxSize().displayCutoutPadding().then(if (short) Modifier.verticalScroll(rememberScrollState()) else Modifier).padding(start = u * 3.6f, end = u * 3.6f, top = u * 2.6f, bottom = if (short) u * 1f else u * 3.4f)) {
+            Column(Modifier.fillMaxSize().displayCutoutPadding().padding(start = u * 3.6f, end = u * 3.6f, top = if (short) u * 1.2f else u * 2.6f, bottom = if (short) u * 1.2f else u * 3.4f)) {
 
                 // ---------- top bar
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top) {
@@ -139,6 +139,7 @@ fun HomeScreen(
                             Spacer(Modifier.width(u * 0.7f))
                             Text(settings.locationName, fontSize = fs(1.7f), fontWeight = FontWeight.SemiBold, color = Palette.ivory, fontFamily = F)
                         }
+                        if (short) Text(if (urdu) "ڈیزائن: UZR · میرے لیے دعا کیجیے" else "Designed by UZR · Make duʿā for me", fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.3f), color = Palette.goldSoft, modifier = Modifier.padding(start = u * 0.5f))
                         @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
                         androidx.compose.foundation.layout.FlowRow(Modifier.padding(top = u * 0.8f).widthIn(max = u * 62), horizontalArrangement = Arrangement.spacedBy(u * 0.9f), verticalArrangement = Arrangement.spacedBy(u * 0.6f)) {
                             if (settings.showQibla) {
@@ -179,14 +180,14 @@ fun HomeScreen(
                 }
 
                 // ---------- hero (takes whatever height is left)
-                Box((if (short) Modifier.height(u * 22f) else Modifier.weight(1f)).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                Box(Modifier.weight(1f).fillMaxWidth().padding(vertical = if (short) u * 0.6f else 0.dp), contentAlignment = Alignment.Center) {
                     if (settings.artTheme != ArtTheme.MINIMAL && !short) {
                         MihrabArch(Modifier.fillMaxHeight(0.98f).aspectRatio(0.96f, matchHeightConstraintsFirst = true))
                     }
                     val heroWords = (if (state.justPassed) "${L10n.prayer(settings, state.hero)} was at " else "Next prayer ${L10n.prayer(settings, state.hero)} at ") +
                         PrayerEngine.clock(state.heroTime, settings.use24h) + " " + PrayerEngine.suffix(state.heroTime, settings.use24h) + ", " +
                         (if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inFor(settings, state.delta))
-                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.semantics(mergeDescendants = true) { contentDescription = heroWords; heading() }) {
+                    FitHeight(Modifier.fillMaxSize()) { Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.semantics(mergeDescendants = true) { contentDescription = heroWords; heading() }) {
                         val kicker = when {
                             eidMorning -> "ʿĪd mubārak · اللهُ أكبر اللهُ أكبر لا إله إلا الله"
                             oddNight -> "Ramaḍān ${hij.day} · an odd night · seek Laylat al-Qadr"
@@ -228,7 +229,7 @@ fun HomeScreen(
                             state.now.format(DateTimeFormatter.ofPattern(if (settings.use24h) "HH:mm" else "h:mm a", Locale.ENGLISH)),
                             fontSize = fs(1.5f), letterSpacing = fs(0.3f), color = Palette.textSecondary, fontFamily = Nunito, modifier = Modifier.padding(top = u * 0.8f)
                         )
-                    }
+                    } }
                 }
                 if (settings.showDisliked) {
                     if (short) DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(start = u * 1, end = u * 1, bottom = u * 0.8f), labelSize = fs(1.1f))
@@ -275,7 +276,6 @@ fun HomeScreen(
                                 })
                     }
                 }
-                if (short) Text((if (urdu) "ڈیزائن: UZR · میرے لیے دعا کیجیے" else "Designed by UZR · Make duʿā for me"), fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.45f), color = Palette.goldSoft, modifier = Modifier.padding(top = u * 1f))
             }
             // signature
             if (!short) Column(Modifier.align(Alignment.BottomStart).padding(start = u * 1.2f, bottom = u * 0.5f)) {

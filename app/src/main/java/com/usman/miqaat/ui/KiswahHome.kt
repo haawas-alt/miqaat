@@ -95,7 +95,7 @@ fun KiswahHome(
 
         Weave(Modifier.fillMaxSize())
 
-        Column(Modifier.fillMaxSize().displayCutoutPadding().then(if (short) Modifier.verticalScroll(rememberScrollState()) else Modifier).padding(horizontal = u * 4, vertical = u * 2)) {
+        Column(Modifier.fillMaxSize().displayCutoutPadding().padding(horizontal = u * 4, vertical = if (short) u * 1.2f else u * 2)) {
             // top line
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
@@ -103,6 +103,7 @@ fun KiswahHome(
                     Caps(settings.locationName, fs(1.3f), Modifier.clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).semantics { contentDescription = "Location: ${settings.locationName}. Opens location settings" }, alpha = 1f)
                     if (settings.showQibla) { val q = PrayerEngine.qibla(settings); Caps("· " + L10n.word(settings, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), fs(1.1f), Modifier.clickable(onClick = onOpenQibla, role = androidx.compose.ui.semantics.Role.Button), alpha = 0.85f) }
                     if (settings.adhkarEnabled && morningWindow) Caps("· " + L10n.word(settings, "Morning adhkār"), fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.MORNING) }, bright = true)
+                    if (short) Caps(if (urdu) "· ڈیزائن: UZR · میرے لیے دعا کیجیے" else "· DESIGNED BY UZR · MAKE DUʿĀ FOR ME", fs(0.95f), Modifier.alpha(0.8f))
                     if (settings.adhkarEnabled && eveningWindow) Caps("· " + L10n.word(settings, "Evening adhkār"), fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.EVENING) }, bright = true)
                     if (updateAvailable) Caps("· " + L10n.word(settings, "Update available"), fs(1.1f), Modifier.clickable(onClick = onOpenAbout), bright = true)
                     if (settings.fridayReminders && PrayerEngine.isJumuahWindow(settings, state.now)) Caps("· " + L10n.word(settings, "Jumuʿah"), fs(1.1f), Modifier.clickable(onClick = onOpenFriday))
@@ -128,8 +129,8 @@ fun KiswahHome(
             }
 
             // hero
-            Box((if (short) Modifier.height(u * 22f) else Modifier.weight(1f)).fillMaxWidth(), contentAlignment = Alignment.Center) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Box(Modifier.weight(1f).fillMaxWidth().padding(vertical = if (short) u * 0.6f else 0.dp), contentAlignment = Alignment.Center) {
+                FitHeight(Modifier.fillMaxSize()) { Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     val kicker = when {
                         ramadan && state.current == null -> "Ramaḍān · Suhoor ends"
                         ramadan && state.hero == Prayer.MAGHRIB -> "Ramaḍān · Iftar"
@@ -160,7 +161,7 @@ fun KiswahHome(
                             Text("IQAMAH IN ${PrayerEngine.humanDuration(Duration.between(state.now, iq)).uppercase()}  ·  ${PrayerEngine.clock(iq, settings.use24h)}", fontFamily = Cinzel, fontSize = fs(1.3f), letterSpacing = fs(0.25f), color = Kiswah.threadSoft.copy(alpha = 0.8f), modifier = Modifier.padding(top = u * 1))
                         }
                     }
-                }
+                } }
             }
 
             if (settings.showDisliked) {

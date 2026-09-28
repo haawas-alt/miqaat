@@ -108,7 +108,9 @@ data class AppSettings(
     val latitudeRule: LatitudeRule = LatitudeRule.MIDDLE,
     val adjustments: Map<Prayer, Int> = Prayer.entries.associateWith { 0 },
     val azaanEnabled: Map<Prayer, Boolean> = Prayer.prayersOnly.associateWith { true },
-    val azaanVolume: Int = 80,
+    val azaanVolume: Int = 100,
+    /** Extra loudness in dB (0, 6 or 12) applied with Android's LoudnessEnhancer — for tablets whose speaker is quiet even at full alarm volume. */
+    val azaanBoostDb: Int = 0,
     val azaanUri: String? = null,
     val fajrAzaanUri: String? = null,
     val preReminderMinutes: Int = 0,
@@ -226,6 +228,7 @@ class SettingsStore(context: Context) {
             adjustments = Prayer.entries.associateWith { prefs.getInt("adj_${it.key}", 0) },
             azaanEnabled = Prayer.prayersOnly.associateWith { prefs.getBoolean("az_${it.key}", true) },
             azaanVolume = prefs.getInt("azVol", d.azaanVolume),
+            azaanBoostDb = prefs.getInt("azBoost", d.azaanBoostDb),
             azaanUri = prefs.getString("azUri", null),
             fajrAzaanUri = prefs.getString("azFajrUri", null),
             preReminderMinutes = prefs.getInt("preMin", d.preReminderMinutes),
@@ -281,7 +284,7 @@ class SettingsStore(context: Context) {
             putString("method", s.method.name); putString("asr", s.asrMethod.name); putString("latRule", s.latitudeRule.name)
             s.adjustments.forEach { (p, v) -> putInt("adj_${p.key}", v) }
             s.azaanEnabled.forEach { (p, v) -> putBoolean("az_${p.key}", v) }
-            putInt("azVol", s.azaanVolume); putString("azUri", s.azaanUri); putString("azFajrUri", s.fajrAzaanUri)
+            putInt("azVol", s.azaanVolume); putInt("azBoost", s.azaanBoostDb); putString("azUri", s.azaanUri); putString("azFajrUri", s.fajrAzaanUri)
             putInt("preMin", s.preReminderMinutes); putInt("afterMin", s.afterWindowMinutes)
             putBoolean("afterAz", s.afterAzaanEnabled); putString("narr", s.narration.name); putInt("hadMin", s.hadithMinutes)
             putString("ramadan", s.ramadanMode.name); putBoolean("jumuah", s.jumuahEnabled); putInt("jumuahMin", s.jumuahMinutes)

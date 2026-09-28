@@ -538,4 +538,10 @@
     <string name="s_show">show</string>
     <string name="s_report_a_content_correction">Report a content correction</string>
     <string name="s_device_zone">Device · %1$s</string>
+    <string name="s_speaker_boost">Speaker boost</string>
+    <string name="s_speaker_boost_detail">Extra gain on top of the alarm volume, for quiet tablet speakers. Higher settings can distort — try +6 dB first.</string>
+    <string name="s_boost_off">Off</string>
+    <string name="s_boost_6">+6 dB</string>
+    <string name="s_boost_12">+12 dB</string>
+    <string name="s_boost_18">+18 dB</string>
 </resources>

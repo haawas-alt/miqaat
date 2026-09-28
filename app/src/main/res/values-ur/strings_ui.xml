@@ -538,4 +538,10 @@
     <string name="s_show">دکھائیں</string>
     <string name="s_report_a_content_correction">مواد میں اصلاح کی اطلاع دیں</string>
     <string name="s_device_zone">ڈیوائس · %1$s</string>
+    <string name="s_speaker_boost">اسپیکر بوسٹ</string>
+    <string name="s_speaker_boost_detail">الارم والیوم کے اوپر اضافی آواز، دھیمے ٹیبلٹ اسپیکروں کے لیے۔ زیادہ سطح پر آواز بگڑ سکتی ہے — پہلے +6 dB آزمائیں۔</string>
+    <string name="s_boost_off">بند</string>
+    <string name="s_boost_6">+6 dB</string>
+    <string name="s_boost_12">+12 dB</string>
+    <string name="s_boost_18">+18 dB</string>
 </resources>

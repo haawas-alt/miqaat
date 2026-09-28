@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -144,7 +145,7 @@ fun PortraitHome(
 
                 // hero takes whatever height is left between the header and the list
                 Box((if (roomy) Modifier.fillMaxWidth().padding(vertical = u * 3) else Modifier.weight(1f).fillMaxWidth()).fillMaxWidth(), contentAlignment = Alignment.Center) {
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                FitHeight(Modifier.fillMaxWidth().then(if (roomy) Modifier else Modifier.fillMaxHeight())) { Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                     val kicker = when {
                         ramadan && state.current == null -> "Ramaḍān · Suhoor ends"
                         ramadan && state.hero == Prayer.MAGHRIB -> "Ramaḍān · Iftar"
@@ -173,7 +174,7 @@ fun PortraitHome(
                             Text("${L10n.iqamahIn(settings, Duration.between(state.now, iq))}  ·  ${PrayerEngine.clock(iq, settings.use24h)} ${PrayerEngine.suffix(iq, settings.use24h)}", fontFamily = F, fontSize = fs(3.2f), fontWeight = FontWeight.SemiBold, color = gold, modifier = Modifier.padding(top = u * 2))
                         }
                     }
-                }
+                } }
                 }
 
                 if (settings.showDisliked) DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(start = u * 2, end = u * 2, bottom = u * 1.6f), kiswah = kiswah, labelSize = fs(2.4f))

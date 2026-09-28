@@ -448,6 +448,10 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
     SettingRow(Str[R.string.s_volume], "${s.azaanVolume}% of the alarm volume") {
         Slider(value = s.azaanVolume / 100f, onValueChange = { v -> store.update { it.copy(azaanVolume = (v * 100).toInt()) } }, modifier = Modifier.width(220.dp).semantics { contentDescription = Str[R.string.s_azaan_volume]; stateDescription = "${s.azaanVolume} percent" })
     }
+    SettingRow(Str[R.string.s_speaker_boost], Str[R.string.s_speaker_boost_detail]) {
+        val levels = listOf(0, 6, 12, 18)
+        Chips(listOf(Str[R.string.s_boost_off], Str[R.string.s_boost_6], Str[R.string.s_boost_12], Str[R.string.s_boost_18]), levels.indexOf(s.azaanBoostDb).coerceAtLeast(0)) { i -> store.update { it.copy(azaanBoostDb = levels[i]) } }
+    }
     SettingRow(Str[R.string.s_reminder_before_azaan], Str[R.string.s_a_quiet_notification_no_sound]) {
         Stepper(s.preReminderMinutes, 0, 30, 5, Str[R.string.s_min], zeroLabel = Str[R.string.s_off]) { v -> store.update { it.copy(preReminderMinutes = v) } }
     }
