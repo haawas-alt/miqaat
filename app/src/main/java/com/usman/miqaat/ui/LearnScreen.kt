@@ -100,7 +100,7 @@ fun learnColors(settings: AppSettings): LearnColors = if (settings.theme == AppT
 
 private enum class Mode { LIBRARY, LESSON, WORDS, MOVES }
 
-/** Learn Salah — for children and adult beginners. Library → guided prayer (rakʿah by rakʿah), words practice, or movement review. */
+/** Learn Salah — for beginners of any age. Library → guided prayer (rakʿah by rakʿah), words practice, or movement review. */
 @Composable
 fun LearnScreen(settings: AppSettings, onBack: () -> Unit) {
     val ctx = LocalContext.current

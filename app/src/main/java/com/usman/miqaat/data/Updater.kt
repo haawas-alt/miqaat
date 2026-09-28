@@ -83,9 +83,11 @@ object Updater {
         }
     }
 
-    fun canInstall(ctx: Context): Boolean = ctx.packageManager.canRequestPackageInstalls()
+    /** False on the Play edition, which neither declares REQUEST_INSTALL_PACKAGES nor may ask the system about it (that call crashed About in 1.78). */
+    fun canInstall(ctx: Context): Boolean = enabled && runCatching { ctx.packageManager.canRequestPackageInstalls() }.getOrDefault(false)
 
     fun openInstallPermission(ctx: Context) {
+        if (!enabled) return
         runCatching { ctx.startActivity(Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${ctx.packageName}")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
     }
 

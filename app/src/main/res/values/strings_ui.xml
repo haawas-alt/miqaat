@@ -184,7 +184,7 @@
     <string name="s_none_there_is_no_miqaat_server">None. There is no Miqaat server.</string>
     <string name="s_none">None</string>
     <string name="s_permissions">Permissions</string>
-    <string name="s_location_once_for_times_notifications_azaan">Location (once, for times), notifications (azaan), exact alarms, ignore battery optimisation (reliability)</string>
+    <string name="s_location_once_for_times_notifications_azaan">Location (once, for times), notifications (azaan), exact alarms; the battery-optimisation exemption is set by you in Android settings (reliability)</string>
     <string name="s_install_packages_self_update">, install packages (self-update)</string>
     <string name="s_no_contacts_camera_microphone_or_storage">. No contacts, camera, microphone or storage beyond files you pick.</string>
     <string name="s_minimal">Minimal</string>
@@ -223,7 +223,7 @@
     <string name="s_after_prayer_adhk_r">After-prayer adhkār</string>
     <string name="s_a_prompt_for_40_minutes_after">A prompt for 40 minutes after each prayer: istighfār, the tasbīḥ, Āyat al-Kursī, the Quls</string>
     <string name="s_learn_salah">Learn Salah</string>
-    <string name="s_a_book_icon_on_the_home">A book icon on the home screen opens the words of the prayer, one position at a time — for children and adult beginners. Shows one common form; some details differ between schools.</string>
+    <string name="s_a_book_icon_on_the_home">A book icon on the home screen opens the words of the prayer, one position at a time — for beginners of any age. Shows one common form; some details differ between schools.</string>
     <string name="s_art_theme">Art theme</string>
     <string name="s_open_miqaat_when_the_device_starts">Open Miqaat when the device starts</string>
     <string name="s_so_the_wall_tablet_comes_back">So the wall tablet comes back after a power cut</string>

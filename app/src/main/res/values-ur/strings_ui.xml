@@ -184,7 +184,7 @@
     <string name="s_none_there_is_no_miqaat_server">کچھ نہیں۔ میقات کا کوئی سرور نہیں۔</string>
     <string name="s_none">کچھ نہیں</string>
     <string name="s_permissions">اجازتیں</string>
-    <string name="s_location_once_for_times_notifications_azaan">مقام (ایک بار، اوقات کے لیے)، اطلاعات (اذان)، درست الارم، بیٹری کی بچت سے استثنا (قابلِ اعتماد کے لیے)</string>
+    <string name="s_location_once_for_times_notifications_azaan">مقام (ایک بار، اوقات کے لیے)، اطلاعات (اذان)، درست الارم؛ بیٹری کی بچت سے استثنا آپ خود اینڈرائیڈ کی ترتیبات میں دیتے ہیں (قابلِ اعتماد کے لیے)</string>
     <string name="s_install_packages_self_update">، پیکج انسٹال (خود اپ ڈیٹ)</string>
     <string name="s_no_contacts_camera_microphone_or_storage">۔ آپ کی منتخب کردہ فائلوں کے علاوہ رابطے، کیمرہ، مائیکروفون یا اسٹوریج تک رسائی نہیں۔</string>
     <string name="s_minimal">کم سے کم</string>
@@ -223,7 +223,7 @@
     <string name="s_after_prayer_adhk_r">نماز کے بعد کے اذکار</string>
     <string name="s_a_prompt_for_40_minutes_after">ہر نماز کے بعد 40 منٹ تک یاد دہانی: استغفار، تسبیح، آیت الکرسی، تین قل</string>
     <string name="s_learn_salah">نماز سیکھیں</string>
-    <string name="s_a_book_icon_on_the_home">ہوم اسکرین پر کتاب کا نشان نماز کے الفاظ کھولتا ہے، ایک وقت میں ایک حالت — بچوں اور نئے سیکھنے والے بڑوں کے لیے۔ ایک عام طریقہ دکھایا جاتا ہے؛ کچھ تفصیلات مسالک میں مختلف ہیں۔</string>
+    <string name="s_a_book_icon_on_the_home">ہوم اسکرین پر کتاب کا نشان نماز کے الفاظ کھولتا ہے، ایک وقت میں ایک حالت — ہر عمر کے نئے سیکھنے والوں کے لیے۔ ایک عام طریقہ دکھایا جاتا ہے؛ کچھ تفصیلات مسالک میں مختلف ہیں۔</string>
     <string name="s_art_theme">آرٹ تھیم</string>
     <string name="s_open_miqaat_when_the_device_starts">ڈیوائس آن ہونے پر میقات کھولیں</string>
     <string name="s_so_the_wall_tablet_comes_back">تاکہ بجلی جانے کے بعد دیوار والا ٹیبلٹ واپس آ جائے</string>
