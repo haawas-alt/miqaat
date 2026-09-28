@@ -1,8 +1,8 @@
 # Miqaat · Islamic content review pack
 
-**Content version:** 2026.09-a  **App build:** ≥ 1.34  **Status: UNSIGNED — no scholarly approval has been given for any version.**
+**Content version:** 2026.09-a  **App build:** ≥ 1.34  **Status: PARTLY SIGNED — hadith after the azaan and Learn Ṣalāh (incl. J7, J10) verified by Sheikh Abdel Razek Mahmoud Ramadan (Egypt) on content version 2026.09-b, 29 Sep 2026, as reported by the app owner. Everything else remains UNSIGNED.**
 
-The app says exactly that (Settings › About › Content sources: "Unsigned"). No release may describe its content as
+The app says "Unsigned" (Settings › About › Content sources) until its text is changed to the partial wording recorded under History; it must not say more than this pack does. No release may describe its content as
 "scholar reviewed", "verified" or "approved" until a named reviewer signs a version below, and the app text is
 changed in the same commit that records the signature.
 
@@ -75,7 +75,7 @@ Legend — **Engine:** what the code computes. **Was:** wording in build 33. **N
 - **Was:** framed for children; notes stated one form as *the* form ("Raise both hands to the ears, then fold them"; "Raise the index finger at the shahādah").
 - **Now:** renamed "Learn Salah — for children and adult beginners. Shows one common form; some details differ between schools." Notes reworded where schools differ: hand height (shoulders or ears), hand placement (chest or below the navel), āmīn (aloud or quietly), the finger in tashahhud (how it is moved differs). Opening supplication described as "one of several reported".
 - **Structure (v1.39):** the twelve texts are now arranged into complete prayers by `Learn.actions()`: Fajr (2), Maghrib (3), four-rakʿah. Per rakʿah: takbīr (opening duʿā and taʿawwudh in the first only) → al-Fātiḥah → a sūrah (first two rakʿahs only) → rukūʿ → rising → sujūd → sitting → second sujūd; tashahhud after the second rakʿah when more follow; final sitting = tashahhud + ṣalawāt + salām. Six posture drawings, each with a text description (`Learn.Posture.describe`). Please confirm this sequence and the posture descriptions, and whether a "pillars vs sunnah" marking should be added.
-- **Approve:** ☐ ☐ ☐  Notes: ________________________________
+- **Approve:** ✅ approved as shipped — Sheikh Abdel Razek Mahmoud Ramadan (Egypt), 29 Sep 2026 (as reported by the app owner; CLOSED).
 
 ### J8 · Hijri calendar and moon sighting
 - **Engine:** java.time Umm al-Qura (HijrahChronology) + a user offset of −2…+2 days; "moon sighted / not sighted" buttons shift by one day on the 29th/30th. Ramaḍān mode and Eid features follow the offset.
@@ -90,7 +90,7 @@ Legend — **Engine:** what the code computes. **Was:** wording in build 33. **N
 ### J10 · After-azaan sequence and narration
 - **Engine:** azaan → dua after azaan (Bukhārī 614) → one hadith (3 min, Arabic + English recordings) → done; iftar dua at Maghrib in Ramaḍān.
 - **Question:** any objection to English narration of hadith at alarm volume in a home; any hadith in REVIEW.md whose translation should change.
-- **Approve:** ☐ ☐ ☐  Notes: ________________________________
+- **Approve:** ✅ approved as shipped — Sheikh Abdel Razek Mahmoud Ramadan (Egypt), 29 Sep 2026 (as reported by the app owner; CLOSED).
 
 ### J11 · Iqamah "never before azaan" guard
 - **Engine:** a fixed iqamah time that falls before that day's azaan is replaced by azaan + 5 min. Purely protective; no ruling implied.
@@ -103,10 +103,10 @@ Legend — **Engine:** what the code computes. **Was:** wording in build 33. **N
 | Field | |
 |---|---|
 | Content version reviewed | 2026.09-a |
-| Reviewer name and qualification | |
+| Reviewer name and qualification | *Partial:* Sheikh Abdel Razek Mahmoud Ramadan (Egypt) — hadith after the azaan; Learn Ṣalāh. *Qualification to be recorded from the sheikh.* |
 | School(s) represented | |
-| Date | |
-| Items approved as shipped | |
+| Date | 29 Sep 2026 (partial) |
+| Items approved as shipped | Hadith after the azaan (36); Learn Ṣalāh (12); J7; J10 |
 | Items approved with change (attach wording) | |
 | Items rejected | |
 | Signature | |
@@ -116,6 +116,7 @@ Settings › About › Content sources from "Unsigned" to "Reviewed by … on �
 (Settings › About › Report a content correction → GitHub issues) to that reviewer.
 
 ## History
+- 29 Sep 2026 — partial sign-off recorded: hadith after the azaan (36) and Learn Ṣalāh (12), with J7 and J10, verified by Sheikh Abdel Razek Mahmoud Ramadan (Egypt) on 2026.09-b, as reported by the app owner; written confirmation and qualification line to be attached. Open: Duas (2), Adhkār (24), Other claims (10), J1–J6, J8, J9, J11. **Proposed About wording (not yet shipped):** "Partly reviewed — hadith after the azaan and Learn Ṣalāh by Sheikh Abdel Razek Mahmoud Ramadan (Egypt), 29 Sep 2026; the rest is pending."
 - 2026.09-a — first structured pack; wording changes J1–J7 made in the direction of *more* caution; no Arabic text, source or calculation changed. Unsigned.
 
 
