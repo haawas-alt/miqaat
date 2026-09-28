@@ -277,7 +277,7 @@ private fun TimeRow(
                     p.isPrayer -> Icon(if (s.azaanEnabled[p] == true) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(u * 1.4f), tint = ivory.copy(alpha = 0.6f))
                 }
             }
-            if (!urdu) Text(p.arabic, fontFamily = arabicFont, fontSize = fs(2.6f), lineHeight = fs(3f), color = gold.copy(alpha = if (done) 0.55f else 0.95f), maxLines = 1)
+            if (!urdu) Text(p.arabic, fontFamily = arabicFont, fontSize = fs(2.3f), lineHeight = fs(2.6f), color = gold.copy(alpha = if (done) 0.55f else 0.95f), maxLines = 1)
             if (small.isNotEmpty()) Text(small, fontFamily = F, fontSize = fs(1.05f), letterSpacing = if (kiswah) fs(0.12f) else 0.sp, color = ivory.copy(alpha = 0.5f), maxLines = 1)
         }
         Row(verticalAlignment = Alignment.Bottom) {
@@ -381,9 +381,12 @@ fun MihrabHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
                             Row(Modifier.weight(1f).fillMaxWidth()) {
                                 Box(Modifier.width(u * 0.4f).fillMaxHeight(0.8f).align(Alignment.CenterVertically).clip(RoundedCornerShape(50)).background(if (isNow) Brush.verticalGradient(listOf(Color(0xFFFFF7E3), gold)) else Brush.verticalGradient(listOf(Color.Transparent, Color.Transparent))))
                                 Spacer(Modifier.width(u * 1.8f))
-                                Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.Center) {
-                                    TimeRow(p, state, settings, u, false, Amiri, Cormorant, F, urdu, gold, ivory, a.onToggleRelative, { why = p }, Modifier)
-                                    Box(Modifier.fillMaxWidth().padding(top = u * 0.8f).height(1.dp).background(if (isNow) Palette.gold else gold.copy(alpha = 0.16f)))
+                                // Each row scales to the height it has (six rows share the board), so the small line never runs into the next name.
+                                FitHeight(Modifier.weight(1f).fillMaxHeight()) {
+                                    Column(Modifier.fillMaxWidth()) {
+                                        TimeRow(p, state, settings, u, false, Amiri, Cormorant, F, urdu, gold, ivory, a.onToggleRelative, { why = p }, Modifier)
+                                        Box(Modifier.fillMaxWidth().padding(top = u * 0.5f).height(1.dp).background(if (isNow) Palette.gold else gold.copy(alpha = 0.16f)))
+                                    }
                                 }
                             }
                         }
@@ -459,7 +462,7 @@ fun CourtyardHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
                         Spacer(Modifier.width(u * 1.6f))
                         Column(Modifier.weight(1f).fillMaxHeight()) {
                             shown.forEach { p ->
-                                Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
+                                FitHeight(Modifier.weight(1f).fillMaxWidth()) {
                                     TimeRow(p, state, settings, u, true, ReemKufi, Cinzel, F, urdu, gold, ivory, a.onToggleRelative, { why = p }, Modifier)
                                 }
                             }
