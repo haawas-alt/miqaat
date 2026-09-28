@@ -159,6 +159,7 @@ fun KiswahHome(
                 }
             }
 
+            if (settings.showDisliked) SunArc(settings, state.today, state.now, height = u * 6f, modifier = Modifier.fillMaxWidth().padding(start = u * 2, end = u * 2, bottom = u * 0.6f), kiswah = true, labelSize = fs(1.0f))
             // rail: a single gold line, then times
             GoldRule(null, u)
             val shown = if (settings.showSunrise) Prayer.entries else Prayer.prayersOnly

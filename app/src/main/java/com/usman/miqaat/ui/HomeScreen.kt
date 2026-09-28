@@ -217,7 +217,7 @@ fun HomeScreen(
                     }
                 }
                 if (settings.showDisliked) {
-                    DayTimeline(settings, state.today, state.now, height = u * 0.7f, modifier = Modifier.fillMaxWidth().padding(start = u * 1, end = u * 1, bottom = u * 0.5f))
+                    SunArc(settings, state.today, state.now, height = u * 6f, modifier = Modifier.fillMaxWidth().padding(start = u * 1, end = u * 1, bottom = u * 0.4f), labelSize = fs(1.1f))
                 }
 
                 // ---------- rail

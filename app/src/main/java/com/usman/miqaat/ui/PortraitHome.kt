@@ -161,7 +161,7 @@ fun PortraitHome(
                 }
                 }
 
-                if (settings.showDisliked) DayTimeline(settings, state.today, state.now, height = u * 1.4f, modifier = Modifier.fillMaxWidth().padding(start = u * 2, end = u * 2, bottom = u * 2.2f))
+                if (settings.showDisliked) DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(start = u * 2, end = u * 2, bottom = u * 1.6f), kiswah = kiswah, labelSize = fs(2.4f))
                 // prayer rows
                 val shown = if (settings.showSunrise) Prayer.entries else Prayer.prayersOnly
                 Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(u * 4)).background(Color.White.copy(alpha = if (kiswah) 0.04f else 0.07f)).border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(u * 4))) {
