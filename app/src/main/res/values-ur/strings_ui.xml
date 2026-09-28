@@ -24,7 +24,7 @@
     <string name="s_search_a_suburb_or_city">علاقہ یا شہر تلاش کریں</string>
     <string name="s_times_shown_in_the_device_s">" · اوقات ڈیوائس کے ٹائم زون میں دکھائے گئے"</string>
     <string name="s_travelling">سفر</string>
-    <string name="s_set_home_to_here">یہاں کو گھر مقرر کریں</string>
+    <string name="s_set_home_to_here">یہاں گھر سیٹ کریں</string>
     <string name="s_set_home">گھر مقرر کریں</string>
     <string name="s_traveller_mode">مسافر موڈ</string>
     <string name="s_when_you_are_80_km_or">جب آپ گھر سے 80 کلومیٹر یا زیادہ دور ہوں تو ہوم اسکرین پر سفر کا نشان دکھائی دیتا ہے۔ اوقات ہمیشہ موجودہ جگہ کے مطابق ہوتے ہیں۔ میقات آپ کے لیے نمازیں قصر یا جمع نہیں کرتا — قصر اور جمع کے احکام آپ کے سفر اور مسلک پر منحصر ہیں؛ اپنے امام سے پوچھیں۔</string>
@@ -205,7 +205,7 @@
     <string name="s_how_miqaat_looks_on_the_wall">میقات کیسا دکھتا ہے، دیوار پر یا آپ کے ہاتھ میں۔</string>
     <string name="s_changes_the_home_screen_and_the">ہوم اسکرین اور اذان کی اسکرینیں فوراً بدل جاتی ہیں؛ دیکھنے کے لیے گھڑی پر واپس جائیں</string>
     <string name="s_language">زبان</string>
-    <string name="s_home_screen_and_widget_urdu_is">پوری ایپ۔ اردو نستعلیق میں ہے جہاں فونٹ دستیاب ہو۔</string>
+    <string name="s_home_screen_and_widget_urdu_is">پوری ایپ۔ جہاں فونٹ دستیاب ہو، اردو نستعلیق میں دکھائی جاتی ہے؛ ترتیب بائیں سے دائیں رہتی ہے۔</string>
     <string name="s_large_type">بڑا خط</string>
     <string name="s_one_prayer_one_time_one_line">ایک نماز، ایک وقت، ایک سطر، بڑے کمرے کے آر پار پڑھنے کے قابل۔ 25 سیکنڈ کے لیے سب کچھ دیکھنے کو اسکرین چھوئیں۔</string>
     <string name="s_home_screen_widget">ہوم اسکرین وجٹ</string>
