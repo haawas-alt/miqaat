@@ -3,7 +3,7 @@ package com.usman.miqaat.ui
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
-import com.usman.miqaat.data.Language
+import com.usman.miqaat.data.*
 
 /**
  * Resource-backed UI strings that follow the app's own Language setting (not the system locale),
@@ -21,3 +21,14 @@ object Str {
     operator fun get(id: Int): String = res.getString(id)
     fun get(id: Int, vararg args: Any): String = res.getString(id, *args)
 }
+
+/** Localised display names for the settings enums (the enum's own `label` stays English for logs). */
+val Method.text: String get() = Str[labelRes]
+val Method.info: String get() = Str[detailRes]
+val AsrMethod.text: String get() = Str[labelRes]
+val LatitudeRule.text: String get() = Str[labelRes]
+val Narration.text: String get() = Str[labelRes]
+val RamadanMode.text: String get() = Str[labelRes]
+val IqamahSound.text: String get() = Str[labelRes]
+val AppTheme.text: String get() = Str[labelRes]
+val ArtTheme.text: String get() = Str[labelRes]

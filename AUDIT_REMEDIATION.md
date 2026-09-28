@@ -209,3 +209,20 @@ Verification: GitHub Actions run 39 (`v1.39`): all unit tests passed (the count 
 | P3 | Why dialog scroll affordance | **DEFERRED** | already sectioned; fade deferred |
 | P3 | Qibla portrait balance | **CODE** | `SpaceEvenly` |
 | P3 | Test count in docs | **COPY** | counts no longer maintained by hand |
+
+## Live emulator walkthrough of v1.48 (28 Sep 2026, Pixel 8 AVD, API 36) — response, shipped in v1.49
+
+Verified working: home countdown in seconds under one minute; ʿAsr azaan fired on time with the azaan screen and "azaan was N s ago" state; settings chip grid; reliability rows (Granted / Not granted · Fix) and their refresh on return; timetable frozen Date column with horizontal swipe and Today chip; Learn library and lesson steps; Qibla with declination and accuracy states; evening-adhkār chip; Urdu home and settings render right-to-left with isolated numbers.
+
+| # | Finding | Fix |
+|---|---------|-----|
+| L1 | Urdu: calculation method names/details, madhab chips, high-latitude rule, narration, Ramadan mode, iqamah sound, theme and art-theme chips stayed English (enum `label`s) | Every settings enum gained `labelRes`/`detailRes`; UI reads `Method.text/info`, `AsrMethod.text` … via `Str`; the English `label` is kept only for logs and the correction e-mail |
+| L2 | Urdu: Prayer-times section heading and its intro were hard-coded | Resourced (`s_match_your_local_masjid`) |
+| L3 | Urdu: Why-this-time dialog title, Fajr/Isha rule lines, Location label, Isha end note, "other view would give", masjid-source lines and the three disliked-window descriptions were English | Resourced with format args; `PrayerEngine.Window` carries `labelRes` (English `label` kept for tests) |
+| L4 | Urdu: Hijri date rendered "ربیع الثانی 17 1448" — day and year collapsed because the string begins with a digit | Wrapped in a right-to-left isolate (U+2067…U+2069) |
+| L5 | Azaan screen step bar promised "Duʿā after azaan · Hadith · Home" even when *After the azaan* is off (screen actually closes after the azaan) | Bar shows "Azaan · Home" when after-azaan is disabled; step names and the top status tag are resourced/localised |
+| L6 | About › "Allow installs" button did not change to "Download & install" after granting the permission until leaving the section | `LifecycleResumeEffect` re-evaluates `canRequestPackageInstalls` on return |
+| L7 | Learn bottom bar "Continue · Sitting · ṣalāh upon the Prophet ﷺ" wrapped with ﷺ alone on the second line | Long next-step names fall back to the posture name ("Continue · Sitting") |
+| L8 | Compact timetable: prayer columns wider than needed (two swipes to reach Isha); Friday green too subtle | Scroll width 700 → 560 dp × font scale; Friday rows get a brighter green and a faint row wash |
+
+Still English in Urdu mode by design for now: Learn Ṣalāh lesson content (postures, cues, notes — awaiting the reciter's recordings before that text is finalised and translated), timetable weekday/month abbreviations, and Latin day-bar letters (F · S · D · A · M · I). The new Urdu strings for L1–L5 are machine-drafted and are listed for proofreading in `Miqaat-Urdu-proofread-2.xlsx`.

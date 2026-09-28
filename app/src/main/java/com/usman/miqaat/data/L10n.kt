@@ -21,7 +21,8 @@ object L10n {
         else t.format(DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.ENGLISH))
 
     fun hijri(s: AppSettings, h: PrayerEngine.Hijri): String =
-        if (isUrdu(s)) "${h.day} ${urMonths[h.month - 1]} ${h.year}" else h.english
+        // RLI…PDI: the string starts with a digit, so without a right-to-left isolate the day and year collapse together.
+        if (isUrdu(s)) "\u2067${h.day} ${urMonths[h.month - 1]} ${h.year}\u2069" else h.english
 
     fun duration(s: AppSettings, d: Duration): String {
         if (!isUrdu(s)) return PrayerEngine.humanDuration(d)

@@ -95,15 +95,15 @@ object PrayerEngine {
         Prayer.ISHA -> midnight(settings, day)
     }
 
-    data class Window(val start: ZonedDateTime, val end: ZonedDateTime, val label: String)
+    data class Window(val start: ZonedDateTime, val end: ZonedDateTime, val label: String, val labelRes: Int = 0)
 
     /** Times when voluntary prayer is disliked: after sunrise (~15 min), at zawāl (~10 min before Dhuhr), after ʿAsr until Maghrib. */
     fun dislikedWindows(day: DayTimes, settings: AppSettings? = null): List<Window> {
         val noon = settings?.let { calculated(it.copy(jumuahEnabled = false), day.date)[Prayer.DHUHR] } ?: day[Prayer.DHUHR]
         return listOf(
-        Window(day[Prayer.SUNRISE], day[Prayer.SUNRISE].plusMinutes(15), "After sunrise · until the sun has risen a spear's length (shown as ≈15 min; the event, not the number, is what the texts describe)"),
-        Window(noon.minusMinutes(10), noon, "Zawāl · the sun at its zenith just before Dhuhr (shown as ≈10 min; a conservative estimate)"),
-        Window(day[Prayer.ASR], day[Prayer.MAGHRIB], "After praying ʿAsr · until sunset (schools differ on whether this attaches to the time or to having prayed)")
+        Window(day[Prayer.SUNRISE], day[Prayer.SUNRISE].plusMinutes(15), "After sunrise · until the sun has risen a spear's length (shown as ≈15 min; the event, not the number, is what the texts describe)", com.usman.miqaat.R.string.s_win_sunrise),
+        Window(noon.minusMinutes(10), noon, "Zawāl · the sun at its zenith just before Dhuhr (shown as ≈10 min; a conservative estimate)", com.usman.miqaat.R.string.s_win_zawal),
+        Window(day[Prayer.ASR], day[Prayer.MAGHRIB], "After praying ʿAsr · until sunset (schools differ on whether this attaches to the time or to having prayed)", com.usman.miqaat.R.string.s_win_asr)
     ) }
 
     /** Great-circle distance in km. */

@@ -1,5 +1,7 @@
 package com.usman.miqaat.data
 
+import com.usman.miqaat.R
+
 import android.content.Context
 import android.content.SharedPreferences
 import com.batoulapps.adhan.CalculationMethod
@@ -22,18 +24,19 @@ enum class Prayer(val key: String, val english: String, val arabic: String, val 
     }
 }
 
-enum class Method(val label: String, val detail: String) {
-    MWL("Muslim World League", "Fajr 18°, Isha 17° · widely used in Europe, Australia and much of the world · confirm with your masjid"),
-    ISNA("ISNA (North America)", "Fajr 15°, Isha 15°"),
-    EGYPT("Egyptian General Authority", "Fajr 19.5°, Isha 17.5°"),
-    UMM_AL_QURA("Umm al-Qura, Makkah", "Fajr 18.5°, Isha 90 min after Maghrib"),
-    KARACHI("University of Islamic Sciences, Karachi", "Fajr 18°, Isha 18°"),
-    TURKEY("Diyanet (Turkey)", "Fajr 18°, Isha 17°"),
-    DUBAI("Dubai", "Fajr 18.2°, Isha 18.2°"),
-    KUWAIT("Kuwait", "Fajr 18°, Isha 17.5°"),
-    QATAR("Qatar", "Fajr 18°, Isha 90 min after Maghrib"),
-    SINGAPORE("Singapore (MUIS)", "Fajr 20°, Isha 18°"),
-    MOONSIGHTING("Moonsighting Committee", "Fajr 18°, Isha 18° with seasonal adjustment");
+/** [label]/[detail] are the English names used in logs and the correction e-mail; the UI shows [labelRes]/[detailRes] via Str. */
+enum class Method(val label: String, val detail: String, val labelRes: Int, val detailRes: Int) {
+    MWL("Muslim World League", "Fajr 18°, Isha 17° · widely used in Europe, Australia and much of the world · confirm with your masjid", R.string.e_m_mwl, R.string.e_m_mwl_d),
+    ISNA("ISNA (North America)", "Fajr 15°, Isha 15°", R.string.e_m_isna, R.string.e_m_isna_d),
+    EGYPT("Egyptian General Authority", "Fajr 19.5°, Isha 17.5°", R.string.e_m_egypt, R.string.e_m_egypt_d),
+    UMM_AL_QURA("Umm al-Qura, Makkah", "Fajr 18.5°, Isha 90 min after Maghrib", R.string.e_m_uaq, R.string.e_m_uaq_d),
+    KARACHI("University of Islamic Sciences, Karachi", "Fajr 18°, Isha 18°", R.string.e_m_karachi, R.string.e_m_karachi_d),
+    TURKEY("Diyanet (Turkey)", "Fajr 18°, Isha 17°", R.string.e_m_turkey, R.string.e_m_turkey_d),
+    DUBAI("Dubai", "Fajr 18.2°, Isha 18.2°", R.string.e_m_dubai, R.string.e_m_dubai_d),
+    KUWAIT("Kuwait", "Fajr 18°, Isha 17.5°", R.string.e_m_kuwait, R.string.e_m_kuwait_d),
+    QATAR("Qatar", "Fajr 18°, Isha 90 min after Maghrib", R.string.e_m_qatar, R.string.e_m_qatar_d),
+    SINGAPORE("Singapore (MUIS)", "Fajr 20°, Isha 18°", R.string.e_m_singapore, R.string.e_m_singapore_d),
+    MOONSIGHTING("Moonsighting Committee", "Fajr 18°, Isha 18° with seasonal adjustment", R.string.e_m_moon, R.string.e_m_moon_d);
 
     fun parameters(): CalculationParameters = when (this) {
         MWL -> CalculationMethod.MUSLIM_WORLD_LEAGUE.parameters
@@ -50,28 +53,28 @@ enum class Method(val label: String, val detail: String) {
     }
 }
 
-enum class AsrMethod(val label: String, val madhab: Madhab) {
-    STANDARD("Shafiʿi, Maliki, Hanbali", Madhab.SHAFI),
-    HANAFI("Hanafi", Madhab.HANAFI)
+enum class AsrMethod(val label: String, val madhab: Madhab, val labelRes: Int) {
+    STANDARD("Shafiʿi, Maliki, Hanbali", Madhab.SHAFI, R.string.e_asr_std),
+    HANAFI("Hanafi", Madhab.HANAFI, R.string.e_asr_hanafi)
 }
 
-enum class LatitudeRule(val label: String, val rule: HighLatitudeRule) {
-    MIDDLE("Middle of the night", HighLatitudeRule.MIDDLE_OF_THE_NIGHT),
-    SEVENTH("One seventh of the night", HighLatitudeRule.SEVENTH_OF_THE_NIGHT),
-    ANGLE("Twilight angle", HighLatitudeRule.TWILIGHT_ANGLE)
+enum class LatitudeRule(val label: String, val rule: HighLatitudeRule, val labelRes: Int) {
+    MIDDLE("Middle of the night", HighLatitudeRule.MIDDLE_OF_THE_NIGHT, R.string.e_lat_middle),
+    SEVENTH("One seventh of the night", HighLatitudeRule.SEVENTH_OF_THE_NIGHT, R.string.e_lat_seventh),
+    ANGLE("Twilight angle", HighLatitudeRule.TWILIGHT_ANGLE, R.string.e_lat_angle)
 }
 
-enum class Narration(val label: String) { OFF("Off"), ENGLISH("English"), BOTH("Arabic + English") }
+enum class Narration(val label: String, val labelRes: Int) { OFF("Off", R.string.e_nar_off), ENGLISH("English", R.string.e_nar_en), BOTH("Arabic + English", R.string.e_nar_both) }
 
-enum class RamadanMode(val label: String) { AUTO("Automatic"), ON("On"), OFF("Off") }
+enum class RamadanMode(val label: String, val labelRes: Int) { AUTO("Automatic", R.string.e_ram_auto), ON("On", R.string.e_ram_on), OFF("Off", R.string.e_ram_off) }
 
-enum class IqamahSound(val label: String) { OFF("Off"), CHIME("Chime"), RECORDING("Iqamah recording") }
+enum class IqamahSound(val label: String, val labelRes: Int) { OFF("Off", R.string.e_iq_off), CHIME("Chime", R.string.e_iq_chime), RECORDING("Iqamah recording", R.string.e_iq_rec) }
 
-enum class AppTheme(val label: String) { MIQAAT("Miqaat · illuminated"), KISWAH("Kiswah · black & gold") }
+enum class AppTheme(val label: String, val labelRes: Int) { MIQAAT("Miqaat · illuminated", R.string.e_theme_miqaat), KISWAH("Kiswah · black & gold", R.string.e_theme_kiswah) }
 
 enum class Language(val label: String, val tag: String) { EN("English", "en"), UR("اردو · Urdu", "ur") }
 
-enum class ArtTheme(val label: String) { GEOMETRIC("Geometric lattice"), CALLIGRAPHY("Calligraphy only"), MINIMAL("Minimal") }
+enum class ArtTheme(val label: String, val labelRes: Int) { GEOMETRIC("Geometric lattice", R.string.e_art_geo), CALLIGRAPHY("Calligraphy only", R.string.e_art_calli), MINIMAL("Minimal", R.string.e_art_min) }
 
 @androidx.compose.runtime.Immutable
 data class AppSettings(

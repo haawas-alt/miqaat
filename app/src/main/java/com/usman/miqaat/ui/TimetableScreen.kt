@@ -81,7 +81,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                     if (settings.showHijri && !compact) Text("   $hijriRange", fontFamily = Amiri, fontSize = 22.sp, color = Palette.goldSoft, modifier = Modifier.padding(bottom = 6.dp))
                 }
                 Text(
-                    "${settings.locationName} · ${settings.method.label} · Asr: ${settings.asrMethod.label.substringBefore(',')}",
+                    "${settings.locationName} · ${settings.method.text} · Asr: ${settings.asrMethod.text.substringBefore('،').substringBefore(',')}",
                     fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary
                 )
             }
@@ -97,7 +97,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
         val shape = RoundedCornerShape(14.dp)
         // Compact: the Date column is frozen; the rest scrolls sideways (width grows with the font setting).
         val dateW = if (compact) (74.dp * fontScale) else 0.dp
-        val restW = if (compact) (700.dp * fontScale) else 0.dp
+        val restW = if (compact) (560.dp * fontScale) else 0.dp
         val canScrollMore = compact && hScroll.value < hScroll.maxValue
         Column(Modifier.fillMaxWidth().weight(1f).clip(shape).border(1.dp, Palette.line, shape)) {
             @Composable fun cells(content: @Composable (Int, Modifier) -> Unit) {
@@ -117,12 +117,12 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                 items(days, key = { it.date.toEpochDay() }) { d ->
                     val isToday = d.date == today
                     val fri = d.date.dayOfWeek == DayOfWeek.FRIDAY
-                    val color = when { isToday -> Color(0xFFF6E7B8); fri -> Color(0xFFBFE3C9); else -> Palette.ivory }
+                    val color = when { isToday -> Color(0xFFF6E7B8); fri -> Color(0xFFA6E3B8); else -> Palette.ivory }
                     val h = PrayerEngine.hijri(d.date, settings.hijriOffsetDays)
                     val spoken = d.date.format(DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.ENGLISH)) + (if (isToday) ", today" else "") + (if (fri) ", Friday" else "") + ", " + h.short + ": " +
                         Prayer.entries.joinToString(", ") { "${it.english} ${PrayerEngine.clock(d[it], settings.use24h)} ${PrayerEngine.suffix(d[it], settings.use24h)}" }
                     Row(
-                        Modifier.fillMaxWidth().background(if (isToday) Palette.gold.copy(alpha = 0.16f) else Color.Transparent)
+                        Modifier.fillMaxWidth().background(when { isToday -> Palette.gold.copy(alpha = 0.16f); fri -> Color(0xFFA6E3B8).copy(alpha = 0.07f); else -> Color.Transparent })
                             .padding(vertical = 8.dp, horizontal = 14.dp).semantics(mergeDescendants = true) { contentDescription = spoken },
                         verticalAlignment = Alignment.CenterVertically
                     ) {

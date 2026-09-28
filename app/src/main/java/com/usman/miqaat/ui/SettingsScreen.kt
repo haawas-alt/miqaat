@@ -360,12 +360,12 @@ suspend fun refreshIfDue(ctx: Context, store: SettingsStore) {
 private fun TimesSection(store: SettingsStore, s: AppSettings) {
     var pickMethod by remember { mutableStateOf(false) }
     var pickLat by remember { mutableStateOf(false) }
-    Heading("Prayer times", "Match your local masjid. Conventions differ by country and community; the Muslim World League angles (Fajr 18°, Isha 17°) are a common starting point — check your masjid's timetable and adjust, or import it under Location.")
-    SettingRow(Str[R.string.s_calculation_method], s.method.detail, onClick = { pickMethod = true }) { GoldValue(s.method.label + " ›") }
+    Heading(Str[R.string.s_prayer_times], Str[R.string.s_match_your_local_masjid])
+    SettingRow(Str[R.string.s_calculation_method], s.method.info, onClick = { pickMethod = true }) { GoldValue(s.method.text + " ›") }
     SettingRow(Str[R.string.s_asr_juristic_method], Str[R.string.s_hanafi_asr_begins_later_shadow_2]) {
-        Chips(AsrMethod.entries.map { it.label }, AsrMethod.entries.indexOf(s.asrMethod)) { i -> store.update { it.copy(asrMethod = AsrMethod.entries[i]) } }
+        Chips(AsrMethod.entries.map { it.text }, AsrMethod.entries.indexOf(s.asrMethod)) { i -> store.update { it.copy(asrMethod = AsrMethod.entries[i]) } }
     }
-    SettingRow(Str[R.string.s_high_latitude_rule], Str[R.string.s_only_matters_above_48_latitude], onClick = { pickLat = true }) { Value(s.latitudeRule.label + " ›") }
+    SettingRow(Str[R.string.s_high_latitude_rule], Str[R.string.s_only_matters_above_48_latitude], onClick = { pickLat = true }) { Value(s.latitudeRule.text + " ›") }
     SettingRow(Str[R.string.s_show_end_times], Str[R.string.s_ends_5_57_under_each_prayer]) { Toggle(s.showEndTimes) { on -> store.update { it.copy(showEndTimes = on) } } }
     SettingRow(Str[R.string.s_show_disliked_times_for_voluntary_prayer], Str[R.string.s_a_thin_day_bar_marking_approximate]) { Toggle(s.showDisliked) { on -> store.update { it.copy(showDisliked = on) } } }
     SettingRow(Str[R.string.s_show_sunrise_on_the_home_screen], Str[R.string.s_marks_the_end_of_fajr_time]) { Toggle(s.showSunrise) { on -> store.update { it.copy(showSunrise = on) } } }
@@ -387,7 +387,7 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
     Spacer(Modifier.height(18.dp))
     Text("Ramaḍān", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     SettingRow(Str[R.string.s_rama_n_mode], Str[R.string.s_suhoor_and_iftar_labels_fasting_progress]) {
-        Chips(RamadanMode.entries.map { it.label }, RamadanMode.entries.indexOf(s.ramadanMode)) { i -> store.update { it.copy(ramadanMode = RamadanMode.entries[i]) } }
+        Chips(RamadanMode.entries.map { it.text }, RamadanMode.entries.indexOf(s.ramadanMode)) { i -> store.update { it.copy(ramadanMode = RamadanMode.entries[i]) } }
     }
     SettingRow(Str[R.string.s_suhoor_alarm], Str[R.string.s_a_chime_and_notification_this_many]) { Stepper(s.suhoorAlarmMinutes, 0, 120, 5, Str[R.string.s_min], zeroLabel = Str[R.string.s_off]) { v -> store.update { it.copy(suhoorAlarmMinutes = v) } } }
     SettingRow("Tarāwīḥ", Str[R.string.s_shown_on_the_home_screen_in]) { Stepper(s.tarawihMinutesAfterIsha, 0, 120, 5, Str[R.string.s_min]) { v -> store.update { it.copy(tarawihMinutesAfterIsha = v) } } }
@@ -406,9 +406,9 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
         fontFamily = Nunito, fontSize = 13.sp, color = Palette.goldSoft
     )
 
-    if (pickMethod) PickerDialog(Str[R.string.s_calculation_method], Method.entries.map { it.label to it.detail }, Method.entries.indexOf(s.method),
+    if (pickMethod) PickerDialog(Str[R.string.s_calculation_method], Method.entries.map { it.text to it.info }, Method.entries.indexOf(s.method),
         onPick = { i -> store.update { it.copy(method = Method.entries[i]) } }) { pickMethod = false }
-    if (pickLat) PickerDialog(Str[R.string.s_high_latitude_rule], LatitudeRule.entries.map { it.label to "" }, LatitudeRule.entries.indexOf(s.latitudeRule),
+    if (pickLat) PickerDialog(Str[R.string.s_high_latitude_rule], LatitudeRule.entries.map { it.text to "" }, LatitudeRule.entries.indexOf(s.latitudeRule),
         onPick = { i -> store.update { it.copy(latitudeRule = LatitudeRule.entries[i]) } }) { pickLat = false }
 }
 
@@ -451,7 +451,7 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
     Text(Str[R.string.s_when_the_azaan_finishes_the_dua], fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary)
     SettingRow(Str[R.string.s_dua_and_hadith_after_each_azaan], Str[R.string.s_for_all_five_prayers]) { Toggle(s.afterAzaanEnabled) { on -> store.update { it.copy(afterAzaanEnabled = on) } } }
     SettingRow(Str[R.string.s_narration], Str[R.string.s_studio_recordings_are_built_in_for]) {
-        Chips(Narration.entries.map { it.label }, Narration.entries.indexOf(s.narration)) { i -> store.update { it.copy(narration = Narration.entries[i]) } }
+        Chips(Narration.entries.map { it.text }, Narration.entries.indexOf(s.narration)) { i -> store.update { it.copy(narration = Narration.entries[i]) } }
     }
     SettingRow(Str[R.string.s_hadith_stays_on_screen_for], Str[R.string.s_counted_from_when_the_hadith_appears]) {
         Stepper(s.hadithMinutes, 1, 10, 1, Str[R.string.s_min]) { v -> store.update { it.copy(hadithMinutes = v) } }
@@ -538,7 +538,7 @@ private fun IqamahSection(store: SettingsStore, s: AppSettings) {
             Stepper(s.iqamahCountdownSeconds, 30, 180, 15, " s") { v -> store.update { it.copy(iqamahCountdownSeconds = v) } }
         }
         SettingRow(Str[R.string.s_sound_at_iqamah], Str[R.string.s_iqamah_recording_plays_res_raw_iqamah]) {
-            Chips(IqamahSound.entries.map { it.label }, IqamahSound.entries.indexOf(s.iqamahSound)) { i -> store.update { it.copy(iqamahSound = IqamahSound.entries[i]) } }
+            Chips(IqamahSound.entries.map { it.text }, IqamahSound.entries.indexOf(s.iqamahSound)) { i -> store.update { it.copy(iqamahSound = IqamahSound.entries[i]) } }
         }
         SettingRow(Str[R.string.s_quiet_screen_after_iqamah], Str[R.string.s_dim_clock_only_nothing_moving_tap]) {
             Stepper(s.quietMinutes, 0, 30, 1, Str[R.string.s_min], zeroLabel = Str[R.string.s_off]) { v -> store.update { it.copy(quietMinutes = v) } }
@@ -552,7 +552,7 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
     Heading(Str[R.string.s_test_preview], Str[R.string.s_run_any_part_of_the_experience])
     Text(Str[R.string.s_theme], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     SettingRow(Str[R.string.s_preview_a_theme], Str[R.string.s_applies_straight_away_press_back_to]) {
-        Chips(AppTheme.entries.map { it.label }, AppTheme.entries.indexOf(s.theme)) { i -> store.update { it.copy(theme = AppTheme.entries[i]) } }
+        Chips(AppTheme.entries.map { it.text }, AppTheme.entries.indexOf(s.theme)) { i -> store.update { it.copy(theme = AppTheme.entries[i]) } }
     }
     Spacer(Modifier.height(14.dp))
     Text("Azaan", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
@@ -574,12 +574,12 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
     Text(Str[R.string.s_iqamah], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     SettingRow(Str[R.string.s_countdown_iqamah_quiet_screen], "The whole iqamah flow, starting with a ${s.iqamahCountdownSeconds}-second countdown") { GoldButton("Start") { AzaanService.testIqamah(ctx, Prayer.MAGHRIB) } }
     SettingRow(Str[R.string.s_short_countdown], Str[R.string.s_same_flow_15_second_countdown_to]) { GoldButton("Start") { AzaanService.testIqamah(ctx, Prayer.MAGHRIB, 15) } }
-    SettingRow(Str[R.string.s_iqamah_sound_only], "Plays the ${s.iqamahSound.label.lowercase()} and shows the iqamah screen") { GoldButton(Str[R.string.s_play]) { AzaanService.testIqamahNow(ctx, Prayer.MAGHRIB) } }
+    SettingRow(Str[R.string.s_iqamah_sound_only], Str.get(R.string.s_plays_x_and_shows_iqamah, s.iqamahSound.text.lowercase())) { GoldButton(Str[R.string.s_play]) { AzaanService.testIqamahNow(ctx, Prayer.MAGHRIB) } }
     SettingRow(Str[R.string.s_quiet_screen], "Shows the in-prayer screen for ${s.quietMinutes} min; tap it to leave") { GoldButton("Show") { AzaanService.testQuiet(ctx, Prayer.MAGHRIB) } }
     Spacer(Modifier.height(14.dp))
     Text(Str[R.string.s_home_screen_modes], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     SettingRow(Str[R.string.s_rama_n_mode], Str[R.string.s_force_it_on_to_see_suhoor]) {
-        Chips(RamadanMode.entries.map { it.label }, RamadanMode.entries.indexOf(s.ramadanMode)) { i -> store.update { it.copy(ramadanMode = RamadanMode.entries[i]) } }
+        Chips(RamadanMode.entries.map { it.text }, RamadanMode.entries.indexOf(s.ramadanMode)) { i -> store.update { it.copy(ramadanMode = RamadanMode.entries[i]) } }
     }
     SettingRow(Str[R.string.s_stop_anything_that_is_playing], null) { TextButton(onClick = { AzaanService.stop(ctx) }) { Text(Str[R.string.s_stop], color = Palette.goldSoft) } }
 }
@@ -693,7 +693,7 @@ private fun HijriSection(store: SettingsStore, s: AppSettings) {
 private fun DisplaySection(store: SettingsStore, s: AppSettings) {
     Heading(Str[R.string.s_display_art], Str[R.string.s_how_miqaat_looks_on_the_wall])
     SettingRow(Str[R.string.s_theme], Str[R.string.s_changes_the_home_screen_and_the]) {
-        Chips(AppTheme.entries.map { it.label }, AppTheme.entries.indexOf(s.theme)) { i -> store.update { it.copy(theme = AppTheme.entries[i]) } }
+        Chips(AppTheme.entries.map { it.text }, AppTheme.entries.indexOf(s.theme)) { i -> store.update { it.copy(theme = AppTheme.entries[i]) } }
     }
     SettingRow(Str[R.string.s_language], Str[R.string.s_home_screen_and_widget_urdu_is]) {
         Chips(Language.entries.map { it.label }, Language.entries.indexOf(s.language)) { i -> store.update { it.copy(language = Language.entries[i]) } }
@@ -707,7 +707,7 @@ private fun DisplaySection(store: SettingsStore, s: AppSettings) {
     SettingRow(Str[R.string.s_morning_and_evening_adhk_r], Str[R.string.s_a_prompt_after_fajr_and_after]) { Toggle(s.adhkarEnabled) { on -> store.update { it.copy(adhkarEnabled = on) } } }
     SettingRow(Str[R.string.s_after_prayer_adhk_r], Str[R.string.s_a_prompt_for_40_minutes_after]) { Toggle(s.postPrayerAdhkar) { on -> store.update { it.copy(postPrayerAdhkar = on) } } }
     SettingRow(Str[R.string.s_learn_salah], Str[R.string.s_a_book_icon_on_the_home]) { Toggle(s.kidsMode) { on -> store.update { it.copy(kidsMode = on) } } }
-    SettingRow(Str[R.string.s_art_theme], null) { Chips(ArtTheme.entries.map { it.label }, ArtTheme.entries.indexOf(s.artTheme)) { i -> store.update { it.copy(artTheme = ArtTheme.entries[i]) } } }
+    SettingRow(Str[R.string.s_art_theme], null) { Chips(ArtTheme.entries.map { it.text }, ArtTheme.entries.indexOf(s.artTheme)) { i -> store.update { it.copy(artTheme = ArtTheme.entries[i]) } } }
     SettingRow(Str[R.string.s_open_miqaat_when_the_device_starts], Str[R.string.s_so_the_wall_tablet_comes_back]) { Toggle(s.launchOnBoot) { on -> store.update { it.copy(launchOnBoot = on) } } }
 }
 
@@ -717,6 +717,10 @@ private fun AboutSection(s: AppSettings) {
     val scope = rememberCoroutineScope()
     val up by Updater.state.collectAsState()
     LaunchedEffect(Unit) { Updater.check(ctx) }
+    // Re-check the install permission when the user comes back from the system "Allow installs" screen.
+    var tick by remember { mutableStateOf(0) }
+    androidx.lifecycle.compose.LifecycleResumeEffect(Unit) { tick++; onPauseOrDispose { } }
+    val canInstall = remember(tick) { Updater.canInstall(ctx) }
     Heading(Str[R.string.s_about_miqaat], Str[R.string.s_an_appointed_time])
     Text("Version ${Updater.currentName} · build ${Updater.currentBuild} · ${if (Updater.enabled) "direct-download edition" else "Google Play edition"}", fontFamily = Nunito, fontSize = 15.sp, color = Palette.goldSoft)
     Text("Built from commit ${com.usman.miqaat.BuildConfig.GIT_SHA.take(12)} · release tag ${com.usman.miqaat.BuildConfig.BUILD_TAG}. The SHA-256 of every release is published next to it on GitHub.", fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, lineHeight = 18.sp)
@@ -724,8 +728,8 @@ private fun AboutSection(s: AppSettings) {
     if (!Updater.enabled) SettingRow(Str[R.string.s_updates], Str[R.string.s_this_edition_is_updated_by_google]) { Value(Str[R.string.s_play]) }
     else when (val u = up) {
         is Updater.State.Available -> {
-            SettingRow("Update available: version ${u.info.versionName}", if (Updater.canInstall(ctx)) Str[R.string.s_downloads_from_github_and_opens_the] else Str[R.string.s_first_allow_miqaat_to_install_updates]) {
-                if (Updater.canInstall(ctx)) GoldButton(Str[R.string.s_download_install]) { Updater.download(ctx, u.info) }
+            SettingRow("Update available: version ${u.info.versionName}", if (canInstall) Str[R.string.s_downloads_from_github_and_opens_the] else Str[R.string.s_first_allow_miqaat_to_install_updates]) {
+                if (canInstall) GoldButton(Str[R.string.s_download_install]) { Updater.download(ctx, u.info) }
                 else GoldButton(Str[R.string.s_allow_installs]) { Updater.openInstallPermission(ctx) }
             }
         }

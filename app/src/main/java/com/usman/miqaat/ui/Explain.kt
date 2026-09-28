@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import com.usman.miqaat.data.AppSettings
 import com.usman.miqaat.data.AsrMethod
 import com.usman.miqaat.data.DayTimes
+import com.usman.miqaat.data.L10n
 import com.usman.miqaat.data.Prayer
 import com.usman.miqaat.data.PrayerEngine
 import java.time.Duration
@@ -57,29 +58,29 @@ fun WhyDialog(settings: AppSettings, day: DayTimes, p: Prayer, onDismiss: () -> 
     fun c(z: ZonedDateTime) = PrayerEngine.clock(z, h24) + " " + PrayerEngine.suffix(z, h24)
     AlertDialog(
         onDismissRequest = onDismiss, containerColor = Palette.panelRaised,
-        title = { Text("Why ${PrayerEngine.clock(t, h24)}?  ·  ${p.english}  ${p.arabic}", fontFamily = Cormorant, fontSize = 26.sp, color = Palette.ivory) },
+        title = { Text(Str.get(R.string.s_why_title, PrayerEngine.clock(t, h24), L10n.prayer(settings, p), p.arabic), fontFamily = Cormorant, fontSize = 26.sp, color = Palette.ivory) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
                 SectionLabel(Str[R.string.s_calculated_from])
-                if (day.fromMasjid) Line(Str[R.string.s_source], "${settings.masjidName.ifBlank { "Masjid timetable" }} for ${day.date}", "Calculated would be ${c(calc[p])}")
+                if (day.fromMasjid) Line(Str[R.string.s_source], Str.get(R.string.s_x_for_date, settings.masjidName.ifBlank { Str[R.string.s_masjid_timetable] }, day.date.toString()), Str.get(R.string.s_calculated_would_be, c(calc[p])))
                 else Line(Str[R.string.s_source], Str[R.string.s_calculated_on_this_device], Str[R.string.s_adhan_library_meeus_astronomical_algorithms])
-                Line(Str[R.string.s_method], settings.method.label, settings.method.detail)
+                Line(Str[R.string.s_method], settings.method.text, settings.method.info)
                 when (p) {
-                    Prayer.FAJR -> Line(Str[R.string.s_rule], "Sun ${settings.method.parameters().fajrAngle}° below the horizon before sunrise", Str[R.string.s_true_dawn_al_fajr_a_diq])
+                    Prayer.FAJR -> Line(Str[R.string.s_rule], Str.get(R.string.s_rule_fajr, settings.method.parameters().fajrAngle.toString()), Str[R.string.s_true_dawn_al_fajr_a_diq])
                     Prayer.SUNRISE -> Line(Str[R.string.s_rule], Str[R.string.s_upper_edge_of_the_sun_on], Str[R.string.s_ends_fajr_not_a_prayer_time])
                     Prayer.DHUHR -> Line(Str[R.string.s_rule], Str[R.string.s_sun_passes_the_meridian_zaw_l], if (settings.jumuahEnabled && day.date.dayOfWeek == java.time.DayOfWeek.FRIDAY) Str[R.string.s_friday_your_jumu_ah_time_is] else "")
                     Prayer.ASR -> Line(Str[R.string.s_rule], if (settings.asrMethod == AsrMethod.HANAFI) Str[R.string.s_shadow_2_object_noon_shadow_hanafi] else Str[R.string.s_shadow_object_noon_shadow_shafi_i],
-                        "The other view would give ${c(PrayerEngine.asrOther(settings, day.date))}")
+                        Str.get(R.string.s_other_view_would_give, c(PrayerEngine.asrOther(settings, day.date))))
                     Prayer.MAGHRIB -> Line(Str[R.string.s_rule], Str[R.string.s_sunset_the_sun_s_disc_fully], "")
-                    Prayer.ISHA -> Line(Str[R.string.s_rule], settings.method.parameters().let { if (it.ishaInterval > 0) "${it.ishaInterval} min after Maghrib" else "Sun ${it.ishaAngle}° below the horizon after sunset" }, Str[R.string.s_disappearance_of_the_red_twilight])
+                    Prayer.ISHA -> Line(Str[R.string.s_rule], settings.method.parameters().let { if (it.ishaInterval > 0) Str.get(R.string.s_rule_isha_interval, it.ishaInterval) else Str.get(R.string.s_rule_isha_angle, it.ishaAngle.toString()) }, Str[R.string.s_disappearance_of_the_red_twilight])
                 }
-                Line("Location", settings.locationName, "%.4f, %.4f · ${settings.zone().id}".format(settings.latitude, settings.longitude))
+                Line(Str[R.string.s_location], settings.locationName, "%.4f, %.4f · ${settings.zone().id}".format(settings.latitude, settings.longitude))
                 SectionLabel(Str[R.string.s_your_settings])
                 val adj = settings.adjustments[p] ?: 0
                 Line(Str[R.string.s_your_adjustment], if (adj == 0) Str[R.string.s_none] else (if (adj > 0) "+$adj min" else "$adj min"), Str[R.string.s_settings_prayer_times_minute_adjustments])
                 SectionLabel(Str[R.string.s_islamic_guidance_scholarly_views_not_calculation])
                 if (end != null) Line(Str[R.string.s_ends], c(end), when (p) {
-                    Prayer.ISHA -> "Shown at sharʿī midnight (halfway from sunset to dawn), the end of the preferred time in many views. Other scholars hold Isha valid until Fajr ${c(PrayerEngine.times(settings, day.date.plusDays(1))[Prayer.FAJR])}. Ask your imam."
+                    Prayer.ISHA -> Str.get(R.string.s_isha_end_note, c(PrayerEngine.times(settings, day.date.plusDays(1))[Prayer.FAJR]))
                     Prayer.FAJR -> Str[R.string.s_at_sunrise_agreed]
                     Prayer.ASR -> Str[R.string.s_at_sunset_many_scholars_call_the]
                     Prayer.DHUHR -> Str[R.string.s_when_asr_begins_which_itself_depends]
@@ -87,7 +88,7 @@ fun WhyDialog(settings: AppSettings, day: DayTimes, p: Prayer, onDismiss: () -> 
                 })
                 Spacer(Modifier.height(8.dp))
                 Text(Str[R.string.s_disliked_for_voluntary_prayer_today_approximate], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
-                PrayerEngine.dislikedWindows(day, settings).forEach { w -> Text("${c(w.start)} – ${c(w.end)}  ·  ${w.label}", fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory, modifier = Modifier.padding(top = 4.dp)) }
+                PrayerEngine.dislikedWindows(day, settings).forEach { w -> Text("${c(w.start)} – ${c(w.end)}  ·  ${if (w.labelRes != 0) Str[w.labelRes] else w.label}", fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory, modifier = Modifier.padding(top = 4.dp)) }
                 Text(Str[R.string.s_these_windows_are_conservative_estimates_15], fontFamily = Nunito, fontSize = 12.sp, color = Palette.textMuted, lineHeight = 17.sp, modifier = Modifier.padding(top = 6.dp))
             }
         },

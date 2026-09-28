@@ -194,9 +194,9 @@ private fun ConfirmStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit
     SettingRow(Str[R.string.s_time_zone], if (zoneWarn) Str[R.string.s_this_zone_is_hours_away_from] else if (s.zoneId == null) Str[R.string.s_using_the_device_s_zone] else Str[R.string.s_from_the_chosen_place], onClick = { pickZone = true }) {
         Text(zone.id + " ›", fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = if (zoneWarn) Palette.gold else Palette.goldSoft)
     }
-    SettingRow(Str[R.string.s_convention], s.method.detail, onClick = { pickMethod = true }) { GoldValue(s.method.label + " ›") }
+    SettingRow(Str[R.string.s_convention], s.method.info, onClick = { pickMethod = true }) { GoldValue(s.method.text + " ›") }
     SettingRow("ʿAsr", Str[R.string.s_hanafi_asr_begins_later_shadow_2_2]) {
-        Chips(AsrMethod.entries.map { it.label }, AsrMethod.entries.indexOf(s.asrMethod)) { i -> store.update { it.copy(asrMethod = AsrMethod.entries[i]) } }
+        Chips(AsrMethod.entries.map { it.text }, AsrMethod.entries.indexOf(s.asrMethod)) { i -> store.update { it.copy(asrMethod = AsrMethod.entries[i]) } }
     }
     Spacer(Modifier.height(4.dp))
     Text("Today · ${LocalDate.now(zone)}", fontFamily = Cormorant, fontSize = 22.sp, color = Palette.ivory, modifier = Modifier.semantics { heading() })
@@ -225,8 +225,8 @@ private fun ConfirmStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit
                     Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = androidx.compose.ui.semantics.Role.RadioButton) { store.update { it.copy(method = m) }; pickMethod = false }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                         Box(Modifier.size(18.dp).clip(CircleShape).background(if (m == s.method) Palette.gold else Color.Transparent).padding(2.dp))
                         Column(Modifier.padding(start = 12.dp)) {
-                            Text(m.label, fontFamily = Nunito, fontSize = 16.sp, color = Palette.ivory)
-                            Text(m.detail, fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
+                            Text(m.text, fontFamily = Nunito, fontSize = 16.sp, color = Palette.ivory)
+                            Text(m.info, fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
                         }
                     }
                 }

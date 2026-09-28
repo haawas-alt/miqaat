@@ -197,7 +197,7 @@ private fun LessonView(c: LearnColors, lesson: Learn.Lesson, startAt: Int, onExi
             } else Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 figure(Modifier.fillMaxWidth().height(180.dp * androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceIn(1f, 1.5f))); words(Modifier.fillMaxWidth())
             }
-            BottomBar(c, canBack = i > 0, last = i == actions.lastIndex, nextLabel = if (i < actions.lastIndex) "Continue · ${actions[i + 1].step.position}" else Str[R.string.s_finish_well_done],
+            BottomBar(c, canBack = i > 0, last = i == actions.lastIndex, nextLabel = if (i < actions.lastIndex) "Continue · ${actions[i + 1].step.position.let { if (it.length > 22) actions[i + 1].posture.label.substringBefore(" ·") else it }}" else Str[R.string.s_finish_well_done],
                 onBack = { audio.stop(); i-- }, onNext = { audio.stop(); if (i < actions.lastIndex) i++ else onDone() })
         }
     }

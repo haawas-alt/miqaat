@@ -57,6 +57,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.runtime.CompositionLocalProvider
 import com.usman.miqaat.azaan.AzaanService.Phase
 import com.usman.miqaat.data.Duas
+import com.usman.miqaat.data.L10n
 import kotlinx.coroutines.delay
 import kotlin.math.PI
 import kotlin.math.sin
@@ -84,9 +85,9 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
                 Spacer(Modifier.width(u * 0.9f))
                 Text(
                     when (phase) {
-                        is Phase.Azaan -> "${phase.prayer.english} azaan · playing"
-                        is Phase.IqamahCountdown, is Phase.IqamahNow -> "${phase.prayer.english} · iqamah"
-                        else -> "${phase.prayer.english} · after the azaan"
+                        is Phase.Azaan -> Str.get(R.string.s_azaan_playing, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer))
+                        is Phase.IqamahCountdown, is Phase.IqamahNow -> Str.get(R.string.s_prayer_iqamah, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer))
+                        else -> Str.get(R.string.s_prayer_after_azaan, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer))
                     }.uppercase(),
                     fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.16f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft.copy(alpha = 0.85f)
                 )
@@ -116,10 +117,13 @@ private fun StepsBar(phase: Phase, u: Dp) {
     val iftar = phase is Phase.Iftar
     val iq = phase is Phase.IqamahCountdown || phase is Phase.IqamahNow
     val idx = when (phase) { is Phase.Azaan -> 0; is Phase.Iftar -> 1; is Phase.Dua -> if (iftar) 2 else 1; is Phase.HadithPhase -> if (iftar) 3 else 2; is Phase.IqamahCountdown -> 1; is Phase.IqamahNow -> 2; is Phase.Quiet -> 3 }
+    // Only promise the steps that will actually run: with "after the azaan" off, the screen closes when the azaan ends.
+    val after = com.usman.miqaat.MiqaatApp.instance.settings.value.afterAzaanEnabled || phase !is Phase.Azaan
     val labels = when {
-        iq -> listOf("Azaan", Str[R.string.s_iqamah_countdown], Str[R.string.s_iqamah], "Prayer")
-        iftar -> listOf("Azaan", Str[R.string.s_iftar_dua], Str[R.string.s_dua_after_azaan], "Hadith", "Home")
-        else -> listOf("Azaan", Str[R.string.s_dua_after_azaan], "Hadith", "Home")
+        iq -> listOf(Str[R.string.s_step_azaan], Str[R.string.s_iqamah_countdown], Str[R.string.s_iqamah], Str[R.string.s_step_prayer])
+        iftar -> listOf(Str[R.string.s_step_azaan], Str[R.string.s_iftar_dua], Str[R.string.s_dua_after_azaan], Str[R.string.s_step_hadith], Str[R.string.s_step_home])
+        !after -> listOf(Str[R.string.s_step_azaan], Str[R.string.s_step_home])
+        else -> listOf(Str[R.string.s_step_azaan], Str[R.string.s_dua_after_azaan], Str[R.string.s_step_hadith], Str[R.string.s_step_home])
     }
     @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
     androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth().padding(top = u * 2.4f), horizontalArrangement = Arrangement.spacedBy(u * 1, Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(u * 0.6f)) {
