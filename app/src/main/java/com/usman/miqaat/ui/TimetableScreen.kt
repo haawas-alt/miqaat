@@ -68,10 +68,11 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
         "${hStart.english.substringAfter(' ').substringBeforeLast(' ')} – ${hEnd.english.substringAfter(' ')}"
 
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
-    val compact = maxWidth < 720.dp
+    val fontScale = androidx.compose.ui.platform.LocalDensity.current.fontScale
+    // Eight columns need roughly 90 dp each at normal text; as text grows the table switches to the frozen-Date, sideways-scrolling form early.
+    val compact = maxWidth < 720.dp || maxWidth < 440.dp * fontScale
     val wide = maxWidth >= 1000.dp          // room for the Hijri range beside the title; phones in landscape are not
     val pad = if (compact) 14.dp else 28.dp
-    val fontScale = androidx.compose.ui.platform.LocalDensity.current.fontScale
     val hScroll = rememberScrollState()          // one horizontal scroll shared by the header and every row
     Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = pad, vertical = if (compact) 8.dp else 20.dp)) {
         // Header: title + metadata on one row, month controls on their own row when narrow (never squeezed together).
@@ -84,7 +85,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                 }
                 Text(
                     (if (settings.showHijri && !wide) "$hijriRange · " else "") + "${settings.locationName} · ${settings.method.text} · Asr: ${settings.asrMethod.text.substringBefore('،').substringBefore(',')}",
-                    fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                    fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, maxLines = if (fontScale > 1.3f) 4 else 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                 )
             }
             if (!compact) MonthNav(ym, today, listState, scope) { ym = it }

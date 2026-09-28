@@ -133,7 +133,7 @@ class MainActivity : ComponentActivity() {
                     Crossfade(targetState = screen, label = "screen") { s ->
                         when (s) {
                             Screen.HOME -> if (settings.largeType && !peek) com.usman.miqaat.ui.LargeHome(state, settings) { peek = true }
-                            else if (androidx.compose.ui.platform.LocalConfiguration.current.orientation != android.content.res.Configuration.ORIENTATION_PORTRAIT && androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp < 500) com.usman.miqaat.ui.LandscapeHome(
+                            else if (androidx.compose.ui.platform.LocalConfiguration.current.orientation != android.content.res.Configuration.ORIENTATION_PORTRAIT && androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp < 500) com.usman.miqaat.ui.CapFontScale(1.3f) { com.usman.miqaat.ui.LandscapeHome(
                                 state, settings,
                                 onOpenTimetable = { screen = Screen.TIMETABLE },
                                 onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
@@ -145,8 +145,8 @@ class MainActivity : ComponentActivity() {
                                 updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
                                 onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
                                 onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
-                            )
-                            else if (androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT) com.usman.miqaat.ui.PortraitHome(
+                            ) }
+                            else if (androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT) com.usman.miqaat.ui.CapFontScale(if (androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp >= 600) 1.3f else 99f) { com.usman.miqaat.ui.PortraitHome(
                                 state, settings,
                                 onOpenTimetable = { screen = Screen.TIMETABLE },
                                 onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
@@ -158,7 +158,7 @@ class MainActivity : ComponentActivity() {
                                 updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
                                 onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
                                 onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
-                            ) else {
+                            ) } else {
                                 val actions = com.usman.miqaat.ui.HomeActions(
                                     onOpenTimetable = { screen = Screen.TIMETABLE },
                                     onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
@@ -171,8 +171,10 @@ class MainActivity : ComponentActivity() {
                                     onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
                                     onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
                                 )
-                                if (settings.theme == com.usman.miqaat.data.AppTheme.KISWAH) com.usman.miqaat.ui.CourtyardHome(state, settings, actions)
-                                else com.usman.miqaat.ui.MihrabHome(state, settings, actions)
+                                com.usman.miqaat.ui.CapFontScale(1.3f) {
+                                    if (settings.theme == com.usman.miqaat.data.AppTheme.KISWAH) com.usman.miqaat.ui.CourtyardHome(state, settings, actions)
+                                    else com.usman.miqaat.ui.MihrabHome(state, settings, actions)
+                                }
                             }
                             Screen.QIBLA -> QiblaScreen(settings) { screen = Screen.HOME }
                             Screen.ADHKAR -> AdhkarScreen(adhkarMode) { screen = Screen.HOME }

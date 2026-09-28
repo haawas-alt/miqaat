@@ -130,9 +130,15 @@ fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier
     val windows = PrayerEngine.dislikedWindows(day, settings)
     val measurer = androidx.compose.ui.text.rememberTextMeasurer()
     val gold = Palette.gold; val thread = if (kiswah) Color(0xFF8A6D2F) else Palette.goldSoft.copy(alpha = 0.45f); val dimThread = if (kiswah) Color(0xFF3A3020) else Color.White.copy(alpha = 0.18f)
+    // The labels sit on a strip whose height is fixed, so their size is capped at 1.15× however large the system text is;
+    // and they are placed collision-aware below (full names → initials → skip whatever would touch a neighbour).
+    val fscale = androidx.compose.ui.platform.LocalDensity.current.fontScale
+    val labelSize = if (fscale > 1.15f) (labelSize.value / fscale * 1.15f).sp else labelSize
     val labelStyle = androidx.compose.ui.text.TextStyle(fontFamily = if (kiswah) Cinzel else Nunito, fontSize = labelSize, letterSpacing = if (kiswah) 1.5.sp else 0.8.sp, fontWeight = FontWeight.SemiBold)
-    val shortName = if (fullNames) mapOf(Prayer.FAJR to "Fajr", Prayer.SUNRISE to "Sunrise", Prayer.DHUHR to "Dhuhr", Prayer.ASR to "ʿAsr", Prayer.MAGHRIB to "Maghrib", Prayer.ISHA to "Isha")
-        else mapOf(Prayer.FAJR to "F", Prayer.SUNRISE to "☼", Prayer.DHUHR to "D", Prayer.ASR to "A", Prayer.MAGHRIB to "M", Prayer.ISHA to "I")
+    val urdu = com.usman.miqaat.data.L10n.isUrdu(settings)
+    val fullMap = if (urdu) Prayer.entries.associateWith { com.usman.miqaat.data.L10n.prayer(settings, it) }
+        else mapOf(Prayer.FAJR to "Fajr", Prayer.SUNRISE to "Sunrise", Prayer.DHUHR to "Dhuhr", Prayer.ASR to "ʿAsr", Prayer.MAGHRIB to "Maghrib", Prayer.ISHA to "Isha")
+    val initialMap = mapOf(Prayer.FAJR to "F", Prayer.SUNRISE to "☼", Prayer.DHUHR to "D", Prayer.ASR to "A", Prayer.MAGHRIB to "M", Prayer.ISHA to "I")
     val ember = Color(0xFFF0873A)
     val words = Str[R.string.s_day_line] + windows.joinToString("; ") { w -> "avoid voluntary prayer ${PrayerEngine.clock(w.start, settings.use24h)} to ${PrayerEngine.clock(w.end, settings.use24h)}" }
     Canvas(modifier.height(with(androidx.compose.ui.platform.LocalDensity.current) { labelSize.toDp() } * 3.4f).semantics { contentDescription = words }) {
@@ -153,7 +159,15 @@ fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier
         cuts.forEach { (a, b) -> drawLine(if (b <= xNow) ember.copy(alpha = 0.85f) else ember.copy(alpha = 0.45f), Offset(a, y), Offset(b, y), hair * 1.4f, pathEffect = dots) }
         // beads
         val bead = size.height * 0.16f
-        Prayer.entries.forEach { p ->
+        // choose the label set: full names if they all fit with a gap, otherwise initials (Latin only), and skip any that still touch
+        fun clash(names: Map<Prayer, String>): Boolean {
+            var lastEnd = -1e9f
+            Prayer.entries.sortedBy { day[it] }.forEach { p -> val w = measurer.measure(names.getValue(p), labelStyle).size.width; val x = size.width * f(day[p]); if (x - w / 2f < lastEnd + 6.dp.toPx()) return true; lastEnd = x + w / 2f }
+            return false
+        }
+        val names = when { fullNames && !clash(fullMap) -> fullMap; fullNames && urdu -> fullMap; else -> initialMap }
+        var lastLabelEnd = -1e9f
+        Prayer.entries.sortedBy { day[it] }.forEach { p ->
             val x = size.width * f(day[p]); val passed = !day[p].isAfter(now)
             val isNext = p == Prayer.entries.firstOrNull { day[it].isAfter(now) && it.isPrayer }
             val r = if (isNext) bead * 1.25f else if (p.isPrayer) bead else bead * 0.75f
@@ -161,8 +175,11 @@ fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier
                 if (passed) drawRect(gold, Offset(x - r, y - r), Size(2 * r, 2 * r))
                 else drawRect(if (isNext) gold else thread, Offset(x - r, y - r), Size(2 * r, 2 * r), style = Stroke(hair * 1.2f))
             }
-            val t = measurer.measure(shortName.getValue(p), labelStyle)
-            drawText(t, color = if (passed || isNext) Palette.ivory else Palette.textMuted, topLeft = Offset(x - t.size.width / 2f, size.height - t.size.height))
+            val t = measurer.measure(names.getValue(p), labelStyle)
+            if (x - t.size.width / 2f >= lastLabelEnd + 4.dp.toPx() || isNext) {
+                drawText(t, color = if (passed || isNext) Palette.ivory else Palette.textMuted, topLeft = Offset((x - t.size.width / 2f).coerceIn(0f, (size.width - t.size.width).coerceAtLeast(0f)), size.height - t.size.height))
+                lastLabelEnd = x + t.size.width / 2f
+            }
         }
         // now: glowing bead
         if (now.isAfter(start) && now.isBefore(end)) {

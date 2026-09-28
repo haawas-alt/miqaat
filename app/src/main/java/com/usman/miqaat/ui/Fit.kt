@@ -1,6 +1,9 @@
 package com.usman.miqaat.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.layout.Layout
@@ -29,4 +32,15 @@ fun FitHeight(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
             }
         }
     }
+}
+
+/**
+ * Caps the system font scale for a dense, no-scroll dashboard. Beyond [max] the board would have to scale itself
+ * down so far that it defeats the purpose; people who need bigger text than this use Settings › Display › Large
+ * type, which is built for it. Everything outside the dashboard still follows the system setting in full.
+ */
+@Composable
+fun CapFontScale(max: Float, content: @Composable () -> Unit) {
+    val d = LocalDensity.current
+    if (d.fontScale <= max) content() else CompositionLocalProvider(LocalDensity provides Density(d.density, max)) { content() }
 }

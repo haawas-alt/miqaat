@@ -249,7 +249,7 @@ private fun TimeRow(
     val endT = if (s.showEndTimes) PrayerEngine.endOf(s, state.today, p) else null
     val small = listOfNotNull(
         endT?.let { "${L10n.word(s, "ends")} ${PrayerEngine.clock(it, s.use24h)}" },
-        iq?.let { "iq ${PrayerEngine.clock(it, s.use24h)}" },
+        iq?.let { "${if (urdu) L10n.word(s, "Iqamah") else "iq"} ${PrayerEngine.clock(it, s.use24h)}" },
         if (p == Prayer.SUNRISE) "ḍuḥā from ${PrayerEngine.clock(t.plusMinutes(15), s.use24h)}" else null
     ).joinToString("  ·  ")
     val spoken = buildString {
@@ -278,7 +278,7 @@ private fun TimeRow(
                 }
             }
             if (!urdu) Text(p.arabic, fontFamily = arabicFont, fontSize = fs(2.3f), lineHeight = fs(2.6f), color = gold.copy(alpha = if (done) 0.55f else 0.95f), maxLines = 1)
-            if (small.isNotEmpty()) Text(small, fontFamily = F, fontSize = fs(1.05f), letterSpacing = if (kiswah) fs(0.12f) else 0.sp, color = ivory.copy(alpha = 0.5f), maxLines = 1)
+            if (small.isNotEmpty()) Text(small, fontFamily = F, fontSize = fs(1.05f), letterSpacing = if (kiswah) fs(0.12f) else 0.sp, color = ivory.copy(alpha = 0.5f), maxLines = 2)
         }
         Row(verticalAlignment = Alignment.Bottom) {
             Text(

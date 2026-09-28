@@ -90,6 +90,8 @@ fun PortraitHome(
         // Let the page scroll instead of clipping the hero when there is not enough height: large text,
         // Urdu (two-line prayer rows), or a short screen. Seen live: Urdu on a Pixel 8 hid the hero time.
         val roomy = fontScale > 1.15f || L10n.isUrdu(settings) || maxHeight < 780.dp
+        // A tablet never scrolls its home: the whole page is scaled to the height it has (see FitHeight). Phones scroll instead.
+        val tabletFit = roomy && maxWidth >= 600.dp && maxHeight >= 780.dp
         val sky = skyFor(state.period)
         val ctx = androidx.compose.ui.platform.LocalContext.current
         val alarmsOk = remember(state.now.toLocalDate(), state.hero) { com.usman.miqaat.data.Reliability.allGood(ctx) }
@@ -107,7 +109,8 @@ fun PortraitHome(
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(top, bottom)))) {
             if (kiswah) Weave(Modifier.fillMaxSize()) else { Glow(Modifier.fillMaxSize(), sky.glow); Stars(Modifier.fillMaxSize(), sky.stars); GirihLattice(Modifier.fillMaxSize(), tile = u.value * 22f); DaySkyScrim(state.period) }
 
-            Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().padding(horizontal = u * 5, vertical = u * 2).then(if (roomy) Modifier.verticalScroll(rememberScrollState()) else Modifier)) {
+            val pageMod = Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().padding(horizontal = u * 5, vertical = u * 2)
+            val page: @Composable androidx.compose.foundation.layout.ColumnScope.() -> Unit = {
                 // top bar
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Row(Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).semantics(mergeDescendants = true) { contentDescription = "Location: ${settings.locationName}. Opens location settings" }, verticalAlignment = Alignment.CenterVertically) {
@@ -234,6 +237,8 @@ fun PortraitHome(
                     Text(if (settings.showRelative) Str[R.string.s_tap_clock_times] else Str[R.string.s_tap_time_until_since], fontFamily = Nunito, fontSize = fs(2.4f), color = Palette.textMuted)
                 }
             }
+            if (tabletFit) FitHeight(pageMod) { Column(Modifier.fillMaxWidth(), content = page) }
+            else Column(pageMod.then(if (roomy) Modifier.verticalScroll(rememberScrollState()) else Modifier), content = page)
         }
     }
 }
