@@ -242,52 +242,52 @@ fun Figure(p: Learn.Posture, color: Color, modifier: Modifier) {
         val sw = w * 0.06f
         val stroke = Stroke(sw, cap = StrokeCap.Round, join = StrokeJoin.Round)
         fun P(x: Float, y: Float) = Offset(w * x, h * y)
-        fun line(vararg pts: Offset) { val path = Path(); pts.forEachIndexed { k, o -> if (k == 0) path.moveTo(o.x, o.y) else path.lineTo(o.x, o.y) }; drawPath(path, color, style = stroke) }
+        fun line(pts: List<Offset>) { val path = Path(); pts.forEachIndexed { k, o -> if (k == 0) path.moveTo(o.x, o.y) else path.lineTo(o.x, o.y) }; drawPath(path, color, style = stroke) }
         val headR = w * 0.075f
         // ground line
         drawLine(color.copy(alpha = 0.35f), P(0.08f, 0.92f), P(0.92f, 0.92f), sw * 0.5f, cap = StrokeCap.Round)
         when (p) {
             Learn.Posture.STANDING -> {
                 drawCircle(color, headR, P(0.5f, 0.16f))
-                line(P(0.5f, 0.24f), P(0.5f, 0.58f))                       // torso
-                line(P(0.5f, 0.58f), P(0.44f, 0.9f)); line(P(0.5f, 0.58f), P(0.56f, 0.9f))
-                line(P(0.5f, 0.30f), P(0.40f, 0.42f), P(0.52f, 0.44f))      // folded arms
-                line(P(0.5f, 0.30f), P(0.60f, 0.42f), P(0.48f, 0.44f))
+                line(listOf(P(0.5f, 0.24f), P(0.5f, 0.58f)))                       // torso
+                line(listOf(P(0.5f, 0.58f), P(0.44f, 0.9f))); line(listOf(P(0.5f, 0.58f), P(0.56f, 0.9f)))
+                line(listOf(P(0.5f, 0.30f), P(0.40f, 0.42f), P(0.52f, 0.44f)))      // folded arms
+                line(listOf(P(0.5f, 0.30f), P(0.60f, 0.42f), P(0.48f, 0.44f)))
             }
             Learn.Posture.RISING -> {
                 drawCircle(color, headR, P(0.5f, 0.16f))
-                line(P(0.5f, 0.24f), P(0.5f, 0.58f))
-                line(P(0.5f, 0.58f), P(0.44f, 0.9f)); line(P(0.5f, 0.58f), P(0.56f, 0.9f))
-                line(P(0.5f, 0.30f), P(0.42f, 0.56f)); line(P(0.5f, 0.30f), P(0.58f, 0.56f))   // arms at the sides
+                line(listOf(P(0.5f, 0.24f), P(0.5f, 0.58f)))
+                line(listOf(P(0.5f, 0.58f), P(0.44f, 0.9f))); line(listOf(P(0.5f, 0.58f), P(0.56f, 0.9f)))
+                line(listOf(P(0.5f, 0.30f), P(0.42f, 0.56f))); line(listOf(P(0.5f, 0.30f), P(0.58f, 0.56f)))   // arms at the sides
             }
             Learn.Posture.BOWING -> {
                 drawCircle(color, headR, P(0.24f, 0.46f))
-                line(P(0.32f, 0.47f), P(0.62f, 0.47f))                      // level back
-                line(P(0.62f, 0.47f), P(0.60f, 0.9f))                       // legs
-                line(P(0.36f, 0.48f), P(0.56f, 0.68f))                      // arm to knee
+                line(listOf(P(0.32f, 0.47f), P(0.62f, 0.47f)))                      // level back
+                line(listOf(P(0.62f, 0.47f), P(0.60f, 0.9f)))                       // legs
+                line(listOf(P(0.36f, 0.48f), P(0.56f, 0.68f)))                      // arm to knee
                 drawCircle(color, sw * 0.6f, P(0.57f, 0.69f))
             }
             Learn.Posture.PROSTRATING -> {
                 drawCircle(color, headR, P(0.2f, 0.84f))
-                line(P(0.28f, 0.80f), P(0.5f, 0.62f), P(0.62f, 0.66f))      // back rising to the hips
-                line(P(0.62f, 0.66f), P(0.66f, 0.88f), P(0.82f, 0.88f))     // shins and feet
-                line(P(0.32f, 0.78f), P(0.34f, 0.9f))                       // arm down to the palm
-                line(P(0.28f, 0.9f), P(0.4f, 0.9f))                         // palm
+                line(listOf(P(0.28f, 0.80f), P(0.5f, 0.62f), P(0.62f, 0.66f)))      // back rising to the hips
+                line(listOf(P(0.62f, 0.66f), P(0.66f, 0.88f), P(0.82f, 0.88f)))     // shins and feet
+                line(listOf(P(0.32f, 0.78f), P(0.34f, 0.9f)))                       // arm down to the palm
+                line(listOf(P(0.28f, 0.9f), P(0.4f, 0.9f)))                         // palm
             }
             Learn.Posture.SITTING -> {
                 drawCircle(color, headR, P(0.46f, 0.36f))
-                line(P(0.46f, 0.44f), P(0.46f, 0.72f))                      // torso
-                line(P(0.46f, 0.72f), P(0.72f, 0.72f), P(0.76f, 0.88f))     // thigh and foot
-                line(P(0.3f, 0.88f), P(0.76f, 0.88f))                       // folded legs
-                line(P(0.46f, 0.50f), P(0.6f, 0.66f))                       // hand on thigh
+                line(listOf(P(0.46f, 0.44f), P(0.46f, 0.72f)))                      // torso
+                line(listOf(P(0.46f, 0.72f), P(0.72f, 0.72f), P(0.76f, 0.88f)))     // thigh and foot
+                line(listOf(P(0.3f, 0.88f), P(0.76f, 0.88f)))                       // folded legs
+                line(listOf(P(0.46f, 0.50f), P(0.6f, 0.66f)))                       // hand on thigh
             }
             Learn.Posture.SALAM -> {
                 drawCircle(color, headR, P(0.5f, 0.36f))
                 drawArc(color, -40f, 80f, false, topLeft = P(0.58f, 0.28f), size = androidx.compose.ui.geometry.Size(w * 0.16f, h * 0.16f), style = Stroke(sw * 0.6f, cap = StrokeCap.Round))  // turn cue
-                line(P(0.5f, 0.44f), P(0.5f, 0.72f))
-                line(P(0.5f, 0.72f), P(0.76f, 0.72f), P(0.8f, 0.88f))
-                line(P(0.34f, 0.88f), P(0.8f, 0.88f))
-                line(P(0.5f, 0.50f), P(0.64f, 0.66f))
+                line(listOf(P(0.5f, 0.44f), P(0.5f, 0.72f)))
+                line(listOf(P(0.5f, 0.72f), P(0.76f, 0.72f), P(0.8f, 0.88f)))
+                line(listOf(P(0.34f, 0.88f), P(0.8f, 0.88f)))
+                line(listOf(P(0.5f, 0.50f), P(0.64f, 0.66f)))
             }
         }
     }
