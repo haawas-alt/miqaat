@@ -73,6 +73,7 @@ object AzaanScheduler {
         val am = ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val pi = pendingIntent(ctx, null)
         am.cancel(pi)
+        val s = (ctx.applicationContext as MiqaatApp).settings.value
         val next = nextEvent(ctx) ?: run { com.usman.miqaat.data.Health.setPlanned(ctx, 0L, ""); Log.i(TAG, "No azaan enabled; nothing scheduled"); return }
         val fire = pendingIntent(ctx, next)
         val whenMs = next.at.toInstant().toEpochMilli()
@@ -84,7 +85,7 @@ object AzaanScheduler {
             // Truthfully inexact: Android may deliver this minutes late. The UI shows a warning while this is the case.
             am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, whenMs, fire)
         }
-        val label = "${next.prayer.english} ${if (next.iqamah) "iqamah" else if (next.reminder) "reminder" else "azaan"}" + if (canExact) "" else " (approximate)"
+        val label = "${next.prayer.english} ${if (next.iqamah) "iqamah" else if (next.reminder) "reminder" else "azaan"}" + (if (canExact) "" else " (approximate)") + (if (s.zoneNeedsReview) " (zone unverified)" else "")
         com.usman.miqaat.data.Health.setPlanned(ctx, whenMs, label)
         Log.i(TAG, "Scheduled $label at ${next.at}")
     }

@@ -93,7 +93,7 @@ fun learnColors(settings: AppSettings): LearnColors = if (settings.theme == AppT
     primary = Kiswah.thread, onPrimary = Color(0xFF0B0B0B), text = Kiswah.ivory, textSecondary = Kiswah.threadSoft.copy(alpha = 0.85f), divider = Kiswah.thread.copy(alpha = 0.35f),
     success = Palette.mint, display = Cinzel, arabic = ReemKufi, kiswah = true
 ) else LearnColors(
-    background = Brush.verticalGradient(listOf(Palette.night, Palette.panel)), surface = Color.White.copy(alpha = 0.06f), surfaceRaised = Palette.panelRaised,
+    background = Brush.verticalGradient(listOf(Palette.night, Palette.panel)), surface = Color(0xFF141C3D), surfaceRaised = Palette.panelRaised,
     primary = Palette.gold, onPrimary = Palette.night, text = Palette.ivory, textSecondary = Palette.textSecondary, divider = Palette.line,
     success = Palette.mint, display = Cormorant, arabic = Amiri, kiswah = false
 )
@@ -111,7 +111,7 @@ fun LearnScreen(settings: AppSettings, onBack: () -> Unit) {
     val progress = remember(progressTick, mode) { Learn.progress(ctx) }
 
     Box(Modifier.fillMaxSize().background(c.background)) {
-        if (c.kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), alpha = 0.07f, tile = 120f)
+        if (c.kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), alpha = 0.035f, tile = 120f)
         when (mode) {
             Mode.LIBRARY -> Library(c, progress,
                 onLesson = { l -> lesson = l; mode = Mode.LESSON },
@@ -195,7 +195,7 @@ private fun LessonView(c: LearnColors, lesson: Learn.Lesson, startAt: Int, onExi
             if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
                 figure(Modifier.weight(0.42f).fillMaxHeight()); words(Modifier.weight(0.58f).fillMaxHeight().verticalScroll(rememberScrollState()))
             } else Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                figure(Modifier.fillMaxWidth().height(180.dp)); words(Modifier.fillMaxWidth())
+                figure(Modifier.fillMaxWidth().height(180.dp * androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceIn(1f, 1.5f))); words(Modifier.fillMaxWidth())
             }
             BottomBar(c, canBack = i > 0, last = i == actions.lastIndex, nextLabel = if (i < actions.lastIndex) "Continue · ${actions[i + 1].step.position}" else Str[R.string.s_finish_well_done],
                 onBack = { audio.stop(); i-- }, onNext = { audio.stop(); if (i < actions.lastIndex) i++ else onDone() })
@@ -305,10 +305,12 @@ private class Speaker(private val ctx: android.content.Context) {
     var slow by mutableStateOf(false)
     var arabicOk by mutableStateOf(false)
     var lastWasRecording by mutableStateOf(false)
-    private var ready = false
+    var ready by mutableStateOf(false)
+    var failed by mutableStateOf(false)
     private var player: android.media.MediaPlayer? = null
     private val tts: TextToSpeech = TextToSpeech(ctx) { status ->
         ready = status == TextToSpeech.SUCCESS
+        failed = !ready
         if (ready) runCatching { arabicOk = engine().isLanguageAvailable(Locale("ar")) >= TextToSpeech.LANG_AVAILABLE }
     }
     private fun engine() = tts
@@ -352,8 +354,12 @@ private class Speaker(private val ctx: android.content.Context) {
     }
     fun stop() { tts.stop(); player?.runCatching { if (isPlaying) stop(); release() }; player = null; playing = false }
     fun release() { stop(); tts.shutdown() }
+    /** Audio is usable when a recording exists or the voice engine is up. */
+    fun usable(index: Int) = hasRecording(index) || ready
     fun source(index: Int): String = when {
         hasRecording(index) -> Str[R.string.s_recited_by_a_human_reciter]
+        failed -> Str[R.string.s_voice_unavailable]
+        !ready -> Str[R.string.s_preparing_voice]
         arabicOk -> Str[R.string.s_device_text_to_speech_arabic_voice]
         else -> Str[R.string.s_device_text_to_speech_no_arabic]
     }
@@ -378,8 +384,9 @@ private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifie
         }
         // audio: play / stop, slow toggle, disclosed source
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            Box(Modifier.size(48.dp).clip(CircleShape).background(c.primary).clickable(role = Role.Button) { if (audio.playing) audio.stop() else audio.speak(step, index) }
-                .semantics { contentDescription = if (audio.playing) Str[R.string.s_stop] else Str[R.string.s_hear_it]; stateDescription = if (audio.playing) "Playing" else Str[R.string.s_not_playing] }, contentAlignment = Alignment.Center) {
+            val usable = audio.usable(index)
+            Box(Modifier.size(48.dp).clip(CircleShape).background(if (usable) c.primary else c.primary.copy(alpha = 0.35f)).clickable(enabled = usable, role = Role.Button) { if (audio.playing) audio.stop() else audio.speak(step, index) }
+                .semantics { contentDescription = if (audio.playing) Str[R.string.s_stop] else Str[R.string.s_hear_it]; stateDescription = if (!usable) audio.source(index) else if (audio.playing) "Playing" else Str[R.string.s_not_playing] }, contentAlignment = Alignment.Center) {
                 Icon(if (audio.playing) Icons.Outlined.Stop else Icons.AutoMirrored.Outlined.VolumeUp, null, Modifier.size(24.dp), tint = c.onPrimary)
             }
             Box(Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).border(1.dp, if (audio.slow) c.primary else c.divider, RoundedCornerShape(50))
@@ -388,7 +395,7 @@ private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifie
             }
             Text(if (audio.playing) Str[R.string.s_playing] else audio.source(index), fontFamily = Nunito, fontSize = 11.sp, lineHeight = 15.sp, color = c.textSecondary, modifier = Modifier.weight(1f).semantics { liveRegion = LiveRegionMode.Polite })
         }
-        Row(Modifier.fillMaxWidth().heightIn(min = 44.dp).clickable(role = Role.Switch) { showTranslit = !showTranslit }.semantics { stateDescription = if (showTranslit) "Shown" else "Hidden" }, verticalAlignment = Alignment.CenterVertically) {
+        Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.Switch) { showTranslit = !showTranslit }.semantics { stateDescription = if (showTranslit) "Shown" else "Hidden" }, verticalAlignment = Alignment.CenterVertically) {
             Text(Str[R.string.s_how_to_say_it], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold, color = c.textSecondary, modifier = Modifier.weight(1f))
             Text(if (showTranslit) "hide" else "show", fontFamily = Nunito, fontSize = 12.sp, color = c.textSecondary)
         }
@@ -410,7 +417,7 @@ private fun BottomBar(c: LearnColors, canBack: Boolean, last: Boolean, nextLabel
             Text("‹", fontSize = 26.sp, color = if (canBack) c.text else c.textSecondary.copy(alpha = 0.4f))
         }
         Box(Modifier.weight(1f).heightIn(min = 52.dp).clip(RoundedCornerShape(50)).background(if (last) c.success else c.primary).clickable(role = Role.Button, onClick = onNext).padding(horizontal = 18.dp), contentAlignment = Alignment.Center) {
-            Text(nextLabel, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = 15.sp, color = c.onPrimary, maxLines = 1, textAlign = TextAlign.Center)
+            Text(nextLabel, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = 15.sp, color = c.onPrimary, maxLines = 2, textAlign = TextAlign.Center)
         }
     }
 }

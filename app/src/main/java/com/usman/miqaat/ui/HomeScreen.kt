@@ -45,6 +45,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.usman.miqaat.R
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.stateDescription
@@ -93,6 +94,8 @@ fun HomeScreen(
         // 1 unit = 1% of width, capped by height so short/wide tablets scale down instead of overlapping
         val u: Dp = minOf(maxWidth / 100, maxHeight / 56)
         fun fs(x: Float): TextUnit = (u.value * x).sp
+        val density = androidx.compose.ui.platform.LocalDensity.current
+        fun fd(x: Float): TextUnit = with(density) { (u * x).toSp() }   // display sizes: screen-scaled, not font-scaled
         val sky = skyFor(state.period)
         val top by animateColorAsState(sky.top, tween(1500), label = "top")
         val bottom by animateColorAsState(sky.bottom, tween(1500), label = "bottom")
@@ -134,7 +137,7 @@ fun HomeScreen(
                         androidx.compose.foundation.layout.FlowRow(Modifier.padding(top = u * 0.8f).widthIn(max = u * 62), horizontalArrangement = Arrangement.spacedBy(u * 0.9f), verticalArrangement = Arrangement.spacedBy(u * 0.6f)) {
                             if (settings.showQibla) {
                                 val q = PrayerEngine.qibla(settings)
-                                Chip(Icons.Outlined.Explore, "${L10n.word(settings, "Qibla")} ${q.toInt()}° ${PrayerEngine.compass(q)}", u, font = F, onClick = onOpenQibla)
+                                Chip(Icons.Outlined.Explore, L10n.word(settings, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), u, font = F, onClick = onOpenQibla)
                             }
                             if (settings.adhkarEnabled && morningWindow) Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "Morning adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.MORNING) }
                             if (settings.adhkarEnabled && eveningWindow) Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "Evening adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.EVENING) }
@@ -145,7 +148,8 @@ fun HomeScreen(
                                 Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.POST) }
                             if (ramadan && hij.day >= 27) Chip(Icons.Outlined.Info, "Zakāt al-Fiṭr before Eid prayer", u, font = F)
                             if (updateAvailable) Chip(Icons.Outlined.SystemUpdateAlt, L10n.word(settings, "Update available"), u, gold = true, font = F, onClick = onOpenAbout)
-                            if (!alarmsOk) Chip(Icons.Outlined.Info, "Azaan may be late · fix", u, gold = true, font = F, onClick = onOpenSettings)
+                            if (!alarmsOk) Chip(Icons.Outlined.Info, Str[R.string.s_azaan_may_be_late_fix], u, gold = true, font = F, onClick = onOpenSettings)
+                            if (settings.zoneNeedsReview) Chip(Icons.Outlined.Info, Str[R.string.s_time_zone_needs_checking], u, gold = true, font = F, onClick = onOpenLocation)
                             if (settings.travellerMode && PrayerEngine.isTravelling(settings)) Chip(Icons.Outlined.Flight, "Travelling · %.0f km from home".format(PrayerEngine.distanceKm(settings.homeLat!!, settings.homeLng!!, settings.latitude, settings.longitude)), u, gold = true, font = F, onClick = onOpenLocation)
                             if (state.today.fromMasjid) Chip(Icons.Outlined.LocationOn, settings.masjidName.ifBlank { "Masjid timetable" }, u, font = F, onClick = onOpenLocation)
                         }
@@ -154,7 +158,11 @@ fun HomeScreen(
                         Text(L10n.date(settings, state.now), fontSize = fs(if (urdu) 1.9f else 1.6f), color = Palette.ivory, fontFamily = F)
                         if (settings.showHijri) {
                             val h = PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)
-                            Text(L10n.hijri(settings, h) + (if (urdu) "" else "  ·  " + h.arabic), fontSize = fs(1.9f), color = Palette.goldSoft, fontFamily = if (urdu) F else Amiri)
+                            // Latin and Arabic dates in separate containers so bidi never reorders them.
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(L10n.hijri(settings, h), fontSize = fs(1.9f), color = Palette.goldSoft, fontFamily = if (urdu) F else Amiri)
+                                if (!urdu) { Text("  ·  ", fontSize = fs(1.9f), color = Palette.goldSoft, fontFamily = Amiri); Text(L10n.iso(h.arabic), fontSize = fs(1.9f), color = Palette.goldSoft, fontFamily = Amiri) }
+                            }
                         }
                         Row(Modifier.padding(top = u * 1f), horizontalArrangement = Arrangement.spacedBy(u * 1.1f)) {
                             if (settings.kidsMode) IconChip(Icons.Outlined.MenuBook, u, onOpenLearn, label = "Learn Salah")
@@ -183,13 +191,13 @@ fun HomeScreen(
                             else -> null
                         }
                         if (kicker != null) Text(kicker.uppercase(), fontFamily = Nunito, fontSize = fs(1.35f), letterSpacing = fs(0.3f), fontWeight = FontWeight.Bold, color = Palette.goldSoft, modifier = Modifier.padding(bottom = u * 0.6f))
-                        Text(state.hero.arabic, fontFamily = Amiri, fontSize = fs(7.2f), lineHeight = fs(8f), color = Color(0xFFF6E7B8))
+                        Text(state.hero.arabic, fontFamily = Amiri, fontSize = fd(7.2f), lineHeight = fd(8f), color = Color(0xFFF6E7B8))
                         Text(
                             (if (isFri && state.hero == Prayer.DHUHR) L10n.word(settings, "Jumuʿah") else L10n.prayer(settings, state.hero)).let { if (urdu) it else it.uppercase() } + if (state.justPassed) "  ·  " + L10n.word(settings, "NOW") else "",
                             fontFamily = if (urdu) F else Cormorant, fontSize = fs(if (urdu) 3.2f else 2.6f), letterSpacing = if (urdu) 0.sp else fs(0.6f), color = Palette.ivory.copy(alpha = 0.9f)
                         )
                         Row(verticalAlignment = Alignment.Top) {
-                            Text(PrayerEngine.clock(state.heroTime, settings.use24h), fontFamily = Cormorant, fontSize = fs(8.6f), lineHeight = fs(8.6f), color = Palette.ivory)
+                            Text(PrayerEngine.clock(state.heroTime, settings.use24h), fontFamily = Cormorant, fontSize = fd(8.6f), lineHeight = fd(8.6f), color = Palette.ivory)
                             val suf = PrayerEngine.suffix(state.heroTime, settings.use24h)
                             if (suf.isNotEmpty()) Text(" $suf", fontFamily = Cormorant, fontSize = fs(3f), letterSpacing = fs(0.3f), color = Palette.ivory, modifier = Modifier.padding(top = u * 1.3f))
                         }
@@ -342,7 +350,7 @@ fun PrayerCard(
             Text(if (urdu) label else label.uppercase(), fontSize = (u.value * (if (urdu) 1.6f else 1.2f)).sp, letterSpacing = if (urdu) 0.sp else (u.value * 0.14f).sp, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = 0.85f), fontFamily = font, maxLines = 1, modifier = Modifier.weight(1f, fill = false))
             when {
                 isNext -> Box(Modifier.padding(start = u * 0.4f).clip(RoundedCornerShape(4.dp)).background(Palette.gold).padding(horizontal = u * 0.5f, vertical = u * 0.1f)) {
-                    Text("NEXT", fontSize = (u.value * 1.0f).sp, fontWeight = FontWeight.Bold, color = Palette.night, fontFamily = Nunito)
+                    Text(Str[R.string.s_next_label], fontSize = (u.value * 1.0f).sp, fontWeight = FontWeight.Bold, color = Palette.night, fontFamily = Nunito)
                 }
                 done && p.isPrayer -> Icon(Icons.Outlined.Check, null, Modifier.size(u * 1.6f), tint = Palette.mint)
                 p.isPrayer -> Icon(if (azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(u * 1.6f), tint = Palette.ivory.copy(alpha = 0.7f))

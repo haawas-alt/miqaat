@@ -87,6 +87,8 @@ data class AppSettings(
     val zoneId: String? = null,        // null = the device's zone
     /** True once the user picked the zone themselves; automatic location refresh must never overwrite it. */
     val zoneManual: Boolean = false,
+    /** Set when a location refresh could not find a plausible zone; cleared when the user picks one. Alarms are labelled unverified meanwhile. */
+    val zoneNeedsReview: Boolean = false,
     /** Home coordinates, set the first time location is detected; used to notice travel. */
     val homeLat: Double? = null,
     val homeLng: Double? = null,
@@ -205,6 +207,7 @@ class SettingsStore(context: Context) {
             locationSet = locationSet,
             zoneId = prefs.getString("zone", null),
             zoneManual = prefs.getBoolean("zoneManual", false),
+            zoneNeedsReview = prefs.getBoolean("zoneReview", false),
             homeLat = if (prefs.contains("homeLat")) prefs.getFloat("homeLat", 0f).toDouble() else null,
             homeLng = if (prefs.contains("homeLng")) prefs.getFloat("homeLng", 0f).toDouble() else null,
             travellerMode = prefs.getBoolean("travel", false),
@@ -267,7 +270,7 @@ class SettingsStore(context: Context) {
     private fun save(s: AppSettings) {
         prefs.edit().apply {
             putFloat("lat", s.latitude.toFloat()); putFloat("lng", s.longitude.toFloat())
-            putString("locName", s.locationName); putString("zone", s.zoneId); putBoolean("zoneManual", s.zoneManual); putBoolean("locSet", s.locationSet)
+            putString("locName", s.locationName); putString("zone", s.zoneId); putBoolean("zoneManual", s.zoneManual); putBoolean("zoneReview", s.zoneNeedsReview); putBoolean("locSet", s.locationSet)
             if (s.homeLat != null) putFloat("homeLat", s.homeLat.toFloat()) else remove("homeLat")
             if (s.homeLng != null) putFloat("homeLng", s.homeLng.toFloat()) else remove("homeLng")
             putBoolean("travel", s.travellerMode); putBoolean("travelQasr", s.travelQasr); putBoolean("travelJam", s.travelJam)

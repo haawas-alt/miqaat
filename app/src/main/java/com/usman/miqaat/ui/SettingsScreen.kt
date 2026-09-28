@@ -137,10 +137,11 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
                 IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
                 Text(Str[R.string.s_settings], fontFamily = Cormorant, fontSize = 30.sp, color = Palette.ivory)
             }
-            Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+            androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp).selectableGroup(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Section.entries.forEach { sec ->
                     val cur = sec == section
-                    Box(Modifier.clip(RoundedCornerShape(50)).background(if (cur) Palette.gold else Color.Transparent).border(1.dp, if (cur) Palette.gold else Color.White.copy(alpha = 0.25f), RoundedCornerShape(50)).clickable { section = sec }.padding(horizontal = 14.dp, vertical = 8.dp)) {
+                    Box(Modifier.heightIn(min = 40.dp).clip(RoundedCornerShape(50)).background(if (cur) Palette.gold else Color.Transparent).border(1.dp, if (cur) Palette.gold else Palette.lineStrong, RoundedCornerShape(50)).selectable(selected = cur, role = androidx.compose.ui.semantics.Role.Tab) { section = sec }.padding(horizontal = 14.dp, vertical = 8.dp), contentAlignment = Alignment.Center) {
                         Text(sec.label, fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = if (cur) Palette.night else Palette.ivory)
                     }
                 }
@@ -163,7 +164,7 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
         return@BoxWithConstraints
     }
     Row(Modifier.fillMaxSize()) {
-        Column(Modifier.width(300.dp).fillMaxHeight().background(Color.Black.copy(alpha = 0.18f)).padding(vertical = 20.dp)) {
+        Column(Modifier.width(300.dp).fillMaxHeight().background(Color.Black.copy(alpha = 0.18f)).verticalScroll(rememberScrollState()).padding(vertical = 20.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 12.dp, bottom = 16.dp)) {
                 IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
                 Text(Str[R.string.s_settings], fontFamily = Cormorant, fontSize = 34.sp, color = Palette.ivory)
@@ -224,7 +225,7 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     Heading(Str[R.string.s_location], Str[R.string.s_prayer_times_are_calculated_for_these])
     SettingRow("Current location", if (s.locationSet) "%.4f, %.4f".format(s.latitude, s.longitude) else "Not set yet — detect it or choose a place below") { GoldValue(if (s.locationSet) s.locationName else "—") }
     var pickZone by remember { mutableStateOf(false) }
-    val zoneWarn = s.locationSet && com.usman.miqaat.data.Setup.zoneLooksWrong(s.longitude, s.zone())
+    val zoneWarn = s.locationSet && (s.zoneNeedsReview || com.usman.miqaat.data.Setup.zoneLooksWrong(s.longitude, s.zone()))
     SettingRow(Str[R.string.s_time_zone_for_prayer_times], if (zoneWarn) Str[R.string.s_this_zone_is_several_hours_away] else if (s.zoneManual) Str[R.string.s_chosen_by_you_automatic_location_refresh] else Str[R.string.s_follows_the_device_while_that_is], onClick = { pickZone = true }) {
         GoldValue((s.zoneId ?: "Device · ${java.time.ZoneId.systemDefault().id}") + " ›")
     }
@@ -735,9 +736,9 @@ private fun AboutSection(s: AppSettings) {
         Updater.State.UpToDate -> SettingRow(Str[R.string.s_you_have_the_latest_version], Str[R.string.s_checked_just_now]) { TextButton(onClick = { scope.launch { Updater.check(ctx, force = true) } }) { Text(Str[R.string.s_check_again], color = Palette.goldSoft) } }
         Updater.State.Idle -> SettingRow(Str[R.string.s_updates], Str[R.string.s_new_builds_are_published_automatically_each]) { GoldButton(Str[R.string.s_check_for_updates]) { scope.launch { Updater.check(ctx, force = true) } } }
     }
-    SettingRow("Report a content correction", "Found an error in a hadith, translation or ruling? Open an issue on GitHub — every item is versioned in ISLAMIC_REVIEW_PACK.md.", onClick = { runCatching { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/${com.usman.miqaat.BuildConfig.REPO}/issues/new?title=Content%20correction"))) } }) { Value("GitHub ›") }
+    SettingRow("Report a content correction", Str[R.string.s_found_an_error_report], onClick = { runCatching { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/${com.usman.miqaat.BuildConfig.REPO}/issues/new?title=Content%20correction"))) } }) { Value("GitHub ›") }
     Spacer(Modifier.height(14.dp))
-    SettingRow(Str[R.string.s_content_sources], Str[R.string.s_every_hadith_dhikr_dua_and_ruling]) { Value(Str[R.string.s_unsigned]) }
+    SettingRow(Str[R.string.s_content_sources], Str[R.string.s_every_hadith_dhikr_dua_and_ruling]) { Value(Str[R.string.s_content_review_pending]) }
     Text(
         Str[R.string.s_prayer_times_are_computed_on_the] +
             Str[R.string.s_no_account_no_advertising_no_analytics] +

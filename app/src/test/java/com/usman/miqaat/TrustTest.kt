@@ -98,7 +98,8 @@ class ZoneRefreshTest {
     private val places = listOf(
         com.usman.miqaat.data.Place("Sydney, NSW", -33.87, 151.21, "Australia/Sydney"),
         com.usman.miqaat.data.Place("London, UK", 51.51, -0.13, "Europe/London"),
-        com.usman.miqaat.data.Place("Karachi, Pakistan", 24.86, 67.01, "Asia/Karachi"))
+        com.usman.miqaat.data.Place("Karachi, Pakistan", 24.86, 67.01, "Asia/Karachi"),
+        com.usman.miqaat.data.Place("Brisbane, QLD", -27.47, 153.03, "Australia/Brisbane"))
     private val jan = Instant.parse("2026-01-15T00:00:00Z")
     private val sydney = ZoneId.of("Australia/Sydney")
 
@@ -138,5 +139,24 @@ class ZoneRefreshTest {
     @Test fun smallMovesAreNotCountedAsMoves() {
         val s = AppSettings(latitude = -33.87, longitude = 151.21, locationName = "Sydney", locationSet = true, setupDone = true)
         assertFalse(Setup.applyFix(s, -33.871, 151.212, "Sydney", sydney, places, jan).moved)
+    }
+
+    @Test fun oneHourBorderIsCaughtByTheNearestKnownPlace() {
+        // Brisbane coordinates, phone still on Sydney daylight time (UTC+11 vs Brisbane UTC+10): longitude alone cannot see this.
+        val s = AppSettings(latitude = -33.9, longitude = 151.2, locationName = "Sydney", locationSet = true, setupDone = true, zoneId = null)
+        val r = Setup.applyFix(s, -27.5, 153.0, "Brisbane, QLD", deviceZone = sydney, places = places, at = jan)
+        assertEquals("Australia/Brisbane", r.settings.zoneId)
+        assertFalse(r.needsZoneChoice); assertFalse(r.settings.zoneNeedsReview)
+        // In winter (no DST) Brisbane and Sydney share UTC+10, so the device zone is accepted.
+        val jul = Instant.parse("2026-07-15T00:00:00Z")
+        assertEquals(null, Setup.applyFix(s, -27.5, 153.0, "Brisbane, QLD", sydney, places, jul).settings.zoneId)
+    }
+
+    @Test fun unresolvedZoneIsFlaggedForReviewUntilTheUserPicksOne() {
+        val s = AppSettings(latitude = 10.0, longitude = -30.0, locationName = "Sea", locationSet = true, setupDone = true, zoneId = "Atlantic/Azores")
+        val r = Setup.applyFix(s, 10.0, -30.0, "Sea", sydney, places, jan)
+        assertTrue(r.settings.zoneNeedsReview)
+        val picked = r.settings.copy(zoneId = "Atlantic/Cape_Verde", zoneManual = true, zoneNeedsReview = false)
+        assertFalse(Setup.applyFix(picked, 10.1, -30.1, "Sea", sydney, places, jan).settings.zoneNeedsReview)
     }
 }

@@ -247,7 +247,7 @@
     <string name="s_new_builds_are_published_automatically_each">New builds are published automatically; each download is verified against its published SHA-256 before installing</string>
     <string name="s_check_for_updates">Check for updates</string>
     <string name="s_content_sources">Content sources</string>
-    <string name="s_every_hadith_dhikr_dua_and_ruling">Every hadith, dhikr, dua and ruling with its source, as a review pack a scholar can sign: ISLAMIC_REVIEW_PACK.md in the repository. No scholarly review has been signed yet — texts are presented with their sources for you to verify.</string>
+    <string name="s_every_hadith_dhikr_dua_and_ruling">Every hadith, dhikr, dua and ruling in the app carries its source. A qualified scholarly review of this content version is pending; nothing in the app is presented as approved until it is signed.</string>
     <string name="s_unsigned">Unsigned</string>
     <string name="s_prayer_times_are_computed_on_the">"Prayer times are computed on the tablet with the Adhan library (Batoul Apps, MIT licence), using the high-precision astronomical algorithms of Jean Meeus. "</string>
     <string name="s_no_account_no_advertising_no_analytics">No account, no advertising, no analytics. Network is used for three things only: the place-name lookup and place search (Android\'s geocoder, which contacts Google), and the update check against GitHub.\n\n</string>
@@ -298,7 +298,7 @@
     <string name="s_the_twelve_texts_of_the_prayer">The twelve texts of the prayer on their own, with replay and slow speed</string>
     <string name="s_the_movements">The movements</string>
     <string name="s_six_positions_what_each_looks_like">Six positions, what each looks like and what is said in it</string>
-    <string name="s_audio_is_the_device_s_own">Audio is the device\'s own text-to-speech, offered as an aid — it is not verified recitation. Learn the words with a teacher or a reciter you trust. Content: ISLAMIC_REVIEW_PACK.md § J7 (unsigned).</string>
+    <string name="s_audio_is_the_device_s_own">Audio is the device\'s own text-to-speech unless a human recording is bundled — it is not verified recitation. Learn the words with a teacher or a reciter you trust. Content review: pending.</string>
     <string name="s_reset_progress">Reset progress</string>
     <string name="s_finish_well_done">Finish · well done</string>
     <string name="s_device_text_to_speech_arabic_voice">Device text-to-speech, Arabic voice · an aid, not verified recitation</string>
@@ -412,7 +412,7 @@
     <string name="s_reading_the_dua">Reading the dua</string>
     <string name="s_reading_the_hadith">Reading the hadith</string>
     <string name="s_take_a_moment">Take a moment</string>
-    <string name="s_tap_skip_if_the_imam_is">Tap Skip if the imam is ready</string>
+    <string name="s_tap_skip_if_the_imam_is">Tap "Start iqamah now" if the imam is ready</string>
     <string name="s_stop_azaan">Stop azaan</string>
     <string name="s_skip">Skip ›</string>
     <string name="s_start_iqamah_now">Start iqamah now ›</string>
@@ -423,4 +423,15 @@
     <string name="s_decrease">Decrease</string>
     <string name="s_increase">Increase</string>
     <string name="s_recited_by_a_human_reciter">Recited by a human reciter · bundled recording</string>
+    <string name="s_dismiss">Dismiss</string>
+    <string name="s_content_review_pending">Content review pending</string>
+    <string name="s_next_label">NEXT</string>
+    <string name="s_azaan_may_be_late_fix">Azaan may be late · fix</string>
+    <string name="s_tap_clock_times">tap: clock times</string>
+    <string name="s_tap_time_until_since">tap: time until / since</string>
+    <string name="s_tap_for_all_prayers">Tap for all prayers</string>
+    <string name="s_preparing_voice">Preparing voice…</string>
+    <string name="s_voice_unavailable">No voice available on this device</string>
+    <string name="s_found_an_error_report">Found an error in a hadith, translation or ruling? Send it to the developer on GitHub; every correction is recorded against the content version.</string>
+    <string name="s_time_zone_needs_checking">Time zone needs checking · fix</string>
 </resources>

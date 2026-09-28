@@ -13,6 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import com.usman.miqaat.R
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -55,9 +58,9 @@ fun LargeHome(state: PrayerState, settings: AppSettings, onTap: () -> Unit) {
         }
         val nxt = Prayer.prayersOnly.firstOrNull { it != state.hero && state.today[it].isAfter(state.now) }
         Text(
-            (if (urdu) "سب نمازیں دیکھنے کے لیے چھوئیں" else "Tap for all prayers") + (nxt?.let { "  ·  ${L10n.prayer(settings, it)} ${PrayerEngine.clock(state.today[it], settings.use24h)} ${PrayerEngine.suffix(state.today[it], settings.use24h)}" } ?: ""),
-            fontFamily = if (urdu) Nastaliq else Nunito, fontSize = fs(1.8f), color = Palette.textMuted,
-            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = u * 2.5f)
+            Str[R.string.s_tap_for_all_prayers] + (nxt?.let { "  ·  ${L10n.prayer(settings, it)} ${PrayerEngine.clock(state.today[it], settings.use24h)} ${PrayerEngine.suffix(state.today[it], settings.use24h)}" } ?: ""),
+            fontFamily = if (urdu) Nastaliq else Nunito, fontSize = fs(1.8f), color = Palette.ivory,
+            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = u * 2.5f).clip(RoundedCornerShape(50)).background(Color.Black.copy(alpha = 0.38f)).padding(horizontal = u * 2, vertical = u * 0.7f)
         )
     }
 }

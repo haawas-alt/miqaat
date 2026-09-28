@@ -121,7 +121,7 @@ fun QiblaScreen(settings: AppSettings, onBack: () -> Unit) {
         GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.08f)
         val portrait = maxHeight > maxWidth
         if (portrait) {
-            Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = u * 4, vertical = u * 2), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = u * 4, vertical = u * 2), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceEvenly) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
                     IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
                     Text(Str[R.string.s_qibla], fontFamily = Cormorant, fontSize = (u.value * 8f).sp, color = Palette.ivory)

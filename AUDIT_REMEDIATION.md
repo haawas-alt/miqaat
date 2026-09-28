@@ -185,4 +185,4 @@ about on-device behaviour should be read as tested.
 | No Compose UI / screenshot / instrumentation tests, no baseline profile | P2 | **DEFERRED** | need an emulator or device in CI; the workspace has neither. Pure logic that used to live in composables (`Setup.applyFix`, `reviewTimetable`, `Learn.actions`) was extracted so it is unit-tested instead. |
 | Per-second `now` state | P2 | **PARTIAL** | `@Immutable` models + strong-skipping; only tracing on device can prove cost |
 
-Verification: GitHub Actions run 39 (`v1.39`): 26 unit tests passed (11 engine + 9 trust + 5 zone-refresh + 1 review), lint passed, both editions built. Run 38 failed on a Kotlin rule (vararg of a value class) in the new posture drawing — fixed in the next commit.
+Verification: GitHub Actions run 39 (`v1.39`): all unit tests passed (the count is in the CI test report artifact, not maintained here), lint passed, both editions built. Run 38 failed on a Kotlin rule (vararg of a value class) in the new posture drawing — fixed in the next commit.

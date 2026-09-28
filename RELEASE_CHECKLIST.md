@@ -8,7 +8,7 @@ Two editions are built from every commit on `main` by `.github/workflows/build.y
 | `play` | `Miqaat-play.aab` (+ `.sha256`) | Google Play | none | Play Console |
 
 ## Every build (automated, fails the build if not met)
-- [x] Unit tests pass (`testGithubReleaseUnitTest`) — 26 tests: engine, trust, zone refresh, import review
+- [x] Unit tests pass (`testGithubReleaseUnitTest`) — engine, trust, zone-refresh and import-review suites; the count is read from the CI test report, not maintained by hand
 - [x] Lint passes with `ContentDescription` and `MissingPermission` as errors
 - [x] R8 shrink + resource shrink, `-dontobfuscate`, raw audio/fonts kept via `res/raw/keep.xml`
 - [x] Signed with the release key held only in GitHub secrets (`KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`)

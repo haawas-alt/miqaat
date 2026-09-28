@@ -33,10 +33,19 @@ object Setup {
      *  2. otherwise the zone of the nearest known place within [maxKm];
      *  3. otherwise null: the caller must ask the user, never guess.
      */
-    fun suggestZone(lat: Double, lng: Double, deviceZone: ZoneId, places: List<Place>, at: Instant = Instant.now(), maxKm: Double = 600.0): String? {
-        if (!zoneLooksWrong(lng, deviceZone, at)) return null   // null here means "device zone is fine" (zoneId = null)
-        val near = places.filter { it.zone != null }.minByOrNull { PrayerEngine.distanceKm(lat, lng, it.lat, it.lng) } ?: return UNKNOWN
-        return if (PrayerEngine.distanceKm(lat, lng, near.lat, near.lng) <= maxKm) near.zone else UNKNOWN
+    fun suggestZone(lat: Double, lng: Double, deviceZone: ZoneId, places: List<Place>, at: Instant = Instant.now(), maxKm: Double = 600.0, nearKm: Double = 150.0): String? {
+        val near = places.filter { it.zone != null }.minByOrNull { PrayerEngine.distanceKm(lat, lng, it.lat, it.lng) }
+        val nearKmActual = near?.let { PrayerEngine.distanceKm(lat, lng, it.lat, it.lng) } ?: Double.MAX_VALUE
+        // 1. A known place very close by is a better authority than the device: it catches one-hour borders
+        //    (Brisbane coordinates on a Sydney-DST phone) that the longitude heuristic cannot see.
+        if (near != null && nearKmActual <= nearKm) {
+            val nz = ZoneId.of(near.zone!!)
+            return if (nz.rules.getOffset(at) == deviceZone.rules.getOffset(at)) null else near.zone
+        }
+        // 2. Otherwise the device zone, while plausible for the longitude.
+        if (!zoneLooksWrong(lng, deviceZone, at)) return null
+        // 3. Otherwise the nearest known place within reach; else ask.
+        return if (near != null && nearKmActual <= maxKm) near.zone else UNKNOWN
     }
     /** Sentinel from [suggestZone]: no plausible zone could be found; the user must choose. */
     const val UNKNOWN = "?"
@@ -59,7 +68,7 @@ object Setup {
             }
         }
         val next = s.copy(latitude = lat, longitude = lng, locationName = name, locationSet = true, autoLocation = true, zoneId = zone,
-            homeLat = s.homeLat ?: lat, homeLng = s.homeLng ?: lng)
+            zoneNeedsReview = ask, homeLat = s.homeLat ?: lat, homeLng = s.homeLng ?: lng)
         return Applied(next, ask, moved)
     }
 

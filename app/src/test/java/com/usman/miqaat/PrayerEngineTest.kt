@@ -136,4 +136,18 @@ class PrayerEngineTest {
         assertTrue(notes.any { it.contains("Fajr") && it.contains("not before") })
         assertTrue(notes.any { it.contains("Maghrib") && it.contains("calculated") })
     }
+
+    @Test fun parserRejectsImpossibleClockValues() {
+        val r = PrayerEngine.parseTimetable("""
+            2026-10-04 25:00 07:00 12:05 15:10 17:05 18:15
+            2026-10-05 05:00 07:00 12:75 15:10 17:05 18:15
+            2026-10-06 13:00am 07:00 12:05 15:10 17:05 18:15
+            2026-10-07 05:00 07:00 12:05 15:10 17:05 18:15
+        """.trimIndent(), 2026)
+        assertEquals(listOf("2026-10-07"), r.rows.keys.toList())
+        assertEquals(3, r.skipped)
+        assertTrue(r.notes.any { it.contains("25:00") && it.contains("0–23") })
+        assertTrue(r.notes.any { it.contains("12:75") })
+        assertTrue(r.notes.any { it.contains("13:00am") })
+    }
 }

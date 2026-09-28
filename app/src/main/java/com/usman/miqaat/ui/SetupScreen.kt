@@ -251,7 +251,7 @@ internal fun ZonePicker(current: String?, onPick: (String?) -> Unit, onDismiss: 
                     opts.forEach { z ->
                         val label = z ?: "Device · $device"
                         Text(label, fontFamily = Nunito, fontSize = 15.sp, color = if (z == current) Palette.goldSoft else Palette.ivory,
-                            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = androidx.compose.ui.semantics.Role.RadioButton) { store.update { it.copy(zoneId = z, zoneManual = true) }; onPick(z) }.padding(vertical = 12.dp))
+                            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = androidx.compose.ui.semantics.Role.RadioButton) { store.update { it.copy(zoneId = z, zoneManual = true, zoneNeedsReview = false) }; onPick(z) }.padding(vertical = 12.dp))
                     }
                 }
             }

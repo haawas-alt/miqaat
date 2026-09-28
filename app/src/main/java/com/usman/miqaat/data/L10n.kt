@@ -30,6 +30,9 @@ object L10n {
         return when { h == 0L -> "$m منٹ"; m == 0L -> "$h گھنٹے"; else -> "$h گھنٹے $m منٹ" }
     }
 
+    /** Wraps a Latin/number run in Unicode first-strong isolates so it keeps its order inside Urdu text. */
+    fun iso(t: String): String = "\u2068" + t + "\u2069"
+
     fun inFor(s: AppSettings, d: Duration) = if (isUrdu(s)) "${duration(s, d)} باقی" else "in ${PrayerEngine.humanDuration(d)}"
     fun ago(s: AppSettings, d: Duration) = if (isUrdu(s)) "اذان ${duration(s, d)} پہلے" else "azaan was ${PrayerEngine.humanDuration(d)} ago"
     fun relative(s: AppSettings, t: ZonedDateTime, now: ZonedDateTime) =

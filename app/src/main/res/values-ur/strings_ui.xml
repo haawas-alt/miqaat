@@ -247,7 +247,7 @@
     <string name="s_new_builds_are_published_automatically_each">نئے بلڈز خودکار شائع ہوتے ہیں؛ ہر ڈاؤن لوڈ انسٹال سے پہلے شائع شدہ SHA-256 سے جانچا جاتا ہے</string>
     <string name="s_check_for_updates">اپ ڈیٹس چیک کریں</string>
     <string name="s_content_sources">مواد کے مآخذ</string>
-    <string name="s_every_hadith_dhikr_dua_and_ruling">ہر حدیث، ذکر، دعا اور حکم اپنے ماخذ کے ساتھ، ایک جائزہ پیک کی صورت میں جس پر عالم دستخط کر سکیں: ریپوزٹری میں ISLAMIC_REVIEW_PACK.md۔ ابھی کسی علمی جائزے پر دستخط نہیں ہوئے — متون اپنے مآخذ کے ساتھ پیش ہیں تاکہ آپ خود تصدیق کریں۔</string>
+    <string name="s_every_hadith_dhikr_dua_and_ruling">ایپ میں ہر حدیث، ذکر، دعا اور حکم اپنے ماخذ کے ساتھ ہے۔ اس مواد کے مستند علمی جائزے کا انتظار ہے؛ دستخط ہونے تک ایپ میں کچھ بھی منظور شدہ کے طور پر پیش نہیں کیا جاتا۔</string>
     <string name="s_unsigned">بغیر دستخط</string>
     <string name="s_prayer_times_are_computed_on_the">"نماز کے اوقات ٹیبلٹ پر اذان لائبریری (Batoul Apps، MIT لائسنس) کے ذریعے، ژاں میوس کے اعلیٰ درستگی والے فلکیاتی الگورتھم استعمال کرتے ہوئے حساب کیے جاتے ہیں۔  "</string>
     <string name="s_no_account_no_advertising_no_analytics">کوئی اکاؤنٹ نہیں، کوئی اشتہار نہیں، کوئی تجزیات نہیں۔ نیٹ ورک صرف تین کاموں کے لیے استعمال ہوتا ہے: جگہ کے نام کی تلاش اور جگہ کی تلاش (اینڈرائیڈ کا جیوکوڈر، جو گوگل سے رابطہ کرتا ہے)، اور گٹ ہب پر اپ ڈیٹ کی جانچ۔\n\n</string>
@@ -298,7 +298,7 @@
     <string name="s_the_twelve_texts_of_the_prayer">نماز کے بارہ متون الگ سے، دہرانے اور آہستہ رفتار کے ساتھ</string>
     <string name="s_the_movements">حرکات</string>
     <string name="s_six_positions_what_each_looks_like">چھ حالتیں، ہر ایک کیسی دکھتی ہے اور اس میں کیا کہا جاتا ہے</string>
-    <string name="s_audio_is_the_device_s_own">آواز ڈیوائس کی اپنی ٹیکسٹ ٹو اسپیچ ہے، صرف مدد کے طور پر — یہ تصدیق شدہ تلاوت نہیں۔ الفاظ کسی استاد یا قابلِ اعتماد قاری سے سیکھیں۔ مواد: ISLAMIC_REVIEW_PACK.md § J7 (بغیر دستخط)۔</string>
+    <string name="s_audio_is_the_device_s_own">جب تک قاری کی ریکارڈنگ شامل نہ ہو، آواز ڈیوائس کی اپنی ٹیکسٹ ٹو اسپیچ ہے — یہ تصدیق شدہ تلاوت نہیں۔ الفاظ کسی استاد یا قابلِ اعتماد قاری سے سیکھیں۔ مواد کا جائزہ: زیرِ التوا۔</string>
     <string name="s_reset_progress">پیش رفت ری سیٹ کریں</string>
     <string name="s_finish_well_done">مکمل · شاباش</string>
     <string name="s_device_text_to_speech_arabic_voice">ڈیوائس کی ٹیکسٹ ٹو اسپیچ، عربی آواز · مدد کے طور پر، تصدیق شدہ تلاوت نہیں</string>
@@ -412,7 +412,7 @@
     <string name="s_reading_the_dua">دعا پڑھی جا رہی ہے</string>
     <string name="s_reading_the_hadith">حدیث پڑھی جا رہی ہے</string>
     <string name="s_take_a_moment">ایک لمحہ ٹھہریں</string>
-    <string name="s_tap_skip_if_the_imam_is">امام تیار ہوں تو چھوڑیں دبائیں</string>
+    <string name="s_tap_skip_if_the_imam_is">امام تیار ہوں تو "ابھی اقامت شروع کریں" دبائیں</string>
     <string name="s_stop_azaan">اذان روکیں</string>
     <string name="s_skip">چھوڑیں ›</string>
     <string name="s_start_iqamah_now">ابھی اقامت شروع کریں ›</string>
@@ -423,4 +423,15 @@
     <string name="s_decrease">کم کریں</string>
     <string name="s_increase">زیادہ کریں</string>
     <string name="s_recited_by_a_human_reciter">قاری کی آواز · ایپ میں شامل ریکارڈنگ</string>
+    <string name="s_dismiss">بند کریں</string>
+    <string name="s_content_review_pending">مواد کا جائزہ زیرِ التوا</string>
+    <string name="s_next_label">اگلی</string>
+    <string name="s_azaan_may_be_late_fix">اذان تاخیر سے ہو سکتی ہے · درست کریں</string>
+    <string name="s_tap_clock_times">چھوئیں: گھڑی کے اوقات</string>
+    <string name="s_tap_time_until_since">چھوئیں: باقی / گزرا وقت</string>
+    <string name="s_tap_for_all_prayers">تمام نمازوں کے لیے چھوئیں</string>
+    <string name="s_preparing_voice">آواز تیار ہو رہی ہے…</string>
+    <string name="s_voice_unavailable">اس ڈیوائس پر کوئی آواز دستیاب نہیں</string>
+    <string name="s_found_an_error_report">کسی حدیث، ترجمے یا حکم میں غلطی ملی؟ گٹ ہب پر ڈیولپر کو بھیجیں؛ ہر اصلاح مواد کے ورژن کے مقابل درج ہوتی ہے۔</string>
+    <string name="s_time_zone_needs_checking">ٹائم زون کی جانچ ضروری ہے · درست کریں</string>
 </resources>

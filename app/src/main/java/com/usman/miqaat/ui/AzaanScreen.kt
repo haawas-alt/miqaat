@@ -249,7 +249,7 @@ private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Uni
             if (narrating) Wave(Modifier.width(u * 6).height(u * 2.4f), bars = 5)
             Text(
                 when (phase) { is Phase.Azaan -> Str[R.string.s_azaan_playing]; is Phase.Iftar -> Str[R.string.s_reading_the_iftar_dua]; is Phase.Dua -> Str[R.string.s_reading_the_dua]; is Phase.HadithPhase -> if (phase.narrating) Str[R.string.s_reading_the_hadith] else Str[R.string.s_take_a_moment]; is Phase.IqamahCountdown -> Str[R.string.s_tap_skip_if_the_imam_is]; is Phase.IqamahNow -> Str[R.string.s_iqamah]; is Phase.Quiet -> "" },
-                fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
             )
         }
         // middle: countdown ring for hadith
@@ -262,8 +262,8 @@ private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Uni
         Row(horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
             when (phase) {
                 is Phase.Azaan -> { Pill(Str[R.string.s_stop_azaan], true, u.value, onStop); Pill(Str[R.string.s_skip], false, u.value, onSkip) }
-                is Phase.IqamahCountdown -> { Pill("Dismiss", false, u.value, onStop); Pill(Str[R.string.s_start_iqamah_now], true, u.value, onSkip) }
-                is Phase.IqamahNow -> Pill("Dismiss", false, u.value, onStop)
+                is Phase.IqamahCountdown -> { Pill(Str[R.string.s_dismiss], false, u.value, onStop); Pill(Str[R.string.s_start_iqamah_now], true, u.value, onSkip) }
+                is Phase.IqamahNow -> Pill(Str[R.string.s_dismiss], false, u.value, onStop)
                 is Phase.HadithPhase -> Pill(Str[R.string.s_back_to_clock], false, u.value, onStop)
                 else -> { Pill(Str[R.string.s_back_to_clock], false, u.value, onStop); Pill(Str[R.string.s_skip], false, u.value, onSkip) }
             }

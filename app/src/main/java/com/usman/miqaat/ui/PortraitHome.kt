@@ -39,6 +39,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
+import com.usman.miqaat.R
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -77,7 +80,13 @@ fun PortraitHome(
     why?.let { WhyDialog(settings, state.today, it) { why = null } }
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val u: Dp = minOf(maxWidth / 100, maxHeight / 235)
+        val density = androidx.compose.ui.platform.LocalDensity.current
+        val fontScale = density.fontScale
+        // Labels and the countdown follow the Android font-size setting; the huge display numerals and Arabic
+        // are already sized to the screen, so they stay put — otherwise they push everything else off the page.
         fun fs(x: Float) = (u.value * x).sp
+        fun fd(x: Float) = with(density) { (u * x).toSp() }
+        val roomy = fontScale > 1.15f   // large text: let the page scroll rather than clip
         val sky = skyFor(state.period)
         val ctx = androidx.compose.ui.platform.LocalContext.current
         val alarmsOk = remember(state.now.toLocalDate(), state.hero) { com.usman.miqaat.data.Reliability.allGood(ctx) }
@@ -95,7 +104,7 @@ fun PortraitHome(
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(top, bottom)))) {
             if (kiswah) Weave(Modifier.fillMaxSize()) else { Glow(Modifier.fillMaxSize(), sky.glow); Stars(Modifier.fillMaxSize(), sky.stars); GirihLattice(Modifier.fillMaxSize(), tile = u.value * 22f); DaySkyScrim(state.period) }
 
-            Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().padding(horizontal = u * 5, vertical = u * 2)) {
+            Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().padding(horizontal = u * 5, vertical = u * 2).then(if (roomy) Modifier.verticalScroll(rememberScrollState()) else Modifier)) {
                 // top bar
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Row(Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).semantics(mergeDescendants = true) { contentDescription = "Location: ${settings.locationName}. Opens location settings" }, verticalAlignment = Alignment.CenterVertically) {
@@ -112,23 +121,27 @@ fun PortraitHome(
                 Text(L10n.date(settings, state.now), fontSize = fs(if (urdu) 3.8f else 3.2f), color = ivory.copy(alpha = 0.85f), fontFamily = F, modifier = Modifier.padding(top = u * 2))
                 if (settings.showHijri) {
                     val h = PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)
-                    Text(L10n.hijri(settings, h) + (if (urdu) "" else "  ·  " + h.arabic), fontSize = fs(3.8f), color = gold, fontFamily = if (urdu) F else arabicFont)
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(L10n.hijri(settings, h), fontSize = fs(3.8f), color = gold, fontFamily = if (urdu) F else arabicFont)
+                        if (!urdu) { Text("  ·  ", fontSize = fs(3.8f), color = gold, fontFamily = arabicFont); Text(L10n.iso(h.arabic), fontSize = fs(3.8f), color = gold, fontFamily = arabicFont) }
+                    }
                 }
 
                 // chips
                 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
                 androidx.compose.foundation.layout.FlowRow(Modifier.padding(top = u * 2.5f), horizontalArrangement = Arrangement.spacedBy(u * 2), verticalArrangement = Arrangement.spacedBy(u * 1.5f)) {
-                    if (settings.showQibla) { val q = PrayerEngine.qibla(settings); SmallChip(Icons.Outlined.Explore, "${L10n.word(settings, "Qibla")} ${q.toInt()}° ${PrayerEngine.compass(q)}", u, ivory, gold, font = F, onClick = onOpenQibla) }
+                    if (settings.showQibla) { val q = PrayerEngine.qibla(settings); SmallChip(Icons.Outlined.Explore, L10n.word(settings, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), u, ivory, gold, font = F, onClick = onOpenQibla) }
                     if (settings.adhkarEnabled && state.current == Prayer.FAJR) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "Morning adhkār"), u, ivory, gold, gold = true, font = F) { onOpenAdhkar(AdhkarMode.MORNING) }
                     if (settings.adhkarEnabled && (state.current == Prayer.ASR || state.current == Prayer.MAGHRIB)) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "Evening adhkār"), u, ivory, gold, gold = true, font = F) { onOpenAdhkar(AdhkarMode.EVENING) }
                     if (updateAvailable) SmallChip(Icons.Outlined.Settings, "Update", u, ivory, gold, gold = true, font = F, onClick = onOpenAbout)
-                    if (!alarmsOk) SmallChip(Icons.Outlined.Info, "Azaan may be late · fix", u, ivory, gold, gold = true, font = F, onClick = onOpenSettings)
+                    if (!alarmsOk) SmallChip(Icons.Outlined.Info, Str[R.string.s_azaan_may_be_late_fix], u, ivory, gold, gold = true, font = F, onClick = onOpenSettings)
+                    if (settings.zoneNeedsReview) SmallChip(Icons.Outlined.Info, Str[R.string.s_time_zone_needs_checking], u, ivory, gold, gold = true, font = F, onClick = onOpenLocation)
                     if (settings.fridayReminders && PrayerEngine.isJumuahWindow(settings, state.now)) SmallChip(Icons.Outlined.Check, L10n.word(settings, "Jumuʿah"), u, ivory, gold, font = F, onClick = onOpenFriday)
                     if (settings.postPrayerAdhkar && state.current != null && java.time.Duration.between(state.today[state.current], state.now).toMinutes() in 5..40) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, ivory, gold, gold = true, font = F) { onOpenAdhkar(AdhkarMode.POST) }
                 }
 
                 // hero takes whatever height is left between the header and the list
-                Box(Modifier.weight(1f).fillMaxWidth().clipToBounds(), contentAlignment = Alignment.Center) {
+                Box((if (roomy) Modifier.fillMaxWidth().padding(vertical = u * 3) else Modifier.weight(1f).fillMaxWidth()).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                     val kicker = when {
                         ramadan && state.current == null -> "Ramaḍān · Suhoor ends"
@@ -137,12 +150,12 @@ fun PortraitHome(
                         else -> null
                     }
                     if (kicker != null) Text(kicker.uppercase(), fontFamily = Nunito, fontSize = fs(2.8f), letterSpacing = fs(0.6f), fontWeight = FontWeight.Bold, color = gold)
-                    Text(state.hero.arabic, fontFamily = arabicFont, fontSize = fs(if (kiswah) 10f else 13f), lineHeight = fs(15f), color = Color(0xFFF6E7B8))
+                    Text(state.hero.arabic, fontFamily = arabicFont, fontSize = fd(if (kiswah) 10f else 13f), lineHeight = fd(15f), color = Color(0xFFF6E7B8))
                     Text(L10n.prayer(settings, state.hero).let { if (urdu) it else it.uppercase() } + if (state.justPassed) "  ·  " + L10n.word(settings, "NOW") else "", fontFamily = if (urdu) F else numFont, fontSize = fs(if (urdu) 6f else 5f), letterSpacing = if (urdu) 0.sp else fs(1.2f), color = ivory.copy(alpha = 0.9f))
                     Row(verticalAlignment = Alignment.Top) {
-                        Text(PrayerEngine.clock(state.heroTime, settings.use24h), style = TextStyle(fontFamily = numFont, fontSize = fs(if (kiswah) 19f else 21f), lineHeight = fs(21f), brush = if (kiswah) Kiswah.goldText else Brush.verticalGradient(listOf(ivory, ivory))))
+                        Text(PrayerEngine.clock(state.heroTime, settings.use24h), style = TextStyle(fontFamily = numFont, fontSize = fd(if (kiswah) 19f else 21f), lineHeight = fd(21f), brush = if (kiswah) Kiswah.goldText else Brush.verticalGradient(listOf(ivory, ivory))))
                         val suf = PrayerEngine.suffix(state.heroTime, settings.use24h)
-                        if (suf.isNotEmpty()) Text(" $suf", fontFamily = numFont, fontSize = fs(6f), color = ivory, modifier = Modifier.padding(top = u * 3))
+                        if (suf.isNotEmpty()) Text(" $suf", fontFamily = numFont, fontSize = fd(6f), color = ivory, modifier = Modifier.padding(top = u * 3))
                     }
                     val pill = if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inFor(settings, state.delta)
                     Row(
@@ -188,7 +201,7 @@ fun PortraitHome(
                             Column(Modifier.weight(1f).semantics(mergeDescendants = true) { contentDescription = words }) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(if (urdu) label else label.uppercase(), fontSize = fs(if (urdu) 4.2f else 3f), letterSpacing = if (urdu) 0.sp else fs(0.4f), fontWeight = FontWeight.Bold, color = ivory.copy(alpha = 0.85f), fontFamily = F)
-                                    if (isNext) Box(Modifier.padding(start = u * 2).clip(RoundedCornerShape(4.dp)).background(Palette.gold).padding(horizontal = u * 1.2f, vertical = u * 0.3f)) { Text("NEXT", fontSize = fs(2.4f), fontWeight = FontWeight.Bold, color = Palette.night, fontFamily = Nunito) }
+                                    if (isNext) Box(Modifier.padding(start = u * 2).clip(RoundedCornerShape(4.dp)).background(Palette.gold).padding(horizontal = u * 1.2f, vertical = u * 0.3f)) { Text(Str[R.string.s_next_label], fontSize = fs(2.4f), fontWeight = FontWeight.Bold, color = Palette.night, fontFamily = Nunito) }
                                     if (done && p.isPrayer) Icon(Icons.Outlined.Check, null, Modifier.padding(start = u * 2).size(u * 3.6f), tint = Palette.mint)
                                 }
                                 Text(p.arabic, fontFamily = arabicFont, fontSize = fs(4f), lineHeight = fs(4.6f), color = gold)
@@ -198,7 +211,7 @@ fun PortraitHome(
                                     Text(L10n.relative(settings, t, state.now), fontFamily = F, fontSize = fs(4.6f), fontWeight = FontWeight.SemiBold, color = ivory)
                                     Text(PrayerEngine.clock(t, settings.use24h) + " " + PrayerEngine.suffix(t, settings.use24h), fontFamily = Nunito, fontSize = fs(2.8f), color = Palette.textSecondary)
                                 } else Row(verticalAlignment = Alignment.Bottom) {
-                                    Text(PrayerEngine.clock(t, settings.use24h), fontFamily = numFont, fontSize = fs(6.2f), lineHeight = fs(6.6f), color = ivory)
+                                    Text(PrayerEngine.clock(t, settings.use24h), fontFamily = numFont, fontSize = fd(6.2f), lineHeight = fd(6.6f), color = ivory)
                                     val s2 = PrayerEngine.suffix(t, settings.use24h)
                                     if (s2.isNotEmpty()) Text(" $s2", fontFamily = numFont, fontSize = fs(3.4f), color = ivory, modifier = Modifier.padding(bottom = u * 0.8f))
                                 }
@@ -215,7 +228,7 @@ fun PortraitHome(
                 }
                 Row(Modifier.fillMaxWidth().padding(top = u * 1.6f), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Text(L10n.word(settings, "Designed by UZR · Make duʿā for me"), fontFamily = if (urdu) F else numFont, fontSize = fs(2.8f), color = gold.copy(alpha = 0.9f))
-                    Text(if (settings.showRelative) "tap: clock times" else "tap: time until / since", fontFamily = Nunito, fontSize = fs(2.4f), color = Palette.textMuted)
+                    Text(if (settings.showRelative) Str[R.string.s_tap_clock_times] else Str[R.string.s_tap_time_until_since], fontFamily = Nunito, fontSize = fs(2.4f), color = Palette.textMuted)
                 }
             }
         }

@@ -69,8 +69,11 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
     val compact = maxWidth < 720.dp
     val pad = if (compact) 14.dp else 28.dp
+    val fontScale = androidx.compose.ui.platform.LocalDensity.current.fontScale
+    val hScroll = rememberScrollState()          // one horizontal scroll shared by the header and every row
     Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = pad, vertical = if (compact) 8.dp else 20.dp)) {
-        Row(verticalAlignment = Alignment.Bottom) {
+        // Header: title + metadata on one row, month controls on their own row when narrow (never squeezed together).
+        Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
             Column(Modifier.weight(1f).padding(start = 4.dp)) {
                 Row(verticalAlignment = Alignment.Bottom) {
@@ -82,25 +85,33 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                     fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary
                 )
             }
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                NavChip("‹ " + ym.minusMonths(1).format(DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH)), label = "Previous month") { ym = ym.minusMonths(1) }
-                NavChip(Str[R.string.s_today], current = ym == YearMonth.now(), label = Str[R.string.s_go_to_today]) { scope.launch { ym = YearMonth.now(); listState.animateScrollToItem((today.dayOfMonth - 3).coerceAtLeast(0)) } }
-                NavChip(ym.plusMonths(1).format(DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH)) + " ›", label = "Next month") { ym = ym.plusMonths(1) }
-            }
+            if (!compact) MonthNav(ym, today, listState, scope) { ym = it }
         }
+        if (compact) Row(Modifier.fillMaxWidth().padding(top = 6.dp), horizontalArrangement = Arrangement.End) { MonthNav(ym, today, listState, scope) { ym = it } }
         Spacer(Modifier.padding(6.dp))
 
         val ramadanMonth = days.any { PrayerEngine.isRamadan(settings, it.date) }
-        val cols = if (ramadanMonth) listOf("Date", "Hijri", Str[R.string.s_fajr_suhoor], "Sunrise", "Dhuhr", "Asr", Str[R.string.s_maghrib_iftar], "Isha")
+        val cols = if (ramadanMonth) listOf("Date", "Hijri", "Fajr · Suhoor", "Sunrise", "Dhuhr", "Asr", "Maghrib · Iftar", "Isha")
                    else listOf("Date", "Hijri", "Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha")
         val weights = listOf(1.5f, 1.2f, 1f, 1f, 1f, 1f, 1f, 1f)
         val shape = RoundedCornerShape(14.dp)
-        Column(Modifier.fillMaxWidth().weight(1f).clip(shape).border(1.dp, Palette.line, shape).then(if (compact) Modifier.horizontalScroll(rememberScrollState()) else Modifier)) {
-            val rowMod = if (compact) Modifier.width(760.dp) else Modifier.fillMaxWidth()
-            Row(rowMod.background(Palette.panelRaised).padding(vertical = 10.dp, horizontal = 14.dp)) {
-                cols.forEachIndexed { i, c ->
-                    Text(c.uppercase(), Modifier.weight(weights[i]), fontFamily = Nunito, fontSize = 11.sp, letterSpacing = 1.5.sp, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = 0.9f))
+        // Compact: the Date column is frozen; the rest scrolls sideways (width grows with the font setting).
+        val dateW = if (compact) (74.dp * fontScale) else 0.dp
+        val restW = if (compact) (700.dp * fontScale) else 0.dp
+        val canScrollMore = compact && hScroll.value < hScroll.maxValue
+        Column(Modifier.fillMaxWidth().weight(1f).clip(shape).border(1.dp, Palette.line, shape)) {
+            @Composable fun cells(content: @Composable (Int, Modifier) -> Unit) {
+                if (!compact) Row(Modifier.fillMaxWidth()) { cols.indices.forEach { i -> content(i, Modifier.weight(weights[i])) } }
+                else Row(Modifier.fillMaxWidth()) {
+                    Box(Modifier.width(dateW)) { content(0, Modifier.fillMaxWidth()) }
+                    Row(Modifier.weight(1f).horizontalScroll(hScroll)) { Row(Modifier.width(restW)) { (1 until cols.size).forEach { i -> content(i, Modifier.weight(weights[i])) } } }
                 }
+            }
+            Box {
+                Row(Modifier.fillMaxWidth().background(Palette.panelRaised).padding(vertical = 10.dp, horizontal = 14.dp)) {
+                    cells { i, m -> Text(cols[i].uppercase(), m, fontFamily = Nunito, fontSize = 11.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = 0.9f), maxLines = 1, softWrap = false) }
+                }
+                if (canScrollMore) Text("›", Modifier.align(Alignment.CenterEnd).padding(end = 6.dp).semantics { contentDescription = "More columns to the right" }, fontSize = 20.sp, color = Palette.goldSoft)
             }
             LazyColumn(state = listState) {
                 items(days, key = { it.date.toEpochDay() }) { d ->
@@ -111,21 +122,19 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                     val spoken = d.date.format(DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.ENGLISH)) + (if (isToday) ", today" else "") + (if (fri) ", Friday" else "") + ", " + h.short + ": " +
                         Prayer.entries.joinToString(", ") { "${it.english} ${PrayerEngine.clock(d[it], settings.use24h)} ${PrayerEngine.suffix(d[it], settings.use24h)}" }
                     Row(
-                        rowMod.background(if (isToday) Palette.gold.copy(alpha = 0.16f) else Color.Transparent)
+                        Modifier.fillMaxWidth().background(if (isToday) Palette.gold.copy(alpha = 0.16f) else Color.Transparent)
                             .padding(vertical = 8.dp, horizontal = 14.dp).semantics(mergeDescendants = true) { contentDescription = spoken },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(d.date.format(DateTimeFormatter.ofPattern("EEE d", Locale.ENGLISH)), Modifier.weight(weights[0]), fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal, color = color)
-                        Text(h.short + (if (h.isRamadan) " ☾" else ""), Modifier.weight(weights[1]), fontFamily = Nunito, fontSize = 14.sp, color = color.copy(alpha = 0.6f))
-                        Prayer.entries.forEachIndexed { i, p ->
-                            Text(
-                                PrayerEngine.clock(d[p], settings.use24h), Modifier.weight(weights[i + 2]),
-                                fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal,
-                                color = if (p == Prayer.SUNRISE) color.copy(alpha = 0.55f) else color
-                            )
+                        cells { i, m ->
+                            when (i) {
+                                0 -> Text(d.date.format(DateTimeFormatter.ofPattern("EEE d", Locale.ENGLISH)), m, fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal, color = color, maxLines = 1)
+                                1 -> Text(h.short + (if (h.isRamadan) " ☾" else ""), m, fontFamily = Nunito, fontSize = 14.sp, color = color.copy(alpha = 0.75f), maxLines = 1)
+                                else -> { val p = Prayer.entries[i - 2]; Text(PrayerEngine.clock(d[p], settings.use24h), m, fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal, color = if (p == Prayer.SUNRISE) color.copy(alpha = 0.7f) else color, maxLines = 1) }
+                            }
                         }
                     }
-                    Box(rowMod.padding(horizontal = 14.dp).background(Palette.line).padding(top = 1.dp))
+                    Box(Modifier.fillMaxWidth().padding(horizontal = 14.dp).background(Palette.line).padding(top = 1.dp))
                 }
             }
         }
@@ -134,6 +143,15 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
             fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary, modifier = Modifier.padding(top = 8.dp)
         )
     }
+    }
+}
+
+@Composable
+private fun MonthNav(ym: YearMonth, today: LocalDate, listState: androidx.compose.foundation.lazy.LazyListState, scope: kotlinx.coroutines.CoroutineScope, set: (YearMonth) -> Unit) {
+    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        NavChip("‹ " + ym.minusMonths(1).format(DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH)), label = "Previous month") { set(ym.minusMonths(1)) }
+        NavChip(Str[R.string.s_today], current = ym == YearMonth.now(), label = Str[R.string.s_go_to_today]) { scope.launch { set(YearMonth.now()); listState.animateScrollToItem((today.dayOfMonth - 3).coerceAtLeast(0)) } }
+        NavChip(ym.plusMonths(1).format(DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH)) + " ›", label = "Next month") { set(ym.plusMonths(1)) }
     }
 }
 

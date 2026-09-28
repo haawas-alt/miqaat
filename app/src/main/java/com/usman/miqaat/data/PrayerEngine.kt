@@ -177,11 +177,17 @@ object PrayerEngine {
             if (dateOrNull == null) { skipped++; continue }
             val date = dateOrNull
             val rest = line.substring(dm.range.last + 1)
+            var bad: String? = null
             val ts = timeRe.findAll(rest).map { m ->
                 var h = m.groupValues[1].toInt(); val mi = m.groupValues[2].toInt(); val ap = m.groupValues[3].lowercase()
+                // Strict clock validation: impossible values are a blocking error for the row, never clamped into something plausible.
+                if (mi !in 0..59) bad = "${m.value.trim()} (minutes must be 00–59)"
+                else if (ap.isNotEmpty() && h !in 1..12) bad = "${m.value.trim()} (hours with AM/PM must be 1–12)"
+                else if (ap.isEmpty() && h !in 0..23) bad = "${m.value.trim()} (hours must be 0–23)"
                 if (ap == "pm" && h < 12) h += 12; if (ap == "am" && h == 12) h = 0
                 h * 60 + mi
             }.toMutableList()
+            if (bad != null) { skipped++; if (notes.size < 12) notes += "$date skipped: invalid time $bad"; continue }
             if (ts.size < 6) { skipped++; continue }
             // 12-hour sheets without AM/PM: make the sequence monotonic (Dhuhr onward is afternoon)
             for (i in 1 until ts.size) {
@@ -190,6 +196,7 @@ object PrayerEngine {
             }
             // each iqamah must follow its own azaan
             for (k in 0 until 5) { val a = if (k == 0) 0 else k + 1; val iq = 6 + k; if (ts.size > iq && ts[iq] < ts[a] && ts[iq] + 720 >= ts[a]) ts[iq] += 720 }
+            if (ts.any { it !in 0..1439 }) { skipped++; if (notes.size < 12) notes += "$date skipped: a time falls outside the day"; continue }
             rows[date.toString()] = ts.take(11)
         }
         if (rows.isEmpty()) notes += "No rows with a date and at least six times were found."

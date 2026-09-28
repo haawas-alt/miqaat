@@ -97,7 +97,7 @@ fun KiswahHome(
                 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
                 androidx.compose.foundation.layout.FlowRow(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(u * 2), verticalArrangement = Arrangement.spacedBy(u * 0.5f)) {
                     Caps(settings.locationName, fs(1.3f), Modifier.clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).semantics { contentDescription = "Location: ${settings.locationName}. Opens location settings" }, alpha = 1f)
-                    if (settings.showQibla) { val q = PrayerEngine.qibla(settings); Caps("· ${L10n.word(settings, "Qibla")} ${q.toInt()}° ${PrayerEngine.compass(q)}", fs(1.1f), Modifier.clickable(onClick = onOpenQibla, role = androidx.compose.ui.semantics.Role.Button), alpha = 0.85f) }
+                    if (settings.showQibla) { val q = PrayerEngine.qibla(settings); Caps("· " + L10n.word(settings, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), fs(1.1f), Modifier.clickable(onClick = onOpenQibla, role = androidx.compose.ui.semantics.Role.Button), alpha = 0.85f) }
                     if (settings.adhkarEnabled && morningWindow) Caps("· " + L10n.word(settings, "Morning adhkār"), fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.MORNING) }, bright = true)
                     if (settings.adhkarEnabled && eveningWindow) Caps("· " + L10n.word(settings, "Evening adhkār"), fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.EVENING) }, bright = true)
                     if (updateAvailable) Caps("· " + L10n.word(settings, "Update available"), fs(1.1f), Modifier.clickable(onClick = onOpenAbout), bright = true)
