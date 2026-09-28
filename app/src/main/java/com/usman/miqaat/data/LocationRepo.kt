@@ -98,11 +98,24 @@ object LocationRepo {
         val fresh = withTimeoutOrNull(20_000) {
             suspendCancellableCoroutine<Location?> { cont ->
                 // Main executor: the callback is a one-line resume, and nothing is leaked when the fix times out.
-                val signal = android.os.CancellationSignal()
-                cont.invokeOnCancellation { runCatching { signal.cancel() } }
-                runCatching {
-                    lm.getCurrentLocation(provider, signal, ContextCompat.getMainExecutor(ctx)) { loc -> if (cont.isActive) cont.resume(loc) }
-                }.onFailure { if (cont.isActive) cont.resume(null) }
+                if (Build.VERSION.SDK_INT >= 30) {
+                    val signal = android.os.CancellationSignal()
+                    cont.invokeOnCancellation { runCatching { signal.cancel() } }
+                    runCatching {
+                        lm.getCurrentLocation(provider, signal, ContextCompat.getMainExecutor(ctx)) { loc -> if (cont.isActive) cont.resume(loc) }
+                    }.onFailure { if (cont.isActive) cont.resume(null) }
+                } else {
+                    // Android 8–10: one-shot listener on the main looper, removed on result or cancellation.
+                    val listener = object : android.location.LocationListener {
+                        override fun onLocationChanged(loc: Location) { runCatching { lm.removeUpdates(this) }; if (cont.isActive) cont.resume(loc) }
+                        @Deprecated("Deprecated in Java") override fun onStatusChanged(p: String?, status: Int, extras: android.os.Bundle?) {}
+                        override fun onProviderEnabled(p: String) {}
+                        override fun onProviderDisabled(p: String) { runCatching { lm.removeUpdates(this) }; if (cont.isActive) cont.resume(null) }
+                    }
+                    cont.invokeOnCancellation { runCatching { lm.removeUpdates(listener) } }
+                    runCatching { @Suppress("DEPRECATION") lm.requestSingleUpdate(provider, listener, android.os.Looper.getMainLooper()) }
+                        .onFailure { if (cont.isActive) cont.resume(null) }
+                }
             }
         }
         return fresh ?: cached

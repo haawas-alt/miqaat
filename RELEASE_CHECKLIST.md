@@ -23,10 +23,11 @@ Two editions are built from every commit on `main` by `.github/workflows/build.y
 - [x] Exact-alarm permissions: `SCHEDULE_EXACT_ALARM maxSdkVersion=32` + `USE_EXACT_ALARM` — never both on one device
 - [x] `USE_EXACT_ALARM` justification ready for the Play declaration: user-scheduled prayer-time alarms (alarm-clock use case)
 - [x] Play edition has no `REQUEST_INSTALL_PACKAGES` and no self-install code path (`BuildConfig.SELF_UPDATE = false`)
-- [x] `allowBackup=false` (coordinates never enter cloud backup; in-app settings file instead)
+- [x] `allowBackup=false` + `dataExtractionRules` excluding everything (coordinates never enter cloud backup or device transfer; in-app settings file instead)
 - [ ] Play Console data-safety form: location (on device only), no collection, no sharing; geocoder → Google disclosed
 - [ ] Foreground-service (`mediaPlayback`) declaration text prepared
 - [ ] Full-screen-intent use case declared (alarm)
+- [ ] `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` justification (lint `BatteryLife`): time-critical user-scheduled alarm; only offered as a fix when an azaan was late
 - [ ] Android 16 large-screen note: orientation locks are ignored on ≥ 600 dp devices targeting 36; portrait layout exists and was checked (DEVICE_TEST_PLAN E/B)
 
 ### Trust

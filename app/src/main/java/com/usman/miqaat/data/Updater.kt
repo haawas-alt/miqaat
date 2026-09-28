@@ -83,7 +83,7 @@ object Updater {
         }
     }
 
-    fun canInstall(ctx: Context): Boolean = Build.VERSION.SDK_INT < 26 || ctx.packageManager.canRequestPackageInstalls()
+    fun canInstall(ctx: Context): Boolean = ctx.packageManager.canRequestPackageInstalls()
 
     fun openInstallPermission(ctx: Context) {
         runCatching { ctx.startActivity(Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${ctx.packageName}")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
