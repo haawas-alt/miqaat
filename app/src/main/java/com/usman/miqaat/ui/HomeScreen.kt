@@ -9,6 +9,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -93,6 +95,9 @@ fun HomeScreen(
     BoxWithConstraints(Modifier.fillMaxSize()) {
         // 1 unit = 1% of width, capped by height so short/wide tablets scale down instead of overlapping
         val u: Dp = minOf(maxWidth / 100, maxHeight / 56)
+        // Phone in landscape (≈410 dp tall): the tablet arrangement cannot fit, so the page scrolls, the hero gets a
+        // fixed height, the arch and sun arc give way to the thin day thread, and the signature moves in-line.
+        val short = maxHeight < 480.dp
         fun fs(x: Float): TextUnit = (u.value * x).sp
         val density = androidx.compose.ui.platform.LocalDensity.current
         fun fd(x: Float): TextUnit = with(density) { (u * x).toSp() }   // display sizes: screen-scaled, not font-scaled
@@ -123,7 +128,7 @@ fun HomeScreen(
             if (settings.artTheme == ArtTheme.GEOMETRIC) GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f)
             DaySkyScrim(state.period)
 
-            Column(Modifier.fillMaxSize().padding(start = u * 3.6f, end = u * 3.6f, top = u * 2.6f, bottom = u * 3.4f)) {
+            Column(Modifier.fillMaxSize().then(if (short) Modifier.verticalScroll(rememberScrollState()) else Modifier).padding(start = u * 3.6f, end = u * 3.6f, top = u * 2.6f, bottom = if (short) u * 1f else u * 3.4f)) {
 
                 // ---------- top bar
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top) {
@@ -173,8 +178,8 @@ fun HomeScreen(
                 }
 
                 // ---------- hero (takes whatever height is left)
-                Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    if (settings.artTheme != ArtTheme.MINIMAL) {
+                Box((if (short) Modifier.height(u * 22f) else Modifier.weight(1f)).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    if (settings.artTheme != ArtTheme.MINIMAL && !short) {
                         MihrabArch(Modifier.fillMaxHeight(0.98f).aspectRatio(0.96f, matchHeightConstraintsFirst = true))
                     }
                     val heroWords = (if (state.justPassed) "${L10n.prayer(settings, state.hero)} was at " else "Next prayer ${L10n.prayer(settings, state.hero)} at ") +
@@ -225,7 +230,8 @@ fun HomeScreen(
                     }
                 }
                 if (settings.showDisliked) {
-                    SunArc(settings, state.today, state.now, height = u * 6f, modifier = Modifier.fillMaxWidth().padding(start = u * 1, end = u * 1, bottom = u * 0.4f), labelSize = fs(1.1f))
+                    if (short) DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(start = u * 1, end = u * 1, bottom = u * 0.8f), labelSize = fs(1.1f))
+                    else SunArc(settings, state.today, state.now, height = u * 6f, modifier = Modifier.fillMaxWidth().padding(start = u * 1, end = u * 1, bottom = u * 0.4f), labelSize = fs(1.1f))
                 }
 
                 // ---------- rail
@@ -268,9 +274,10 @@ fun HomeScreen(
                                 })
                     }
                 }
+                if (short) Text((if (urdu) "ڈیزائن: UZR · میرے لیے دعا کیجیے" else "Designed by UZR · Make duʿā for me"), fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.45f), color = Palette.goldSoft, modifier = Modifier.padding(top = u * 1f))
             }
             // signature
-            Column(Modifier.align(Alignment.BottomStart).padding(start = u * 1.2f, bottom = u * 0.5f)) {
+            if (!short) Column(Modifier.align(Alignment.BottomStart).padding(start = u * 1.2f, bottom = u * 0.5f)) {
                 Text(if (urdu) "ڈیزائن: UZR" else "Designed by UZR", fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.45f), letterSpacing = fs(0.12f), color = Palette.goldSoft)
                 Text(if (urdu) "میرے لیے دعا کیجیے" else "Make duʿā for me", fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.25f), fontStyle = FontStyle.Italic, color = Palette.textSecondary)
             }

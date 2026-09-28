@@ -7,6 +7,8 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -80,6 +82,7 @@ fun KiswahHome(
     why?.let { WhyDialog(settings, state.today, it) { why = null } }
     BoxWithConstraints(Modifier.fillMaxSize().background(Kiswah.silk)) {
         val u: Dp = minOf(maxWidth / 100, maxHeight / 56)
+        val short = maxHeight < 480.dp   // phone landscape: scroll, fixed-height hero, thread instead of arc
         fun fs(x: Float) = (u.value * x).sp
         val ramadan = PrayerEngine.isRamadan(settings, state.now.toLocalDate())
         val isFri = state.now.dayOfWeek == java.time.DayOfWeek.FRIDAY && settings.jumuahEnabled
@@ -91,7 +94,7 @@ fun KiswahHome(
 
         Weave(Modifier.fillMaxSize())
 
-        Column(Modifier.fillMaxSize().padding(horizontal = u * 4, vertical = u * 2)) {
+        Column(Modifier.fillMaxSize().then(if (short) Modifier.verticalScroll(rememberScrollState()) else Modifier).padding(horizontal = u * 4, vertical = u * 2)) {
             // top line
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
@@ -124,7 +127,7 @@ fun KiswahHome(
             }
 
             // hero
-            Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+            Box((if (short) Modifier.height(u * 22f) else Modifier.weight(1f)).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     val kicker = when {
                         ramadan && state.current == null -> "Ramaḍān · Suhoor ends"
@@ -159,7 +162,10 @@ fun KiswahHome(
                 }
             }
 
-            if (settings.showDisliked) SunArc(settings, state.today, state.now, height = u * 6f, modifier = Modifier.fillMaxWidth().padding(start = u * 2, end = u * 2, bottom = u * 0.6f), kiswah = true, labelSize = fs(1.0f))
+            if (settings.showDisliked) {
+                if (short) DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(start = u * 2, end = u * 2, bottom = u * 0.8f), kiswah = true, labelSize = fs(1.0f))
+                else SunArc(settings, state.today, state.now, height = u * 6f, modifier = Modifier.fillMaxWidth().padding(start = u * 2, end = u * 2, bottom = u * 0.6f), kiswah = true, labelSize = fs(1.0f))
+            }
             // rail: a single gold line, then times
             GoldRule(null, u)
             val shown = if (settings.showSunrise) Prayer.entries else Prayer.prayersOnly
@@ -190,7 +196,7 @@ fun KiswahHome(
                 }
             }
         }
-        Text(if (urdu) L10n.word(settings, "Designed by UZR · Make duʿā for me") else "DESIGNED BY UZR  ·  MAKE DUʿĀ FOR ME", fontFamily = if (urdu) Nastaliq else Cinzel, fontSize = fs(1.0f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.85f), modifier = Modifier.align(Alignment.BottomStart).padding(start = u * 4, bottom = u * 0.7f))
+        if (!short) Text(if (urdu) L10n.word(settings, "Designed by UZR · Make duʿā for me") else "DESIGNED BY UZR  ·  MAKE DUʿĀ FOR ME", fontFamily = if (urdu) Nastaliq else Cinzel, fontSize = fs(1.0f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.85f), modifier = Modifier.align(Alignment.BottomStart).padding(start = u * 4, bottom = u * 0.7f))
     }
 }
 
