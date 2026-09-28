@@ -422,4 +422,5 @@
     <string name="s_about">About</string>
     <string name="s_decrease">Decrease</string>
     <string name="s_increase">Increase</string>
+    <string name="s_recited_by_a_human_reciter">Recited by a human reciter · bundled recording</string>
 </resources>

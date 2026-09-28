@@ -296,12 +296,17 @@ fun Figure(p: Learn.Posture, color: Color, modifier: Modifier) {
 
 // ---------------------------------------------------------------- words + audio
 
-/** Device text-to-speech with visible state (playing / slow) and a disclosed source. */
-private class Speaker(ctx: android.content.Context) {
+/**
+ * Audio for a step. Prefers a bundled human recording res/raw/learn_NN.mp3 (learn_NN_slow.mp3 when Slow is on and it exists);
+ * falls back to the device's text-to-speech only when no recording is bundled. State (playing / slow / source) is visible to the UI.
+ */
+private class Speaker(private val ctx: android.content.Context) {
     var playing by mutableStateOf(false)
     var slow by mutableStateOf(false)
     var arabicOk by mutableStateOf(false)
+    var lastWasRecording by mutableStateOf(false)
     private var ready = false
+    private var player: android.media.MediaPlayer? = null
     private val tts: TextToSpeech = TextToSpeech(ctx) { status ->
         ready = status == TextToSpeech.SUCCESS
         if (ready) runCatching { arabicOk = engine().isLanguageAvailable(Locale("ar")) >= TextToSpeech.LANG_AVAILABLE }
@@ -314,16 +319,44 @@ private class Speaker(ctx: android.content.Context) {
             @Deprecated("Deprecated in Java") override fun onError(id: String?) { playing = false }
         })
     }
-    fun speak(step: Adhkar.Step) {
+    private fun recordingId(index: Int): Int {
+        val base = "learn_%02d".format(index + 1)
+        val slowId = if (slow) ctx.resources.getIdentifier(base + "_slow", "raw", ctx.packageName) else 0
+        return if (slowId != 0) slowId else ctx.resources.getIdentifier(base, "raw", ctx.packageName)
+    }
+    fun hasRecording(index: Int) = recordingId(index) != 0
+
+    fun speak(step: Adhkar.Step, index: Int) {
+        stop()
+        val id = recordingId(index)
+        if (id != 0) {
+            lastWasRecording = true
+            player = android.media.MediaPlayer().apply {
+                setAudioAttributes(android.media.AudioAttributes.Builder().setUsage(android.media.AudioAttributes.USAGE_MEDIA).setContentType(android.media.AudioAttributes.CONTENT_TYPE_SPEECH).build())
+                runCatching { setDataSource(ctx, android.net.Uri.parse("android.resource://${ctx.packageName}/$id")); prepare() }
+                    .onFailure { release(); player = null; return }
+                if (slow && ctx.resources.getIdentifier("learn_%02d_slow".format(index + 1), "raw", ctx.packageName) == 0)
+                    runCatching { playbackParams = playbackParams.setSpeed(0.75f) }   // no slow take: slow the normal one
+                setOnCompletionListener { playing = false; it.release(); if (player === it) player = null }
+                setOnErrorListener { mp, _, _ -> playing = false; mp.release(); if (player === mp) player = null; true }
+                start(); playing = true
+            }
+            return
+        }
+        lastWasRecording = false
         if (!ready) return
         tts.language = if (arabicOk) Locale("ar") else Locale.ENGLISH
         tts.setSpeechRate(if (slow) 0.6f else 0.85f)
         val text = if (arabicOk) step.arabic.replace("۝", "،").replace("·", "،") else step.transliteration
         playing = tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "learn") == TextToSpeech.SUCCESS
     }
-    fun stop() { tts.stop(); playing = false }
-    fun release() { tts.stop(); tts.shutdown() }
-    val source: String get() = if (arabicOk) Str[R.string.s_device_text_to_speech_arabic_voice] else Str[R.string.s_device_text_to_speech_no_arabic]
+    fun stop() { tts.stop(); player?.runCatching { if (isPlaying) stop(); release() }; player = null; playing = false }
+    fun release() { stop(); tts.shutdown() }
+    fun source(index: Int): String = when {
+        hasRecording(index) -> Str[R.string.s_recited_by_a_human_reciter]
+        arabicOk -> Str[R.string.s_device_text_to_speech_arabic_voice]
+        else -> Str[R.string.s_device_text_to_speech_no_arabic]
+    }
 }
 
 @Composable
@@ -335,7 +368,7 @@ private fun rememberSpeaker(): Speaker {
 }
 
 @Composable
-private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifier: Modifier) {
+private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifier: Modifier, index: Int = Learn.words.indexOfFirst { it.arabic == step.arabic }.coerceAtLeast(0)) {
     var showTranslit by rememberSaveable { mutableStateOf(true) }
     var showNote by rememberSaveable(step.position) { mutableStateOf(false) }
     Column(modifier.clip(RoundedCornerShape(20.dp)).background(c.surface).border(1.dp, c.divider, RoundedCornerShape(20.dp)).padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -345,7 +378,7 @@ private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifie
         }
         // audio: play / stop, slow toggle, disclosed source
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            Box(Modifier.size(48.dp).clip(CircleShape).background(c.primary).clickable(role = Role.Button) { if (audio.playing) audio.stop() else audio.speak(step) }
+            Box(Modifier.size(48.dp).clip(CircleShape).background(c.primary).clickable(role = Role.Button) { if (audio.playing) audio.stop() else audio.speak(step, index) }
                 .semantics { contentDescription = if (audio.playing) Str[R.string.s_stop] else Str[R.string.s_hear_it]; stateDescription = if (audio.playing) "Playing" else Str[R.string.s_not_playing] }, contentAlignment = Alignment.Center) {
                 Icon(if (audio.playing) Icons.Outlined.Stop else Icons.AutoMirrored.Outlined.VolumeUp, null, Modifier.size(24.dp), tint = c.onPrimary)
             }
@@ -353,7 +386,7 @@ private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifie
                 .selectable(selected = audio.slow, role = Role.Checkbox) { audio.slow = !audio.slow }.padding(horizontal = 14.dp), contentAlignment = Alignment.Center) {
                 Text(Str[R.string.s_slow], fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = if (audio.slow) c.primary else c.textSecondary)
             }
-            Text(if (audio.playing) Str[R.string.s_playing] else audio.source, fontFamily = Nunito, fontSize = 11.sp, lineHeight = 15.sp, color = c.textSecondary, modifier = Modifier.weight(1f).semantics { liveRegion = LiveRegionMode.Polite })
+            Text(if (audio.playing) Str[R.string.s_playing] else audio.source(index), fontFamily = Nunito, fontSize = 11.sp, lineHeight = 15.sp, color = c.textSecondary, modifier = Modifier.weight(1f).semantics { liveRegion = LiveRegionMode.Polite })
         }
         Row(Modifier.fillMaxWidth().heightIn(min = 44.dp).clickable(role = Role.Switch) { showTranslit = !showTranslit }.semantics { stateDescription = if (showTranslit) "Shown" else "Hidden" }, verticalAlignment = Alignment.CenterVertically) {
             Text(Str[R.string.s_how_to_say_it], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold, color = c.textSecondary, modifier = Modifier.weight(1f))
