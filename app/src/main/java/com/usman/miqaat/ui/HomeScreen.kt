@@ -133,7 +133,7 @@ fun HomeScreen(
 
                 // ---------- top bar
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top) {
-                    Column {
+                    Column(Modifier.weight(1f).padding(end = u * 2)) {
                         Row(Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).padding(u * 0.5f).semantics(mergeDescendants = true) { contentDescription = "Location: ${settings.locationName}. Opens location settings" }, verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.2f), tint = Palette.ivory)
                             Spacer(Modifier.width(u * 0.7f))
@@ -141,7 +141,7 @@ fun HomeScreen(
                         }
                         if (short) Text(if (urdu) "ڈیزائن: UZR · میرے لیے دعا کیجیے" else "Designed by UZR · Make duʿā for me", fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.3f), color = Palette.goldSoft, modifier = Modifier.padding(start = u * 0.5f))
                         @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
-                        androidx.compose.foundation.layout.FlowRow(Modifier.padding(top = u * 0.8f).widthIn(max = u * 62), horizontalArrangement = Arrangement.spacedBy(u * 0.9f), verticalArrangement = Arrangement.spacedBy(u * 0.6f)) {
+                        androidx.compose.foundation.layout.FlowRow(Modifier.padding(top = u * 0.8f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(u * 0.9f), verticalArrangement = Arrangement.spacedBy(u * 0.6f)) {
                             if (settings.showQibla) {
                                 val q = PrayerEngine.qibla(settings)
                                 Chip(Icons.Outlined.Explore, L10n.word(settings, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), u, font = F, onClick = onOpenQibla)
@@ -232,8 +232,8 @@ fun HomeScreen(
                     } }
                 }
                 if (settings.showDisliked) {
-                    if (short) DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(start = u * 1, end = u * 1, bottom = u * 0.8f), labelSize = fs(1.1f))
-                    else SunArc(settings, state.today, state.now, height = u * 6f, modifier = Modifier.fillMaxWidth().padding(start = u * 1, end = u * 1, bottom = u * 0.4f), labelSize = fs(1.1f))
+                    // One straight gold thread (same as the phone): quieter than the arc and leaves the height to the hero.
+                    DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(start = u * 1, end = u * 1, top = u * 0.6f, bottom = u * 1.2f), labelSize = fs(1.1f))
                 }
 
                 // ---------- rail

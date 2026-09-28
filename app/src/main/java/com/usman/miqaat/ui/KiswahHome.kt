@@ -165,8 +165,7 @@ fun KiswahHome(
             }
 
             if (settings.showDisliked) {
-                if (short) DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(start = u * 2, end = u * 2, bottom = u * 0.8f), kiswah = true, labelSize = fs(1.0f))
-                else SunArc(settings, state.today, state.now, height = u * 6f, modifier = Modifier.fillMaxWidth().padding(start = u * 2, end = u * 2, bottom = u * 0.6f), kiswah = true, labelSize = fs(1.0f))
+                DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(start = u * 2, end = u * 2, top = u * 0.6f, bottom = u * 1.2f), kiswah = true, labelSize = fs(1.0f))
             }
             // rail: a single gold line, then times
             GoldRule(null, u)
