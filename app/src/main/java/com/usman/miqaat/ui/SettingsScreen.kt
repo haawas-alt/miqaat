@@ -13,6 +13,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -163,7 +164,7 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
         }
         return@BoxWithConstraints
     }
-    Row(Modifier.fillMaxSize().statusBarsPadding()) {
+    Row(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
         Column(Modifier.width(300.dp).fillMaxHeight().background(Color.Black.copy(alpha = 0.18f)).verticalScroll(rememberScrollState()).padding(vertical = 20.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 12.dp, bottom = 16.dp)) {
                 IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }

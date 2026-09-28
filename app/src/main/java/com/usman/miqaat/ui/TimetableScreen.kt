@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -72,7 +73,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
     val pad = if (compact) 14.dp else 28.dp
     val fontScale = androidx.compose.ui.platform.LocalDensity.current.fontScale
     val hScroll = rememberScrollState()          // one horizontal scroll shared by the header and every row
-    Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = pad, vertical = if (compact) 8.dp else 20.dp)) {
+    Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = pad, vertical = if (compact) 8.dp else 20.dp)) {
         // Header: title + metadata on one row, month controls on their own row when narrow (never squeezed together).
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }

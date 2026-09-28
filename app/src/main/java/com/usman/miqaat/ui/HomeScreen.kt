@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.rememberScrollState
@@ -128,7 +129,7 @@ fun HomeScreen(
             if (settings.artTheme == ArtTheme.GEOMETRIC) GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f)
             DaySkyScrim(state.period)
 
-            Column(Modifier.fillMaxSize().then(if (short) Modifier.verticalScroll(rememberScrollState()) else Modifier).padding(start = u * 3.6f, end = u * 3.6f, top = u * 2.6f, bottom = if (short) u * 1f else u * 3.4f)) {
+            Column(Modifier.fillMaxSize().displayCutoutPadding().then(if (short) Modifier.verticalScroll(rememberScrollState()) else Modifier).padding(start = u * 3.6f, end = u * 3.6f, top = u * 2.6f, bottom = if (short) u * 1f else u * 3.4f)) {
 
                 // ---------- top bar
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top) {

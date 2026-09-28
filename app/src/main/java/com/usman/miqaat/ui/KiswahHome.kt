@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.rememberScrollState
@@ -94,7 +95,7 @@ fun KiswahHome(
 
         Weave(Modifier.fillMaxSize())
 
-        Column(Modifier.fillMaxSize().then(if (short) Modifier.verticalScroll(rememberScrollState()) else Modifier).padding(horizontal = u * 4, vertical = u * 2)) {
+        Column(Modifier.fillMaxSize().displayCutoutPadding().then(if (short) Modifier.verticalScroll(rememberScrollState()) else Modifier).padding(horizontal = u * 4, vertical = u * 2)) {
             // top line
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)

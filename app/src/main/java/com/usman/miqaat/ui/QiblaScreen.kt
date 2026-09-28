@@ -11,6 +11,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -136,7 +137,7 @@ fun QiblaScreen(settings: AppSettings, onBack: () -> Unit) {
             }
             return@BoxWithConstraints
         }
-        Row(Modifier.fillMaxSize().padding(horizontal = u * 3, vertical = u * 2)) {
+        Row(Modifier.fillMaxSize().displayCutoutPadding().padding(horizontal = u * 3, vertical = u * 2)) {
             Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.Center) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
