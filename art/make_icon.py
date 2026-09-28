@@ -76,8 +76,10 @@ fg = f'''<?xml version="1.0" encoding="utf-8"?>
 <vector {NS} android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
     {path(tr(L_in), fill="#FFFFFF", alpha="0.10")}
     {path(tr(R_in), fill="#FFFFFF", alpha="0.10")}
+    <group>
     <clip-path android:pathData="{tr(L_in)}"/>
     {path(tr(R_in), gradient=grad(y(300), y(930), [("0","#FFFFF1D6"),("0.4","#FFFFC77E"),("1","#FFF0873A")]))}
+    </group>
 </vector>'''
 # clip-path applies to following siblings in the same group; put the bands and crescent in a fresh group
 fg = fg.replace('</vector>', f'''    <group>
