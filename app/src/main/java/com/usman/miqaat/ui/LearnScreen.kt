@@ -397,7 +397,7 @@ private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifie
         }
         Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.Switch) { showTranslit = !showTranslit }.semantics { stateDescription = if (showTranslit) "Shown" else "Hidden" }, verticalAlignment = Alignment.CenterVertically) {
             Text(Str[R.string.s_how_to_say_it], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold, color = c.textSecondary, modifier = Modifier.weight(1f))
-            Text(if (showTranslit) "hide" else "show", fontFamily = Nunito, fontSize = 12.sp, color = c.textSecondary)
+            Text(Str[if (showTranslit) R.string.s_hide else R.string.s_show], fontFamily = Nunito, fontSize = 12.sp, color = c.textSecondary)
         }
         AnimatedVisibility(showTranslit) { Text(step.transliteration, fontFamily = Cormorant, fontSize = 20.sp, lineHeight = 27.sp, color = c.text) }
         Text(Str[R.string.s_meaning], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold, color = c.textSecondary)

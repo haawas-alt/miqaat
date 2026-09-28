@@ -534,4 +534,6 @@
     <string name="p_disabled">اس ڈیوائس پر مقام بند ہے۔ اینڈرائیڈ کی ترتیبات میں اسے آن کریں، یا اپنا شہر تلاش کریں۔</string>
     <string name="p_timeout">20 سیکنڈ میں مقام معلوم نہ ہو سکا۔ کھڑکی کے قریب جائیں یا اپنا شہر تلاش کریں۔</string>
     <string name="p_unavailable">اس ڈیوائس میں مقام معلوم کرنے کا ذریعہ نہیں۔ اپنا شہر تلاش کریں۔</string>
+    <string name="s_hide">چھپائیں</string>
+    <string name="s_show">دکھائیں</string>
 </resources>

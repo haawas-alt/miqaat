@@ -534,4 +534,6 @@
     <string name="p_disabled">Location is turned off on this device. Turn it on in Android settings, or search for your city.</string>
     <string name="p_timeout">No location fix within 20 seconds. Move near a window or search for your city.</string>
     <string name="p_unavailable">This device has no location provider. Search for your city instead.</string>
+    <string name="s_hide">hide</string>
+    <string name="s_show">show</string>
 </resources>
