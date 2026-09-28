@@ -32,3 +32,6 @@ val RamadanMode.text: String get() = Str[labelRes]
 val IqamahSound.text: String get() = Str[labelRes]
 val AppTheme.text: String get() = Str[labelRes]
 val ArtTheme.text: String get() = Str[labelRes]
+
+/** Forward chevron for "opens a picker" values: mirrored in right-to-left layouts. */
+val Str.chev: String get() = if (res.configuration.layoutDirection == android.view.View.LAYOUT_DIRECTION_RTL) " ‹" else " ›"

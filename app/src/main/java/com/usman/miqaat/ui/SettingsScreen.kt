@@ -227,7 +227,7 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     var pickZone by remember { mutableStateOf(false) }
     val zoneWarn = s.locationSet && (s.zoneNeedsReview || com.usman.miqaat.data.Setup.zoneLooksWrong(s.longitude, s.zone()))
     SettingRow(Str[R.string.s_time_zone_for_prayer_times], if (zoneWarn) Str[R.string.s_this_zone_is_several_hours_away] else if (s.zoneManual) Str[R.string.s_chosen_by_you_automatic_location_refresh] else Str[R.string.s_follows_the_device_while_that_is], onClick = { pickZone = true }) {
-        GoldValue((s.zoneId ?: "Device · ${java.time.ZoneId.systemDefault().id}") + " ›")
+        GoldValue((s.zoneId ?: Str.get(R.string.s_device_zone, java.time.ZoneId.systemDefault().id)) + Str.chev)
     }
     if (pickZone) ZonePicker(current = s.zoneId, onPick = { pickZone = false }, onDismiss = { pickZone = false }, store = store)
     SettingRow(Str[R.string.s_use_the_tablet_s_location], Str[R.string.s_re_detects_each_time_the_app]) {
@@ -365,11 +365,11 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
     var pickMethod by remember { mutableStateOf(false) }
     var pickLat by remember { mutableStateOf(false) }
     Heading(Str[R.string.s_prayer_times], Str[R.string.s_match_your_local_masjid])
-    SettingRow(Str[R.string.s_calculation_method], s.method.info, onClick = { pickMethod = true }) { GoldValue(s.method.text + " ›") }
+    SettingRow(Str[R.string.s_calculation_method], s.method.info, onClick = { pickMethod = true }) { GoldValue(s.method.text + Str.chev) }
     SettingRow(Str[R.string.s_asr_juristic_method], Str[R.string.s_hanafi_asr_begins_later_shadow_2]) {
         Chips(AsrMethod.entries.map { it.text }, AsrMethod.entries.indexOf(s.asrMethod)) { i -> store.update { it.copy(asrMethod = AsrMethod.entries[i]) } }
     }
-    SettingRow(Str[R.string.s_high_latitude_rule], Str[R.string.s_only_matters_above_48_latitude], onClick = { pickLat = true }) { Value(s.latitudeRule.text + " ›") }
+    SettingRow(Str[R.string.s_high_latitude_rule], Str[R.string.s_only_matters_above_48_latitude], onClick = { pickLat = true }) { Value(s.latitudeRule.text + Str.chev) }
     SettingRow(Str[R.string.s_show_end_times], Str[R.string.s_ends_5_57_under_each_prayer]) { Toggle(s.showEndTimes) { on -> store.update { it.copy(showEndTimes = on) } } }
     SettingRow(Str[R.string.s_show_disliked_times_for_voluntary_prayer], Str[R.string.s_a_thin_day_bar_marking_approximate]) { Toggle(s.showDisliked) { on -> store.update { it.copy(showDisliked = on) } } }
     SettingRow(Str[R.string.s_show_sunrise_on_the_home_screen], Str[R.string.s_marks_the_end_of_fajr_time]) { Toggle(s.showSunrise) { on -> store.update { it.copy(showSunrise = on) } } }
@@ -744,7 +744,7 @@ private fun AboutSection(s: AppSettings) {
         Updater.State.UpToDate -> SettingRow(Str[R.string.s_you_have_the_latest_version], Str[R.string.s_checked_just_now]) { TextButton(onClick = { scope.launch { Updater.check(ctx, force = true) } }) { Text(Str[R.string.s_check_again], color = Palette.goldSoft) } }
         Updater.State.Idle -> SettingRow(Str[R.string.s_updates], Str[R.string.s_new_builds_are_published_automatically_each]) { GoldButton(Str[R.string.s_check_for_updates]) { scope.launch { Updater.check(ctx, force = true) } } }
     }
-    SettingRow(Str[R.string.s_report_a_content_correction], Str[R.string.s_found_an_error_report], onClick = { runCatching { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/${com.usman.miqaat.BuildConfig.REPO}/issues/new?title=Content%20correction"))) } }) { Value("GitHub ›") }
+    SettingRow(Str[R.string.s_report_a_content_correction], Str[R.string.s_found_an_error_report], onClick = { runCatching { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/${com.usman.miqaat.BuildConfig.REPO}/issues/new?title=Content%20correction"))) } }) { Value("GitHub" + Str.chev }
     Spacer(Modifier.height(14.dp))
     SettingRow(Str[R.string.s_content_sources], Str[R.string.s_every_hadith_dhikr_dua_and_ruling]) { Value(Str[R.string.s_content_review_pending]) }
     Text(

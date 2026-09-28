@@ -193,9 +193,9 @@ private fun ConfirmStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit
 
     SettingRow(Str[R.string.s_place], Setup.coordLabel(s.latitude, s.longitude)) { GoldValue(s.locationName) }
     SettingRow(Str[R.string.s_time_zone], if (zoneWarn) Str[R.string.s_this_zone_is_hours_away_from] else if (s.zoneId == null) Str[R.string.s_using_the_device_s_zone] else Str[R.string.s_from_the_chosen_place], onClick = { pickZone = true }) {
-        Text(zone.id + " ›", fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = if (zoneWarn) Palette.gold else Palette.goldSoft)
+        Text(zone.id + Str.chev, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = if (zoneWarn) Palette.gold else Palette.goldSoft)
     }
-    SettingRow(Str[R.string.s_convention], s.method.info, onClick = { pickMethod = true }) { GoldValue(s.method.text + " ›") }
+    SettingRow(Str[R.string.s_convention], s.method.info, onClick = { pickMethod = true }) { GoldValue(s.method.text + Str.chev) }
     SettingRow("ʿAsr", Str[R.string.s_hanafi_asr_begins_later_shadow_2_2]) {
         Chips(AsrMethod.entries.map { it.text }, AsrMethod.entries.indexOf(s.asrMethod)) { i -> store.update { it.copy(asrMethod = AsrMethod.entries[i]) } }
     }
