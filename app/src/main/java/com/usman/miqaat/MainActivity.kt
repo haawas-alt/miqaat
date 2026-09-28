@@ -158,31 +158,22 @@ class MainActivity : ComponentActivity() {
                                 updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
                                 onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
                                 onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
-                            ) else if (settings.theme == com.usman.miqaat.data.AppTheme.KISWAH) com.usman.miqaat.ui.KiswahHome(
-                                state, settings,
-                                onOpenTimetable = { screen = Screen.TIMETABLE },
-                                onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
-                                onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
-                                onOpenQibla = { screen = Screen.QIBLA },
-                                onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
-                                onOpenFriday = { screen = Screen.FRIDAY },
-                                onOpenLearn = { screen = Screen.LEARN },
-                                updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
-                                onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
-                                onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
-                            ) else HomeScreen(
-                                state, settings,
-                                onOpenTimetable = { screen = Screen.TIMETABLE },
-                                onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
-                                onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
-                                onOpenQibla = { screen = Screen.QIBLA },
-                                onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
-                                onOpenFriday = { screen = Screen.FRIDAY },
-                                onOpenLearn = { screen = Screen.LEARN },
-                                updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
-                                onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
-                                onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
-                            )
+                            ) else {
+                                val actions = com.usman.miqaat.ui.HomeActions(
+                                    onOpenTimetable = { screen = Screen.TIMETABLE },
+                                    onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
+                                    onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
+                                    onOpenQibla = { screen = Screen.QIBLA },
+                                    onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
+                                    onOpenFriday = { screen = Screen.FRIDAY },
+                                    onOpenLearn = { screen = Screen.LEARN },
+                                    updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
+                                    onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
+                                    onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
+                                )
+                                if (settings.theme == com.usman.miqaat.data.AppTheme.KISWAH) com.usman.miqaat.ui.CourtyardHome(state, settings, actions)
+                                else com.usman.miqaat.ui.MihrabHome(state, settings, actions)
+                            }
                             Screen.QIBLA -> QiblaScreen(settings) { screen = Screen.HOME }
                             Screen.ADHKAR -> AdhkarScreen(adhkarMode) { screen = Screen.HOME }
                             Screen.FRIDAY -> com.usman.miqaat.ui.FridayScreen(settings) { screen = Screen.HOME }

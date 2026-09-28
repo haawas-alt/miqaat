@@ -548,4 +548,5 @@
     <string name="s_learn_recitation">Learn Ṣalāh recitation</string>
     <string name="s_learn_recitation_detail">The twelve texts are recited by Abur Rahman Usman Zia, recorded for this app.</string>
     <string name="s_recited_by_named">Recited by Abur Rahman Usman Zia · bundled recording</string>
+    <string name="s_why_this_time">Why this time?</string>
 </resources>

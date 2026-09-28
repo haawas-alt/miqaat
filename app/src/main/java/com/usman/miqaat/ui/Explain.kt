@@ -123,7 +123,7 @@ private fun Line(k: String, v: String, sub: String) {
  * Used on phones (both themes).
  */
 @Composable
-fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier: Modifier = Modifier, kiswah: Boolean = false, labelSize: androidx.compose.ui.unit.TextUnit = 9.sp) {
+fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier: Modifier = Modifier, kiswah: Boolean = false, labelSize: androidx.compose.ui.unit.TextUnit = 9.sp, fullNames: Boolean = false, gnomon: Boolean = false) {
     val start = day[Prayer.FAJR].minusMinutes(20); val end = day[Prayer.ISHA].plusMinutes(40)
     val total = Duration.between(start, end).toMillis().toFloat().coerceAtLeast(1f)
     fun f(z: ZonedDateTime) = (Duration.between(start, z).toMillis() / total).coerceIn(0f, 1f)
@@ -131,7 +131,9 @@ fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier
     val measurer = androidx.compose.ui.text.rememberTextMeasurer()
     val gold = Palette.gold; val thread = if (kiswah) Color(0xFF8A6D2F) else Palette.goldSoft.copy(alpha = 0.45f); val dimThread = if (kiswah) Color(0xFF3A3020) else Color.White.copy(alpha = 0.18f)
     val labelStyle = androidx.compose.ui.text.TextStyle(fontFamily = if (kiswah) Cinzel else Nunito, fontSize = labelSize, letterSpacing = if (kiswah) 1.5.sp else 0.8.sp, fontWeight = FontWeight.SemiBold)
-    val shortName = mapOf(Prayer.FAJR to "F", Prayer.SUNRISE to "☼", Prayer.DHUHR to "D", Prayer.ASR to "A", Prayer.MAGHRIB to "M", Prayer.ISHA to "I")
+    val shortName = if (fullNames) mapOf(Prayer.FAJR to "Fajr", Prayer.SUNRISE to "Sunrise", Prayer.DHUHR to "Dhuhr", Prayer.ASR to "ʿAsr", Prayer.MAGHRIB to "Maghrib", Prayer.ISHA to "Isha")
+        else mapOf(Prayer.FAJR to "F", Prayer.SUNRISE to "☼", Prayer.DHUHR to "D", Prayer.ASR to "A", Prayer.MAGHRIB to "M", Prayer.ISHA to "I")
+    val ember = Color(0xFFF0873A)
     val words = Str[R.string.s_day_line] + windows.joinToString("; ") { w -> "avoid voluntary prayer ${PrayerEngine.clock(w.start, settings.use24h)} to ${PrayerEngine.clock(w.end, settings.use24h)}" }
     Canvas(modifier.height(with(androidx.compose.ui.platform.LocalDensity.current) { labelSize.toDp() } * 3.4f).semantics { contentDescription = words }) {
         val y = size.height * 0.36f
@@ -148,7 +150,7 @@ fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier
             if (b > xNow) drawLine(dimThread, Offset(maxOf(a, xNow), y), Offset(b, y), hair)
         }
         val dots = androidx.compose.ui.graphics.PathEffect.dashPathEffect(floatArrayOf(hair * 1.2f, hair * 2.2f))
-        cuts.forEach { (a, b) -> drawLine(if (b <= xNow) gold.copy(alpha = 0.8f) else thread, Offset(a, y), Offset(b, y), hair, pathEffect = dots) }
+        cuts.forEach { (a, b) -> drawLine(if (b <= xNow) ember.copy(alpha = 0.85f) else ember.copy(alpha = 0.45f), Offset(a, y), Offset(b, y), hair * 1.4f, pathEffect = dots) }
         // beads
         val bead = size.height * 0.16f
         Prayer.entries.forEach { p ->
@@ -165,7 +167,8 @@ fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier
         // now: glowing bead
         if (now.isAfter(start) && now.isBefore(end)) {
             drawCircle(Brush.radialGradient(listOf(gold.copy(alpha = 0.55f), gold.copy(alpha = 0f)), Offset(xNow, y), bead * 3.2f), bead * 3.2f, Offset(xNow, y))
-            drawCircle(Color(0xFFF6E7B8), bead * 0.9f, Offset(xNow, y))
+            if (gnomon) drawLine(Brush.verticalGradient(listOf(Color(0xFFFFF7E3), gold), y - bead * 2.6f, y + bead * 1.2f), Offset(xNow, y - bead * 2.6f), Offset(xNow, y + bead * 1.2f), hair * 1.6f)
+            drawCircle(Color(0xFFF6E7B8), bead * 0.9f, Offset(xNow, if (gnomon) y - bead * 2.6f else y))
         }
     }
 }
