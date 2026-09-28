@@ -481,11 +481,10 @@
     <string name="s_step_hadith">Hadith</string>
     <string name="s_step_home">Home</string>
     <string name="s_step_prayer">Prayer</string>
-    <string name="s_azaan_playing">%1$s azaan · playing</string>
+    <string name="s_x_azaan_playing">%1$s azaan · playing</string>
     <string name="s_prayer_iqamah">%1$s · iqamah</string>
     <string name="s_prayer_after_azaan">%1$s · after the azaan</string>
     <string name="s_why_title">Why %1$s?  ·  %2$s  %3$s</string>
-    <string name="s_masjid_timetable">Masjid timetable</string>
     <string name="s_x_for_date">%1$s for %2$s</string>
     <string name="s_calculated_would_be">Calculated would be %1$s</string>
     <string name="s_rule_fajr">Sun %1$s° below the horizon before sunrise</string>

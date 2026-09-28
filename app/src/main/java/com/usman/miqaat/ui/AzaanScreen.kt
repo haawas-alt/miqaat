@@ -85,7 +85,7 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
                 Spacer(Modifier.width(u * 0.9f))
                 Text(
                     when (phase) {
-                        is Phase.Azaan -> Str.get(R.string.s_azaan_playing, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer))
+                        is Phase.Azaan -> Str.get(R.string.s_x_azaan_playing, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer))
                         is Phase.IqamahCountdown, is Phase.IqamahNow -> Str.get(R.string.s_prayer_iqamah, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer))
                         else -> Str.get(R.string.s_prayer_after_azaan, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer))
                     }.uppercase(),

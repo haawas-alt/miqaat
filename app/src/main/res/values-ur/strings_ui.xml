@@ -475,17 +475,16 @@
     <string name="e_art_geo">ہندسی جالی</string>
     <string name="e_art_calli">صرف خطاطی</string>
     <string name="e_art_min">سادہ</string>
-    <string name="s_match_your_local_masjid">اپنی مقامی مسجد سے ملائیں۔ طریقے ملک اور برادری کے لحاظ سے مختلف ہیں؛ مسلم ورلڈ لیگ کے زاویے (فجر 18°، عشاء 17°) عام نقطۂ آغاز ہیں — اپنی مسجد کا نقشہ دیکھ کر ردوبدل کریں، یا اسے مقام کے تحت درآمد کریں۔</string>
+    <string name="s_match_your_local_masjid">اپنی مقامی مسجد سے ملائیں۔ طریقے ملک اور برادری کے لحاظ سے مختلف ہیں؛ مسلم ورلڈ لیگ کے زاویے (فجر 18°، عشاء 17°) عام نقطۂ آغاز ہیں — اپنی مسجد کا ٹائم ٹیبل دیکھ کر ردوبدل کریں، یا اسے مقام کے تحت درآمد کریں۔</string>
     <string name="s_plays_x_and_shows_iqamah">%1$s بجاتا ہے اور اقامت کی اسکرین دکھاتا ہے</string>
     <string name="s_step_azaan">اذان</string>
     <string name="s_step_hadith">حدیث</string>
     <string name="s_step_home">ہوم</string>
     <string name="s_step_prayer">نماز</string>
-    <string name="s_azaan_playing">%1$s کی اذان · چل رہی ہے</string>
+    <string name="s_x_azaan_playing">%1$s کی اذان · چل رہی ہے</string>
     <string name="s_prayer_iqamah">%1$s · اقامت</string>
     <string name="s_prayer_after_azaan">%1$s · اذان کے بعد</string>
     <string name="s_why_title">%1$s کیوں؟  ·  %2$s  %3$s</string>
-    <string name="s_masjid_timetable">مسجد کا نقشہ</string>
     <string name="s_x_for_date">%2$s کے لیے %1$s</string>
     <string name="s_calculated_would_be">حساب سے %1$s ہوتا</string>
     <string name="s_rule_fajr">طلوع آفتاب سے پہلے سورج افق سے %1$s° نیچے</string>
@@ -522,7 +521,7 @@
     <string name="s_adjustment">ردوبدل</string>
     <string name="s_today_is_x">آج %1$s ہے</string>
     <string name="s_calendar_already_turns">کیلنڈر کل ہی %1$s میں داخل ہو جاتا ہے۔ اگر آپ کی برادری میں چاند نظر نہیں آیا تو 30 دن پورے کریں۔</string>
-    <string name="s_compare_todays_fajr">آج کی فجر اور مغرب کا اپنی مسجد سے موازنہ کریں۔ اگر چند منٹ سے زیادہ فرق ہو تو یہاں طریقہ بدلیں یا بعد میں ترتیبات › مقام میں مسجد کا نقشہ درآمد کریں۔</string>
+    <string name="s_compare_todays_fajr">آج کی فجر اور مغرب کا اپنی مسجد سے موازنہ کریں۔ اگر چند منٹ سے زیادہ فرق ہو تو یہاں طریقہ بدلیں یا بعد میں ترتیبات › مقام میں مسجد کا ٹائم ٹیبل درآمد کریں۔</string>
     <string name="s_plays_at_azaan_volume">اذان کی آواز (%1$d%%) پر بجتی ہے۔ ترتیبات › اذان اور الرٹ میں بدلیں۔</string>
     <string name="s_built_from_commit">کمٹ %1$s · ریلیز ٹیگ %2$s سے بنایا گیا۔ ہر ریلیز کا SHA-256 گٹ ہب پر اس کے ساتھ شائع ہوتا ہے۔</string>
     <string name="s_version_line">ورژن %1$s · بلڈ %2$s · %3$s</string>
@@ -530,7 +529,7 @@
     <string name="s_google_play_edition">گوگل پلے ایڈیشن</string>
     <string name="s_update_available_version">اپ ڈیٹ دستیاب: ورژن %1$s</string>
     <string name="s_downloading_version">ورژن %1$s ڈاؤن لوڈ ہو رہا ہے…</string>
-    <string name="s_monthly_timetable">ماہانہ نقشہ</string>
+    <string name="s_monthly_timetable">ماہانہ ٹائم ٹیبل</string>
     <string name="p_no_permission">مقام کی اجازت نہیں دی گئی۔ آپ اپنے شہر کو تلاش کر سکتے ہیں۔</string>
     <string name="p_disabled">اس ڈیوائس پر مقام بند ہے۔ اینڈرائیڈ کی ترتیبات میں اسے آن کریں، یا اپنا شہر تلاش کریں۔</string>
     <string name="p_timeout">20 سیکنڈ میں مقام معلوم نہ ہو سکا۔ کھڑکی کے قریب جائیں یا اپنا شہر تلاش کریں۔</string>
