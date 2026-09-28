@@ -186,3 +186,26 @@ about on-device behaviour should be read as tested.
 | Per-second `now` state | P2 | **PARTIAL** | `@Immutable` models + strong-skipping; only tracing on device can prove cost |
 
 Verification: GitHub Actions run 39 (`v1.39`): all unit tests passed (the count is in the CI test report artifact, not maintained here), lint passed, both editions built. Run 38 failed on a Kotlin rule (vararg of a value class) in the new posture drawing — fixed in the next commit.
+
+---
+
+## Live-device audit of v1.40 (Pixel 8 AVD, API 36) — response, shipped in v1.47
+
+| # | Finding | Status | What changed |
+|---|---|---|---|
+| P1 | Landscape Settings rail hides four sections | **CODE** | rail is `verticalScroll`; all ten destinations reachable |
+| P1 | 1.30× text clips Home countdown, breaks Timetable header | **CODE** | Home: display numerals/Arabic are screen-scaled (`fd`), labels and the countdown follow the font setting, portrait page scrolls above 1.15×, hero no longer clipped. Timetable: title/metadata and month controls on separate rows when narrow; header cells single-line; compact table has a **frozen Date column** and a shared horizontal scroll for the rest, width scaling with font size, with a › cue while more columns remain |
+| P1 | Background refresh keeps an old zone silently | **CODE** | `zoneNeedsReview` persisted when no plausible zone is found; home chip "Time zone needs checking · fix", Settings › Location warning, planned alarm labelled "(zone unverified)"; cleared when the user picks a zone. Heuristic order changed: a known place within 150 km decides first (Brisbane on a Sydney-DST phone → Australia/Brisbane), then device-zone plausibility, then nearest place within 600 km, else ask. Alarms are **not** blocked while unresolved — a late azaan in the old zone was judged less harmful than a missing one; the label and chip make the state visible. Tests: `oneHourBorderIsCaughtByTheNearestKnownPlace`, `unresolvedZoneIsFlaggedForReviewUntilTheUserPicksOne`. No offline IANA dataset yet (nothing reachable from this workspace). |
+| P1 | Import accepts 25:00 / 12:75 | **CODE** | hard-rejected per row with a named reason (minutes 00–59, 24-h hours 0–23, AM/PM hours 1–12, result within the day); `parserRejectsImpossibleClockValues` |
+| P1 | External gates | **DEVICE / SCHOLAR** | unchanged; review PDF produced for the imam; recording sheet issued for Learn Salah audio |
+| P2 | Urdu home leftovers, bidi | **CODE** | NEXT, reliability chip, hint, large-type instruction moved to resources; Qibla chip and Hijri line use bidi isolates / separate containers |
+| P2 | Settings chip row discoverability | **CODE** | two-row wrapping grid with tab semantics |
+| P2 | Timetable horizontal context | **CODE** | frozen Date column, › cue (above) |
+| P2 | Iqamah guidance names a missing button | **COPY** | "Tap \"Start iqamah now\" if the imam is ready", wraps to two lines; Dismiss localised |
+| P2 | Large-type instruction contrast | **CODE** | ivory on a 38 % black pill |
+| P2 | Repository filenames in UI | **COPY** | "Content review pending" everywhere user-facing |
+| P2 | Learn: 44 dp row, TTS before ready | **CODE** | 48 dp; play button disabled with "Preparing voice…" / "No voice available" until the engine reports, or immediately usable when a bundled recording exists |
+| P2 | Learn at large scale / busy pattern | **CODE** | posture panel grows with font scale, Continue wraps, lattice at 0.035 behind a solid card surface |
+| P3 | Why dialog scroll affordance | **DEFERRED** | already sectioned; fade deferred |
+| P3 | Qibla portrait balance | **CODE** | `SpaceEvenly` |
+| P3 | Test count in docs | **COPY** | counts no longer maintained by hand |
