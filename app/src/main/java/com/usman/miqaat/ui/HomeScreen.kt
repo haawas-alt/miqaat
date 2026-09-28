@@ -134,14 +134,13 @@ fun HomeScreen(
                 // ---------- top bar
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top) {
                     Column(Modifier.weight(1f).padding(end = u * 2)) {
+                        @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+                        androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(u * 0.9f), verticalArrangement = Arrangement.spacedBy(u * 0.6f), itemVerticalAlignment = Alignment.CenterVertically) {
                         Row(Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).padding(u * 0.5f).semantics(mergeDescendants = true) { contentDescription = "Location: ${settings.locationName}. Opens location settings" }, verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.2f), tint = Palette.ivory)
                             Spacer(Modifier.width(u * 0.7f))
                             Text(settings.locationName, fontSize = fs(1.7f), fontWeight = FontWeight.SemiBold, color = Palette.ivory, fontFamily = F)
                         }
-                        if (short) Text(if (urdu) "ڈیزائن: UZR · میرے لیے دعا کیجیے" else "Designed by UZR · Make duʿā for me", fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.3f), color = Palette.goldSoft, modifier = Modifier.padding(start = u * 0.5f))
-                        @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
-                        androidx.compose.foundation.layout.FlowRow(Modifier.padding(top = u * 0.8f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(u * 0.9f), verticalArrangement = Arrangement.spacedBy(u * 0.6f)) {
                             if (settings.showQibla) {
                                 val q = PrayerEngine.qibla(settings)
                                 Chip(Icons.Outlined.Explore, L10n.word(settings, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), u, font = F, onClick = onOpenQibla)
@@ -160,6 +159,7 @@ fun HomeScreen(
                             if (settings.travellerMode && PrayerEngine.isTravelling(settings)) Chip(Icons.Outlined.Flight, "Travelling · %.0f km from home".format(PrayerEngine.distanceKm(settings.homeLat!!, settings.homeLng!!, settings.latitude, settings.longitude)), u, gold = true, font = F, onClick = onOpenLocation)
                             if (state.today.fromMasjid) Chip(Icons.Outlined.LocationOn, settings.masjidName.ifBlank { Str[R.string.s_masjid_timetable] }, u, font = F, onClick = onOpenLocation)
                         }
+                        Text(if (urdu) "ڈیزائن: UZR · میرے لیے دعا کیجیے" else "Designed by UZR  ·  Make duʿā for me", fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.35f), letterSpacing = fs(0.08f), color = Palette.goldSoft.copy(alpha = 0.75f), modifier = Modifier.padding(start = u * 0.6f, top = u * 0.6f))
                     }
                     Column(horizontalAlignment = Alignment.End) {
                         Text(L10n.date(settings, state.now), fontSize = fs(if (urdu) 1.9f else 1.6f), color = Palette.ivory, fontFamily = F)
@@ -278,7 +278,7 @@ fun HomeScreen(
                 }
             }
             // signature
-            if (!short) Column(Modifier.align(Alignment.BottomStart).padding(start = u * 1.2f, bottom = u * 0.5f)) {
+            if (false) Column(Modifier.align(Alignment.BottomStart).padding(start = u * 1.2f, bottom = u * 0.5f)) {
                 Text(if (urdu) "ڈیزائن: UZR" else "Designed by UZR", fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.45f), letterSpacing = fs(0.12f), color = Palette.goldSoft)
                 Text(if (urdu) "میرے لیے دعا کیجیے" else "Make duʿā for me", fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.25f), fontStyle = FontStyle.Italic, color = Palette.textSecondary)
             }

@@ -545,4 +545,7 @@
     <string name="s_boost_12">+12 dB</string>
     <string name="s_boost_18">+18 dB</string>
     <string name="s_recordings_bundled">الفاظ کی تلاوت ایپ میں شامل انسانی ریکارڈنگز ہیں۔ ریکارڈنگ تلفظ میں مدد دیتی ہے؛ نماز خود کسی استاد یا اپنی مسجد سے سیکھیں۔</string>
+    <string name="s_learn_recitation">نمازِ سیکھیں کی تلاوت</string>
+    <string name="s_learn_recitation_detail">بارہ متون کی تلاوت عبد الرحمٰن عثمان ضیاء نے اس ایپ کے لیے ریکارڈ کی ہے۔</string>
+    <string name="s_recited_by_named">تلاوت: عبد الرحمٰن عثمان ضیاء · شامل شدہ ریکارڈنگ</string>
 </resources>

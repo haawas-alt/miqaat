@@ -545,4 +545,7 @@
     <string name="s_boost_12">+12 dB</string>
     <string name="s_boost_18">+18 dB</string>
     <string name="s_recordings_bundled">The words are human recitations bundled in the app. Recordings help with pronunciation; learn the prayer itself with a teacher or at your masjid.</string>
+    <string name="s_learn_recitation">Learn Ṣalāh recitation</string>
+    <string name="s_learn_recitation_detail">The twelve texts are recited by Abur Rahman Usman Zia, recorded for this app.</string>
+    <string name="s_recited_by_named">Recited by Abur Rahman Usman Zia · bundled recording</string>
 </resources>

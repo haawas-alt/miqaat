@@ -121,4 +121,4 @@ Settings › About › Content sources from "Unsigned" to "Reviewed by … on �
 
 ## Addendum · Learn Ṣalāh recordings (28 Sep 2026)
 
-The twelve Learn Ṣalāh texts (`res/raw/learn_01.mp3` … `learn_12.mp3`) are now human recitations supplied by the app owner, replacing device text-to-speech. Files were loudness-normalised (−16 LUFS) and trimmed of leading/trailing silence only; no other processing. Reciter to be credited in About once confirmed. Reviewer: please listen to each against the printed text in J6.
+The twelve Learn Ṣalāh texts (`res/raw/learn_01.mp3` … `learn_12.mp3`) are now human recitations supplied by the app owner, replacing device text-to-speech. Files were loudness-normalised (−16 LUFS) and trimmed of leading/trailing silence only; no other processing. Reciter: Abur Rahman Usman Zia (credited in About and on each Learn step). Reviewer: please listen to each against the printed text in J6.

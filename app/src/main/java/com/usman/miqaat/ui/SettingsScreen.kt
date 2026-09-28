@@ -749,6 +749,7 @@ private fun AboutSection(s: AppSettings) {
         Updater.State.UpToDate -> SettingRow(Str[R.string.s_you_have_the_latest_version], Str[R.string.s_checked_just_now]) { TextButton(onClick = { scope.launch { Updater.check(ctx, force = true) } }) { Text(Str[R.string.s_check_again], color = Palette.goldSoft) } }
         Updater.State.Idle -> SettingRow(Str[R.string.s_updates], Str[R.string.s_new_builds_are_published_automatically_each]) { GoldButton(Str[R.string.s_check_for_updates]) { scope.launch { Updater.check(ctx, force = true) } } }
     }
+    SettingRow(Str[R.string.s_learn_recitation], Str[R.string.s_learn_recitation_detail]) { }
     SettingRow(Str[R.string.s_report_a_content_correction], Str[R.string.s_found_an_error_report], onClick = { runCatching { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/${com.usman.miqaat.BuildConfig.REPO}/issues/new?title=Content%20correction"))) } }) { Value("GitHub" + Str.chev) }
     Spacer(Modifier.height(14.dp))
     SettingRow(Str[R.string.s_content_sources], Str[R.string.s_every_hadith_dhikr_dua_and_ruling]) { Value(Str[R.string.s_content_review_pending]) }

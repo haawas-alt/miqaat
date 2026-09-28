@@ -359,7 +359,7 @@ private class Speaker(private val ctx: android.content.Context) {
     /** Audio is usable when a recording exists or the voice engine is up. */
     fun usable(index: Int) = hasRecording(index) || ready
     fun source(index: Int): String = when {
-        hasRecording(index) -> Str[R.string.s_recited_by_a_human_reciter]
+        hasRecording(index) -> Str[R.string.s_recited_by_named]
         failed -> Str[R.string.s_voice_unavailable]
         !ready -> Str[R.string.s_preparing_voice]
         arabicOk -> Str[R.string.s_device_text_to_speech_arabic_voice]
