@@ -70,18 +70,14 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
         if (phase is Phase.Quiet) { QuietBody(phase, u, onStop); return@BoxWithConstraints }
         val isAzaan = phase is Phase.Azaan
         val isIq = phase is Phase.IqamahCountdown || phase is Phase.IqamahNow
+        val tk = screenTokens()
         val kiswah = com.usman.miqaat.MiqaatApp.instance.settings.value.theme == com.usman.miqaat.data.AppTheme.KISWAH
-        val bg = when {
-            kiswah -> listOf(Color(0xFF0B0B0B), Kiswah.silk)
-            isAzaan -> listOf(Color(0xFF2A1440), Color(0xFF0A0716))
-            isIq -> listOf(Color(0xFF163A3A), Color(0xFF0B1F24), Color(0xFF06131A))
-            else -> listOf(Color(0xFF1E2A5C), Color(0xFF0D1533), Color(0xFF080D24))
-        }
+        val bg = if (kiswah) ThemeTokenSets.kiswah.skyAzaan else when { isAzaan -> tk.skyAzaan; isIq -> tk.skyIqamah; else -> tk.skyDua }
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(bg))) {
             if (kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
             // Option A: a quiet status tag, top-left, instead of any system pop-up
             Row(Modifier.statusBarsPadding().padding(start = u * 3.6f, top = u * 2.6f), verticalAlignment = Alignment.CenterVertically) {
-                Box(Modifier.size(u * 0.9f).clip(androidx.compose.foundation.shape.CircleShape).background(Palette.gold))
+                Box(Modifier.size(u * 0.9f).clip(androidx.compose.foundation.shape.CircleShape).background(tk.primary))
                 Spacer(Modifier.width(u * 0.9f))
                 Text(
                     when (phase) {
@@ -89,7 +85,7 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
                         is Phase.IqamahCountdown, is Phase.IqamahNow -> Str.get(R.string.s_prayer_iqamah, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer))
                         else -> Str.get(R.string.s_prayer_after_azaan, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer))
                     }.uppercase(),
-                    fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.16f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft.copy(alpha = 0.85f)
+                    fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.16f).sp, fontWeight = FontWeight.Bold, color = tk.accent.copy(alpha = 0.85f)
                 )
             }
             Column(Modifier.fillMaxSize().statusBarsPadding().padding(top = if (portrait) u * 3 else 0.dp)) {
@@ -114,6 +110,7 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
 
 @Composable
 private fun StepsBar(phase: Phase, u: Dp) {
+    val tk = screenTokens()
     val iftar = phase is Phase.Iftar
     val iq = phase is Phase.IqamahCountdown || phase is Phase.IqamahNow
     val idx = when (phase) { is Phase.Azaan -> 0; is Phase.Iftar -> 1; is Phase.Dua -> if (iftar) 2 else 1; is Phase.HadithPhase -> if (iftar) 3 else 2; is Phase.IqamahCountdown -> 1; is Phase.IqamahNow -> 2; is Phase.Quiet -> 3 }
@@ -131,12 +128,12 @@ private fun StepsBar(phase: Phase, u: Dp) {
             val done = i < idx; val cur = i == idx
             val shape = RoundedCornerShape(50)
             Box(
-                Modifier.clip(shape).background(if (cur) Palette.gold.copy(alpha = 0.12f) else Color.Transparent)
-                    .border(1.dp, when { cur -> Palette.gold; done -> Palette.mint.copy(alpha = 0.4f); else -> Color.White.copy(alpha = 0.15f) }, shape)
+                Modifier.clip(shape).background(if (cur) tk.primary.copy(alpha = 0.12f) else Color.Transparent)
+                    .border(1.dp, when { cur -> tk.primary; done -> tk.success.copy(alpha = 0.4f); else -> tk.neutralStroke }, shape)
                     .padding(horizontal = u * 1.4f, vertical = u * 0.6f)
             ) {
                 Text((if (done) "✓ " else "") + l.uppercase(), fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, letterSpacing = (u.value * 0.15f).sp, fontWeight = FontWeight.Bold,
-                    color = when { cur -> Color(0xFFF6E7B8); done -> Palette.mint; else -> Palette.ivory.copy(alpha = 0.55f) })
+                    color = when { cur -> tk.arabicText; done -> tk.success; else -> tk.contentPrimary.copy(alpha = 0.55f) })
             }
         }
     }
@@ -144,16 +141,18 @@ private fun StepsBar(phase: Phase, u: Dp) {
 
 @Composable
 private fun AzaanBody(phase: Phase, u: Dp) {
+    val tk = screenTokens()
     Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Text("ٱللَّٰهُ أَكْبَرُ", fontFamily = Amiri, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 14f).sp, color = Color(0xFFF6E7B8), textAlign = TextAlign.Center)
-        Text("${phase.prayer.english.uppercase()} AZAAN  ·  ${phase.prayer.arabic}", fontFamily = Cormorant, fontSize = (u.value * 2.6f).sp, letterSpacing = (u.value * 0.6f).sp, color = Palette.ivory.copy(alpha = 0.85f), modifier = Modifier.padding(top = u * 1))
+        Text("ٱللَّٰهُ أَكْبَرُ", fontFamily = Amiri, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 14f).sp, color = tk.arabicText, textAlign = TextAlign.Center)
+        Text("${phase.prayer.english.uppercase()} AZAAN  ·  ${phase.prayer.arabic}", fontFamily = Cormorant, fontSize = (u.value * 2.6f).sp, letterSpacing = (u.value * 0.6f).sp, color = tk.contentPrimary.copy(alpha = 0.85f), modifier = Modifier.padding(top = u * 1))
         Wave(Modifier.padding(top = u * 4).width(u * 22).height(u * 8))
-        Text(Str[R.string.s_hayya_ala_al_h_come_to], fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, letterSpacing = (u.value * 0.1f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 3))
+        Text(Str[R.string.s_hayya_ala_al_h_come_to], fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, letterSpacing = (u.value * 0.1f).sp, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 3))
     }
 }
 
 @Composable
 private fun DuaBody(u: Dp) {
+    val tk = screenTokens()
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Kicker(Str[R.string.s_dua_after_the_azaan], u)
         Arabic(Duas.AFTER_AZAAN_AR, u, size = 4.4f)
@@ -164,6 +163,7 @@ private fun DuaBody(u: Dp) {
 
 @Composable
 private fun IftarBody(u: Dp) {
+    val tk = screenTokens()
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Kicker(Str[R.string.s_rama_n_dua_at_iftar], u)
         Arabic(com.usman.miqaat.data.Ramadan.IFTAR_AR, u, size = 4.8f)
@@ -174,6 +174,7 @@ private fun IftarBody(u: Dp) {
 
 @Composable
 private fun CountdownBody(p: Phase.IqamahCountdown, u: Dp) {
+    val tk = screenTokens()
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(200) } }
     val total = (p.endsAt - p.startedAt).coerceAtLeast(1)
@@ -184,26 +185,27 @@ private fun CountdownBody(p: Phase.IqamahCountdown, u: Dp) {
         Box(Modifier.padding(vertical = u * 1).size(u * 26), contentAlignment = Alignment.Center) {
             Canvas(Modifier.fillMaxSize()) {
                 val stroke = Stroke(width = size.width * 0.045f, cap = StrokeCap.Round)
-                drawArc(Color.White.copy(alpha = 0.12f), 0f, 360f, false, style = stroke)
-                drawArc(Palette.gold, -90f, 360f * (leftMs / total.toFloat()), false, style = stroke)
+                drawArc(tk.neutralStroke, 0f, 360f, false, style = stroke)
+                drawArc(tk.primary, -90f, 360f * (leftMs / total.toFloat()), false, style = stroke)
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("$secs", fontFamily = Cormorant, fontSize = (u.value * 10.5f).sp, lineHeight = (u.value * 10.5f).sp, color = Palette.ivory)
-                Text("SECONDS", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 0.6f))
+                Text("$secs", fontFamily = Cormorant, fontSize = (u.value * 10.5f).sp, lineHeight = (u.value * 10.5f).sp, color = tk.contentPrimary)
+                Text("SECONDS", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f))
             }
         }
-        Text(Str[R.string.s_straighten_your_rows], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = Palette.ivory.copy(alpha = 0.9f))
-        Text(Str[R.string.s_a_al_bukh_r_723], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 0.6f))
+        Text(Str[R.string.s_straighten_your_rows], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = tk.contentPrimary.copy(alpha = 0.9f))
+        Text(Str[R.string.s_a_al_bukh_r_723], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f))
     }
 }
 
 @Composable
 private fun IqamahNowBody(phase: Phase, u: Dp) {
+    val tk = screenTokens()
     Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Kicker(phase.prayer.english, u)
-        Text("الإقامة", fontFamily = Amiri, fontSize = (u.value * 9f).sp, lineHeight = (u.value * 10f).sp, color = Color(0xFFF6E7B8))
-        Text("قَدْ قَامَتِ الصَّلاَةُ", fontFamily = Amiri, fontSize = (u.value * 4.2f).sp, lineHeight = (u.value * 6f).sp, color = Palette.goldSoft)
-        Text(Str[R.string.s_the_prayer_has_begun], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = Palette.ivory.copy(alpha = 0.9f), modifier = Modifier.padding(top = u * 0.6f))
+        Text("الإقامة", fontFamily = Amiri, fontSize = (u.value * 9f).sp, lineHeight = (u.value * 10f).sp, color = tk.arabicText)
+        Text("قَدْ قَامَتِ الصَّلاَةُ", fontFamily = Amiri, fontSize = (u.value * 4.2f).sp, lineHeight = (u.value * 6f).sp, color = tk.accent)
+        Text(Str[R.string.s_the_prayer_has_begun], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = tk.contentPrimary.copy(alpha = 0.9f), modifier = Modifier.padding(top = u * 0.6f))
     }
 }
 
@@ -225,6 +227,7 @@ private fun QuietBody(p: Phase.Quiet, u: Dp, onStop: () -> Unit) {
 
 @Composable
 private fun HadithBody(p: Phase.HadithPhase, u: Dp) {
+    val tk = screenTokens()
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Kicker("A hadith after ${p.prayer.english} · ${p.hadith.source}", u)
         val long = p.hadith.arabic.length > 110
@@ -234,15 +237,16 @@ private fun HadithBody(p: Phase.HadithPhase, u: Dp) {
     }
 }
 
-@Composable private fun Kicker(t: String, u: Dp) = Text(t.uppercase(), fontFamily = Nunito, fontSize = (u.value * 1.35f).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
+@Composable private fun Kicker(t: String, u: Dp) = Text(t.uppercase(), fontFamily = Nunito, fontSize = (u.value * 1.35f).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = screenTokens().accent)
 @Composable private fun Arabic(t: String, u: Dp, size: Float) = CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-    Text(t, fontFamily = Amiri, fontSize = (u.value * size).sp, lineHeight = (u.value * size * 1.75f).sp, color = Color(0xFFF6E7B8), textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = u * 1.2f))
+    Text(t, fontFamily = Amiri, fontSize = (u.value * size).sp, lineHeight = (u.value * size * 1.75f).sp, color = tk.arabicText, textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = u * 1.2f))
 }
-@Composable private fun Translation(t: String, u: Dp, size: Float = 2.35f) = Text(t, fontFamily = Cormorant, fontSize = (u.value * size).sp, lineHeight = (u.value * size * 1.45f).sp, color = Palette.ivory, textAlign = TextAlign.Center)
-@Composable private fun Source(t: String, u: Dp) = Text(t, fontFamily = Nunito, fontSize = (u.value * 1.35f).sp, letterSpacing = (u.value * 0.08f).sp, color = Palette.ivory.copy(alpha = 0.75f), textAlign = TextAlign.Center, modifier = Modifier.padding(top = u * 1.4f))
+@Composable private fun Translation(t: String, u: Dp, size: Float = 2.35f) = Text(t, fontFamily = Cormorant, fontSize = (u.value * size).sp, lineHeight = (u.value * size * 1.45f).sp, color = screenTokens().contentPrimary, textAlign = TextAlign.Center)
+@Composable private fun Source(t: String, u: Dp) = Text(t, fontFamily = Nunito, fontSize = (u.value * 1.35f).sp, letterSpacing = (u.value * 0.08f).sp, color = screenTokens().contentPrimary.copy(alpha = 0.75f), textAlign = TextAlign.Center, modifier = Modifier.padding(top = u * 1.4f))
 
 @Composable
 private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Unit) {
+    val tk = screenTokens()
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(1000) } }
     @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
@@ -253,7 +257,7 @@ private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Uni
             if (narrating) Wave(Modifier.width(u * 6).height(u * 2.4f), bars = 5)
             Text(
                 when (phase) { is Phase.Azaan -> Str[R.string.s_azaan_playing]; is Phase.Iftar -> Str[R.string.s_reading_the_iftar_dua]; is Phase.Dua -> Str[R.string.s_reading_the_dua]; is Phase.HadithPhase -> if (phase.narrating) Str[R.string.s_reading_the_hadith] else Str[R.string.s_take_a_moment]; is Phase.IqamahCountdown -> Str[R.string.s_tap_skip_if_the_imam_is]; is Phase.IqamahNow -> Str[R.string.s_iqamah]; is Phase.Quiet -> "" },
-                fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
             )
         }
         // middle: countdown ring for hadith
@@ -277,29 +281,32 @@ private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Uni
 
 @Composable
 private fun Ring(fraction: Float, label: String, u: Dp) {
+    val tk = screenTokens()
     Box(Modifier.size(u * 6.4f), contentAlignment = Alignment.Center) {
         Canvas(Modifier.fillMaxSize()) {
             val stroke = Stroke(width = 2.5f * (size.width / 40f), cap = StrokeCap.Round)
-            drawArc(Color.White.copy(alpha = 0.15f), 0f, 360f, false, style = stroke)
-            drawArc(Palette.gold, -90f, 360f * fraction.coerceIn(0f, 1f), false, style = stroke)
+            drawArc(tk.neutralStroke, 0f, 360f, false, style = stroke)
+            drawArc(tk.primary, -90f, 360f * fraction.coerceIn(0f, 1f), false, style = stroke)
         }
-        Text(label, fontFamily = Cormorant, fontSize = (u.value * 1.9f).sp, color = Palette.ivory)
+        Text(label, fontFamily = Cormorant, fontSize = (u.value * 1.9f).sp, color = tk.contentPrimary)
     }
 }
 
 @Composable
 private fun Pill(label: String, primary: Boolean, u: Float, onClick: () -> Unit) {
+    val tk = screenTokens()
     val shape = RoundedCornerShape(50)
     Box(
-        Modifier.clip(shape).background(if (primary) Palette.gold else Color.Transparent)
-            .border(1.dp, if (primary) Palette.gold else Color.White.copy(alpha = 0.25f), shape)
+        Modifier.clip(shape).background(if (primary) tk.primary else Color.Transparent)
+            .border(1.dp, if (primary) tk.primary else tk.neutralStroke, shape)
             .clickable(onClick = onClick, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).padding(horizontal = (u * 2.4f).dp, vertical = (u * 1.1f).dp),
         contentAlignment = Alignment.Center
-    ) { Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = (u * 1.5f).sp, color = if (primary) Color(0xFF160C2A) else Palette.ivory, maxLines = 1) }
+    ) { Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = (u * 1.5f).sp, color = if (primary) tk.onPrimary else tk.contentPrimary, maxLines = 1) }
 }
 
 @Composable
 private fun Wave(modifier: Modifier, bars: Int = 15) {
+    val tk = screenTokens()
     val still = reduceMotion()
     val anim by rememberInfiniteTransition(label = "wave").animateFloat(0f, 1f, infiniteRepeatable(tween(1400, easing = LinearEasing), RepeatMode.Restart), label = "t")
     val t = if (still) 0.25f else anim
@@ -308,7 +315,7 @@ private fun Wave(modifier: Modifier, bars: Int = 15) {
         for (i in 0 until bars) {
             val phase = (i / bars.toFloat()) * PI * 2
             val hgt = size.height * (0.2f + 0.8f * (0.5f + 0.5f * sin(t * 2 * PI + phase).toFloat()))
-            drawRoundRect(Brush.verticalGradient(listOf(Palette.gold, Palette.goldDeep)), topLeft = Offset(i * gap + gap * 0.3f, (size.height - hgt) / 2), size = Size(gap * 0.4f, hgt), cornerRadius = CornerRadius(gap))
+            drawRoundRect(Brush.verticalGradient(listOf(tk.primary, tk.primaryDeep)), topLeft = Offset(i * gap + gap * 0.3f, (size.height - hgt) / 2), size = Size(gap * 0.4f, hgt), cornerRadius = CornerRadius(gap))
         }
     }
 }

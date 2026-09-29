@@ -88,7 +88,17 @@ data class LearnColors(
 )
 
 @Composable
-fun learnColors(settings: AppSettings): LearnColors = if (settings.theme == AppTheme.KISWAH) LearnColors(
+fun learnColors(settings: AppSettings): LearnColors {
+    val tk = screenTokens()
+    val fresh = tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY
+    return if (fresh) LearnColors(
+        background = tk.backgroundBrush, surface = tk.surface, surfaceRaised = tk.surfaceRaised, primary = tk.primary, onPrimary = tk.onPrimary,
+        text = tk.contentPrimary, textSecondary = tk.contentSecondary, divider = tk.divider, success = tk.success, display = tk.fontDisplay, arabic = tk.fontArabic, kiswah = false
+    ) else legacyLearnColors(settings)
+}
+
+@Composable
+private fun legacyLearnColors(settings: AppSettings): LearnColors = if (settings.theme == AppTheme.KISWAH) LearnColors(
     background = Brush.verticalGradient(listOf(Color(0xFF0B0B0B), Kiswah.silk)), surface = Color(0xFF121212), surfaceRaised = Color(0xFF1A1814),
     primary = Kiswah.thread, onPrimary = Color(0xFF0B0B0B), text = Kiswah.ivory, textSecondary = Kiswah.threadSoft.copy(alpha = 0.85f), divider = Kiswah.thread.copy(alpha = 0.35f),
     success = Palette.mint, display = Cinzel, arabic = ReemKufi, kiswah = true
@@ -382,7 +392,7 @@ private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifie
     Column(modifier.clip(RoundedCornerShape(20.dp)).background(c.surface).border(1.dp, c.divider, RoundedCornerShape(20.dp)).padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text(if (c.kiswah) step.position.uppercase() else step.position, fontFamily = c.display, fontSize = if (c.kiswah) 12.sp else 20.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.primary, modifier = Modifier.semantics { heading() })
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-            Text(step.arabic, fontFamily = c.arabic, fontSize = if (step.arabic.length > 160) 24.sp else 32.sp, lineHeight = if (step.arabic.length > 160) 42.sp else 54.sp, color = Color(0xFFF6E7B8), textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth())
+            Text(step.arabic, fontFamily = c.arabic, fontSize = if (step.arabic.length > 160) 24.sp else 32.sp, lineHeight = if (step.arabic.length > 160) 42.sp else 54.sp, color = screenTokens().arabicText, textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth())
         }
         // audio: play / stop, slow toggle, disclosed source
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {

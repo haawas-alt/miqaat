@@ -63,6 +63,10 @@ data class ThemeTokens(
     /** Side-panel / rail wash and subtle raised fill. */
     val scrim: Color,
     val softFill: Color,
+    /** Full-screen Azaan sky per phase (top→bottom). */
+    val skyAzaan: List<Color>,
+    val skyIqamah: List<Color>,
+    val skyDua: List<Color>,
 
     // shape and depth
     val cornerSmall: Dp,
@@ -87,6 +91,7 @@ object ThemeTokenSets {
         info = Color(0xFF9CC3E8), success = Palette.mint, warning = Color(0xFFF2A07B), accent = Palette.goldSoft, sun = Palette.gold,
         todayText = Color(0xFFF6E7B8), fridayText = Color(0xFFA6E3B8), neutralStroke = Color.White.copy(alpha = 0.2f),
         arabicText = Color(0xFFF6E7B8), scrim = Color.Black.copy(alpha = 0.18f), softFill = Color.White.copy(alpha = 0.06f),
+        skyAzaan = listOf(Color(0xFF2A1440), Color(0xFF0A0716)), skyIqamah = listOf(Color(0xFF163A3A), Color(0xFF0B1F24), Color(0xFF06131A)), skyDua = listOf(Color(0xFF1E2A5C), Color(0xFF0D1533), Color(0xFF080D24)),
         cornerSmall = 10.dp, cornerMedium = 16.dp, cornerLarge = 24.dp, elevation = 0.dp,
         fontDisplay = Cormorant, fontUi = Nunito, fontArabic = Amiri
     )
@@ -101,6 +106,7 @@ object ThemeTokenSets {
         info = Kiswah.threadSoft, success = Palette.mint, warning = Color(0xFFF2A07B), accent = Kiswah.threadSoft, sun = Kiswah.thread,
         todayText = Color(0xFFF6E7B8), fridayText = Color(0xFFA6E3B8), neutralStroke = Color.White.copy(alpha = 0.2f),
         arabicText = Color(0xFFF6E7B8), scrim = Color.Black.copy(alpha = 0.18f), softFill = Color.White.copy(alpha = 0.06f),
+        skyAzaan = listOf(Color(0xFF0B0B0B), Kiswah.silk), skyIqamah = listOf(Color(0xFF0B0B0B), Kiswah.silk), skyDua = listOf(Color(0xFF0B0B0B), Kiswah.silk),
         cornerSmall = 4.dp, cornerMedium = 8.dp, cornerLarge = 12.dp, elevation = 0.dp,
         fontDisplay = Cinzel, fontUi = Nunito, fontArabic = ReemKufi
     )
@@ -116,6 +122,7 @@ object ThemeTokenSets {
         info = Color(0xFF72D7E8), success = Color(0xFF63D7BB), warning = Color(0xFFFF805C), accent = Color(0xFFFF805C), sun = Color(0xFFFFD166),
         todayText = Color(0xFFFFD166), fridayText = Color(0xFF63D7BB), neutralStroke = Color(0x33B9C8DB),
         arabicText = Color(0xFFFFF6E5), scrim = Color(0x33061A36), softFill = Color(0x14FFFFFF),
+        skyAzaan = listOf(Color(0xFF1B2450), Color(0xFF061A36)), skyIqamah = listOf(Color(0xFF0C4256), Color(0xFF06243F), Color(0xFF061A36)), skyDua = listOf(Color(0xFF0F2E5C), Color(0xFF082246), Color(0xFF061A36)),
         cornerSmall = 12.dp, cornerMedium = 18.dp, cornerLarge = 24.dp, elevation = 0.dp,
         fontDisplay = Cormorant, fontUi = Nunito, fontArabic = Amiri
     )
@@ -135,6 +142,7 @@ object ThemeTokenSets {
         info = Color(0xFF1559D6), success = Color(0xFF0E7A58), warning = Color(0xFFA94F31), accent = Color(0xFFA94F31), sun = Color(0xFFE7A94B),
         todayText = Color(0xFF1559D6), fridayText = Color(0xFF0E7A58), neutralStroke = Color(0xFF8C8377),
         arabicText = Color(0xFF0B302D), scrim = Color(0x0D0B302D), softFill = Color(0xFFF3ECDD),
+        skyAzaan = listOf(Color(0xFFF6E7D0), Color(0xFFFBF7EE)), skyIqamah = listOf(Color(0xFFDCEBE4), Color(0xFFF3F4EA), Color(0xFFFBF7EE)), skyDua = listOf(Color(0xFFE3EAF8), Color(0xFFF3F0EA), Color(0xFFFBF7EE)),
         cornerSmall = 10.dp, cornerMedium = 16.dp, cornerLarge = 22.dp, elevation = 0.dp,
         fontDisplay = Cormorant, fontUi = Nunito, fontArabic = Amiri
     )
