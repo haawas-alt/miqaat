@@ -103,7 +103,13 @@ import com.usman.miqaat.data.Prayer
 import com.usman.miqaat.data.PrayerEngine
 import com.usman.miqaat.data.SettingsStore
 import com.usman.miqaat.data.Updater
+import androidx.compose.foundation.layout.*
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
 import androidx.compose.runtime.collectAsState
+import androidx.compose.foundation.relocation.bringIntoViewRequester
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.key
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -111,96 +117,175 @@ enum class Section(val labelRes: Int, val icon: ImageVector) {
     LOCATION(R.string.s_location, Icons.Outlined.LocationOn),
     TIMES(R.string.s_prayer_times, Icons.Outlined.Schedule),
     AZAAN(R.string.s_azaan_alerts, Icons.Outlined.NotificationsActive),
-    TEST(R.string.s_test_preview, Icons.Outlined.PlayCircle),
     IQAMAH(R.string.s_iqamah, Icons.Outlined.Timer),
     HIJRI(R.string.s_hijri_calendar, Icons.Outlined.CalendarMonth),
     DISPLAY(R.string.s_display_art, Icons.Outlined.Brush),
+    TEST(R.string.s_test_preview, Icons.Outlined.PlayCircle),   // shown as "Try it now"; the enum key stays TEST
     HEALTH(R.string.s_reliability_backup, Icons.Outlined.MonitorHeart),
     PRIVACY(R.string.s_privacy, Icons.Outlined.Lock),
     ABOUT(R.string.s_about, Icons.Outlined.Info);
     val label: String get() = Str[labelRes]
 }
 
+/** Phone landing groups, in the approved order. */
+private val settingsGroups: List<Pair<Int, List<Section>>> = listOf(
+    R.string.s_group_prayer_setup to listOf(Section.LOCATION, Section.TIMES, Section.AZAAN, Section.IQAMAH),
+    R.string.s_group_experience to listOf(Section.HIJRI, Section.DISPLAY, Section.TEST),
+    R.string.s_group_system to listOf(Section.HEALTH, Section.PRIVACY, Section.ABOUT)
+)
+
+private fun sectionSubtitle(sec: Section, s: AppSettings, version: String): String = when (sec) {
+    Section.LOCATION -> s.locationName.ifBlank { Str[R.string.s_ready_location_unset] }
+    Section.TIMES -> s.method.text + " · " + s.asrMethod.text.substringBefore('،').substringBefore(',')
+    Section.AZAAN -> Str.get(R.string.s_sub_azaan, Prayer.prayersOnly.count { s.azaanEnabled[it] == true }, Prayer.prayersOnly.size)
+    Section.IQAMAH -> Str[R.string.s_sub_iqamah]
+    Section.HIJRI -> Str[R.string.s_sub_hijri]
+    Section.DISPLAY -> Str[R.string.s_sub_display]
+    Section.TEST -> Str[R.string.s_sub_try]
+    Section.HEALTH -> Str[R.string.s_sub_health]
+    Section.PRIVACY -> Str[R.string.s_sub_privacy]
+    Section.ABOUT -> Str.get(R.string.s_sub_about, version)
+}
+
 @Composable
-fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section = Section.TIMES, onBack: () -> Unit) {
+private fun SectionBody(section: Section, store: SettingsStore, settings: AppSettings) {
+    when (section) {
+        Section.LOCATION -> LocationSection(store, settings)
+        Section.TIMES -> TimesSection(store, settings)
+        Section.AZAAN -> AzaanSection(store, settings)
+        Section.IQAMAH -> IqamahSection(store, settings)
+        Section.TEST -> TestSection(store, settings)
+        Section.HEALTH -> HealthSection(store, settings)
+        Section.PRIVACY -> PrivacySection()
+        Section.HIJRI -> HijriSection(store, settings)
+        Section.DISPLAY -> DisplaySection(store, settings)
+        Section.ABOUT -> AboutSection(settings)
+    }
+}
+
+/**
+ * Settings shell. Below 720 dp: a grouped landing page (search, readiness, three groups) and focused detail screens with
+ * normal back. From 720 dp: a fixed navigation rail beside an independently scrolling detail pane. The section bodies
+ * are the original composables; every control, mutation and side effect lives in them, untouched.
+ * `initial == null` opens the landing page (phone) / first destination (tablet); a non-null value deep-links into it.
+ */
+@Composable
+fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section? = null, onBack: () -> Unit) {
     val tk = screenTokens()
-    var section by rememberSaveable { mutableStateOf(initial) }
     val ctx = LocalContext.current
-    // Any change that affects times re-arms the alarm chain.
-    // Re-arm alarms only when something that affects timing changes (not on every keystroke or slider frame).
+    var section by rememberSaveable { mutableStateOf(initial ?: Section.LOCATION) }
+    var detailOpen by rememberSaveable { mutableStateOf(initial != null) }
+    var direct by rememberSaveable { mutableStateOf(initial != null) }   // arrived by deep link: back leaves Settings
+    var query by rememberSaveable { mutableStateOf("") }
+    var focusTitle by rememberSaveable { mutableStateOf<String?>(null) }
+    // Any change that affects times re-arms the alarm chain (not on every keystroke or slider frame).
     val timingKey = settings.copy(masjidName = "", azaanVolume = 0, locationName = "", theme = settings.theme, showRelative = false)
     LaunchedEffect(timingKey) { AzaanScheduler.reschedule(ctx) }
 
-    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(tk.surface)) {
-    val compact = maxWidth < 720.dp
-    if (compact) {
-        Column(Modifier.fillMaxSize().statusBarsPadding()) {
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 4.dp, top = 8.dp)) {
-                IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
-                Text(Str[R.string.s_settings], fontFamily = Cormorant, fontSize = 30.sp, color = tk.contentPrimary)
-            }
-            @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
-            androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp).selectableGroup(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Section.entries.forEach { sec ->
-                    val cur = sec == section
-                    Box(Modifier.heightIn(min = 40.dp).clip(RoundedCornerShape(50)).background(if (cur) tk.primary else Color.Transparent).border(1.dp, if (cur) tk.primary else tk.outline, RoundedCornerShape(50)).selectable(selected = cur, role = androidx.compose.ui.semantics.Role.Tab) { section = sec }.padding(horizontal = 14.dp, vertical = 8.dp), contentAlignment = Alignment.Center) {
-                        Text(sec.label, fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = if (cur) tk.onPrimary else tk.contentPrimary)
+    val index = remember(settings.language) { SettingsIndex.build() }
+    val results = remember(query, index) { SettingsIndex.search(index, query) }
+    val readiness = rememberReadiness(settings)
+    val version = remember { runCatching { ctx.packageManager.getPackageInfo(ctx.packageName, 0).versionName }.getOrNull() ?: "" }
+    fun open(sec: Section, focus: String? = null) { section = sec; focusTitle = focus; detailOpen = true; direct = false; query = "" }
+
+    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
+        val compact = maxWidth < Breakpoints.settingsRail
+        androidx.activity.compose.BackHandler(enabled = compact && (detailOpen || query.isNotEmpty())) {
+            if (query.isNotEmpty()) query = "" else if (direct) onBack() else detailOpen = false
+        }
+        if (compact) {
+            if (!detailOpen) SettingsLanding(settings, readiness, query, { query = it }, results, version, onBack, ::open)
+            else SettingsDetailPhone(section, store, settings, focusTitle, { if (direct) onBack() else detailOpen = false })
+        } else {
+            SettingsTablet(section, store, settings, readiness, query, { query = it }, results, focusTitle, onBack, ::open)
+        }
+    }
+}
+
+@Composable
+private fun SettingsTopBar(title: String, onBack: () -> Unit, big: Boolean = false) {
+    val tk = screenTokens()
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = Space.xs, top = Space.s)) {
+        IconButton(onClick = onBack, modifier = Modifier.size(Space.target)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
+        Text(title, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = if (big) 34.sp else 30.sp, color = tk.contentPrimary, modifier = Modifier.padding(start = Space.s).semantics { heading() })
+    }
+}
+
+@Composable
+private fun SearchResults(query: String, results: List<SettingEntry>, onPick: (SettingEntry) -> Unit) {
+    val tk = screenTokens()
+    if (results.isEmpty()) { EmptyState(Str.get(R.string.s_settings_no_results, query.trim())); return }
+    GroupCard {
+        results.forEachIndexed { i, e ->
+            DestinationRow(e.section.icon, e.title, Str.get(R.string.s_settings_result_in, e.section.label), { onPick(e) })
+            if (i < results.lastIndex) HorizontalDivider(color = tk.divider)
+        }
+    }
+}
+
+@Composable
+private fun SettingsLanding(
+    s: AppSettings, readiness: ReadinessState, query: String, onQuery: (String) -> Unit, results: List<SettingEntry>, version: String,
+    onBack: () -> Unit, open: (Section, String?) -> Unit
+) {
+    val tk = screenTokens()
+    Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
+        SettingsTopBar(Str[R.string.s_settings], onBack)
+        Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = Space.l).padding(top = Space.s, bottom = Space.xl).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(Space.l)) {
+            MiqSearchField(query, onQuery, Str[R.string.s_settings_search_hint], Str[R.string.s_settings_search_clear])
+            if (query.isNotBlank()) SearchResults(query, results) { open(it.section, if (it.isDestination) null else it.title) }
+            else {
+                ReadinessSummary(readiness, wide = false, onOpen = { open(Section.HEALTH, null) })
+                settingsGroups.forEach { (titleRes, secs) ->
+                    Column(verticalArrangement = Arrangement.spacedBy(Space.s)) {
+                        SectionHeading(Str[titleRes], Modifier.padding(start = Space.xs))
+                        GroupCard {
+                            secs.forEachIndexed { i, sec ->
+                                DestinationRow(sec.icon, sec.label, sectionSubtitle(sec, s, version), { open(sec, null) })
+                                if (i < secs.lastIndex) HorizontalDivider(color = tk.divider)
+                            }
+                        }
                     }
                 }
             }
-            Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp).navigationBarsPadding()) {
-                when (section) {
-                    Section.LOCATION -> LocationSection(store, settings)
-                    Section.TIMES -> TimesSection(store, settings)
-                    Section.AZAAN -> AzaanSection(store, settings)
-                    Section.IQAMAH -> IqamahSection(store, settings)
-                    Section.TEST -> TestSection(store, settings)
-                    Section.HEALTH -> HealthSection(store, settings)
-                    Section.PRIVACY -> PrivacySection()
-                    Section.HIJRI -> HijriSection(store, settings)
-                    Section.DISPLAY -> DisplaySection(store, settings)
-                    Section.ABOUT -> AboutSection(settings)
-                }
+        }
+    }
+}
+
+@Composable
+private fun SettingsDetailPhone(section: Section, store: SettingsStore, settings: AppSettings, focusTitle: String?, onBack: () -> Unit) {
+    Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
+        SettingsTopBar(section.label, onBack)
+        key(section) {
+            Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = Space.xl, vertical = Space.m).navigationBarsPadding()) {
+                CompositionLocalProvider(LocalSettingsFocus provides focusTitle) { SectionBody(section, store, settings) }
             }
         }
-        return@BoxWithConstraints
     }
+}
+
+@Composable
+private fun SettingsTablet(
+    section: Section, store: SettingsStore, settings: AppSettings, readiness: ReadinessState, query: String, onQuery: (String) -> Unit,
+    results: List<SettingEntry>, focusTitle: String?, onBack: () -> Unit, open: (Section, String?) -> Unit
+) {
+    val tk = screenTokens()
     Row(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
-        Column(Modifier.width(300.dp).fillMaxHeight().background(tk.scrim).verticalScroll(rememberScrollState()).padding(vertical = 20.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 12.dp, bottom = 16.dp)) {
-                IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
-                Text(Str[R.string.s_settings], fontFamily = Cormorant, fontSize = 34.sp, color = tk.contentPrimary)
-            }
-            Section.entries.forEach { s ->
-                val cur = s == section
-                Row(
-                    Modifier.fillMaxWidth().background(if (cur) tk.primary.copy(alpha = 0.14f) else Color.Transparent)
-                        .clickable { section = s }.padding(horizontal = 28.dp, vertical = 14.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    if (cur) Box(Modifier.width(4.dp).height(22.dp).background(tk.primary)) else Spacer(Modifier.width(4.dp))
-                    Spacer(Modifier.width(14.dp))
-                    Icon(s.icon, null, Modifier.size(20.dp), tint = tk.contentPrimary.copy(alpha = if (cur) 1f else 0.75f))
-                    Spacer(Modifier.width(12.dp))
-                    Text(s.label, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary.copy(alpha = if (cur) 1f else 0.75f))
+        // Fixed rail: back, title, search and all ten destinations. Only the rail's own overflow (huge text) scrolls, vertically.
+        Column(Modifier.width(304.dp).fillMaxHeight().background(tk.scrim).verticalScroll(rememberScrollState()).padding(bottom = Space.l).semantics { role = Role.Tab }) {
+            SettingsTopBar(Str[R.string.s_settings], onBack, big = true)
+            MiqSearchField(query, onQuery, Str[R.string.s_settings_search_hint], Str[R.string.s_settings_search_clear], Modifier.padding(horizontal = Space.l, vertical = Space.m))
+            Section.entries.forEach { sec -> RailItem(sec.icon, sec.label, selected = query.isBlank() && sec == section, onClick = { open(sec, null) }) }
+        }
+        Box(Modifier.weight(1f).fillMaxHeight().verticalScroll(rememberScrollState()), contentAlignment = Alignment.TopCenter) {
+            key(section, query.isBlank()) {
+                Column(Modifier.widthIn(max = 920.dp).fillMaxWidth().padding(horizontal = Space.xxl, vertical = Space.xl), verticalArrangement = Arrangement.spacedBy(Space.l)) {
+                    ReadinessSummary(readiness, wide = true, onOpen = { open(Section.HEALTH, null) })
+                    if (query.isNotBlank()) SearchResults(query, results) { open(it.section, if (it.isDestination) null else it.title) }
+                    else CompositionLocalProvider(LocalSettingsFocus provides focusTitle) { SectionBody(section, store, settings) }
                 }
             }
         }
-        Column(Modifier.weight(1f).fillMaxHeight().verticalScroll(rememberScrollState()).padding(horizontal = 34.dp, vertical = 26.dp)) {
-            when (section) {
-                Section.LOCATION -> LocationSection(store, settings)
-                Section.TIMES -> TimesSection(store, settings)
-                Section.AZAAN -> AzaanSection(store, settings)
-                Section.IQAMAH -> IqamahSection(store, settings)
-                Section.TEST -> TestSection(store, settings)
-                Section.HEALTH -> HealthSection(store, settings)
-                Section.PRIVACY -> PrivacySection()
-                Section.HIJRI -> HijriSection(store, settings)
-                Section.DISPLAY -> DisplaySection(store, settings)
-                Section.ABOUT -> AboutSection(settings)
-            }
-        }
-    }
     }
 }
 
@@ -790,7 +875,11 @@ internal fun Heading(title: String, desc: String) {
 @Composable
 internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)? = null, trailing: @Composable () -> Unit) {
     val tk = screenTokens()
-    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxWidth()) {
+    val focusTitle = LocalSettingsFocus.current
+    val focused = focusTitle != null && focusTitle == title
+    val bring = remember { androidx.compose.foundation.relocation.BringIntoViewRequester() }
+    LaunchedEffect(focused) { if (focused) bring.bringIntoView() }
+    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxWidth().androidxBring(bring).then(if (focused) Modifier.background(tk.selectedSurface) else Modifier)) {
         val compact = maxWidth < 560.dp
         // The row reads as one element to TalkBack ("title, subtitle") and the control keeps its own role.
         val rowMod = Modifier.fillMaxWidth().then(if (onClick != null) Modifier.clickable(onClick = onClick, role = androidx.compose.ui.semantics.Role.Button) else Modifier).padding(vertical = 14.dp)
@@ -914,3 +1003,5 @@ private fun PickerDialog(title: String, options: List<Pair<String, String>>, sel
         confirmButton = { TextButton(onClick = onDismiss) { Text(Str[R.string.s_close], color = tk.accent) } }
     )
 }
+
+private fun Modifier.androidxBring(r: androidx.compose.foundation.relocation.BringIntoViewRequester): Modifier = this.then(Modifier.bringIntoViewRequester(r))

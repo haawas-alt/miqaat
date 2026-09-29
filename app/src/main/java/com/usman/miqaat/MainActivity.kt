@@ -96,7 +96,7 @@ class MainActivity : ComponentActivity() {
                 remember(settings.language) { com.usman.miqaat.ui.Str.apply(this@MainActivity, settings.language); settings.language }
                 androidx.compose.runtime.key(settings.language) {
                 var screen by rememberSaveable { mutableStateOf(Screen.HOME) }
-                var settingsSection by remember { mutableStateOf(Section.TIMES) }
+                var settingsSection by remember { mutableStateOf<Section?>(null) }
                 var peek by remember { mutableStateOf(false) }
                 LaunchedEffect(peek) { if (peek) { delay(25_000); peek = false } }
                 var adhkarMode by remember { mutableStateOf(com.usman.miqaat.ui.AdhkarMode.MORNING) }
@@ -133,7 +133,7 @@ class MainActivity : ComponentActivity() {
                 Box(Modifier.fillMaxSize().background(Palette.night)) {
                     val homeActions = com.usman.miqaat.ui.HomeActions(
                         onOpenTimetable = { screen = Screen.TIMETABLE },
-                        onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
+                        onOpenSettings = { settingsSection = null; screen = Screen.SETTINGS },
                         onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
                         onOpenQibla = { screen = Screen.QIBLA },
                         onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
@@ -151,7 +151,7 @@ class MainActivity : ComponentActivity() {
                             else if (androidx.compose.ui.platform.LocalConfiguration.current.orientation != android.content.res.Configuration.ORIENTATION_PORTRAIT && androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp < 500) com.usman.miqaat.ui.CapFontScale(1.3f) { com.usman.miqaat.ui.LandscapeHome(
                                 state, settings,
                                 onOpenTimetable = { screen = Screen.TIMETABLE },
-                                onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
+                                onOpenSettings = { settingsSection = null; screen = Screen.SETTINGS },
                                 onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
                                 onOpenQibla = { screen = Screen.QIBLA },
                                 onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
@@ -164,7 +164,7 @@ class MainActivity : ComponentActivity() {
                             else if (androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT) com.usman.miqaat.ui.CapFontScale(if (androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp >= 600) 1.3f else 99f) { com.usman.miqaat.ui.PortraitHome(
                                 state, settings,
                                 onOpenTimetable = { screen = Screen.TIMETABLE },
-                                onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
+                                onOpenSettings = { settingsSection = null; screen = Screen.SETTINGS },
                                 onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
                                 onOpenQibla = { screen = Screen.QIBLA },
                                 onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
@@ -176,7 +176,7 @@ class MainActivity : ComponentActivity() {
                             ) } else {
                                 val actions = com.usman.miqaat.ui.HomeActions(
                                     onOpenTimetable = { screen = Screen.TIMETABLE },
-                                    onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
+                                    onOpenSettings = { settingsSection = null; screen = Screen.SETTINGS },
                                     onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
                                     onOpenQibla = { screen = Screen.QIBLA },
                                     onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
