@@ -72,7 +72,10 @@ class PrayerEngineTest {
         val mid = PrayerEngine.midnight(s, t)
         assertTrue(mid.isAfter(t[Prayer.ISHA])); assertTrue(mid.hour in 22..23 || mid.hour in 0..1)
         assertTrue(PrayerEngine.lastThird(s, t).isAfter(mid))
-        assertEquals(3, PrayerEngine.dislikedWindows(t).size)
+        val w = PrayerEngine.dislikedWindows(t)
+        assertEquals(4, w.size)                                   // after Fajr, after sunrise, zawāl, after ʿAsr
+        assertEquals(t[Prayer.FAJR], w[0].start); assertEquals(t[Prayer.SUNRISE], w[0].end)
+        assertEquals(t[Prayer.ASR], w[3].start); assertEquals(t[Prayer.MAGHRIB], w[3].end)
     }
 
     @Test fun overridesWinAndRoundTrip() {
