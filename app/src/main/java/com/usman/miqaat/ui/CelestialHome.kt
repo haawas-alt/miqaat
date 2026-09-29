@@ -66,14 +66,15 @@ fun CelestialHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
     val doorList = doors(state, settings, a)
     val dim = settings.nightDim && state.period == Prayer.ISHA && !state.justPassed
     BoxWithConstraints(Modifier.fillMaxSize()) {
-        val wide = maxWidth > maxHeight * 1.15f
+        val bw = maxWidth; val bh = maxHeight
+        val wide = bw > bh * 1.15f
         Box(Modifier.fillMaxSize()) {
             CelestialBackdrop(Modifier.fillMaxSize(), tk, horizon = if (wide) 0.77f else 0.36f)
             if (wide) {
-                val u: Dp = minOf(maxWidth / 100, maxHeight / 60)
+                val u: Dp = minOf(bw / 100, bh / 60)
                 CelestialWide(state, settings, a, tk, hero, doorList, u) { why = it }
             } else {
-                CelestialStacked(state, settings, a, tk, hero, doorList, maxWidth, maxHeight) { why = it }
+                CelestialStacked(state, settings, a, tk, hero, doorList, bw, bh) { why = it }
             }
             if (dim) Box(Modifier.fillMaxSize().background(Color(0xFF05070F).copy(alpha = 0.35f)))
         }

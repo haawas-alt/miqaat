@@ -57,12 +57,13 @@ fun GalleryHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
     val doorList = doors(state, settings, a)
     val dim = settings.nightDim && state.period == Prayer.ISHA && !state.justPassed
     BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
-        val wide = maxWidth > maxHeight * 1.15f
+        val bw = maxWidth; val bh = maxHeight
+        val wide = bw > bh * 1.15f
         if (wide) {
-            val u: Dp = minOf(maxWidth / 100, maxHeight / 60)
+            val u: Dp = minOf(bw / 100, bh / 60)
             GalleryWide(state, settings, a, tk, hero, doorList, u) { why = it }
         } else {
-            GalleryStacked(state, settings, a, tk, hero, doorList, maxWidth, maxHeight) { why = it }
+            GalleryStacked(state, settings, a, tk, hero, doorList, bw, bh) { why = it }
         }
         // a night-time dim is applied as a warm scrim, not a colour swap, so text contrast is unchanged in kind
         if (dim) Box(Modifier.fillMaxSize().background(Color(0xFF1A1208).copy(alpha = 0.22f)))
