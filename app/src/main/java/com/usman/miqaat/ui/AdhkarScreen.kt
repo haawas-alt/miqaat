@@ -68,6 +68,7 @@ enum class AdhkarMode(val titleRes: Int, val arabic: String) {
 
 @Composable
 fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
+    val tk = screenTokens()
     val morning = mode == AdhkarMode.MORNING
     val list = remember(mode) { when (mode) { AdhkarMode.MORNING -> Adhkar.morning(); AdhkarMode.EVENING -> Adhkar.evening(); AdhkarMode.POST -> Adhkar.postPrayer } }
     val counts = remember(mode) { mutableStateMapOf<String, Int>() }
@@ -76,42 +77,42 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
     val done = (counts[cur.id] ?: 0) >= cur.count
     val listState = rememberLazyListState()
 
-    BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
+    BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
         val u0 = minOf(maxWidth / 100, maxHeight / 56)
         val u = if (maxWidth < 600.dp) u0 * 2.2f else u0
         GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.07f)
         val compact = maxWidth < 600.dp
         Row(Modifier.fillMaxSize().statusBarsPadding()) {
             // ---- list
-            if (!compact) Column(Modifier.width(u * 30).fillMaxHeight().background(Color.Black.copy(alpha = 0.18f)).padding(vertical = u * 1.6f)) {
+            if (!compact) Column(Modifier.width(u * 30).fillMaxHeight().background(tk.scrim).padding(vertical = u * 1.6f)) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = u * 1)) {
-                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
+                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
                     Column {
-                        Text(mode.title, fontFamily = Cormorant, fontSize = (u.value * 3f).sp, color = Palette.ivory, lineHeight = (u.value * 3.2f).sp)
-                        Text(mode.arabic, fontFamily = Amiri, fontSize = (u.value * 2.2f).sp, color = Palette.goldSoft)
+                        Text(mode.title, fontFamily = Cormorant, fontSize = (u.value * 3f).sp, color = tk.contentPrimary, lineHeight = (u.value * 3.2f).sp)
+                        Text(mode.arabic, fontFamily = Amiri, fontSize = (u.value * 2.2f).sp, color = tk.accent)
                     }
                 }
                 val finished = list.count { (counts[it.id] ?: 0) >= it.count }
-                Text("$finished of ${list.size} complete", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.textSecondary, modifier = Modifier.padding(start = u * 2.6f, bottom = u * 1))
+                Text("$finished of ${list.size} complete", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary, modifier = Modifier.padding(start = u * 2.6f, bottom = u * 1))
                 LazyColumn(state = listState) {
                     items(list.size) { i ->
                         val d = list[i]
                         val c = counts[d.id] ?: 0
                         val isCur = i == index
                         Row(
-                            Modifier.fillMaxWidth().heightIn(min = 48.dp).background(if (isCur) Palette.gold.copy(alpha = 0.14f) else Color.Transparent)
+                            Modifier.fillMaxWidth().heightIn(min = 48.dp).background(if (isCur) tk.primary.copy(alpha = 0.14f) else Color.Transparent)
                                 .selectable(selected = isCur, role = androidx.compose.ui.semantics.Role.Tab) { index = i }.padding(horizontal = u * 2.2f, vertical = u * 1.1f)
                                 .semantics(mergeDescendants = true) { stateDescription = if (c >= d.count) "Completed" else if (d.count > 1) "$c of ${d.count}" else Str[R.string.s_not_yet_read] },
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Box(Modifier.size(u * 2.4f).clip(CircleShape).background(if (c >= d.count) Palette.mint else Color.White.copy(alpha = 0.1f)).border(1.dp, if (isCur) Palette.gold else Color.White.copy(alpha = 0.2f), CircleShape), contentAlignment = Alignment.Center) {
-                                if (c >= d.count) Icon(Icons.Outlined.Check, null, Modifier.size(u * 1.5f), tint = Palette.night)
-                                else Text("${i + 1}", fontFamily = Nunito, fontSize = (u.value * 1.1f).sp, color = Palette.ivory)
+                            Box(Modifier.size(u * 2.4f).clip(CircleShape).background(if (c >= d.count) tk.success else tk.softFill).border(1.dp, if (isCur) tk.primary else tk.neutralStroke, CircleShape), contentAlignment = Alignment.Center) {
+                                if (c >= d.count) Icon(Icons.Outlined.Check, null, Modifier.size(u * 1.5f), tint = tk.onPrimary)
+                                else Text("${i + 1}", fontFamily = Nunito, fontSize = (u.value * 1.1f).sp, color = tk.contentPrimary)
                             }
                             Spacer(Modifier.width(u * 1.2f))
                             Column(Modifier.weight(1f)) {
-                                Text(d.title, fontFamily = Nunito, fontSize = (u.value * 1.55f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory.copy(alpha = if (isCur) 1f else 0.8f))
-                                Text(if (d.count > 1) "$c / ${d.count}" else if (c > 0) "done" else "once", fontFamily = Nunito, fontSize = (u.value * 1.15f).sp, color = Palette.textMuted)
+                                Text(d.title, fontFamily = Nunito, fontSize = (u.value * 1.55f).sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary.copy(alpha = if (isCur) 1f else 0.8f))
+                                Text(if (d.count > 1) "$c / ${d.count}" else if (c > 0) "done" else "once", fontFamily = Nunito, fontSize = (u.value * 1.15f).sp, color = tk.contentMuted)
                             }
                         }
                     }
@@ -126,33 +127,33 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 if (compact) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
-                    Text(mode.title + "  ·  ${index + 1} of ${list.size}", fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory.copy(alpha = 0.8f))
+                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
+                    Text(mode.title + "  ·  ${index + 1} of ${list.size}", fontFamily = Nunito, fontSize = 14.sp, color = tk.contentPrimary.copy(alpha = 0.8f))
                 }
-                Text(cur.title.uppercase(), fontFamily = Nunito, fontSize = (u.value * (if (compact) 3f else 1.3f)).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
+                Text(cur.title.uppercase(), fontFamily = Nunito, fontSize = (u.value * (if (compact) 3f else 1.3f)).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = tk.accent)
                 Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                     val longText = cur.arabic.length > 220
                     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-                        Text(cur.arabic, fontFamily = Amiri, fontSize = (u.value * (if (longText) 2.7f else 3.6f)).sp, lineHeight = (u.value * (if (longText) 4.6f else 6.2f)).sp, color = Color(0xFFF6E7B8), textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = u * 1))
+                        Text(cur.arabic, fontFamily = Amiri, fontSize = (u.value * (if (longText) 2.7f else 3.6f)).sp, lineHeight = (u.value * (if (longText) 4.6f else 6.2f)).sp, color = tk.arabicText, textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = u * 1))
                     }
-                    Text(cur.english, fontFamily = Cormorant, fontSize = (u.value * (if (longText) 1.8f else 2.1f)).sp, lineHeight = (u.value * 2.9f).sp, color = Palette.ivory, textAlign = TextAlign.Center)
-                    Text(cur.source, fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, color = Palette.textSecondary, textAlign = TextAlign.Center, modifier = Modifier.padding(top = u * 1.2f))
+                    Text(cur.english, fontFamily = Cormorant, fontSize = (u.value * (if (longText) 1.8f else 2.1f)).sp, lineHeight = (u.value * 2.9f).sp, color = tk.contentPrimary, textAlign = TextAlign.Center)
+                    Text(cur.source, fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, color = tk.contentSecondary, textAlign = TextAlign.Center, modifier = Modifier.padding(top = u * 1.2f))
                 }
                 // counter
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.6f), modifier = Modifier.padding(top = u * 1)) {
                     val c = counts[cur.id] ?: 0
                     Box(
-                        Modifier.size(maxOf(u * 7.5f, 56.dp)).clip(CircleShape).background(if (done) Palette.mint else Palette.gold)
+                        Modifier.size(maxOf(u * 7.5f, 56.dp)).clip(CircleShape).background(if (done) tk.success else tk.primary)
                             .clickable(role = androidx.compose.ui.semantics.Role.Button, onClickLabel = if (cur.count > 1) Str[R.string.s_count_one_recitation] else Str[R.string.s_mark_as_read]) { if (!done) counts[cur.id] = c + 1 }
                             .semantics { contentDescription = if (done) Str[R.string.s_complete] else if (cur.count > 1) "${cur.count - c} remaining of ${cur.count}" else Str[R.string.s_tap_when_read]; stateDescription = if (done) Str[R.string.s_complete] else "$c of ${cur.count}"; liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite },
                         contentAlignment = Alignment.Center
                     ) {
-                        if (done) Icon(Icons.Outlined.Check, null, Modifier.size(u * 3.4f), tint = Palette.night)
-                        else Text("${cur.count - c}", fontFamily = Cormorant, fontSize = (u.value * 3.4f).sp, color = Palette.night)
+                        if (done) Icon(Icons.Outlined.Check, null, Modifier.size(u * 3.4f), tint = tk.onPrimary)
+                        else Text("${cur.count - c}", fontFamily = Cormorant, fontSize = (u.value * 3.4f).sp, color = tk.onPrimary)
                     }
                     Column {
-                        Text(if (done) Str[R.string.s_complete] else if (cur.count == 1) Str[R.string.s_tap_when_read] else Str[R.string.s_tap_for_each_recitation], fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
-                        Text(if (cur.count > 1) "$c of ${cur.count}" else "", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = Palette.textSecondary)
+                        Text(if (done) Str[R.string.s_complete] else if (cur.count == 1) Str[R.string.s_tap_when_read] else Str[R.string.s_tap_for_each_recitation], fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
+                        Text(if (cur.count > 1) "$c of ${cur.count}" else "", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary)
                     }
                     Spacer(Modifier.weight(1f))
                     if (!compact) {
@@ -171,9 +172,10 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
 
 @Composable
 private fun Nav(label: String, u: Float, primary: Boolean = false, onClick: () -> Unit) {
+    val tk = screenTokens()
     val shape = RoundedCornerShape(50)
     Box(
-        Modifier.clip(shape).background(if (primary) Palette.gold else Color.Transparent).border(1.dp, if (primary) Palette.gold else Color.White.copy(alpha = 0.25f), shape)
+        Modifier.clip(shape).background(if (primary) tk.primary else Color.Transparent).border(1.dp, if (primary) tk.primary else tk.neutralStroke, shape)
             .clickable(onClick = onClick).padding(horizontal = (u * 2).dp, vertical = (u * 1).dp)
-    ) { Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = (u * 1.4f).sp, color = if (primary) Palette.night else Palette.ivory) }
+    ) { Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = (u * 1.4f).sp, color = if (primary) tk.onPrimary else tk.contentPrimary) }
 }

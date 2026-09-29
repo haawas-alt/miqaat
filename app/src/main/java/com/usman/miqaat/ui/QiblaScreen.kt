@@ -57,6 +57,7 @@ import kotlin.math.sin
 
 @Composable
 fun QiblaScreen(settings: AppSettings, onBack: () -> Unit) {
+    val tk = screenTokens()
     val ctx = LocalContext.current
     val bearing = remember(settings.latitude, settings.longitude) { PrayerEngine.qibla(settings) }
     // Sensors report a heading from MAGNETIC north; the bearing above is from TRUE north.
@@ -117,43 +118,43 @@ fun QiblaScreen(settings: AppSettings, onBack: () -> Unit) {
 
     val needle by animateFloatAsState(if (hasSensor) ((bearing - heading).toFloat() + 360f) % 360f else bearing.toFloat(), tween(200), label = "needle")
 
-    BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
+    BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
         val u = minOf(maxWidth / 100, maxHeight / 56)
         GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.08f)
         val portrait = maxHeight > maxWidth
         if (portrait) {
             Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = u * 4, vertical = u * 2), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceEvenly) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
-                    Text(Str[R.string.s_qibla], fontFamily = Cormorant, fontSize = (u.value * 8f).sp, color = Palette.ivory)
-                    Text("  القبلة", fontFamily = Amiri, fontSize = (u.value * 6.5f).sp, color = Palette.goldSoft)
+                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
+                    Text(Str[R.string.s_qibla], fontFamily = Cormorant, fontSize = (u.value * 8f).sp, color = tk.contentPrimary)
+                    Text("  القبلة", fontFamily = Amiri, fontSize = (u.value * 6.5f).sp, color = tk.accent)
                 }
                 Box(Modifier.fillMaxWidth().aspectRatio(1f).padding(u * 4).semantics { contentDescription = spoken }, contentAlignment = Alignment.Center) { Compass(needle, heading = if (hasSensor) heading else 0f, u = u.value) }
                 Text("${bearing.toInt()}°  ${PrayerEngine.compass(bearing)}", fontFamily = Cormorant, fontSize = (u.value * 14f).sp, lineHeight = (u.value * 14f).sp, color = Color(0xFFF6E7B8))
-                Text("from true north, at ${settings.locationName}", fontFamily = Nunito, fontSize = (u.value * 3.2f).sp, color = Palette.textSecondary)
-                Text("$accuracyWords · $declWords", fontFamily = Nunito, fontSize = (u.value * 2.8f).sp, color = if (accuracyLow) Palette.gold else Palette.textMuted, textAlign = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.padding(top = u * 1))
+                Text("from true north, at ${settings.locationName}", fontFamily = Nunito, fontSize = (u.value * 3.2f).sp, color = tk.contentSecondary)
+                Text("$accuracyWords · $declWords", fontFamily = Nunito, fontSize = (u.value * 2.8f).sp, color = if (accuracyLow) tk.primary else tk.contentMuted, textAlign = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.padding(top = u * 1))
                 Text(if (!hasSensor) Str[R.string.s_no_compass_sensor_face_the_phone] else if (accuracyLow) Str[R.string.s_move_the_phone_in_a_figure] else Str[R.string.s_hold_the_phone_flat_and_turn],
-                    fontFamily = Nunito, fontSize = (u.value * 3.4f).sp, lineHeight = (u.value * 5f).sp, color = Palette.ivory.copy(alpha = 0.8f), textAlign = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.padding(top = u * 4))
+                    fontFamily = Nunito, fontSize = (u.value * 3.4f).sp, lineHeight = (u.value * 5f).sp, color = tk.contentPrimary.copy(alpha = 0.8f), textAlign = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.padding(top = u * 4))
             }
             return@BoxWithConstraints
         }
         Row(Modifier.fillMaxSize().displayCutoutPadding().padding(horizontal = u * 3, vertical = u * 2)) {
             Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.Center) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
-                    Text(Str[R.string.s_qibla], fontFamily = Cormorant, fontSize = (u.value * 4.2f).sp, color = Palette.ivory)
-                    Text("  القبلة", fontFamily = Amiri, fontSize = (u.value * 3.4f).sp, color = Palette.goldSoft)
+                    IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
+                    Text(Str[R.string.s_qibla], fontFamily = Cormorant, fontSize = (u.value * 4.2f).sp, color = tk.contentPrimary)
+                    Text("  القبلة", fontFamily = Amiri, fontSize = (u.value * 3.4f).sp, color = tk.accent)
                 }
                 Text("${bearing.toInt()}°  ${PrayerEngine.compass(bearing)}", fontFamily = Cormorant, fontSize = (u.value * 9f).sp, lineHeight = (u.value * 9f).sp, color = Color(0xFFF6E7B8), modifier = Modifier.padding(start = u * 1.5f))
-                Text("from true north, at ${settings.locationName}", fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, color = Palette.textSecondary, modifier = Modifier.padding(start = u * 1.6f))
-                Text("$accuracyWords · $declWords", fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, color = if (accuracyLow) Palette.gold else Palette.textMuted, modifier = Modifier.padding(start = u * 1.6f, top = u * 0.8f))
+                Text("from true north, at ${settings.locationName}", fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, color = tk.contentSecondary, modifier = Modifier.padding(start = u * 1.6f))
+                Text("$accuracyWords · $declWords", fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, color = if (accuracyLow) tk.primary else tk.contentMuted, modifier = Modifier.padding(start = u * 1.6f, top = u * 0.8f))
                 Text(
                     when {
                         !hasSensor -> Str[R.string.s_this_tablet_has_no_compass_sensor]
                         accuracyLow -> Str[R.string.s_compass_needs_calibrating_move_the_tablet]
                         else -> Str[R.string.s_lay_the_tablet_flat_turn_until]
                     },
-                    fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, lineHeight = (u.value * 2.3f).sp, color = Palette.ivory.copy(alpha = 0.8f),
+                    fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, lineHeight = (u.value * 2.3f).sp, color = tk.contentPrimary.copy(alpha = 0.8f),
                     modifier = Modifier.padding(start = u * 1.6f, top = u * 2, end = u * 4)
                 )
             }
@@ -166,19 +167,20 @@ fun QiblaScreen(settings: AppSettings, onBack: () -> Unit) {
 
 @Composable
 private fun Compass(needleDeg: Float, heading: Float, u: Float) {
+    val tk = screenTokens()
     Canvas(Modifier.fillMaxSize()) {
         val c = Offset(size.width / 2, size.height / 2)
         val r = size.minDimension / 2
         drawCircle(Color.White.copy(alpha = 0.06f), r, c)
-        drawCircle(Palette.goldSoft.copy(alpha = 0.5f), r, c, style = Stroke(2f))
-        drawCircle(Palette.goldSoft.copy(alpha = 0.2f), r * 0.78f, c, style = Stroke(1f))
+        drawCircle(tk.accent.copy(alpha = 0.5f), r, c, style = Stroke(2f))
+        drawCircle(tk.accent.copy(alpha = 0.2f), r * 0.78f, c, style = Stroke(1f))
         // ticks rotate with the device heading so N stays north
         rotate(-heading, c) {
             for (i in 0 until 72) {
                 val a = i * 5.0 * PI / 180
                 val len = if (i % 18 == 0) r * 0.10f else if (i % 6 == 0) r * 0.06f else r * 0.03f
                 val w = if (i % 18 == 0) 3f else 1.2f
-                drawLine(Palette.ivory.copy(alpha = if (i % 6 == 0) 0.9f else 0.4f),
+                drawLine(tk.contentPrimary.copy(alpha = if (i % 6 == 0) 0.9f else 0.4f),
                     Offset(c.x + (r - len) * sin(a).toFloat(), c.y - (r - len) * cos(a).toFloat()),
                     Offset(c.x + r * 0.97f * sin(a).toFloat(), c.y - r * 0.97f * cos(a).toFloat()), w)
             }
@@ -186,7 +188,7 @@ private fun Compass(needleDeg: Float, heading: Float, u: Float) {
             val nPath = Path().apply {
                 moveTo(c.x, c.y - r * 0.86f); lineTo(c.x - r * 0.04f, c.y - r * 0.76f); lineTo(c.x + r * 0.04f, c.y - r * 0.76f); close()
             }
-            drawPath(nPath, Palette.ivory)
+            drawPath(nPath, tk.contentPrimary)
         }
         // Qibla needle
         rotate(needleDeg, c) {
@@ -197,12 +199,12 @@ private fun Compass(needleDeg: Float, heading: Float, u: Float) {
                 lineTo(c.x + r * 0.07f, c.y + r * 0.08f)
                 close()
             }
-            drawPath(p, Palette.gold)
+            drawPath(p, tk.primary)
             // Kaʿbah mark at the tip
             drawRect(Color(0xFF111111), topLeft = Offset(c.x - r * 0.05f, c.y - r * 0.86f), size = androidx.compose.ui.geometry.Size(r * 0.10f, r * 0.10f))
-            drawRect(Palette.gold, topLeft = Offset(c.x - r * 0.05f, c.y - r * 0.83f), size = androidx.compose.ui.geometry.Size(r * 0.10f, r * 0.015f))
+            drawRect(tk.primary, topLeft = Offset(c.x - r * 0.05f, c.y - r * 0.83f), size = androidx.compose.ui.geometry.Size(r * 0.10f, r * 0.015f))
         }
-        drawCircle(Palette.gold, r * 0.035f, c)
-        drawCircle(Palette.night, r * 0.015f, c)
+        drawCircle(tk.primary, r * 0.035f, c)
+        drawCircle(tk.background, r * 0.015f, c)
     }
 }

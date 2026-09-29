@@ -54,6 +54,16 @@ data class ThemeTokens(
     /** Sun / time colour for artwork and non-text marks only; not for text on light surfaces. */
     val sun: Color,
 
+    // table / list emphasis
+    val todayText: Color,
+    val fridayText: Color,
+    val neutralStroke: Color,
+    /** Arabic scripture on reading surfaces. */
+    val arabicText: Color,
+    /** Side-panel / rail wash and subtle raised fill. */
+    val scrim: Color,
+    val softFill: Color,
+
     // shape and depth
     val cornerSmall: Dp,
     val cornerMedium: Dp,
@@ -75,6 +85,8 @@ object ThemeTokenSets {
         primary = Palette.gold, onPrimary = Palette.night,
         contentPrimary = Palette.ivory, contentSecondary = Palette.textSecondary, contentMuted = Palette.textMuted,
         info = Color(0xFF9CC3E8), success = Palette.mint, warning = Color(0xFFF2A07B), accent = Palette.goldSoft, sun = Palette.gold,
+        todayText = Color(0xFFF6E7B8), fridayText = Color(0xFFA6E3B8), neutralStroke = Color.White.copy(alpha = 0.2f),
+        arabicText = Color(0xFFF6E7B8), scrim = Color.Black.copy(alpha = 0.18f), softFill = Color.White.copy(alpha = 0.06f),
         cornerSmall = 10.dp, cornerMedium = 16.dp, cornerLarge = 24.dp, elevation = 0.dp,
         fontDisplay = Cormorant, fontUi = Nunito, fontArabic = Amiri
     )
@@ -87,6 +99,8 @@ object ThemeTokenSets {
         primary = Kiswah.thread, onPrimary = Color(0xFF0B0B0B),
         contentPrimary = Kiswah.ivory, contentSecondary = Kiswah.threadSoft.copy(alpha = 0.85f), contentMuted = Palette.textMuted,
         info = Kiswah.threadSoft, success = Palette.mint, warning = Color(0xFFF2A07B), accent = Kiswah.threadSoft, sun = Kiswah.thread,
+        todayText = Color(0xFFF6E7B8), fridayText = Color(0xFFA6E3B8), neutralStroke = Color.White.copy(alpha = 0.2f),
+        arabicText = Color(0xFFF6E7B8), scrim = Color.Black.copy(alpha = 0.18f), softFill = Color.White.copy(alpha = 0.06f),
         cornerSmall = 4.dp, cornerMedium = 8.dp, cornerLarge = 12.dp, elevation = 0.dp,
         fontDisplay = Cinzel, fontUi = Nunito, fontArabic = ReemKufi
     )
@@ -100,6 +114,8 @@ object ThemeTokenSets {
         primary = Color(0xFFFFD166), onPrimary = Color(0xFF061A36),
         contentPrimary = Color(0xFFFFF6E5), contentSecondary = Color(0xFFB9C8DB), contentMuted = Color(0xFF8FA3BC),
         info = Color(0xFF72D7E8), success = Color(0xFF63D7BB), warning = Color(0xFFFF805C), accent = Color(0xFFFF805C), sun = Color(0xFFFFD166),
+        todayText = Color(0xFFFFD166), fridayText = Color(0xFF63D7BB), neutralStroke = Color(0x33B9C8DB),
+        arabicText = Color(0xFFFFF6E5), scrim = Color(0x33061A36), softFill = Color(0x14FFFFFF),
         cornerSmall = 12.dp, cornerMedium = 18.dp, cornerLarge = 24.dp, elevation = 0.dp,
         fontDisplay = Cormorant, fontUi = Nunito, fontArabic = Amiri
     )
@@ -117,6 +133,8 @@ object ThemeTokenSets {
         primary = Color(0xFF1559D6), onPrimary = Color(0xFFFFFFFF),
         contentPrimary = Color(0xFF0B302D), contentSecondary = Color(0xFF665F59), contentMuted = Color(0xFF6B635C),
         info = Color(0xFF1559D6), success = Color(0xFF0E7A58), warning = Color(0xFFA94F31), accent = Color(0xFFA94F31), sun = Color(0xFFE7A94B),
+        todayText = Color(0xFF1559D6), fridayText = Color(0xFF0E7A58), neutralStroke = Color(0xFF8C8377),
+        arabicText = Color(0xFF0B302D), scrim = Color(0x0D0B302D), softFill = Color(0xFFF3ECDD),
         cornerSmall = 10.dp, cornerMedium = 16.dp, cornerLarge = 22.dp, elevation = 0.dp,
         fontDisplay = Cormorant, fontUi = Nunito, fontArabic = Amiri
     )
@@ -141,4 +159,16 @@ object Tokens {
 @Composable
 fun ProvideThemeTokens(theme: AppTheme, content: @Composable () -> Unit) {
     CompositionLocalProvider(LocalThemeTokens provides ThemeTokenSets.of(theme), content = content)
+}
+
+/**
+ * Tokens for screens that have not been redesigned for every theme. Miqaat and Kiswah keep the palette those screens
+ * have always used (so they look exactly as before); the two new themes supply their own. One choke point, no per-screen
+ * theme comparisons.
+ */
+@Composable
+@ReadOnlyComposable
+fun screenTokens(): ThemeTokens {
+    val c = LocalThemeTokens.current
+    return if (c.art == ArtStyle.CELESTIAL || c.art == ArtStyle.GALLERY) c else ThemeTokenSets.miqaat
 }

@@ -55,6 +55,7 @@ import java.util.Locale
 
 @Composable
 fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
+    val tk = screenTokens()
     var ym by remember { mutableStateOf(YearMonth.now()) }
     val days = remember(ym, settings) { PrayerEngine.month(settings, ym.year, ym.monthValue) }
     val today = LocalDate.now(settings.zone())
@@ -67,7 +68,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
     val hijriRange = if (hStart.month == hEnd.month) "${hStart.english.substringAfter(' ')}" else
         "${hStart.english.substringAfter(' ').substringBeforeLast(' ')} – ${hEnd.english.substringAfter(' ')}"
 
-    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
+    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
     val fontScale = androidx.compose.ui.platform.LocalDensity.current.fontScale
     // Eight columns need roughly 90 dp each at normal text; as text grows the table switches to the frozen-Date, sideways-scrolling form early.
     val compact = maxWidth < 720.dp || maxWidth < 440.dp * fontScale
@@ -77,15 +78,15 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
     Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = pad, vertical = if (compact) 8.dp else 20.dp)) {
         // Header: title + metadata on one row, month controls on their own row when narrow (never squeezed together).
         Row(verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
+            IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
             Column(Modifier.weight(1f).padding(start = 4.dp)) {
                 Row(verticalAlignment = Alignment.Bottom) {
-                    Text(ym.format(DateTimeFormatter.ofPattern(if (compact) "MMM yyyy" else "MMMM yyyy", Locale.ENGLISH)), fontFamily = Cormorant, fontSize = if (compact) 26.sp else 38.sp, color = Palette.ivory, lineHeight = 40.sp)
-                    if (settings.showHijri && wide) Text("   $hijriRange", fontFamily = Amiri, fontSize = 22.sp, color = Palette.goldSoft, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false).padding(bottom = 6.dp))
+                    Text(ym.format(DateTimeFormatter.ofPattern(if (compact) "MMM yyyy" else "MMMM yyyy", Locale.ENGLISH)), fontFamily = Cormorant, fontSize = if (compact) 26.sp else 38.sp, color = tk.contentPrimary, lineHeight = 40.sp)
+                    if (settings.showHijri && wide) Text("   $hijriRange", fontFamily = Amiri, fontSize = 22.sp, color = tk.accent, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false).padding(bottom = 6.dp))
                 }
                 Text(
                     (if (settings.showHijri && !wide) "$hijriRange · " else "") + "${settings.locationName} · ${settings.method.text} · Asr: ${settings.asrMethod.text.substringBefore('،').substringBefore(',')}",
-                    fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, maxLines = if (fontScale > 1.3f) 4 else 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                    fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary, maxLines = if (fontScale > 1.3f) 4 else 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                 )
             }
             if (!compact) MonthNav(ym, today, listState, scope) { ym = it }
@@ -102,7 +103,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
         val dateW = if (compact) (74.dp * fontScale) else 0.dp
         val restW = if (compact) (560.dp * fontScale) else 0.dp
         val canScrollMore = compact && hScroll.value < hScroll.maxValue
-        Column(Modifier.fillMaxWidth().weight(1f).clip(shape).border(1.dp, Palette.line, shape)) {
+        Column(Modifier.fillMaxWidth().weight(1f).clip(shape).border(1.dp, tk.divider, shape)) {
             @Composable fun cells(content: @Composable (Int, Modifier) -> Unit) {
                 if (!compact) Row(Modifier.fillMaxWidth()) { cols.indices.forEach { i -> content(i, Modifier.weight(weights[i])) } }
                 else Row(Modifier.fillMaxWidth()) {
@@ -111,21 +112,21 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                 }
             }
             Box {
-                Row(Modifier.fillMaxWidth().background(Palette.panelRaised).padding(vertical = 10.dp, horizontal = 14.dp)) {
-                    cells { i, m -> Text(cols[i].uppercase(), m, fontFamily = Nunito, fontSize = 11.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = Palette.ivory.copy(alpha = 0.9f), maxLines = 1, softWrap = false) }
+                Row(Modifier.fillMaxWidth().background(tk.surfaceRaised).padding(vertical = 10.dp, horizontal = 14.dp)) {
+                    cells { i, m -> Text(cols[i].uppercase(), m, fontFamily = Nunito, fontSize = 11.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = tk.contentPrimary.copy(alpha = 0.9f), maxLines = 1, softWrap = false) }
                 }
-                if (canScrollMore) Text("›", Modifier.align(Alignment.CenterEnd).padding(end = 6.dp).semantics { contentDescription = "More columns to the right" }, fontSize = 20.sp, color = Palette.goldSoft)
+                if (canScrollMore) Text("›", Modifier.align(Alignment.CenterEnd).padding(end = 6.dp).semantics { contentDescription = "More columns to the right" }, fontSize = 20.sp, color = tk.accent)
             }
             LazyColumn(state = listState) {
                 items(days, key = { it.date.toEpochDay() }) { d ->
                     val isToday = d.date == today
                     val fri = d.date.dayOfWeek == DayOfWeek.FRIDAY
-                    val color = when { isToday -> Color(0xFFF6E7B8); fri -> Color(0xFFA6E3B8); else -> Palette.ivory }
+                    val color = when { isToday -> tk.todayText; fri -> tk.fridayText; else -> tk.contentPrimary }
                     val h = PrayerEngine.hijri(d.date, settings.hijriOffsetDays)
                     val spoken = d.date.format(DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.ENGLISH)) + (if (isToday) ", today" else "") + (if (fri) ", Friday" else "") + ", " + h.short + ": " +
                         Prayer.entries.joinToString(", ") { "${it.english} ${PrayerEngine.clock(d[it], settings.use24h)} ${PrayerEngine.suffix(d[it], settings.use24h)}" }
                     Row(
-                        Modifier.fillMaxWidth().background(when { isToday -> Palette.gold.copy(alpha = 0.16f); fri -> Color(0xFFA6E3B8).copy(alpha = 0.07f); else -> Color.Transparent })
+                        Modifier.fillMaxWidth().background(when { isToday -> tk.primary.copy(alpha = 0.16f); fri -> tk.fridayText.copy(alpha = 0.07f); else -> Color.Transparent })
                             .padding(vertical = 8.dp, horizontal = 14.dp).semantics(mergeDescendants = true) { contentDescription = spoken },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -137,13 +138,13 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                             }
                         }
                     }
-                    Box(Modifier.fillMaxWidth().padding(horizontal = 14.dp).background(Palette.line).padding(top = 1.dp))
+                    Box(Modifier.fillMaxWidth().padding(horizontal = 14.dp).background(tk.divider).padding(top = 1.dp))
                 }
             }
         }
         Text(
             (if (compact) Str[R.string.s_swipe_the_table_sideways_for_asr] else "") + Str[R.string.s_fridays_in_green_jumu_ah_at],
-            fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary, modifier = Modifier.padding(top = 8.dp)
+            fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary, modifier = Modifier.padding(top = 8.dp)
         )
     }
     }
@@ -160,10 +161,11 @@ private fun MonthNav(ym: YearMonth, today: LocalDate, listState: androidx.compos
 
 @Composable
 private fun NavChip(text: String, current: Boolean = false, label: String = text, onClick: () -> Unit) {
+    val tk = screenTokens()
     val shape = RoundedCornerShape(10.dp)
     Box(
-        Modifier.heightIn(min = 48.dp).semantics { contentDescription = label }.clip(shape).background(if (current) Palette.gold.copy(alpha = 0.15f) else Color.Transparent)
-            .border(1.dp, if (current) Palette.gold else Color.White.copy(alpha = 0.2f), shape)
+        Modifier.heightIn(min = 48.dp).semantics { contentDescription = label }.clip(shape).background(if (current) tk.primary.copy(alpha = 0.15f) else Color.Transparent)
+            .border(1.dp, if (current) tk.primary else tk.neutralStroke, shape)
             .clickable(onClick = onClick, role = androidx.compose.ui.semantics.Role.Button).padding(horizontal = 16.dp, vertical = 10.dp), contentAlignment = Alignment.Center
-    ) { Text(text, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Palette.ivory) }
+    ) { Text(text, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = 14.sp, color = tk.contentPrimary) }
 }

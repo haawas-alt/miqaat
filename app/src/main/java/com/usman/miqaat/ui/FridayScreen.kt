@@ -54,6 +54,7 @@ import java.time.temporal.TemporalAdjusters
 /** The Friday routine: Sūrat al-Kahf, ṣalawāt, the hour of acceptance, and the day's sunnahs. */
 @Composable
 fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
+    val tk = screenTokens()
     val ctx = LocalContext.current
     val prefs = remember { ctx.getSharedPreferences("miqaat_friday", Context.MODE_PRIVATE) }
     val today = LocalDate.now(settings.zone())
@@ -67,46 +68,46 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
     val h24 = settings.use24h
     fun c(z: ZonedDateTime) = PrayerEngine.clock(z, h24) + " " + PrayerEngine.suffix(z, h24)
 
-    BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
+    BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
         val compact = maxWidth < 700.dp
         GirihLattice(Modifier.fillMaxSize(), tile = 120f, alpha = 0.07f)
         Column(Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState()).padding(horizontal = if (compact) 16.dp else 32.dp, vertical = 12.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
+                IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
                 Column {
-                    Text(Str[R.string.s_jumu_ah], fontFamily = Cormorant, fontSize = 34.sp, color = Palette.ivory, lineHeight = 36.sp)
-                    Text("يوم الجمعة  ·  ${friday.dayOfMonth} ${friday.month.name.lowercase().replaceFirstChar { it.uppercase() }}", fontFamily = Amiri, fontSize = 20.sp, color = Palette.goldSoft)
+                    Text(Str[R.string.s_jumu_ah], fontFamily = Cormorant, fontSize = 34.sp, color = tk.contentPrimary, lineHeight = 36.sp)
+                    Text("يوم الجمعة  ·  ${friday.dayOfMonth} ${friday.month.name.lowercase().replaceFirstChar { it.uppercase() }}", fontFamily = Amiri, fontSize = 20.sp, color = tk.accent)
                 }
             }
-            Text(Str[R.string.s_the_best_day_on_which_the], fontFamily = Cormorant, fontSize = 18.sp, color = Palette.ivory.copy(alpha = 0.8f), modifier = Modifier.padding(start = 12.dp, bottom = 14.dp))
+            Text(Str[R.string.s_the_best_day_on_which_the], fontFamily = Cormorant, fontSize = 18.sp, color = tk.contentPrimary.copy(alpha = 0.8f), modifier = Modifier.padding(start = 12.dp, bottom = 14.dp))
 
             val cards: @Composable (Modifier) -> Unit = { m ->
                 Card(m, Str[R.string.s_s_rat_al_kahf], "سورة الكهف", "\"Whoever reads Sūrat al-Kahf on Friday, a light shines for him between the two Fridays\" · ${Ramadan.KAHF_SRC}") {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                         Pill(if (kahf) Str[R.string.s_read_this_friday] else Str[R.string.s_mark_as_read], kahf) { kahf = !kahf; prefs.edit().putBoolean("kahf_$weekKey", kahf).apply() }
-                        Text(if (kahf) "" else Str[R.string.s_from_thursday_maghrib_to_friday_maghrib], fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
+                        Text(if (kahf) "" else Str[R.string.s_from_thursday_maghrib_to_friday_maghrib], fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary)
                     }
                 }
                 Card(m, "Ṣalawāt", "الصلاة على النبي ﷺ", "\"Increase your ṣalawāt upon me on Friday\" · ${Ramadan.SALAWAT_SRC}") {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                        Box(Modifier.size(64.dp).clip(CircleShape).background(Palette.gold).clickable { salawat++; prefs.edit().putInt("salawat_$weekKey", salawat).apply() }, contentAlignment = Alignment.Center) {
-                            Text("$salawat", fontFamily = Cormorant, fontSize = 26.sp, color = Palette.night)
+                        Box(Modifier.size(64.dp).clip(CircleShape).background(tk.primary).clickable { salawat++; prefs.edit().putInt("salawat_$weekKey", salawat).apply() }, contentAlignment = Alignment.Center) {
+                            Text("$salawat", fontFamily = Cormorant, fontSize = 26.sp, color = tk.onPrimary)
                         }
                         Column {
-                            Text("اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", fontFamily = Amiri, fontSize = 20.sp, color = Color(0xFFF6E7B8))
-                            Text(Str[R.string.s_tap_the_circle_for_each_one], fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
+                            Text("اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", fontFamily = Amiri, fontSize = 20.sp, color = tk.arabicText)
+                            Text(Str[R.string.s_tap_the_circle_for_each_one], fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary)
                         }
                     }
                 }
                 Card(m, Str[R.string.s_hour_of_acceptance], "ساعة الإجابة", Str[R.string.s_an_hour_on_friday_when_du]) {
                     Column {
-                        Text("${c(hourStart)}  →  ${c(day[Prayer.MAGHRIB])}", fontFamily = Cormorant, fontSize = 26.sp, color = Palette.ivory)
+                        Text("${c(hourStart)}  →  ${c(day[Prayer.MAGHRIB])}", fontFamily = Cormorant, fontSize = 26.sp, color = tk.contentPrimary)
                         Text(when {
                             today != friday -> Str[R.string.s_this_friday]
                             now.isBefore(hourStart) -> "Begins in ${PrayerEngine.humanDuration(java.time.Duration.between(now, hourStart))}" + if (settings.fridayHourReminder) Str[R.string.s_a_quiet_reminder_will_show] else ""
                             now.isBefore(day[Prayer.MAGHRIB]) -> Str[R.string.s_now_make_du]
                             else -> Str[R.string.s_passed_for_this_week]
-                        }, fontFamily = Nunito, fontSize = 13.sp, color = Palette.goldSoft)
+                        }, fontFamily = Nunito, fontSize = 13.sp, color = tk.accent)
                     }
                 }
             }
@@ -114,7 +115,7 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
             else Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) { cards(Modifier.weight(1f)) }
 
             Spacer(Modifier.height(18.dp))
-            Text(Str[R.string.s_friday_s_sunnahs], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+            Text(Str[R.string.s_friday_s_sunnahs], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
             listOf(
                 Str[R.string.s_ghusl_clean_clothes_and_perfume_before] to Str[R.string.s_a_al_bukh_r_880_883],
                 Str[R.string.s_go_early_and_walk_if_you] to Str[R.string.s_a_al_bukh_r_881_ab],
@@ -123,15 +124,15 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
                 Str[R.string.s_read_s_rat_al_kahf_and] to "above",
             ).forEach { (t, src) ->
                 Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Outlined.Check, null, Modifier.size(18.dp), tint = Palette.mint)
+                    Icon(Icons.Outlined.Check, null, Modifier.size(18.dp), tint = tk.success)
                     Spacer(Modifier.width(10.dp))
-                    Column { Text(t, fontFamily = Nunito, fontSize = 15.sp, color = Palette.ivory); Text(src, fontFamily = Nunito, fontSize = 12.sp, color = Palette.textMuted) }
+                    Column { Text(t, fontFamily = Nunito, fontSize = 15.sp, color = tk.contentPrimary); Text(src, fontFamily = Nunito, fontSize = 12.sp, color = tk.contentMuted) }
                 }
             }
             if (settings.jumuahEnabled) {
                 Spacer(Modifier.height(10.dp))
                 val iq = PrayerEngine.iqamah(settings, day, Prayer.DHUHR)
-                Text("Jumuʿah at your masjid: azaan ${c(day[Prayer.DHUHR])}" + (iq?.let { " · iqamah ${c(it)}" } ?: ""), fontFamily = Nunito, fontSize = 14.sp, color = Palette.goldSoft)
+                Text("Jumuʿah at your masjid: azaan ${c(day[Prayer.DHUHR])}" + (iq?.let { " · iqamah ${c(it)}" } ?: ""), fontFamily = Nunito, fontSize = 14.sp, color = tk.accent)
             }
         }
     }
@@ -139,17 +140,19 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
 
 @Composable
 private fun Card(m: Modifier, title: String, arabic: String, source: String, content: @Composable () -> Unit) {
-    Column(m.clip(RoundedCornerShape(16.dp)).background(Color.White.copy(alpha = 0.06f)).border(1.dp, Palette.line, RoundedCornerShape(16.dp)).padding(16.dp)) {
-        Text(title.uppercase(), fontFamily = Nunito, fontSize = 11.sp, letterSpacing = 1.6.sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
-        Text(arabic, fontFamily = Amiri, fontSize = 24.sp, color = Color(0xFFF6E7B8))
-        Text(source, fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary, lineHeight = 16.sp, modifier = Modifier.padding(bottom = 12.dp))
+    val tk = screenTokens()
+    Column(m.clip(RoundedCornerShape(16.dp)).background(tk.softFill).border(1.dp, tk.divider, RoundedCornerShape(16.dp)).padding(16.dp)) {
+        Text(title.uppercase(), fontFamily = Nunito, fontSize = 11.sp, letterSpacing = 1.6.sp, fontWeight = FontWeight.Bold, color = tk.accent)
+        Text(arabic, fontFamily = Amiri, fontSize = 24.sp, color = tk.arabicText)
+        Text(source, fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary, lineHeight = 16.sp, modifier = Modifier.padding(bottom = 12.dp))
         content()
     }
 }
 
 @Composable
 private fun Pill(label: String, on: Boolean, onClick: () -> Unit) {
-    Box(Modifier.clip(RoundedCornerShape(50)).background(if (on) Palette.mint else Palette.gold).clickable(onClick = onClick).padding(horizontal = 16.dp, vertical = 10.dp)) {
-        Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Palette.night)
+    val tk = screenTokens()
+    Box(Modifier.clip(RoundedCornerShape(50)).background(if (on) tk.success else tk.primary).clickable(onClick = onClick).padding(horizontal = 16.dp, vertical = 10.dp)) {
+        Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = 14.sp, color = tk.onPrimary)
     }
 }
