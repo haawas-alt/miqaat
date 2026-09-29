@@ -55,7 +55,7 @@ class SettingsShellTest : ComposeSupport() {
         rule.onNodeWithText("Privacy").performScrollTo().performClick()
         rule.onNodeWithText("PRAYER SETUP").assertDoesNotExist()
         scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
-        rule.waitForIdle()
+        rule.mainClock.advanceTimeBy(500)
         rule.onNodeWithText("PRAYER SETUP").assertExists()
         assertFalse(left)
         scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
