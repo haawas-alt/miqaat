@@ -15,7 +15,7 @@ Status key: ✅ verified · 🟡 built, needs on-device check · ⬜ not started
 | Learn Salah (overview + lesson) | unchanged | unchanged | 🟡 | 🟡 |
 | Azaan sequence | unchanged | unchanged | 🟡 | 🟡 |
 | Friday / Jumuʿah | unchanged | unchanged | 🟡 | 🟡 |
-| Setup, dialogs | unchanged | unchanged | ⬜ | ⬜ |
+| Setup, Settings, dialogs, Why-this-time, large-type home | unchanged | unchanged | 🟡 | 🟡 |
 | Font scale 100/130/200, Urdu/RTL, TalkBack | – | – | ⬜ | ⬜ |
 
 Engines (prayer, alarm, scheduling, religious content, persistence) are not touched by theming.
