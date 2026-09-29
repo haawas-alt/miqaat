@@ -54,12 +54,10 @@ class SettingsShellTest : ComposeSupport() {
         show(Dev.PHONE_PORTRAIT, content = settingsUi(onBack = { left = true }))
         rule.onNodeWithText("Privacy").performScrollTo().performClick()
         rule.onNodeWithText("PRAYER SETUP").assertDoesNotExist()
-        scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
-        rule.mainClock.advanceTimeBy(500)
+        rule.onNodeWithContentDescription("Back").performClick()
         rule.onNodeWithText("PRAYER SETUP").assertExists()
         assertFalse(left)
-        scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
-        rule.waitForIdle()
+        rule.onNodeWithContentDescription("Back").performClick()
         assertTrue("back from landing leaves Settings", left)
     }
 
