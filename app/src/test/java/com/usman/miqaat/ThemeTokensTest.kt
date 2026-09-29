@@ -58,4 +58,23 @@ class ThemeTokensTest {
         assertTrue(ThemeTokenSets.gallery.dark.not() && lum(ThemeTokenSets.gallery.background) > 0.8f)
         listOf(ThemeTokenSets.miqaat, ThemeTokenSets.kiswah, ThemeTokenSets.celestial).forEach { assertTrue(it.dark && lum(it.background) < 0.05f) }
     }
+
+    @Test fun screenTextRolesMeetAAOnNewThemes() {
+        for (tk in listOf(ThemeTokenSets.celestial, ThemeTokenSets.gallery)) {
+            for ((name, fg) in listOf("arabicText" to tk.arabicText, "todayText" to tk.todayText, "fridayText" to tk.fridayText, "accent" to tk.accent)) {
+                for ((bn, bg) in listOf("background" to tk.background, "surface" to tk.surface)) {
+                    val r = ratio(fg, bg)
+                    assertTrue("${tk.theme} $name on $bn = $r", r >= 4.5f)
+                }
+            }
+        }
+    }
+
+    @Test fun everyThemeHasAzaanSkiesForEveryPhase() {
+        for (tk in ThemeTokenSets.all) {
+            assertTrue(tk.skyAzaan.size >= 2 && tk.skyIqamah.size >= 2 && tk.skyDua.size >= 2)
+            // the sky must agree with the theme's light/dark claim so text tokens stay readable on it
+            for (c in tk.skyAzaan + tk.skyIqamah + tk.skyDua) assertTrue("${tk.theme} sky vs dark=${tk.dark}", (lum(c) < 0.25f) == tk.dark)
+        }
+    }
 }
