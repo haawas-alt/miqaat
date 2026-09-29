@@ -201,7 +201,7 @@ jobs:
           set -o pipefail
           ./gradlew --no-daemon testGithubReleaseUnitTest --tests "com.usman.miqaat.ScreenshotTest" 2>&1 | tee shots.log || true
           mkdir -p /tmp/shots && cp -r app/build/screens/. /tmp/shots/ 2>/dev/null || true
-          grep -E "FAILED|Exception|e: |Assertion|Caused by" shots.log | head -80 > /tmp/shots/_log.txt || true
+          tail -120 shots.log > /tmp/shots/_log.txt || true
       - name: Publish screenshots
         run: |
           git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
