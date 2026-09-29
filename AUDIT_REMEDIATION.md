@@ -260,3 +260,12 @@ Still English in Urdu mode by design for now: Learn Ṣalāh lesson content (pos
 | P6 | Settings › "Test & preview" read as a developer leftover. | Renamed "Try it now" (Urdu: ابھی آزمائیں) and moved directly under Azaan. |
 | P7 | About showed a stale update offer because of the 6-hour check throttle (adjourned earlier). | About now forces a check on open. |
 | P8 | Tablet azaan quiet compared with media apps. | Not a defect: the app plays on the alarm channel, which some tablets cap lower than media. Owner resolved with the in-app +12 dB boost. Consider defaulting the boost to +6 dB on ≥600 dp screens in a later build. |
+
+## S · Source check of ChatGPT's content audit (29–30 Sep 2026)
+
+| # | Finding | Remediation |
+|---|---|---|
+| S1 | Restricted-times footer cited Ṣaḥīḥ Muslim 831 for an exemption for missed prayers; that hadith lists the three times only. | Footer re-cited: Muslim 831 (three solar windows), Bukhārī 586 (after Fajr / after ʿAsr), Muslim 684 (missed prayer when remembered) with a note that schools differ on doing so inside the windows. English and Urdu. |
+| S2 | Disliked-times bar omitted the window from Fajr until sunrise. | Fourth window added (Fajr time → sunrise), label explains it starts at the computed time because the app cannot know when the user prayed. Legend and footer updated. |
+| S3 | Āyat al-Kursī morning/evening grading cited Ṣaḥīḥ at-Targhīb 655. | Changed to 662 in Adhkar.kt and REVIEW.md. Secondary-source citation; flagged for the reviewer. |
+| S4 | Remaining findings (Aṣbaḥnā excerpt, Raḍītu count, Bika references, three unverified entries). | Held for the imam; listed in ISLAMIC_REVIEW_PACK History 2026.09-c. Owner declined action on Ṣalawāt, Tahlīl, three Quls, J7, J10. |

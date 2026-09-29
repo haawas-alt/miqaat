@@ -356,10 +356,10 @@
     <string name="s_when_asr_begins_which_itself_depends">When ʿAsr begins — which itself depends on the ʿAsr view chosen above</string>
     <string name="s_when_the_next_prayer_begins">When the next prayer begins</string>
     <string name="s_disliked_for_voluntary_prayer_today_approximate">Disliked for voluntary prayer today · approximate</string>
-    <string name="s_these_windows_are_conservative_estimates_15">These windows are conservative estimates (≈15 min after sunrise, ≈10 min around zawāl, after ʿAsr until sunset); the texts describe events, not minute counts, and schools differ on the details. Obligatory and missed prayers are not restricted by them — Ṣaḥīḥ Muslim 831.</string>
+    <string name="s_these_windows_are_conservative_estimates_15">These windows are conservative estimates (after Fajr until sunrise, ≈15 min after sunrise, ≈10 min around zawāl, after ʿAsr until sunset); the texts describe events, not minute counts, and schools differ on the details. The three solar windows: Ṣaḥīḥ Muslim 831; after Fajr and after ʿAsr: Ṣaḥīḥ al-Bukhārī 586. Obligatory prayers are not restricted by them; a missed prayer is prayed when remembered (Ṣaḥīḥ Muslim 684), though schools differ on doing so inside these windows.</string>
     <string name="s_day_line">"Day line: "</string>
     <string name="s_prayer_may_be_offered">" prayer may be offered"</string>
-    <string name="s_disliked_for_naw_fil_after_sunrise">" disliked for nawāfil: after sunrise · zawāl · after ʿAsr"</string>
+    <string name="s_disliked_for_naw_fil_after_sunrise">" disliked for nawāfil: after Fajr · after sunrise · zawāl · after ʿAsr"</string>
     <string name="s_today">Today</string>
     <string name="s_go_to_today">Go to today</string>
     <string name="s_fajr_suhoor">Fajr · Suhoor</string>
@@ -492,6 +492,7 @@
     <string name="s_rule_isha_interval">%1$d min after Maghrib</string>
     <string name="s_rule_isha_angle">Sun %1$s° below the horizon after sunset</string>
     <string name="s_isha_end_note">Shown at sharʿī midnight (halfway from sunset to dawn), the end of the preferred time in many views. Other scholars hold Isha valid until Fajr %1$s. Ask your imam.</string>
+    <string name="s_win_fajr">After praying Fajr · until sunrise (schools differ on whether this attaches to the time or to having prayed; the app cannot know when you prayed, so it starts at Fajr time)</string>
     <string name="s_win_sunrise">After sunrise · until the sun has risen a spear\'s length (shown as ≈15 min; the event, not the number, is what the texts describe)</string>
     <string name="s_win_zawal">Zawāl · the sun at its zenith just before Dhuhr (shown as ≈10 min; a conservative estimate)</string>
     <string name="s_win_asr">After praying ʿAsr · until sunset (schools differ on whether this attaches to the time or to having prayed)</string>

@@ -356,10 +356,10 @@
     <string name="s_when_asr_begins_which_itself_depends">جب عصر شروع ہو — جو خود اوپر منتخب عصر کے مسلک پر منحصر ہے</string>
     <string name="s_when_the_next_prayer_begins">جب اگلی نماز شروع ہو</string>
     <string name="s_disliked_for_voluntary_prayer_today_approximate">آج نفل نماز کے مکروہ اوقات · تخمینی</string>
-    <string name="s_these_windows_are_conservative_estimates_15">یہ اوقات محتاط تخمینے ہیں (طلوعِ آفتاب کے بعد ≈15 منٹ، زوال کے قریب ≈10 منٹ، عصر کے بعد غروب تک)؛ نصوص واقعات بیان کرتی ہیں، منٹوں کی گنتی نہیں، اور تفصیلات میں مسالک مختلف ہیں۔ فرض اور قضا نمازیں ان سے مقید نہیں — صحیح مسلم 831۔</string>
+    <string name="s_these_windows_are_conservative_estimates_15">یہ اوقات محتاط تخمینے ہیں (فجر کے بعد طلوع تک، طلوعِ آفتاب کے بعد ≈15 منٹ، زوال کے قریب ≈10 منٹ، عصر کے بعد غروب تک)؛ نصوص واقعات بیان کرتی ہیں، منٹوں کی گنتی نہیں، اور تفصیلات میں مسالک مختلف ہیں۔ تین شمسی اوقات: صحیح مسلم 831؛ فجر اور عصر کے بعد: صحیح بخاری 586۔ فرض نمازیں ان سے مقید نہیں؛ قضا نماز یاد آتے ہی پڑھی جاتی ہے (صحیح مسلم 684)، اگرچہ ان اوقات میں پڑھنے پر مسالک مختلف ہیں۔</string>
     <string name="s_day_line">"دن کی لکیر: "</string>
     <string name="s_prayer_may_be_offered">" نماز پڑھی جا سکتی ہے"</string>
-    <string name="s_disliked_for_naw_fil_after_sunrise">" نوافل کے لیے مکروہ: طلوعِ آفتاب کے بعد · زوال · عصر کے بعد"</string>
+    <string name="s_disliked_for_naw_fil_after_sunrise">" نوافل کے لیے مکروہ: فجر کے بعد · طلوعِ آفتاب کے بعد · زوال · عصر کے بعد"</string>
     <string name="s_today">آج</string>
     <string name="s_go_to_today">آج پر جائیں</string>
     <string name="s_fajr_suhoor">فجر · سحری</string>
@@ -492,6 +492,7 @@
     <string name="s_rule_isha_interval">مغرب کے %1$d منٹ بعد</string>
     <string name="s_rule_isha_angle">غروب کے بعد سورج افق سے %1$s° نیچے</string>
     <string name="s_isha_end_note">شرعی نصف شب (غروب سے صبح صادق کے وسط) پر دکھایا گیا ہے، جو بہت سے علماء کے نزدیک مختار وقت کا اختتام ہے۔ دیگر علماء کے نزدیک عشاء فجر %1$s تک باقی رہتی ہے۔ اپنے امام سے پوچھیں۔</string>
+    <string name="s_win_fajr">فجر پڑھنے کے بعد · طلوع تک (مسالک میں اختلاف ہے کہ یہ وقت سے متعلق ہے یا نماز پڑھ لینے سے؛ ایپ نہیں جان سکتی کہ آپ نے کب پڑھی، اس لیے فجر کے وقت سے شروع کرتی ہے)</string>
     <string name="s_win_sunrise">طلوع آفتاب کے بعد · جب تک سورج ایک نیزے کی بلندی تک نہ اٹھ جائے (≈15 منٹ دکھایا گیا؛ نصوص واقعہ بیان کرتی ہیں، عدد نہیں)</string>
     <string name="s_win_zawal">زوال · ظہر سے عین پہلے سورج نصف النہار پر (≈10 منٹ دکھایا گیا؛ محتاط اندازہ)</string>
     <string name="s_win_asr">عصر پڑھنے کے بعد · غروب تک (مسالک میں اختلاف ہے کہ یہ وقت سے متعلق ہے یا نماز پڑھ لینے سے)</string>

@@ -27,7 +27,7 @@ object Adhkar {
     val all: List<Dhikr> = listOf(
         Dhikr("kursi", "Āyat al-Kursī", AYAT_AL_KURSI,
             "Allah – there is no god but He, the Ever-Living, the Sustainer of all. Neither drowsiness nor sleep overtakes Him. To Him belongs whatever is in the heavens and the earth… and He is the Most High, the Most Great.",
-            1, "Qur'an 2:255 · recited morning and evening: an-Nasāʾī, al-Kubrā 10729; al-Ḥākim 1:562 (ṣaḥīḥ per al-Albānī, Ṣaḥīḥ at-Targhīb 655)"),
+            1, "Qur'an 2:255 · recited morning and evening: an-Nasāʾī, al-Kubrā 10729; al-Ḥākim 1:562 (ṣaḥīḥ per al-Albānī, Ṣaḥīḥ at-Targhīb 662)"),
         Dhikr("ikhlas", "Sūrat al-Ikhlāṣ", IKHLAS,
             "Say: He is Allah, the One. Allah, the Eternal Refuge. He neither begets nor is born, nor is there to Him any equivalent.",
             3, "Qur'an 112 · three times morning and evening: Abū Dāwūd 5082, at-Tirmidhī 3575 (ḥasan ṣaḥīḥ)"),
