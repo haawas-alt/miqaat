@@ -13,7 +13,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 ROOT = os.path.abspath("../..")
 SRC = Image.open("miqaat-logo-source.png").convert("RGBA")
 BG = (0, 38, 32)                     # deep green, matches the source's outer gradient
-GOLD_BBOX = (201, 94, 1040, 1145)    # measured extents of the gold arch in the source
+GOLD_BBOX = (189, 95, 1051, 1161)    # measured extents of the gold arch in the source
 
 def arch_crop(pad_frac=0.06):
     """Square crop around the arch with a little breathing room; the arch fills ~88% of the square."""
