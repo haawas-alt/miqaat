@@ -131,9 +131,23 @@ class MainActivity : ComponentActivity() {
                 BackHandler(enabled = screen != Screen.HOME) { screen = Screen.HOME }
 
                 Box(Modifier.fillMaxSize().background(Palette.night)) {
+                    val homeActions = com.usman.miqaat.ui.HomeActions(
+                        onOpenTimetable = { screen = Screen.TIMETABLE },
+                        onOpenSettings = { settingsSection = Section.TIMES; screen = Screen.SETTINGS },
+                        onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
+                        onOpenQibla = { screen = Screen.QIBLA },
+                        onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
+                        onOpenFriday = { screen = Screen.FRIDAY },
+                        onOpenLearn = { screen = Screen.LEARN },
+                        updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
+                        onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
+                        onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
+                    )
                     Crossfade(targetState = screen, label = "screen") { s ->
                         when (s) {
                             Screen.HOME -> if (settings.largeType && !peek) com.usman.miqaat.ui.LargeHome(state, settings) { peek = true }
+                            else if (settings.theme == com.usman.miqaat.data.AppTheme.CELESTIAL_MERIDIAN) com.usman.miqaat.ui.CapFontScale(1.3f) { com.usman.miqaat.ui.CelestialHome(state, settings, homeActions) }
+                            else if (settings.theme == com.usman.miqaat.data.AppTheme.PRAYER_GALLERY) com.usman.miqaat.ui.CapFontScale(1.3f) { com.usman.miqaat.ui.GalleryHome(state, settings, homeActions) }
                             else if (androidx.compose.ui.platform.LocalConfiguration.current.orientation != android.content.res.Configuration.ORIENTATION_PORTRAIT && androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp < 500) com.usman.miqaat.ui.CapFontScale(1.3f) { com.usman.miqaat.ui.LandscapeHome(
                                 state, settings,
                                 onOpenTimetable = { screen = Screen.TIMETABLE },

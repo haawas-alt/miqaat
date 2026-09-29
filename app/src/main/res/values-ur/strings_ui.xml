@@ -558,4 +558,11 @@
     <string name="s_theme_state_not_selected">منتخب نہیں</string>
     <string name="s_theme_dark_desc">گہرا</string>
     <string name="s_theme_light_desc">روشن</string>
+    <string name="s_home_next_prayer">اگلی نماز</string>
+    <string name="s_home_prayer_now">نماز کا وقت</string>
+    <string name="s_view_prayer_details">نماز کی تفصیل</string>
+    <string name="s_theme_home_nav_learn">سیکھیں</string>
+    <string name="s_theme_home_nav_timetable">ٹائم ٹیبل</string>
+    <string name="s_theme_home_nav_settings">ترتیبات</string>
+    <string name="s_theme_signature">ڈیزائن: UZR  ·  میرے لیے دعا کیجیے</string>
 </resources>

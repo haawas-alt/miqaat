@@ -558,4 +558,11 @@
     <string name="s_theme_state_not_selected">Not selected</string>
     <string name="s_theme_dark_desc">dark</string>
     <string name="s_theme_light_desc">light</string>
+    <string name="s_home_next_prayer">NEXT PRAYER</string>
+    <string name="s_home_prayer_now">PRAYER TIME</string>
+    <string name="s_view_prayer_details">View prayer details</string>
+    <string name="s_theme_home_nav_learn">Learn</string>
+    <string name="s_theme_home_nav_timetable">Timetable</string>
+    <string name="s_theme_home_nav_settings">Settings</string>
+    <string name="s_theme_signature">Designed by UZR  ·  Make duʿā for me</string>
 </resources>

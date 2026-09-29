@@ -96,11 +96,11 @@ class HomeActions(
     val updateAvailable: Boolean, val onOpenAbout: () -> Unit, val onToggleRelative: () -> Unit
 )
 
-private class Door(val label: String, val warn: Boolean = false, val onClick: (() -> Unit)? = null)
+internal class Door(val label: String, val warn: Boolean = false, val onClick: (() -> Unit)? = null)
 
 /** Everything that used to be a chip, in one place, so both tablet homes show exactly the same doors. */
 @Composable
-private fun doors(state: PrayerState, s: AppSettings, a: HomeActions): List<Door> {
+internal fun doors(state: PrayerState, s: AppSettings, a: HomeActions): List<Door> {
     val ctx = androidx.compose.ui.platform.LocalContext.current
     val alarmsOk = remember(state.now.toLocalDate(), state.hero) { com.usman.miqaat.data.Reliability.allGood(ctx) }
     val ramadan = PrayerEngine.isRamadan(s, state.now.toLocalDate())
@@ -122,7 +122,7 @@ private fun doors(state: PrayerState, s: AppSettings, a: HomeActions): List<Door
 }
 
 @Composable
-private fun kicker(state: PrayerState, s: AppSettings): String? {
+internal fun kicker(state: PrayerState, s: AppSettings): String? {
     val ramadan = PrayerEngine.isRamadan(s, state.now.toLocalDate())
     val hij = PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)
     val eidMorning = ((hij.month == 10 && hij.day == 1) || (hij.month == 12 && hij.day == 10)) && (state.current == null || state.current == Prayer.FAJR || state.current == Prayer.SUNRISE)
