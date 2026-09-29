@@ -179,7 +179,7 @@ class AzaanService : Service() {
         else handler.postDelayed({ if (seq == sequenceId && _phase.value is Phase.Dua) startHadith(prayer) }, 120_000)
     }
 
-    /** A specific hadith, chosen from Settings › Test & preview; does not advance the rotation. */
+    /** A specific hadith, chosen from Settings › Try it now; does not advance the rotation. */
     private var forcedHadith: Int = 0
 
     private fun startHadith(prayer: Prayer) {
@@ -357,7 +357,7 @@ class AzaanService : Service() {
     private fun showReminder(prayer: Prayer, note: String?) {
         val suhoor = note?.startsWith("Suhoor") == true
         val n = NotificationCompat.Builder(this, if (suhoor) MiqaatApp.CHANNEL_AZAAN else MiqaatApp.CHANNEL_SILENT)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_launcher_monochrome)
             .setContentTitle(when { suhoor -> "Suhoor"; note != null -> "Jumuʿah"; else -> "${prayer.english} in a few minutes" })
             .setContentText(note ?: "Prepare for ${prayer.english} prayer")
             .setStyle(NotificationCompat.BigTextStyle().bigText(note ?: "Prepare for ${prayer.english} prayer"))
@@ -381,7 +381,7 @@ class AzaanService : Service() {
         val stop = PendingIntent.getService(this, 1, Intent(this, AzaanService::class.java).setAction(ACTION_STOP),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         val b = NotificationCompat.Builder(this, if (wake) MiqaatApp.CHANNEL_AZAAN else MiqaatApp.CHANNEL_AZAAN_QUIET)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_launcher_monochrome)
             .setContentTitle("${prayer.english} azaan  ·  ${prayer.arabic}")
             .setContentText("It is time for ${prayer.english} prayer")
             .setCategory(if (wake) NotificationCompat.CATEGORY_ALARM else NotificationCompat.CATEGORY_SERVICE)

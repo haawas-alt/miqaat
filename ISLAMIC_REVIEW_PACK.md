@@ -116,6 +116,8 @@ Settings › About › Content sources from "Unsigned" to "Reviewed by … on �
 (Settings › About › Report a content correction → GitHub issues) to that reviewer.
 
 ## History
+- 29 Sep 2026 — Learn Ṣalāh framing changed from "for children and adult beginners" to "for beginners of any age" (Play target audience 13+). Wording only; no Arabic text, source, note or recording changed.
+- 29 Sep 2026 — Settings › "Test & preview" renamed "Try it now" and moved under Azaan. Not a content change.
 - 29 Sep 2026 — partial sign-off recorded: hadith after the azaan (36) and Learn Ṣalāh (12), with J7 and J10, verified by Sheikh Abdel Razek Mahmoud Ramadan (Egypt) on 2026.09-b, as reported by the app owner; written confirmation and qualification line to be attached. Open: Duas (2), Adhkār (24), Other claims (10), J1–J6, J8, J9, J11. **Proposed About wording (not yet shipped):** "Partly reviewed — hadith after the azaan and Learn Ṣalāh by Sheikh Abdel Razek Mahmoud Ramadan (Egypt), 29 Sep 2026; the rest is pending."
 - 2026.09-a — first structured pack; wording changes J1–J7 made in the direction of *more* caution; no Arabic text, source or calculation changed. Unsigned.
 

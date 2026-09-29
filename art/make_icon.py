@@ -1,3 +1,4 @@
+"""SUPERSEDED 29 Sep 2026 — the launcher now comes from art/logo/make_launcher.py (owner artwork). Kept for history only."""
 """Generates art/miqaat-icon.svg (master), the Android adaptive-icon drawables and the PNG exports."""
 import subprocess, os
 os.chdir(os.path.dirname(os.path.abspath(__file__)))

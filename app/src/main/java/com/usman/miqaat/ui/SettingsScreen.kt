@@ -111,10 +111,10 @@ enum class Section(val labelRes: Int, val icon: ImageVector) {
     LOCATION(R.string.s_location, Icons.Outlined.LocationOn),
     TIMES(R.string.s_prayer_times, Icons.Outlined.Schedule),
     AZAAN(R.string.s_azaan_alerts, Icons.Outlined.NotificationsActive),
+    TEST(R.string.s_test_preview, Icons.Outlined.PlayCircle),
     IQAMAH(R.string.s_iqamah, Icons.Outlined.Timer),
     HIJRI(R.string.s_hijri_calendar, Icons.Outlined.CalendarMonth),
     DISPLAY(R.string.s_display_art, Icons.Outlined.Brush),
-    TEST(R.string.s_test_preview, Icons.Outlined.PlayCircle),
     HEALTH(R.string.s_reliability_backup, Icons.Outlined.MonitorHeart),
     PRIVACY(R.string.s_privacy, Icons.Outlined.Lock),
     ABOUT(R.string.s_about, Icons.Outlined.Info);
@@ -732,7 +732,7 @@ private fun AboutSection(s: AppSettings) {
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     val up by Updater.state.collectAsState()
-    LaunchedEffect(Unit) { Updater.check(ctx) }
+    LaunchedEffect(Unit) { Updater.check(ctx, force = true) }   // About is where people look for updates: skip the 6-hour throttle
     // Re-check the install permission when the user comes back from the system "Allow installs" screen.
     var tick by remember { mutableStateOf(0) }
     androidx.lifecycle.compose.LifecycleResumeEffect(Unit) { tick++; onPauseOrDispose { } }

@@ -24,11 +24,11 @@ Two editions are built from every commit on `main` by `.github/workflows/build.y
 - [x] `USE_EXACT_ALARM` justification ready for the Play declaration: user-scheduled prayer-time alarms (alarm-clock use case)
 - [x] Play edition has no `REQUEST_INSTALL_PACKAGES` and no self-install code path (`BuildConfig.SELF_UPDATE = false`)
 - [x] `allowBackup=false` + `dataExtractionRules` excluding everything (coordinates never enter cloud backup or device transfer; in-app settings file instead)
-- [ ] Play Console data-safety form: location (on device only), no collection, no sharing; geocoder → Google disclosed
-- [ ] Foreground-service (`mediaPlayback`) declaration text prepared
-- [ ] Full-screen-intent use case declared (alarm)
-- [ ] `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` justification (lint `BatteryLife`): time-critical user-scheduled alarm; only offered as a fix when an azaan was late
-- [ ] Android 16 large-screen note: orientation locks are ignored on ≥ 600 dp devices targeting 36; portrait layout exists and was checked (DEVICE_TEST_PLAN E/B)
+- [x] Play Console data-safety answers drafted — PLAY_SUBMISSION.md §4 (location declared collected/ephemeral/optional, not shared; geocoder → Google disclosed)
+- [x] Foreground-service (`mediaPlayback`) declaration text prepared — PLAY_SUBMISSION.md §5 (owner to record the demo video)
+- [x] Full-screen-intent use case text prepared (alarm) — PLAY_SUBMISSION.md §5
+- [x] `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` removed (AUDIT_REMEDIATION P2); no justification needed
+- [x] Android 16 large-screen note: orientation locks are ignored on ≥ 600 dp devices targeting 36; portrait tablet layout checked on the Medium Tablet emulator at 200 % text (AUDIT_REMEDIATION T1–T3, T6)
 
 ### Trust
 - [x] No prayer times shown until a place is chosen or detected (Setup gate, widget, scheduler) — TrustTest

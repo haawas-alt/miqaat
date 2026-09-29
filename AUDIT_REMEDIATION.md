@@ -247,3 +247,16 @@ Still English in Urdu mode by design for now: Learn Ṣalāh lesson content (pos
 | T4 | TAB-05 "Update available" on v1.70 | Not a defect: 1.71+ had already been published, so the chip was correct. The `play` flavour has no updater at all. Re-checked on the exact release artifact before Play submission (release checklist). |
 | T5 | Urdu leftovers in tablet home ("iq") | Uses اقامت in Urdu. Still open for translator sign-off: AM/PM suffix, "ḍuḥā from", place-name script. |
 | T6 | Owner decisions, 29 Sep 2026 | Urdu leftovers from T5 (AM/PM suffix, "ḍuḥā from", place-name script, Latin timeline initials in portrait Urdu) **accepted as-is by the owner**. Re-recorded hadith audio (Arabic 7/17/21/24/25/26/30/32; English 24/25/31) **verified by the owner** on device. Tablet fixes T1–T3 verified on the Medium Tablet emulator at 200 % text (Home landscape and portrait, Timetable portrait, Urdu Home portrait), build 1.78. |
+
+## P · Play-store preparation (29 Sep 2026)
+
+| # | Finding | Remediation |
+|---|---|---|
+| P1 | **Play edition crashed on Settings › About** (ChatGPT, on the v1.78 Play build): `canRequestPackageInstalls()` was called unconditionally, but the `play` flavour has no `REQUEST_INSTALL_PACKAGES`. | `Updater.canInstall` and `openInstallPermission` short-circuit when `Updater.enabled` is false, and the API call is wrapped in `runCatching`. Verified by code reading and a green CI build of both flavours (1.79); the Play AAB cannot be run on the emulator, so the exact Play artifact should be re-tested by the owner. |
+| P2 | `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` is a permission Play questions and rarely allows. | Permission removed. "Battery settings" now opens the system battery-optimisation list, falling back to the app's own settings page. |
+| P3 | Learn Ṣalāh described as "for children"; Play target audience is 13+. | Framing changed to "for beginners of any age" in English and Urdu; recorded in ISLAMIC_REVIEW_PACK History. No content change. |
+| P4 | No privacy-policy URL. | `docs/privacy.html` (served by GitHub Pages once enabled) and `docs/index.html`. |
+| P5 | Store assets and listing text. | Owner-supplied artwork adopted as the app icon (`art/logo/`, `make_launcher.py` cuts adaptive foreground PNGs at five densities, legacy square icons, Play 512 icon and feature graphic). Monochrome layer redrawn to match. Notification small icon now uses the monochrome vector (was the old colour foreground). Listing text in `play/`. Submission steps in `PLAY_SUBMISSION.md`. |
+| P6 | Settings › "Test & preview" read as a developer leftover. | Renamed "Try it now" (Urdu: ابھی آزمائیں) and moved directly under Azaan. |
+| P7 | About showed a stale update offer because of the 6-hour check throttle (adjourned earlier). | About now forces a check on open. |
+| P8 | Tablet azaan quiet compared with media apps. | Not a defect: the app plays on the alarm channel, which some tablets cap lower than media. Owner resolved with the in-app +12 dB boost. Consider defaulting the boost to +6 dB on ≥600 dp screens in a later build. |
