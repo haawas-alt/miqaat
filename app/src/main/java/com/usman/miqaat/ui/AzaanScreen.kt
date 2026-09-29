@@ -315,7 +315,7 @@ private fun Wave(modifier: Modifier, bars: Int = 15) {
         for (i in 0 until bars) {
             val phase = (i / bars.toFloat()) * PI * 2
             val hgt = size.height * (0.2f + 0.8f * (0.5f + 0.5f * sin(t * 2 * PI + phase).toFloat()))
-            drawRoundRect(Brush.verticalGradient(listOf(tk.primary, tk.primaryDeep)), topLeft = Offset(i * gap + gap * 0.3f, (size.height - hgt) / 2), size = Size(gap * 0.4f, hgt), cornerRadius = CornerRadius(gap))
+            drawRoundRect(Brush.verticalGradient(listOf(tk.primary, Palette.goldDeep)), topLeft = Offset(i * gap + gap * 0.3f, (size.height - hgt) / 2), size = Size(gap * 0.4f, hgt), cornerRadius = CornerRadius(gap))
         }
     }
 }
