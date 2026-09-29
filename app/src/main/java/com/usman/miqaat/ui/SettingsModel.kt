@@ -115,7 +115,7 @@ data class ReadinessState(val eventTitle: String?, val location: String?, val ch
 
 /** Pure formatter for the "next event" line so it can be unit-tested without Android. */
 fun eventTitleText(prayerName: String, clock: String, suffix: String, kind: EventKind, dayLabel: String?): String {
-    val base = when (kind) { EventKind.AZAAN -> prayerName; EventKind.REMINDER -> Str[R.string.s_ready_reminder, prayerName]; EventKind.IQAMAH -> Str[R.string.s_ready_iqamah, prayerName] }
+    val base = when (kind) { EventKind.AZAAN -> prayerName; EventKind.REMINDER -> Str.get(R.string.s_ready_reminder, prayerName); EventKind.IQAMAH -> Str.get(R.string.s_ready_iqamah, prayerName) }
     val time = "$clock $suffix".trim().let { if (dayLabel != null) dayLabel.format(it) else it }
     return "$base · $time"
 }
@@ -135,7 +135,7 @@ fun computeReadiness(ctx: Context, s: AppSettings): ReadinessState {
     val title = up?.let { e ->
         val z = e.at.withZoneSameInstant(s.zone())
         val today = java.time.LocalDate.now(s.zone())
-        val dayLabel = if (z.toLocalDate() != today) Str[R.string.s_ready_tomorrow, "%s"] else null
+        val dayLabel = if (z.toLocalDate() != today) Str.get(R.string.s_ready_tomorrow, "%s") else null
         eventTitleText(L10n.prayer(s, e.prayer), PrayerEngine.clock(z, s.use24h), PrayerEngine.suffix(z, s.use24h),
             if (e.iqamah) EventKind.IQAMAH else if (e.reminder) EventKind.REMINDER else EventKind.AZAAN, dayLabel)
     }

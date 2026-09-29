@@ -872,6 +872,7 @@ internal fun Heading(title: String, desc: String) {
     Text(desc, fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary, lineHeight = 20.sp, modifier = Modifier.padding(top = 2.dp, bottom = 14.dp))
 }
 
+@OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
 internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)? = null, trailing: @Composable () -> Unit) {
     val tk = screenTokens()
@@ -1004,4 +1005,5 @@ private fun PickerDialog(title: String, options: List<Pair<String, String>>, sel
     )
 }
 
+@OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 private fun Modifier.androidxBring(r: androidx.compose.foundation.relocation.BringIntoViewRequester): Modifier = this.then(Modifier.bringIntoViewRequester(r))
