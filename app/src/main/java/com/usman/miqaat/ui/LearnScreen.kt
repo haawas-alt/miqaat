@@ -101,7 +101,7 @@ fun learnColors(settings: AppSettings): LearnColors {
 private fun legacyLearnColors(settings: AppSettings): LearnColors = if (settings.theme == AppTheme.KISWAH) LearnColors(
     background = Brush.verticalGradient(listOf(Color(0xFF0B0B0B), Kiswah.silk)), surface = Color(0xFF121212), surfaceRaised = Color(0xFF1A1814),
     primary = Kiswah.thread, onPrimary = Color(0xFF0B0B0B), text = Kiswah.ivory, textSecondary = Kiswah.threadSoft.copy(alpha = 0.85f), divider = Kiswah.thread.copy(alpha = 0.35f),
-    success = Palette.mint, display = Cinzel, arabic = ReemKufi, kiswah = true
+    success = screenTokens().success, display = Cinzel, arabic = ReemKufi, kiswah = true
 ) else LearnColors(
     background = Brush.verticalGradient(listOf(Palette.night, Palette.panel)), surface = Color(0xFF141C3D), surfaceRaised = Palette.panelRaised,
     primary = Palette.gold, onPrimary = Palette.night, text = Palette.ivory, textSecondary = Palette.textSecondary, divider = Palette.line,

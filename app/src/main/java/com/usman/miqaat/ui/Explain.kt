@@ -51,14 +51,15 @@ import java.time.ZonedDateTime
 /** "Why this time?" – everything that went into one prayer time, in plain words. */
 @Composable
 fun WhyDialog(settings: AppSettings, day: DayTimes, p: Prayer, onDismiss: () -> Unit) {
+    val tk = screenTokens()
     val t = day[p]
     val calc = PrayerEngine.calculated(settings, day.date)
     val end = PrayerEngine.endOf(settings, day, p)
     val h24 = settings.use24h
     fun c(z: ZonedDateTime) = PrayerEngine.clock(z, h24) + " " + PrayerEngine.suffix(z, h24)
     AlertDialog(
-        onDismissRequest = onDismiss, containerColor = Palette.panelRaised,
-        title = { Text(Str.get(R.string.s_why_title, PrayerEngine.clock(t, h24), L10n.prayer(settings, p), p.arabic), fontFamily = Cormorant, fontSize = 26.sp, color = Palette.ivory) },
+        onDismissRequest = onDismiss, containerColor = tk.surfaceRaised,
+        title = { Text(Str.get(R.string.s_why_title, PrayerEngine.clock(t, h24), L10n.prayer(settings, p), p.arabic), fontFamily = Cormorant, fontSize = 26.sp, color = tk.contentPrimary) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
                 SectionLabel(Str[R.string.s_calculated_from])
@@ -87,30 +88,31 @@ fun WhyDialog(settings: AppSettings, day: DayTimes, p: Prayer, onDismiss: () -> 
                     else -> Str[R.string.s_when_the_next_prayer_begins]
                 })
                 Spacer(Modifier.height(8.dp))
-                Text(Str[R.string.s_disliked_for_voluntary_prayer_today_approximate], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft)
-                PrayerEngine.dislikedWindows(day, settings).forEach { w -> Text("${c(w.start)} – ${c(w.end)}  ·  ${if (w.labelRes != 0) Str[w.labelRes] else w.label}", fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory, modifier = Modifier.padding(top = 4.dp)) }
-                Text(Str[R.string.s_these_windows_are_conservative_estimates_15], fontFamily = Nunito, fontSize = 12.sp, color = Palette.textMuted, lineHeight = 17.sp, modifier = Modifier.padding(top = 6.dp))
+                Text(Str[R.string.s_disliked_for_voluntary_prayer_today_approximate], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = tk.accent)
+                PrayerEngine.dislikedWindows(day, settings).forEach { w -> Text("${c(w.start)} – ${c(w.end)}  ·  ${if (w.labelRes != 0) Str[w.labelRes] else w.label}", fontFamily = Nunito, fontSize = 13.sp, color = tk.contentPrimary, modifier = Modifier.padding(top = 4.dp)) }
+                Text(Str[R.string.s_these_windows_are_conservative_estimates_15], fontFamily = Nunito, fontSize = 12.sp, color = tk.contentMuted, lineHeight = 17.sp, modifier = Modifier.padding(top = 6.dp))
             }
         },
-        confirmButton = { TextButton(onClick = onDismiss) { Text(Str[R.string.s_close], color = Palette.goldSoft) } }
+        confirmButton = { TextButton(onClick = onDismiss) { Text(Str[R.string.s_close], color = tk.accent) } }
     )
 }
 
 @Composable
-private fun SectionLabel(t: String) = Text(t.uppercase(), fontFamily = Nunito, fontSize = 11.sp, letterSpacing = 1.4.sp, fontWeight = FontWeight.Bold, color = Palette.textMuted, modifier = Modifier.padding(top = 10.dp, bottom = 2.dp).semantics { heading() })
+private fun SectionLabel(t: String) = Text(t.uppercase(), fontFamily = Nunito, fontSize = 11.sp, letterSpacing = 1.4.sp, fontWeight = FontWeight.Bold, color = screenTokens().contentMuted, modifier = Modifier.padding(top = 10.dp, bottom = 2.dp).semantics { heading() })
 
 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
 private fun Line(k: String, v: String, sub: String) {
+    val tk = screenTokens()
     Column(Modifier.padding(vertical = 6.dp).semantics(mergeDescendants = true) {}) {
         // Key and value wrap onto two lines on narrow screens instead of squeezing.
         androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(k, fontFamily = Nunito, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory, modifier = Modifier.padding(end = 12.dp))
-            Text(v, fontFamily = Nunito, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft)
+            Text(k, fontFamily = Nunito, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary, modifier = Modifier.padding(end = 12.dp))
+            Text(v, fontFamily = Nunito, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = tk.accent)
         }
-        if (sub.isNotEmpty()) Text(sub, fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
+        if (sub.isNotEmpty()) Text(sub, fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary)
     }
-    HorizontalDivider(color = Palette.line)
+    HorizontalDivider(color = tk.divider)
 }
 
 /**
@@ -124,12 +126,13 @@ private fun Line(k: String, v: String, sub: String) {
  */
 @Composable
 fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier: Modifier = Modifier, kiswah: Boolean = false, labelSize: androidx.compose.ui.unit.TextUnit = 9.sp, fullNames: Boolean = false, gnomon: Boolean = false) {
+    val tk = screenTokens()
     val start = day[Prayer.FAJR].minusMinutes(20); val end = day[Prayer.ISHA].plusMinutes(40)
     val total = Duration.between(start, end).toMillis().toFloat().coerceAtLeast(1f)
     fun f(z: ZonedDateTime) = (Duration.between(start, z).toMillis() / total).coerceIn(0f, 1f)
     val windows = PrayerEngine.dislikedWindows(day, settings)
     val measurer = androidx.compose.ui.text.rememberTextMeasurer()
-    val gold = Palette.gold; val thread = if (kiswah) Color(0xFF8A6D2F) else Palette.goldSoft.copy(alpha = 0.45f); val dimThread = if (kiswah) Color(0xFF3A3020) else Color.White.copy(alpha = 0.18f)
+    val gold = tk.primary; val thread = if (kiswah) Color(0xFF8A6D2F) else tk.accent.copy(alpha = 0.45f); val dimThread = if (kiswah) Color(0xFF3A3020) else (if (tk.dark) Color.White.copy(alpha = 0.18f) else tk.divider)
     // The labels sit on a strip whose height is fixed, so their size is capped at 1.15× however large the system text is;
     // and they are placed collision-aware below (full names → initials → skip whatever would touch a neighbour).
     val fscale = androidx.compose.ui.platform.LocalDensity.current.fontScale
@@ -177,7 +180,7 @@ fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier
             }
             val t = measurer.measure(names.getValue(p), labelStyle)
             if (x - t.size.width / 2f >= lastLabelEnd + 4.dp.toPx() || isNext) {
-                drawText(t, color = if (passed || isNext) Palette.ivory else Palette.textMuted, topLeft = Offset((x - t.size.width / 2f).coerceIn(0f, (size.width - t.size.width).coerceAtLeast(0f)), size.height - t.size.height))
+                drawText(t, color = if (passed || isNext) tk.contentPrimary else tk.contentMuted, topLeft = Offset((x - t.size.width / 2f).coerceIn(0f, (size.width - t.size.width).coerceAtLeast(0f)), size.height - t.size.height))
                 lastLabelEnd = x + t.size.width / 2f
             }
         }
@@ -185,7 +188,7 @@ fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier
         if (now.isAfter(start) && now.isBefore(end)) {
             drawCircle(Brush.radialGradient(listOf(gold.copy(alpha = 0.55f), gold.copy(alpha = 0f)), Offset(xNow, y), bead * 3.2f), bead * 3.2f, Offset(xNow, y))
             if (gnomon) drawLine(Brush.verticalGradient(listOf(Color(0xFFFFF7E3), gold), y - bead * 2.6f, y + bead * 1.2f), Offset(xNow, y - bead * 2.6f), Offset(xNow, y + bead * 1.2f), hair * 1.6f)
-            drawCircle(Color(0xFFF6E7B8), bead * 0.9f, Offset(xNow, if (gnomon) y - bead * 2.6f else y))
+            drawCircle(tk.arabicText, bead * 0.9f, Offset(xNow, if (gnomon) y - bead * 2.6f else y))
         }
     }
 }
@@ -196,12 +199,13 @@ fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier
  */
 @Composable
 fun SunArc(settings: AppSettings, day: DayTimes, now: ZonedDateTime, height: Dp, modifier: Modifier = Modifier, kiswah: Boolean = false, labelSize: androidx.compose.ui.unit.TextUnit = 9.sp) {
+    val tk = screenTokens()
     val rise = day[Prayer.SUNRISE]; val set = day[Prayer.MAGHRIB]
     val dayMs = Duration.between(rise, set).toMillis().toFloat().coerceAtLeast(1f)
     fun t(z: ZonedDateTime) = (Duration.between(rise, z).toMillis() / dayMs)
     val windows = PrayerEngine.dislikedWindows(day, settings)
     val measurer = androidx.compose.ui.text.rememberTextMeasurer()
-    val gold = Palette.gold; val thread = if (kiswah) Color(0xFF8A6D2F) else Palette.goldSoft.copy(alpha = 0.5f); val dimThread = if (kiswah) Color(0xFF3A3020) else Color.White.copy(alpha = 0.2f)
+    val gold = tk.primary; val thread = if (kiswah) Color(0xFF8A6D2F) else tk.accent.copy(alpha = 0.5f); val dimThread = if (kiswah) Color(0xFF3A3020) else (if (tk.dark) Color.White.copy(alpha = 0.2f) else tk.divider)
     val night = if (kiswah) Color(0xFF2B3F8C) else Color(0xFF7F95E0)
     val ruby = Color(0xFFC9646F)
     val labelStyle = androidx.compose.ui.text.TextStyle(fontFamily = if (kiswah) Cinzel else Nunito, fontSize = labelSize, letterSpacing = if (kiswah) 1.5.sp else 1.sp, fontWeight = FontWeight.SemiBold)
@@ -240,7 +244,7 @@ fun SunArc(settings: AppSettings, day: DayTimes, now: ZonedDateTime, height: Dp,
             if (p.isPrayer) {
                 val txt = measurer.measure(if (kiswah) p.english.uppercase() else p.english.uppercase(), labelStyle)
                 val x = (o.x - txt.size.width / 2f).coerceIn(0f, size.width - txt.size.width)
-                drawText(txt, color = if (passed || isNext) Palette.ivory else Palette.textMuted, topLeft = Offset(x, size.height - txt.size.height))
+                drawText(txt, color = if (passed || isNext) tk.contentPrimary else tk.contentMuted, topLeft = Offset(x, size.height - txt.size.height))
             }
         }
         // the sun (day) or a moon dot on the wing (night)
@@ -252,7 +256,7 @@ fun SunArc(settings: AppSettings, day: DayTimes, now: ZonedDateTime, height: Dp,
             val nightSpan = if (tn < 0f) Duration.between(day[Prayer.FAJR].minusMinutes(60), rise) else Duration.between(set, day[Prayer.ISHA].plusMinutes(90))
             val frac = (if (tn < 0f) Duration.between(day[Prayer.FAJR].minusMinutes(60), now) else Duration.between(set, now)).toMillis().toFloat() / nightSpan.toMillis().coerceAtLeast(1)
             val x = if (tn < 0f) hair * 2 + (x0 - hair * 2) * frac.coerceIn(0f, 1f) else x1 + (size.width - hair * 2 - x1) * frac.coerceIn(0f, 1f)
-            drawCircle(Color(0xFFF6E7B8), hair * 2.6f, Offset(x, horizon))
+            drawCircle(tk.arabicText, hair * 2.6f, Offset(x, horizon))
         }
     }
 }

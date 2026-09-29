@@ -123,6 +123,7 @@ enum class Section(val labelRes: Int, val icon: ImageVector) {
 
 @Composable
 fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section = Section.TIMES, onBack: () -> Unit) {
+    val tk = screenTokens()
     var section by rememberSaveable { mutableStateOf(initial) }
     val ctx = LocalContext.current
     // Any change that affects times re-arms the alarm chain.
@@ -130,20 +131,20 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
     val timingKey = settings.copy(masjidName = "", azaanVolume = 0, locationName = "", theme = settings.theme, showRelative = false)
     LaunchedEffect(timingKey) { AzaanScheduler.reschedule(ctx) }
 
-    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(Palette.panel)) {
+    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(tk.surface)) {
     val compact = maxWidth < 720.dp
     if (compact) {
         Column(Modifier.fillMaxSize().statusBarsPadding()) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 4.dp, top = 8.dp)) {
-                IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
-                Text(Str[R.string.s_settings], fontFamily = Cormorant, fontSize = 30.sp, color = Palette.ivory)
+                IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
+                Text(Str[R.string.s_settings], fontFamily = Cormorant, fontSize = 30.sp, color = tk.contentPrimary)
             }
             @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
             androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp).selectableGroup(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Section.entries.forEach { sec ->
                     val cur = sec == section
-                    Box(Modifier.heightIn(min = 40.dp).clip(RoundedCornerShape(50)).background(if (cur) Palette.gold else Color.Transparent).border(1.dp, if (cur) Palette.gold else Palette.lineStrong, RoundedCornerShape(50)).selectable(selected = cur, role = androidx.compose.ui.semantics.Role.Tab) { section = sec }.padding(horizontal = 14.dp, vertical = 8.dp), contentAlignment = Alignment.Center) {
-                        Text(sec.label, fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = if (cur) Palette.night else Palette.ivory)
+                    Box(Modifier.heightIn(min = 40.dp).clip(RoundedCornerShape(50)).background(if (cur) tk.primary else Color.Transparent).border(1.dp, if (cur) tk.primary else tk.outline, RoundedCornerShape(50)).selectable(selected = cur, role = androidx.compose.ui.semantics.Role.Tab) { section = sec }.padding(horizontal = 14.dp, vertical = 8.dp), contentAlignment = Alignment.Center) {
+                        Text(sec.label, fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = if (cur) tk.onPrimary else tk.contentPrimary)
                     }
                 }
             }
@@ -165,23 +166,23 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
         return@BoxWithConstraints
     }
     Row(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
-        Column(Modifier.width(300.dp).fillMaxHeight().background(Color.Black.copy(alpha = 0.18f)).verticalScroll(rememberScrollState()).padding(vertical = 20.dp)) {
+        Column(Modifier.width(300.dp).fillMaxHeight().background(tk.scrim).verticalScroll(rememberScrollState()).padding(vertical = 20.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 12.dp, bottom = 16.dp)) {
-                IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = Palette.ivory) }
-                Text(Str[R.string.s_settings], fontFamily = Cormorant, fontSize = 34.sp, color = Palette.ivory)
+                IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
+                Text(Str[R.string.s_settings], fontFamily = Cormorant, fontSize = 34.sp, color = tk.contentPrimary)
             }
             Section.entries.forEach { s ->
                 val cur = s == section
                 Row(
-                    Modifier.fillMaxWidth().background(if (cur) Palette.gold.copy(alpha = 0.14f) else Color.Transparent)
+                    Modifier.fillMaxWidth().background(if (cur) tk.primary.copy(alpha = 0.14f) else Color.Transparent)
                         .clickable { section = s }.padding(horizontal = 28.dp, vertical = 14.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    if (cur) Box(Modifier.width(4.dp).height(22.dp).background(Palette.gold)) else Spacer(Modifier.width(4.dp))
+                    if (cur) Box(Modifier.width(4.dp).height(22.dp).background(tk.primary)) else Spacer(Modifier.width(4.dp))
                     Spacer(Modifier.width(14.dp))
-                    Icon(s.icon, null, Modifier.size(20.dp), tint = Palette.ivory.copy(alpha = if (cur) 1f else 0.75f))
+                    Icon(s.icon, null, Modifier.size(20.dp), tint = tk.contentPrimary.copy(alpha = if (cur) 1f else 0.75f))
                     Spacer(Modifier.width(12.dp))
-                    Text(s.label, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory.copy(alpha = if (cur) 1f else 0.75f))
+                    Text(s.label, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary.copy(alpha = if (cur) 1f else 0.75f))
                 }
             }
         }
@@ -207,6 +208,7 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
 
 @Composable
 private fun LocationSection(store: SettingsStore, s: AppSettings) {
+    val tk = screenTokens()
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     var status by remember { mutableStateOf("") }
@@ -237,10 +239,10 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     Row(Modifier.padding(vertical = 14.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         GoldButton(if (busy) Str[R.string.s_detecting] else Str[R.string.s_detect_now], enabled = !busy) { detectNow() }
     }
-    if (status.isNotEmpty()) Text(status, fontFamily = Nunito, fontSize = 14.sp, color = Palette.goldSoft, modifier = Modifier.padding(bottom = 8.dp))
+    if (status.isNotEmpty()) Text(status, fontFamily = Nunito, fontSize = 14.sp, color = tk.accent, modifier = Modifier.padding(bottom = 8.dp))
 
     Spacer(Modifier.height(10.dp))
-    Text(Str[R.string.s_or_choose_a_place], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text(Str[R.string.s_or_choose_a_place], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     OutlinedTextField(
         value = query, onValueChange = { query = it; scope.launch { results = LocationRepo.search(ctx, it) } },
         placeholder = { Text(Str[R.string.s_search_a_suburb_or_city]) }, singleLine = true,
@@ -253,26 +255,26 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
                 .padding(horizontal = 8.dp, vertical = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(p.name, fontFamily = Nunito, fontSize = 16.sp, color = Palette.ivory)
-            Text("%.2f, %.2f".format(p.lat, p.lng), fontFamily = Nunito, fontSize = 14.sp, color = Palette.textMuted)
+            Text(p.name, fontFamily = Nunito, fontSize = 16.sp, color = tk.contentPrimary)
+            Text("%.2f, %.2f".format(p.lat, p.lng), fontFamily = Nunito, fontSize = 14.sp, color = tk.contentMuted)
         }
-        HorizontalDivider(color = Palette.line)
+        HorizontalDivider(color = tk.divider)
     }
 
     // ---- Traveller
     Spacer(Modifier.height(22.dp))
-    Text(Str[R.string.s_travelling], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text(Str[R.string.s_travelling], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     val homeSet = s.homeLat != null && s.homeLng != null
     val dist = if (homeSet) PrayerEngine.distanceKm(s.homeLat!!, s.homeLng!!, s.latitude, s.longitude) else 0.0
     SettingRow("Home", if (homeSet) "%.0f km from the current location".format(dist) else "Not set. Detect your location at home once, or set it now.") {
-        TextButton(onClick = { store.update { it.copy(homeLat = it.latitude, homeLng = it.longitude) } }) { Text(if (homeSet) Str[R.string.s_set_home_to_here] else Str[R.string.s_set_home], color = Palette.goldSoft) }
+        TextButton(onClick = { store.update { it.copy(homeLat = it.latitude, homeLng = it.longitude) } }) { Text(if (homeSet) Str[R.string.s_set_home_to_here] else Str[R.string.s_set_home], color = tk.accent) }
     }
     SettingRow(Str[R.string.s_traveller_mode], Str[R.string.s_when_you_are_80_km_or]) { Toggle(s.travellerMode) { on -> store.update { it.copy(travellerMode = on) } } }
 
     // ---- Masjid timetable
     Spacer(Modifier.height(22.dp))
-    Text(Str[R.string.s_masjid_timetable], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
-    Text(Str[R.string.s_use_your_masjid_s_published_times], fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary, lineHeight = 20.sp)
+    Text(Str[R.string.s_masjid_timetable], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
+    Text(Str[R.string.s_use_your_masjid_s_published_times], fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary, lineHeight = 20.sp)
     var importNotes by remember { mutableStateOf<List<String>>(emptyList()) }
     var pending by remember { mutableStateOf<PrayerEngine.ImportResult?>(null) }
     val pickSheet = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
@@ -288,28 +290,28 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
         val anomalies = remember(r) { PrayerEngine.reviewTimetable(s, r.rows) }
         val zone = s.zone().id
         AlertDialog(
-            onDismissRequest = { pending = null }, containerColor = Palette.panelRaised,
-            title = { Text(Str[R.string.s_check_the_imported_timetable], fontFamily = Cormorant, fontSize = 26.sp, color = Palette.ivory) },
+            onDismissRequest = { pending = null }, containerColor = tk.surfaceRaised,
+            title = { Text(Str[R.string.s_check_the_imported_timetable], fontFamily = Cormorant, fontSize = 26.sp, color = tk.contentPrimary) },
             text = {
                 Column(Modifier.verticalScroll(rememberScrollState())) {
-                    Text("${days.size} days · ${days.first()} → ${days.last()} · ${r.skipped} line${if (r.skipped == 1) "" else "s"} skipped" + (if (r.rows.values.any { it.size >= 11 }) Str[R.string.s_iqamah_columns_found] else Str[R.string.s_no_iqamah_columns]), fontFamily = Nunito, fontSize = 14.sp, color = Palette.ivory, lineHeight = 20.sp)
-                    Text("Times are read as wall-clock in $zone. Columns: Fajr, Sunrise, Dhuhr, ʿAsr, Maghrib, Isha" + (if (r.rows.values.any { it.size >= 11 }) Str[R.string.s_then_five_iqamah_times] else "."), fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, lineHeight = 18.sp, modifier = Modifier.padding(top = 6.dp))
+                    Text("${days.size} days · ${days.first()} → ${days.last()} · ${r.skipped} line${if (r.skipped == 1) "" else "s"} skipped" + (if (r.rows.values.any { it.size >= 11 }) Str[R.string.s_iqamah_columns_found] else Str[R.string.s_no_iqamah_columns]), fontFamily = Nunito, fontSize = 14.sp, color = tk.contentPrimary, lineHeight = 20.sp)
+                    Text("Times are read as wall-clock in $zone. Columns: Fajr, Sunrise, Dhuhr, ʿAsr, Maghrib, Isha" + (if (r.rows.values.any { it.size >= 11 }) Str[R.string.s_then_five_iqamah_times] else "."), fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary, lineHeight = 18.sp, modifier = Modifier.padding(top = 6.dp))
                     listOf(days.first(), days.last()).distinct().forEach { d ->
                         val row = r.rows.getValue(d); val calc = PrayerEngine.calculated(s, LocalDate.parse(d))
-                        Text(d, fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft, modifier = Modifier.padding(top = 10.dp))
-                        Text(Str[R.string.s_sheet] + row.take(6).joinToString("  ") { PrayerEngine.hm(it) }, fontFamily = Nunito, fontSize = 13.sp, color = Palette.ivory)
-                        Text(Str[R.string.s_calc] + Prayer.entries.joinToString("  ") { PrayerEngine.clock(calc[it], true) }, fontFamily = Nunito, fontSize = 13.sp, color = Palette.textMuted)
+                        Text(d, fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = tk.accent, modifier = Modifier.padding(top = 10.dp))
+                        Text(Str[R.string.s_sheet] + row.take(6).joinToString("  ") { PrayerEngine.hm(it) }, fontFamily = Nunito, fontSize = 13.sp, color = tk.contentPrimary)
+                        Text(Str[R.string.s_calc] + Prayer.entries.joinToString("  ") { PrayerEngine.clock(calc[it], true) }, fontFamily = Nunito, fontSize = 13.sp, color = tk.contentMuted)
                     }
-                    if (anomalies.isEmpty()) Text(Str[R.string.s_no_anomalies_found_every_row_is], fontFamily = Nunito, fontSize = 13.sp, color = Palette.mint, lineHeight = 18.sp, modifier = Modifier.padding(top = 12.dp))
+                    if (anomalies.isEmpty()) Text(Str[R.string.s_no_anomalies_found_every_row_is], fontFamily = Nunito, fontSize = 13.sp, color = tk.success, lineHeight = 18.sp, modifier = Modifier.padding(top = 12.dp))
                     else {
-                        Text("${anomalies.size} thing${if (anomalies.size == 1) "" else "s"} to check before using this:", fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Palette.gold, modifier = Modifier.padding(top = 12.dp))
-                        anomalies.forEach { Text("• $it", fontFamily = Nunito, fontSize = 12.sp, color = Palette.ivory, lineHeight = 17.sp) }
+                        Text("${anomalies.size} thing${if (anomalies.size == 1) "" else "s"} to check before using this:", fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = tk.primary, modifier = Modifier.padding(top = 12.dp))
+                        anomalies.forEach { Text("• $it", fontFamily = Nunito, fontSize = 12.sp, color = tk.contentPrimary, lineHeight = 17.sp) }
                     }
-                    r.notes.forEach { Text(it, fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary, modifier = Modifier.padding(top = 4.dp)) }
+                    r.notes.forEach { Text(it, fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary, modifier = Modifier.padding(top = 4.dp)) }
                 }
             },
             confirmButton = { GoldButton(if (anomalies.isEmpty()) Str[R.string.s_use_these_times] else Str[R.string.s_use_anyway]) { store.update { it.copy(overrides = it.overrides + r.rows, useOverrides = true) }; AzaanScheduler.reschedule(ctx); pending = null } },
-            dismissButton = { TextButton(onClick = { pending = null }) { Text(Str[R.string.s_discard], color = Palette.textSecondary) } }
+            dismissButton = { TextButton(onClick = { pending = null }) { Text(Str[R.string.s_discard], color = tk.contentSecondary) } }
         )
     }
     OutlinedTextField(value = s.masjidName, onValueChange = { v -> store.update { it.copy(masjidName = v) } }, placeholder = { Text(Str[R.string.s_masjid_name_e_g_lakemba_masjid]) }, singleLine = true, modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp))
@@ -317,16 +319,16 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     SettingRow(Str[R.string.s_imported_days], if (days.isEmpty()) Str[R.string.s_none_yet] else "${days.size} days · ${days.first()} → ${days.last()}" + if (s.overrides.values.any { it.size >= 11 }) Str[R.string.s_with_iqamah] else "") {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             GoldButton(Str[R.string.s_import_file]) { pickSheet.launch(arrayOf("text/*", "text/csv", "text/comma-separated-values", "application/csv", "*/*")) }
-            if (days.isNotEmpty()) TextButton(onClick = { store.update { it.copy(overrides = emptyMap()) } }) { Text(Str[R.string.s_clear], color = Palette.textSecondary) }
+            if (days.isNotEmpty()) TextButton(onClick = { store.update { it.copy(overrides = emptyMap()) } }) { Text(Str[R.string.s_clear], color = tk.contentSecondary) }
         }
     }
     if (days.isNotEmpty()) SettingRow(Str[R.string.s_use_masjid_times], Str[R.string.s_off_keeps_the_file_but_shows]) { Toggle(s.useOverrides) { on -> store.update { it.copy(useOverrides = on) } } }
-    importNotes.forEach { Text(it, fontFamily = Nunito, fontSize = 13.sp, color = Palette.goldSoft, modifier = Modifier.padding(top = 4.dp)) }
+    importNotes.forEach { Text(it, fontFamily = Nunito, fontSize = 13.sp, color = tk.accent, modifier = Modifier.padding(top = 4.dp)) }
     if (days.isNotEmpty()) {
         val first = s.overrides.getValue(days.first())
         val calc = PrayerEngine.calculated(s, LocalDate.parse(days.first()))
         Text("Check · ${days.first()}: masjid Fajr %d:%02d vs calculated %s · Maghrib %d:%02d vs %s".format(first[0] / 60, first[0] % 60, PrayerEngine.clock(calc[Prayer.FAJR], true), first[4] / 60, first[4] % 60, PrayerEngine.clock(calc[Prayer.MAGHRIB], true)),
-            fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary, modifier = Modifier.padding(top = 6.dp))
+            fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary, modifier = Modifier.padding(top = 6.dp))
     }
 }
 
@@ -363,6 +365,7 @@ suspend fun refreshIfDue(ctx: Context, store: SettingsStore) {
 
 @Composable
 private fun TimesSection(store: SettingsStore, s: AppSettings) {
+    val tk = screenTokens()
     var pickMethod by remember { mutableStateOf(false) }
     var pickLat by remember { mutableStateOf(false) }
     Heading(Str[R.string.s_prayer_times], Str[R.string.s_match_your_local_masjid])
@@ -378,27 +381,27 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
         Stepper(s.afterWindowMinutes, 0, 120, 5, Str[R.string.s_min]) { v -> store.update { it.copy(afterWindowMinutes = v) } }
     }
     Spacer(Modifier.height(18.dp))
-    Text(Str[R.string.s_jumu_ah], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text(Str[R.string.s_jumu_ah], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     SettingRow(Str[R.string.s_use_a_jumu_ah_time_on], Str[R.string.s_replaces_dhuhr_on_fridays_for_the]) { Toggle(s.jumuahEnabled) { on -> store.update { it.copy(jumuahEnabled = on) } } }
     if (s.jumuahEnabled) SettingRow(Str[R.string.s_jumu_ah_azaan_time], Str[R.string.s_your_masjid_s_first_azaan_adjust]) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             StepBtn("−", s.jumuahMinutes > 11 * 60) { store.update { it.copy(jumuahMinutes = it.jumuahMinutes - 5) } }
-            Text("%d:%02d %s".format(((s.jumuahMinutes / 60) + 11) % 12 + 1, s.jumuahMinutes % 60, if (s.jumuahMinutes >= 720) "PM" else "AM"), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.width(90.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+            Text("%d:%02d %s".format(((s.jumuahMinutes / 60) + 11) % 12 + 1, s.jumuahMinutes % 60, if (s.jumuahMinutes >= 720) "PM" else "AM"), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = tk.accent, modifier = Modifier.width(90.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
             StepBtn("+", s.jumuahMinutes < 15 * 60) { store.update { it.copy(jumuahMinutes = it.jumuahMinutes + 5) } }
         }
     }
     SettingRow(Str[R.string.s_friday_reminders], Str[R.string.s_a_jumu_ah_chip_from_thursday]) { Toggle(s.fridayReminders) { on -> store.update { it.copy(fridayReminders = on) } } }
     SettingRow(Str[R.string.s_hour_of_acceptance_reminder], Str[R.string.s_a_quiet_notification_one_hour_before]) { Toggle(s.fridayHourReminder) { on -> store.update { it.copy(fridayHourReminder = on) } } }
     Spacer(Modifier.height(18.dp))
-    Text("Ramaḍān", fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text("Ramaḍān", fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     SettingRow(Str[R.string.s_rama_n_mode], Str[R.string.s_suhoor_and_iftar_labels_fasting_progress]) {
         Chips(RamadanMode.entries.map { it.text }, RamadanMode.entries.indexOf(s.ramadanMode)) { i -> store.update { it.copy(ramadanMode = RamadanMode.entries[i]) } }
     }
     SettingRow(Str[R.string.s_suhoor_alarm], Str[R.string.s_a_chime_and_notification_this_many]) { Stepper(s.suhoorAlarmMinutes, 0, 120, 5, Str[R.string.s_min], zeroLabel = Str[R.string.s_off]) { v -> store.update { it.copy(suhoorAlarmMinutes = v) } } }
     SettingRow("Tarāwīḥ", Str[R.string.s_shown_on_the_home_screen_in]) { Stepper(s.tarawihMinutesAfterIsha, 0, 120, 5, Str[R.string.s_min]) { v -> store.update { it.copy(tarawihMinutesAfterIsha = v) } } }
     Spacer(Modifier.height(18.dp))
-    Text(Str[R.string.s_minute_adjustments], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
-    Text(Str[R.string.s_nudge_each_time_by_a_few], fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary)
+    Text(Str[R.string.s_minute_adjustments], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
+    Text(Str[R.string.s_nudge_each_time_by_a_few], fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary)
     Prayer.entries.forEach { p ->
         SettingRow(p.english, null) {
             Stepper(s.adjustments[p] ?: 0, -30, 30, 1, Str[R.string.s_min], signed = true) { v -> store.update { it.copy(adjustments = it.adjustments + (p to v)) } }
@@ -408,7 +411,7 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
     Spacer(Modifier.height(14.dp))
     Text(
         Str[R.string.s_today_with_these_settings] + Prayer.entries.joinToString("   ") { "${it.english} ${PrayerEngine.clock(today[it], s.use24h)}" },
-        fontFamily = Nunito, fontSize = 13.sp, color = Palette.goldSoft
+        fontFamily = Nunito, fontSize = 13.sp, color = tk.accent
     )
 
     if (pickMethod) PickerDialog(Str[R.string.s_calculation_method], Method.entries.map { it.text to it.info }, Method.entries.indexOf(s.method),
@@ -419,6 +422,7 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
 
 @Composable
 private fun AzaanSection(store: SettingsStore, s: AppSettings) {
+    val tk = screenTokens()
     val ctx = LocalContext.current
     val pickFile = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
         uri ?: return@rememberLauncherForActivityResult
@@ -435,12 +439,12 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
     Heading(Str[R.string.s_azaan_alerts], Str[R.string.s_the_azaan_plays_through_the_alarm])
     if (next != null) Text(
         "Next: ${next.prayer.english} ${if (next.reminder) "reminder" else "azaan"} at ${PrayerEngine.clock(next.at, s.use24h)} ${PrayerEngine.suffix(next.at, s.use24h)}",
-        fontFamily = Nunito, fontSize = 14.sp, color = Palette.goldSoft, modifier = Modifier.padding(bottom = 10.dp)
+        fontFamily = Nunito, fontSize = 14.sp, color = tk.accent, modifier = Modifier.padding(bottom = 10.dp)
     )
     Prayer.prayersOnly.forEach { p ->
         SettingRow("${p.english}  ${p.arabic}", null) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                TextButton(onClick = { AzaanService.preview(ctx, p) }) { Text(Str[R.string.s_play], color = Palette.goldSoft) }
+                TextButton(onClick = { AzaanService.preview(ctx, p) }) { Text(Str[R.string.s_play], color = tk.accent) }
                 Toggle(s.azaanEnabled[p] == true) { on -> store.update { it.copy(azaanEnabled = it.azaanEnabled + (p to on)) } }
             }
         }
@@ -456,8 +460,8 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
         Stepper(s.preReminderMinutes, 0, 30, 5, Str[R.string.s_min], zeroLabel = Str[R.string.s_off]) { v -> store.update { it.copy(preReminderMinutes = v) } }
     }
     Spacer(Modifier.height(18.dp))
-    Text(Str[R.string.s_after_the_azaan], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
-    Text(Str[R.string.s_when_the_azaan_finishes_the_dua], fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary)
+    Text(Str[R.string.s_after_the_azaan], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
+    Text(Str[R.string.s_when_the_azaan_finishes_the_dua], fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary)
     SettingRow(Str[R.string.s_dua_and_hadith_after_each_azaan], Str[R.string.s_for_all_five_prayers]) { Toggle(s.afterAzaanEnabled) { on -> store.update { it.copy(afterAzaanEnabled = on) } } }
     SettingRow(Str[R.string.s_narration], Str[R.string.s_studio_recordings_are_built_in_for]) {
         Chips(Narration.entries.map { it.text }, Narration.entries.indexOf(s.narration)) { i -> store.update { it.copy(narration = Narration.entries[i]) } }
@@ -466,34 +470,35 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
         Stepper(s.hadithMinutes, 1, 10, 1, Str[R.string.s_min]) { v -> store.update { it.copy(hadithMinutes = v) } }
     }
     SettingRow(Str[R.string.s_hadith_source], "${HadithLibrary.all.size} narrations from Ṣaḥīḥ al-Bukhārī and Ṣaḥīḥ Muslim, each cited with its number. One per azaan, no repeats until all have been shown.") {
-        TextButton(onClick = { AzaanService.previewAfter(ctx, Prayer.DHUHR) }) { Text(Str[R.string.s_preview], color = Palette.goldSoft) }
+        TextButton(onClick = { AzaanService.previewAfter(ctx, Prayer.DHUHR) }) { Text(Str[R.string.s_preview], color = tk.accent) }
     }
     Spacer(Modifier.height(18.dp))
-    Text(Str[R.string.s_azaan_recording], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text(Str[R.string.s_azaan_recording], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     Text(
         Str[R.string.s_two_recordings_are_built_in_one],
-        fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary
+        fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary
     )
     SettingRow(Str[R.string.s_azaan_file], s.azaanUri?.let { Uri.parse(it).lastPathSegment } ?: Str[R.string.s_built_in], onClick = { pickFile.launch(arrayOf("audio/*")) }) {
         Row {
-            if (s.azaanUri != null) TextButton(onClick = { store.update { it.copy(azaanUri = null) } }) { Text(Str[R.string.s_reset], color = Palette.textSecondary) }
+            if (s.azaanUri != null) TextButton(onClick = { store.update { it.copy(azaanUri = null) } }) { Text(Str[R.string.s_reset], color = tk.contentSecondary) }
             Value(Str[R.string.s_choose])
         }
     }
     SettingRow(Str[R.string.s_fajr_azaan_file], s.fajrAzaanUri?.let { Uri.parse(it).lastPathSegment } ?: Str[R.string.s_same_as_above], onClick = { pickFajr.launch(arrayOf("audio/*")) }) {
         Row {
-            if (s.fajrAzaanUri != null) TextButton(onClick = { store.update { it.copy(fajrAzaanUri = null) } }) { Text(Str[R.string.s_reset], color = Palette.textSecondary) }
+            if (s.fajrAzaanUri != null) TextButton(onClick = { store.update { it.copy(fajrAzaanUri = null) } }) { Text(Str[R.string.s_reset], color = tk.contentSecondary) }
             Value(Str[R.string.s_choose])
         }
     }
     Spacer(Modifier.height(18.dp))
-    Text(Str[R.string.s_reliability], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory, modifier = Modifier.semantics { heading() })
+    Text(Str[R.string.s_reliability], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary, modifier = Modifier.semantics { heading() })
     ReliabilityRows()
 }
 
 /** Granted / Not granted for each thing that can stop the azaan, each with a one-tap fix. Shared with setup. */
 @Composable
 internal fun ReliabilityRows() {
+    val tk = screenTokens()
     val ctx = LocalContext.current
     var tick by remember { mutableStateOf(0) }
     androidx.lifecycle.compose.LifecycleResumeEffect(Unit) { tick++; onPauseOrDispose { } }
@@ -507,20 +512,21 @@ internal fun ReliabilityRows() {
         }
         SettingRow(c.label, c.detail, onClick = fix) {
             Text(if (c.ok) Str[R.string.s_granted] else if (fix != null) Str[R.string.s_not_granted_fix] else Str[R.string.s_not_granted], fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold,
-                color = if (c.ok) Palette.mint else Palette.gold, modifier = Modifier.semantics { stateDescription = if (c.ok) Str[R.string.s_granted_2] else Str[R.string.s_not_granted] })
+                color = if (c.ok) tk.success else tk.primary, modifier = Modifier.semantics { stateDescription = if (c.ok) Str[R.string.s_granted_2] else Str[R.string.s_not_granted] })
         }
     }
 }
 
 @Composable
 private fun IqamahSection(store: SettingsStore, s: AppSettings) {
+    val tk = screenTokens()
     val today = remember(s) { PrayerEngine.times(s, LocalDate.now(s.zone())) }
     Heading(Str[R.string.s_iqamah], Str[R.string.s_for_praying_in_congregation_at_home])
     SettingRow(Str[R.string.s_iqamah_times], Str[R.string.s_shown_under_each_azaan_time_and]) { Toggle(s.iqamahEnabled) { on -> store.update { it.copy(iqamahEnabled = on) } } }
     if (s.iqamahEnabled) {
         Spacer(Modifier.height(10.dp))
-        Text(Str[R.string.s_iqamah_for_each_prayer], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
-        Text(Str[R.string.s_either_a_number_of_minutes_after], fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary)
+        Text(Str[R.string.s_iqamah_for_each_prayer], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
+        Text(Str[R.string.s_either_a_number_of_minutes_after], fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary)
         Prayer.prayersOnly.forEach { p ->
             val fixed = s.iqamahIsFixed[p] == true
             val off = s.iqamahOffsets[p] ?: 0
@@ -537,12 +543,12 @@ private fun IqamahSection(store: SettingsStore, s: AppSettings) {
         if (s.jumuahEnabled) SettingRow(Str[R.string.s_jumu_ah_iqamah_fixed_time], Str[R.string.s_used_instead_of_the_dhuhr_offset]) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 StepBtn("−", s.jumuahIqamahMinutes > 11 * 60) { store.update { it.copy(jumuahIqamahMinutes = it.jumuahIqamahMinutes - 5) } }
-                Text("%d:%02d %s".format(((s.jumuahIqamahMinutes / 60) + 11) % 12 + 1, s.jumuahIqamahMinutes % 60, if (s.jumuahIqamahMinutes >= 720) "PM" else "AM"), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.width(90.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+                Text("%d:%02d %s".format(((s.jumuahIqamahMinutes / 60) + 11) % 12 + 1, s.jumuahIqamahMinutes % 60, if (s.jumuahIqamahMinutes >= 720) "PM" else "AM"), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = tk.accent, modifier = Modifier.width(90.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                 StepBtn("+", s.jumuahIqamahMinutes < 16 * 60) { store.update { it.copy(jumuahIqamahMinutes = it.jumuahIqamahMinutes + 5) } }
             }
         }
         Spacer(Modifier.height(10.dp))
-        Text(Str[R.string.s_countdown_and_sound], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+        Text(Str[R.string.s_countdown_and_sound], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
         SettingRow(Str[R.string.s_countdown_before_iqamah], Str[R.string.s_full_screen_seconds_only_with_a]) {
             Stepper(s.iqamahCountdownSeconds, 30, 180, 15, " s") { v -> store.update { it.copy(iqamahCountdownSeconds = v) } }
         }
@@ -557,14 +563,15 @@ private fun IqamahSection(store: SettingsStore, s: AppSettings) {
 
 @Composable
 private fun TestSection(store: SettingsStore, s: AppSettings) {
+    val tk = screenTokens()
     val ctx = LocalContext.current
     Heading(Str[R.string.s_test_preview], Str[R.string.s_run_any_part_of_the_experience])
-    Text(Str[R.string.s_theme], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text(Str[R.string.s_theme], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     SettingRow(Str[R.string.s_preview_a_theme], Str[R.string.s_applies_straight_away_press_back_to]) {
         ThemePicker(s.theme) { th -> store.update { it.copy(theme = th) } }
     }
     Spacer(Modifier.height(14.dp))
-    Text(Str[R.string.s_azaan], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text(Str[R.string.s_azaan], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     SettingRow(Str[R.string.s_everything_exactly_as_at_prayer_time], Str[R.string.s_azaan_dua_hadith_back_to_the]) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             GoldButton(Str[R.string.s_fajr]) { AzaanService.playFull(ctx, Prayer.FAJR) }
@@ -587,21 +594,22 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
     }
     SettingRow(Str[R.string.s_rama_n_maghrib_sequence], Str[R.string.s_iftar_dua_dua_after_azaan_hadith]) { GoldButton("Start") { AzaanService.previewAfter(ctx, Prayer.MAGHRIB) } }
     Spacer(Modifier.height(14.dp))
-    Text(Str[R.string.s_iqamah], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text(Str[R.string.s_iqamah], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     SettingRow(Str[R.string.s_countdown_iqamah_quiet_screen], "The whole iqamah flow, starting with a ${s.iqamahCountdownSeconds}-second countdown") { GoldButton("Start") { AzaanService.testIqamah(ctx, Prayer.MAGHRIB) } }
     SettingRow(Str[R.string.s_short_countdown], Str[R.string.s_same_flow_15_second_countdown_to]) { GoldButton("Start") { AzaanService.testIqamah(ctx, Prayer.MAGHRIB, 15) } }
     SettingRow(Str[R.string.s_iqamah_sound_only], Str.get(R.string.s_plays_x_and_shows_iqamah, s.iqamahSound.text.lowercase())) { GoldButton(Str[R.string.s_play]) { AzaanService.testIqamahNow(ctx, Prayer.MAGHRIB) } }
     SettingRow(Str[R.string.s_quiet_screen], "Shows the in-prayer screen for ${s.quietMinutes} min; tap it to leave") { GoldButton("Show") { AzaanService.testQuiet(ctx, Prayer.MAGHRIB) } }
     Spacer(Modifier.height(14.dp))
-    Text(Str[R.string.s_home_screen_modes], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text(Str[R.string.s_home_screen_modes], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     SettingRow(Str[R.string.s_rama_n_mode], Str[R.string.s_force_it_on_to_see_suhoor]) {
         Chips(RamadanMode.entries.map { it.text }, RamadanMode.entries.indexOf(s.ramadanMode)) { i -> store.update { it.copy(ramadanMode = RamadanMode.entries[i]) } }
     }
-    SettingRow(Str[R.string.s_stop_anything_that_is_playing], null) { TextButton(onClick = { AzaanService.stop(ctx) }) { Text(Str[R.string.s_stop], color = Palette.goldSoft) } }
+    SettingRow(Str[R.string.s_stop_anything_that_is_playing], null) { TextButton(onClick = { AzaanService.stop(ctx) }) { Text(Str[R.string.s_stop], color = tk.accent) } }
 }
 
 @Composable
 private fun HealthSection(store: SettingsStore, s: AppSettings) {
+    val tk = screenTokens()
     val ctx = LocalContext.current
     var tick by remember { mutableStateOf(0) }
     val log = remember(tick) { com.usman.miqaat.data.Health.read(ctx) }
@@ -613,7 +621,7 @@ private fun HealthSection(store: SettingsStore, s: AppSettings) {
     val pm = ctx.getSystemService(Context.POWER_SERVICE) as PowerManager
 
     Heading(Str[R.string.s_reliability_backup], Str[R.string.s_did_it_fire_every_azaan_iqamah])
-    Text("Last 7 days · $fired played" + (if (late > 0) " · $late late" else "") + (if (missed > 0) " · $missed missed" else Str[R.string.s_none_missed]), fontFamily = Cormorant, fontSize = 26.sp, color = if (missed > 0) Color(0xFFF08C8C) else if (late > 0) Color(0xFFF0A050) else Palette.mint)
+    Text("Last 7 days · $fired played" + (if (late > 0) " · $late late" else "") + (if (missed > 0) " · $missed missed" else Str[R.string.s_none_missed]), fontFamily = Cormorant, fontSize = 26.sp, color = if (missed > 0) (if (tk.dark) Color(0xFFF08C8C) else tk.warning) else if (late > 0) (if (tk.dark) Color(0xFFF0A050) else tk.warning) else tk.success)
     Spacer(Modifier.height(6.dp))
     SettingRow(Str[R.string.s_next_alarm_armed], next?.let { "${it.prayer.english} ${if (it.iqamah) "iqamah" else if (it.reminder) "reminder" else "azaan"} · ${PrayerEngine.clock(it.at, s.use24h)} ${PrayerEngine.suffix(it.at, s.use24h)}" } ?: Str[R.string.s_nothing_scheduled_turn_on_an_azaan]) { Value(if (next != null) "✓" else "!") }
     SettingRow(Str[R.string.s_battery_optimisation], if (pm.isIgnoringBatteryOptimizations(ctx.packageName)) Str[R.string.s_miqaat_is_exempt] else Str[R.string.s_not_exempt_android_may_delay_alarms]) { Value(if (pm.isIgnoringBatteryOptimizations(ctx.packageName)) "✓" else "!") }
@@ -621,26 +629,26 @@ private fun HealthSection(store: SettingsStore, s: AppSettings) {
     SettingRow(Str[R.string.s_time_change_self_check], Str[R.string.s_runs_automatically_after_any_clock_or]) { Value("✓") }
 
     Spacer(Modifier.height(16.dp))
-    Text(Str[R.string.s_log], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
-    if (log.isEmpty()) Text(Str[R.string.s_nothing_yet_entries_appear_after_the], fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary)
+    Text(Str[R.string.s_log], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
+    if (log.isEmpty()) Text(Str[R.string.s_nothing_yet_entries_appear_after_the], fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary)
     log.take(40).forEach { e ->
-        val col = when (e.kind) { com.usman.miqaat.data.Health.Kind.MISSED -> Color(0xFFF08C8C); com.usman.miqaat.data.Health.Kind.TIME_CHANGE, com.usman.miqaat.data.Health.Kind.BOOT -> Palette.goldSoft; else -> if (e.lateBy > 1) Color(0xFFF0A050) else Palette.mint }
+        val col = when (e.kind) { com.usman.miqaat.data.Health.Kind.MISSED -> (if (tk.dark) Color(0xFFF08C8C) else tk.warning); com.usman.miqaat.data.Health.Kind.TIME_CHANGE, com.usman.miqaat.data.Health.Kind.BOOT -> tk.accent; else -> if (e.lateBy > 1) (if (tk.dark) Color(0xFFF0A050) else tk.warning) else tk.success }
         Row(Modifier.fillMaxWidth().padding(vertical = 7.dp), verticalAlignment = Alignment.Top) {
             Box(Modifier.padding(top = 6.dp).size(9.dp).clip(androidx.compose.foundation.shape.CircleShape).background(col))
             Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
-                Text(e.title, fontFamily = Nunito, fontSize = 15.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
-                Text(e.detail, fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
+                Text(e.title, fontFamily = Nunito, fontSize = 15.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
+                Text(e.detail, fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary)
             }
             val t = e.time(s.zone())
-            Text(t.format(java.time.format.DateTimeFormatter.ofPattern("EEE d MMM · " + (if (s.use24h) "HH:mm" else "h:mm a"), java.util.Locale.ENGLISH)), fontFamily = Nunito, fontSize = 12.sp, color = Palette.textSecondary)
+            Text(t.format(java.time.format.DateTimeFormatter.ofPattern("EEE d MMM · " + (if (s.use24h) "HH:mm" else "h:mm a"), java.util.Locale.ENGLISH)), fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary)
         }
-        HorizontalDivider(color = Palette.line)
+        HorizontalDivider(color = tk.divider)
     }
-    if (log.isNotEmpty()) TextButton(onClick = { com.usman.miqaat.data.Health.clear(ctx); tick++ }) { Text(Str[R.string.s_clear_log], color = Palette.textSecondary) }
+    if (log.isNotEmpty()) TextButton(onClick = { com.usman.miqaat.data.Health.clear(ctx); tick++ }) { Text(Str[R.string.s_clear_log], color = tk.contentSecondary) }
 
     Spacer(Modifier.height(16.dp))
-    Text(Str[R.string.s_backup_restore], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+    Text(Str[R.string.s_backup_restore], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     var msg by remember { mutableStateOf("") }
     val save = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri: Uri? ->
         uri ?: return@rememberLauncherForActivityResult
@@ -657,10 +665,10 @@ private fun HealthSection(store: SettingsStore, s: AppSettings) {
     SettingRow(Str[R.string.s_settings_file], Str[R.string.s_everything_in_settings_as_one_small]) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             GoldButton(Str[R.string.s_save]) { save.launch("miqaat-settings-${LocalDate.now()}.txt") }
-            TextButton(onClick = { load.launch(arrayOf("text/*", "*/*")) }) { Text(Str[R.string.s_restore], color = Palette.goldSoft) }
+            TextButton(onClick = { load.launch(arrayOf("text/*", "*/*")) }) { Text(Str[R.string.s_restore], color = tk.accent) }
         }
     }
-    if (msg.isNotEmpty()) Text(msg, fontFamily = Nunito, fontSize = 13.sp, color = Palette.goldSoft, modifier = Modifier.padding(top = 4.dp))
+    if (msg.isNotEmpty()) Text(msg, fontFamily = Nunito, fontSize = 13.sp, color = tk.accent, modifier = Modifier.padding(top = 4.dp))
 }
 
 @Composable
@@ -680,6 +688,7 @@ private fun PrivacySection() {
 
 @Composable
 private fun HijriSection(store: SettingsStore, s: AppSettings) {
+    val tk = screenTokens()
     val h = PrayerEngine.hijri(LocalDate.now(s.zone()), s.hijriOffsetDays)
     Heading(Str[R.string.s_hijri_calendar], Str[R.string.s_dates_follow_the_umm_al_qura])
     SettingRow(Str[R.string.s_show_hijri_date], Str[R.string.s_on_the_home_screen_and_timetable]) { Toggle(s.showHijri) { on -> store.update { it.copy(showHijri = on) } } }
@@ -689,20 +698,20 @@ private fun HijriSection(store: SettingsStore, s: AppSettings) {
     val tomorrow = PrayerEngine.hijri(LocalDate.now(s.zone()).plusDays(1), s.hijriOffsetDays)
     if (h.day >= 29) {
         Spacer(Modifier.height(14.dp))
-        Text(Str[R.string.s_moon_sighting_tonight], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
+        Text(Str[R.string.s_moon_sighting_tonight], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
         Text(
             if (tomorrow.day == 1) Str.get(R.string.s_calendar_already_turns, tomorrow.english.substringAfter(' '))
             else Str[R.string.s_tomorrow_is_day_30_by_calculation],
-            fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary, lineHeight = 20.sp
+            fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary, lineHeight = 20.sp
         )
         Row(Modifier.padding(top = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             if (tomorrow.day != 1) GoldButton(Str[R.string.s_moon_sighted_new_month_tomorrow]) { store.update { it.copy(hijriOffsetDays = it.hijriOffsetDays + 1) } }
             else GoldButton(Str[R.string.s_not_sighted_complete_30_days]) { store.update { it.copy(hijriOffsetDays = it.hijriOffsetDays - 1) } }
         }
-        Text(Str[R.string.s_this_shifts_the_hijri_date_by], fontFamily = Nunito, fontSize = 12.sp, color = Palette.textMuted, modifier = Modifier.padding(top = 6.dp))
+        Text(Str[R.string.s_this_shifts_the_hijri_date_by], fontFamily = Nunito, fontSize = 12.sp, color = tk.contentMuted, modifier = Modifier.padding(top = 6.dp))
     }
     Spacer(Modifier.height(16.dp))
-    Text(h.arabic, fontFamily = Amiri, fontSize = 40.sp, color = Palette.goldSoft)
+    Text(h.arabic, fontFamily = Amiri, fontSize = 40.sp, color = tk.accent)
 }
 
 @Composable
@@ -729,6 +738,7 @@ private fun DisplaySection(store: SettingsStore, s: AppSettings) {
 
 @Composable
 private fun AboutSection(s: AppSettings) {
+    val tk = screenTokens()
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     val up by Updater.state.collectAsState()
@@ -738,8 +748,8 @@ private fun AboutSection(s: AppSettings) {
     androidx.lifecycle.compose.LifecycleResumeEffect(Unit) { tick++; onPauseOrDispose { } }
     val canInstall = remember(tick) { Updater.canInstall(ctx) }
     Heading(Str[R.string.s_about_miqaat], Str[R.string.s_an_appointed_time])
-    Text(Str.get(R.string.s_version_line, Updater.currentName, Updater.currentBuild, Str[if (Updater.enabled) R.string.s_direct_download_edition else R.string.s_google_play_edition]), fontFamily = Nunito, fontSize = 15.sp, color = Palette.goldSoft)
-    Text(Str.get(R.string.s_built_from_commit, com.usman.miqaat.BuildConfig.GIT_SHA.take(12), com.usman.miqaat.BuildConfig.BUILD_TAG), fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, lineHeight = 18.sp)
+    Text(Str.get(R.string.s_version_line, Updater.currentName, Updater.currentBuild, Str[if (Updater.enabled) R.string.s_direct_download_edition else R.string.s_google_play_edition]), fontFamily = Nunito, fontSize = 15.sp, color = tk.accent)
+    Text(Str.get(R.string.s_built_from_commit, com.usman.miqaat.BuildConfig.GIT_SHA.take(12), com.usman.miqaat.BuildConfig.BUILD_TAG), fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary, lineHeight = 18.sp)
     Spacer(Modifier.height(10.dp))
     if (!Updater.enabled) SettingRow(Str[R.string.s_updates], Str[R.string.s_this_edition_is_updated_by_google]) { Value(Str[R.string.s_play]) }
     else when (val u = up) {
@@ -753,7 +763,7 @@ private fun AboutSection(s: AppSettings) {
         is Updater.State.Ready -> SettingRow(Str[R.string.s_update_downloaded], Str[R.string.s_tap_if_the_installer_didn_t]) { GoldButton(Str[R.string.s_install]) { Updater.install(ctx, u.file) } }
         is Updater.State.Failed -> SettingRow(Str[R.string.s_update_check_failed], u.reason) { GoldButton(Str[R.string.s_try_again]) { scope.launch { Updater.check(ctx, force = true) } } }
         Updater.State.Checking -> SettingRow(Str[R.string.s_checking_for_updates], null) { Value("…") }
-        Updater.State.UpToDate -> SettingRow(Str[R.string.s_you_have_the_latest_version], Str[R.string.s_checked_just_now]) { TextButton(onClick = { scope.launch { Updater.check(ctx, force = true) } }) { Text(Str[R.string.s_check_again], color = Palette.goldSoft) } }
+        Updater.State.UpToDate -> SettingRow(Str[R.string.s_you_have_the_latest_version], Str[R.string.s_checked_just_now]) { TextButton(onClick = { scope.launch { Updater.check(ctx, force = true) } }) { Text(Str[R.string.s_check_again], color = tk.accent) } }
         Updater.State.Idle -> SettingRow(Str[R.string.s_updates], Str[R.string.s_new_builds_are_published_automatically_each]) { GoldButton(Str[R.string.s_check_for_updates]) { scope.launch { Updater.check(ctx, force = true) } } }
     }
     SettingRow(Str[R.string.s_learn_recitation], Str[R.string.s_learn_recitation_detail]) { }
@@ -764,7 +774,7 @@ private fun AboutSection(s: AppSettings) {
         Str[R.string.s_prayer_times_are_computed_on_the] +
             Str[R.string.s_no_account_no_advertising_no_analytics] +
             "Current: ${s.method.label}, Asr ${s.asrMethod.label}, ${s.locationName} (%.3f, %.3f).".format(s.latitude, s.longitude),
-        fontFamily = Nunito, fontSize = 15.sp, color = Palette.textSecondary, lineHeight = 22.sp
+        fontFamily = Nunito, fontSize = 15.sp, color = tk.contentSecondary, lineHeight = 22.sp
     )
 }
 
@@ -772,12 +782,14 @@ private fun AboutSection(s: AppSettings) {
 
 @Composable
 internal fun Heading(title: String, desc: String) {
-    Text(title, fontFamily = Cormorant, fontSize = 34.sp, color = Palette.ivory, modifier = Modifier.semantics { heading() })
-    Text(desc, fontFamily = Nunito, fontSize = 14.sp, color = Palette.textSecondary, lineHeight = 20.sp, modifier = Modifier.padding(top = 2.dp, bottom = 14.dp))
+    val tk = screenTokens()
+    Text(title, fontFamily = Cormorant, fontSize = 34.sp, color = tk.contentPrimary, modifier = Modifier.semantics { heading() })
+    Text(desc, fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary, lineHeight = 20.sp, modifier = Modifier.padding(top = 2.dp, bottom = 14.dp))
 }
 
 @Composable
 internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)? = null, trailing: @Composable () -> Unit) {
+    val tk = screenTokens()
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxWidth()) {
         val compact = maxWidth < 560.dp
         // The row reads as one element to TalkBack ("title, subtitle") and the control keeps its own role.
@@ -786,36 +798,36 @@ internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)?
             // Phone: label on top, control underneath, so neither squeezes the other.
             Column(rowMod) {
                 Column(Modifier.semantics(mergeDescendants = true) {}) {
-                    Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
-                    if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, lineHeight = 18.sp)
+                    Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
+                    if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary, lineHeight = 18.sp)
                 }
                 Box(Modifier.padding(top = 10.dp).fillMaxWidth(), contentAlignment = Alignment.CenterStart) { trailing() }
             }
         } else {
             Row(rowMod, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
                 Column(Modifier.weight(1f).padding(end = 20.dp).semantics(mergeDescendants = true) {}) {
-                    Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
-                    if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary, lineHeight = 18.sp)
+                    Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
+                    if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary, lineHeight = 18.sp)
                 }
                 trailing()
             }
         }
     }
-    HorizontalDivider(color = Palette.line)
+    HorizontalDivider(color = tk.divider)
 }
 
-@Composable internal fun Value(t: String) = Text(t, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.ivory)
-@Composable internal fun GoldValue(t: String) = Text(t, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft)
+@Composable internal fun Value(t: String) = Text(t, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = screenTokens().contentPrimary)
+@Composable internal fun GoldValue(t: String) = Text(t, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = screenTokens().accent)
 
 @Composable
 internal fun Toggle(on: Boolean, onChange: (Boolean) -> Unit) = Switch(
     checked = on, onCheckedChange = onChange,
-    colors = SwitchDefaults.colors(checkedThumbColor = Palette.night, checkedTrackColor = Palette.gold, uncheckedThumbColor = Color.White, uncheckedTrackColor = Color.White.copy(alpha = 0.2f))
+    colors = SwitchDefaults.colors(checkedThumbColor = screenTokens().onPrimary, checkedTrackColor = screenTokens().primary, uncheckedThumbColor = if (screenTokens().dark) Color.White else screenTokens().outline, uncheckedTrackColor = if (screenTokens().dark) Color.White.copy(alpha = 0.2f) else screenTokens().surfaceRaised)
 )
 
 @Composable
 internal fun GoldButton(label: String, enabled: Boolean = true, onClick: () -> Unit) =
-    Button(onClick = onClick, enabled = enabled, modifier = Modifier.heightIn(min = 48.dp), colors = ButtonDefaults.buttonColors(containerColor = Palette.gold, contentColor = Palette.night, disabledContainerColor = Palette.gold.copy(alpha = 0.35f), disabledContentColor = Palette.night)) {
+    Button(onClick = onClick, enabled = enabled, modifier = Modifier.heightIn(min = 48.dp), colors = ButtonDefaults.buttonColors(containerColor = screenTokens().primary, contentColor = screenTokens().onPrimary, disabledContainerColor = screenTokens().primary.copy(alpha = 0.35f), disabledContentColor = screenTokens().onPrimary)) {
         Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold)
     }
 
@@ -823,21 +835,23 @@ internal fun GoldButton(label: String, enabled: Boolean = true, onClick: () -> U
 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
 internal fun Chips(labels: List<String>, selected: Int, onSelect: (Int) -> Unit) {
+    val tk = screenTokens()
     androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.selectableGroup()) {
         labels.forEachIndexed { i, l ->
             val cur = i == selected
             Box(
-                Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).background(if (cur) Palette.gold else Color.Transparent)
-                    .border(1.dp, if (cur) Palette.gold else Palette.lineStrong, RoundedCornerShape(50))
+                Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).background(if (cur) tk.primary else Color.Transparent)
+                    .border(1.dp, if (cur) tk.primary else tk.outline, RoundedCornerShape(50))
                     .selectable(selected = cur, role = androidx.compose.ui.semantics.Role.RadioButton) { onSelect(i) }.padding(horizontal = 16.dp, vertical = 8.dp),
                 contentAlignment = Alignment.Center
-            ) { Text(l, fontFamily = Nunito, fontSize = 14.sp, fontWeight = if (cur) FontWeight.Bold else FontWeight.Normal, color = if (cur) Palette.night else Palette.ivory) }
+            ) { Text(l, fontFamily = Nunito, fontSize = 14.sp, fontWeight = if (cur) FontWeight.Bold else FontWeight.Normal, color = if (cur) tk.onPrimary else tk.contentPrimary) }
         }
     }
 }
 
 @Composable
 private fun Stepper(value: Int, min: Int, max: Int, step: Int, unit: String, signed: Boolean = false, zeroLabel: String? = null, onChange: (Int) -> Unit) {
+    val tk = screenTokens()
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         StepBtn("−", value > min) { onChange((value - step).coerceAtLeast(min)) }
         val label = when {
@@ -845,7 +859,7 @@ private fun Stepper(value: Int, min: Int, max: Int, step: Int, unit: String, sig
             signed && value > 0 -> "+$value$unit"
             else -> "$value$unit"
         }
-        Text(label, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.width(78.dp).semantics { liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite }, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+        Text(label, fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = tk.accent, modifier = Modifier.width(78.dp).semantics { liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite }, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
         StepBtn("+", value < max) { onChange((value + step).coerceAtMost(max)) }
     }
 }
@@ -853,11 +867,12 @@ private fun Stepper(value: Int, min: Int, max: Int, step: Int, unit: String, sig
 /** Clock-time control: ±1 h and ±5 min around a minutes-from-midnight value. */
 @Composable
 private fun TimeStepper(minutes: Int, use24h: Boolean, onChange: (Int) -> Unit) {
+    val tk = screenTokens()
     fun fmt(m: Int): String { val h = (m / 60) % 24; val mi = m % 60; return if (use24h) "%02d:%02d".format(h, mi) else "%d:%02d %s".format((h + 11) % 12 + 1, mi, if (h >= 12) "PM" else "AM") }
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         StepBtn("−1h", minutes >= 60) { onChange(minutes - 60) }
         StepBtn("−5", minutes >= 5) { onChange(minutes - 5) }
-        Text(fmt(minutes), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Palette.goldSoft, modifier = Modifier.width(92.dp).semantics { liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite }, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+        Text(fmt(minutes), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = tk.accent, modifier = Modifier.width(92.dp).semantics { liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite }, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
         StepBtn("+5", minutes <= 24 * 60 - 10) { onChange(minutes + 5) }
         StepBtn("+1h", minutes <= 23 * 60 - 5) { onChange(minutes + 60) }
     }
@@ -865,19 +880,21 @@ private fun TimeStepper(minutes: Int, use24h: Boolean, onChange: (Int) -> Unit) 
 
 @Composable
 internal fun StepBtn(t: String, enabled: Boolean, onClick: () -> Unit) {
+    val tk = screenTokens()
     val label = when (t) { "−" -> Str[R.string.s_decrease]; "+" -> Str[R.string.s_increase]; "−1h" -> Str[R.string.s_one_hour_earlier]; "+1h" -> Str[R.string.s_one_hour_later]; "−5" -> Str[R.string.s_five_minutes_earlier]; "+5" -> Str[R.string.s_five_minutes_later]; else -> t }
     Box(
-        Modifier.size(width = 48.dp, height = 48.dp).clip(RoundedCornerShape(12.dp)).border(1.dp, if (enabled) Palette.lineStrong else Palette.line, RoundedCornerShape(12.dp))
+        Modifier.size(width = 48.dp, height = 48.dp).clip(RoundedCornerShape(12.dp)).border(1.dp, if (enabled) tk.outline else tk.divider, RoundedCornerShape(12.dp))
             .clickable(enabled = enabled, onClick = onClick, role = androidx.compose.ui.semantics.Role.Button).semantics { contentDescription = label }, contentAlignment = Alignment.Center
-    ) { Text(t, fontSize = if (t.length > 1) 13.sp else 22.sp, fontFamily = Nunito, fontWeight = FontWeight.Bold, color = if (enabled) Palette.ivory else Palette.textDisabled) }
+    ) { Text(t, fontSize = if (t.length > 1) 13.sp else 22.sp, fontFamily = Nunito, fontWeight = FontWeight.Bold, color = if (enabled) tk.contentPrimary else Palette.textDisabled) }
 }
 
 @Composable
 private fun PickerDialog(title: String, options: List<Pair<String, String>>, selected: Int, onPick: (Int) -> Unit, onDismiss: () -> Unit) {
+    val tk = screenTokens()
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = Palette.panelRaised,
-        title = { Text(title, fontFamily = Cormorant, fontSize = 28.sp, color = Palette.ivory) },
+        containerColor = tk.surfaceRaised,
+        title = { Text(title, fontFamily = Cormorant, fontSize = 28.sp, color = tk.contentPrimary) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
                 options.forEachIndexed { i, (l, d) ->
@@ -887,13 +904,13 @@ private fun PickerDialog(title: String, options: List<Pair<String, String>>, sel
                     ) {
                         RadioButton(selected = i == selected, onClick = { onPick(i); onDismiss() })
                         Column {
-                            Text(l, fontFamily = Nunito, fontSize = 16.sp, color = Palette.ivory)
-                            if (d.isNotEmpty()) Text(d, fontFamily = Nunito, fontSize = 13.sp, color = Palette.textSecondary)
+                            Text(l, fontFamily = Nunito, fontSize = 16.sp, color = tk.contentPrimary)
+                            if (d.isNotEmpty()) Text(d, fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary)
                         }
                     }
                 }
             }
         },
-        confirmButton = { TextButton(onClick = onDismiss) { Text(Str[R.string.s_close], color = Palette.goldSoft) } }
+        confirmButton = { TextButton(onClick = onDismiss) { Text(Str[R.string.s_close], color = tk.accent) } }
     )
 }

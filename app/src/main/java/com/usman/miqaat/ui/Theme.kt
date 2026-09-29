@@ -4,6 +4,7 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.fillMaxSize
@@ -104,5 +105,22 @@ private val type = Typography(
 @Composable
 fun MiqaatTheme(theme: com.usman.miqaat.data.AppTheme = com.usman.miqaat.data.AppTheme.MIQAAT, content: @Composable () -> Unit) {
     // Material's own scheme stays the app-wide dark scheme for now (existing screens); the new tokens are provided alongside it.
-    MaterialTheme(colorScheme = scheme, typography = type) { ProvideThemeTokens(theme, content) }
+    val tk = ThemeTokenSets.of(theme)
+    val fresh = tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY
+    val cs = if (!fresh) scheme else if (tk.dark) darkColorScheme(
+        primary = tk.primary, onPrimary = tk.onPrimary, secondary = tk.accent, background = tk.background, onBackground = tk.contentPrimary,
+        surface = tk.surface, onSurface = tk.contentPrimary, surfaceVariant = tk.surfaceRaised, onSurfaceVariant = tk.contentSecondary, outline = tk.outline
+    ) else lightColorScheme(
+        primary = tk.primary, onPrimary = tk.onPrimary, secondary = tk.accent, background = tk.background, onBackground = tk.contentPrimary,
+        surface = tk.surface, onSurface = tk.contentPrimary, surfaceVariant = tk.surfaceRaised, onSurfaceVariant = tk.contentSecondary, outline = tk.outline
+    )
+    // Light themes need dark status/navigation icons, whatever the phone's own dark-mode setting says.
+    val view = androidx.compose.ui.platform.LocalView.current
+    if (!view.isInEditMode) androidx.compose.runtime.SideEffect {
+        (view.context as? android.app.Activity)?.window?.let { w ->
+            val c = androidx.core.view.WindowCompat.getInsetsController(w, view)
+            c.isAppearanceLightStatusBars = !tk.dark; c.isAppearanceLightNavigationBars = !tk.dark
+        }
+    }
+    MaterialTheme(colorScheme = cs, typography = type) { ProvideThemeTokens(theme, content) }
 }
