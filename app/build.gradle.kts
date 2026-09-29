@@ -69,6 +69,7 @@ android {
     }
     kotlinOptions { jvmTarget = "17" }
     buildFeatures { compose = true; buildConfig = true }
+    testOptions { unitTests { isIncludeAndroidResources = true; isReturnDefaultValues = true } }
     packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }
     lint {
         // Accessibility and correctness checks fail the build; the report is published by CI.
@@ -102,4 +103,9 @@ dependencies {
     implementation("com.batoulapps.adhan:adhan:1.2.1")
     debugImplementation("androidx.compose.ui:ui-tooling")
     testImplementation("junit:junit:4.13.2")
+    // Compose UI + screenshot tests run on the JVM (Robolectric native graphics), so CI needs no emulator.
+    testImplementation("org.robolectric:robolectric:4.14.1")
+    testImplementation("androidx.compose.ui:ui-test-junit4")
+    testImplementation("androidx.test:core-ktx:1.6.1")
+    testImplementation("androidx.test.ext:junit:1.2.1")
 }

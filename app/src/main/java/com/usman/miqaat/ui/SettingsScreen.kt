@@ -272,7 +272,7 @@ private fun SettingsTablet(
     val tk = screenTokens()
     Row(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
         // Fixed rail: back, title, search and all ten destinations. Only the rail's own overflow (huge text) scrolls, vertically.
-        Column(Modifier.width(304.dp).fillMaxHeight().background(tk.scrim).verticalScroll(rememberScrollState()).padding(bottom = Space.l).semantics { role = Role.Tab }) {
+        Column(Modifier.width(304.dp).fillMaxHeight().background(tk.scrim).verticalScroll(rememberScrollState()).padding(bottom = Space.l)) {
             SettingsTopBar(Str[R.string.s_settings], onBack, big = true)
             MiqSearchField(query, onQuery, Str[R.string.s_settings_search_hint], Str[R.string.s_settings_search_clear], Modifier.padding(horizontal = Space.l, vertical = Space.m))
             Section.entries.forEach { sec -> RailItem(sec.icon, sec.label, selected = query.isBlank() && sec == section, onClick = { open(sec, null) }) }
