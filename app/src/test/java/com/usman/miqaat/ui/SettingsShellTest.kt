@@ -46,13 +46,13 @@ class SettingsShellTest : ComposeSupport() {
         rule.onNodeWithText("PRAYER SETUP").assertExists(); rule.onNodeWithText("EXPERIENCE").assertExists(); rule.onNodeWithText("SYSTEM").assertExists()
         rule.onAllNodes(tab).assertCountEquals(0)
         rule.onNodeWithText("Try it now").assertExists()
-        rule.onNodeWithText("Search settings").assertExists()
+        rule.onNode(hasContentDescription("Search settings")).assertExists()
     }
 
     @Test fun phoneDetailOpensAndBackReturnsToLanding() {
         var left = false
         show(Dev.PHONE_PORTRAIT, content = settingsUi(onBack = { left = true }))
-        rule.onNodeWithText("Privacy").performClick()
+        rule.onNodeWithText("Privacy").performScrollTo().performClick()
         rule.onNodeWithText("PRAYER SETUP").assertDoesNotExist()
         scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
         rule.waitForIdle()
@@ -74,18 +74,18 @@ class SettingsShellTest : ComposeSupport() {
 
     @Test fun searchRoutesToTheRightCategoryAndShowsNoResultsState() {
         show(Dev.PHONE_PORTRAIT, content = settingsUi())
-        rule.onNode(hasSetTextAction()).performTextInput("alarm")
+        rule.onAllNodes(hasSetTextAction()).onFirst().performTextInput("alarm")
         rule.onAllNodesWithText("Azaan & alerts", substring = true).assertCountEquals(rule.onAllNodesWithText("Azaan & alerts", substring = true).fetchSemanticsNodes().size)
         rule.onAllNodesWithText("Azaan & alerts", substring = true).onFirst().assertExists()
-        rule.onNode(hasSetTextAction()).performTextReplacement("zzzzzz")
+        rule.onAllNodes(hasSetTextAction()).onFirst().performTextReplacement("zzzzzz")
         rule.onNodeWithText("No settings match", substring = true).assertExists()
-        rule.onNode(hasSetTextAction()).performTextReplacement("")
+        rule.onAllNodes(hasSetTextAction()).onFirst().performTextReplacement("")
         rule.onNodeWithText("PRAYER SETUP").assertExists()
     }
 
     @Test fun searchWorksOnTabletToo() {
         show(Dev.TABLET_LANDSCAPE, content = settingsUi())
-        rule.onNode(hasSetTextAction()).performTextInput("backup")
+        rule.onAllNodes(hasSetTextAction()).onFirst().performTextInput("backup")
         rule.onAllNodesWithText("Reliability & backup", substring = true).onFirst().assertExists()
     }
 
@@ -121,7 +121,7 @@ class SettingsShellTest : ComposeSupport() {
 
     @Test fun settingsStaysUsableAt200PercentFontOnPhoneAndTablet() {
         show(Dev.PHONE_PORTRAIT, fontScale = 2f, content = settingsUi())
-        rule.onNodeWithText("Search settings").assertExists()
+        rule.onNode(hasContentDescription("Search settings")).assertExists()
         rule.onNodeWithText("Location").assertExists()
         scenario.close()
         show(Dev.TABLET_PORTRAIT, fontScale = 2f, content = settingsUi())
@@ -129,7 +129,7 @@ class SettingsShellTest : ComposeSupport() {
     }
 
     @Test fun settingsComposesInEveryThemeAndInUrduRtl() {
-        for (t in AppTheme.entries) { show(Dev.PHONE_PORTRAIT, theme = t, content = settingsUi()); rule.onAllNodesWithText("Search settings").assertCountEquals(1); scenario.close() }
+        for (t in AppTheme.entries) { show(Dev.PHONE_PORTRAIT, theme = t, content = settingsUi()); rule.onAllNodes(hasContentDescription("Search settings")).assertCountEquals(1); scenario.close() }
         show(Dev.TABLET_LANDSCAPE, rtl = true, content = settingsUi())
         rule.onAllNodes(tab).assertCountEquals(10)
     }
