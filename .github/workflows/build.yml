@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [main, stable]
+    branches: [main, stable, four-themes]
   workflow_dispatch:
 
 permissions:
@@ -80,6 +80,29 @@ jobs:
             Miqaat-play.aab
             Miqaat-play.aab.sha256
             reports/
+
+      # Branch previews (four-themes): a pre-release under its own tag so the APK can be installed for testing.
+      # The in-app updater only reads the `latest` tag, so this never reaches anyone's updater.
+      - name: Publish branch preview APK (four-themes only)
+        if: github.ref == 'refs/heads/four-themes'
+        run: |
+          git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
+          git tag -f four-themes-preview "${{ github.sha }}"
+          git push -f origin four-themes-preview
+      - name: Branch preview release
+        if: github.ref == 'refs/heads/four-themes'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: four-themes-preview
+          name: Four-themes preview (build ${{ github.run_number }})
+          body: |
+            Preview of the four-theme work. build=${{ github.run_number }} commit=${{ github.sha }}
+            Not a release: the in-app updater ignores this tag.
+          files: |
+            Miqaat.apk
+            Miqaat.apk.sha256
+          prerelease: true
+          make_latest: false
 
       # Immutable provenance: an annotated tag per build, at the exact commit that was built.
       - name: Tag this build (main only)

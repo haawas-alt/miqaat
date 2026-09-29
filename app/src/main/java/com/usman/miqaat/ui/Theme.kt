@@ -102,6 +102,7 @@ private val type = Typography(
 )
 
 @Composable
-fun MiqaatTheme(content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = scheme, typography = type, content = content)
+fun MiqaatTheme(theme: com.usman.miqaat.data.AppTheme = com.usman.miqaat.data.AppTheme.MIQAAT, content: @Composable () -> Unit) {
+    // Material's own scheme stays the app-wide dark scheme for now (existing screens); the new tokens are provided alongside it.
+    MaterialTheme(colorScheme = scheme, typography = type) { ProvideThemeTokens(theme, content) }
 }

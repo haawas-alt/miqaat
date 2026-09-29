@@ -34,7 +34,7 @@ class AzaanActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val prayer = intent.getStringExtra(AzaanScheduler.EXTRA_PRAYER)?.let { runCatching { Prayer.valueOf(it) }.getOrNull() } ?: Prayer.DHUHR
         setContent {
-            MiqaatTheme {
+            MiqaatTheme(com.usman.miqaat.MiqaatApp.instance.settings.settings.collectAsState().value.theme) {
                 val phase by AzaanService.phase.collectAsState()
                 LaunchedEffect(phase) { if (phase == null) finish() }
                 phase?.let { AzaanScreen(phase = it, onStop = { AzaanService.stop(this); finish() }, onSkip = { AzaanService.skip(this) }) }

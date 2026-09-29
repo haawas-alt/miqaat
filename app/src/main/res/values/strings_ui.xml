@@ -552,4 +552,10 @@
     <string name="s_why_this_time">Why this time?</string>
     <string name="s_play_one_hadith">Play one hadith</string>
     <string name="s_play_one_hadith_detail">Choose a number (1–36) to hear its Arabic and English recording; the daily rotation is not affected</string>
+    <string name="e_theme_celestial">Celestial Meridian</string>
+    <string name="e_theme_gallery">Prayer Gallery</string>
+    <string name="s_theme_state_selected">Selected</string>
+    <string name="s_theme_state_not_selected">Not selected</string>
+    <string name="s_theme_dark_desc">dark</string>
+    <string name="s_theme_light_desc">light</string>
 </resources>

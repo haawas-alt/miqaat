@@ -561,7 +561,7 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
     Heading(Str[R.string.s_test_preview], Str[R.string.s_run_any_part_of_the_experience])
     Text(Str[R.string.s_theme], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
     SettingRow(Str[R.string.s_preview_a_theme], Str[R.string.s_applies_straight_away_press_back_to]) {
-        Chips(AppTheme.entries.map { it.text }, AppTheme.entries.indexOf(s.theme)) { i -> store.update { it.copy(theme = AppTheme.entries[i]) } }
+        ThemePicker(s.theme) { th -> store.update { it.copy(theme = th) } }
     }
     Spacer(Modifier.height(14.dp))
     Text(Str[R.string.s_azaan], fontFamily = Cormorant, fontSize = 24.sp, color = Palette.ivory)
@@ -709,7 +709,7 @@ private fun HijriSection(store: SettingsStore, s: AppSettings) {
 private fun DisplaySection(store: SettingsStore, s: AppSettings) {
     Heading(Str[R.string.s_display_art], Str[R.string.s_how_miqaat_looks_on_the_wall])
     SettingRow(Str[R.string.s_theme], Str[R.string.s_changes_the_home_screen_and_the]) {
-        Chips(AppTheme.entries.map { it.text }, AppTheme.entries.indexOf(s.theme)) { i -> store.update { it.copy(theme = AppTheme.entries[i]) } }
+        ThemePicker(s.theme) { th -> store.update { it.copy(theme = th) } }
     }
     SettingRow(Str[R.string.s_language], Str[R.string.s_home_screen_and_widget_urdu_is]) {
         Chips(Language.entries.map { it.label }, Language.entries.indexOf(s.language)) { i -> store.update { it.copy(language = Language.entries[i]) } }

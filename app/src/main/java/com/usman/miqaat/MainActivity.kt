@@ -89,7 +89,8 @@ class MainActivity : ComponentActivity() {
         val store = (application as MiqaatApp).settings
 
         setContent {
-            MiqaatTheme {
+            val themeChoice by store.settings.collectAsState()
+            MiqaatTheme(themeChoice.theme) {
                 val settings by store.settings.collectAsState()
                 // UI strings follow the in-app language; re-key the tree so every screen picks them up.
                 remember(settings.language) { com.usman.miqaat.ui.Str.apply(this@MainActivity, settings.language); settings.language }

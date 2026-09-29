@@ -552,4 +552,10 @@
     <string name="s_why_this_time">یہ وقت کیوں؟</string>
     <string name="s_play_one_hadith">ایک حدیث چلائیں</string>
     <string name="s_play_one_hadith_detail">نمبر (1–36) منتخب کریں تاکہ اس کی عربی اور انگریزی ریکارڈنگ سنیں؛ روزانہ کی ترتیب متاثر نہیں ہوتی</string>
+    <string name="e_theme_celestial">سماوی نصف النہار</string>
+    <string name="e_theme_gallery">نماز گیلری</string>
+    <string name="s_theme_state_selected">منتخب</string>
+    <string name="s_theme_state_not_selected">منتخب نہیں</string>
+    <string name="s_theme_dark_desc">گہرا</string>
+    <string name="s_theme_light_desc">روشن</string>
 </resources>

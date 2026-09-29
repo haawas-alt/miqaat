@@ -70,7 +70,9 @@ enum class RamadanMode(val label: String, val labelRes: Int) { AUTO("Automatic",
 
 enum class IqamahSound(val label: String, val labelRes: Int) { OFF("Off", R.string.e_iq_off), CHIME("Chime", R.string.e_iq_chime), RECORDING("Iqamah recording", R.string.e_iq_rec) }
 
-enum class AppTheme(val label: String, val labelRes: Int) { MIQAAT("Miqaat · illuminated", R.string.e_theme_miqaat), KISWAH("Kiswah · black & gold", R.string.e_theme_kiswah) }
+enum class AppTheme(val label: String, val labelRes: Int) { MIQAAT("Miqaat · illuminated", R.string.e_theme_miqaat), KISWAH("Kiswah · black & gold", R.string.e_theme_kiswah),
+    /** Added in the four-theme release. New values are appended so stored names never change meaning. */
+    CELESTIAL_MERIDIAN("Celestial Meridian", R.string.e_theme_celestial), PRAYER_GALLERY("Prayer Gallery", R.string.e_theme_gallery) }
 
 enum class Language(val label: String, val tag: String) { EN("English", "en"), UR("اردو · Urdu", "ur") }
 
