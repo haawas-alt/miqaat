@@ -239,7 +239,7 @@ private fun HadithBody(p: Phase.HadithPhase, u: Dp) {
 
 @Composable private fun Kicker(t: String, u: Dp) = Text(t.uppercase(), fontFamily = Nunito, fontSize = (u.value * 1.35f).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = screenTokens().accent)
 @Composable private fun Arabic(t: String, u: Dp, size: Float) = CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-    Text(t, fontFamily = Amiri, fontSize = (u.value * size).sp, lineHeight = (u.value * size * 1.75f).sp, color = tk.arabicText, textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = u * 1.2f))
+    Text(t, fontFamily = Amiri, fontSize = (u.value * size).sp, lineHeight = (u.value * size * 1.75f).sp, color = screenTokens().arabicText, textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = u * 1.2f))
 }
 @Composable private fun Translation(t: String, u: Dp, size: Float = 2.35f) = Text(t, fontFamily = Cormorant, fontSize = (u.value * size).sp, lineHeight = (u.value * size * 1.45f).sp, color = screenTokens().contentPrimary, textAlign = TextAlign.Center)
 @Composable private fun Source(t: String, u: Dp) = Text(t, fontFamily = Nunito, fontSize = (u.value * 1.35f).sp, letterSpacing = (u.value * 0.08f).sp, color = screenTokens().contentPrimary.copy(alpha = 0.75f), textAlign = TextAlign.Center, modifier = Modifier.padding(top = u * 1.4f))
