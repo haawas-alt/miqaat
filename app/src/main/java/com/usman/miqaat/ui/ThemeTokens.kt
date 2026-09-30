@@ -88,9 +88,9 @@ object ThemeTokenSets {
         background = Palette.night, backgroundBrush = Brush.verticalGradient(listOf(Palette.night, Palette.panel)),
         surface = Palette.panel, surfaceRaised = Palette.panelRaised, selectedSurface = Color(0xFF26304F),
         divider = Palette.line, outline = Palette.lineStrong, focusRing = Palette.gold,
-        primary = Palette.gold, onPrimary = Palette.night,
+        primary = Color(0xFFF0B84A), onPrimary = Palette.night,
         contentPrimary = Palette.ivory, contentSecondary = Palette.textSecondary, contentMuted = Palette.textMuted,
-        info = Color(0xFF9CC3E8), success = Palette.mint, warning = Color(0xFFF2A07B), accent = Palette.goldSoft, sun = Palette.gold,
+        info = Color(0xFF9CC3E8), success = Color(0xFF5FD38A), warning = Color(0xFFF2A07B), accent = Palette.goldSoft, sun = Palette.gold,
         error = Color(0xFFF08C8C),
         todayText = Color(0xFFF6E7B8), fridayText = Color(0xFFA6E3B8), neutralStroke = Color.White.copy(alpha = 0.2f),
         arabicText = Color(0xFFF6E7B8), scrim = Color.Black.copy(alpha = 0.18f), softFill = Color.White.copy(alpha = 0.06f),
@@ -104,15 +104,15 @@ object ThemeTokenSets {
         background = Color(0xFF0B0B0B), backgroundBrush = Brush.verticalGradient(listOf(Color(0xFF0B0B0B), Kiswah.silk)),
         surface = Color(0xFF121212), surfaceRaised = Color(0xFF1A1814), selectedSurface = Color(0xFF2A2415),
         divider = Kiswah.thread.copy(alpha = 0.35f), outline = Kiswah.thread.copy(alpha = 0.6f), focusRing = Kiswah.threadSoft,
-        primary = Kiswah.thread, onPrimary = Color(0xFF0B0B0B),
-        contentPrimary = Kiswah.ivory, contentSecondary = Kiswah.threadSoft.copy(alpha = 0.85f), contentMuted = Palette.textMuted,
+        primary = Color(0xFFE6B450), onPrimary = Color(0xFF0B0B0B),
+        contentPrimary = Kiswah.ivory, contentSecondary = Color(0xFFCFCABD), contentMuted = Palette.textMuted,
         info = Kiswah.threadSoft, success = Palette.mint, warning = Color(0xFFF2A07B), accent = Kiswah.threadSoft, sun = Kiswah.thread,
         error = Color(0xFFF08C8C),
         todayText = Color(0xFFF6E7B8), fridayText = Color(0xFFA6E3B8), neutralStroke = Color.White.copy(alpha = 0.2f),
         arabicText = Color(0xFFF6E7B8), scrim = Color.Black.copy(alpha = 0.18f), softFill = Color.White.copy(alpha = 0.06f),
         skyAzaan = listOf(Color(0xFF0B0B0B), Kiswah.silk), skyIqamah = listOf(Color(0xFF0B0B0B), Kiswah.silk), skyDua = listOf(Color(0xFF0B0B0B), Kiswah.silk),
-        cornerSmall = 4.dp, cornerMedium = 8.dp, cornerLarge = 12.dp, elevation = 0.dp,
-        fontDisplay = Cinzel, fontUi = Nunito, fontArabic = ReemKufi
+        cornerSmall = 8.dp, cornerMedium = 12.dp, cornerLarge = 14.dp, elevation = 0.dp,
+        fontDisplay = Cormorant, fontUi = Nunito, fontArabic = ReemKufi
     )
 
     /** Dark, midnight-navy, solar-arc system. Spec: docs in the four-theme handoff, DESIGN_TOKENS.md. */
@@ -184,5 +184,5 @@ fun ProvideThemeTokens(theme: AppTheme, content: @Composable () -> Unit) {
 @ReadOnlyComposable
 fun screenTokens(): ThemeTokens {
     val c = LocalThemeTokens.current
-    return if (c.art == ArtStyle.CELESTIAL || c.art == ArtStyle.GALLERY) c else ThemeTokenSets.miqaat
+    return c
 }

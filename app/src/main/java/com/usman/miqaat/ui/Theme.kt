@@ -106,13 +106,13 @@ private val type = Typography(
 fun MiqaatTheme(theme: com.usman.miqaat.data.AppTheme = com.usman.miqaat.data.AppTheme.MIQAAT, content: @Composable () -> Unit) {
     // Material's own scheme stays the app-wide dark scheme for now (existing screens); the new tokens are provided alongside it.
     val tk = ThemeTokenSets.of(theme)
-    val fresh = tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY
-    val cs = if (!fresh) scheme else if (tk.dark) darkColorScheme(
+    // Every theme now derives Material's roles from its own tokens, so no stock Material colour (blue CTA, chip, switch) can leak in.
+    val cs = if (tk.dark) darkColorScheme(
         primary = tk.primary, onPrimary = tk.onPrimary, secondary = tk.accent, background = tk.background, onBackground = tk.contentPrimary,
-        surface = tk.surface, onSurface = tk.contentPrimary, surfaceVariant = tk.surfaceRaised, onSurfaceVariant = tk.contentSecondary, outline = tk.outline
+        surface = tk.surface, onSurface = tk.contentPrimary, surfaceVariant = tk.surfaceRaised, onSurfaceVariant = tk.contentSecondary, outline = tk.outline, error = tk.error
     ) else lightColorScheme(
         primary = tk.primary, onPrimary = tk.onPrimary, secondary = tk.accent, background = tk.background, onBackground = tk.contentPrimary,
-        surface = tk.surface, onSurface = tk.contentPrimary, surfaceVariant = tk.surfaceRaised, onSurfaceVariant = tk.contentSecondary, outline = tk.outline
+        surface = tk.surface, onSurface = tk.contentPrimary, surfaceVariant = tk.surfaceRaised, onSurfaceVariant = tk.contentSecondary, outline = tk.outline, error = tk.error
     )
     // Light themes need dark status/navigation icons, whatever the phone's own dark-mode setting says.
     val view = androidx.compose.ui.platform.LocalView.current
