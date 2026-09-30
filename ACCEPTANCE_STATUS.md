@@ -43,3 +43,9 @@ Legend: ✅ done and verified by CI tests · 🟡 built, needs on-device/emulato
 Verified visually: tablet Settings rail + independent detail scroll; readiness summary (next event, location, exact alarms, battery, notifications); search "battery" → Reliability, scrolls to and highlights the row; Try it now; theme switching on Celestial, Gallery, Kiswah (Settings and home).
 Defects found and fixed: theme-picker labels invisible in Gallery (now follow active theme); Kiswah/Miqaat tablet home link row truncated by the signature (signature now on its own line). Both re-checked on build 104.
 Still NOT verified: phone layouts (emulator was a tablet only), portrait, 130%/200% text, Urdu/RTL, TalkBack, reduced motion, Miqaat theme after the change, search results are broad for "battery" (all Reliability rows match).
+
+## Phone emulator pass (Pixel 8, portrait, 30 Sep 2026, builds 104-110)
+Verified visually: Settings landing (grouped rows, search, readiness), detail screens, theme cards, Celestial/Gallery/Kiswah/Miqaat phone homes, Urdu (Nastaliq) on home, Settings landing and detail, Timetable in Celestial.
+Defects found and fixed: readiness checks broke mid-word; detail title shown twice; Celestial phone Settings button off-screen; Celestial/Gallery phone text 4-9sp (now floors of 11-13sp); Gallery phone header pushed Settings off-screen after the text-size change (regression, fixed); Settings icons blue on light themes (now gold-brown).
+Observed, not fixed: changing language inside Settings returns to home; moon artwork sits behind date/kicker on Celestial phone; Urdu headline mixes bidi ("عشاء · 8:16 PM").
+Still NOT verified: landscape phone, 130%/200% system text (needs device setting), TalkBack, reduced motion, remaining Settings detail screens on phone, dialogs/pickers, full screenshot matrix, Urdu proofreading.
