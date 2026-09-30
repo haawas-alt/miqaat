@@ -195,8 +195,11 @@ fun ReadinessSummary(state: ReadinessState, wide: Boolean, onOpen: () -> Unit, m
             texts(Alignment.Start)
         }
     }
-    Column(modifier.fillMaxWidth().clip(shape).background(tk.surface).border(1.dp, tk.divider, shape)) {
-        if (wide && !big) {
+    androidx.compose.foundation.layout.BoxWithConstraints(modifier.fillMaxWidth()) {
+    // The wide one-row form needs room: a landscape phone's content pane is narrower than a tablet's, so fall back to the stacked form.
+    val roomy = wide && maxWidth >= 620.dp
+    Column(Modifier.fillMaxWidth().clip(shape).background(tk.surface).border(1.dp, tk.divider, shape)) {
+        if (roomy && !big) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 headline(Modifier.weight(1.7f))
                 Box(Modifier.width(1.dp).height(56.dp).background(tk.divider))
@@ -208,5 +211,5 @@ fun ReadinessSummary(state: ReadinessState, wide: Boolean, onOpen: () -> Unit, m
             if (big) Column(Modifier.padding(Space.s)) { state.checks.forEach { c -> checkItem(c, Modifier.fillMaxWidth(), false) } }
             else Row(Modifier.padding(horizontal = Space.xs, vertical = Space.xs)) { state.checks.forEach { c -> checkItem(c, Modifier.weight(1f), true) } }
         }
-    }
+    }    }
 }

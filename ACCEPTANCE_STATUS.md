@@ -54,3 +54,9 @@ Still NOT verified: landscape phone, 130%/200% system text (needs device setting
 Verified: Settings landing (readiness card, grouped rows with icons, all three groups), Prayer times, Reliability & backup, Try it now (theme cards) render correctly at phone width.
 Observed, not fixed: selected chips on detail screens use the theme's primary (blue in Gallery) rather than the mockup's gold; link-style values render in a rust colour. Build 111 (Gallery header location fix) not yet installed/verified.
 Not verified: Location, Azaan, Iqamah, Hijri, Display, Privacy, About detail screens; landscape phone; large text; TalkBack.
+
+### Phone emulator pass 3 (build 112, Prayer Gallery)
+Verified portrait: Location, Prayer times, Azaan & alerts, Iqamah (toggle off hides options), Hijri calendar, Display & art (cards, selected gold border, language, large type, time format), Privacy, Reliability, Try it now — all render without clipping or overlap.
+Gallery phone header: location still ellipsised with raw coordinates ("37.42°N, 122.0…") but Settings/Learn/Timetable all reachable; a real place name is shorter.
+Defect found in landscape phone (~731dp wide → rail layout): readiness card used the wide one-row form in a ~420dp pane, wrapping words per line ("Batter/y"). Fixed: wide form only when the pane is ≥620dp, otherwise the stacked form (SettingsModel.kt). Needs re-check on build 113.
+Not verified: large text (needs system font size change), TalkBack.
