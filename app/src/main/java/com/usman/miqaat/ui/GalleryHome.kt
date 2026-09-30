@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -346,17 +347,23 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
                 GalleryHeroLeft(hero, state, s, tk, u * 0.62f, F, urdu)
             }
         }
-        Row(Modifier.fillMaxWidth().padding(horizontal = 18.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = 56.sp, color = tk.contentPrimary, maxLines = 1)
-            if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = tk.fontDisplay, fontSize = 20.sp, color = tk.contentSecondary, modifier = Modifier.padding(top = 18.dp))
-            Spacer(Modifier.weight(1f))
+        val detailsButton: @Composable () -> Unit = {
             Row(
                 Modifier.clip(RoundedCornerShape(50)).background(tk.primary).heightIn(min = 48.dp).clickable(onClick = { onWhy(hero.prayer) }, role = Role.Button).padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(Str[R.string.s_view_prayer_details], fontFamily = F, fontWeight = FontWeight.Medium, fontSize = 14.sp, color = tk.onPrimary, maxLines = 2)
-                Icon(Icons.Outlined.ChevronRight, null, Modifier.size(20.dp), tint = tk.onPrimary)
+                Icon(Icons.AutoMirrored.Outlined.KeyboardArrowRight, null, Modifier.size(20.dp), tint = tk.onPrimary)
             }
+        }
+        // On a phone the clock and the button no longer compete for one line (Urdu day-part words made the clock overflow).
+        Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp)) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = 56.sp, color = tk.contentPrimary, maxLines = 1)
+                if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (urdu) F else tk.fontDisplay, fontSize = 20.sp, color = tk.contentSecondary, maxLines = 1, modifier = Modifier.padding(top = 18.dp))
+                if (w >= 600.dp) { Spacer(Modifier.weight(1f)); detailsButton() }
+            }
+            if (w < 600.dp) Box(Modifier.padding(top = 6.dp)) { detailsButton() }
         }
         Spacer(Modifier.height(12.dp))
         }

@@ -331,8 +331,8 @@ private fun MihrabNiche(modifier: Modifier, hood: Boolean, ember: Float) {
             lineTo(x1, bottom); close()
         }
         val outer = arch(inset, w - inset, h * 0.03f, h)
-        drawPath(outer, Brush.verticalGradient(listOf(Color(0xE60A0E2C), Color(0xD9141A45), Color(0xF24A2C2A)), 0f, h))
-        drawPath(outer, Brush.radialGradient(listOf(Color(0xFFF0873A).copy(alpha = 0.55f * ember), Color(0xFFF0873A).copy(alpha = 0.12f * ember), Color.Transparent), Offset(w / 2, h), h * 0.75f))
+        drawPath(outer, Brush.verticalGradient(listOf(Color(0xE60A0E2C), Color(0xD9141A45), Color(0xF21C2656)), 0f, h))
+        drawPath(outer, Brush.radialGradient(listOf(Color(0xFFF0B84A).copy(alpha = 0.32f * ember), Color(0xFFF0B84A).copy(alpha = 0.08f * ember), Color.Transparent), Offset(w / 2, h), h * 0.75f))
         val band = Brush.verticalGradient(listOf(Color(0xFFFFF0BE), Color(0xFFE3C36A), Color(0xFF9E7A22)), 0f, h)
         drawPath(arch(inset * 0.7f, w - inset * 0.7f, h * 0.02f, h), band, style = Stroke(w * 0.012f))
         drawPath(arch(inset * 1.9f, w - inset * 1.9f, h * 0.075f, h), Brush.verticalGradient(listOf(Color(0xB3FFF7E3), Color(0x14FFF7E3)), 0f, h), style = Stroke(1.2.dp.toPx()))

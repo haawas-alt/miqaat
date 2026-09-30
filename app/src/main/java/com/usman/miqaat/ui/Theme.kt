@@ -46,10 +46,10 @@ data class Sky(val top: Color, val bottom: Color, val glow: Color, val stars: Fl
 
 fun skyFor(period: Prayer): Sky = when (period) {
     Prayer.FAJR -> Sky(Color(0xFF0B1B4A), Color(0xFF1B2E6B), Color(0xFF3F5FB8), 0.8f)
-    Prayer.SUNRISE -> Sky(Color(0xFF1E3A6E), Color(0xFFC97B3A), Color(0xFFF3B65A), 0.15f)
-    Prayer.DHUHR -> Sky(Color(0xFF7E5A17), Color(0xFFC9993A), Color(0xFFFFE08A), 0f)
-    Prayer.ASR -> Sky(Color(0xFF6E3414), Color(0xFFB8702E), Color(0xFFF0A050), 0f)
-    Prayer.MAGHRIB -> Sky(Color(0xFF3A1230), Color(0xFF7A2E4A), Color(0xFFD8607A), 0.35f)
+    Prayer.SUNRISE -> Sky(Color(0xFF172C62), Color(0xFF3A5088), Color(0xFFF3B65A), 0.15f)
+    Prayer.DHUHR -> Sky(Color(0xFF14306B), Color(0xFF2C5094), Color(0xFFFFE08A), 0f)
+    Prayer.ASR -> Sky(Color(0xFF12275C), Color(0xFF2B4079), Color(0xFFF0B050), 0f)
+    Prayer.MAGHRIB -> Sky(Color(0xFF16194A), Color(0xFF332C68), Color(0xFFE0A070), 0.35f)
     Prayer.ISHA -> Sky(Color(0xFF050A1E), Color(0xFF111A44), Color(0xFF2B3F8C), 1f)
 }
 
