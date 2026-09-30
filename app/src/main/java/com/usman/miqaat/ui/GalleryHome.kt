@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -333,7 +334,7 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
         Column(
             Modifier.fillMaxWidth().drawBehind {
                 val bandH = minOf(size.height, size.width * 0.86f)
-                androidx.compose.ui.graphics.drawscope.clipRect(bottom = bandH) {
+                clipRect(bottom = bandH) {
                     with(artBand) { draw(androidx.compose.ui.geometry.Size(size.width, size.width * 1672f / 941f), alpha = 0.92f) }
                 }
                 drawRect(Brush.verticalGradient(listOf(tk.background.copy(alpha = 0.2f), tk.background.copy(alpha = 0.5f), tk.background), endY = bandH))
