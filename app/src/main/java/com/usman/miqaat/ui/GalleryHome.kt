@@ -303,10 +303,13 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
     val F = uiFont(s); val urdu = L10n.isUrdu(s)
     val roomy = w >= 600.dp && h >= 780.dp
     val u: Dp = if (roomy) minOf(w / 60, h / 100) else w / 60
+    // On a phone w/60 is only ~6dp, which made the header, date and links 5-9sp. These floors keep them readable.
+    val barU: Dp = if (roomy) u * 0.62f else maxOf(u * 0.62f, 7.5.dp)
+    val railU: Dp = if (roomy) u * 0.5f else maxOf(u * 0.5f, 8.dp)
     val body: @Composable ColumnScope.() -> Unit = {
-        GalleryHeader(s, a, tk, u * 0.62f, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp))
+        GalleryHeader(s, a, tk, barU, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp))
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
-        GalleryDate(state, s, tk, u * 0.62f, F, urdu, Modifier.fillMaxWidth().padding(top = 10.dp))
+        GalleryDate(state, s, tk, barU, F, urdu, Modifier.fillMaxWidth().padding(top = 10.dp))
         Row(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 GalleryHeroLeft(hero, state, s, tk, u * 0.62f, F, urdu)
@@ -332,7 +335,7 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
             if (i < shown.lastIndex) Box(Modifier.padding(horizontal = 16.dp).fillMaxWidth().height(1.dp).background(tk.divider))
         }
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
-        GalleryRail(doorList, tk, u * 0.5f, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp))
+        GalleryRail(doorList, tk, railU, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp))
         if (s.showDisliked) DayThread(s, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp), labelSize = 9.sp, fullNames = false, gnomon = true)
     }
     val page = Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().navigationBarsPadding()

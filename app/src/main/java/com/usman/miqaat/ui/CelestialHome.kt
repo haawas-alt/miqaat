@@ -242,7 +242,7 @@ private fun CelestialRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: 
                     r.prayer.isPrayer -> Icon(if (r.azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(u * 1.5f), tint = tk.contentMuted)
                 }
             }
-            if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = fs(1.15f), color = tk.contentSecondary, maxLines = 2)
+            if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = maxOf(fs(1.15f).value, 11f).sp, color = tk.contentSecondary, maxLines = 2)
         }
         Row(verticalAlignment = Alignment.Bottom) {
             Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = if (s.showRelative) FontWeight.SemiBold else FontWeight.Medium, fontSize = fs(if (s.showRelative) 2.2f else 4.2f), lineHeight = fs(4.4f), color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.7f else 1f))
@@ -287,8 +287,11 @@ private fun CelestialStacked(
     val F = uiFont(s); val urdu = L10n.isUrdu(s)
     val roomy = w >= 600.dp && h >= 780.dp              // portrait tablet: fit the page, no scrolling. Phones scroll.
     val u: Dp = if (roomy) minOf(w / 60, h / 100) else w / 60
+    // On a phone w/60 is only ~6dp, which made list and top-bar text 4-9sp. These floors keep every label at a readable size.
+    val rowU: Dp = if (roomy) u * 0.5f else maxOf(u * 0.5f, 8.dp)
+    val barU: Dp = if (roomy) u * 0.62f else maxOf(u * 0.62f, 7.5.dp)
     val body: @Composable ColumnScope.() -> Unit = {
-        CelestialTopBar(state, s, a, tk, u * 0.62f, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp))
+        CelestialTopBar(state, s, a, tk, barU, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp))
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
         Box(Modifier.fillMaxWidth().padding(top = u * 1f)) {
             SolarArc(Modifier.fillMaxWidth().height(u * 15).padding(horizontal = 12.dp).align(Alignment.BottomCenter), state, s, tk)
@@ -300,11 +303,11 @@ private fun CelestialStacked(
         Column(Modifier.padding(horizontal = 12.dp).clip(RoundedCornerShape(tk.cornerLarge)).background(tk.surface.copy(alpha = 0.94f)).border(1.dp, tk.divider, RoundedCornerShape(tk.cornerLarge))) {
             val shown = listedPrayers(s)
             shown.forEachIndexed { i, p ->
-                CelestialRow(rowInfo(p, state, s), s, tk, u * 0.5f, F, urdu, a.onToggleRelative) { onWhy(p) }
+                CelestialRow(rowInfo(p, state, s), s, tk, rowU, F, urdu, a.onToggleRelative) { onWhy(p) }
                 if (i < shown.lastIndex) Box(Modifier.padding(horizontal = 14.dp).fillMaxWidth().height(1.dp).background(tk.divider))
             }
         }
-        CelestialRail(doorList, tk, u * 0.5f, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp))
+        CelestialRail(doorList, tk, rowU, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp))
         if (s.showDisliked) DayThread(s, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp), labelSize = 9.sp, fullNames = false, gnomon = true)
     }
     val page = Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().navigationBarsPadding()

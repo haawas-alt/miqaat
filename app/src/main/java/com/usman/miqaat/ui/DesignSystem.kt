@@ -197,7 +197,7 @@ fun DestinationRow(icon: ImageVector, title: String, subtitle: String?, onClick:
         modifier.fillMaxWidth().heightIn(min = 64.dp).clickable(role = Role.Button, onClick = onClick).padding(horizontal = Space.l, vertical = Space.m),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(icon, null, Modifier.size(26.dp), tint = tk.primary)
+        Icon(icon, null, Modifier.size(26.dp), tint = selectionAccent(tk))
         Spacer(Modifier.width(Space.l))
         Column(Modifier.weight(1f)) {
             Text(title, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = 20.sp, color = tk.contentPrimary)
