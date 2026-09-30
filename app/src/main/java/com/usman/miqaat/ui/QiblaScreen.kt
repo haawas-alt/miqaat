@@ -131,7 +131,7 @@ fun QiblaScreen(settings: AppSettings, onBack: () -> Unit) {
                 }
                 Box(Modifier.fillMaxWidth().aspectRatio(1f).padding(u * 4).semantics { contentDescription = spoken }, contentAlignment = Alignment.Center) { Compass(needle, heading = if (hasSensor) heading else 0f, u = u.value) }
                 Text("${bearing.toInt()}°  ${PrayerEngine.compass(bearing)}", fontFamily = Cormorant, fontSize = (u.value * 14f).sp, lineHeight = (u.value * 14f).sp, color = Color(0xFFF6E7B8))
-                Text("from true north, at ${settings.locationName}", fontFamily = Nunito, fontSize = (u.value * 3.2f).sp, color = tk.contentSecondary)
+                Text(Str.get(R.string.s_qibla_from_north, settings.locationName), fontFamily = Nunito, fontSize = (u.value * 3.2f).sp, color = tk.contentSecondary)
                 Text("$accuracyWords · $declWords", fontFamily = Nunito, fontSize = (u.value * 2.8f).sp, color = if (accuracyLow) tk.primary else tk.contentMuted, textAlign = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.padding(top = u * 1))
                 Text(if (!hasSensor) Str[R.string.s_no_compass_sensor_face_the_phone] else if (accuracyLow) Str[R.string.s_move_the_phone_in_a_figure] else Str[R.string.s_hold_the_phone_flat_and_turn],
                     fontFamily = Nunito, fontSize = (u.value * 3.4f).sp, lineHeight = (u.value * 5f).sp, color = tk.contentPrimary.copy(alpha = 0.8f), textAlign = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.padding(top = u * 4))
@@ -146,7 +146,7 @@ fun QiblaScreen(settings: AppSettings, onBack: () -> Unit) {
                     Text("  القبلة", fontFamily = Amiri, fontSize = (u.value * 3.4f).sp, color = tk.accent)
                 }
                 Text("${bearing.toInt()}°  ${PrayerEngine.compass(bearing)}", fontFamily = Cormorant, fontSize = (u.value * 9f).sp, lineHeight = (u.value * 9f).sp, color = Color(0xFFF6E7B8), modifier = Modifier.padding(start = u * 1.5f))
-                Text("from true north, at ${settings.locationName}", fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, color = tk.contentSecondary, modifier = Modifier.padding(start = u * 1.6f))
+                Text(Str.get(R.string.s_qibla_from_north, settings.locationName), fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, color = tk.contentSecondary, modifier = Modifier.padding(start = u * 1.6f))
                 Text("$accuracyWords · $declWords", fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, color = if (accuracyLow) tk.primary else tk.contentMuted, modifier = Modifier.padding(start = u * 1.6f, top = u * 0.8f))
                 Text(
                     when {

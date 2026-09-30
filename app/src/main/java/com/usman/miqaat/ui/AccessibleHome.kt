@@ -66,7 +66,7 @@ fun AccessibleHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Row(
                     Modifier.weight(1f).clip(RoundedCornerShape(50)).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation, role = Role.Button)
-                        .semantics(mergeDescendants = true) { contentDescription = "Location: ${settings.locationName}. Opens location settings" },
+                        .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, settings.locationName) },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(Icons.Outlined.LocationOn, null, Modifier.size(24.dp), tint = tk.primary)

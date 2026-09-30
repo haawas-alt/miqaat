@@ -212,7 +212,7 @@ private fun ConfirmStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit
         Chips(AsrMethod.entries.map { it.text }, AsrMethod.entries.indexOf(s.asrMethod)) { i -> store.update { it.copy(asrMethod = AsrMethod.entries[i]) } }
     }
     Spacer(Modifier.height(4.dp))
-    Text("Today · ${LocalDate.now(zone)}", fontFamily = Cormorant, fontSize = 22.sp, color = tk.contentPrimary, modifier = Modifier.semantics { heading() })
+    Text(Str.get(R.string.s_today_fmt, LocalDate.now(zone).toString()), fontFamily = Cormorant, fontSize = 22.sp, color = tk.contentPrimary, modifier = Modifier.semantics { heading() })
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
         listOf(Prayer.FAJR, Prayer.DHUHR, Prayer.ASR, Prayer.MAGHRIB, Prayer.ISHA).forEach { p ->
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.semantics(mergeDescendants = true) {}) {

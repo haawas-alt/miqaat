@@ -17,6 +17,7 @@ object Str {
         val cfg = Configuration(ctx.resources.configuration)
         cfg.setLocale(java.util.Locale(language.tag))
         res = ctx.createConfigurationContext(cfg).resources
+        L10n.uiUrdu = language == Language.UR
     }
     operator fun get(id: Int): String = res.getString(id)
     fun get(id: Int, vararg args: Any): String = res.getString(id, *args)
@@ -35,3 +36,7 @@ val ArtTheme.text: String get() = Str[labelRes]
 
 /** Forward chevron for "opens a picker" values: mirrored in right-to-left layouts. */
 val Str.chev: String get() = if (res.configuration.layoutDirection == android.view.View.LAYOUT_DIRECTION_RTL) " ‹" else " ›"
+
+/** The current time for a home header: digits from the engine, then AM/PM (English) or the time-of-day word (Urdu). */
+fun nowClock(t: java.time.ZonedDateTime, use24h: Boolean): String =
+    PrayerEngine.clock(t, use24h) + PrayerEngine.suffix(t, use24h).let { if (it.isEmpty()) "" else " $it" }

@@ -609,4 +609,25 @@
     <string name="s_nothing_here_yet">Nothing here yet</string>
     <string name="s_something_went_wrong">Something went wrong</string>
     <string name="s_switch_clock_time_until">Switch between clock time and time until</string>
+    <string name="s_a11y_location">Location: %1$s. Opens location settings</string>
+    <string name="s_start">Start</string>
+    <string name="s_clock_12h">12-hour</string>
+    <string name="s_clock_24h">24-hour</string>
+    <string name="s_iqamah_test_detail">The whole iqamah flow, starting with a %1$d-second countdown</string>
+    <string name="s_quiet_test_detail">Shows the in-prayer screen for %1$d min; tap it to leave</string>
+    <string name="s_log_last7">Last 7 days · %1$d played</string>
+    <string name="s_log_late"> · %1$d late</string>
+    <string name="s_log_missed"> · %1$d missed</string>
+    <string name="s_ramadan_heading">Ramaḍān</string>
+    <string name="s_today_fmt">Today · %1$s</string>
+    <string name="s_iftar_in">Iftar in %1$s</string>
+    <string name="s_iq_short">IQ</string>
+    <string name="s_tarawih_line">Tarāwīḥ %1$s  ·  last third of the night from %2$s</string>
+    <string name="s_duha_from">ḍuḥā from %1$s</string>
+    <string name="s_qibla_from_north">from true north, at %1$s</string>
+    <string name="s_seconds_caps">SECONDS</string>
+    <string name="s_in_prayer_wake">in prayer · screen wakes in %1$d min · tap to wake now</string>
+    <string name="s_rakah_n">Rakʿah %1$d</string>
+    <string name="s_friday_masjid_azaan">Jumuʿah at your masjid: azaan %1$s</string>
+    <string name="s_friday_masjid_iqamah"> · iqamah %1$s</string>
 </resources>

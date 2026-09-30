@@ -609,4 +609,25 @@
     <string name="s_nothing_here_yet">ابھی یہاں کچھ نہیں</string>
     <string name="s_something_went_wrong">کچھ غلط ہو گیا</string>
     <string name="s_switch_clock_time_until">گھڑی کے وقت اور باقی وقت کے درمیان تبدیل کریں</string>
+    <string name="s_a11y_location">مقام: %1$s۔ مقام کی ترتیبات کھولتا ہے</string>
+    <string name="s_start">شروع کریں</string>
+    <string name="s_clock_12h">12 گھنٹے</string>
+    <string name="s_clock_24h">24 گھنٹے</string>
+    <string name="s_iqamah_test_detail">اقامت کا پورا عمل، %1$d سیکنڈ کی الٹی گنتی سے شروع</string>
+    <string name="s_quiet_test_detail">%1$d منٹ کے لیے نماز کی خاموش سکرین دکھاتا ہے؛ نکلنے کے لیے چھوئیں</string>
+    <string name="s_log_last7">پچھلے 7 دن · %1$d چلیں</string>
+    <string name="s_log_late"> · %1$d تاخیر سے</string>
+    <string name="s_log_missed"> · %1$d رہ گئیں</string>
+    <string name="s_ramadan_heading">رمضان</string>
+    <string name="s_today_fmt">آج · %1$s</string>
+    <string name="s_iftar_in">افطار میں %1$s</string>
+    <string name="s_iq_short">اقامت</string>
+    <string name="s_tarawih_line">تراویح %1$s  ·  رات کا آخری تہائی حصہ %2$s سے</string>
+    <string name="s_duha_from">چاشت %1$s سے</string>
+    <string name="s_qibla_from_north">سمتِ شمال سے، %1$s میں</string>
+    <string name="s_seconds_caps">سیکنڈ</string>
+    <string name="s_in_prayer_wake">نماز جاری ہے · %1$d منٹ میں سکرین جاگے گی · ابھی جگانے کے لیے چھوئیں</string>
+    <string name="s_rakah_n">رکعت %1$d</string>
+    <string name="s_friday_masjid_azaan">آپ کی مسجد میں جمعہ: اذان %1$s</string>
+    <string name="s_friday_masjid_iqamah"> · اقامت %1$s</string>
 </resources>

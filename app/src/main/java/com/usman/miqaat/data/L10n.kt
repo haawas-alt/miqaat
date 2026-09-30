@@ -14,6 +14,16 @@ object L10n {
 
     fun isUrdu(s: AppSettings) = s.language == Language.UR
 
+    /** Set by the UI whenever the app language changes, so number-and-suffix helpers deep in the engine follow it. */
+    @Volatile var uiUrdu: Boolean = false
+
+    /** AM/PM for English; for Urdu the time-of-day word for the same hour (the digits themselves never change). */
+    fun ampm(hour: Int): String = if (!uiUrdu) (if (hour >= 12) "PM" else "AM") else when { hour < 12 -> "صبح"; hour < 16 -> "دوپہر"; hour < 19 -> "شام"; else -> "رات" }
+
+    fun dateShort(s: AppSettings, t: ZonedDateTime): String =
+        if (isUrdu(s)) "${urDays[t.dayOfWeek.name]}، ${t.dayOfMonth} ${urGreg[t.monthValue - 1]}"
+        else t.format(DateTimeFormatter.ofPattern("EEE d MMM", Locale.ENGLISH))
+
     fun prayer(s: AppSettings, p: Prayer): String = if (isUrdu(s)) urPrayer.getValue(p) else p.english
 
     fun date(s: AppSettings, t: ZonedDateTime): String =
@@ -24,8 +34,11 @@ object L10n {
         // RLI…PDI: the string starts with a digit, so without a right-to-left isolate the day and year collapse together.
         if (isUrdu(s)) "\u2067${h.day} ${urMonths[h.month - 1]} ${h.year}\u2069" else h.english
 
-    fun duration(s: AppSettings, d: Duration): String {
-        if (!isUrdu(s)) return PrayerEngine.humanDuration(d)
+    fun duration(s: AppSettings, d: Duration): String = durationIn(isUrdu(s), d)
+    /** Same, for code that has no settings object to hand: follows the app language flag. */
+    fun durationUi(d: Duration): String = durationIn(uiUrdu, d)
+    private fun durationIn(urdu: Boolean, d: Duration): String {
+        if (!urdu) return PrayerEngine.humanDuration(d)
         // Isolated right-to-left so "1 گھنٹے 53 منٹ" keeps its order when it starts with a digit (seen live as "گھنٹے 53 منٹ 1").
         if (d.abs().seconds < 60) return "\u2067${d.abs().seconds} سیکنڈ\u2069"
         val total = d.abs().toMinutes(); val h = total / 60; val m = total % 60

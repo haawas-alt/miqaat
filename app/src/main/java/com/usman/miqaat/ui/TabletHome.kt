@@ -148,7 +148,7 @@ private fun Header(state: PrayerState, s: AppSettings, a: HomeActions, u: Dp, go
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Row(
             Modifier.clip(RoundedCornerShape(50)).clickable(onClick = a.onOpenLocation, role = Role.Button).heightIn(min = 48.dp).padding(end = u * 1.5f)
-                .semantics(mergeDescendants = true) { contentDescription = "Location: ${s.locationName}. Opens location settings" },
+                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, s.locationName) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.2f), tint = gold)
@@ -159,10 +159,10 @@ private fun Header(state: PrayerState, s: AppSettings, a: HomeActions, u: Dp, go
         Spacer(Modifier.weight(1f))
         Column(horizontalAlignment = Alignment.End) {
             if (kiswah) {
-                Text((if (s.showHijri) L10n.hijri(s, hij) + "  ·  " else "") + state.now.format(DateTimeFormatter.ofPattern("EEE d MMM", Locale.ENGLISH)).uppercase() + "  ·  " + state.now.format(DateTimeFormatter.ofPattern(if (s.use24h) "HH:mm" else "h:mm a", Locale.ENGLISH)),
+                Text((if (s.showHijri) L10n.hijri(s, hij) + "  ·  " else "") + (if (urdu) L10n.dateShort(s, state.now) else L10n.dateShort(s, state.now).uppercase()) + "  ·  " + nowClock(state.now, s.use24h),
                     fontFamily = Cinzel, fontSize = fs(1.3f), letterSpacing = fs(0.25f), color = ivory.copy(alpha = 0.85f), maxLines = 1)
             } else {
-                Text(L10n.date(s, state.now) + "  ·  " + state.now.format(DateTimeFormatter.ofPattern(if (s.use24h) "HH:mm" else "h:mm a", Locale.ENGLISH)), fontFamily = F, fontSize = fs(1.6f), color = ivory.copy(alpha = 0.85f), maxLines = 1)
+                Text(L10n.date(s, state.now) + "  ·  " + nowClock(state.now, s.use24h), fontFamily = F, fontSize = fs(1.6f), color = ivory.copy(alpha = 0.85f), maxLines = 1)
                 if (s.showHijri) Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(L10n.hijri(s, hij), fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.9f), color = gold, maxLines = 1)
                     if (!urdu) { Text("  ·  ", fontFamily = Amiri, fontSize = fs(1.7f), color = gold); Text(L10n.iso(hij.arabic), fontFamily = Amiri, fontSize = fs(1.7f), color = gold) }
@@ -219,12 +219,12 @@ private fun Hero(state: PrayerState, s: AppSettings, u: Dp, kiswah: Boolean, ara
             val total = Duration.between(start, end).toMinutes().coerceAtLeast(1); val done = Duration.between(start, state.now).toMinutes().coerceIn(0, total)
             Column(Modifier.padding(top = u * 1f).width(u * 30), horizontalAlignment = Alignment.CenterHorizontally) {
                 Box(Modifier.fillMaxWidth().height(u * 0.4f).clip(RoundedCornerShape(50)).background(Color.White.copy(alpha = 0.18f))) { Box(Modifier.fillMaxWidth(done / total.toFloat()).fillMaxHeight().background(Palette.gold)) }
-                Text("Iftar in ${PrayerEngine.humanDuration(Duration.between(state.now, end))}", fontFamily = Nunito, fontSize = fs(1.2f), color = gold, modifier = Modifier.padding(top = u * 0.4f))
+                Text(Str.get(R.string.s_iftar_in, L10n.duration(s, Duration.between(state.now, end))), fontFamily = Nunito, fontSize = fs(1.2f), color = gold, modifier = Modifier.padding(top = u * 0.4f))
             }
         }
         if (ramadan && (state.current == Prayer.ISHA || state.current == Prayer.MAGHRIB || state.current == null)) {
             val lt = PrayerEngine.lastThird(s, state.today)
-            Text("Tarāwīḥ ${PrayerEngine.clock(state.today[Prayer.ISHA].plusMinutes(s.tarawihMinutesAfterIsha.toLong()), s.use24h)}  ·  last third of the night from ${PrayerEngine.clock(lt, s.use24h)} ${PrayerEngine.suffix(lt, s.use24h)}",
+            Text(Str.get(R.string.s_tarawih_line, PrayerEngine.clock(state.today[Prayer.ISHA].plusMinutes(s.tarawihMinutesAfterIsha.toLong()), s.use24h), PrayerEngine.clock(lt, s.use24h) + " " + PrayerEngine.suffix(lt, s.use24h)),
                 fontFamily = Nunito, fontSize = fs(1.2f), color = gold.copy(alpha = 0.9f), textAlign = TextAlign.Center, modifier = Modifier.padding(top = u * 0.7f))
         }
     }
@@ -250,7 +250,7 @@ private fun TimeRow(
     val small = listOfNotNull(
         endT?.let { "${L10n.word(s, "ends")} ${PrayerEngine.clock(it, s.use24h)}" },
         iq?.let { "${if (urdu) L10n.word(s, "Iqamah") else "iq"} ${PrayerEngine.clock(it, s.use24h)}" },
-        if (p == Prayer.SUNRISE) "ḍuḥā from ${PrayerEngine.clock(t.plusMinutes(15), s.use24h)}" else null
+        if (p == Prayer.SUNRISE) Str.get(R.string.s_duha_from, PrayerEngine.clock(t.plusMinutes(15), s.use24h)) else null
     ).joinToString("  ·  ")
     val spoken = buildString {
         append(label); append(", "); append(PrayerEngine.clock(t, s.use24h)); append(' '); append(PrayerEngine.suffix(t, s.use24h)); append(", "); append(L10n.relative(s, t, state.now))

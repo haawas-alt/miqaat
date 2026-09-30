@@ -336,11 +336,10 @@ object PrayerEngine {
     // ---- formatting -----------------------------------------------------
 
     private val f12 = DateTimeFormatter.ofPattern("h:mm", Locale.ENGLISH)
-    private val fAmPm = DateTimeFormatter.ofPattern("a", Locale.ENGLISH)
     private val f24 = DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH)
 
     fun clock(t: ZonedDateTime, use24h: Boolean): String = if (use24h) t.format(f24) else t.format(f12)
-    fun suffix(t: ZonedDateTime, use24h: Boolean): String = if (use24h) "" else t.format(fAmPm).uppercase()
+    fun suffix(t: ZonedDateTime, use24h: Boolean): String = if (use24h) "" else L10n.ampm(t.hour)
 
     /** "in 2 h 5 min" or "40 min ago". */
     fun relative(t: ZonedDateTime, now: ZonedDateTime): String =

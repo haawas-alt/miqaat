@@ -84,6 +84,7 @@ import androidx.compose.ui.unit.sp
 import com.usman.miqaat.azaan.AzaanScheduler
 import com.usman.miqaat.azaan.AzaanService
 import com.usman.miqaat.data.AppSettings
+import com.usman.miqaat.data.L10n
 import com.usman.miqaat.data.ArtTheme
 import com.usman.miqaat.data.AsrMethod
 import com.usman.miqaat.data.LatitudeRule
@@ -477,14 +478,14 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
     if (s.jumuahEnabled) SettingRow(Str[R.string.s_jumu_ah_azaan_time], Str[R.string.s_your_masjid_s_first_azaan_adjust]) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             StepBtn("−", s.jumuahMinutes > 11 * 60) { store.update { it.copy(jumuahMinutes = it.jumuahMinutes - 5) } }
-            Text("%d:%02d %s".format(((s.jumuahMinutes / 60) + 11) % 12 + 1, s.jumuahMinutes % 60, if (s.jumuahMinutes >= 720) "PM" else "AM"), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = tk.accent, modifier = Modifier.width(90.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+            Text("%d:%02d %s".format(((s.jumuahMinutes / 60) + 11) % 12 + 1, s.jumuahMinutes % 60, L10n.ampm(s.jumuahMinutes / 60)), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = tk.accent, modifier = Modifier.width(90.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
             StepBtn("+", s.jumuahMinutes < 15 * 60) { store.update { it.copy(jumuahMinutes = it.jumuahMinutes + 5) } }
         }
     }
     SettingRow(Str[R.string.s_friday_reminders], Str[R.string.s_a_jumu_ah_chip_from_thursday]) { Toggle(s.fridayReminders) { on -> store.update { it.copy(fridayReminders = on) } } }
     SettingRow(Str[R.string.s_hour_of_acceptance_reminder], Str[R.string.s_a_quiet_notification_one_hour_before]) { Toggle(s.fridayHourReminder) { on -> store.update { it.copy(fridayHourReminder = on) } } }
     Spacer(Modifier.height(18.dp))
-    Text("Ramaḍān", fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
+    Text(Str[R.string.s_ramadan_heading], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     SettingRow(Str[R.string.s_rama_n_mode], Str[R.string.s_suhoor_and_iftar_labels_fasting_progress]) {
         Chips(RamadanMode.entries.map { it.text }, RamadanMode.entries.indexOf(s.ramadanMode)) { i -> store.update { it.copy(ramadanMode = RamadanMode.entries[i]) } }
     }
@@ -634,7 +635,7 @@ private fun IqamahSection(store: SettingsStore, s: AppSettings) {
         if (s.jumuahEnabled) SettingRow(Str[R.string.s_jumu_ah_iqamah_fixed_time], Str[R.string.s_used_instead_of_the_dhuhr_offset]) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 StepBtn("−", s.jumuahIqamahMinutes > 11 * 60) { store.update { it.copy(jumuahIqamahMinutes = it.jumuahIqamahMinutes - 5) } }
-                Text("%d:%02d %s".format(((s.jumuahIqamahMinutes / 60) + 11) % 12 + 1, s.jumuahIqamahMinutes % 60, if (s.jumuahIqamahMinutes >= 720) "PM" else "AM"), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = tk.accent, modifier = Modifier.width(90.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+                Text("%d:%02d %s".format(((s.jumuahIqamahMinutes / 60) + 11) % 12 + 1, s.jumuahIqamahMinutes % 60, L10n.ampm(s.jumuahIqamahMinutes / 60)), fontFamily = Nunito, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = tk.accent, modifier = Modifier.width(90.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                 StepBtn("+", s.jumuahIqamahMinutes < 16 * 60) { store.update { it.copy(jumuahIqamahMinutes = it.jumuahIqamahMinutes + 5) } }
             }
         }
@@ -679,7 +680,7 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
             GoldButton(Str[R.string.s_other_prayers]) { AzaanService.preview(ctx, Prayer.MAGHRIB) }
         }
     }
-    SettingRow(Str[R.string.s_full_sequence_after_azaan], Str[R.string.s_dua_after_azaan_hadith_back_to]) { GoldButton("Start") { AzaanService.previewAfter(ctx, Prayer.DHUHR) } }
+    SettingRow(Str[R.string.s_full_sequence_after_azaan], Str[R.string.s_dua_after_azaan_hadith_back_to]) { GoldButton(Str[R.string.s_start]) { AzaanService.previewAfter(ctx, Prayer.DHUHR) } }
     var hadithNo by remember { mutableStateOf(1) }
     SettingRow(Str[R.string.s_play_one_hadith], Str[R.string.s_play_one_hadith_detail]) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -687,13 +688,13 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
             GoldButton(Str[R.string.s_play]) { AzaanService.previewHadith(ctx, hadithNo) }
         }
     }
-    SettingRow(Str[R.string.s_rama_n_maghrib_sequence], Str[R.string.s_iftar_dua_dua_after_azaan_hadith]) { GoldButton("Start") { AzaanService.previewAfter(ctx, Prayer.MAGHRIB) } }
+    SettingRow(Str[R.string.s_rama_n_maghrib_sequence], Str[R.string.s_iftar_dua_dua_after_azaan_hadith]) { GoldButton(Str[R.string.s_start]) { AzaanService.previewAfter(ctx, Prayer.MAGHRIB) } }
     Spacer(Modifier.height(14.dp))
     Text(Str[R.string.s_iqamah], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
-    SettingRow(Str[R.string.s_countdown_iqamah_quiet_screen], "The whole iqamah flow, starting with a ${s.iqamahCountdownSeconds}-second countdown") { GoldButton("Start") { AzaanService.testIqamah(ctx, Prayer.MAGHRIB) } }
-    SettingRow(Str[R.string.s_short_countdown], Str[R.string.s_same_flow_15_second_countdown_to]) { GoldButton("Start") { AzaanService.testIqamah(ctx, Prayer.MAGHRIB, 15) } }
+    SettingRow(Str[R.string.s_countdown_iqamah_quiet_screen], Str.get(R.string.s_iqamah_test_detail, s.iqamahCountdownSeconds)) { GoldButton(Str[R.string.s_start]) { AzaanService.testIqamah(ctx, Prayer.MAGHRIB) } }
+    SettingRow(Str[R.string.s_short_countdown], Str[R.string.s_same_flow_15_second_countdown_to]) { GoldButton(Str[R.string.s_start]) { AzaanService.testIqamah(ctx, Prayer.MAGHRIB, 15) } }
     SettingRow(Str[R.string.s_iqamah_sound_only], Str.get(R.string.s_plays_x_and_shows_iqamah, s.iqamahSound.text.lowercase())) { GoldButton(Str[R.string.s_play]) { AzaanService.testIqamahNow(ctx, Prayer.MAGHRIB) } }
-    SettingRow(Str[R.string.s_quiet_screen], "Shows the in-prayer screen for ${s.quietMinutes} min; tap it to leave") { GoldButton("Show") { AzaanService.testQuiet(ctx, Prayer.MAGHRIB) } }
+    SettingRow(Str[R.string.s_quiet_screen], Str.get(R.string.s_quiet_test_detail, s.quietMinutes)) { GoldButton(Str[R.string.s_show]) { AzaanService.testQuiet(ctx, Prayer.MAGHRIB) } }
     Spacer(Modifier.height(14.dp))
     Text(Str[R.string.s_home_screen_modes], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     SettingRow(Str[R.string.s_rama_n_mode], Str[R.string.s_force_it_on_to_see_suhoor]) {
@@ -716,7 +717,7 @@ private fun HealthSection(store: SettingsStore, s: AppSettings) {
     val pm = ctx.getSystemService(Context.POWER_SERVICE) as PowerManager
 
     Heading(Str[R.string.s_reliability_backup], Str[R.string.s_did_it_fire_every_azaan_iqamah])
-    Text("Last 7 days · $fired played" + (if (late > 0) " · $late late" else "") + (if (missed > 0) " · $missed missed" else Str[R.string.s_none_missed]), fontFamily = Cormorant, fontSize = 26.sp, color = if (missed > 0) (if (tk.dark) Color(0xFFF08C8C) else tk.warning) else if (late > 0) (if (tk.dark) Color(0xFFF0A050) else tk.warning) else tk.success)
+    Text(Str.get(R.string.s_log_last7, fired) + (if (late > 0) Str.get(R.string.s_log_late, late) else "") + (if (missed > 0) Str.get(R.string.s_log_missed, missed) else Str[R.string.s_none_missed]), fontFamily = Cormorant, fontSize = 26.sp, color = if (missed > 0) (if (tk.dark) Color(0xFFF08C8C) else tk.warning) else if (late > 0) (if (tk.dark) Color(0xFFF0A050) else tk.warning) else tk.success)
     Spacer(Modifier.height(6.dp))
     SettingRow(Str[R.string.s_next_alarm_armed], next?.let { "${it.prayer.english} ${if (it.iqamah) "iqamah" else if (it.reminder) "reminder" else "azaan"} · ${PrayerEngine.clock(it.at, s.use24h)} ${PrayerEngine.suffix(it.at, s.use24h)}" } ?: Str[R.string.s_nothing_scheduled_turn_on_an_azaan]) { Value(if (next != null) "✓" else "!") }
     SettingRow(Str[R.string.s_battery_optimisation], if (pm.isIgnoringBatteryOptimizations(ctx.packageName)) Str[R.string.s_miqaat_is_exempt] else Str[R.string.s_not_exempt_android_may_delay_alarms]) { Value(if (pm.isIgnoringBatteryOptimizations(ctx.packageName)) "✓" else "!") }
@@ -736,7 +737,7 @@ private fun HealthSection(store: SettingsStore, s: AppSettings) {
                 Text(e.detail, fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary)
             }
             val t = e.time(s.zone())
-            Text(t.format(java.time.format.DateTimeFormatter.ofPattern("EEE d MMM · " + (if (s.use24h) "HH:mm" else "h:mm a"), java.util.Locale.ENGLISH)), fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary)
+            Text(L10n.dateShort(s, t) + " · " + PrayerEngine.clock(t, s.use24h) + PrayerEngine.suffix(t, s.use24h).let { if (it.isEmpty()) "" else " $it" }, fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary)
         }
         HorizontalDivider(color = tk.divider)
     }
@@ -820,7 +821,7 @@ private fun DisplaySection(store: SettingsStore, s: AppSettings) {
     }
     SettingRow(Str[R.string.s_large_type], Str[R.string.s_one_prayer_one_time_one_line]) { Toggle(s.largeType) { on -> store.update { it.copy(largeType = on) } } }
     SettingRow(Str[R.string.s_home_screen_widget], Str[R.string.s_long_press_your_phone_s_home]) { Value(Str[R.string.s_phone]) }
-    SettingRow(Str[R.string.s_time_format], null) { Chips(listOf("12-hour", "24-hour"), if (s.use24h) 1 else 0) { i -> store.update { it.copy(use24h = i == 1) } } }
+    SettingRow(Str[R.string.s_time_format], null) { Chips(listOf(Str[R.string.s_clock_12h], Str[R.string.s_clock_24h]), if (s.use24h) 1 else 0) { i -> store.update { it.copy(use24h = i == 1) } } }
     SettingRow(Str[R.string.s_keep_the_screen_on], Str[R.string.s_while_miqaat_is_open_best_with]) { Toggle(s.keepScreenOn) { on -> store.update { it.copy(keepScreenOn = on) } } }
     SettingRow(Str[R.string.s_dim_after_isha], Str[R.string.s_softens_the_screen_through_the_night]) { Toggle(s.nightDim) { on -> store.update { it.copy(nightDim = on) } } }
     SettingRow(Str[R.string.s_qibla_direction_on_the_home_screen], Str[R.string.s_tap_it_for_the_compass]) { Toggle(s.showQibla) { on -> store.update { it.copy(showQibla = on) } } }
@@ -971,7 +972,7 @@ private fun Stepper(value: Int, min: Int, max: Int, step: Int, unit: String, sig
 @Composable
 private fun TimeStepper(minutes: Int, use24h: Boolean, onChange: (Int) -> Unit) {
     val tk = screenTokens()
-    fun fmt(m: Int): String { val h = (m / 60) % 24; val mi = m % 60; return if (use24h) "%02d:%02d".format(h, mi) else "%d:%02d %s".format((h + 11) % 12 + 1, mi, if (h >= 12) "PM" else "AM") }
+    fun fmt(m: Int): String { val h = (m / 60) % 24; val mi = m % 60; return if (use24h) "%02d:%02d".format(h, mi) else "%d:%02d %s".format((h + 11) % 12 + 1, mi, L10n.ampm(h)) }
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         StepBtn("−1h", minutes >= 60) { onChange(minutes - 60) }
         StepBtn("−5", minutes >= 5) { onChange(minutes - 5) }

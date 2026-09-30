@@ -34,7 +34,7 @@ internal fun rowInfo(p: Prayer, state: PrayerState, s: AppSettings): RowInfo {
     val small = listOfNotNull(
         endT?.let { "${L10n.word(s, "ends")} ${PrayerEngine.clock(it, s.use24h)}" },
         iq?.let { "${if (urdu) L10n.word(s, "Iqamah") else "iq"} ${PrayerEngine.clock(it, s.use24h)}" },
-        if (p == Prayer.SUNRISE) "ḍuḥā from ${PrayerEngine.clock(t.plusMinutes(15), s.use24h)}" else null
+        if (p == Prayer.SUNRISE) Str.get(R.string.s_duha_from, PrayerEngine.clock(t.plusMinutes(15), s.use24h)) else null
     ).joinToString("  ·  ")
     val azaanOn = s.azaanEnabled[p] == true
     val spoken = buildString {
@@ -74,7 +74,7 @@ internal fun fastProgress(state: PrayerState, s: AppSettings): Pair<Float, Strin
     val start = state.today[Prayer.FAJR]; val end = state.today[Prayer.MAGHRIB]
     val total = Duration.between(start, end).toMinutes().coerceAtLeast(1)
     val done = Duration.between(start, state.now).toMinutes().coerceIn(0, total)
-    return (done / total.toFloat()) to "Iftar in ${PrayerEngine.humanDuration(Duration.between(state.now, end))}"
+    return (done / total.toFloat()) to Str.get(R.string.s_iftar_in, L10n.duration(s, Duration.between(state.now, end)))
 }
 
 /** Ramaḍān evening line: tarāwīḥ and the last third of the night. */
@@ -82,7 +82,7 @@ internal fun tarawihLine(state: PrayerState, s: AppSettings): String? {
     if (!PrayerEngine.isRamadan(s, state.now.toLocalDate())) return null
     if (!(state.current == Prayer.ISHA || state.current == Prayer.MAGHRIB || state.current == null)) return null
     val lt = PrayerEngine.lastThird(s, state.today)
-    return "Tarāwīḥ ${PrayerEngine.clock(state.today[Prayer.ISHA].plusMinutes(s.tarawihMinutesAfterIsha.toLong()), s.use24h)}  ·  last third of the night from ${PrayerEngine.clock(lt, s.use24h)} ${PrayerEngine.suffix(lt, s.use24h)}".trim()
+    return Str.get(R.string.s_tarawih_line, PrayerEngine.clock(state.today[Prayer.ISHA].plusMinutes(s.tarawihMinutesAfterIsha.toLong()), s.use24h), "${PrayerEngine.clock(lt, s.use24h)} ${PrayerEngine.suffix(lt, s.use24h)}".trim()).trim()
 }
 
 /** The prayers a home lists: with or without Sunrise, exactly as the existing homes decide. */

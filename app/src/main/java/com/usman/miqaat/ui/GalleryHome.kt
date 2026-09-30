@@ -111,7 +111,7 @@ private fun GalleryHeader(s: AppSettings, a: HomeActions, tk: ThemeTokens, u: Dp
         }
         Row(
             (if (narrow) Modifier.weight(1f) else Modifier).clip(RoundedCornerShape(50)).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation, role = Role.Button).padding(end = u * 1.2f)
-                .semantics(mergeDescendants = true) { contentDescription = "Location: ${s.locationName}. Opens location settings" },
+                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, s.locationName) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.4f), tint = tk.contentPrimary)

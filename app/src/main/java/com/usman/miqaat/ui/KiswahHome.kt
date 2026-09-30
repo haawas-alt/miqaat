@@ -100,7 +100,7 @@ fun KiswahHome(
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
                 androidx.compose.foundation.layout.FlowRow(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(u * 2), verticalArrangement = Arrangement.spacedBy(u * 0.5f)) {
-                    Caps(settings.locationName, fs(1.3f), Modifier.clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).semantics { contentDescription = "Location: ${settings.locationName}. Opens location settings" }, alpha = 1f)
+                    Caps(settings.locationName, fs(1.3f), Modifier.clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).semantics { contentDescription = Str.get(R.string.s_a11y_location, settings.locationName) }, alpha = 1f)
                     if (settings.showQibla) { val q = PrayerEngine.qibla(settings); Caps("· " + L10n.word(settings, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), fs(1.1f), Modifier.clickable(onClick = onOpenQibla, role = androidx.compose.ui.semantics.Role.Button), alpha = 0.85f) }
                     if (settings.adhkarEnabled && morningWindow) Caps("· " + L10n.word(settings, "Morning adhkār"), fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.MORNING) }, bright = true)
                     if (short) Caps(if (urdu) "· ڈیزائن: UZR · میرے لیے دعا کیجیے" else "· DESIGNED BY UZR · MAKE DUʿĀ FOR ME", fs(0.95f), Modifier.alpha(0.8f))
@@ -158,7 +158,7 @@ fun KiswahHome(
                     }
                     state.current?.let { cur ->
                         PrayerEngine.iqamah(settings, state.today, cur)?.takeIf { it.isAfter(state.now) }?.let { iq ->
-                            Text("IQAMAH IN ${PrayerEngine.humanDuration(Duration.between(state.now, iq)).uppercase()}  ·  ${PrayerEngine.clock(iq, settings.use24h)}", fontFamily = Cinzel, fontSize = fs(1.3f), letterSpacing = fs(0.25f), color = Kiswah.threadSoft.copy(alpha = 0.8f), modifier = Modifier.padding(top = u * 1))
+                            Text(L10n.iqamahIn(settings, Duration.between(state.now, iq)).let { if (L10n.uiUrdu) it else it.uppercase() } + "  ·  ${PrayerEngine.clock(iq, settings.use24h)}", fontFamily = Cinzel, fontSize = fs(1.3f), letterSpacing = fs(0.25f), color = Kiswah.threadSoft.copy(alpha = 0.8f), modifier = Modifier.padding(top = u * 1))
                         }
                     }
                 } }
@@ -192,7 +192,7 @@ fun KiswahHome(
                             val s = PrayerEngine.suffix(t, settings.use24h)
                             if (s.isNotEmpty()) Text(" $s", fontFamily = Cinzel, fontSize = fs(1.2f), color = if (next) Kiswah.highlight else Kiswah.ivory, modifier = Modifier.padding(bottom = u * 0.3f))
                         }
-                        if (iq != null) Text("IQ ${PrayerEngine.clock(iq, settings.use24h)}", fontFamily = Cinzel, fontSize = fs(1.05f), letterSpacing = fs(0.15f), color = Kiswah.threadSoft.copy(alpha = 0.85f))
+                        if (iq != null) Text(Str[R.string.s_iq_short].let { if (L10n.uiUrdu) it else it.uppercase() } + " ${PrayerEngine.clock(iq, settings.use24h)}", fontFamily = Cinzel, fontSize = fs(1.05f), letterSpacing = fs(0.15f), color = Kiswah.threadSoft.copy(alpha = 0.85f))
                     }
                 }
             }

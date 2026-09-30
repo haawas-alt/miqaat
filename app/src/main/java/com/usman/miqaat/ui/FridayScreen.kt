@@ -132,7 +132,7 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
             if (settings.jumuahEnabled) {
                 Spacer(Modifier.height(10.dp))
                 val iq = PrayerEngine.iqamah(settings, day, Prayer.DHUHR)
-                Text("Jumuʿah at your masjid: azaan ${c(day[Prayer.DHUHR])}" + (iq?.let { " · iqamah ${c(it)}" } ?: ""), fontFamily = Nunito, fontSize = 14.sp, color = tk.accent)
+                Text(Str.get(R.string.s_friday_masjid_azaan, c(day[Prayer.DHUHR])) + (iq?.let { Str.get(R.string.s_friday_masjid_iqamah, c(it)) } ?: ""), fontFamily = Nunito, fontSize = 14.sp, color = tk.accent)
             }
         }
     }

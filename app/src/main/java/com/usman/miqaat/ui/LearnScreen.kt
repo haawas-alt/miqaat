@@ -229,7 +229,7 @@ private fun RakahMap(c: LearnColors, lesson: Learn.Lesson, actions: List<Learn.A
             }
         }
         Row(Modifier.fillMaxWidth().padding(top = 6.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            for (r in 1..lesson.rakat) Text("Rakʿah $r".let { if (c.kiswah) it.uppercase() else it }, fontFamily = if (c.kiswah) Cinzel else Nunito, fontSize = 11.sp, letterSpacing = if (c.kiswah) 1.5.sp else 0.5.sp,
+            for (r in 1..lesson.rakat) Text(Str.get(R.string.s_rakah_n, r).let { if (c.kiswah) it.uppercase() else it }, fontFamily = if (c.kiswah) Cinzel else Nunito, fontSize = 11.sp, letterSpacing = if (c.kiswah) 1.5.sp else 0.5.sp,
                 color = if (actions[i].rakah == r) c.text else c.textSecondary, modifier = Modifier.weight(1f), textAlign = TextAlign.Center)
         }
     }

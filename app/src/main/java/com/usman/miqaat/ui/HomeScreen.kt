@@ -136,7 +136,7 @@ fun HomeScreen(
                     Column(Modifier.weight(1f).padding(end = u * 2)) {
                         @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
                         androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(u * 0.9f), verticalArrangement = Arrangement.spacedBy(u * 0.6f)) {
-                        Row(Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).padding(u * 0.5f).semantics(mergeDescendants = true) { contentDescription = "Location: ${settings.locationName}. Opens location settings" }, verticalAlignment = Alignment.CenterVertically) {
+                        Row(Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).padding(u * 0.5f).semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, settings.locationName) }, verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.2f), tint = Palette.ivory)
                             Spacer(Modifier.width(u * 0.7f))
                             Text(settings.locationName, fontSize = fs(1.7f), fontWeight = FontWeight.SemiBold, color = Palette.ivory, fontFamily = F)
@@ -222,11 +222,11 @@ fun HomeScreen(
                         }
                         if (ramadan && (state.current == Prayer.ISHA || state.current == Prayer.MAGHRIB || state.current == null)) {
                             val lt = PrayerEngine.lastThird(settings, state.today)
-                            Text("Tarāwīḥ ${PrayerEngine.clock(state.today[Prayer.ISHA].plusMinutes(settings.tarawihMinutesAfterIsha.toLong()), settings.use24h)}  ·  last third of the night from ${PrayerEngine.clock(lt, settings.use24h)} ${PrayerEngine.suffix(lt, settings.use24h)}",
+                            Text(Str.get(R.string.s_tarawih_line, PrayerEngine.clock(state.today[Prayer.ISHA].plusMinutes(settings.tarawihMinutesAfterIsha.toLong()), settings.use24h), PrayerEngine.clock(lt, settings.use24h) + " " + PrayerEngine.suffix(lt, settings.use24h)),
                                 fontFamily = Nunito, fontSize = fs(1.3f), color = Palette.goldSoft.copy(alpha = 0.9f), modifier = Modifier.padding(top = u * 0.8f))
                         }
                         Text(
-                            state.now.format(DateTimeFormatter.ofPattern(if (settings.use24h) "HH:mm" else "h:mm a", Locale.ENGLISH)),
+                            nowClock(state.now, settings.use24h),
                             fontSize = fs(1.5f), letterSpacing = fs(0.3f), color = Palette.textSecondary, fontFamily = Nunito, modifier = Modifier.padding(top = u * 0.8f)
                         )
                     } }
@@ -337,7 +337,7 @@ private fun FastProgress(state: PrayerState, u: Dp) {
         Box(Modifier.fillMaxWidth().height(u * 0.45f).clip(RoundedCornerShape(50)).background(Color.White.copy(alpha = 0.18f))) {
             Box(Modifier.fillMaxWidth(done / total.toFloat()).fillMaxHeight().background(Palette.gold))
         }
-        Text("Iftar in ${PrayerEngine.humanDuration(Duration.between(state.now, end))}", fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, color = Palette.goldSoft, modifier = Modifier.padding(top = u * 0.4f), textAlign = TextAlign.Center)
+        Text(Str.get(R.string.s_iftar_in, L10n.durationUi(Duration.between(state.now, end))), fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, color = Palette.goldSoft, modifier = Modifier.padding(top = u * 0.4f), textAlign = TextAlign.Center)
     }
 }
 
@@ -373,7 +373,7 @@ fun PrayerCard(
         if (ends != null || iqamah != null) Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 0.8f)) {
             if (ends != null) Text(ends, fontFamily = font, fontSize = (u.value * 1.05f).sp, color = Palette.textSecondary, maxLines = 1)
             if (iqamah != null) Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("IQ ", fontFamily = Nunito, fontSize = (u.value * 1.05f).sp, letterSpacing = (u.value * 0.1f).sp, fontWeight = FontWeight.Bold, color = Palette.textSecondary)
+                Text(Str[R.string.s_iq_short] + " ", fontFamily = Nunito, fontSize = (u.value * 1.05f).sp, letterSpacing = (u.value * 0.1f).sp, fontWeight = FontWeight.Bold, color = Palette.textSecondary)
                 Text(iqamah, fontFamily = Nunito, fontSize = (u.value * 1.2f).sp, fontWeight = FontWeight.Bold, color = Palette.goldSoft, maxLines = 1)
             }
         }

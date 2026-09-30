@@ -121,7 +121,7 @@ fun LandscapeHome(
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Row(
                         Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = Role.Button).padding(top = u * 1, bottom = u * 1, end = u * 2)
-                            .semantics(mergeDescendants = true) { contentDescription = "Location: ${settings.locationName}. Opens location settings" },
+                            .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, settings.locationName) },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 4.2f), tint = gold)

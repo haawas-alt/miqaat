@@ -190,7 +190,7 @@ private fun CountdownBody(p: Phase.IqamahCountdown, u: Dp) {
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("$secs", fontFamily = Cormorant, fontSize = (u.value * 10.5f).sp, lineHeight = (u.value * 10.5f).sp, color = tk.contentPrimary)
-                Text("SECONDS", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f))
+                Text(Str[R.string.s_seconds_caps], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f))
             }
         }
         Text(Str[R.string.s_straighten_your_rows], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = tk.contentPrimary.copy(alpha = 0.9f))
@@ -221,7 +221,7 @@ private fun QuietBody(p: Phase.Quiet, u: Dp, onStop: () -> Unit) {
         Text("%d:%02d".format(if (t.hour % 12 == 0) 12 else t.hour % 12, t.minute), fontFamily = Cormorant, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 12f).sp, color = Palette.textMuted)
         Text(p.prayer.arabic, fontFamily = Amiri, fontSize = (u.value * 3.4f).sp, color = Color(0xFFF6E7B8).copy(alpha = 0.5f))
         val left = ((p.endsAt - now).coerceAtLeast(0) / 60_000) + 1
-        Text("in prayer · screen wakes in $left min · tap to wake now", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.08f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 2))
+        Text(Str.get(R.string.s_in_prayer_wake, left.toInt()), fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.08f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 2))
     }
 }
 
