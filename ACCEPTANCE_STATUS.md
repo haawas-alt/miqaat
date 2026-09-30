@@ -49,3 +49,8 @@ Verified visually: Settings landing (grouped rows, search, readiness), detail sc
 Defects found and fixed: readiness checks broke mid-word; detail title shown twice; Celestial phone Settings button off-screen; Celestial/Gallery phone text 4-9sp (now floors of 11-13sp); Gallery phone header pushed Settings off-screen after the text-size change (regression, fixed); Settings icons blue on light themes (now gold-brown).
 Observed, not fixed: changing language inside Settings returns to home; moon artwork sits behind date/kicker on Celestial phone; Urdu headline mixes bidi ("عشاء · 8:16 PM").
 Still NOT verified: landscape phone, 130%/200% system text (needs device setting), TalkBack, reduced motion, remaining Settings detail screens on phone, dialogs/pickers, full screenshot matrix, Urdu proofreading.
+
+### Phone emulator pass 2 (build 110, Prayer Gallery)
+Verified: Settings landing (readiness card, grouped rows with icons, all three groups), Prayer times, Reliability & backup, Try it now (theme cards) render correctly at phone width.
+Observed, not fixed: selected chips on detail screens use the theme's primary (blue in Gallery) rather than the mockup's gold; link-style values render in a rust colour. Build 111 (Gallery header location fix) not yet installed/verified.
+Not verified: Location, Azaan, Iqamah, Hijri, Display, Privacy, About detail screens; landscape phone; large text; TalkBack.
