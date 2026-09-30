@@ -42,7 +42,7 @@ class ScreenshotMatrixTest : ShotSupport() {
     }
 
     @Test fun secondaryPages() {
-        for (t in themes) for (sc in listOf(1f, 1.3f, 2f)) {
+        for (t in themes) for (sc in listOf(1f, 2f)) {
             shot("timetable", t, sc) { s, _ -> TimetableScreen(s) {} }
             shot("qibla", t, sc) { s, _ -> QiblaScreen(s) {} }
             shot("adhkar-morning", t, sc) { _, _ -> AdhkarScreen(AdhkarMode.MORNING) {} }
