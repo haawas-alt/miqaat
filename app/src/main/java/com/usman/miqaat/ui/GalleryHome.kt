@@ -99,10 +99,16 @@ private fun GalleryHeader(s: AppSettings, a: HomeActions, tk: ThemeTokens, u: Dp
     // Phone: the three destinations become icon-only and the location takes the leftover width, so Settings is never pushed off screen.
     val narrow = androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp < 600
     Row(modifier, verticalAlignment = Alignment.CenterVertically) {
-        GalleryMark(Modifier.size(u * 3.6f).clearAndSetSemantics { }, tk.contentPrimary)
-        Spacer(Modifier.width(u * 1f))
-        Text("Miqaat", fontFamily = Cormorant, fontWeight = FontWeight.Medium, fontSize = fs(3.6f), color = tk.contentPrimary, maxLines = 1, modifier = Modifier.semantics { heading() })
-        Box(Modifier.padding(horizontal = u * 1.6f).width(1.dp).height(u * 3.2f).background(tk.divider))
+        if (narrow) {
+            // The wordmark is dropped on phones so the location keeps enough room to read; the mark still announces "Miqaat".
+            GalleryMark(Modifier.size(u * 3.6f).semantics { contentDescription = "Miqaat"; heading() }, tk.contentPrimary)
+            Spacer(Modifier.width(u * 1.6f))
+        } else {
+            GalleryMark(Modifier.size(u * 3.6f).clearAndSetSemantics { }, tk.contentPrimary)
+            Spacer(Modifier.width(u * 1f))
+            Text("Miqaat", fontFamily = Cormorant, fontWeight = FontWeight.Medium, fontSize = fs(3.6f), color = tk.contentPrimary, maxLines = 1, modifier = Modifier.semantics { heading() })
+            Box(Modifier.padding(horizontal = u * 1.6f).width(1.dp).height(u * 3.2f).background(tk.divider))
+        }
         Row(
             (if (narrow) Modifier.weight(1f, fill = false) else Modifier).clip(RoundedCornerShape(50)).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation, role = Role.Button).padding(end = u * 1.2f)
                 .semantics(mergeDescendants = true) { contentDescription = "Location: ${s.locationName}. Opens location settings" },
