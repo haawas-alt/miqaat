@@ -109,30 +109,51 @@ private fun CelestialWide(
 private fun CelestialTopBar(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, modifier: Modifier) {
     fun fs(x: Float) = (u.value * x).sp
     val hij = PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)
-    Row(modifier, verticalAlignment = Alignment.CenterVertically) {
+    val narrow = androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp < 600
+    val locationRow: @Composable (Modifier) -> Unit = { m ->
         Row(
-            Modifier.weight(1f).clip(RoundedCornerShape(50)).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation, role = Role.Button)
+            m.clip(RoundedCornerShape(50)).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation, role = Role.Button)
                 .semantics(mergeDescendants = true) { contentDescription = "Location: ${s.locationName}. Opens location settings" },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.6f), tint = tk.primary)
             Spacer(Modifier.width(u * 1f))
-            Text(s.locationName, fontFamily = F, fontSize = fs(2.2f), fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1)
+            Text(s.locationName, fontFamily = F, fontSize = fs(2.2f), fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
         }
-        Column(Modifier.weight(1.4f), horizontalAlignment = Alignment.CenterHorizontally) {
+    }
+    val dateColumn: @Composable (Modifier) -> Unit = { m ->
+        Column(m, horizontalAlignment = Alignment.CenterHorizontally) {
             Text(L10n.date(s, state.now), fontFamily = F, fontSize = fs(1.9f), letterSpacing = if (urdu) 0.sp else fs(0.08f), color = tk.contentPrimary, maxLines = 1, textAlign = TextAlign.Center)
             if (s.showHijri) Text(L10n.hijri(s, hij), fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.9f), color = tk.primary, maxLines = 1, textAlign = TextAlign.Center)
         }
-        Row(Modifier.weight(1f), horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.Top) {
-            if (s.kidsMode) NavButton(Icons.Outlined.MenuBook, Str[R.string.s_theme_home_nav_learn], Str[R.string.s_learn_salah], tk, u, F, a.onOpenLearn)
-            NavButton(Icons.Outlined.CalendarMonth, Str[R.string.s_theme_home_nav_timetable], Str[R.string.s_monthly_timetable], tk, u, F, a.onOpenTimetable)
-            NavButton(Icons.Outlined.Settings, Str[R.string.s_theme_home_nav_settings], Str[R.string.s_settings], tk, u, F, a.onOpenSettings)
+    }
+    val buttons: @Composable (Modifier) -> Unit = { m ->
+        Row(m, horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.Top) {
+            if (s.kidsMode) NavButton(Icons.Outlined.MenuBook, Str[R.string.s_theme_home_nav_learn], Str[R.string.s_learn_salah], tk, u, F, a.onOpenLearn, showLabel = !narrow)
+            NavButton(Icons.Outlined.CalendarMonth, Str[R.string.s_theme_home_nav_timetable], Str[R.string.s_monthly_timetable], tk, u, F, a.onOpenTimetable, showLabel = !narrow)
+            NavButton(Icons.Outlined.Settings, Str[R.string.s_theme_home_nav_settings], Str[R.string.s_settings], tk, u, F, a.onOpenSettings, showLabel = !narrow)
+        }
+    }
+    if (narrow) {
+        // Phone: location and the three buttons share the first line (so Settings is never pushed off screen); the date sits below.
+        Column(modifier) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                locationRow(Modifier.weight(1f))
+                buttons(Modifier)
+            }
+            dateColumn(Modifier.fillMaxWidth())
+        }
+    } else {
+        Row(modifier, verticalAlignment = Alignment.CenterVertically) {
+            locationRow(Modifier.weight(1f))
+            dateColumn(Modifier.weight(1.4f))
+            buttons(Modifier.weight(1f))
         }
     }
 }
 
 @Composable
-private fun NavButton(icon: ImageVector, label: String, description: String, tk: ThemeTokens, u: Dp, F: FontFamily, onClick: () -> Unit) {
+private fun NavButton(icon: ImageVector, label: String, description: String, tk: ThemeTokens, u: Dp, F: FontFamily, onClick: () -> Unit, showLabel: Boolean = true) {
     Column(
         Modifier.padding(start = u * 0.6f).widthIn(min = 48.dp).clip(RoundedCornerShape(16.dp)).clickable(onClick = onClick, role = Role.Button)
             .semantics(mergeDescendants = true) { contentDescription = description }.padding(horizontal = u * 0.8f, vertical = u * 0.3f),
@@ -141,7 +162,7 @@ private fun NavButton(icon: ImageVector, label: String, description: String, tk:
         Box(Modifier.size(maxOf(u * 4.6f, 44.dp)).border(1.dp, tk.outline, CircleShape).clip(CircleShape), contentAlignment = Alignment.Center) {
             Icon(icon, null, Modifier.size(u * 2.1f), tint = tk.primary)
         }
-        Text(label, fontFamily = F, fontSize = (u.value * 1.35f).sp, color = tk.contentSecondary, maxLines = 1, modifier = Modifier.padding(top = u * 0.2f))
+        if (showLabel) Text(label, fontFamily = F, fontSize = (u.value * 1.35f).sp, color = tk.contentSecondary, maxLines = 1, modifier = Modifier.padding(top = u * 0.2f))
     }
 }
 
