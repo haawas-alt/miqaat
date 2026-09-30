@@ -403,8 +403,8 @@ fun MihrabHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
                         if (settings.showDisliked) DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(start = u * 4, end = u * 4, top = u * 1.2f), labelSize = (u.value * 1.05f).sp, fullNames = true, gnomon = true)
                     }
                 }
-                Row(Modifier.fillMaxWidth().padding(top = u * 1.2f), verticalAlignment = Alignment.CenterVertically) {
-                    DoorsRow(doors(state, settings, a), u, gold, false, F, Modifier.weight(1f))
+                Column(Modifier.fillMaxWidth().padding(top = u * 1.2f)) {
+                    DoorsRow(doors(state, settings, a), u, gold, false, F, Modifier.fillMaxWidth())
                     Signature(u, gold, false, F, urdu)
                 }
             }
@@ -477,8 +477,8 @@ fun CourtyardHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
                             }
                         }
                         if (settings.showDisliked) DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(start = u * 6, end = u * 6, top = u * 0.5f), kiswah = true, labelSize = (u.value * 1.0f).sp, gnomon = true)
-                        Row(Modifier.fillMaxWidth().padding(start = u * 6, end = u * 6, top = u * 1f), verticalAlignment = Alignment.CenterVertically) {
-                            DoorsRow(doors(state, settings, a), u, gold, true, F, Modifier.weight(1f))
+                        Column(Modifier.fillMaxWidth().padding(start = u * 6, end = u * 6, top = u * 1f)) {
+                            DoorsRow(doors(state, settings, a), u, gold, true, F, Modifier.fillMaxWidth())
                             Signature(u, gold, true, F, urdu)
                         }
                     }
