@@ -61,7 +61,7 @@ fun ThemePicker(selected: AppTheme, onSelect: (AppTheme) -> Unit) {
             val state = Str[if (cur) R.string.s_theme_state_selected else R.string.s_theme_state_not_selected]
             Column(
                 Modifier.width(168.dp).heightIn(min = 48.dp).clip(shape)
-                    .border(if (cur) 3.dp else 1.dp, if (cur) Palette.gold else Palette.lineStrong, shape)
+                    .border(if (cur) 3.dp else 1.dp, if (cur) Palette.gold else screenTokens().outline, shape)
                     .selectable(selected = cur, role = Role.RadioButton) { onSelect(theme) }
                     .semantics(mergeDescendants = true) { contentDescription = "${theme.text}, $kind"; stateDescription = state }
                     .padding(8.dp),
@@ -71,7 +71,7 @@ fun ThemePicker(selected: AppTheme, onSelect: (AppTheme) -> Unit) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     Text(
                         theme.text, fontFamily = Nunito, fontSize = 14.sp, fontWeight = if (cur) FontWeight.Bold else FontWeight.Normal,
-                        color = Palette.ivory, modifier = Modifier.weight(1f), maxLines = 2
+                        color = screenTokens().contentPrimary, modifier = Modifier.weight(1f), maxLines = 2
                     )
                     if (cur) Icon(Icons.Outlined.Check, contentDescription = null, tint = Palette.gold, modifier = Modifier.width(20.dp).height(20.dp))
                 }
