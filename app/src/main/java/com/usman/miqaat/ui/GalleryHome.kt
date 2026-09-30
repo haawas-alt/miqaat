@@ -96,37 +96,41 @@ private fun GalleryWide(state: PrayerState, s: AppSettings, a: HomeActions, tk: 
 @Composable
 private fun GalleryHeader(s: AppSettings, a: HomeActions, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, modifier: Modifier) {
     fun fs(x: Float) = (u.value * x).sp
+    // Phone: the three destinations become icon-only and the location takes the leftover width, so Settings is never pushed off screen.
+    val narrow = androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp < 600
     Row(modifier, verticalAlignment = Alignment.CenterVertically) {
         GalleryMark(Modifier.size(u * 3.6f).clearAndSetSemantics { }, tk.contentPrimary)
         Spacer(Modifier.width(u * 1f))
         Text("Miqaat", fontFamily = Cormorant, fontWeight = FontWeight.Medium, fontSize = fs(3.6f), color = tk.contentPrimary, maxLines = 1, modifier = Modifier.semantics { heading() })
         Box(Modifier.padding(horizontal = u * 1.6f).width(1.dp).height(u * 3.2f).background(tk.divider))
         Row(
-            Modifier.clip(RoundedCornerShape(50)).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation, role = Role.Button).padding(end = u * 1.2f)
+            (if (narrow) Modifier.weight(1f, fill = false) else Modifier).clip(RoundedCornerShape(50)).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation, role = Role.Button).padding(end = u * 1.2f)
                 .semantics(mergeDescendants = true) { contentDescription = "Location: ${s.locationName}. Opens location settings" },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.4f), tint = tk.contentPrimary)
             Spacer(Modifier.width(u * 0.7f))
-            Text(s.locationName, fontFamily = F, fontSize = fs(2.0f), color = tk.contentPrimary, maxLines = 1)
+            Text(s.locationName, fontFamily = F, fontSize = fs(2.0f), color = tk.contentPrimary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
         }
         Spacer(Modifier.weight(1f))
-        if (s.kidsMode) GalleryNav(Icons.Outlined.MenuBook, Str[R.string.s_theme_home_nav_learn], Str[R.string.s_learn_salah], tk, u, F, a.onOpenLearn)
-        GalleryNav(Icons.Outlined.CalendarMonth, Str[R.string.s_theme_home_nav_timetable], Str[R.string.s_monthly_timetable], tk, u, F, a.onOpenTimetable)
-        GalleryNav(Icons.Outlined.Settings, Str[R.string.s_theme_home_nav_settings], Str[R.string.s_settings], tk, u, F, a.onOpenSettings)
+        if (s.kidsMode) GalleryNav(Icons.Outlined.MenuBook, Str[R.string.s_theme_home_nav_learn], Str[R.string.s_learn_salah], tk, u, F, a.onOpenLearn, showLabel = !narrow)
+        GalleryNav(Icons.Outlined.CalendarMonth, Str[R.string.s_theme_home_nav_timetable], Str[R.string.s_monthly_timetable], tk, u, F, a.onOpenTimetable, showLabel = !narrow)
+        GalleryNav(Icons.Outlined.Settings, Str[R.string.s_theme_home_nav_settings], Str[R.string.s_settings], tk, u, F, a.onOpenSettings, showLabel = !narrow)
     }
 }
 
 @Composable
-private fun GalleryNav(icon: ImageVector, label: String, description: String, tk: ThemeTokens, u: Dp, F: FontFamily, onClick: () -> Unit) {
+private fun GalleryNav(icon: ImageVector, label: String, description: String, tk: ThemeTokens, u: Dp, F: FontFamily, onClick: () -> Unit, showLabel: Boolean = true) {
     Row(
-        Modifier.padding(start = u * 0.8f).heightIn(min = 48.dp).clip(RoundedCornerShape(50)).clickable(onClick = onClick, role = Role.Button)
+        Modifier.padding(start = u * 0.8f).heightIn(min = 48.dp).widthIn(min = 48.dp).clip(RoundedCornerShape(50)).clickable(onClick = onClick, role = Role.Button)
             .semantics(mergeDescendants = true) { contentDescription = description }.padding(horizontal = u * 1.2f),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center
     ) {
         Icon(icon, null, Modifier.size(u * 2.4f), tint = tk.contentPrimary)
-        Spacer(Modifier.width(u * 0.7f))
-        Text(label, fontFamily = F, fontSize = (u.value * 1.7f).sp, color = tk.contentPrimary, maxLines = 1)
+        if (showLabel) {
+            Spacer(Modifier.width(u * 0.7f))
+            Text(label, fontFamily = F, fontSize = (u.value * 1.7f).sp, color = tk.contentPrimary, maxLines = 1)
+        }
     }
 }
 
