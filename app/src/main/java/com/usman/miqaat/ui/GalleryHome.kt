@@ -17,6 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -324,6 +327,13 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
     val body: @Composable ColumnScope.() -> Unit = {
         GalleryHeader(s, a, tk, barU, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp))
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
+        // Portrait crop of the approved artwork: only its top band (the arch and olive branch). The period tiles baked into the lower
+        // part of the picture are never shown here, because this layout lists the prayers itself.
+        val artBand = androidx.compose.ui.res.painterResource(R.drawable.art_gallery_portrait_v2)
+        Column(
+            Modifier.fillMaxWidth().paint(artBand, contentScale = androidx.compose.ui.layout.ContentScale.Crop, alignment = Alignment.TopCenter, alpha = 0.9f)
+                .drawBehind { drawRect(Brush.verticalGradient(listOf(tk.background.copy(alpha = 0.25f), tk.background.copy(alpha = 0.55f), tk.background))) }
+        ) {
         GalleryDate(state, s, tk, barU, F, urdu, Modifier.fillMaxWidth().padding(top = 10.dp))
         Row(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
@@ -343,6 +353,7 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
             }
         }
         Spacer(Modifier.height(12.dp))
+        }
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
         val shown = listedPrayers(s)
         shown.forEachIndexed { i, p ->
