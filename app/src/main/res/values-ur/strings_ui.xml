@@ -608,4 +608,5 @@
     <string name="s_loading">لوڈ ہو رہا ہے…</string>
     <string name="s_nothing_here_yet">ابھی یہاں کچھ نہیں</string>
     <string name="s_something_went_wrong">کچھ غلط ہو گیا</string>
+    <string name="s_switch_clock_time_until">گھڑی کے وقت اور باقی وقت کے درمیان تبدیل کریں</string>
 </resources>
