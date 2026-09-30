@@ -65,7 +65,7 @@ class HomeLargeTextTest {
                     if (px + 0.5f < minPx) failures += "${th.name} ${(sc * 100).toInt()}%: '$n' renders at ${px / r.layoutInput.density.density}dp, needs >= ${16 * sc}"
                     // Real clipping = the text is wider than its box, or needs more lines than it was given. `hasVisualOverflow` alone also fires for
                     // harmless cases, so the details are printed to make a genuine failure diagnosable from the log.
-                    if (r.didOverflowWidth || (r.didOverflowHeight && r.lineCount > 1))
+                    if (r.size.width > r.layoutInput.constraints.maxWidth || r.lineCount > 1)
                         failures += "${th.name} ${(sc * 100).toInt()}%: '$n' is clipped (w=${r.didOverflowWidth} h=${r.didOverflowHeight} lines=${r.lineCount} size=${r.size} maxW=${r.layoutInput.constraints.maxWidth} text='${r.layoutInput.text.text.take(30)}')"
                 }
             }
