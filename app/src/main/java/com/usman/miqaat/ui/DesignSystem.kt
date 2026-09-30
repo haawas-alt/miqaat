@@ -260,6 +260,6 @@ fun ThemedArtwork(portrait: Boolean, modifier: Modifier = Modifier, scrim: Float
     Box(modifier.clearAndSetSemantics { }) {
         Image(painterResource(res), null, Modifier.matchParentSize(), contentScale = ContentScale.Crop, alignment = if (portrait) Alignment.TopCenter else Alignment.Center)
         // Scrim: the theme background colour fading in from the content side, so text contrast never depends on the crop.
-        Box(Modifier.matchParentSize().background(Brush.verticalGradient(listOf(tk.background.copy(alpha = scrim * 0.6f), tk.background.copy(alpha = scrim), tk.background.copy(alpha = 0.92f)))))
+        if (scrim > 0f) Box(Modifier.matchParentSize().background(Brush.verticalGradient(listOf(tk.background.copy(alpha = scrim * 0.6f), tk.background.copy(alpha = scrim), tk.background.copy(alpha = 0.92f)))))
     }
 }

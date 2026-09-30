@@ -60,8 +60,7 @@ fun GalleryHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
         val bw = maxWidth; val bh = maxHeight
         val wide = bw > bh * 1.15f
         if (wide) {
-            val u: Dp = minOf(bw / 100, bh / 60)
-            GalleryWide(state, settings, a, tk, hero, doorList, u) { why = it }
+            GalleryWide(state, settings, a, tk, hero, doorList, bw, bh) { why = it }
         } else {
             GalleryStacked(state, settings, a, tk, hero, doorList, bw, bh) { why = it }
         }
@@ -73,23 +72,29 @@ fun GalleryHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
 /* ───────────────────────────── landscape ───────────────────────────── */
 
 @Composable
-private fun GalleryWide(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, hero: HeroInfo, doorList: List<Door>, u: Dp, onWhy: (Prayer) -> Unit) {
+private fun GalleryWide(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, hero: HeroInfo, doorList: List<Door>, bw: Dp, bh: Dp, onWhy: (Prayer) -> Unit) {
     val F = uiFont(s); val urdu = L10n.isUrdu(s)
-    Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
-        GalleryHeader(s, a, tk, u, F, urdu, Modifier.fillMaxWidth().padding(horizontal = u * 3.4f, vertical = u * 0.8f))
-        Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
-        GalleryDate(state, s, tk, u, F, urdu, Modifier.fillMaxWidth().padding(top = u * 0.9f))
-        // hero band
-        Row(Modifier.weight(0.92f).fillMaxWidth().padding(horizontal = u * 3.4f, vertical = u * 0.8f), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.weight(1f).fillMaxHeight()) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroLeft(hero, state, s, tk, u, F, urdu) } }
-            ThemedArtwork(portrait = false, modifier = Modifier.weight(0.75f).fillMaxHeight().padding(horizontal = u * 1.5f).clip(RoundedCornerShape(tk.cornerLarge)), scrim = 0.12f)
-            Box(Modifier.weight(1f).fillMaxHeight()) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroRight(hero, tk, u, F, urdu) { onWhy(hero.prayer) } } }
+    // Everything is placed in the approved artwork's own coordinate space (1586 x 992), so the baked-in period tiles and the
+    // prayer text always line up. `sc` is dp per artwork pixel; the artwork is fitted, never stretched.
+    val sc = minOf(bw / 1586f, bh / 992f)
+    val ox = (bw - sc * 1586f) / 2; val oy = (bh - sc * 992f) / 2
+    fun Modifier.at(x: Float, y: Float, w: Float, h: Float) = this.absoluteOffset(ox + sc * x, oy + sc * y).size(sc * w, sc * h)
+    val u = sc * 13.8f
+    Box(Modifier.fillMaxSize()) {
+        ThemedArtwork(portrait = false, modifier = Modifier.at(0f, 0f, 1586f, 992f), scrim = 0f)
+        Box(Modifier.at(0f, 0f, 1586f, 104f).background(tk.background.copy(alpha = 0.55f))) {
+            GalleryHeader(s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = sc * 52f))
         }
-        // period cards
-        Row(Modifier.weight(1.3f).fillMaxWidth()) {
+        Box(Modifier.at(0f, 103f, 1586f, 1.5f).background(tk.divider))
+        GalleryDate(state, s, tk, u * 0.92f, F, urdu, Modifier.at(400f, 104f, 786f, 84f).padding(top = sc * 4f))
+        Box(Modifier.at(120f, 196f, 500f, 290f)) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroLeft(hero, state, s, tk, u, F, urdu) } }
+        Box(Modifier.at(1090f, 216f, 450f, 262f)) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroRight(hero, tk, u, F, urdu) { onWhy(hero.prayer) } } }
+        Row(Modifier.at(0f, 540f, 1586f, 328f)) {
             listedPrayers(s).forEach { p -> GalleryCard(rowInfo(p, state, s), s, tk, u, F, urdu, a.onToggleRelative, Modifier.weight(1f).fillMaxHeight()) { onWhy(p) } }
         }
-        GalleryRail(doorList, tk, u, F, urdu, Modifier.fillMaxWidth().padding(horizontal = u * 3.4f, vertical = u * 0.5f))
+        Box(Modifier.at(0f, 868f, 1586f, 124f)) {
+            GalleryRail(doorList, tk, u * 0.9f, F, urdu, Modifier.fillMaxSize().navigationBarsPadding().displayCutoutPadding().padding(horizontal = sc * 40f), spread = true)
+        }
     }
 }
 
@@ -205,12 +210,12 @@ private fun GalleryCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: F
     val selected = r.isNow || r.isNext
     val ink = if (selected) tk.primary else tk.contentPrimary
     Box(
-        modifier.background(if (selected) tk.surface else Color.Transparent)
+        modifier.background(if (selected) tk.surface.copy(alpha = 0.55f) else Color.Transparent)
             .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = "Switch between clock time and time until", onLongClickLabel = "Why this time?", role = Role.Button)
             .semantics(mergeDescendants = true) { contentDescription = r.spoken }
     ) {
         Column(Modifier.fillMaxSize()) {
-            PrayerCardArt(r.prayer, Modifier.weight(0.5f).fillMaxWidth().clearAndSetSemantics { })
+            Spacer(Modifier.weight(0.5f).fillMaxWidth())
             Column(Modifier.weight(0.5f).fillMaxWidth().padding(horizontal = u * 0.6f), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 FitHeight(Modifier.fillMaxSize()) {
                     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -247,11 +252,11 @@ private fun GalleryCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: F
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun GalleryRail(doorList: List<Door>, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, modifier: Modifier) {
+private fun GalleryRail(doorList: List<Door>, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, modifier: Modifier, spread: Boolean = false) {
     Column(modifier) {
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
         Row(Modifier.fillMaxWidth().padding(top = u * 0.3f), verticalAlignment = Alignment.CenterVertically) {
-            FlowRow(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(u * 2.2f), verticalArrangement = Arrangement.spacedBy(u * 0.2f)) {
+            FlowRow(Modifier.weight(1f), horizontalArrangement = if (spread) Arrangement.SpaceEvenly else Arrangement.spacedBy(u * 2.2f), verticalArrangement = Arrangement.spacedBy(u * 0.2f)) {
                 doorList.forEach { d ->
                     val warn = d.warn
                     Row(
@@ -266,7 +271,7 @@ private fun GalleryRail(doorList: List<Door>, tk: ThemeTokens, u: Dp, F: FontFam
                     }
                 }
             }
-            Text(Str[R.string.s_theme_signature], fontFamily = if (urdu) F else Cormorant, fontSize = (u.value * 1.4f).sp, color = tk.contentSecondary, maxLines = 1)
+            if (!spread) Text(Str[R.string.s_theme_signature], fontFamily = if (urdu) F else Cormorant, fontSize = (u.value * 1.4f).sp, color = tk.contentSecondary, maxLines = 1)
         }
     }
 }

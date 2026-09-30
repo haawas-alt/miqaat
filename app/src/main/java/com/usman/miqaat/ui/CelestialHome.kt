@@ -68,11 +68,10 @@ fun CelestialHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val bw = maxWidth; val bh = maxHeight
         val wide = bw > bh * 1.15f
-        Box(Modifier.fillMaxSize()) {
-            ThemedArtwork(portrait = !wide, modifier = Modifier.fillMaxSize(), scrim = 0.3f)
+        Box(Modifier.fillMaxSize().background(tk.background)) {
+            if (!wide) ThemedArtwork(portrait = true, modifier = Modifier.fillMaxSize(), scrim = 0.3f)
             if (wide) {
-                val u: Dp = minOf(bw / 100, bh / 60)
-                CelestialWide(state, settings, a, tk, hero, doorList, u) { why = it }
+                CelestialWide(state, settings, a, tk, hero, doorList, bw, bh) { why = it }
             } else {
                 CelestialStacked(state, settings, a, tk, hero, doorList, bw, bh) { why = it }
             }
@@ -85,23 +84,27 @@ fun CelestialHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
 
 @Composable
 private fun CelestialWide(
-    state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, hero: HeroInfo, doorList: List<Door>, u: Dp, onWhy: (Prayer) -> Unit
+    state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, hero: HeroInfo, doorList: List<Door>, bw: Dp, bh: Dp, onWhy: (Prayer) -> Unit
 ) {
     val F = uiFont(s); val urdu = L10n.isUrdu(s)
-    Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
-        CelestialTopBar(state, s, a, tk, u, F, urdu, Modifier.fillMaxWidth().padding(horizontal = u * 4, vertical = u * 1.2f))
-        Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
-        Row(Modifier.weight(1f).fillMaxWidth()) {
-            Box(Modifier.weight(1f).fillMaxHeight()) {
-                SolarArc(Modifier.align(Alignment.BottomCenter).fillMaxWidth().fillMaxHeight(0.38f).padding(horizontal = u * 2, vertical = u * 1), state, s, tk)
-                FitHeight(Modifier.fillMaxSize().padding(start = u * 6, end = u * 2, top = u * 3, bottom = u * 22)) {
-                    CelestialHero(hero, state, s, tk, u, F, urdu, Alignment.Start)
-                }
-                if (s.showDisliked) DayThread(s, state.today, state.now, modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(start = u * 5, end = u * 3, bottom = u * 1.2f), labelSize = (u.value * 1.05f).sp, fullNames = true, gnomon = true)
-            }
-            CelestialPanel(state, s, tk, u, F, urdu, onWhy, a, Modifier.width(u * 43).fillMaxHeight().padding(start = u * 1, end = u * 3, top = u * 2.5f, bottom = u * 2))
+    // Placed in the approved artwork's coordinate space (1585 x 992): horizon, sun and the right-hand panel line up on every tablet.
+    val sc = minOf(bw / 1585f, bh / 992f)
+    val ox = (bw - sc * 1585f) / 2; val oy = (bh - sc * 992f) / 2
+    fun Modifier.at(x: Float, y: Float, w: Float, h: Float) = this.absoluteOffset(ox + sc * x, oy + sc * y).size(sc * w, sc * h)
+    val u = sc * 13.8f
+    Box(Modifier.fillMaxSize()) {
+        ThemedArtwork(portrait = false, modifier = Modifier.at(0f, 0f, 1585f, 992f), scrim = 0f)
+        Box(Modifier.at(0f, 0f, 1585f, 122f).background(tk.background.copy(alpha = 0.55f))) {
+            CelestialTopBar(state, s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = sc * 60f))
         }
-        CelestialRail(doorList, tk, u, F, urdu, Modifier.fillMaxWidth().background(tk.background.copy(alpha = 0.92f)).padding(horizontal = u * 4, vertical = u * 0.6f))
+        Box(Modifier.at(0f, 121f, 1585f, 1.5f).background(tk.divider))
+        SolarArc(Modifier.at(240f, 500f, 880f, 250f), state, s, tk)
+        Box(Modifier.at(130f, 150f, 500f, 410f)) {
+            FitHeight(Modifier.fillMaxSize()) { CelestialHero(hero, state, s, tk, u, F, urdu, Alignment.CenterHorizontally) }
+        }
+        if (s.showDisliked) DayThread(s, state.today, state.now, modifier = Modifier.at(140f, 780f, 900f, 90f), labelSize = (u.value * 1.05f).sp, fullNames = true, gnomon = true)
+        CelestialPanel(state, s, tk, u, F, urdu, onWhy, a, Modifier.at(1093f, 153f, 458f, 674f))
+        CelestialRail(doorList, tk, u, F, urdu, Modifier.at(0f, 892f, 1585f, 100f).background(tk.background.copy(alpha = 0.92f)).navigationBarsPadding().displayCutoutPadding().padding(horizontal = sc * 60f), spread = true)
     }
 }
 
@@ -178,8 +181,8 @@ private fun CelestialHero(hero: HeroInfo, state: PrayerState, s: AppSettings, tk
         Text(if (urdu) hero.label else hero.label.uppercase(), fontFamily = F, fontSize = fd(if (urdu) 4.4f else 4.6f), letterSpacing = if (urdu) 0.sp else fs(0.5f), fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1)
         Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = fd(6.4f), lineHeight = fd(7.4f), color = tk.primary)
         Row(verticalAlignment = Alignment.Top) {
-            Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = fd(13.5f), lineHeight = fd(13f), color = tk.contentPrimary, maxLines = 1)
-            if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = tk.fontDisplay, fontSize = fd(3.6f), color = tk.contentPrimary, modifier = Modifier.padding(top = u * 2.6f * scale))
+            Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = fd(11f), lineHeight = fd(10.6f), color = tk.contentPrimary, maxLines = 1)
+            if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = tk.fontDisplay, fontSize = fd(3.6f), color = tk.contentPrimary, modifier = Modifier.padding(top = u * 2.0f * scale))
         }
         Row(Modifier.padding(top = u * 0.8f), verticalAlignment = Alignment.CenterVertically) {
             Icon(if (hero.justPassed) Icons.Outlined.CheckCircle else Icons.Outlined.Schedule, null, Modifier.size(u * 2.3f * scale), tint = tk.accent)
@@ -255,12 +258,12 @@ private fun CelestialRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: 
 }
 
 @Composable
-private fun CelestialRail(doorList: List<Door>, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, modifier: Modifier) {
+private fun CelestialRail(doorList: List<Door>, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, modifier: Modifier, spread: Boolean = false) {
     Column(modifier) {
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
         Row(Modifier.fillMaxWidth().padding(top = u * 0.4f), verticalAlignment = Alignment.CenterVertically) {
             @OptIn(ExperimentalLayoutApi::class)
-            FlowRow(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(u * 2.4f), verticalArrangement = Arrangement.spacedBy(u * 0.2f)) {
+            FlowRow(Modifier.weight(1f), horizontalArrangement = if (spread) Arrangement.SpaceEvenly else Arrangement.spacedBy(u * 2.4f), verticalArrangement = Arrangement.spacedBy(u * 0.2f)) {
                 doorList.forEach { d ->
                     val warn = d.warn
                     Row(
@@ -273,7 +276,7 @@ private fun CelestialRail(doorList: List<Door>, tk: ThemeTokens, u: Dp, F: FontF
                     }
                 }
             }
-            Text(Str[R.string.s_theme_signature], fontFamily = if (urdu) F else Cormorant, fontSize = (u.value * 1.4f).sp, color = tk.contentSecondary, maxLines = 1)
+            if (!spread) Text(Str[R.string.s_theme_signature], fontFamily = if (urdu) F else Cormorant, fontSize = (u.value * 1.4f).sp, color = tk.contentSecondary, maxLines = 1)
         }
     }
 }
