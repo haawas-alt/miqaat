@@ -101,14 +101,17 @@ class SettingsStateTest {
     /** No word of any readiness label may be split across lines, at 100%, 130% and 200%, in every theme. */
     @Test fun readinessLabelsNeverBreakMidWord() {
         val ok = ReadinessState("Asr · 3:52 PM", "Sydney", listOf(ReadinessCheck("Exact alarms", "Off", false) {}, ReadinessCheck("Battery", "Restricted", false) {}, ReadinessCheck("Notifications", "Allowed", true, null)))
-        for (theme in AppTheme.entries) for (scale in listOf(1f, 1.3f, 2f)) {
-            prepare(theme)
-            rule.setContent {
-                val d = LocalDensity.current
-                CompositionLocalProvider(LocalDensity provides Density(d.density, scale)) {
-                    MiqaatTheme(theme) { androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.padding(androidx.compose.ui.unit.Dp(16f))) { ReadinessSummary(ok, wide = widthDp >= 720, onOpen = {}) } }
-                }
+        prepare()
+        var theme by androidx.compose.runtime.mutableStateOf(AppTheme.MIQAAT)
+        var scale by androidx.compose.runtime.mutableStateOf(1f)
+        rule.setContent {
+            val d = LocalDensity.current
+            CompositionLocalProvider(LocalDensity provides Density(d.density, scale)) {
+                MiqaatTheme(theme) { androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.padding(androidx.compose.ui.unit.Dp(16f))) { ReadinessSummary(ok, wide = widthDp >= 720, onOpen = {}) } }
             }
+        }
+        for (th in AppTheme.entries) for (sc in listOf(1f, 1.3f, 2f)) {
+            theme = th; scale = sc
             rule.waitForIdle()
             val broken = mutableListOf<String>()
             rule.onAllNodes(SemanticsMatcher("has text layout") { it.config.getOrNull(SemanticsActions.GetTextLayoutResult) != null }).fetchSemanticsNodes().forEach { n ->
@@ -118,7 +121,7 @@ class SettingsStateTest {
                 val text = r.layoutInput.text.text
                 for (i in 0 until r.lineCount - 1) {
                     val end = r.getLineEnd(i, visibleEnd = false)
-                    if (end in 1 until text.length && text[end - 1].isLetterOrDigit() && text[end].isLetterOrDigit()) broken += "'$text' breaks inside a word at $end (${theme.name} ${(scale * 100).toInt()}%)"
+                    if (end in 1 until text.length && text[end - 1].isLetterOrDigit() && text[end].isLetterOrDigit()) broken += "'$text' breaks inside a word at $end (${th.name} ${(sc * 100).toInt()}%)"
                 }
             }
             assertTrue(broken.joinToString("; "), broken.isEmpty())
