@@ -250,7 +250,7 @@ fun EmptyState(title: String, modifier: Modifier = Modifier, body: String? = nul
  * artwork; other themes draw nothing here so their look is unchanged. Focal alignment differs for portrait and landscape.
  */
 @Composable
-fun ThemedArtwork(portrait: Boolean, modifier: Modifier = Modifier, scrim: Float = 0.5f) {
+fun ThemedArtwork(portrait: Boolean, modifier: Modifier = Modifier, scrim: Float = 0.5f, fill: Boolean = false) {
     val tk = screenTokens()
     val res = when (tk.art) {
         ArtStyle.CELESTIAL -> if (portrait) R.drawable.art_celestial_portrait_v2 else R.drawable.art_celestial_landscape_v2
@@ -258,7 +258,7 @@ fun ThemedArtwork(portrait: Boolean, modifier: Modifier = Modifier, scrim: Float
         else -> return
     }
     Box(modifier.clearAndSetSemantics { }) {
-        Image(painterResource(res), null, Modifier.matchParentSize(), contentScale = ContentScale.Crop, alignment = if (portrait) Alignment.TopCenter else Alignment.Center)
+        Image(painterResource(res), null, Modifier.matchParentSize(), contentScale = if (fill) ContentScale.FillBounds else ContentScale.Crop, alignment = if (portrait) Alignment.TopCenter else Alignment.Center)
         // Scrim: the theme background colour fading in from the content side, so text contrast never depends on the crop.
         if (scrim > 0f) Box(Modifier.matchParentSize().background(Brush.verticalGradient(listOf(tk.background.copy(alpha = scrim * 0.6f), tk.background.copy(alpha = scrim), tk.background.copy(alpha = 0.92f)))))
     }
