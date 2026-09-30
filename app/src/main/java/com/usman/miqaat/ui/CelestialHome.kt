@@ -69,7 +69,7 @@ fun CelestialHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
         val bw = maxWidth; val bh = maxHeight
         val wide = bw > bh * 1.15f
         Box(Modifier.fillMaxSize()) {
-            CelestialBackdrop(Modifier.fillMaxSize(), tk, horizon = if (wide) 0.77f else 0.36f)
+            ThemedArtwork(portrait = !wide, modifier = Modifier.fillMaxSize(), scrim = 0.3f)
             if (wide) {
                 val u: Dp = minOf(bw / 100, bh / 60)
                 CelestialWide(state, settings, a, tk, hero, doorList, u) { why = it }

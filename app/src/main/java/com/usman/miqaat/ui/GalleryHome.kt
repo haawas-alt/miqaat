@@ -82,7 +82,7 @@ private fun GalleryWide(state: PrayerState, s: AppSettings, a: HomeActions, tk: 
         // hero band
         Row(Modifier.weight(0.92f).fillMaxWidth().padding(horizontal = u * 3.4f, vertical = u * 0.8f), verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.weight(1f).fillMaxHeight()) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroLeft(hero, state, s, tk, u, F, urdu) } }
-            GalleryHeroArt(Modifier.weight(0.75f).fillMaxHeight().padding(horizontal = u * 1.5f).clearAndSetSemantics { }, tk)
+            ThemedArtwork(portrait = false, modifier = Modifier.weight(0.75f).fillMaxHeight().padding(horizontal = u * 1.5f).clip(RoundedCornerShape(tk.cornerLarge)), scrim = 0.12f)
             Box(Modifier.weight(1f).fillMaxHeight()) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroRight(hero, tk, u, F, urdu) { onWhy(hero.prayer) } } }
         }
         // period cards
