@@ -1,0 +1,8 @@
+e: app/src/main/java/com/usman/miqaat/ui/GalleryHome.kt:336:56 Unresolved reference 'clipRect'.
+> Task :app:compileGithubReleaseKotlin FAILED
+> Task :app:compilePlayReleaseKotlin FAILED
+e: app/src/main/java/com/usman/miqaat/ui/GalleryHome.kt:336:56 Unresolved reference 'clipRect'.
+FAILURE: Build completed with 2 failures.
+* What went wrong:
+* What went wrong:
+BUILD FAILED in 52s

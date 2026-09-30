@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">میقات</string>
-    <string name="channel_azaan">اذان</string>
-    <string name="channel_azaan_desc">ہر نماز کے وقت اذان چلاتا ہے</string>
-    <string name="channel_silent">نماز کی یاد دہانیاں</string>
-    <string name="channel_azaan_quiet">اذان (جب میقات کھلا ہو)</string>
-    <string name="widget_desc">اگلی نماز، الٹی گنتی کے ساتھ</string>
-</resources>

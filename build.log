@@ -1,0 +1,139 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:buildKotlinToolingMetadata
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preGithubReleaseBuild UP-TO-DATE
+> Task :app:generateGithubReleaseBuildConfig
+> Task :app:generateGithubReleaseResValues FROM-CACHE
+> Task :app:checkGithubReleaseAarMetadata
+> Task :app:mapGithubReleaseSourceSetPaths
+> Task :app:generateGithubReleaseResources
+> Task :app:packageGithubReleaseResources
+> Task :app:mergeGithubReleaseResources
+> Task :app:createGithubReleaseCompatibleScreenManifests
+> Task :app:extractDeepLinksGithubRelease FROM-CACHE
+> Task :app:parseGithubReleaseLocalResources
+> Task :app:processGithubReleaseMainManifest
+> Task :app:processGithubReleaseManifest
+> Task :app:javaPreCompileGithubRelease FROM-CACHE
+> Task :app:preGithubReleaseUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileGithubReleaseUnitTest FROM-CACHE
+> Task :app:mergeGithubReleaseShaders
+> Task :app:compileGithubReleaseShaders NO-SOURCE
+> Task :app:generateGithubReleaseAssets UP-TO-DATE
+> Task :app:mergeGithubReleaseAssets
+> Task :app:extractProguardFiles
+> Task :app:mergeGithubReleaseJniLibFolders
+> Task :app:mergeGithubReleaseNativeLibs
+> Task :app:processGithubReleaseManifestForPackage
+> Task :app:checkGithubReleaseDuplicateClasses
+
+> Task :app:stripGithubReleaseDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so. Run with --info option to learn more.
+
+> Task :app:mergeGithubReleaseStartupProfile
+> Task :app:mergeGithubReleaseArtProfile
+> Task :app:extractGithubReleaseNativeSymbolTables FROM-CACHE
+> Task :app:mergeGithubReleaseNativeDebugMetadata NO-SOURCE
+> Task :app:compressGithubReleaseAssets FROM-CACHE
+> Task :app:extractGithubReleaseVersionControlInfo
+> Task :app:collectGithubReleaseDependencies
+> Task :app:sdkGithubReleaseDependencyData
+> Task :app:validateSigningGithubRelease
+> Task :app:writeGithubReleaseAppMetadata
+> Task :app:writeGithubReleaseSigningConfigVersions
+> Task :app:prePlayReleaseBuild UP-TO-DATE
+> Task :app:mergePlayReleaseJniLibFolders
+> Task :app:mergePlayReleaseNativeLibs
+
+> Task :app:stripPlayReleaseDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so. Run with --info option to learn more.
+
+> Task :app:generatePlayReleaseBuildConfig
+> Task :app:extractPlayReleaseNativeSymbolTables FROM-CACHE
+> Task :app:mergePlayReleaseNativeDebugMetadata NO-SOURCE
+> Task :app:checkPlayReleaseDuplicateClasses
+> Task :app:generatePlayReleaseResValues FROM-CACHE
+> Task :app:checkPlayReleaseAarMetadata
+> Task :app:mapPlayReleaseSourceSetPaths
+> Task :app:generatePlayReleaseResources
+> Task :app:processGithubReleaseResources
+> Task :app:packagePlayReleaseResources
+> Task :app:parsePlayReleaseLocalResources FROM-CACHE
+> Task :app:createPlayReleaseCompatibleScreenManifests
+> Task :app:extractDeepLinksPlayRelease FROM-CACHE
+> Task :app:processPlayReleaseMainManifest
+> Task :app:processPlayReleaseManifest
+> Task :app:processPlayReleaseManifestForPackage
+> Task :app:javaPreCompilePlayRelease FROM-CACHE
+> Task :app:mergePlayReleaseArtProfile
+> Task :app:mergePlayReleaseStartupProfile
+> Task :app:mergePlayReleaseShaders
+> Task :app:compilePlayReleaseShaders NO-SOURCE
+> Task :app:generatePlayReleaseAssets UP-TO-DATE
+> Task :app:mergePlayReleaseAssets
+> Task :app:compressPlayReleaseAssets FROM-CACHE
+> Task :app:extractPlayReleaseVersionControlInfo
+> Task :app:collectPlayReleaseDependencies
+> Task :app:sdkPlayReleaseDependencyData
+> Task :app:validateSigningPlayRelease
+> Task :app:writePlayReleaseAppMetadata
+> Task :app:writePlayReleaseSigningConfigVersions
+> Task :app:configurePlayReleaseDependencies
+> Task :app:convertLinkedResourcesToBinaryGithubRelease
+> Task :app:packageGithubReleaseUnitTestForUnitTest
+> Task :app:parsePlayReleaseIntegrityConfig FROM-CACHE
+> Task :app:generateGithubReleaseUnitTestConfig
+> Task :app:mergePlayReleaseResources
+> Task :app:processPlayReleaseResources
+
+> Task :app:compileGithubReleaseKotlin
+e: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/GalleryHome.kt:336:56 Unresolved reference 'clipRect'.
+
+> Task :app:compileGithubReleaseKotlin FAILED
+
+> Task :app:compilePlayReleaseKotlin FAILED
+e: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/GalleryHome.kt:336:56 Unresolved reference 'clipRect'.
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_2-1790753983234.json
+
+[Incubating] Problems report is available at: file:///home/runner/work/miqaat/miqaat/build/reports/problems/problems-report.html
+
+FAILURE: Build completed with 2 failures.
+
+1: Task failed with an exception.
+-----------
+* What went wrong:
+Execution failed for task ':app:compileGithubReleaseKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+==============================================================================
+
+2: Task failed with an exception.
+-----------
+* What went wrong:
+Execution failed for task ':app:compilePlayReleaseKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+==============================================================================
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 52s
+72 actionable tasks: 59 executed, 13 from cache
