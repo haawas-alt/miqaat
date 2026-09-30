@@ -253,8 +253,8 @@ fun EmptyState(title: String, modifier: Modifier = Modifier, body: String? = nul
 fun ThemedArtwork(portrait: Boolean, modifier: Modifier = Modifier, scrim: Float = 0.5f) {
     val tk = screenTokens()
     val res = when (tk.art) {
-        ArtStyle.CELESTIAL -> if (portrait) R.drawable.art_celestial_portrait else R.drawable.art_celestial_landscape
-        ArtStyle.GALLERY -> if (portrait) R.drawable.art_gallery_portrait else R.drawable.art_gallery_landscape
+        ArtStyle.CELESTIAL -> if (portrait) R.drawable.art_celestial_portrait_v2 else R.drawable.art_celestial_landscape_v2
+        ArtStyle.GALLERY -> if (portrait) R.drawable.art_gallery_portrait_v2 else R.drawable.art_gallery_landscape_v2
         else -> return
     }
     Box(modifier.clearAndSetSemantics { }) {

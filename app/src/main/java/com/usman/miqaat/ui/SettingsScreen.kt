@@ -34,6 +34,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -229,9 +230,10 @@ private fun SettingsLanding(
     onBack: () -> Unit, open: (Section, String?) -> Unit
 ) {
     val tk = screenTokens()
+    val landingScroll = rememberSaveable(query.isBlank(), saver = ScrollState.Saver) { ScrollState(0) }
     Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
         SettingsTopBar(Str[R.string.s_settings], onBack)
-        Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = Space.l).padding(top = Space.s, bottom = Space.xl).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(Space.l)) {
+        Column(Modifier.weight(1f).verticalScroll(landingScroll).padding(horizontal = Space.l).padding(top = Space.s, bottom = Space.xl).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(Space.l)) {
             MiqSearchField(query, onQuery, Str[R.string.s_settings_search_hint], Str[R.string.s_settings_search_clear])
             if (query.isNotBlank()) SearchResults(query, results) { open(it.section, if (it.isDestination) null else it.title) }
             else {
@@ -257,7 +259,8 @@ private fun SettingsDetailPhone(section: Section, store: SettingsStore, settings
     Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
         SettingsTopBar(section.label, onBack)
         key(section) {
-            Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = Space.xl, vertical = Space.m).navigationBarsPadding()) {
+            val detailScroll = rememberSaveable(section, saver = ScrollState.Saver) { ScrollState(0) }
+            Column(Modifier.weight(1f).verticalScroll(detailScroll).padding(horizontal = Space.xl, vertical = Space.m).navigationBarsPadding()) {
                 CompositionLocalProvider(LocalSettingsFocus provides focusTitle, LocalShowSectionTitle provides false) { SectionBody(section, store, settings) }
             }
         }
@@ -277,7 +280,10 @@ private fun SettingsTablet(
             MiqSearchField(query, onQuery, Str[R.string.s_settings_search_hint], Str[R.string.s_settings_search_clear], Modifier.padding(horizontal = Space.l, vertical = Space.m))
             Section.entries.forEach { sec -> RailItem(sec.icon, sec.label, selected = query.isBlank() && sec == section, onClick = { open(sec, null) }) }
         }
-        Box(Modifier.weight(1f).fillMaxHeight().verticalScroll(rememberScrollState()), contentAlignment = Alignment.TopCenter) {
+        // Scroll position belongs to the category shown: a new category (or search) always starts at the top, and rotation or
+        // process death restores the position of the same category only.
+        val paneScroll = rememberSaveable(section, query.isBlank(), saver = ScrollState.Saver) { ScrollState(0) }
+        Box(Modifier.weight(1f).fillMaxHeight().verticalScroll(paneScroll), contentAlignment = Alignment.TopCenter) {
             key(section, query.isBlank()) {
                 Column(Modifier.widthIn(max = 920.dp).fillMaxWidth().padding(horizontal = Space.xxl, vertical = Space.xl), verticalArrangement = Arrangement.spacedBy(Space.l)) {
                     ReadinessSummary(readiness, wide = true, onOpen = { open(Section.HEALTH, null) })

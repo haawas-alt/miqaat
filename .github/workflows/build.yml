@@ -55,6 +55,9 @@ jobs:
           git commit -qm "build log ${{ github.run_number }}" || true
           git push -f origin ci-logs
 
+      - name: Rejected legacy artwork must be absent from source and from every shipped package
+        run: python3 tools/check_forbidden_assets.py app/src/main app/build/outputs/apk/github/release/app-github-release.apk app/build/outputs/apk/play/release/app-play-release.apk app/build/outputs/bundle/playRelease/app-play-release.aab
+
       - name: Collect outputs and checksums
         run: |
           cp app/build/outputs/apk/github/release/app-github-release.apk Miqaat.apk

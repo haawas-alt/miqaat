@@ -205,7 +205,7 @@
     <string name="s_how_miqaat_looks_on_the_wall">How Miqaat looks, on the wall or in your hand.</string>
     <string name="s_changes_the_home_screen_and_the">Changes the home screen and the azaan screens immediately; go back to the clock to see it</string>
     <string name="s_language">Language</string>
-    <string name="s_home_screen_and_widget_urdu_is">The whole app. Urdu uses Nastaʿlīq where the font is available; layout stays left-to-right.</string>
+    <string name="s_home_screen_and_widget_urdu_is">The whole app. Urdu uses Nastaʿlīq where the font is available, and the whole layout mirrors to read right-to-left.</string>
     <string name="s_large_type">Large type</string>
     <string name="s_one_prayer_one_time_one_line">One prayer, one time, one line, readable across a big room. Tap the screen to see everything for 25 seconds.</string>
     <string name="s_home_screen_widget">Home-screen widget</string>
