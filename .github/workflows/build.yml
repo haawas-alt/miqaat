@@ -186,11 +186,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # A tablet's natural orientation is landscape, a phone's is portrait; rotation 1 flips either. Each device is split
+        # into three groups of tests so the matrix finishes inside the time box.
         include:
-          - { name: tablet-landscape, profile: pixel_tablet, rotation: 1 }
-          - { name: tablet-portrait, profile: pixel_tablet, rotation: 0 }
-          - { name: phone-portrait, profile: pixel_6, rotation: 0 }
-          - { name: phone-landscape, profile: pixel_6, rotation: 1 }
+          - { name: tablet-landscape, group: a, profile: pixel_tablet, rotation: 0, tests: 'homes,homesUrdu,states' }
+          - { name: tablet-landscape, group: b, profile: pixel_tablet, rotation: 0, tests: 'settingsLanding,settingsCategories' }
+          - { name: tablet-landscape, group: c, profile: pixel_tablet, rotation: 0, tests: 'secondaryPages,azaanFlow' }
+          - { name: tablet-portrait, group: a, profile: pixel_tablet, rotation: 1, tests: 'homes,homesUrdu,states' }
+          - { name: tablet-portrait, group: b, profile: pixel_tablet, rotation: 1, tests: 'settingsLanding,settingsCategories' }
+          - { name: tablet-portrait, group: c, profile: pixel_tablet, rotation: 1, tests: 'secondaryPages,azaanFlow' }
+          - { name: phone-portrait, group: a, profile: pixel_6, rotation: 0, tests: 'homes,homesUrdu,states' }
+          - { name: phone-portrait, group: b, profile: pixel_6, rotation: 0, tests: 'settingsLanding,settingsCategories' }
+          - { name: phone-portrait, group: c, profile: pixel_6, rotation: 0, tests: 'secondaryPages,azaanFlow' }
+          - { name: phone-landscape, group: a, profile: pixel_6, rotation: 1, tests: 'homes,homesUrdu,states' }
+          - { name: phone-landscape, group: b, profile: pixel_6, rotation: 1, tests: 'settingsLanding,settingsCategories' }
+          - { name: phone-landscape, group: c, profile: pixel_6, rotation: 1, tests: 'secondaryPages,azaanFlow' }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -218,11 +228,11 @@ jobs:
           disable-animations: true
           emulator-boot-timeout: 900
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096
-          script: bash .github/emulator-run.sh ${{ matrix.rotation }} ${{ matrix.name }}
+          script: bash .github/emulator-run.sh ${{ matrix.rotation }} ${{ matrix.name }}-${{ matrix.group }} ${{ matrix.tests }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: shots-${{ matrix.name }}
+          name: shots-${{ matrix.name }}-${{ matrix.group }}
           path: shots/
           if-no-files-found: ignore
 

@@ -2,7 +2,7 @@
 # Runs on the CI emulator: fixes the rotation, runs the Settings regression tests first (fast, the acceptance gate for
 # Settings), then the screenshot matrix under a time box, and pulls the PNGs out of the app either way.
 set -uo pipefail
-ROT="$1"; NAME="$2"
+ROT="$1"; NAME="$2"; TESTS="$3"
 adb shell settings put system accelerometer_rotation 0
 adb shell settings put system user_rotation "$ROT"
 sleep 3
@@ -10,10 +10,13 @@ adb shell wm size; adb shell wm density
 OUT=shots/"$NAME"; mkdir -p "$OUT"
 G="./gradlew --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true connectedGithubDebugAndroidTest"
 
-$G -Pandroid.testInstrumentationRunnerArguments.class=com.usman.miqaat.ui.SettingsStateTest 2>&1 | tee "$OUT"/settings-tests.log | tail -25
-mkdir -p "$OUT"/results && cp -r app/build/outputs/androidTest-results/connected/. "$OUT"/results/ 2>/dev/null || true
+if [ "${NAME##*-}" = "a" ]; then
+  $G -Pandroid.testInstrumentationRunnerArguments.class=com.usman.miqaat.ui.SettingsStateTest 2>&1 | tee "$OUT"/settings-tests.log | tail -25
+  mkdir -p "$OUT"/results && cp -r app/build/outputs/androidTest-results/connected/. "$OUT"/results/ 2>/dev/null || true
+fi
 
-timeout 1500 $G -Pandroid.testInstrumentationRunnerArguments.class=com.usman.miqaat.ui.ScreenshotMatrixTest 2>&1 | tee "$OUT"/matrix.log | tail -15
+CLASSES=$(for t in ${TESTS//,/ }; do printf "com.usman.miqaat.ui.ScreenshotMatrixTest#%s," "$t"; done)
+timeout 1700 $G -Pandroid.testInstrumentationRunnerArguments.class="${CLASSES%,}" 2>&1 | tee "$OUT"/matrix.log | tail -15
 adb exec-out run-as com.usman.miqaat tar c -C files screens 2>/dev/null > "$OUT"/screens.tar || true
 ( cd "$OUT" && tar xf screens.tar 2>/dev/null && rm -f screens.tar && mv screens/* . 2>/dev/null; rmdir screens 2>/dev/null ) || true
 ls "$OUT" | wc -l

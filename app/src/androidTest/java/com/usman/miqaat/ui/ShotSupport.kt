@@ -35,12 +35,15 @@ abstract class ShotSupport {
     protected val out: File by lazy { File(ctx.filesDir, "screens").also { it.mkdirs() } }
     protected val errors = mutableListOf<String>()
 
-    /** e.g. "tablet-landscape": derived from the emulator's actual configuration, not assumed. */
-    protected val device: String by lazy {
-        val c = ctx.resources.configuration
-        val land = c.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
-        val short = minOf(c.screenWidthDp, c.screenHeightDp)
-        (if (short >= 600) "tablet" else "phone") + "-" + if (land) "landscape" else "portrait"
+    /** e.g. "tablet-landscape": read from the activity actually on screen, after rotation, not assumed. */
+    protected var device: String = "unknown"
+    private fun readDevice() {
+        scenario.onActivity { a ->
+            val c = a.resources.configuration
+            val land = a.resources.displayMetrics.widthPixels > a.resources.displayMetrics.heightPixels
+            val short = minOf(c.screenWidthDp, c.screenHeightDp)
+            device = (if (short >= 600) "tablet" else "phone") + "-" + if (land) "landscape" else "portrait"
+        }
     }
 
     protected fun settingsFor(theme: AppTheme, rtl: Boolean) = AppSettings(
@@ -64,13 +67,15 @@ abstract class ShotSupport {
             }
         }
         rule.waitForIdle()
+        readDevice()
     }
 
     protected fun shot(name: String, theme: AppTheme, scale: Float = 1f, rtl: Boolean = false, content: @Composable (AppSettings, PrayerState) -> Unit) {
-        val label = "${name}__${theme.name.lowercase()}__${device}__${(scale * 100).toInt()}${if (rtl) "__ur" else ""}"
+        var label = "$name-$theme"
         try {
             val s = settingsFor(theme, rtl); val st = stateAt(s)
             host(theme, scale, rtl) { content(s, st) }
+            label = "${name}__${theme.name.lowercase()}__${device}__${(scale * 100).toInt()}${if (rtl) "__ur" else ""}"
             Thread.sleep(700); rule.waitForIdle()
             val bmp = rule.onRoot().captureToImage().asAndroidBitmap()
             File(out, "$label.png").outputStream().use { bmp.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
