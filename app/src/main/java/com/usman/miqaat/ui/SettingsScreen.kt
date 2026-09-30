@@ -658,8 +658,12 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
     val ctx = LocalContext.current
     Heading(Str[R.string.s_test_preview], Str[R.string.s_run_any_part_of_the_experience])
     Text(Str[R.string.s_theme], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
+    // Same action as Display & art, but as a compact chip row: the large theme cards belong to Display & art only.
     SettingRow(Str[R.string.s_preview_a_theme], Str[R.string.s_applies_straight_away_press_back_to]) {
-        ThemePicker(s.theme) { th -> store.update { it.copy(theme = th) } }
+        @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+        androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.selectableGroup()) {
+            AppTheme.entries.forEach { th -> MiqChip(th.text, th == s.theme, { store.update { it.copy(theme = th) } }) }
+        }
     }
     Spacer(Modifier.height(14.dp))
     Text(Str[R.string.s_azaan], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
