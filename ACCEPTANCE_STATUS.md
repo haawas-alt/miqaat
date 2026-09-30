@@ -38,3 +38,8 @@ Legend: ✅ done and verified by CI tests · 🟡 built, needs on-device/emulato
 ## Honest limitations
 - Urdu strings added in this work are unproofread drafts; search synonyms are English only.
 - Not every screen has bespoke phone-landscape tuning beyond what the earlier four-theme work did; emulator review will show gaps.
+
+## Emulator pass (Medium_Tablet, landscape, 30 Sep 2026, build 104)
+Verified visually: tablet Settings rail + independent detail scroll; readiness summary (next event, location, exact alarms, battery, notifications); search "battery" → Reliability, scrolls to and highlights the row; Try it now; theme switching on Celestial, Gallery, Kiswah (Settings and home).
+Defects found and fixed: theme-picker labels invisible in Gallery (now follow active theme); Kiswah/Miqaat tablet home link row truncated by the signature (signature now on its own line). Both re-checked on build 104.
+Still NOT verified: phone layouts (emulator was a tablet only), portrait, 130%/200% text, Urdu/RTL, TalkBack, reduced motion, Miqaat theme after the change, search results are broad for "battery" (all Reliability rows match).
