@@ -113,7 +113,7 @@ fun PortraitHome(
             val page: @Composable androidx.compose.foundation.layout.ColumnScope.() -> Unit = {
                 // top bar
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                    Row(Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, settings.locationName) }, verticalAlignment = Alignment.CenterVertically) {
+                    Row(Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(settings.locationName)) }, verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 4), tint = ivory)
                         Spacer(Modifier.width(u * 1.2f))
                         Text(settings.locationName, fontSize = fs(3.6f), fontWeight = FontWeight.SemiBold, color = ivory, fontFamily = Nunito)
@@ -137,13 +137,13 @@ fun PortraitHome(
                 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
                 androidx.compose.foundation.layout.FlowRow(Modifier.padding(top = u * 2.5f), horizontalArrangement = Arrangement.spacedBy(u * 2), verticalArrangement = Arrangement.spacedBy(u * 1.5f)) {
                     if (settings.showQibla) { val q = PrayerEngine.qibla(settings); SmallChip(Icons.Outlined.Explore, L10n.word(settings, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), u, ivory, gold, font = F, onClick = onOpenQibla) }
-                    if (settings.adhkarEnabled && state.current == Prayer.FAJR) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "Morning adhkār"), u, ivory, gold, gold = true, font = F) { onOpenAdhkar(AdhkarMode.MORNING) }
-                    if (settings.adhkarEnabled && (state.current == Prayer.ASR || state.current == Prayer.MAGHRIB)) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "Evening adhkār"), u, ivory, gold, gold = true, font = F) { onOpenAdhkar(AdhkarMode.EVENING) }
+                    if (AdhkarMode.MORNING in adhkarModes(state, settings)) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "Morning adhkār"), u, ivory, gold, gold = true, font = F) { onOpenAdhkar(AdhkarMode.MORNING) }
+                    if (AdhkarMode.EVENING in adhkarModes(state, settings)) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "Evening adhkār"), u, ivory, gold, gold = true, font = F) { onOpenAdhkar(AdhkarMode.EVENING) }
                     if (updateAvailable) SmallChip(Icons.Outlined.Settings, "Update", u, ivory, gold, gold = true, font = F, onClick = onOpenAbout)
                     if (!alarmsOk) SmallChip(Icons.Outlined.Info, Str[R.string.s_azaan_may_be_late_fix], u, ivory, gold, gold = true, font = F, onClick = onOpenSettings)
                     if (settings.zoneNeedsReview) SmallChip(Icons.Outlined.Info, Str[R.string.s_time_zone_needs_checking], u, ivory, gold, gold = true, font = F, onClick = onOpenLocation)
                     if (settings.fridayReminders && PrayerEngine.isJumuahWindow(settings, state.now)) SmallChip(Icons.Outlined.Check, L10n.word(settings, "Jumuʿah"), u, ivory, gold, font = F, onClick = onOpenFriday)
-                    if (settings.postPrayerAdhkar && state.current != null && java.time.Duration.between(state.today[state.current], state.now).toMinutes() in 5..40) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, ivory, gold, gold = true, font = F) { onOpenAdhkar(AdhkarMode.POST) }
+                    if (AdhkarMode.POST in adhkarModes(state, settings)) SmallChip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, ivory, gold, gold = true, font = F) { onOpenAdhkar(AdhkarMode.POST) }
                 }
 
                 // hero takes whatever height is left between the header and the list

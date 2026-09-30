@@ -87,3 +87,20 @@ internal fun tarawihLine(state: PrayerState, s: AppSettings): String? {
 
 /** The prayers a home lists: with or without Sunrise, exactly as the existing homes decide. */
 internal fun listedPrayers(s: AppSettings): List<Prayer> = if (s.showSunrise) Prayer.entries else Prayer.prayersOnly
+
+
+/**
+ * The single rule for which Adhkar entry points a Home may offer right now. Every Home layout (and the tablet `doors()` list) asks
+ * this instead of re-deriving the windows, so a prompt can never appear on one layout and be missing on another.
+ */
+internal fun adhkarModes(state: PrayerState, s: com.usman.miqaat.data.AppSettings): Set<AdhkarMode> {
+    val out = linkedSetOf<AdhkarMode>()
+    if (s.adhkarEnabled && state.current == Prayer.FAJR) out += AdhkarMode.MORNING
+    if (s.adhkarEnabled && (state.current == Prayer.ASR || state.current == Prayer.MAGHRIB)) out += AdhkarMode.EVENING
+    val cur = state.current
+    if (s.postPrayerAdhkar && cur != null) {
+        val m = java.time.Duration.between(state.today[cur], state.now).toMinutes()
+        if (if (state.justPassed) m >= 5 else m in 5..40) out += AdhkarMode.POST
+    }
+    return out
+}

@@ -1,5 +1,6 @@
 package com.usman.miqaat.ui
 
+import com.usman.miqaat.data.L10n
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -85,7 +86,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                     if (settings.showHijri && wide) Text("   $hijriRange", fontFamily = Amiri, fontSize = 22.sp, color = tk.accent, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false).padding(bottom = 6.dp))
                 }
                 Text(
-                    (if (settings.showHijri && !wide) "$hijriRange · " else "") + "${settings.locationName} · ${settings.method.text} · Asr: ${settings.asrMethod.text.substringBefore('،').substringBefore(',')}",
+                    (if (settings.showHijri && !wide) "$hijriRange · " else "") + "${L10n.iso(settings.locationName)} · ${settings.method.text} · Asr: ${settings.asrMethod.text.substringBefore('،').substringBefore(',')}",
                     fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary, maxLines = if (fontScale > 1.3f) 4 else 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                 )
             }

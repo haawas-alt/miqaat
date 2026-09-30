@@ -136,7 +136,7 @@ fun HomeScreen(
                     Column(Modifier.weight(1f).padding(end = u * 2)) {
                         @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
                         androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(u * 0.9f), verticalArrangement = Arrangement.spacedBy(u * 0.6f)) {
-                        Row(Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).padding(u * 0.5f).semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, settings.locationName) }, verticalAlignment = Alignment.CenterVertically) {
+                        Row(Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).padding(u * 0.5f).semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(settings.locationName)) }, verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.2f), tint = Palette.ivory)
                             Spacer(Modifier.width(u * 0.7f))
                             Text(settings.locationName, fontSize = fs(1.7f), fontWeight = FontWeight.SemiBold, color = Palette.ivory, fontFamily = F)
@@ -145,12 +145,10 @@ fun HomeScreen(
                                 val q = PrayerEngine.qibla(settings)
                                 Chip(Icons.Outlined.Explore, L10n.word(settings, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), u, font = F, onClick = onOpenQibla)
                             }
-                            if (settings.adhkarEnabled && morningWindow) Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "Morning adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.MORNING) }
-                            if (settings.adhkarEnabled && eveningWindow) Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "Evening adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.EVENING) }
+                            if (AdhkarMode.MORNING in adhkarModes(state, settings)) Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "Morning adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.MORNING) }
+                            if (AdhkarMode.EVENING in adhkarModes(state, settings)) Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "Evening adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.EVENING) }
                             if (friday) Chip(Icons.Outlined.MenuBook, "Jumuʿah · al-Kahf · ṣalawāt", u, font = F, onClick = onOpenFriday)
-                            if (settings.postPrayerAdhkar && state.current != null && state.justPassed.not() && java.time.Duration.between(state.today[state.current], state.now).toMinutes() in 5..40)
-                                Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.POST) }
-                            if (settings.postPrayerAdhkar && state.current != null && state.justPassed && java.time.Duration.between(state.today[state.current], state.now).toMinutes() >= 5)
+                            if (AdhkarMode.POST in adhkarModes(state, settings))
                                 Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.POST) }
                             if (ramadan && hij.day >= 27) Chip(Icons.Outlined.Info, "Zakāt al-Fiṭr before Eid prayer", u, font = F)
                             if (updateAvailable) Chip(Icons.Outlined.SystemUpdateAlt, L10n.word(settings, "Update available"), u, gold = true, font = F, onClick = onOpenAbout)

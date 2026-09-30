@@ -107,10 +107,10 @@ internal fun doors(state: PrayerState, s: AppSettings, a: HomeActions): List<Doo
     val hij = PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)
     val out = mutableListOf<Door>()
     if (s.showQibla) { val q = PrayerEngine.qibla(s); out += Door(L10n.word(s, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), onClick = a.onOpenQibla) }
-    if (s.adhkarEnabled && state.current == Prayer.FAJR) out += Door(L10n.word(s, "Morning adhkār")) { a.onOpenAdhkar(AdhkarMode.MORNING) }
-    if (s.adhkarEnabled && (state.current == Prayer.ASR || state.current == Prayer.MAGHRIB)) out += Door(L10n.word(s, "Evening adhkār")) { a.onOpenAdhkar(AdhkarMode.EVENING) }
+    if (AdhkarMode.MORNING in adhkarModes(state, s)) out += Door(L10n.word(s, "Morning adhkār")) { a.onOpenAdhkar(AdhkarMode.MORNING) }
+    if (AdhkarMode.EVENING in adhkarModes(state, s)) out += Door(L10n.word(s, "Evening adhkār")) { a.onOpenAdhkar(AdhkarMode.EVENING) }
     if (s.fridayReminders && PrayerEngine.isJumuahWindow(s, state.now)) out += Door("Jumuʿah · al-Kahf · ṣalawāt", onClick = a.onOpenFriday)
-    if (s.postPrayerAdhkar && state.current != null && Duration.between(state.today[state.current], state.now).toMinutes().let { m -> if (state.justPassed) m >= 5 else m in 5..40 })
+    if (AdhkarMode.POST in adhkarModes(state, s))
         out += Door(L10n.word(s, "After-prayer adhkār")) { a.onOpenAdhkar(AdhkarMode.POST) }
     if (ramadan && hij.day >= 27) out += Door("Zakāt al-Fiṭr before Eid prayer")
     if (a.updateAvailable) out += Door(L10n.word(s, "Update available"), onClick = a.onOpenAbout)
@@ -148,7 +148,7 @@ private fun Header(state: PrayerState, s: AppSettings, a: HomeActions, u: Dp, go
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Row(
             Modifier.clip(RoundedCornerShape(50)).clickable(onClick = a.onOpenLocation, role = Role.Button).heightIn(min = 48.dp).padding(end = u * 1.5f)
-                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, s.locationName) },
+                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(s.locationName)) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.2f), tint = gold)

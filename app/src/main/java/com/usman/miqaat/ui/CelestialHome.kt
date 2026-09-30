@@ -116,7 +116,7 @@ private fun CelestialTopBar(state: PrayerState, s: AppSettings, a: HomeActions, 
     val locationRow: @Composable (Modifier) -> Unit = { m ->
         Row(
             m.clip(RoundedCornerShape(50)).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation, role = Role.Button)
-                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, s.locationName) },
+                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(s.locationName)) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.6f), tint = tk.primary)

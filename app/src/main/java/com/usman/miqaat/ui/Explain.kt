@@ -75,7 +75,7 @@ fun WhyDialog(settings: AppSettings, day: DayTimes, p: Prayer, onDismiss: () -> 
                     Prayer.MAGHRIB -> Line(Str[R.string.s_rule], Str[R.string.s_sunset_the_sun_s_disc_fully], "")
                     Prayer.ISHA -> Line(Str[R.string.s_rule], settings.method.parameters().let { if (it.ishaInterval > 0) Str.get(R.string.s_rule_isha_interval, it.ishaInterval) else Str.get(R.string.s_rule_isha_angle, it.ishaAngle.toString()) }, Str[R.string.s_disappearance_of_the_red_twilight])
                 }
-                Line(Str[R.string.s_location], settings.locationName, "%.4f, %.4f · ${settings.zone().id}".format(settings.latitude, settings.longitude))
+                Line(Str[R.string.s_location], settings.locationName, L10n.iso("%.4f, %.4f · ${settings.zone().id}".format(settings.latitude, settings.longitude)))
                 SectionLabel(Str[R.string.s_your_settings])
                 val adj = settings.adjustments[p] ?: 0
                 Line(Str[R.string.s_your_adjustment], if (adj == 0) Str[R.string.s_none] else (if (adj > 0) "+$adj min" else "$adj min"), Str[R.string.s_settings_prayer_times_minute_adjustments])

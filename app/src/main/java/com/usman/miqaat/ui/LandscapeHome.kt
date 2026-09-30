@@ -121,7 +121,7 @@ fun LandscapeHome(
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Row(
                         Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = Role.Button).padding(top = u * 1, bottom = u * 1, end = u * 2)
-                            .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, settings.locationName) },
+                            .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(settings.locationName)) },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 4.2f), tint = gold)
@@ -184,9 +184,9 @@ fun LandscapeHome(
                         // quiet footer: the small doors, then the signature
                         androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth().padding(top = u * 0.8f), horizontalArrangement = Arrangement.spacedBy(u * 2.5f, Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(u * 0.5f)) {
                             if (settings.showQibla) { val q = PrayerEngine.qibla(settings); Door(L10n.word(settings, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), u, ivory, F, onOpenQibla) }
-                            if (settings.adhkarEnabled && state.current == Prayer.FAJR) Door(L10n.word(settings, "Morning adhkār"), u, gold, F) { onOpenAdhkar(AdhkarMode.MORNING) }
-                            if (settings.adhkarEnabled && (state.current == Prayer.ASR || state.current == Prayer.MAGHRIB)) Door(L10n.word(settings, "Evening adhkār"), u, gold, F) { onOpenAdhkar(AdhkarMode.EVENING) }
-                            if (settings.postPrayerAdhkar && state.current != null && Duration.between(state.today[state.current], state.now).toMinutes() in 5..40) Door(L10n.word(settings, "After-prayer adhkār"), u, gold, F) { onOpenAdhkar(AdhkarMode.POST) }
+                            if (AdhkarMode.MORNING in adhkarModes(state, settings)) Door(L10n.word(settings, "Morning adhkār"), u, gold, F) { onOpenAdhkar(AdhkarMode.MORNING) }
+                            if (AdhkarMode.EVENING in adhkarModes(state, settings)) Door(L10n.word(settings, "Evening adhkār"), u, gold, F) { onOpenAdhkar(AdhkarMode.EVENING) }
+                            if (AdhkarMode.POST in adhkarModes(state, settings)) Door(L10n.word(settings, "After-prayer adhkār"), u, gold, F) { onOpenAdhkar(AdhkarMode.POST) }
                             if (isFri) Door(L10n.word(settings, "Jumuʿah"), u, gold, F, onOpenFriday)
                             if (updateAvailable) Door(L10n.word(settings, "Update available"), u, gold, F, onOpenAbout)
                             if (settings.zoneNeedsReview) Door(Str[R.string.s_time_zone_needs_checking], u, gold, F, onOpenLocation)

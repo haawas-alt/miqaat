@@ -322,7 +322,7 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     var pickZone by remember { mutableStateOf(false) }
     val zoneWarn = s.locationSet && (s.zoneNeedsReview || com.usman.miqaat.data.Setup.zoneLooksWrong(s.longitude, s.zone()))
     SettingRow(Str[R.string.s_time_zone_for_prayer_times], if (zoneWarn) Str[R.string.s_this_zone_is_several_hours_away] else if (s.zoneManual) Str[R.string.s_chosen_by_you_automatic_location_refresh] else Str[R.string.s_follows_the_device_while_that_is], onClick = { pickZone = true }) {
-        GoldValue((s.zoneId ?: Str.get(R.string.s_device_zone, java.time.ZoneId.systemDefault().id)) + Str.chev)
+        GoldValue(L10n.iso(s.zoneId ?: Str.get(R.string.s_device_zone, java.time.ZoneId.systemDefault().id)) + Str.chev)
     }
     if (pickZone) ZonePicker(current = s.zoneId, onPick = { pickZone = false }, onDismiss = { pickZone = false }, store = store)
     SettingRow(Str[R.string.s_use_the_tablet_s_location], Str[R.string.s_re_detects_each_time_the_app]) {
@@ -444,7 +444,7 @@ suspend fun detect(ctx: Context, store: SettingsStore): String = when (val r = L
         AzaanScheduler.reschedule(ctx)
         lastDetectOk = true
         if (applied.needsZoneChoice) Str.get(R.string.s_location_set_zone_mismatch, name)
-        else Str.get(R.string.s_location_set_to, name) + (applied.settings.zoneId?.let { Str.get(R.string.s_time_zone_x, it) } ?: "")
+        else Str.get(R.string.s_location_set_to, L10n.iso(name)) + (applied.settings.zoneId?.let { Str.get(R.string.s_time_zone_x, L10n.iso(it)) } ?: "")
     }
 }
 

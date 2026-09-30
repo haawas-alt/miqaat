@@ -11,7 +11,7 @@ OUT=shots/"$NAME"; mkdir -p "$OUT"
 G="./gradlew --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true connectedGithubDebugAndroidTest"
 
 if [ "${NAME##*-}" = "a" ]; then
-  $G -Pandroid.testInstrumentationRunnerArguments.class=com.usman.miqaat.ui.SettingsStateTest,com.usman.miqaat.ui.HomeLargeTextTest 2>&1 | tee "$OUT"/settings-tests.log | tail -25
+  $G -Pandroid.testInstrumentationRunnerArguments.class=com.usman.miqaat.ui.SettingsStateTest,com.usman.miqaat.ui.HomeLargeTextTest,com.usman.miqaat.ui.AdhkarEntryTest 2>&1 | tee "$OUT"/settings-tests.log | tail -25
   mkdir -p "$OUT"/results && cp -r app/build/outputs/androidTest-results/connected/. "$OUT"/results/ 2>/dev/null || true
 fi
 
