@@ -50,7 +50,7 @@ class ScreenshotTest : ComposeSupport() {
             File(out, "$label.png").outputStream().use { bmp.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
             scenario.close()
         } catch (t: Throwable) {
-            errors += "$label: ${t.javaClass.simpleName}: ${t.message?.take(300)}"
+            errors += "$label: ${t.javaClass.simpleName}: ${t.message?.take(200)} @ " + t.stackTrace.filter { it.className.contains("miqaat") || it.className.contains("compose.ui.test") }.take(6).joinToString(" < ") { "${it.className.substringAfterLast('.')}.${it.methodName}:${it.lineNumber}" }
             runCatching { scenario.close() }
         }
     }
