@@ -38,6 +38,8 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.draw.scale
+import androidx.compose.foundation.layout.offset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.usman.miqaat.R
@@ -107,6 +109,12 @@ internal fun selectionAccent(tk: ThemeTokens): Color = if (tk.dark) tk.primary e
 @Composable
 private fun ThemePreview(tk: ThemeTokens, modifier: Modifier) {
     Box(modifier.clip(RoundedCornerShape(12.dp)).background(tk.backgroundBrush).border(1.dp, tk.outline.copy(alpha = 0.6f), RoundedCornerShape(12.dp)).padding(horizontal = 12.dp, vertical = 8.dp)) {
+        // The two artwork themes preview with their real (approved v2) artwork, so the miniature is the Home's own look.
+        val art = when (tk.art) { ArtStyle.CELESTIAL -> R.drawable.art_celestial_landscape_v2; ArtStyle.GALLERY -> R.drawable.art_gallery_landscape_v2; else -> null }
+        if (art != null) {
+            androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(art), null, Modifier.matchParentSize().clip(RoundedCornerShape(8.dp)), contentScale = androidx.compose.ui.layout.ContentScale.Crop)
+            Box(Modifier.matchParentSize().clip(RoundedCornerShape(8.dp)).background(tk.background.copy(alpha = 0.28f)))
+        }
         Column(Modifier.align(Alignment.CenterStart)) {
             Text("Dhuhr", fontFamily = tk.fontDisplay, fontSize = 13.sp, color = tk.contentPrimary)
             Text("12:24 PM", fontFamily = tk.fontDisplay, fontSize = 22.sp, fontWeight = FontWeight.Medium, color = tk.contentPrimary)

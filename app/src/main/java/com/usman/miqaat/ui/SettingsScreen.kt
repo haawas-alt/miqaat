@@ -813,7 +813,7 @@ private fun HijriSection(store: SettingsStore, s: AppSettings) {
 @Composable
 private fun DisplaySection(store: SettingsStore, s: AppSettings) {
     Heading(Str[R.string.s_display_art], Str[R.string.s_how_miqaat_looks_on_the_wall])
-    SettingRow(Str[R.string.s_theme], Str[R.string.s_changes_the_home_screen_and_the]) {
+    SettingRow(Str[R.string.s_theme], Str[R.string.s_changes_the_home_screen_and_the], stacked = true) {
         ThemePicker(s.theme) { th -> store.update { it.copy(theme = th) } }
     }
     SettingRow(Str[R.string.s_language], Str[R.string.s_home_screen_and_widget_urdu_is]) {
@@ -888,14 +888,14 @@ internal fun Heading(title: String, desc: String) {
 
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
-internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)? = null, trailing: @Composable () -> Unit) {
+internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)? = null, stacked: Boolean = false, trailing: @Composable () -> Unit) {
     val tk = screenTokens()
     val focusTitle = LocalSettingsFocus.current
     val focused = focusTitle != null && focusTitle == title
     val bring = remember { androidx.compose.foundation.relocation.BringIntoViewRequester() }
     LaunchedEffect(focused) { if (focused) bring.bringIntoView() }
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxWidth().androidxBring(bring).then(if (focused) Modifier.background(tk.selectedSurface) else Modifier)) {
-        val compact = maxWidth < 560.dp
+        val compact = stacked || maxWidth < 560.dp
         // The row reads as one element to TalkBack ("title, subtitle") and the control keeps its own role.
         val rowMod = Modifier.fillMaxWidth().then(if (onClick != null) Modifier.clickable(onClick = onClick, role = androidx.compose.ui.semantics.Role.Button) else Modifier).padding(vertical = 14.dp)
         if (compact) {
@@ -909,7 +909,7 @@ internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)?
             }
         } else {
             Row(rowMod, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-                Column(Modifier.weight(1f).padding(end = 20.dp).semantics(mergeDescendants = true) {}) {
+                Column(Modifier.weight(1f).widthIn(min = 160.dp).padding(end = 20.dp).semantics(mergeDescendants = true) {}) {
                     Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
                     if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary, lineHeight = 19.sp)
                 }

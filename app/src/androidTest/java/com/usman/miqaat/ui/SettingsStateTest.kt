@@ -74,7 +74,9 @@ class SettingsStateTest {
         railItem(Str[R.string.s_display_art]).performClick()
         rule.waitForIdle()
         rule.onNodeWithText(Str[R.string.s_how_miqaat_looks_on_the_wall]).assertIsDisplayed()
-        rule.onAllNodes(hasContentDescription("Bold and classic", substring = true)).onFirst().assertExists()
+        // Visible, not merely present: a collapsed label once pushed the whole pane below the fold.
+        rule.onAllNodes(hasContentDescription("Bold and classic", substring = true)).onFirst().assertIsDisplayed()
+        rule.onAllNodes(hasContentDescription("Clean and modern", substring = true)).onFirst().assertIsDisplayed()
     }
 
     @Test fun selectedCategoryAndItsOwnScrollSurviveRecreation() {
