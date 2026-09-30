@@ -27,6 +27,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.usman.miqaat.R
@@ -173,20 +174,25 @@ fun ReadinessSummary(state: ReadinessState, wide: Boolean, onOpen: () -> Unit, m
             Icon(Icons.AutoMirrored.Outlined.KeyboardArrowRight, null, Modifier.size(24.dp), tint = tk.contentSecondary)
         }
     }
-    val checkItem: @Composable (ReadinessCheck, Modifier) -> Unit = { c, m ->
+    val checkItem: @Composable (ReadinessCheck, Modifier, Boolean) -> Unit = { c, m, stacked ->
         val kind = if (c.ok) NoticeKind.Success else NoticeKind.Warning
         val col = noticeColor(kind, tk)
-        Row(
-            m.heightIn(min = Space.target).then(if (c.fix != null) Modifier.clickable(role = Role.Button, onClickLabel = Str[R.string.s_readiness_fix], onClick = c.fix) else Modifier)
-                .semantics(mergeDescendants = true) { stateDescription = c.stateText; contentDescription = c.label + ", " + c.stateText }.padding(horizontal = Space.m, vertical = Space.s),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        val base = m.heightIn(min = Space.target).then(if (c.fix != null) Modifier.clickable(role = Role.Button, onClickLabel = Str[R.string.s_readiness_fix], onClick = c.fix) else Modifier)
+            .semantics(mergeDescendants = true) { stateDescription = c.stateText; contentDescription = c.label + ", " + c.stateText }.padding(horizontal = Space.s, vertical = Space.s)
+        val texts: @Composable (Alignment.Horizontal) -> Unit = { h ->
+            Column(horizontalAlignment = h) {
+                Text(c.label, fontFamily = Nunito, fontSize = if (stacked) 13.sp else 14.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary, textAlign = if (stacked) TextAlign.Center else TextAlign.Start)
+                Text(c.stateText + if (!c.ok && c.fix != null) " · " + Str[R.string.s_readiness_fix] else "", fontFamily = Nunito, fontSize = if (stacked) 12.sp else 14.sp, color = tk.contentSecondary, textAlign = if (stacked) TextAlign.Center else TextAlign.Start)
+            }
+        }
+        if (stacked) Column(base, horizontalAlignment = Alignment.CenterHorizontally) {
+            Icon(noticeIcon(kind), null, Modifier.size(24.dp), tint = col)
+            Spacer(Modifier.height(Space.xs))
+            texts(Alignment.CenterHorizontally)
+        } else Row(base, verticalAlignment = Alignment.CenterVertically) {
             Icon(noticeIcon(kind), null, Modifier.size(24.dp), tint = col)
             Spacer(Modifier.width(Space.s))
-            Column {
-                Text(c.label, fontFamily = Nunito, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
-                Text(c.stateText + if (!c.ok && c.fix != null) " · " + Str[R.string.s_readiness_fix] else "", fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary)
-            }
+            texts(Alignment.Start)
         }
     }
     Column(modifier.fillMaxWidth().clip(shape).background(tk.surface).border(1.dp, tk.divider, shape)) {
@@ -194,13 +200,13 @@ fun ReadinessSummary(state: ReadinessState, wide: Boolean, onOpen: () -> Unit, m
             Row(verticalAlignment = Alignment.CenterVertically) {
                 headline(Modifier.weight(1.7f))
                 Box(Modifier.width(1.dp).height(56.dp).background(tk.divider))
-                state.checks.forEach { c -> checkItem(c, Modifier.weight(1f)) }
+                state.checks.forEach { c -> checkItem(c, Modifier.weight(1f), false) }
             }
         } else {
             headline(Modifier)
             Box(Modifier.padding(horizontal = Space.l).fillMaxWidth().height(1.dp).background(tk.divider))
-            if (big) Column(Modifier.padding(Space.s)) { state.checks.forEach { c -> checkItem(c, Modifier.fillMaxWidth()) } }
-            else Row(Modifier.padding(horizontal = Space.xs, vertical = Space.xs)) { state.checks.forEach { c -> checkItem(c, Modifier.weight(1f)) } }
+            if (big) Column(Modifier.padding(Space.s)) { state.checks.forEach { c -> checkItem(c, Modifier.fillMaxWidth(), false) } }
+            else Row(Modifier.padding(horizontal = Space.xs, vertical = Space.xs)) { state.checks.forEach { c -> checkItem(c, Modifier.weight(1f), true) } }
         }
     }
 }

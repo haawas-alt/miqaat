@@ -258,7 +258,7 @@ private fun SettingsDetailPhone(section: Section, store: SettingsStore, settings
         SettingsTopBar(section.label, onBack)
         key(section) {
             Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = Space.xl, vertical = Space.m).navigationBarsPadding()) {
-                CompositionLocalProvider(LocalSettingsFocus provides focusTitle) { SectionBody(section, store, settings) }
+                CompositionLocalProvider(LocalSettingsFocus provides focusTitle, LocalShowSectionTitle provides false) { SectionBody(section, store, settings) }
             }
         }
     }
@@ -865,10 +865,13 @@ private fun AboutSection(s: AppSettings) {
 
 // ---------------------------------------------------------------- controls
 
+/** The phone detail screen already shows the destination name in its top bar, so the body skips the duplicate title. */
+internal val LocalShowSectionTitle = androidx.compose.runtime.compositionLocalOf { true }
+
 @Composable
 internal fun Heading(title: String, desc: String) {
     val tk = screenTokens()
-    Text(title, fontFamily = Cormorant, fontSize = 34.sp, color = tk.contentPrimary, modifier = Modifier.semantics { heading() })
+    if (LocalShowSectionTitle.current) Text(title, fontFamily = Cormorant, fontSize = 34.sp, color = tk.contentPrimary, modifier = Modifier.semantics { heading() })
     Text(desc, fontFamily = Nunito, fontSize = 16.sp, color = tk.contentSecondary, lineHeight = 22.sp, modifier = Modifier.padding(top = 2.dp, bottom = 14.dp))
 }
 
