@@ -1,6 +1,8 @@
 package com.usman.miqaat.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.usman.miqaat.azaan.AzaanService
@@ -68,8 +70,9 @@ class ScreenshotMatrixTest : ShotSupport() {
         for (t in themes) for (sc in listOf(1f, 2f)) {
             val ok = ReadinessState("Dhuhr · 12:24 PM", "Sydney", listOf(ReadinessCheck("Exact alarms", "On", true, null), ReadinessCheck("Battery", "Unrestricted", true, null), ReadinessCheck("Notifications", "Allowed", true, null)))
             val warn = ReadinessState("Asr · 3:52 PM", "Sydney", listOf(ReadinessCheck("Exact alarms", "Off", false) {}, ReadinessCheck("Battery", "Restricted", false) {}, ReadinessCheck("Notifications", "Allowed", true, null)))
-            shot("state-ready", t, sc) { _, _ -> androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.padding(androidx.compose.ui.unit.Dp(16f))) { ReadinessSummary(ok, wide = true, onOpen = {}) } }
-            shot("state-warning", t, sc) { _, _ -> androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.padding(androidx.compose.ui.unit.Dp(16f))) { ReadinessSummary(warn, wide = true, onOpen = {}) } }
+            shot("state-ready", t, sc) { _, _ -> androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.padding(16.dp)) { ReadinessSummary(ok, wide = true, onOpen = {}) } }
+            shot("state-warning", t, sc) { _, _ -> androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.padding(16.dp)) { ReadinessSummary(warn, wide = true, onOpen = {}) } }
         }
     }
 }
+

@@ -12,6 +12,8 @@ import androidx.compose.ui.test.junit4.StateRestorationTester
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.padding
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -107,7 +109,7 @@ class SettingsStateTest {
         rule.setContent {
             val d = LocalDensity.current
             CompositionLocalProvider(LocalDensity provides Density(d.density, scale)) {
-                MiqaatTheme(theme) { androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.padding(androidx.compose.ui.unit.Dp(16f))) { ReadinessSummary(ok, wide = widthDp >= 720, onOpen = {}) } }
+                MiqaatTheme(theme) { androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.padding(16.dp)) { ReadinessSummary(ok, wide = widthDp >= 720, onOpen = {}) } }
             }
         }
         for (th in AppTheme.entries) for (sc in listOf(1f, 1.3f, 2f)) {
