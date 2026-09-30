@@ -211,17 +211,18 @@ fun DestinationRow(icon: ImageVector, title: String, subtitle: String?, onClick:
 @Composable
 fun RailItem(icon: ImageVector, label: String, selected: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
     val tk = screenTokens()
+    val acc = selectionAccent(tk)
     Row(
-        modifier.fillMaxWidth().heightIn(min = Space.target + 8.dp).background(if (selected) tk.selectedSurface else Color.Transparent)
+        modifier.fillMaxWidth().heightIn(min = Space.target + 8.dp).background(if (selected) (if (tk.dark) tk.selectedSurface else Color(0xFFF1E4C6)) else Color.Transparent)
             .semantics { role = Role.Tab; this.selected = selected }
             .clickable(onClick = onClick),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Box(Modifier.width(4.dp).height(28.dp).background(if (selected) tk.primary else Color.Transparent))
+        Box(Modifier.width(4.dp).height(28.dp).background(if (selected) acc else Color.Transparent))
         Spacer(Modifier.width(Space.l))
-        Icon(icon, null, Modifier.size(24.dp), tint = if (selected) tk.primary else tk.contentSecondary)
+        Icon(icon, null, Modifier.size(26.dp), tint = if (selected) acc else tk.contentPrimary.copy(alpha = 0.8f))
         Spacer(Modifier.width(Space.l))
-        Text(label, Modifier.padding(vertical = Space.m).padding(end = Space.m), fontFamily = Nunito, fontSize = 17.sp, fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal, color = if (selected) tk.contentPrimary else tk.contentSecondary)
+        Text(label, Modifier.padding(vertical = Space.m).padding(end = Space.m), fontFamily = Nunito, fontSize = 18.sp, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, color = if (selected) acc else tk.contentPrimary)
     }
 }
 

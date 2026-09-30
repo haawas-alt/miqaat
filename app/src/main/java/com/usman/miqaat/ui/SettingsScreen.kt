@@ -869,7 +869,7 @@ private fun AboutSection(s: AppSettings) {
 internal fun Heading(title: String, desc: String) {
     val tk = screenTokens()
     Text(title, fontFamily = Cormorant, fontSize = 34.sp, color = tk.contentPrimary, modifier = Modifier.semantics { heading() })
-    Text(desc, fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary, lineHeight = 20.sp, modifier = Modifier.padding(top = 2.dp, bottom = 14.dp))
+    Text(desc, fontFamily = Nunito, fontSize = 16.sp, color = tk.contentSecondary, lineHeight = 22.sp, modifier = Modifier.padding(top = 2.dp, bottom = 14.dp))
 }
 
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
@@ -889,7 +889,7 @@ internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)?
             Column(rowMod) {
                 Column(Modifier.semantics(mergeDescendants = true) {}) {
                     Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
-                    if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary, lineHeight = 18.sp)
+                    if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary, lineHeight = 19.sp)
                 }
                 Box(Modifier.padding(top = 10.dp).fillMaxWidth(), contentAlignment = Alignment.CenterStart) { trailing() }
             }
@@ -897,7 +897,7 @@ internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)?
             Row(rowMod, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
                 Column(Modifier.weight(1f).padding(end = 20.dp).semantics(mergeDescendants = true) {}) {
                     Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
-                    if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary, lineHeight = 18.sp)
+                    if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary, lineHeight = 19.sp)
                 }
                 trailing()
             }

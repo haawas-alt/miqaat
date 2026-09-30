@@ -556,7 +556,11 @@
     <string name="e_theme_gallery">نماز گیلری</string>
     <string name="s_theme_state_selected">منتخب</string>
     <string name="s_theme_state_not_selected">منتخب نہیں</string>
-    <string name="s_theme_dark_desc">گہرا</string>
+        <string name="s_theme_desc_miqaat">صاف اور جدید</string>
+    <string name="s_theme_desc_kiswah">نمایاں اور کلاسیکی</string>
+    <string name="s_theme_desc_celestial">گہرا اور پُرسکون</string>
+    <string name="s_theme_desc_gallery">گرم اور پُرسکون</string>
+<string name="s_theme_dark_desc">گہرا</string>
     <string name="s_theme_light_desc">روشن</string>
     <string name="s_home_next_prayer">اگلی نماز</string>
     <string name="s_home_prayer_now">نماز کا وقت</string>

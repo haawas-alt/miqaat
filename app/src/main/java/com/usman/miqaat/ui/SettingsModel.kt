@@ -166,8 +166,8 @@ fun ReadinessSummary(state: ReadinessState, wide: Boolean, onOpen: () -> Unit, m
             }
             Spacer(Modifier.width(Space.l))
             Column(Modifier.weight(1f)) {
-                Text(header, fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary)
-                Text(state.eventTitle ?: Str[R.string.s_ready_none_action], fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = 24.sp, lineHeight = 28.sp, color = tk.contentPrimary)
+                Text(header, fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary)
+                Text(state.eventTitle ?: Str[R.string.s_ready_none_action], fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = 24.sp, lineHeight = 28.sp, color = tk.contentPrimary, maxLines = 2)
                 state.location?.let { Text(it, fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary) }
             }
             Icon(Icons.AutoMirrored.Outlined.KeyboardArrowRight, null, Modifier.size(24.dp), tint = tk.contentSecondary)
@@ -185,14 +185,14 @@ fun ReadinessSummary(state: ReadinessState, wide: Boolean, onOpen: () -> Unit, m
             Spacer(Modifier.width(Space.s))
             Column {
                 Text(c.label, fontFamily = Nunito, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
-                Text(c.stateText + if (!c.ok && c.fix != null) " · " + Str[R.string.s_readiness_fix] else "", fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary)
+                Text(c.stateText + if (!c.ok && c.fix != null) " · " + Str[R.string.s_readiness_fix] else "", fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary)
             }
         }
     }
     Column(modifier.fillMaxWidth().clip(shape).background(tk.surface).border(1.dp, tk.divider, shape)) {
         if (wide && !big) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                headline(Modifier.weight(1.2f))
+                headline(Modifier.weight(1.7f))
                 Box(Modifier.width(1.dp).height(56.dp).background(tk.divider))
                 state.checks.forEach { c -> checkItem(c, Modifier.weight(1f)) }
             }

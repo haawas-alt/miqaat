@@ -1,6 +1,8 @@
 package com.usman.miqaat.ui
 
-import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,60 +44,78 @@ import com.usman.miqaat.R
 import com.usman.miqaat.data.AppTheme
 
 /**
- * Four theme choices as small live-drawn previews. Selection is shown by a check mark, a thicker border and bold text
+ * Four theme choices as cards: a radio mark, name and one-line description, then a small live-drawn preview of that
+ * theme (its own background, time and prayer strip). Selection is shown by a check, a thicker gold border and bold text
  * as well as colour, and announced to TalkBack as a radio button with its state. Previews are drawn from each theme's
  * own tokens, so they can never drift from the real theme.
  */
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ThemePicker(selected: AppTheme, onSelect: (AppTheme) -> Unit) {
-    FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = Modifier.selectableGroup()
-    ) {
-        AppTheme.entries.forEach { theme ->
-            val tk = ThemeTokenSets.of(theme)
-            val cur = theme == selected
-            val shape = RoundedCornerShape(16.dp)
-            val kind = Str[if (tk.dark) R.string.s_theme_dark_desc else R.string.s_theme_light_desc]
-            val state = Str[if (cur) R.string.s_theme_state_selected else R.string.s_theme_state_not_selected]
-            Column(
-                Modifier.width(168.dp).heightIn(min = 48.dp).clip(shape)
-                    .border(if (cur) 3.dp else 1.dp, if (cur) Palette.gold else screenTokens().outline, shape)
-                    .selectable(selected = cur, role = Role.RadioButton) { onSelect(theme) }
-                    .semantics(mergeDescendants = true) { contentDescription = "${theme.text}, $kind"; stateDescription = state }
-                    .padding(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                ThemeSwatch(tk, Modifier.fillMaxWidth().height(72.dp).clearAndSetSemantics { })
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text(
-                        theme.text, fontFamily = Nunito, fontSize = 14.sp, fontWeight = if (cur) FontWeight.Bold else FontWeight.Normal,
-                        color = screenTokens().contentPrimary, modifier = Modifier.weight(1f), maxLines = 2
-                    )
-                    if (cur) Icon(Icons.Outlined.Check, contentDescription = null, tint = Palette.gold, modifier = Modifier.width(20.dp).height(20.dp))
+    val host = screenTokens()
+    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxWidth()) {
+        val cols = if (maxWidth >= 480.dp) 2 else 1
+        Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            AppTheme.entries.chunked(cols).forEach { rowThemes ->
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    rowThemes.forEach { theme -> ThemeCard(theme, theme == selected, host, Modifier.weight(1f)) { onSelect(theme) } }
+                    if (rowThemes.size < cols) Spacer(Modifier.weight((cols - rowThemes.size).toFloat()))
                 }
             }
         }
     }
 }
 
-/** A tiny preview of a theme: its background, a raised panel, a primary bar and a sun/moon mark. Decorative. */
 @Composable
-private fun ThemeSwatch(tk: ThemeTokens, modifier: Modifier) {
-    Canvas(modifier.clip(RoundedCornerShape(10.dp))) {
-        drawRect(tk.backgroundBrush, size = size)
-        // raised panel on the right, three "rows"
-        val pw = size.width * 0.38f; val px = size.width * 0.58f
-        drawRect(tk.surface, Offset(px, size.height * 0.12f), Size(pw, size.height * 0.76f))
-        val rowH = size.height * 0.16f
-        for (i in 0 until 3) {
-            val y = size.height * 0.20f + i * (rowH + size.height * 0.06f)
-            drawRect(if (i == 1) tk.primary else tk.divider, Offset(px + pw * 0.10f, y), Size(pw * 0.80f, rowH * 0.5f))
+private fun ThemeCard(theme: AppTheme, cur: Boolean, host: ThemeTokens, modifier: Modifier, onClick: () -> Unit) {
+    val tk = ThemeTokenSets.of(theme)
+    val shape = RoundedCornerShape(16.dp)
+    val kind = Str[if (tk.dark) R.string.s_theme_dark_desc else R.string.s_theme_light_desc]
+    val state = Str[if (cur) R.string.s_theme_state_selected else R.string.s_theme_state_not_selected]
+    val desc = Str[when (theme) {
+        AppTheme.MIQAAT -> R.string.s_theme_desc_miqaat
+        AppTheme.KISWAH -> R.string.s_theme_desc_kiswah
+        AppTheme.CELESTIAL_MERIDIAN -> R.string.s_theme_desc_celestial
+        AppTheme.PRAYER_GALLERY -> R.string.s_theme_desc_gallery
+    }]
+    val accent = selectionAccent(host)
+    Column(
+        modifier.heightIn(min = 48.dp).clip(shape).background(host.surface)
+            .border(if (cur) 2.dp else 1.dp, if (cur) accent else host.divider, shape)
+            .selectable(selected = cur, role = Role.RadioButton, onClick = onClick)
+            .semantics(mergeDescendants = true) { contentDescription = "${theme.text}, $desc, $kind"; stateDescription = state }
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Box(Modifier.size(28.dp).clip(CircleShape).background(if (cur) accent else Color.Transparent).border(2.dp, if (cur) accent else host.outline, CircleShape), contentAlignment = Alignment.Center) {
+                if (cur) Icon(Icons.Outlined.Check, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
+            }
+            Column(Modifier.weight(1f)) {
+                Text(theme.text, fontFamily = host.fontDisplay, fontSize = 20.sp, fontWeight = if (cur) FontWeight.Bold else FontWeight.Medium, color = host.contentPrimary, maxLines = 2)
+                Text(desc, fontFamily = Nunito, fontSize = 14.sp, color = host.contentSecondary, maxLines = 2)
+            }
         }
-        // sun / moon disc and a horizon
-        drawCircle(tk.sun, radius = size.height * 0.14f, center = Offset(size.width * 0.24f, size.height * 0.36f))
-        drawRect(tk.surfaceRaised, Offset(0f, size.height * 0.72f), Size(size.width * 0.52f, size.height * 0.28f))
-        drawRect(tk.primary, Offset(size.width * 0.06f, size.height * 0.72f), Size(size.width * 0.40f, size.height * 0.04f))
+        ThemePreview(tk, Modifier.fillMaxWidth().height(96.dp).clearAndSetSemantics { })
+    }
+}
+
+/** The warm-gold selection colour used by cards and the rail: readable on light themes, the theme's own gold on dark ones. */
+@Composable
+internal fun selectionAccent(tk: ThemeTokens): Color = if (tk.dark) tk.primary else Color(0xFF9A6B1E)
+
+/** A miniature home: the theme background, "Dhuhr 12:24 PM", and a five-prayer strip with the current one underlined. */
+@Composable
+private fun ThemePreview(tk: ThemeTokens, modifier: Modifier) {
+    Box(modifier.clip(RoundedCornerShape(12.dp)).background(tk.backgroundBrush).border(1.dp, tk.outline.copy(alpha = 0.6f), RoundedCornerShape(12.dp)).padding(horizontal = 12.dp, vertical = 8.dp)) {
+        Column(Modifier.align(Alignment.CenterStart)) {
+            Text("Dhuhr", fontFamily = tk.fontDisplay, fontSize = 13.sp, color = tk.contentPrimary)
+            Text("12:24 PM", fontFamily = tk.fontDisplay, fontSize = 22.sp, fontWeight = FontWeight.Medium, color = tk.contentPrimary)
+        }
+        Box(Modifier.align(Alignment.TopEnd).size(14.dp).clip(CircleShape).background(tk.sun))
+        Row(Modifier.align(Alignment.BottomCenter).fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            listOf("Fajr", "Dhuhr", "Asr", "Maghrib", "Isha").forEachIndexed { i, n ->
+                Text(n, fontFamily = Nunito, fontSize = 9.sp, fontWeight = if (i == 1) FontWeight.Bold else FontWeight.Normal, color = if (i == 1) tk.primary else tk.contentSecondary, maxLines = 1)
+            }
+        }
     }
 }

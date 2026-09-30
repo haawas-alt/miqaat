@@ -556,7 +556,11 @@
     <string name="e_theme_gallery">Prayer Gallery</string>
     <string name="s_theme_state_selected">Selected</string>
     <string name="s_theme_state_not_selected">Not selected</string>
-    <string name="s_theme_dark_desc">dark</string>
+        <string name="s_theme_desc_miqaat">Clean and modern</string>
+    <string name="s_theme_desc_kiswah">Bold and classic</string>
+    <string name="s_theme_desc_celestial">Deep and tranquil</string>
+    <string name="s_theme_desc_gallery">Warm and serene</string>
+<string name="s_theme_dark_desc">dark</string>
     <string name="s_theme_light_desc">light</string>
     <string name="s_home_next_prayer">NEXT PRAYER</string>
     <string name="s_home_prayer_now">PRAYER TIME</string>
