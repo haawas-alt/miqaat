@@ -189,8 +189,8 @@ jobs:
         include:
           - { name: tablet-landscape, profile: pixel_tablet, rotation: 1 }
           - { name: tablet-portrait, profile: pixel_tablet, rotation: 0 }
-          - { name: phone-portrait, profile: pixel_8, rotation: 0 }
-          - { name: phone-landscape, profile: pixel_8, rotation: 1 }
+          - { name: phone-portrait, profile: pixel_6, rotation: 0 }
+          - { name: phone-landscape, profile: pixel_6, rotation: 1 }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
