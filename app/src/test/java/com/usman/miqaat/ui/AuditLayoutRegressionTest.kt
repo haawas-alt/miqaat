@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
@@ -32,9 +31,22 @@ class AuditLayoutRegressionTest : ComposeSupport() {
         language = if (urdu) Language.UR else Language.EN, locationName = "Sydney, Australia",
         latitude = -33.8688, longitude = 151.2093, locationSet = true, setupDone = true, zoneId = "Australia/Sydney")
     private fun state(s: AppSettings) = PrayerEngine.state(s, ZonedDateTime.of(2026, 9, 30, 15, 40, 0, 0, ZoneId.of("Australia/Sydney")))
+    // PixelCopy-backed captureToImage does not deliver callbacks in this Robolectric host.
+    // Draw the measured Android content view with native graphics; bounds assertions remain Compose semantics.
+    private fun renderBitmap(): android.graphics.Bitmap {
+        rule.waitForIdle()
+        lateinit var bitmap: android.graphics.Bitmap
+        scenario.onActivity { activity ->
+            val view = activity.findViewById<android.view.View>(android.R.id.content)
+            assertTrue("Unmeasured content view", view.width > 0 && view.height > 0)
+            bitmap = android.graphics.Bitmap.createBitmap(view.width, view.height, android.graphics.Bitmap.Config.ARGB_8888)
+            view.draw(android.graphics.Canvas(bitmap))
+        }
+        return bitmap
+    }
     private fun capture(name: String) {
         val out = File("build/audit-screens").also { it.mkdirs() }
-        File(out, "$name.png").outputStream().use { assertTrue(rule.onRoot().captureToImage().asAndroidBitmap().compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it)) }
+        File(out, "$name.png").outputStream().use { assertTrue(renderBitmap().compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it)) }
     }
     private fun inside(tag: String) {
         val root = rule.onRoot().getUnclippedBoundsInRoot()
@@ -57,7 +69,7 @@ class AuditLayoutRegressionTest : ComposeSupport() {
                             androidx.compose.ui.Modifier.testTag("posture-art").size(320.dp))
                     }
                 }
-                val bitmap = rule.onNodeWithTag("posture-art").captureToImage().asAndroidBitmap()
+                val bitmap = renderBitmap()
                 val pixels = IntArray(bitmap.width * bitmap.height)
                 bitmap.getPixels(pixels, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
                 assertTrue("Repeated artwork for $posture", hashes.add(pixels.contentHashCode()))
