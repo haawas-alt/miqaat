@@ -263,3 +263,42 @@ fun ThemedArtwork(portrait: Boolean, modifier: Modifier = Modifier, scrim: Float
         if (scrim > 0f) Box(Modifier.matchParentSize().background(Brush.verticalGradient(listOf(tk.background.copy(alpha = scrim * 0.6f), tk.background.copy(alpha = scrim), tk.background.copy(alpha = 0.92f)))))
     }
 }
+
+/**
+ * Backdrop for secondary pages (Azaan flow, Adhkar, Qibla, Friday, Learn). Celestial uses the approved v2 sky art under a veil;
+ * Gallery draws a soft, code-built landscape (cool hills, warm sun glow) in the mockups' spirit, because the approved Gallery
+ * art has the Home tile strip painted into it and that strip fights with text on content pages. Other themes draw nothing here.
+ */
+@Composable
+fun ThemedBackdrop(portrait: Boolean, modifier: Modifier = Modifier, scrim: Float = 0.7f) {
+    val tk = screenTokens()
+    when (tk.art) {
+        ArtStyle.CELESTIAL -> ThemedArtwork(portrait, modifier, scrim = scrim)
+        ArtStyle.GALLERY -> androidx.compose.foundation.Canvas(modifier.clearAndSetSemantics { }) {
+            val w = size.width; val h = size.height
+            drawRect(tk.background)
+            // warm sun glow, low and centred
+            drawCircle(
+                Brush.radialGradient(listOf(Color(0xFFF6D9A0).copy(alpha = 0.55f), Color(0xFFF6D9A0).copy(alpha = 0f)), center = androidx.compose.ui.geometry.Offset(w * 0.5f, h * 0.66f), radius = minOf(w, h) * 0.62f),
+                radius = minOf(w, h) * 0.62f, center = androidx.compose.ui.geometry.Offset(w * 0.5f, h * 0.66f)
+            )
+            drawCircle(Color(0xFFF8E3B0).copy(alpha = 0.5f), radius = minOf(w, h) * 0.12f, center = androidx.compose.ui.geometry.Offset(w * 0.5f, h * 0.66f))
+            // cool hill layers, heavier on the left, lighter on the right
+            fun hill(y0: Float, amp: Float, phase: Float, color: Color) {
+                val p = androidx.compose.ui.graphics.Path()
+                p.moveTo(0f, h)
+                p.lineTo(0f, h * y0)
+                val steps = 24
+                for (i in 0..steps) { val x = w * i / steps; p.lineTo(x, h * y0 - amp * h * (0.5f + 0.5f * kotlin.math.sin(phase + i / steps.toFloat() * 5.2f))) }
+                p.lineTo(w, h); p.close()
+                drawPath(p, color)
+            }
+            val blue = Color(0xFF8FA6C8)
+            hill(0.62f, 0.10f, 0.3f, blue.copy(alpha = 0.16f))
+            hill(0.72f, 0.08f, 1.7f, blue.copy(alpha = 0.14f))
+            hill(0.82f, 0.05f, 3.1f, Color(0xFFD9C9A8).copy(alpha = 0.22f))
+            drawRect(Brush.verticalGradient(listOf(tk.background.copy(alpha = scrim * 0.35f), tk.background.copy(alpha = 0f), tk.background.copy(alpha = scrim * 0.6f))))
+        }
+        else -> {}
+    }
+}

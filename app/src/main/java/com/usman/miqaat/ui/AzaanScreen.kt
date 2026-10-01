@@ -33,6 +33,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -75,7 +78,7 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
         val bg = if (kiswah) ThemeTokenSets.kiswah.skyAzaan else when { isAzaan -> tk.skyAzaan; isIq -> tk.skyIqamah; else -> tk.skyDua }
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(bg))) {
             val artTheme = tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY
-            if (artTheme) ThemedArtwork(portrait, Modifier.fillMaxSize(), scrim = if (tk.art == ArtStyle.GALLERY) 0.82f else 0.72f)
+            if (artTheme) ThemedBackdrop(portrait, Modifier.fillMaxSize(), scrim = 0.72f)
             else if (kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
             // Option A: a quiet status tag, top-left, instead of any system pop-up
             Row(Modifier.statusBarsPadding().padding(start = u * 3.6f, top = u * 2.6f), verticalAlignment = Alignment.CenterVertically) {
@@ -89,6 +92,15 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
                     }.uppercase(),
                     fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.16f).sp, fontWeight = FontWeight.Bold, color = tk.accent.copy(alpha = 0.85f)
                 )
+            }
+            run {
+                val st = com.usman.miqaat.MiqaatApp.instance.settings.value
+                var tm by remember { mutableStateOf(java.time.ZonedDateTime.now(st.zone())) }
+                LaunchedEffect(Unit) { while (true) { tm = java.time.ZonedDateTime.now(st.zone()); delay(15_000) } }
+                Column(Modifier.align(Alignment.TopEnd).statusBarsPadding().padding(end = u * 3.6f, top = u * 2.2f), horizontalAlignment = Alignment.End) {
+                    Text(L10n.iso(st.locationName), fontFamily = Nunito, fontSize = (u.value * 1.4f).sp, color = tk.contentSecondary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = u * 24))
+                    Text(com.usman.miqaat.data.PrayerEngine.clock(tm, st.use24h) + " " + com.usman.miqaat.data.PrayerEngine.suffix(tm, st.use24h), fontFamily = Cormorant, fontSize = (u.value * 3.2f).sp, color = tk.contentPrimary)
+                }
             }
             Column(Modifier.fillMaxSize().statusBarsPadding().padding(top = if (portrait) u * 3 else 0.dp)) {
                 StepsBar(phase, u)
@@ -124,19 +136,20 @@ private fun StepsBar(phase: Phase, u: Dp) {
         !after -> listOf(Str[R.string.s_step_azaan], Str[R.string.s_step_home])
         else -> listOf(Str[R.string.s_step_azaan], Str[R.string.s_dua_after_azaan], Str[R.string.s_step_hadith], Str[R.string.s_step_home])
     }
-    @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
-    androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth().padding(top = u * 2.4f), horizontalArrangement = Arrangement.spacedBy(u * 1, Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(u * 0.6f)) {
+    // Step line like the approved mockups: a dot per step joined by a line, label underneath.
+    Row(Modifier.fillMaxWidth().padding(top = u * 2.4f), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.Top) {
         labels.forEachIndexed { i, l ->
             val done = i < idx; val cur = i == idx
-            val shape = RoundedCornerShape(50)
-            Box(
-                Modifier.clip(shape).background(if (cur) tk.primary.copy(alpha = 0.12f) else Color.Transparent)
-                    .border(1.dp, when { cur -> tk.primary; done -> tk.success.copy(alpha = 0.4f); else -> tk.neutralStroke }, shape)
-                    .padding(horizontal = u * 1.4f, vertical = u * 0.6f)
-            ) {
-                Text((if (done) "✓ " else "") + l.uppercase(), fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, letterSpacing = (u.value * 0.15f).sp, fontWeight = FontWeight.Bold,
-                    color = when { cur -> tk.arabicText; done -> tk.success; else -> tk.contentPrimary.copy(alpha = 0.55f) })
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.widthIn(max = u * 15)) {
+                Box(Modifier.size(u * 1.9f).clip(CircleShape).background(if (cur) tk.primary else if (done) tk.success else Color.Transparent)
+                    .border(2.dp, if (cur) tk.primary else if (done) tk.success else tk.neutralStroke, CircleShape), contentAlignment = Alignment.Center) {
+                    if (done) Text("✓", fontSize = (u.value * 1.2f).sp, color = tk.onPrimary, fontWeight = FontWeight.Bold)
+                    else if (cur) Box(Modifier.size(u * 0.7f).clip(CircleShape).background(tk.onPrimary))
+                }
+                Text(l.uppercase(), fontFamily = Nunito, fontSize = (u.value * 1.2f).sp, letterSpacing = (u.value * 0.1f).sp, fontWeight = if (cur) FontWeight.Bold else FontWeight.SemiBold, textAlign = TextAlign.Center, maxLines = 2,
+                    color = if (cur) tk.primary else tk.contentPrimary.copy(alpha = 0.6f), modifier = Modifier.padding(top = u * 0.5f, start = u * 0.3f, end = u * 0.3f))
             }
+            if (i < labels.lastIndex) Box(Modifier.padding(top = u * 0.9f).width(u * 6).height(2.dp).background(if (i < idx) tk.success else tk.neutralStroke))
         }
     }
 }

@@ -3,9 +3,16 @@
 # Settings), then the screenshot matrix under a time box, and pulls the PNGs out of the app either way.
 set -uo pipefail
 ROT="$1"; NAME="$2"; TESTS="$3"
-adb shell settings put system accelerometer_rotation 0
-adb shell settings put system user_rotation "$ROT"
-sleep 3
+# Lock the rotation the reliable way (wm user-rotation), re-applied before every gradle run: the plain settings keys were
+# silently ignored on some jobs, which left "portrait" tablet and "landscape" phone screenshots in the natural orientation.
+setrot() {
+  adb shell settings put system accelerometer_rotation 0
+  adb shell settings put system user_rotation "$ROT"
+  adb shell wm user-rotation lock "$ROT" || adb shell cmd window user-rotation lock "$ROT" || true
+  sleep 3
+  mkdir -p shots/"$NAME"; echo "rotation requested $ROT; now: $(adb shell dumpsys window displays | grep -m1 -o 'mCurrentRotation=[A-Za-z0-9_]*' )" | tee -a shots/"$NAME"/rotation.txt
+}
+setrot
 adb shell wm size; adb shell wm density
 OUT=shots/"$NAME"; mkdir -p "$OUT"
 G="./gradlew --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true connectedGithubDebugAndroidTest"
@@ -13,11 +20,13 @@ G="./gradlew --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterR
 if [ "${NAME##*-}" = "a" ]; then
   # One gradle run per class so a slow or crashed emulator in one test cannot hide the others' results.
   for C in SettingsStateTest HomeLargeTextTest AdhkarEntryTest; do
+    setrot
     timeout 900 $G -Pandroid.testInstrumentationRunnerArguments.class=com.usman.miqaat.ui.$C 2>&1 | tee "$OUT"/settings-tests-$C.log | tail -12
     mkdir -p "$OUT"/results/$C && cp -r app/build/outputs/androidTest-results/connected/. "$OUT"/results/$C/ 2>/dev/null || true
   done
 fi
 
+setrot
 CLASSES=$(for t in ${TESTS//,/ }; do printf "com.usman.miqaat.ui.ScreenshotMatrixTest#%s," "$t"; done)
 timeout 1700 $G -Pandroid.testInstrumentationRunnerArguments.class="${CLASSES%,}" 2>&1 | tee "$OUT"/matrix.log | tail -15
 adb exec-out run-as com.usman.miqaat tar c -C files screens 2>/dev/null > "$OUT"/screens.tar || true

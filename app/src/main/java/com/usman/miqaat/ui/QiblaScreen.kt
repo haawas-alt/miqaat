@@ -123,7 +123,7 @@ fun QiblaScreen(settings: AppSettings, fixedHeading: Float? = null, onBack: () -
 
     BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
         val u = minOf(maxWidth / 100, maxHeight / 56)
-        if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedArtwork(maxHeight > maxWidth, Modifier.fillMaxSize(), scrim = 0.7f) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.08f)
+        if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedBackdrop(maxHeight > maxWidth, Modifier.fillMaxSize(), scrim = 0.7f) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.08f)
         val portrait = maxHeight > maxWidth
         if (portrait) {
             Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = u * 4, vertical = u * 2), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceEvenly) {

@@ -158,7 +158,7 @@ private fun Library(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) 
 private fun LibraryWide(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) -> Unit, onWords: () -> Unit, onMoves: () -> Unit, onBack: () -> Unit, onReset: () -> Unit) {
     val tk = screenTokens()
     Box(Modifier.fillMaxSize()) {
-        if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedArtwork(false, Modifier.fillMaxSize(), scrim = if (tk.art == ArtStyle.GALLERY) 0.75f else 0.55f)
+        if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedBackdrop(false, Modifier.fillMaxSize(), scrim = 0.55f)
         Column(Modifier.fillMaxSize()) {
             TopBar(c, Str[R.string.s_learn_salah], onBack)
             Row(Modifier.weight(1f).padding(horizontal = 32.dp), horizontalArrangement = Arrangement.spacedBy(32.dp)) {
@@ -166,6 +166,7 @@ private fun LibraryWide(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Less
                     Text("الصَّلَاة", fontFamily = c.arabic, fontSize = 88.sp, color = c.primary, modifier = Modifier.semantics { contentDescription = Str[R.string.s_as_salah_the_prayer] })
                     Text(Str[R.string.s_one_common_form_of_the_prayer], fontFamily = Nunito, fontSize = 22.sp, lineHeight = 31.sp, color = c.text)
                     if (p.lesson != null) LibraryCard(c, Str.get(R.string.s_continue_x, Str[p.lesson.titleRes]), Str.get(R.string.s_resume_at_step, p.index + 1, Learn.actions(p.lesson).size), primary = true, big = true) { onLesson(p.lesson) }
+                    else { val first = Learn.Lesson.entries.first(); LibraryCard(c, Str[first.titleRes], Str[first.subtitleRes] + " · " + Str.get(R.string.s_n_steps, Learn.actions(first).size), primary = true, big = true) { onLesson(first) } }
                 }
                 Column(Modifier.weight(1.15f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically)) {
                     Text(Str[R.string.s_learn_a_complete_prayer], fontFamily = c.display, fontSize = 28.sp, color = c.text, modifier = Modifier.semantics { heading() })
