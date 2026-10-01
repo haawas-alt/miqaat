@@ -69,9 +69,18 @@ abstract class ShotSupport {
     }
 
     protected fun host(theme: AppTheme, fontScale: Float, rtl: Boolean, content: @Composable () -> Unit) {
-        enforceRotation()
         Str.apply(app, if (rtl) Language.UR else Language.EN)
-        scenario = ActivityScenario.launch(ComponentActivity::class.java)
+        // The emulator can drop a frozen rotation between launches: re-apply it and relaunch until the activity really has the orientation the job asks for.
+        val want = InstrumentationRegistry.getArguments().getString("orientation")
+        var attempt = 0
+        while (true) {
+            enforceRotation()
+            scenario = ActivityScenario.launch(ComponentActivity::class.java)
+            var ok = true
+            if (want != null) scenario.onActivity { a -> ok = (a.resources.displayMetrics.widthPixels > a.resources.displayMetrics.heightPixels) == (want == "landscape") }
+            if (ok || ++attempt >= 4) break
+            scenario.close(); Thread.sleep(500)
+        }
         scenario.onActivity { act ->
             act.setContent {
                 val d = LocalDensity.current
