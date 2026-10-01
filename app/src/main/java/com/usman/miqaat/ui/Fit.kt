@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.Constraints
  * behind the day arc. Scaling keeps everything visible instead of hiding the most important line on the screen.
  */
 @Composable
-fun FitHeight(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+fun FitHeight(modifier: Modifier = Modifier, verticalBias: Float = 0.5f, content: @Composable () -> Unit) {
     Layout(content, modifier) { measurables, constraints ->
         val child = measurables.firstOrNull()?.measure(Constraints(maxWidth = constraints.maxWidth, minHeight = 0, maxHeight = Constraints.Infinity))
         val w = constraints.maxWidth
@@ -23,7 +23,7 @@ fun FitHeight(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
         val scale = if (child.height > h && child.height > 0) h.toFloat() / child.height else 1f
         val scaledH = (child.height * scale).toInt()
         layout(w, h) {
-            child.placeWithLayer(x = (w - child.width) / 2, y = (h - scaledH) / 2) {
+            child.placeWithLayer(x = (w - child.width) / 2, y = ((h - scaledH) * verticalBias).toInt()) {
                 scaleX = scale; scaleY = scale
                 transformOrigin = TransformOrigin(0.5f, 0f)
             }

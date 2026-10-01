@@ -285,32 +285,32 @@ private fun GalleryRail(doorList: List<Door>, tk: ThemeTokens, u: Dp, F: FontFam
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun GalleryStackedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: FontFamily, urdu: Boolean, onToggle: () -> Unit, onWhy: () -> Unit) {
+private fun GalleryStackedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: FontFamily, urdu: Boolean, onToggle: () -> Unit, onWhy: () -> Unit, k: Float = 1f) {
     val selected = r.isNow || r.isNext
     val ink = if (selected) tk.primary else tk.contentPrimary
     Row(
-        Modifier.fillMaxWidth().heightIn(min = 72.dp).background(if (selected) tk.surface else Color.Transparent)
+        Modifier.fillMaxWidth().heightIn(min = (72 * k).dp).background(if (selected) tk.surface else Color.Transparent)
             .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = "Switch between clock time and time until", onLongClickLabel = "Why this time?", role = Role.Button)
             .semantics(mergeDescendants = true) { contentDescription = r.spoken },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(Modifier.width(4.dp).height(56.dp).background(if (selected) tk.primary else Color.Transparent))
-        PrayerCardArt(r.prayer, Modifier.padding(start = 12.dp, top = 8.dp, bottom = 8.dp).size(width = 64.dp, height = 56.dp).clip(RoundedCornerShape(10.dp)).clearAndSetSemantics { })
+        PrayerCardArt(r.prayer, Modifier.padding(start = 12.dp, top = 8.dp, bottom = 8.dp).size(width = (64 * k).dp, height = (56 * k).dp).clip(RoundedCornerShape(10.dp)).clearAndSetSemantics { })
         Column(Modifier.weight(1f).padding(horizontal = 14.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = 22.sp, color = ink, maxLines = 1)
+                Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = (22 * k).sp, color = ink, maxLines = 1)
                 when {
-                    r.isNow || r.isNext -> Text("  · " + L10n.word(s, if (r.isNow) "NOW" else "NEXT").lowercase(), fontFamily = Nunito, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = tk.primary)
+                    r.isNow || r.isNext -> Text("  · " + L10n.word(s, if (r.isNow) "NOW" else "NEXT").lowercase(), fontFamily = Nunito, fontSize = (12 * k).sp, fontWeight = FontWeight.Bold, color = tk.primary)
                     r.done -> Icon(Icons.Outlined.Check, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.success)
                     r.prayer.isPrayer -> Icon(if (r.azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.contentMuted)
                 }
             }
-            if (!urdu) Text(r.arabic, fontFamily = tk.fontArabic, fontSize = 17.sp, color = tk.accent, maxLines = 1)
-            if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = 12.sp, color = tk.contentSecondary, maxLines = 2)
+            if (!urdu) Text(r.arabic, fontFamily = tk.fontArabic, fontSize = (17 * k).sp, color = tk.accent, maxLines = 1)
+            if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = (12 * k).sp, color = tk.contentSecondary, maxLines = 2)
         }
         Row(verticalAlignment = Alignment.Bottom) {
-            Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = if (s.showRelative) 17.sp else 30.sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.75f else 1f))
-            if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = tk.fontDisplay, fontSize = 13.sp, color = tk.contentSecondary, modifier = Modifier.padding(bottom = 4.dp))
+            Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = if (s.showRelative) (17 * k).sp else (30 * k).sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.75f else 1f))
+            if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = tk.fontDisplay, fontSize = (13 * k).sp, color = tk.contentSecondary, modifier = Modifier.padding(bottom = 4.dp))
         }
         Box(Modifier.padding(horizontal = 4.dp).size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = Role.Button).semantics { contentDescription = Str[R.string.s_why_this_time] }, contentAlignment = Alignment.Center) {
             Icon(Icons.Outlined.Info, null, Modifier.size(20.dp), tint = tk.contentMuted)
@@ -370,7 +370,7 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
         val shown = listedPrayers(s)
         shown.forEachIndexed { i, p ->
-            GalleryStackedRow(rowInfo(p, state, s), s, tk, F, urdu, a.onToggleRelative) { onWhy(p) }
+            GalleryStackedRow(rowInfo(p, state, s), s, tk, F, urdu, a.onToggleRelative, onWhy = { onWhy(p) }, k = if (roomy) 1.25f else 1f)
             if (i < shown.lastIndex) Box(Modifier.padding(horizontal = 16.dp).fillMaxWidth().height(1.dp).background(tk.divider))
         }
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
@@ -380,5 +380,5 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
     val page = Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().navigationBarsPadding()
     // One screen, no scrolling, on every phone and tablet: the page is scaled down just enough to fit the height it is given.
     // (Large system text is handled by AccessibleHome, which is the one layout that scrolls.)
-    FitHeight(page) { Column(Modifier.fillMaxWidth(), content = body) }
+    FitHeight(page, verticalBias = 0f) { Column(Modifier.fillMaxWidth(), content = body) }
 }

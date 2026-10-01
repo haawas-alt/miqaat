@@ -140,7 +140,7 @@ private fun StepsBar(phase: Phase, u: Dp) {
     Row(Modifier.fillMaxWidth().padding(top = u * 2.4f), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.Top) {
         labels.forEachIndexed { i, l ->
             val done = i < idx; val cur = i == idx
-            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.widthIn(max = u * 15)) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(u * 14)) {
                 Box(Modifier.size(u * 1.9f).clip(CircleShape).background(if (cur) tk.primary else if (done) tk.success else Color.Transparent)
                     .border(2.dp, if (cur) tk.primary else if (done) tk.success else tk.neutralStroke, CircleShape), contentAlignment = Alignment.Center) {
                     if (done) Text("✓", fontSize = (u.value * 1.2f).sp, color = tk.onPrimary, fontWeight = FontWeight.Bold)
@@ -149,7 +149,7 @@ private fun StepsBar(phase: Phase, u: Dp) {
                 Text(l.uppercase(), fontFamily = Nunito, fontSize = (u.value * 1.2f).sp, letterSpacing = (u.value * 0.1f).sp, fontWeight = if (cur) FontWeight.Bold else FontWeight.SemiBold, textAlign = TextAlign.Center, maxLines = 2,
                     color = if (cur) tk.primary else tk.contentPrimary.copy(alpha = 0.6f), modifier = Modifier.padding(top = u * 0.5f, start = u * 0.3f, end = u * 0.3f))
             }
-            if (i < labels.lastIndex) Box(Modifier.padding(top = u * 0.9f).width(u * 6).height(2.dp).background(if (i < idx) tk.success else tk.neutralStroke))
+            if (i < labels.lastIndex) Box(Modifier.padding(top = u * 0.9f).width(u * 3).height(2.dp).background(if (i < idx) tk.success else tk.neutralStroke))
         }
     }
 }
@@ -157,8 +157,8 @@ private fun StepsBar(phase: Phase, u: Dp) {
 @Composable
 private fun AzaanBody(phase: Phase, u: Dp) {
     val tk = screenTokens()
-    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Text("ٱللَّٰهُ أَكْبَرُ", fontFamily = Amiri, fontSize = (u.value * 8f).sp, lineHeight = (u.value * 12f).sp, color = tk.arabicText, textAlign = TextAlign.Center)
+    Column(Modifier.fillMaxSize().padding(top = u * 3), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Text("ٱللَّٰهُ أَكْبَرُ", fontFamily = Amiri, fontSize = (u.value * 7f).sp, lineHeight = (u.value * 10.5f).sp, color = tk.arabicText, textAlign = TextAlign.Center)
         Text("${phase.prayer.english.uppercase()} AZAAN  ·  ${phase.prayer.arabic}", fontFamily = Cormorant, fontSize = (u.value * 2.6f).sp, letterSpacing = (u.value * 0.6f).sp, color = tk.contentPrimary.copy(alpha = 0.85f), modifier = Modifier.padding(top = u * 1))
         Wave(Modifier.padding(top = u * 4).width(u * 22).height(u * 8))
         Text(Str[R.string.s_hayya_ala_al_h_come_to], fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, letterSpacing = (u.value * 0.1f).sp, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 3))

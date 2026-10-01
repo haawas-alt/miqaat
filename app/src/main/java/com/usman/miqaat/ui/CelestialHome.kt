@@ -291,15 +291,15 @@ private fun CelestialStacked(
     val roomy = w >= 600.dp && h >= 780.dp              // portrait tablet: fit the page, no scrolling. Phones scroll.
     val u: Dp = if (roomy) minOf(w / 60, h / 100) else w / 60
     // On a phone w/60 is only ~6dp, which made list and top-bar text 4-9sp. These floors keep every label at a readable size.
-    val rowU: Dp = if (roomy) u * 0.5f else maxOf(u * 0.5f, 8.dp)
-    val barU: Dp = if (roomy) u * 0.62f else maxOf(u * 0.62f, 7.5.dp)
+    val rowU: Dp = if (roomy) u * 0.8f else maxOf(u * 0.5f, 8.dp)
+    val barU: Dp = if (roomy) u * 0.85f else maxOf(u * 0.62f, 7.5.dp)
     val body: @Composable ColumnScope.() -> Unit = {
         CelestialTopBar(state, s, a, tk, barU, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp))
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
         Box(Modifier.fillMaxWidth().padding(top = u * 1f)) {
             SolarArc(Modifier.fillMaxWidth().height(u * 15).padding(horizontal = 12.dp).align(Alignment.BottomCenter), state, s, tk)
             Box(Modifier.fillMaxWidth().padding(bottom = u * 8), contentAlignment = Alignment.Center) {
-                CelestialHero(hero, state, s, tk, u * 0.62f, F, urdu, Alignment.CenterHorizontally, 1f)
+                CelestialHero(hero, state, s, tk, if (roomy) u * 0.8f else u * 0.62f, F, urdu, Alignment.CenterHorizontally, 1f)
             }
         }
         Spacer(Modifier.height(u * 2f))
@@ -311,10 +311,10 @@ private fun CelestialStacked(
             }
         }
         CelestialRail(doorList, tk, rowU, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp))
-        if (s.showDisliked) DayThread(s, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp), labelSize = 9.sp, fullNames = false, gnomon = true)
+        if (s.showDisliked) DayThread(s, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp), labelSize = if (roomy) 13.sp else 9.sp, fullNames = false, gnomon = true)
     }
     val page = Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().navigationBarsPadding()
     // One screen, no scrolling, on every phone and tablet: the page is scaled down just enough to fit the height it is given.
     // (Large system text is handled by AccessibleHome, which is the one layout that scrolls.)
-    FitHeight(page) { Column(Modifier.fillMaxWidth(), content = body) }
+    FitHeight(page, verticalBias = 0f) { Column(Modifier.fillMaxWidth(), content = body) }
 }
