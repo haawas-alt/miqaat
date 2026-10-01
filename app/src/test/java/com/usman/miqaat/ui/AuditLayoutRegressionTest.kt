@@ -1,5 +1,9 @@
 package com.usman.miqaat.ui
 
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.getOrNull
@@ -42,6 +46,25 @@ class AuditLayoutRegressionTest : ComposeSupport() {
         node.fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(results)
         assertTrue("Missing text layout", results.isNotEmpty())
         results.forEach { assertFalse("Text clipped: ${it.layoutInput.text}", it.didOverflowWidth || it.didOverflowHeight) }
+    }
+    @Test fun allEightPosturesHaveDistinctArtworkWithoutLabels() {
+        val hashes = mutableSetOf<Int>()
+        for (posture in Learn.Posture.entries) {
+            try {
+                show(Dev.TABLET_PORTRAIT) {
+                    androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+                        Figure(posture, androidx.compose.ui.graphics.Color(0xFFB68D46),
+                            androidx.compose.ui.Modifier.testTag("posture-art").size(320.dp))
+                    }
+                }
+                val bitmap = rule.onNodeWithTag("posture-art").captureToImage().asAndroidBitmap()
+                val pixels = IntArray(bitmap.width * bitmap.height)
+                bitmap.getPixels(pixels, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
+                assertTrue("Repeated artwork for $posture", hashes.add(pixels.contentHashCode()))
+                capture("posture-art__${posture.name.lowercase()}")
+            } finally { scenario.close() }
+        }
+        assertTrue(hashes.size == 8)
     }
     @Test fun newThemeRtlTabletBoardsKeepHeroTimeAndPrayersInsideViewport() {
         for (theme in listOf(AppTheme.CELESTIAL_MERIDIAN, AppTheme.PRAYER_GALLERY)) {

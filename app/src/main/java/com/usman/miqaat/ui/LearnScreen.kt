@@ -249,6 +249,7 @@ private fun LessonView(c: LearnColors, lesson: Learn.Lesson, startAt: Int, onExi
 
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val wide = maxWidth > 720.dp && maxWidth > maxHeight && maxHeight >= 500.dp
+        val postureHeight = (if (maxWidth >= 600.dp) 380.dp else 280.dp) * androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceAtLeast(1f)
         Column(Modifier.fillMaxSize()) {
             TopBar(c, Str[lesson.titleRes], onExit) { Text("${i + 1} / ${actions.size}", fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary) }
             RakahMap(c, lesson, actions, i, Modifier.padding(horizontal = 20.dp).semantics { contentDescription = where; liveRegion = LiveRegionMode.Polite })
@@ -257,7 +258,7 @@ private fun LessonView(c: LearnColors, lesson: Learn.Lesson, startAt: Int, onExi
             if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
                 figure(Modifier.weight(0.42f).fillMaxHeight()); words(Modifier.weight(0.58f).fillMaxHeight().verticalScroll(rememberScrollState()))
             } else Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                figure(Modifier.fillMaxWidth().height((if (maxWidth >= 600.dp) 380.dp else 280.dp) * androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceAtLeast(1f))); words(Modifier.fillMaxWidth())
+                figure(Modifier.fillMaxWidth().height(postureHeight)); words(Modifier.fillMaxWidth())
             }
             BottomBar(c, canBack = i > 0, last = i == actions.lastIndex, nextLabel = if (i < actions.lastIndex) Str.get(R.string.s_continue_x, if (L10n.uiUrdu) UrduContent.position(actions[i + 1].step) else actions[i + 1].step.position) else Str[R.string.s_finish_well_done],
                 onBack = { audio.stop(); i-- }, onNext = { audio.stop(); if (i < actions.lastIndex) i++ else onDone() })
