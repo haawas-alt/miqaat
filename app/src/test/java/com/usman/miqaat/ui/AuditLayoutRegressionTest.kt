@@ -194,6 +194,17 @@ class AuditLayoutRegressionTest : ComposeSupport() {
                 next.assertIsDisplayed()
                 val bounds = next.getUnclippedBoundsInRoot()
                 assertTrue("Next target too small: $bounds", bounds.bottom - bounds.top >= 48.dp && bounds.right - bounds.left >= 48.dp)
+                if (dev == Dev.PHONE_LANDSCAPE) {
+                    val fraction = rule.onAllNodes(hasText("0 / 3", substring = true), useUnmergedTree = true).onFirst()
+                    val layouts = mutableListOf<TextLayoutResult>()
+                    fraction.fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                    assertTrue("Missing progress fraction layout", layouts.isNotEmpty())
+                    layouts.forEach { layout ->
+                        val text = layout.layoutInput.text.text
+                        assertTrue("RTL reversed progress fraction: $text",
+                            layout.getBoundingBox(text.indexOf('0')).left < layout.getBoundingBox(text.lastIndexOf('3')).left)
+                    }
+                }
                 capture("adhkar-meaning__${theme.name.lowercase()}__${dev.label}__200${if (urdu) "__ur" else ""}")
             } finally { scenario.close() }
         }

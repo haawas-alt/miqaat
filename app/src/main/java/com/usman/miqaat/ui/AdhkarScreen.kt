@@ -116,7 +116,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                             Spacer(Modifier.width(u * 1.2f))
                             Column(Modifier.weight(1f)) {
                                 Text(if (L10n.uiUrdu) UrduContent.dhikrTitles.getValue(d.id) else d.title, fontFamily = Nunito, fontSize = (u.value * 1.55f).sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary.copy(alpha = if (isCur) 1f else 0.8f))
-                                Text(if (d.count > 1) "$c / ${d.count}" else if (c > 0) Str[R.string.s_complete] else Str[R.string.s_not_yet_read], fontFamily = Nunito, fontSize = (u.value * 1.15f).sp, color = tk.contentMuted)
+                                Text(if (d.count > 1) "\u2066$c / ${d.count}\u2069" else if (c > 0) Str[R.string.s_complete] else Str[R.string.s_not_yet_read], fontFamily = Nunito, fontSize = (u.value * 1.15f).sp, color = tk.contentMuted)
                             }
                         }
                     }
