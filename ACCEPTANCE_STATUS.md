@@ -1,62 +1,46 @@
-# Combined design-system + Settings: acceptance status
+# Miqaat — Tablet Audit v3 acceptance status (CI run 143, commit 4d73030, branch `four-themes`)
 
-Legend: ✅ done and verified by CI tests · 🟡 built, needs on-device/emulator confirmation · ⬜ not done
+Evidence: 16 emulator jobs (4 devices x 4 groups) green; 28 instrumented tests, 0 failures (8 skipped by design: tablet-only/phone-only cases); 848 screenshots on branch `ci-screenshots`; side-by-side + matrix sheets in `Miqaat-evidence-run143.zip` (delivered in chat).
+Legend: PASS = verified in CI/screenshots. PARTIAL = built, visible difference remains (listed under Residual differences). OPEN = not done.
 
-## Backup and preservation
-- ✅ Backup ZIP outside checkout: `/home/claude/backups/miqaat-pre-design-system-20260930-091726.zip`, sha256 `ba7226990e2f9f9f50753a79b480de724601bf765c2fb0ce626d1af97967fb61`, opened and enumerated (285 files, no errors). HEAD `ffd81a8`, branch `four-themes`, tree was clean (status/patch/untracked files recorded next to it).
-- ✅ No user change reset, cleaned, stashed or overwritten.
-- ✅ Functionality inventory written before migration: `FUNCTIONALITY_INVENTORY.md`.
+## Safety and functionality
+- PASS Backup: ZIP `/home/claude/backups/miqaat-pre-design-system-20260930-091726.zip` sha256 `ba7226990e2f9f9f50753a79b480de724601bf765c2fb0ce626d1af97967fb61` (HEAD ffd81a8). Note: this is a ZIP, not a dated git branch; a backup branch was not separately created.
+- PARTIAL Baseline: earlier-run screenshots exist, but a formal pre-change baseline set was not recorded.
+- PASS Prayer engine, scheduler, audio, alarms untouched; unit tests pass (build job gates).
+- PASS Four themes selectable/persistent (tests); "Try it now" label kept.
+- PASS Adhkar entries reachable in their windows in all four themes, phone and tablet (`AdhkarEntryTest`, run 143).
 
-## Shared system
-- ✅ One component layer (`ui/DesignSystem.kt`) + tokens (`ThemeTokens.kt`, incl. new `error`, `arabicText`, sky roles); spacing scale, breakpoints, buttons, chips, search, rows, rail item, notices, loading/empty, themed artwork with scrim.
-- ✅ Four persisted themes; legacy/unknown values fall back safely (tests).
-- ✅ Miqaat and Kiswah use exactly the palettes they always had (`screenTokens()`).
-- 🟡 Supplied artwork integrated as optimised WebP (12–70 KB each) behind the Celestial home and in the Gallery hero with token scrims; contrast against real crops still to be judged on device.
-- ✅ No mockup screenshot is shipped as UI.
+## Visual source of truth
+- PASS Rejected moon/night and empty-mosque art absent from source, both APKs and the AAB (`tools/check_forbidden_assets.py`, build job, every run incl. 143).
+- PARTIAL A2/D Homes: landscape tablet Homes rebuilt in the approved art's coordinates and match closely (sheets `*__home.png`); Celestial portrait Home unchanged; Gallery tablet-portrait has extra space above header.
+- PARTIAL Miqaat/Kiswah: Home and shared tokens now navy/gold and Kiswah-specific; not compared page-by-page against every design-system board.
+- PASS Approved v2 art used with intentional fit (no stretch/crop on Home; backdrops on Azaan flow, Adhkar, Qibla, Friday, Learn).
+- PASS Shared components use theme tokens; Material colour scheme derived from tokens (no default blue CTA outside Gallery's cobalt, which matches mockup D).
 
-## Settings
-- ✅ Ten destinations in spec order; every section body and control unchanged; alarm re-arm effect unchanged.
-- ✅ "Try it now" in UI/search/tests; enum key `TEST` kept for compatibility.
-- ✅ Tablet ≥720dp: fixed rail (back, title, search, 10 items with bar + tint + bold/icon cue + selected semantics), detail pane scrolls independently, max content width 920dp (tests).
-- ✅ Phone <720dp: grouped landing (search, readiness, Prayer setup / Experience / System), focused detail screens, back returns to landing, deep links leave Settings on back; no chip carousel (tests).
-- ✅ Readiness summary from live `AzaanScheduler.nextEvent` and `Reliability` checks; OK / attention / no-event / no-location states; icon + words; failing checks are Fix buttons (tests with fake and live states).
-- ✅ Search: declarative index, synonyms, ranking, empty/no-result states, opens the destination and scrolls to + highlights the matching row (JVM + Compose tests).
+## Responsive quality
+- PASS Tablet landscape Home no scroll/overlap; tablet portrait no mid-word wrap (screenshots, large-text test).
+- PASS Settings readiness reflows in portrait; Display & art shows content at top (SettingsStateTest 5/5).
+- PASS Category-state isolation / switching to Try it now (SettingsStateTest).
+- PASS Phone Home follows phone layout; Celestial/Gallery fit without scrolling at 100%.
+- PASS Home responds to 130%/200% (HomeLargeTextTest, all themes/devices); 200% uses the scrolling accessible layout by design.
+- PARTIAL Settings/Home/secondary pages captured at 100% and 200% (130% for Home/Settings only).
+- PARTIAL Urdu RTL: mirroring verified on Home, Settings and secondary screenshots; Azaan/Learn/Adhkar English leakage not fully audited; Urdu strings are unproofread drafts (yours to review).
 
-## Functional regression
-- ✅ No engine, scheduler, store, updater, audio or alarm code changed; existing Prayer/Trust/Theme tests pass.
-- 🟡 Every setting mutation and scheduler side effect: code paths untouched; behaviour to be spot-checked on device (Location detect, azaan file picker, exact-alarm remedy, backup export/import).
+## Evidence
+- PASS Screenshot matrix: 4 themes x 4 devices x pages (Home, Settings, states, Azaan flow, Adhkar, Friday, Qibla, Timetable, Learn).
+- PASS Side-by-side sheets (tablet landscape, A2 and D, 10 pages each).
+- PASS Instrumented tests: Settings state, large text, Adhkar entry, plus screenshot matrix.
+- OPEN Pixel-diff (visual-regression) tests: screenshots are captured, not diffed automatically.
+- OPEN TalkBack on device, imam content review, Urdu proofreading, Play steps.
 
-## Phone / tablet verification
-- ✅ Compose tests at phone portrait, tablet landscape, tablet portrait, 200% font, Urdu RTL, all four themes (Settings composes in each).
-- ⬜ Human-eye screenshots for every screen × theme × orientation × scale × language: JVM screenshot job exists (`ScreenshotTest`, CI job `screens`, branch `ci-screenshots`) but first runs timed out in Robolectric; to be done on the emulator instead.
-- ⬜ TalkBack pass on device; reduced-motion pass on device.
+## Residual differences (explicit)
+1. Gallery Azaan/Dua/Hadith: the v2 art has a baked tile strip and olive branch that show behind the text; mockup has a softer landscape. Needs a dedicated backdrop crop/asset.
+2. Azaan flow: stage pills instead of the mockup's step-line; no location/clock top-right.
+3. Learn overview: no "Differences between schools" card; no Continue card until progress exists.
+4. Friday: type small and layout sparse versus mockup.
+5. Celestial portrait Home and Gallery tablet-portrait spacing (above).
+6. Phone-landscape Celestial/Gallery not reviewed in detail.
+7. Miqaat vs Kiswah secondary pages not compared against design-system boards one by one.
 
-## Engineering
-- ✅ Release builds (github APK, play APK + AAB) compile; unit + Compose tests pass in CI; lint passes.
-- ⬜ Instrumented (emulator) tests: none written; Robolectric Compose tests stand in for them.
-
-## Honest limitations
-- Urdu strings added in this work are unproofread drafts; search synonyms are English only.
-- Not every screen has bespoke phone-landscape tuning beyond what the earlier four-theme work did; emulator review will show gaps.
-
-## Emulator pass (Medium_Tablet, landscape, 30 Sep 2026, build 104)
-Verified visually: tablet Settings rail + independent detail scroll; readiness summary (next event, location, exact alarms, battery, notifications); search "battery" → Reliability, scrolls to and highlights the row; Try it now; theme switching on Celestial, Gallery, Kiswah (Settings and home).
-Defects found and fixed: theme-picker labels invisible in Gallery (now follow active theme); Kiswah/Miqaat tablet home link row truncated by the signature (signature now on its own line). Both re-checked on build 104.
-Still NOT verified: phone layouts (emulator was a tablet only), portrait, 130%/200% text, Urdu/RTL, TalkBack, reduced motion, Miqaat theme after the change, search results are broad for "battery" (all Reliability rows match).
-
-## Phone emulator pass (Pixel 8, portrait, 30 Sep 2026, builds 104-110)
-Verified visually: Settings landing (grouped rows, search, readiness), detail screens, theme cards, Celestial/Gallery/Kiswah/Miqaat phone homes, Urdu (Nastaliq) on home, Settings landing and detail, Timetable in Celestial.
-Defects found and fixed: readiness checks broke mid-word; detail title shown twice; Celestial phone Settings button off-screen; Celestial/Gallery phone text 4-9sp (now floors of 11-13sp); Gallery phone header pushed Settings off-screen after the text-size change (regression, fixed); Settings icons blue on light themes (now gold-brown).
-Observed, not fixed: changing language inside Settings returns to home; moon artwork sits behind date/kicker on Celestial phone; Urdu headline mixes bidi ("عشاء · 8:16 PM").
-Still NOT verified: landscape phone, 130%/200% system text (needs device setting), TalkBack, reduced motion, remaining Settings detail screens on phone, dialogs/pickers, full screenshot matrix, Urdu proofreading.
-
-### Phone emulator pass 2 (build 110, Prayer Gallery)
-Verified: Settings landing (readiness card, grouped rows with icons, all three groups), Prayer times, Reliability & backup, Try it now (theme cards) render correctly at phone width.
-Observed, not fixed: selected chips on detail screens use the theme's primary (blue in Gallery) rather than the mockup's gold; link-style values render in a rust colour. Build 111 (Gallery header location fix) not yet installed/verified.
-Not verified: Location, Azaan, Iqamah, Hijri, Display, Privacy, About detail screens; landscape phone; large text; TalkBack.
-
-### Phone emulator pass 3 (build 112, Prayer Gallery)
-Verified portrait: Location, Prayer times, Azaan & alerts, Iqamah (toggle off hides options), Hijri calendar, Display & art (cards, selected gold border, language, large type, time format), Privacy, Reliability, Try it now — all render without clipping or overlap.
-Gallery phone header: location still ellipsised with raw coordinates ("37.42°N, 122.0…") but Settings/Learn/Timetable all reachable; a real place name is shorter.
-Defect found in landscape phone (~731dp wide → rail layout): readiness card used the wide one-row form in a ~420dp pane, wrapping words per line ("Batter/y"). Fixed: wide form only when the pane is ≥620dp, otherwise the stacked form (SettingsModel.kt). Needs re-check on build 113.
-Not verified: large text (needs system font size change), TalkBack.
+## Builds
+GitHub Actions artifacts `Miqaat-build-143` (github APK, play APK, play AAB) and prerelease `four-themes-preview` (Miqaat.apk). Do not treat as Play-ready until residual items 1–7 are accepted or fixed.
