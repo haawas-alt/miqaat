@@ -58,8 +58,14 @@ abstract class ShotSupport {
     private fun enforceRotation() {
         val want = InstrumentationRegistry.getArguments().getString("rotation") ?: return
         val inst = InstrumentationRegistry.getInstrumentation()
-        inst.uiAutomation.setRotation(if (want == "1") android.app.UiAutomation.ROTATION_FREEZE_90 else android.app.UiAutomation.ROTATION_FREEZE_0)
-        Thread.sleep(700)
+        // Natural orientation is landscape for the tablet and portrait for the phone; "1" flips either one.
+        val wm = ctx.getSystemService(android.content.Context.WINDOW_SERVICE) as android.view.WindowManager
+        fun landscape(): Boolean = wm.currentWindowMetrics.bounds.let { it.width() > it.height() }
+        val naturalLandscape = run { inst.uiAutomation.setRotation(android.app.UiAutomation.ROTATION_FREEZE_0); Thread.sleep(800); landscape() }
+        val wantLandscape = if (want == "1") !naturalLandscape else naturalLandscape
+        val rotation = if (want == "1") android.app.UiAutomation.ROTATION_FREEZE_90 else android.app.UiAutomation.ROTATION_FREEZE_0
+        var tries = 0
+        while (landscape() != wantLandscape && tries++ < 10) { inst.uiAutomation.setRotation(rotation); Thread.sleep(600) }
     }
 
     protected fun host(theme: AppTheme, fontScale: Float, rtl: Boolean, content: @Composable () -> Unit) {
