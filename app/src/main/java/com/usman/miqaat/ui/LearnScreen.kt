@@ -112,11 +112,11 @@ private enum class Mode { LIBRARY, LESSON, WORDS, MOVES }
 
 /** Learn Salah — for beginners of any age. Library → guided prayer (rakʿah by rakʿah), words practice, or movement review. */
 @Composable
-fun LearnScreen(settings: AppSettings, onBack: () -> Unit) {
+fun LearnScreen(settings: AppSettings, previewLesson: Learn.Lesson? = null, previewStep: Int = 0, onBack: () -> Unit) {
     val ctx = LocalContext.current
     val c = learnColors(settings)
-    var mode by rememberSaveable { mutableStateOf(Mode.LIBRARY) }
-    var lesson by rememberSaveable { mutableStateOf(Learn.Lesson.FAJR) }
+    var mode by rememberSaveable { mutableStateOf(if (previewLesson != null) Mode.LESSON else Mode.LIBRARY) }
+    var lesson by rememberSaveable { mutableStateOf(previewLesson ?: Learn.Lesson.FAJR) }
     var progressTick by remember { mutableIntStateOf(0) }
     val progress = remember(progressTick, mode) { Learn.progress(ctx) }
 
@@ -126,7 +126,7 @@ fun LearnScreen(settings: AppSettings, onBack: () -> Unit) {
             Mode.LIBRARY -> Library(c, progress,
                 onLesson = { l -> lesson = l; mode = Mode.LESSON },
                 onWords = { mode = Mode.WORDS }, onMoves = { mode = Mode.MOVES }, onBack = onBack, onReset = { Learn.clear(ctx); progressTick++ })
-            Mode.LESSON -> LessonView(c, lesson, startAt = if (progress.lesson == lesson) progress.index else 0,
+            Mode.LESSON -> LessonView(c, lesson, startAt = if (previewLesson != null) previewStep else if (progress.lesson == lesson) progress.index else 0,
                 onExit = { progressTick++; mode = Mode.LIBRARY }, onDone = { Learn.complete(ctx, lesson); progressTick++; mode = Mode.LIBRARY })
             Mode.WORDS -> WordsView(c) { mode = Mode.LIBRARY }
             Mode.MOVES -> MovesView(c) { mode = Mode.LIBRARY }
@@ -293,60 +293,93 @@ private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, mod
     }
 }
 
-/** A calm, gender-neutral silhouette for each position, drawn with round strokes; no emoji. */
+/**
+ * One distinct, gender-neutral, faceless robed figure per position, in the approved lesson's style: a softly filled robe with a
+ * gold outline, a plain head and hands, standing or sitting on a prayer mat. Nothing is shared between positions except the style.
+ */
 @Composable
 fun Figure(p: Learn.Posture, color: Color, modifier: Modifier) {
     Canvas(modifier) {
         val w = size.width; val h = size.height
-        val sw = w * 0.06f
-        val stroke = Stroke(sw, cap = StrokeCap.Round, join = StrokeJoin.Round)
+        val sw = w * 0.022f
+        val line = Stroke(sw, cap = StrokeCap.Round, join = StrokeJoin.Round)
+        val fill = color.copy(alpha = 0.16f)
         fun P(x: Float, y: Float) = Offset(w * x, h * y)
-        fun line(pts: List<Offset>) { val path = Path(); pts.forEachIndexed { k, o -> if (k == 0) path.moveTo(o.x, o.y) else path.lineTo(o.x, o.y) }; drawPath(path, color, style = stroke) }
-        val headR = w * 0.075f
-        // ground line
-        drawLine(color.copy(alpha = 0.35f), P(0.08f, 0.92f), P(0.92f, 0.92f), sw * 0.5f, cap = StrokeCap.Round)
+        fun poly(vararg pts: Pair<Float, Float>, closed: Boolean = true) {
+            val path = Path()
+            pts.forEachIndexed { k, (x, y) -> if (k == 0) path.moveTo(w * x, h * y) else path.lineTo(w * x, h * y) }
+            if (closed) path.close()
+            if (closed) drawPath(path, fill)
+            drawPath(path, color, style = line)
+        }
+        fun robe(x0: Float, y0: Float, x1: Float, y1: Float, r: Float = 0.05f) {
+            val rr = androidx.compose.ui.geometry.CornerRadius(w * r)
+            drawRoundRect(fill, P(x0, y0), androidx.compose.ui.geometry.Size(w * (x1 - x0), h * (y1 - y0)), rr)
+            drawRoundRect(color, P(x0, y0), androidx.compose.ui.geometry.Size(w * (x1 - x0), h * (y1 - y0)), rr, style = line)
+        }
+        fun head(x: Float, y: Float, r: Float = 0.085f) { drawCircle(fill, w * r, P(x, y)); drawCircle(color, w * r, P(x, y), style = line) }
+        fun limb(vararg pts: Pair<Float, Float>) {   // an arm or a sleeve: a thick soft stroke with a thin outline over it
+            val path = Path(); pts.forEachIndexed { k, (x, y) -> if (k == 0) path.moveTo(w * x, h * y) else path.lineTo(w * x, h * y) }
+            drawPath(path, color.copy(alpha = 0.30f), style = Stroke(w * 0.055f, cap = StrokeCap.Round, join = StrokeJoin.Round))
+            drawPath(path, color, style = Stroke(sw, cap = StrokeCap.Round, join = StrokeJoin.Round))
+        }
+        fun hand(x: Float, y: Float, r: Float = 0.032f) { drawCircle(fill.copy(alpha = 0.5f), w * r, P(x, y)); drawCircle(color, w * r, P(x, y), style = line) }
+        fun foot(x: Float, y: Float, wd: Float = 0.075f) {
+            drawOval(fill, P(x - wd / 2, y), androidx.compose.ui.geometry.Size(w * wd, h * 0.035f))
+            drawOval(color, P(x - wd / 2, y), androidx.compose.ui.geometry.Size(w * wd, h * 0.035f), style = line)
+        }
+        // prayer mat, seen in perspective
+        poly(0.16f to 0.97f, 0.84f to 0.97f, 0.76f to 0.90f, 0.24f to 0.90f)
+        val standingRobe = { poly(0.37f to 0.30f, 0.50f to 0.275f, 0.63f to 0.30f, 0.665f to 0.88f, 0.335f to 0.88f) }
         when (p) {
+            Learn.Posture.TAKBIR -> {
+                standingRobe(); head(0.5f, 0.17f); foot(0.43f, 0.885f); foot(0.57f, 0.885f)
+                limb(0.375f to 0.34f, 0.29f to 0.42f, 0.30f to 0.30f); limb(0.625f to 0.34f, 0.71f to 0.42f, 0.70f to 0.30f)   // forearms up
+                hand(0.30f, 0.26f); hand(0.70f, 0.26f)
+            }
             Learn.Posture.STANDING -> {
-                drawCircle(color, headR, P(0.5f, 0.16f))
-                line(listOf(P(0.5f, 0.24f), P(0.5f, 0.58f)))                       // torso
-                line(listOf(P(0.5f, 0.58f), P(0.44f, 0.9f))); line(listOf(P(0.5f, 0.58f), P(0.56f, 0.9f)))
-                line(listOf(P(0.5f, 0.30f), P(0.40f, 0.42f), P(0.52f, 0.44f)))      // folded arms
-                line(listOf(P(0.5f, 0.30f), P(0.60f, 0.42f), P(0.48f, 0.44f)))
+                standingRobe(); head(0.5f, 0.17f); foot(0.43f, 0.885f); foot(0.57f, 0.885f)
+                limb(0.375f to 0.36f, 0.34f to 0.46f, 0.52f to 0.43f); limb(0.625f to 0.36f, 0.66f to 0.46f, 0.47f to 0.45f)    // hands folded across the chest
+                hand(0.53f, 0.43f); hand(0.47f, 0.45f)
             }
             Learn.Posture.RISING -> {
-                drawCircle(color, headR, P(0.5f, 0.16f))
-                line(listOf(P(0.5f, 0.24f), P(0.5f, 0.58f)))
-                line(listOf(P(0.5f, 0.58f), P(0.44f, 0.9f))); line(listOf(P(0.5f, 0.58f), P(0.56f, 0.9f)))
-                line(listOf(P(0.5f, 0.30f), P(0.42f, 0.56f))); line(listOf(P(0.5f, 0.30f), P(0.58f, 0.56f)))   // arms at the sides
+                standingRobe(); head(0.5f, 0.17f); foot(0.43f, 0.885f); foot(0.57f, 0.885f)
+                limb(0.375f to 0.34f, 0.33f to 0.52f, 0.335f to 0.66f); limb(0.625f to 0.34f, 0.67f to 0.52f, 0.665f to 0.66f)   // arms hanging at the sides
+                hand(0.335f, 0.68f); hand(0.665f, 0.68f)
             }
             Learn.Posture.BOWING -> {
-                drawCircle(color, headR, P(0.24f, 0.46f))
-                line(listOf(P(0.32f, 0.47f), P(0.62f, 0.47f)))                      // level back
-                line(listOf(P(0.62f, 0.47f), P(0.60f, 0.9f)))                       // legs
-                line(listOf(P(0.36f, 0.48f), P(0.56f, 0.68f)))                      // arm to knee
-                drawCircle(color, sw * 0.6f, P(0.57f, 0.69f))
+                poly(0.57f to 0.40f, 0.70f to 0.40f, 0.72f to 0.88f, 0.55f to 0.88f)                  // legs, upright
+                robe(0.30f, 0.36f, 0.68f, 0.50f, 0.06f)                                                // level back
+                head(0.23f, 0.40f); foot(0.64f, 0.885f)
+                limb(0.36f to 0.47f, 0.50f to 0.60f, 0.585f to 0.665f); hand(0.59f, 0.675f)          // palm on the knee
             }
             Learn.Posture.PROSTRATING -> {
-                drawCircle(color, headR, P(0.2f, 0.84f))
-                line(listOf(P(0.28f, 0.80f), P(0.5f, 0.62f), P(0.62f, 0.66f)))      // back rising to the hips
-                line(listOf(P(0.62f, 0.66f), P(0.66f, 0.88f), P(0.82f, 0.88f)))     // shins and feet
-                line(listOf(P(0.32f, 0.78f), P(0.34f, 0.9f)))                       // arm down to the palm
-                line(listOf(P(0.28f, 0.9f), P(0.4f, 0.9f)))                         // palm
+                poly(0.28f to 0.74f, 0.40f to 0.60f, 0.64f to 0.55f, 0.74f to 0.72f, 0.60f to 0.84f, 0.30f to 0.86f)   // back and hips raised
+                poly(0.64f to 0.72f, 0.80f to 0.84f, 0.86f to 0.88f, 0.62f to 0.88f)                                     // shins and feet on the ground
+                head(0.20f, 0.80f); limb(0.34f to 0.76f, 0.36f to 0.86f); hand(0.37f, 0.885f)                          // forehead down, palm flat
             }
             Learn.Posture.SITTING -> {
-                drawCircle(color, headR, P(0.46f, 0.36f))
-                line(listOf(P(0.46f, 0.44f), P(0.46f, 0.72f)))                      // torso
-                line(listOf(P(0.46f, 0.72f), P(0.72f, 0.72f), P(0.76f, 0.88f)))     // thigh and foot
-                line(listOf(P(0.3f, 0.88f), P(0.76f, 0.88f)))                       // folded legs
-                line(listOf(P(0.46f, 0.50f), P(0.6f, 0.66f)))                       // hand on thigh
+                robe(0.28f, 0.66f, 0.74f, 0.86f, 0.07f)                                                // folded legs
+                poly(0.40f to 0.32f, 0.54f to 0.32f, 0.58f to 0.68f, 0.36f to 0.68f)                   // upright torso
+                head(0.47f, 0.21f); foot(0.75f, 0.87f)
+                limb(0.52f to 0.40f, 0.60f to 0.55f, 0.62f to 0.69f); hand(0.62f, 0.70f)             // hand resting on the thigh
+            }
+            Learn.Posture.TASHAHHUD -> {
+                robe(0.28f, 0.66f, 0.74f, 0.86f, 0.07f)
+                poly(0.40f to 0.32f, 0.54f to 0.32f, 0.58f to 0.68f, 0.36f to 0.68f)
+                head(0.47f, 0.21f); foot(0.75f, 0.87f)
+                limb(0.45f to 0.42f, 0.40f to 0.58f, 0.44f to 0.69f); hand(0.44f, 0.70f)             // left hand on the left thigh
+                limb(0.54f to 0.40f, 0.64f to 0.52f, 0.66f to 0.62f); hand(0.66f, 0.635f)             // right hand on the right thigh…
+                drawLine(color, P(0.67f, 0.61f), P(0.74f, 0.50f), sw * 1.8f, cap = StrokeCap.Round)     // …index finger raised
             }
             Learn.Posture.SALAM -> {
-                drawCircle(color, headR, P(0.5f, 0.36f))
-                drawArc(color, -40f, 80f, false, topLeft = P(0.58f, 0.28f), size = androidx.compose.ui.geometry.Size(w * 0.16f, h * 0.16f), style = Stroke(sw * 0.6f, cap = StrokeCap.Round))  // turn cue
-                line(listOf(P(0.5f, 0.44f), P(0.5f, 0.72f)))
-                line(listOf(P(0.5f, 0.72f), P(0.76f, 0.72f), P(0.8f, 0.88f)))
-                line(listOf(P(0.34f, 0.88f), P(0.8f, 0.88f)))
-                line(listOf(P(0.5f, 0.50f), P(0.64f, 0.66f)))
+                robe(0.28f, 0.66f, 0.74f, 0.86f, 0.07f)
+                poly(0.40f to 0.32f, 0.54f to 0.32f, 0.58f to 0.68f, 0.36f to 0.68f)
+                head(0.50f, 0.21f); foot(0.75f, 0.87f)
+                poly(0.585f to 0.20f, 0.625f to 0.225f, 0.585f to 0.245f, closed = true)                // nose: the face is turned
+                limb(0.52f to 0.40f, 0.60f to 0.55f, 0.62f to 0.69f); hand(0.62f, 0.70f)
+                drawArc(color, 200f, 120f, false, topLeft = P(0.26f, 0.04f), size = androidx.compose.ui.geometry.Size(w * 0.48f, h * 0.30f), style = Stroke(sw, cap = StrokeCap.Round))   // turn to the right, then the left
+                drawLine(color, P(0.30f, 0.17f), P(0.32f, 0.12f), sw, cap = StrokeCap.Round); drawLine(color, P(0.70f, 0.17f), P(0.68f, 0.12f), sw, cap = StrokeCap.Round)
             }
         }
     }
@@ -498,6 +531,7 @@ private fun WordsView(c: LearnColors, onBack: () -> Unit) {
 @Composable
 private fun MovesView(c: LearnColors, onBack: () -> Unit) {
     val said = mapOf(
+        Learn.Posture.TAKBIR to "Allāhu akbar", Learn.Posture.TASHAHHUD to "At-taḥiyyātu lillāhi waṣ-ṣalawātu waṭ-ṭayyibāt…",
         Learn.Posture.STANDING to Str[R.string.s_takb_r_the_opening_al_f], Learn.Posture.BOWING to Str[R.string.s_sub_na_rabbiya_l_a_m],
         Learn.Posture.RISING to Str[R.string.s_sami_a_ll_hu_liman_amidah], Learn.Posture.PROSTRATING to Str[R.string.s_sub_na_rabbiya_l_a_l],
         Learn.Posture.SITTING to Str[R.string.s_rabbi_ghfir_l_between_the_prostrations], Learn.Posture.SALAM to Str[R.string.s_as_sal_mu_alaykum_wa_ra])

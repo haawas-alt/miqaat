@@ -201,10 +201,10 @@ jobs:
           - { name: phone-landscape, group: a, profile: pixel_6, rotation: 1, tests: 'homes,homesUrdu,states' }
           - { name: phone-landscape, group: b, profile: pixel_6, rotation: 1, tests: 'settingsLanding,settingsCategories' }
           - { name: phone-landscape, group: c, profile: pixel_6, rotation: 1, tests: 'secondaryPages' }
-          - { name: tablet-landscape, group: d, profile: pixel_tablet, rotation: 0, tests: 'azaanFlow' }
-          - { name: tablet-portrait, group: d, profile: pixel_tablet, rotation: 1, tests: 'azaanFlow' }
-          - { name: phone-portrait, group: d, profile: pixel_6, rotation: 0, tests: 'azaanFlow' }
-          - { name: phone-landscape, group: d, profile: pixel_6, rotation: 1, tests: 'azaanFlow' }
+          - { name: tablet-landscape, group: d, profile: pixel_tablet, rotation: 0, tests: 'azaanFlow,learnLessons' }
+          - { name: tablet-portrait, group: d, profile: pixel_tablet, rotation: 1, tests: 'azaanFlow,learnLessons' }
+          - { name: phone-portrait, group: d, profile: pixel_6, rotation: 0, tests: 'azaanFlow,learnLessons' }
+          - { name: phone-landscape, group: d, profile: pixel_6, rotation: 1, tests: 'azaanFlow,learnLessons' }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4

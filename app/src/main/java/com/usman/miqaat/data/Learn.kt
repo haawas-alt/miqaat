@@ -9,11 +9,13 @@ import android.content.Context
  */
 object Learn {
     enum class Posture(val label: String, val describe: String) {
-        STANDING("Standing", "Standing upright, feet a little apart, gaze toward the place of prostration"),
+        TAKBIR("Standing · takbīr", "Standing upright facing the Qibla, both hands raised to the shoulders or ears with the palms forward"),
+        STANDING("Standing · hands folded", "Standing upright, feet a little apart, hands folded over the chest or navel according to your school, gaze toward the place of prostration"),
         BOWING("Bowing · rukūʿ", "Bent forward from the hips, back level, palms on the knees"),
-        RISING("Rising", "Standing upright again after bowing, arms at the sides"),
+        RISING("Standing after rukūʿ", "Standing upright again after bowing, arms at the sides"),
         PROSTRATING("Prostration · sujūd", "Forehead and nose on the ground, palms flat beside the head, knees and toes on the ground"),
-        SITTING("Sitting", "Seated on the folded legs, hands resting on the thighs"),
+        SITTING("Sitting between prostrations", "Seated on the folded legs, hands resting on the thighs"),
+        TASHAHHUD("Sitting · tashahhud", "Seated, left hand on the left thigh, right hand on the right thigh with the index finger raised while reciting"),
         SALAM("Salām", "Seated, turning the head to the right shoulder, then to the left")
     }
 
@@ -33,7 +35,7 @@ object Learn {
         for (r in 1..l.rakat) {
             val first = r == 1; val last = r == l.rakat; val recitesSurah = r <= 2
             if (first) {
-                out += Action(r, S[0], Posture.STANDING, "Face the Qibla, intend the prayer, raise the hands")
+                out += Action(r, S[0], Posture.TAKBIR, "Face the Qibla, intend the prayer, raise the hands")
                 out += Action(r, S[1], Posture.STANDING, "Quietly, hands folded")
                 out += Action(r, S[2], Posture.STANDING, "Quietly, before al-Fātiḥah")
             } else out += Action(r, S[0].copy(position = "Standing · rakʿah $r", note = "Rise saying Allāhu akbar and stand upright before reciting."), Posture.STANDING, "Stand for rakʿah $r")
@@ -44,10 +46,10 @@ object Learn {
             out += Action(r, S[7], Posture.PROSTRATING, "First prostration · three times")
             out += Action(r, S[8], Posture.SITTING, "Sit calmly between the two prostrations")
             out += Action(r, S[7].copy(position = "Second prostration", note = "Exactly like the first. Ṣaḥīḥ al-Bukhārī 812."), Posture.PROSTRATING, "Second prostration · three times")
-            if (r == 2 && !last) out += Action(r, S[9], Posture.SITTING, "First sitting: tashahhud only, then rise for rakʿah 3")
+            if (r == 2 && !last) out += Action(r, S[9], Posture.TASHAHHUD, "First sitting: tashahhud only, then rise for rakʿah 3")
             if (last) {
-                out += Action(r, S[9], Posture.SITTING, "Final sitting")
-                out += Action(r, S[10], Posture.SITTING, "After the tashahhud")
+                out += Action(r, S[9], Posture.TASHAHHUD, "Final sitting")
+                out += Action(r, S[10], Posture.TASHAHHUD, "After the tashahhud")
                 out += Action(r, S[11], Posture.SALAM, "Right, then left — the prayer is complete")
             }
         }

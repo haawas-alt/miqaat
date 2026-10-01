@@ -55,6 +55,15 @@ class ScreenshotMatrixTest : ShotSupport() {
         }
     }
 
+    /** One screenshot per distinct posture, for every theme: each position must show its own illustration. */
+    @Test fun learnLessons() {
+        val acts = com.usman.miqaat.data.Learn.actions(com.usman.miqaat.data.Learn.Lesson.FOUR)
+        for (t in themes) for (p in com.usman.miqaat.data.Learn.Posture.entries) {
+            val idx = acts.indexOfFirst { it.posture == p }
+            shot("lesson-${p.name.lowercase()}", t, 1f) { s, _ -> LearnScreen(s, com.usman.miqaat.data.Learn.Lesson.FOUR, idx) {} }
+        }
+    }
+
     @Test fun azaanFlow() {
         val now = System.currentTimeMillis()
         for (t in themes) for (sc in listOf(1f, 2f)) {
