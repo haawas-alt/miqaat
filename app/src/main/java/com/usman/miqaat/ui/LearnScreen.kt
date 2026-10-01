@@ -147,6 +147,48 @@ private fun TopBar(c: LearnColors, title: String, onBack: () -> Unit, trailing: 
 
 @Composable
 private fun Library(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) -> Unit, onWords: () -> Unit, onMoves: () -> Unit, onBack: () -> Unit, onReset: () -> Unit) {
+    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize()) {
+        if (maxWidth >= 840.dp && maxWidth > maxHeight) LibraryWide(c, p, onLesson, onWords, onMoves, onBack, onReset)
+        else LibraryNarrow(c, p, onLesson, onWords, onMoves, onBack, onReset)
+    }
+}
+
+/** Tablet landscape: hero + continue card on the left, prayer cards with progress on the right, practice row along the bottom. */
+@Composable
+private fun LibraryWide(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) -> Unit, onWords: () -> Unit, onMoves: () -> Unit, onBack: () -> Unit, onReset: () -> Unit) {
+    val tk = screenTokens()
+    Box(Modifier.fillMaxSize()) {
+        if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedArtwork(false, Modifier.fillMaxSize(), scrim = 0.55f)
+        Column(Modifier.fillMaxSize()) {
+            TopBar(c, Str[R.string.s_learn_salah], onBack)
+            Row(Modifier.weight(1f).padding(horizontal = 32.dp), horizontalArrangement = Arrangement.spacedBy(32.dp)) {
+                Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(14.dp, Alignment.CenterVertically)) {
+                    Text("الصَّلَاة", fontFamily = c.arabic, fontSize = 72.sp, color = c.primary, modifier = Modifier.semantics { contentDescription = Str[R.string.s_as_salah_the_prayer] })
+                    Text(Str[R.string.s_one_common_form_of_the_prayer], fontFamily = Nunito, fontSize = 18.sp, lineHeight = 26.sp, color = c.text)
+                    if (p.lesson != null) LibraryCard(c, Str.get(R.string.s_continue_x, Str[p.lesson.titleRes]), Str.get(R.string.s_resume_at_step, p.index + 1, Learn.actions(p.lesson).size), primary = true) { onLesson(p.lesson) }
+                }
+                Column(Modifier.weight(1.15f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically)) {
+                    Text(Str[R.string.s_learn_a_complete_prayer], fontFamily = c.display, fontSize = 22.sp, color = c.text, modifier = Modifier.semantics { heading() })
+                    Learn.Lesson.entries.forEach { l ->
+                        val n = Learn.actions(l).size
+                        val frac = when { l in p.completed -> 1f; l == p.lesson -> (p.index / n.toFloat()).coerceIn(0f, 1f); else -> 0f }
+                        LibraryCard(c, Str[l.titleRes], Str[l.subtitleRes] + " · " + Str.get(R.string.s_n_steps, n), done = l in p.completed, progress = frac) { onLesson(l) }
+                    }
+                }
+            }
+            Column(Modifier.fillMaxWidth().background(c.surface.copy(alpha = 0.85f)).navigationBarsPadding().padding(horizontal = 32.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(Str[R.string.s_practise], fontFamily = c.display, fontSize = 20.sp, color = c.text, modifier = Modifier.semantics { heading() })
+                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                    Box(Modifier.weight(1f)) { LibraryCard(c, Str[R.string.s_the_words], Str[R.string.s_the_twelve_texts_of_the_prayer], onClick = onWords) }
+                    Box(Modifier.weight(1f)) { LibraryCard(c, Str[R.string.s_the_movements], Str[R.string.s_six_positions_what_each_looks_like], onClick = onMoves) }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun LibraryNarrow(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) -> Unit, onWords: () -> Unit, onMoves: () -> Unit, onBack: () -> Unit, onReset: () -> Unit) {
     Column(Modifier.fillMaxSize()) {
         TopBar(c, Str[R.string.s_learn_salah], onBack)
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 24.dp).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -169,7 +211,7 @@ private fun Library(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) 
 }
 
 @Composable
-private fun LibraryCard(c: LearnColors, title: String, subtitle: String, primary: Boolean = false, done: Boolean = false, onClick: () -> Unit) {
+private fun LibraryCard(c: LearnColors, title: String, subtitle: String, primary: Boolean = false, done: Boolean = false, progress: Float? = null, onClick: () -> Unit) {
     Row(
         Modifier.fillMaxWidth().heightIn(min = 64.dp).clip(RoundedCornerShape(16.dp)).background(if (primary) c.primary.copy(alpha = 0.16f) else c.surface)
             .border(1.dp, if (primary) c.primary.copy(alpha = 0.6f) else c.divider, RoundedCornerShape(16.dp))
@@ -179,6 +221,9 @@ private fun LibraryCard(c: LearnColors, title: String, subtitle: String, primary
         Column(Modifier.weight(1f)) {
             Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.Bold, color = if (primary) c.primary else c.text)
             Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary, lineHeight = 18.sp)
+            if (progress != null) Box(Modifier.padding(top = 8.dp).fillMaxWidth().height(6.dp).clip(RoundedCornerShape(50)).background(c.divider)) {
+                Box(Modifier.fillMaxWidth(progress.coerceIn(0.04f, 1f)).fillMaxHeight().clip(RoundedCornerShape(50)).background(c.primary))
+            }
         }
         if (done) Icon(Icons.Outlined.Check, null, Modifier.size(20.dp), tint = c.success) else Text("›", fontSize = 22.sp, color = c.textSecondary)
     }

@@ -80,7 +80,8 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
     BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
         val u0 = minOf(maxWidth / 100, maxHeight / 56)
         val u = if (maxWidth < 600.dp) u0 * 2.2f else u0
-        GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.07f)
+        if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedArtwork(maxHeight > maxWidth, Modifier.fillMaxSize(), scrim = 0.7f)
+        else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.07f)
         val compact = maxWidth < 600.dp
         Row(Modifier.fillMaxSize().statusBarsPadding()) {
             // ---- list
