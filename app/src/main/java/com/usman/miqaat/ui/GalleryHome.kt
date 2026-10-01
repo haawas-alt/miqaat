@@ -17,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.draw.drawBehind
@@ -85,16 +86,16 @@ private fun GalleryWide(state: PrayerState, s: AppSettings, a: HomeActions, tk: 
     val ox = (bw - sc * 1586f) / 2; val oy = (bh - sc * 992f) / 2
     fun Modifier.at(x: Float, y: Float, w: Float, h: Float) = this.absoluteOffset(ox + sc * x, oy + sc * y).size(sc * w, sc * h)
     val u = sc * 13.8f
-    Box(Modifier.fillMaxSize()) {
+    Box(Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.AbsoluteAlignment.TopLeft) {
         ThemedArtwork(portrait = false, modifier = Modifier.at(0f, 104f, 1586f, 734f), scrim = 0f, fill = true)
         Box(Modifier.at(0f, 0f, 1586f, 104f).background(tk.background.copy(alpha = 0.55f))) {
             GalleryHeader(s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = sc * 52f))
         }
         Box(Modifier.at(0f, 103f, 1586f, 1.5f).background(tk.divider))
         GalleryDate(state, s, tk, u * 0.92f, F, urdu, Modifier.at(400f, 104f, 786f, 84f).padding(top = sc * 4f))
-        Box(Modifier.at(120f, 196f, 500f, 290f)) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroLeft(hero, state, s, tk, u, F, urdu) } }
-        Box(Modifier.at(1090f, 216f, 450f, 262f)) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroRight(hero, tk, u, F, urdu) { onWhy(hero.prayer) } } }
-        Row(Modifier.at(0f, 503f, 1586f, 362f)) {
+        Box(Modifier.at(120f, 196f, 500f, 290f).testTag("home-hero")) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroLeft(hero, state, s, tk, u, F, urdu) } }
+        Box(Modifier.at(1090f, 216f, 450f, 262f).testTag("home-time")) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroRight(hero, tk, u, F, urdu) { onWhy(hero.prayer) } } }
+        Row(Modifier.at(0f, 503f, 1586f, 362f).testTag("home-prayers")) {
             listedPrayers(s).forEach { p -> GalleryCard(rowInfo(p, state, s), s, tk, u, F, urdu, a.onToggleRelative, Modifier.weight(1f).fillMaxHeight()) { onWhy(p) } }
         }
         Box(Modifier.at(0f, 868f, 1586f, 124f)) {

@@ -23,6 +23,7 @@ fun HomeRouter(state: PrayerState, settings: AppSettings, a: HomeActions, showLa
     when {
         showLarge -> LargeHome(state, settings, onLargeTap)
         largeFont -> AccessibleHome(state, settings, a)
+        !portrait && cfg.screenHeightDp < 500 && settings.theme in listOf(AppTheme.CELESTIAL_MERIDIAN, AppTheme.PRAYER_GALLERY) -> CompactThemeHome(state, settings, a)
         settings.theme == AppTheme.CELESTIAL_MERIDIAN -> CelestialHome(state, settings, a)
         settings.theme == AppTheme.PRAYER_GALLERY -> GalleryHome(state, settings, a)
         !portrait && cfg.screenHeightDp < 500 -> {
