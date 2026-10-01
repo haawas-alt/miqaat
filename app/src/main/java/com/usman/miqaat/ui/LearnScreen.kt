@@ -191,19 +191,20 @@ private fun LibraryWide(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Less
 
 @Composable
 private fun LibraryNarrow(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) -> Unit, onWords: () -> Unit, onMoves: () -> Unit, onBack: () -> Unit, onReset: () -> Unit) {
+    val big = androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp >= 600
     Column(Modifier.fillMaxSize()) {
         TopBar(c, Str[R.string.s_learn_salah], onBack)
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 24.dp).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("الصَّلَاة", fontFamily = c.arabic, fontSize = 44.sp, color = c.primary, modifier = Modifier.semantics { contentDescription = Str[R.string.s_as_salah_the_prayer] })
-            Text(Str[R.string.s_one_common_form_of_the_prayer], fontFamily = Nunito, fontSize = 14.sp, lineHeight = 20.sp, color = c.textSecondary)
-            if (p.lesson != null) LibraryCard(c, Str.get(R.string.s_continue_x, Str[p.lesson.titleRes]), Str.get(R.string.s_resume_at_step, p.index + 1, Learn.actions(p.lesson).size), primary = true) { onLesson(p.lesson) }
-            Text(Str[R.string.s_learn_a_complete_prayer], fontFamily = c.display, fontSize = if (c.kiswah) 13.sp else 22.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
+            Text("الصَّلَاة", fontFamily = c.arabic, fontSize = if (big) 72.sp else 44.sp, color = c.primary, modifier = Modifier.semantics { contentDescription = Str[R.string.s_as_salah_the_prayer] })
+            Text(Str[R.string.s_one_common_form_of_the_prayer], fontFamily = Nunito, fontSize = if (big) 20.sp else 14.sp, lineHeight = if (big) 28.sp else 20.sp, color = c.textSecondary)
+            if (p.lesson != null) LibraryCard(c, Str.get(R.string.s_continue_x, Str[p.lesson.titleRes]), Str.get(R.string.s_resume_at_step, p.index + 1, Learn.actions(p.lesson).size), primary = true, big = big) { onLesson(p.lesson) }
+            Text(Str[R.string.s_learn_a_complete_prayer], fontFamily = c.display, fontSize = if (c.kiswah) 13.sp else if (big) 28.sp else 22.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
             Learn.Lesson.entries.forEach { l ->
-                LibraryCard(c, Str[l.titleRes], Str[l.subtitleRes] + " · " + Str.get(R.string.s_n_steps, Learn.actions(l).size), done = l in p.completed) { onLesson(l) }
+                LibraryCard(c, Str[l.titleRes], Str[l.subtitleRes] + " · " + Str.get(R.string.s_n_steps, Learn.actions(l).size), done = l in p.completed, big = big) { onLesson(l) }
             }
-            Text(Str[R.string.s_practise], fontFamily = c.display, fontSize = if (c.kiswah) 13.sp else 22.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
-            LibraryCard(c, Str[R.string.s_the_words], Str[R.string.s_the_twelve_texts_of_the_prayer], onClick = onWords)
-            LibraryCard(c, Str[R.string.s_the_movements], Str[R.string.s_six_positions_what_each_looks_like], onClick = onMoves)
+            Text(Str[R.string.s_practise], fontFamily = c.display, fontSize = if (c.kiswah) 13.sp else if (big) 28.sp else 22.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
+            LibraryCard(c, Str[R.string.s_the_words], Str[R.string.s_the_twelve_texts_of_the_prayer], big = big, onClick = onWords)
+            LibraryCard(c, Str[R.string.s_the_movements], Str[R.string.s_six_positions_what_each_looks_like], big = big, onClick = onMoves)
             val ctx = androidx.compose.ui.platform.LocalContext.current
             val allRecorded = remember { (1..12).all { ctx.resources.getIdentifier("learn_%02d".format(it), "raw", ctx.packageName) != 0 } }
             Text(Str[if (allRecorded) R.string.s_recordings_bundled else R.string.s_audio_is_the_device_s_own], fontFamily = Nunito, fontSize = 12.sp, lineHeight = 17.sp, color = c.textSecondary, modifier = Modifier.padding(top = 10.dp))

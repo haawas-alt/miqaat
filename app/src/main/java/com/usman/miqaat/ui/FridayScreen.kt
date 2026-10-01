@@ -69,7 +69,7 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
     fun c(z: ZonedDateTime) = PrayerEngine.clock(z, h24) + " " + PrayerEngine.suffix(z, h24)
 
     BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
-        val compact = maxWidth < 700.dp
+        val compact = maxWidth < 900.dp
         if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedBackdrop(maxHeight > maxWidth, Modifier.fillMaxSize(), scrim = 0.7f) else GirihLattice(Modifier.fillMaxSize(), tile = 120f, alpha = 0.07f)
         androidx.compose.runtime.CompositionLocalProvider(LocalK provides (if (compact) 1f else 1.35f)) {
         Column(Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState()).padding(horizontal = if (compact) 16.dp else 32.dp, vertical = 12.dp)) {
