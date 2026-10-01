@@ -70,16 +70,18 @@ abstract class ShotSupport {
 
     protected fun host(theme: AppTheme, fontScale: Float, rtl: Boolean, content: @Composable () -> Unit) {
         Str.apply(app, if (rtl) Language.UR else Language.EN)
-        // The emulator can drop a frozen rotation between launches: re-apply it and relaunch until the activity really has the orientation the job asks for.
+        // Rotation is requested on the activity itself (reliable on every emulator image); the system rotation is only a first try.
         val want = InstrumentationRegistry.getArguments().getString("orientation")
-        var attempt = 0
-        while (true) {
-            enforceRotation()
-            scenario = ActivityScenario.launch(ComponentActivity::class.java)
-            var ok = true
-            if (want != null) scenario.onActivity { a -> ok = (a.resources.displayMetrics.widthPixels > a.resources.displayMetrics.heightPixels) == (want == "landscape") }
-            if (ok || ++attempt >= 4) break
-            scenario.close(); Thread.sleep(500)
+        enforceRotation()
+        scenario = ActivityScenario.launch(ComponentActivity::class.java)
+        if (want != null) {
+            val wantLandscape = want == "landscape"
+            fun matches(): Boolean { var ok = false; scenario.onActivity { a -> ok = (a.resources.displayMetrics.widthPixels > a.resources.displayMetrics.heightPixels) == wantLandscape }; return ok }
+            if (!matches()) {
+                scenario.onActivity { a -> a.requestedOrientation = if (wantLandscape) android.content.pm.ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE else android.content.pm.ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT }
+                var waited = 0
+                while (!matches() && waited < 6000) { Thread.sleep(300); waited += 300 }
+            }
         }
         scenario.onActivity { act ->
             act.setContent {
