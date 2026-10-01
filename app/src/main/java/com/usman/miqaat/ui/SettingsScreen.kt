@@ -191,7 +191,7 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
     fun open(sec: Section, focus: String? = null) { section = sec; focusTitle = focus; detailOpen = true; direct = false; query = "" }
 
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
-        val compact = maxWidth < Breakpoints.settingsRail
+        val compact = maxWidth < Breakpoints.settingsRail || maxHeight < 500.dp
         androidx.activity.compose.BackHandler(enabled = compact && (detailOpen || query.isNotEmpty())) {
             if (query.isNotEmpty()) query = "" else if (direct) onBack() else detailOpen = false
         }

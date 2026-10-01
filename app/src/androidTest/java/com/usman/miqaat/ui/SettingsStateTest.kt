@@ -36,7 +36,10 @@ import org.junit.runner.RunWith
 class SettingsStateTest {
     @get:Rule val rule = createComposeRule()
     private val app get() = ApplicationProvider.getApplicationContext<Application>() as MiqaatApp
-    private val widthDp get() = InstrumentationRegistry.getInstrumentation().targetContext.resources.configuration.screenWidthDp
+    private val config get() = InstrumentationRegistry.getInstrumentation().targetContext.resources.configuration
+    private val widthDp get() = config.screenWidthDp
+    private val railLayout get() = widthDp >= 720 && config.screenHeightDp >= 500
+    @org.junit.Before fun enforceOrientation() = enforceAuditOrientation()
 
     private fun prepare(theme: AppTheme = AppTheme.PRAYER_GALLERY) {
         Str.apply(app, Language.EN)
@@ -51,7 +54,7 @@ class SettingsStateTest {
     private fun railItem(label: String) = rule.onAllNodesWithText(label)[0]
 
     @Test fun switchingFromScrolledCategoryShowsOnlyTheNewCategoryAtTop() {
-        assumeTrue("rail layout needs a >=720dp wide screen", widthDp >= 720)
+        assumeTrue("rail layout needs a >=720dp wide screen", railLayout)
         prepare()
         rule.setContent { screen() }
         railItem(Str[R.string.s_display_art]).performClick()
@@ -68,7 +71,7 @@ class SettingsStateTest {
     }
 
     @Test fun displayAndArtOpensAtTopWithContentImmediately() {
-        assumeTrue(widthDp >= 720)
+        assumeTrue(railLayout)
         prepare()
         rule.setContent { screen() }
         railItem(Str[R.string.s_display_art]).performClick()
@@ -80,7 +83,7 @@ class SettingsStateTest {
     }
 
     @Test fun selectedCategoryAndItsOwnScrollSurviveRecreation() {
-        assumeTrue(widthDp >= 720)
+        assumeTrue(railLayout)
         prepare()
         val tester = StateRestorationTester(rule)
         tester.setContent { screen() }
@@ -94,13 +97,20 @@ class SettingsStateTest {
     }
 
     @Test fun phoneDetailStartsAtTopAndBackShowsLanding() {
-        assumeTrue(widthDp < 720)
+        assumeTrue(!railLayout)
         prepare()
         rule.setContent { screen() }
         rule.onNodeWithText(Str[R.string.s_display_art]).performClick()
         rule.waitForIdle()
         rule.onNodeWithText(Str[R.string.s_how_miqaat_looks_on_the_wall]).assertIsDisplayed()
         rule.onNodeWithText(Str[R.string.s_open_miqaat_when_the_device_starts]).performScrollTo()
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            val activity = androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry.getInstance()
+                .getActivitiesInStage(androidx.test.runner.lifecycle.Stage.RESUMED).first() as androidx.activity.ComponentActivity
+            activity.onBackPressedDispatcher.onBackPressed()
+        }
+        rule.waitForIdle()
+        rule.onNodeWithText(Str[R.string.s_group_prayer_setup]).assertIsDisplayed()
     }
 
     /** No word of any readiness label may be split across lines, at 100%, 130% and 200%, in every theme. */
@@ -112,7 +122,7 @@ class SettingsStateTest {
         rule.setContent {
             val d = LocalDensity.current
             CompositionLocalProvider(LocalDensity provides Density(d.density, scale)) {
-                MiqaatTheme(theme) { androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.padding(16.dp)) { ReadinessSummary(ok, wide = widthDp >= 720, onOpen = {}) } }
+                MiqaatTheme(theme) { androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.padding(16.dp)) { ReadinessSummary(ok, wide = railLayout, onOpen = {}) } }
             }
         }
         for (th in AppTheme.entries) for (sc in listOf(1f, 1.3f, 2f)) {

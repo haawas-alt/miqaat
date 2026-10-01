@@ -5,4 +5,18 @@
     <string name="channel_silent">Prayer reminders</string>
     <string name="channel_azaan_quiet">Azaan (while Miqaat is open)</string>
     <string name="widget_desc">Next prayer with countdown</string>
+
+    <!-- Audit remediation: localized UI copy. -->
+    <string name="s_magnetic_declination">Magnetic declination %1$+.1f° applied</string>
+    <string name="s_prayer_azaan_title">%1$s azaan</string>
+    <string name="s_iqamah_in_title">%1$s · iqamah in</string>
+    <string name="s_expanded">Expanded</string>
+    <string name="s_collapsed">Collapsed</string>
+    <string name="s_count_of">%1$d of %2$d</string>
+    <string name="s_count_complete">%1$d of %2$d complete</string>
+    <string name="s_count_remaining">%1$d remaining of %2$d</string>
+    <string name="s_lesson_where">%1$s · rakʿah %2$d of %3$d · step %4$d of %5$d · %6$s</string>
+    <string name="s_english_translation">English translation</string>
+    <string name="s_salam_right">1 · Turn right</string>
+    <string name="s_salam_left">2 · Turn left</string>
 </resources>

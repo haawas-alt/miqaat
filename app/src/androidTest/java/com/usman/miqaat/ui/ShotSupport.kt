@@ -94,12 +94,16 @@ abstract class ShotSupport {
         }
         rule.waitForIdle()
         readDevice()
+        val expected = want?.let { if (it == "landscape") "landscape" else "portrait" }
+        check(expected == null || device.endsWith(expected)) { "Requested $expected, captured $device" }
     }
 
     protected fun shot(name: String, theme: AppTheme, scale: Float = 1f, rtl: Boolean = false, content: @Composable (AppSettings, PrayerState) -> Unit) {
         var label = "$name-$theme"
         try {
             val s = settingsFor(theme, rtl); val st = stateAt(s)
+            app.settings.update { s }
+            Learn.clear(app)
             host(theme, scale, rtl) { content(s, st) }
             label = "${name}__${theme.name.lowercase()}__${device}__${(scale * 100).toInt()}${if (rtl) "__ur" else ""}"
             Thread.sleep(700); rule.waitForIdle()
@@ -109,8 +113,14 @@ abstract class ShotSupport {
         } catch (t: Throwable) {
             errors += "$label: ${t.javaClass.simpleName}: ${t.message?.take(200)}"
             runCatching { scenario.close() }
+            throw AssertionError("Capture failed: $label", t)
         }
     }
 
-    protected fun flushErrors() { if (errors.isNotEmpty()) File(out, "_errors_${device}.txt").appendText(errors.joinToString("\n") + "\n") }
+    protected fun flushErrors() {
+        if (errors.isNotEmpty()) {
+            File(out, "_errors_${device}.txt").appendText(errors.joinToString("\n") + "\n")
+            throw AssertionError(errors.joinToString("\n"))
+        }
+    }
 }

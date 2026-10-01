@@ -5,4 +5,18 @@
     <string name="channel_silent">نماز کی یاد دہانیاں</string>
     <string name="channel_azaan_quiet">اذان (جب میقات کھلا ہو)</string>
     <string name="widget_desc">اگلی نماز، الٹی گنتی کے ساتھ</string>
+
+    <!-- Audit remediation: localized UI copy. -->
+    <string name="s_magnetic_declination">مقناطیسی انحراف %1$+.1f° شامل کیا گیا</string>
+    <string name="s_prayer_azaan_title">%1$s کی اذان</string>
+    <string name="s_iqamah_in_title">%1$s؛ اقامت میں باقی وقت</string>
+    <string name="s_expanded">کھلا ہوا</string>
+    <string name="s_collapsed">بند</string>
+    <string name="s_count_of">%2$d میں سے %1$d</string>
+    <string name="s_count_complete">%2$d میں سے %1$d مکمل</string>
+    <string name="s_count_remaining">%2$d میں سے %1$d باقی</string>
+    <string name="s_lesson_where">%1$s؛ %3$d میں سے رکعت %2$d؛ %5$d میں سے مرحلہ %4$d؛ %6$s</string>
+    <string name="s_english_translation">انگریزی ترجمہ</string>
+    <string name="s_salam_right">۱؛ دائیں طرف سلام</string>
+    <string name="s_salam_left">۲؛ بائیں طرف سلام</string>
 </resources>

@@ -9,6 +9,8 @@ import android.hardware.SensorManager
 import android.view.Surface
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -37,6 +39,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Modifier
 import com.usman.miqaat.R
 import androidx.compose.ui.semantics.contentDescription
@@ -116,7 +119,7 @@ fun QiblaScreen(settings: AppSettings, fixedHeading: Float? = null, onBack: () -
         accuracy == SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM -> Str[R.string.s_compass_accuracy_medium_about_5]
         else -> Str[R.string.s_compass_accuracy_high]
     }
-    val declWords = "Magnetic declination %+.1f° applied".format(declination)
+    val declWords = Str.get(R.string.s_magnetic_declination, declination)
     val spoken = PrayerEngine.qiblaWords(bearing, if (hasSensor && gotReading && !unreliable) heading.toDouble() else null)
 
     val needle by animateFloatAsState(if (hasSensor) ((bearing - heading).toFloat() + 360f) % 360f else bearing.toFloat(), tween(200), label = "needle")
@@ -126,7 +129,7 @@ fun QiblaScreen(settings: AppSettings, fixedHeading: Float? = null, onBack: () -
         if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedBackdrop(maxHeight > maxWidth, Modifier.fillMaxSize(), scrim = 0.7f) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.08f)
         val portrait = maxHeight > maxWidth
         if (portrait) {
-            Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = u * 4, vertical = u * 2), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceEvenly) {
+            Column(Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState()).padding(horizontal = u * 4, vertical = u * 2), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
                     IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
                     Text(Str[R.string.s_qibla], fontFamily = Cormorant, fontSize = (u.value * 8f).sp, color = tk.contentPrimary)
@@ -137,12 +140,12 @@ fun QiblaScreen(settings: AppSettings, fixedHeading: Float? = null, onBack: () -
                 Text(Str.get(R.string.s_qibla_from_north, L10n.iso(settings.locationName)), fontFamily = Nunito, fontSize = (u.value * 3.2f).sp, color = tk.contentSecondary)
                 Text("$accuracyWords · $declWords", fontFamily = Nunito, fontSize = (u.value * 2.8f).sp, color = if (accuracyLow) tk.primary else tk.contentMuted, textAlign = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.padding(top = u * 1))
                 Text(if (!hasSensor) Str[R.string.s_no_compass_sensor_face_the_phone] else if (accuracyLow) Str[R.string.s_move_the_phone_in_a_figure] else Str[R.string.s_hold_the_phone_flat_and_turn],
-                    fontFamily = Nunito, fontSize = (u.value * 3.4f).sp, lineHeight = (u.value * 5f).sp, color = tk.contentPrimary.copy(alpha = 0.8f), textAlign = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.padding(top = u * 4))
+                    fontFamily = Nunito, fontSize = (u.value * 3.4f).sp, lineHeight = (u.value * 5f).sp, color = tk.contentPrimary.copy(alpha = 0.8f), textAlign = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.padding(top = u * 4).testTag("qibla-instruction"))
             }
             return@BoxWithConstraints
         }
         Row(Modifier.fillMaxSize().displayCutoutPadding().padding(horizontal = u * 3, vertical = u * 2)) {
-            Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+            Column(Modifier.weight(1f).fillMaxHeight().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
                     Text(Str[R.string.s_qibla], fontFamily = Cormorant, fontSize = (u.value * 4.2f).sp, color = tk.contentPrimary)
