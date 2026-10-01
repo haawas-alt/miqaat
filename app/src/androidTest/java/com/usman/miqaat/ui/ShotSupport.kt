@@ -56,16 +56,16 @@ abstract class ShotSupport {
 
     /** The CI job asks for a rotation through the runner argument; the shell settings were not honoured on every emulator, so the test enforces it. */
     private fun enforceRotation() {
-        val want = InstrumentationRegistry.getArguments().getString("rotation") ?: return
+        val want = InstrumentationRegistry.getArguments().getString("orientation") ?: return   // "landscape" or "portrait"
         val inst = InstrumentationRegistry.getInstrumentation()
-        // Natural orientation is landscape for the tablet and portrait for the phone; "1" flips either one.
-        val wm = ctx.getSystemService(android.content.Context.WINDOW_SERVICE) as android.view.WindowManager
-        fun landscape(): Boolean = wm.currentWindowMetrics.bounds.let { it.width() > it.height() }
-        val naturalLandscape = run { inst.uiAutomation.setRotation(android.app.UiAutomation.ROTATION_FREEZE_0); Thread.sleep(800); landscape() }
-        val wantLandscape = if (want == "1") !naturalLandscape else naturalLandscape
-        val rotation = if (want == "1") android.app.UiAutomation.ROTATION_FREEZE_90 else android.app.UiAutomation.ROTATION_FREEZE_0
-        var tries = 0
-        while (landscape() != wantLandscape && tries++ < 10) { inst.uiAutomation.setRotation(rotation); Thread.sleep(600) }
+        val dm = ctx.getSystemService(android.content.Context.DISPLAY_SERVICE) as android.hardware.display.DisplayManager
+        fun landscape(): Boolean { val p = android.graphics.Point(); dm.getDisplay(android.view.Display.DEFAULT_DISPLAY).getRealSize(p); return p.x > p.y }
+        val wantLandscape = want == "landscape"
+        if (landscape() == wantLandscape) return
+        for (rot in listOf(android.app.UiAutomation.ROTATION_FREEZE_90, android.app.UiAutomation.ROTATION_FREEZE_270, android.app.UiAutomation.ROTATION_FREEZE_0)) {
+            inst.uiAutomation.setRotation(rot); Thread.sleep(900)
+            if (landscape() == wantLandscape) return
+        }
     }
 
     protected fun host(theme: AppTheme, fontScale: Float, rtl: Boolean, content: @Composable () -> Unit) {

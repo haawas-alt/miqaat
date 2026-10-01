@@ -3,6 +3,7 @@
 # Settings), then the screenshot matrix under a time box, and pulls the PNGs out of the app either way.
 set -uo pipefail
 ROT="$1"; NAME="$2"; TESTS="$3"
+case "$NAME" in *landscape*) ORIENT=landscape;; *) ORIENT=portrait;; esac
 # Lock the rotation the reliable way (wm user-rotation), re-applied before every gradle run: the plain settings keys were
 # silently ignored on some jobs, which left "portrait" tablet and "landscape" phone screenshots in the natural orientation.
 setrot() {
@@ -15,7 +16,7 @@ setrot() {
 setrot
 adb shell wm size; adb shell wm density
 OUT=shots/"$NAME"; mkdir -p "$OUT"
-G="./gradlew --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true -Pandroid.testInstrumentationRunnerArguments.rotation=$ROT connectedGithubDebugAndroidTest"
+G="./gradlew --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true -Pandroid.testInstrumentationRunnerArguments.orientation=$ORIENT connectedGithubDebugAndroidTest"
 
 if [ "${NAME##*-}" = "a" ]; then
   # One gradle run per class so a slow or crashed emulator in one test cannot hide the others' results.
