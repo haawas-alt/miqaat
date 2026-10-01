@@ -193,7 +193,7 @@ class AuditLayoutRegressionTest : ComposeSupport() {
                 val next = rule.onNodeWithText(Str[com.usman.miqaat.R.string.s_next_2])
                 next.assertIsDisplayed()
                 val bounds = next.getUnclippedBoundsInRoot()
-                assertTrue("Next target too small: $bounds", bounds.height >= 48.dp && bounds.width >= 48.dp)
+                assertTrue("Next target too small: $bounds", bounds.bottom - bounds.top >= 48.dp && bounds.right - bounds.left >= 48.dp)
                 capture("adhkar-meaning__${theme.name.lowercase()}__${dev.label}__200${if (urdu) "__ur" else ""}")
             } finally { scenario.close() }
         }
