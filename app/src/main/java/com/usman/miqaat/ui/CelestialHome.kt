@@ -221,6 +221,7 @@ private fun CelestialRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: 
     val selected = r.isNow || r.isNext
     val ink = if (selected) tk.accent else tk.contentPrimary
     val shape = RoundedCornerShape(tk.cornerMedium)
+    val tight = u < 6.dp   // phone landscape: the panel is narrow, so the secondary line and the info button give up width
     Row(
         Modifier.fillMaxWidth().padding(horizontal = u * 0.6f, vertical = u * 0.25f).clip(shape)
             .then(if (selected) Modifier.background(tk.selectedSurface).border(1.dp, tk.accent.copy(alpha = 0.5f), shape) else Modifier)
@@ -245,13 +246,13 @@ private fun CelestialRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: 
                     r.prayer.isPrayer -> Icon(if (r.azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(u * 1.5f), tint = tk.contentMuted)
                 }
             }
-            if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = maxOf(fs(1.15f).value, 11f).sp, color = tk.contentSecondary, maxLines = 2)
+            if (r.small.isNotEmpty() && !tight) Text(r.small, fontFamily = F, fontSize = maxOf(fs(1.15f).value, 11f).sp, color = tk.contentSecondary, maxLines = 2)
         }
         Row(verticalAlignment = Alignment.Bottom) {
             Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = if (s.showRelative) FontWeight.SemiBold else FontWeight.Medium, fontSize = fs(if (s.showRelative) 2.2f else 4.2f), lineHeight = fs(4.4f), color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.7f else 1f))
             if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = tk.fontDisplay, fontSize = fs(1.5f), color = tk.contentSecondary, modifier = Modifier.padding(bottom = u * 0.5f))
         }
-        Box(Modifier.padding(start = u * 0.4f, end = u * 0.4f).size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = Role.Button).semantics { contentDescription = Str[R.string.s_why_this_time] }, contentAlignment = Alignment.Center) {
+        Box(Modifier.padding(start = u * 0.4f, end = u * 0.4f).then(if (tight) Modifier.size(width = 28.dp, height = 48.dp) else Modifier.size(48.dp)).clip(CircleShape).clickable(onClick = onWhy, role = Role.Button).semantics { contentDescription = Str[R.string.s_why_this_time] }, contentAlignment = Alignment.Center) {
             Icon(Icons.Outlined.Info, null, Modifier.size(u * 1.6f), tint = tk.contentMuted)
         }
     }
