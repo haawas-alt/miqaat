@@ -44,14 +44,14 @@ class ScreenshotMatrixTest : ShotSupport() {
     @Test fun secondaryPages() {
         for (t in themes) for (sc in listOf(1f, 2f)) {
             shot("timetable", t, sc) { s, _ -> TimetableScreen(s) {} }
-            shot("qibla", t, sc) { s, _ -> QiblaScreen(s) {} }
+            shot("qibla", t, sc) { s, _ -> QiblaScreen(s, fixedHeading = 250f) {} }
             shot("adhkar-morning", t, sc) { _, _ -> AdhkarScreen(AdhkarMode.MORNING) {} }
             shot("adhkar-evening", t, sc) { _, _ -> AdhkarScreen(AdhkarMode.EVENING) {} }
             shot("friday", t, sc) { s, _ -> FridayScreen(s) {} }
             shot("learn", t, sc) { s, _ -> LearnScreen(s) {} }
         }
         for (t in themes) for (page in listOf("timetable", "qibla", "adhkar-morning", "friday", "learn")) shot(page, t, 1f, rtl = true) { s, _ ->
-            when (page) { "timetable" -> TimetableScreen(s) {}; "qibla" -> QiblaScreen(s) {}; "adhkar-morning" -> AdhkarScreen(AdhkarMode.MORNING) {}; "friday" -> FridayScreen(s) {}; else -> LearnScreen(s) {} }
+            when (page) { "timetable" -> TimetableScreen(s) {}; "qibla" -> QiblaScreen(s, fixedHeading = 250f) {}; "adhkar-morning" -> AdhkarScreen(AdhkarMode.MORNING) {}; "friday" -> FridayScreen(s) {}; else -> LearnScreen(s) {} }
         }
     }
 

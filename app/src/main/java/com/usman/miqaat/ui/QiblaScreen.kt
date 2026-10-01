@@ -57,7 +57,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 @Composable
-fun QiblaScreen(settings: AppSettings, onBack: () -> Unit) {
+fun QiblaScreen(settings: AppSettings, fixedHeading: Float? = null, onBack: () -> Unit) {
     val tk = screenTokens()
     val ctx = LocalContext.current
     val bearing = remember(settings.latitude, settings.longitude) { PrayerEngine.qibla(settings) }
@@ -66,13 +66,15 @@ fun QiblaScreen(settings: AppSettings, onBack: () -> Unit) {
     val declination = remember(settings.latitude, settings.longitude) {
         runCatching { android.hardware.GeomagneticField(settings.latitude.toFloat(), settings.longitude.toFloat(), 0f, System.currentTimeMillis()).declination }.getOrDefault(0f)
     }
-    var magneticHeading by remember { mutableFloatStateOf(0f) }
-    var hasSensor by remember { mutableStateOf(false) }
+    // `fixedHeading` (tests only) replaces the live sensors with a still compass, so a screenshot is not fighting a continuously moving needle.
+    var magneticHeading by remember { mutableFloatStateOf(fixedHeading ?: 0f) }
+    var hasSensor by remember { mutableStateOf(fixedHeading != null) }
     var accuracy by remember { mutableStateOf(SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM) }
-    var gotReading by remember { mutableStateOf(false) }
+    var gotReading by remember { mutableStateOf(fixedHeading != null) }
     val heading = PrayerEngine.trueHeading(magneticHeading.toDouble(), declination.toDouble()).toFloat()
 
-    DisposableEffect(Unit) {
+    DisposableEffect(fixedHeading) {
+        if (fixedHeading != null) return@DisposableEffect onDispose { }
         val sm = ctx.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val rot = sm.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
         val mag = sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
