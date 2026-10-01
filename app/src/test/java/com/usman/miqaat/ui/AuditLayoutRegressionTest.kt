@@ -187,7 +187,7 @@ class AuditLayoutRegressionTest : ComposeSupport() {
             try {
                 show(dev, theme, fontScale = 2f, rtl = urdu) { AdhkarScreen(AdhkarMode.MORNING) {} }
                 val dhikr = Adhkar.morning().first()
-                val meaning = rule.onNodeWithText(if (urdu) UrduContent.dhikrMeanings.getValue(dhikr.id) else dhikr.english)
+                val meaning = rule.onNodeWithText(if (urdu) UrduContent.dhikrMeanings.getValue(dhikr.id) else dhikr.english, useUnmergedTree = true)
                 meaning.performScrollTo().assertIsDisplayed()
                 noOverflow(meaning)
                 val next = rule.onNodeWithText(Str[com.usman.miqaat.R.string.s_next_2])
