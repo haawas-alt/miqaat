@@ -75,7 +75,7 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
         val bg = if (kiswah) ThemeTokenSets.kiswah.skyAzaan else when { isAzaan -> tk.skyAzaan; isIq -> tk.skyIqamah; else -> tk.skyDua }
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(bg))) {
             val artTheme = tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY
-            if (artTheme) ThemedArtwork(portrait, Modifier.fillMaxSize(), scrim = if (tk.art == ArtStyle.GALLERY) 0.6f else 0.72f)
+            if (artTheme) ThemedArtwork(portrait, Modifier.fillMaxSize(), scrim = if (tk.art == ArtStyle.GALLERY) 0.82f else 0.72f)
             else if (kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
             // Option A: a quiet status tag, top-left, instead of any system pop-up
             Row(Modifier.statusBarsPadding().padding(start = u * 3.6f, top = u * 2.6f), verticalAlignment = Alignment.CenterVertically) {
