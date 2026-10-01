@@ -74,7 +74,9 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
         val kiswah = com.usman.miqaat.MiqaatApp.instance.settings.value.theme == com.usman.miqaat.data.AppTheme.KISWAH
         val bg = if (kiswah) ThemeTokenSets.kiswah.skyAzaan else when { isAzaan -> tk.skyAzaan; isIq -> tk.skyIqamah; else -> tk.skyDua }
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(bg))) {
-            if (kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
+            val artTheme = tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY
+            if (artTheme) ThemedArtwork(portrait, Modifier.fillMaxSize(), scrim = 0.72f)
+            else if (kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
             // Option A: a quiet status tag, top-left, instead of any system pop-up
             Row(Modifier.statusBarsPadding().padding(start = u * 3.6f, top = u * 2.6f), verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.size(u * 0.9f).clip(androidx.compose.foundation.shape.CircleShape).background(tk.primary))
@@ -143,7 +145,7 @@ private fun StepsBar(phase: Phase, u: Dp) {
 private fun AzaanBody(phase: Phase, u: Dp) {
     val tk = screenTokens()
     Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Text("ٱللَّٰهُ أَكْبَرُ", fontFamily = Amiri, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 14f).sp, color = tk.arabicText, textAlign = TextAlign.Center)
+        Text("ٱللَّٰهُ أَكْبَرُ", fontFamily = Amiri, fontSize = (u.value * 8f).sp, lineHeight = (u.value * 12f).sp, color = tk.arabicText, textAlign = TextAlign.Center)
         Text("${phase.prayer.english.uppercase()} AZAAN  ·  ${phase.prayer.arabic}", fontFamily = Cormorant, fontSize = (u.value * 2.6f).sp, letterSpacing = (u.value * 0.6f).sp, color = tk.contentPrimary.copy(alpha = 0.85f), modifier = Modifier.padding(top = u * 1))
         Wave(Modifier.padding(top = u * 4).width(u * 22).height(u * 8))
         Text(Str[R.string.s_hayya_ala_al_h_come_to], fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, letterSpacing = (u.value * 0.1f).sp, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 3))
@@ -299,9 +301,9 @@ private fun Pill(label: String, primary: Boolean, u: Float, onClick: () -> Unit)
     Box(
         Modifier.clip(shape).background(if (primary) tk.primary else Color.Transparent)
             .border(1.dp, if (primary) tk.primary else tk.neutralStroke, shape)
-            .clickable(onClick = onClick, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 48.dp).padding(horizontal = (u * 2.4f).dp, vertical = (u * 1.1f).dp),
+            .clickable(onClick = onClick, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 52.dp).padding(horizontal = (u * 3f).dp, vertical = (u * 1.3f).dp),
         contentAlignment = Alignment.Center
-    ) { Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = (u * 1.5f).sp, color = if (primary) tk.onPrimary else tk.contentPrimary, maxLines = 1) }
+    ) { Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = (u * 1.75f).sp, color = if (primary) tk.onPrimary else tk.contentPrimary, maxLines = 1) }
 }
 
 @Composable
