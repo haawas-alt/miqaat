@@ -39,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.usman.miqaat.R
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.ui.semantics.liveRegion
@@ -115,7 +116,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                             Spacer(Modifier.width(u * 1.2f))
                             Column(Modifier.weight(1f)) {
                                 Text(if (L10n.uiUrdu) UrduContent.dhikrTitles.getValue(d.id) else d.title, fontFamily = Nunito, fontSize = (u.value * 1.55f).sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary.copy(alpha = if (isCur) 1f else 0.8f))
-                                Text(if (d.count > 1) "$c / ${d.count}" else if (c > 0) "done" else "once", fontFamily = Nunito, fontSize = (u.value * 1.15f).sp, color = tk.contentMuted)
+                                Text(if (d.count > 1) "$c / ${d.count}" else if (c > 0) Str[R.string.s_complete] else Str[R.string.s_not_yet_read], fontFamily = Nunito, fontSize = (u.value * 1.15f).sp, color = tk.contentMuted)
                             }
                         }
                     }
@@ -178,7 +179,8 @@ private fun Nav(label: String, u: Float, primary: Boolean = false, onClick: () -
     val tk = screenTokens()
     val shape = RoundedCornerShape(50)
     Box(
-        Modifier.clip(shape).background(if (primary) tk.primary else Color.Transparent).border(1.dp, if (primary) tk.primary else tk.neutralStroke, shape)
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.heightIn(min = 48.dp).widthIn(min = 48.dp).clip(shape).background(if (primary) tk.primary else Color.Transparent).border(1.dp, if (primary) tk.primary else tk.neutralStroke, shape)
             .clickable(onClick = onClick).padding(horizontal = (u * 2).dp, vertical = (u * 1).dp)
     ) { Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = (u * 1.4f).sp, color = if (primary) tk.onPrimary else tk.contentPrimary) }
 }

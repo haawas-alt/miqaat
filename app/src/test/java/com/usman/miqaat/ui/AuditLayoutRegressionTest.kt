@@ -179,4 +179,23 @@ class AuditLayoutRegressionTest : ComposeSupport() {
             } finally { scenario.close() }
         }
     }
+
+    @Test fun adhkarMeaningAndNavigationStayReachableInBothLanguagesAtLargeText() {
+        for (theme in AppTheme.entries) for (dev in listOf(Dev.PHONE_PORTRAIT, Dev.PHONE_LANDSCAPE)) for (urdu in listOf(false, true)) {
+            val s = settings(theme, urdu)
+            app.settings.update { s }
+            try {
+                show(dev, theme, fontScale = 2f, rtl = urdu) { AdhkarScreen(AdhkarMode.MORNING) {} }
+                val dhikr = Adhkar.morning().first()
+                val meaning = rule.onNodeWithText(if (urdu) UrduContent.dhikrMeanings.getValue(dhikr.id) else dhikr.english)
+                meaning.performScrollTo().assertIsDisplayed()
+                noOverflow(meaning)
+                val next = rule.onNodeWithText(Str[com.usman.miqaat.R.string.s_next_2])
+                next.assertIsDisplayed()
+                val bounds = next.getUnclippedBoundsInRoot()
+                assertTrue("Next target too small: $bounds", bounds.height >= 48.dp && bounds.width >= 48.dp)
+                capture("adhkar-meaning__${theme.name.lowercase()}__${dev.label}__200${if (urdu) "__ur" else ""}")
+            } finally { scenario.close() }
+        }
+    }
 }
