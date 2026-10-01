@@ -54,6 +54,7 @@ import com.usman.miqaat.R
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
@@ -283,13 +284,22 @@ private fun RakahMap(c: LearnColors, lesson: Learn.Lesson, actions: List<Learn.A
 
 @Composable
 private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, modifier: Modifier) {
-    Column(modifier.clip(RoundedCornerShape(20.dp)).background(c.surface).border(1.dp, c.divider, RoundedCornerShape(20.dp)).padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-            if (!c.kiswah) MihrabArch(Modifier.fillMaxHeight().aspectRatio(0.9f), color = c.primary.copy(alpha = 0.35f))
-            Figure(posture, c.primary, Modifier.fillMaxHeight(0.8f).aspectRatio(1f).semantics { contentDescription = "${posture.label}: ${posture.describe}" })
+    val tk = screenTokens()
+    val shape = RoundedCornerShape(20.dp)
+    Box(modifier.clip(shape).background(c.surface).border(1.dp, c.divider, shape)) {
+        // The approved Celestial lesson sets the figure against the sunrise scene.
+        if (tk.art == ArtStyle.CELESTIAL) {
+            androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.art_celestial_landscape_v2), null, Modifier.matchParentSize().clearAndSetSemantics { }, contentScale = androidx.compose.ui.layout.ContentScale.Crop, alignment = Alignment.BottomCenter)
+            Box(Modifier.matchParentSize().background(Brush.verticalGradient(listOf(c.surface.copy(alpha = 0.15f), c.surface.copy(alpha = 0.55f)))))
         }
-        Text(if (c.kiswah) posture.label.uppercase() else posture.label, fontFamily = c.display, fontSize = if (c.kiswah) 12.sp else 20.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp))
-        Text(cue, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 18.sp, color = c.textSecondary, textAlign = TextAlign.Center)
+        Column(Modifier.fillMaxSize().padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                if (!c.kiswah) MihrabArch(Modifier.fillMaxHeight().aspectRatio(0.9f), color = c.primary.copy(alpha = 0.35f))
+                Figure(posture, c.primary, Modifier.fillMaxHeight(0.8f).aspectRatio(1f).semantics { contentDescription = "${posture.label}: ${posture.describe}" })
+            }
+            Text(if (c.kiswah) posture.label.uppercase() else posture.label, fontFamily = c.display, fontSize = if (c.kiswah) 12.sp else 20.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp))
+            Text(cue, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 18.sp, color = c.textSecondary, textAlign = TextAlign.Center)
+        }
     }
 }
 
@@ -301,7 +311,7 @@ private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, mod
 fun Figure(p: Learn.Posture, color: Color, modifier: Modifier) {
     Canvas(modifier) {
         val w = size.width; val h = size.height
-        val sw = w * 0.022f
+        val sw = w * 0.014f
         val line = Stroke(sw, cap = StrokeCap.Round, join = StrokeJoin.Round)
         val fill = color.copy(alpha = 0.16f)
         fun P(x: Float, y: Float) = Offset(w * x, h * y)
@@ -320,7 +330,7 @@ fun Figure(p: Learn.Posture, color: Color, modifier: Modifier) {
         fun head(x: Float, y: Float, r: Float = 0.085f) { drawCircle(fill, w * r, P(x, y)); drawCircle(color, w * r, P(x, y), style = line) }
         fun limb(vararg pts: Pair<Float, Float>) {   // an arm or a sleeve: a thick soft stroke with a thin outline over it
             val path = Path(); pts.forEachIndexed { k, (x, y) -> if (k == 0) path.moveTo(w * x, h * y) else path.lineTo(w * x, h * y) }
-            drawPath(path, color.copy(alpha = 0.30f), style = Stroke(w * 0.055f, cap = StrokeCap.Round, join = StrokeJoin.Round))
+            drawPath(path, color.copy(alpha = 0.30f), style = Stroke(w * 0.045f, cap = StrokeCap.Round, join = StrokeJoin.Round))
             drawPath(path, color, style = Stroke(sw, cap = StrokeCap.Round, join = StrokeJoin.Round))
         }
         fun hand(x: Float, y: Float, r: Float = 0.032f) { drawCircle(fill.copy(alpha = 0.5f), w * r, P(x, y)); drawCircle(color, w * r, P(x, y), style = line) }
@@ -348,7 +358,7 @@ fun Figure(p: Learn.Posture, color: Color, modifier: Modifier) {
                 hand(0.335f, 0.68f); hand(0.665f, 0.68f)
             }
             Learn.Posture.BOWING -> {
-                poly(0.57f to 0.40f, 0.70f to 0.40f, 0.72f to 0.88f, 0.55f to 0.88f)                  // legs, upright
+                poly(0.58f to 0.42f, 0.68f to 0.42f, 0.69f to 0.88f, 0.57f to 0.88f)                  // legs, upright
                 robe(0.30f, 0.36f, 0.68f, 0.50f, 0.06f)                                                // level back
                 head(0.23f, 0.40f); foot(0.64f, 0.885f)
                 limb(0.36f to 0.47f, 0.50f to 0.60f, 0.585f to 0.665f); hand(0.59f, 0.675f)          // palm on the knee
