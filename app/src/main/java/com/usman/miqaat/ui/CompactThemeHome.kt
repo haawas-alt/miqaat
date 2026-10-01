@@ -15,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -79,7 +80,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                     listedPrayers(settings).forEach { prayer ->
                         val row = rowInfo(prayer, state, settings)
                         val selected = row.isNow || row.isNext
-                        Row(Modifier.fillMaxWidth().heightIn(min = 52.dp).clip(shape).background(if (selected) tk.selectedSurface else tk.surface.copy(alpha = 0.94f))
+                        Row(Modifier.fillMaxWidth().testTag("compact-prayer-${prayer.name}").heightIn(min = 52.dp).clip(shape).background(if (selected) tk.selectedSurface else tk.surface.copy(alpha = 0.94f))
                             .border(if (selected) 2.dp else 1.dp, if (selected) tk.primary else tk.divider, shape)
                             .combinedClickable(onClick = actions.onToggleRelative, onLongClick = { why = prayer }, role = Role.Button,
                                 onClickLabel = Str[R.string.s_switch_clock_time_until], onLongClickLabel = Str[R.string.s_why_this_time])

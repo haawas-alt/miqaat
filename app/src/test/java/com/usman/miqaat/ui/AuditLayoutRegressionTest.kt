@@ -108,6 +108,41 @@ class AuditLayoutRegressionTest : ComposeSupport() {
             } finally { scenario.close() }
         }
     }
+    @Test fun shortLandscapeNewThemeHomesKeepEveryPrayerReachableInBothLanguages() {
+        for (theme in listOf(AppTheme.CELESTIAL_MERIDIAN, AppTheme.PRAYER_GALLERY)) for (urdu in listOf(false, true)) {
+            val s = settings(theme, urdu)
+            app.settings.update { s }
+            try {
+                show(Dev.PHONE_LANDSCAPE, theme, rtl = urdu) { HomeRouter(state(s), s, actions, false) {} }
+                capture("home__${theme.name.lowercase()}__phone-landscape__100${if (urdu) "__ur" else ""}")
+                for (prayer in listedPrayers(s)) {
+                    val node = rule.onNodeWithTag("compact-prayer-${prayer.name}")
+                    node.performScrollTo().assertIsDisplayed()
+                    inside("compact-prayer-${prayer.name}")
+                }
+                capture("home__${theme.name.lowercase()}__phone-landscape__100${if (urdu) "__ur" else ""}__last-prayer")
+            } finally { scenario.close() }
+        }
+    }
+    @Test fun tabletPortraitLessonsKeepAllEightPostureCuesReachableAtLargeText() {
+        for (theme in AppTheme.entries) {
+            val s = settings(theme)
+            app.settings.update { s }
+            val actions = Learn.actions(Learn.Lesson.FAJR)
+            for (posture in Learn.Posture.entries) {
+                val index = actions.indexOfFirst { it.posture == posture }
+                try {
+                    show(Dev.TABLET_PORTRAIT, theme, fontScale = 2f) {
+                        LearnScreen(s, previewLesson = Learn.Lesson.FAJR, previewStep = index) {}
+                    }
+                    val cue = rule.onNodeWithText(actions[index].cue)
+                    cue.performScrollTo().assertIsDisplayed()
+                    noOverflow(cue)
+                    capture("lesson__${posture.name.lowercase()}__${theme.name.lowercase()}__tablet-portrait__200")
+                } finally { scenario.close() }
+            }
+        }
+    }
     @Test fun activeHadithStepStaysVisibleOnPhoneAtTwoHundredPercent() {
         for (theme in AppTheme.entries) {
             app.settings.update { settings(theme) }
