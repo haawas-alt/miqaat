@@ -54,7 +54,16 @@ abstract class ShotSupport {
         PrayerEngine.state(s, ZonedDateTime.of(2026, 9, 30, hour, minute, 0, 0, ZoneId.of("Australia/Sydney")))
     protected val actions = HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {})
 
+    /** The CI job asks for a rotation through the runner argument; the shell settings were not honoured on every emulator, so the test enforces it. */
+    private fun enforceRotation() {
+        val want = InstrumentationRegistry.getArguments().getString("rotation") ?: return
+        val inst = InstrumentationRegistry.getInstrumentation()
+        inst.uiAutomation.setRotation(if (want == "1") android.app.UiAutomation.ROTATION_FREEZE_90 else android.app.UiAutomation.ROTATION_FREEZE_0)
+        Thread.sleep(700)
+    }
+
     protected fun host(theme: AppTheme, fontScale: Float, rtl: Boolean, content: @Composable () -> Unit) {
+        enforceRotation()
         Str.apply(app, if (rtl) Language.UR else Language.EN)
         scenario = ActivityScenario.launch(ComponentActivity::class.java)
         scenario.onActivity { act ->

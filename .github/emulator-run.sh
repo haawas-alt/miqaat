@@ -15,7 +15,7 @@ setrot() {
 setrot
 adb shell wm size; adb shell wm density
 OUT=shots/"$NAME"; mkdir -p "$OUT"
-G="./gradlew --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true connectedGithubDebugAndroidTest"
+G="./gradlew --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true -Pandroid.testInstrumentationRunnerArguments.rotation=$ROT connectedGithubDebugAndroidTest"
 
 if [ "${NAME##*-}" = "a" ]; then
   # One gradle run per class so a slow or crashed emulator in one test cannot hide the others' results.
