@@ -55,9 +55,9 @@ class AdhkarEntryTest {
             val onScreen = nodes.any { n -> val b = n.boundsInRoot; b.width > 0 && b.height > 0 && b.left >= root.left - 1 && b.right <= root.right + 1 && b.top >= root.top - 1 && b.bottom <= root.bottom + 1 }
             if (!onScreen) failures += "${th.name} / $label: '$text' entry exists but is off screen"
         }
-        // Outside any window (Sunrise period) none of the prompts may appear.
+        // After Dhuhr has begun (12:30) neither the Morning nor the Evening prompt may appear (Morning runs from Fajr until Dhuhr).
         for (th in AppTheme.entries) {
-            theme = th; now = at(6, 30)
+            theme = th; now = at(12, 30)
             rule.waitForIdle()
             for (t in listOf("Morning adhk", "Evening adhk")) {
                 if (rule.onAllNodes(hasText(t, substring = true, ignoreCase = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()) failures += "${th.name}: '$t' shown outside its window"
