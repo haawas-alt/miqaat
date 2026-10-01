@@ -75,7 +75,7 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
         val bg = if (kiswah) ThemeTokenSets.kiswah.skyAzaan else when { isAzaan -> tk.skyAzaan; isIq -> tk.skyIqamah; else -> tk.skyDua }
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(bg))) {
             val artTheme = tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY
-            if (artTheme) ThemedArtwork(portrait, Modifier.fillMaxSize(), scrim = 0.72f)
+            if (artTheme) ThemedArtwork(portrait, Modifier.fillMaxSize(), scrim = if (tk.art == ArtStyle.GALLERY) 0.6f else 0.72f)
             else if (kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
             // Option A: a quiet status tag, top-left, instead of any system pop-up
             Row(Modifier.statusBarsPadding().padding(start = u * 3.6f, top = u * 2.6f), verticalAlignment = Alignment.CenterVertically) {
@@ -252,7 +252,11 @@ private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Uni
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(1000) } }
     @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
-    androidx.compose.foundation.layout.FlowRow(Modifier.fillMaxWidth().padding(horizontal = u * 3.6f, vertical = u * 2.6f), verticalArrangement = Arrangement.spacedBy(u * 1f), horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
+    androidx.compose.foundation.layout.FlowRow(
+        Modifier.fillMaxWidth().padding(horizontal = u * 3.6f, vertical = u * 2.6f).clip(RoundedCornerShape(u * 2)).background(tk.surface.copy(alpha = 0.72f))
+            .border(1.dp, tk.neutralStroke, RoundedCornerShape(u * 2)).padding(horizontal = u * 2.4f, vertical = u * 1.4f),
+        verticalArrangement = Arrangement.spacedBy(u * 1f), horizontalArrangement = Arrangement.spacedBy(u * 1.2f)
+    ) {
         // left: narration state
         Row(Modifier.weight(1f, fill = false), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
             val narrating = when (phase) { is Phase.Azaan -> true; is Phase.Dua, is Phase.Iftar -> true; is Phase.HadithPhase -> phase.narrating; is Phase.IqamahNow -> true; else -> false }
