@@ -148,7 +148,7 @@ private fun TopBar(c: LearnColors, title: String, onBack: () -> Unit, trailing: 
 @Composable
 private fun Library(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) -> Unit, onWords: () -> Unit, onMoves: () -> Unit, onBack: () -> Unit, onReset: () -> Unit) {
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize()) {
-        if (maxWidth >= 840.dp && maxWidth > maxHeight) LibraryWide(c, p, onLesson, onWords, onMoves, onBack, onReset)
+        if (maxWidth >= 840.dp && maxHeight >= 600.dp && maxWidth > maxHeight) LibraryWide(c, p, onLesson, onWords, onMoves, onBack, onReset)
         else LibraryNarrow(c, p, onLesson, onWords, onMoves, onBack, onReset)
     }
 }
@@ -158,29 +158,29 @@ private fun Library(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) 
 private fun LibraryWide(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) -> Unit, onWords: () -> Unit, onMoves: () -> Unit, onBack: () -> Unit, onReset: () -> Unit) {
     val tk = screenTokens()
     Box(Modifier.fillMaxSize()) {
-        if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedArtwork(false, Modifier.fillMaxSize(), scrim = 0.55f)
+        if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedArtwork(false, Modifier.fillMaxSize(), scrim = if (tk.art == ArtStyle.GALLERY) 0.75f else 0.55f)
         Column(Modifier.fillMaxSize()) {
             TopBar(c, Str[R.string.s_learn_salah], onBack)
             Row(Modifier.weight(1f).padding(horizontal = 32.dp), horizontalArrangement = Arrangement.spacedBy(32.dp)) {
                 Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(14.dp, Alignment.CenterVertically)) {
-                    Text("الصَّلَاة", fontFamily = c.arabic, fontSize = 72.sp, color = c.primary, modifier = Modifier.semantics { contentDescription = Str[R.string.s_as_salah_the_prayer] })
-                    Text(Str[R.string.s_one_common_form_of_the_prayer], fontFamily = Nunito, fontSize = 18.sp, lineHeight = 26.sp, color = c.text)
-                    if (p.lesson != null) LibraryCard(c, Str.get(R.string.s_continue_x, Str[p.lesson.titleRes]), Str.get(R.string.s_resume_at_step, p.index + 1, Learn.actions(p.lesson).size), primary = true) { onLesson(p.lesson) }
+                    Text("الصَّلَاة", fontFamily = c.arabic, fontSize = 88.sp, color = c.primary, modifier = Modifier.semantics { contentDescription = Str[R.string.s_as_salah_the_prayer] })
+                    Text(Str[R.string.s_one_common_form_of_the_prayer], fontFamily = Nunito, fontSize = 22.sp, lineHeight = 31.sp, color = c.text)
+                    if (p.lesson != null) LibraryCard(c, Str.get(R.string.s_continue_x, Str[p.lesson.titleRes]), Str.get(R.string.s_resume_at_step, p.index + 1, Learn.actions(p.lesson).size), primary = true, big = true) { onLesson(p.lesson) }
                 }
                 Column(Modifier.weight(1.15f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically)) {
-                    Text(Str[R.string.s_learn_a_complete_prayer], fontFamily = c.display, fontSize = 22.sp, color = c.text, modifier = Modifier.semantics { heading() })
+                    Text(Str[R.string.s_learn_a_complete_prayer], fontFamily = c.display, fontSize = 28.sp, color = c.text, modifier = Modifier.semantics { heading() })
                     Learn.Lesson.entries.forEach { l ->
                         val n = Learn.actions(l).size
                         val frac = when { l in p.completed -> 1f; l == p.lesson -> (p.index / n.toFloat()).coerceIn(0f, 1f); else -> 0f }
-                        LibraryCard(c, Str[l.titleRes], Str[l.subtitleRes] + " · " + Str.get(R.string.s_n_steps, n), done = l in p.completed, progress = frac) { onLesson(l) }
+                        LibraryCard(c, Str[l.titleRes], Str[l.subtitleRes] + " · " + Str.get(R.string.s_n_steps, n), done = l in p.completed, progress = frac, big = true) { onLesson(l) }
                     }
                 }
             }
             Column(Modifier.fillMaxWidth().background(c.surface.copy(alpha = 0.85f)).navigationBarsPadding().padding(horizontal = 32.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(Str[R.string.s_practise], fontFamily = c.display, fontSize = 20.sp, color = c.text, modifier = Modifier.semantics { heading() })
+                Text(Str[R.string.s_practise], fontFamily = c.display, fontSize = 24.sp, color = c.text, modifier = Modifier.semantics { heading() })
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    Box(Modifier.weight(1f)) { LibraryCard(c, Str[R.string.s_the_words], Str[R.string.s_the_twelve_texts_of_the_prayer], onClick = onWords) }
-                    Box(Modifier.weight(1f)) { LibraryCard(c, Str[R.string.s_the_movements], Str[R.string.s_six_positions_what_each_looks_like], onClick = onMoves) }
+                    Box(Modifier.weight(1f)) { LibraryCard(c, Str[R.string.s_the_words], Str[R.string.s_the_twelve_texts_of_the_prayer], big = true, onClick = onWords) }
+                    Box(Modifier.weight(1f)) { LibraryCard(c, Str[R.string.s_the_movements], Str[R.string.s_six_positions_what_each_looks_like], big = true, onClick = onMoves) }
                 }
             }
         }
@@ -211,7 +211,7 @@ private fun LibraryNarrow(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Le
 }
 
 @Composable
-private fun LibraryCard(c: LearnColors, title: String, subtitle: String, primary: Boolean = false, done: Boolean = false, progress: Float? = null, onClick: () -> Unit) {
+private fun LibraryCard(c: LearnColors, title: String, subtitle: String, primary: Boolean = false, done: Boolean = false, progress: Float? = null, big: Boolean = false, onClick: () -> Unit) {
     Row(
         Modifier.fillMaxWidth().heightIn(min = 64.dp).clip(RoundedCornerShape(16.dp)).background(if (primary) c.primary.copy(alpha = 0.16f) else c.surface)
             .border(1.dp, if (primary) c.primary.copy(alpha = 0.6f) else c.divider, RoundedCornerShape(16.dp))
@@ -219,8 +219,8 @@ private fun LibraryCard(c: LearnColors, title: String, subtitle: String, primary
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(Modifier.weight(1f)) {
-            Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.Bold, color = if (primary) c.primary else c.text)
-            Text(subtitle, fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary, lineHeight = 18.sp)
+            Text(title, fontFamily = Nunito, fontSize = if (big) 24.sp else 17.sp, fontWeight = FontWeight.Bold, color = if (primary) c.primary else c.text)
+            Text(subtitle, fontFamily = Nunito, fontSize = if (big) 17.sp else 13.sp, color = c.textSecondary, lineHeight = if (big) 23.sp else 18.sp)
             if (progress != null) Box(Modifier.padding(top = 8.dp).fillMaxWidth().height(6.dp).clip(RoundedCornerShape(50)).background(c.divider)) {
                 Box(Modifier.fillMaxWidth(progress.coerceIn(0.04f, 1f)).fillMaxHeight().clip(RoundedCornerShape(50)).background(c.primary))
             }
