@@ -95,7 +95,7 @@ jobs:
       fail-fast: false
       matrix:
         # A tablet's natural orientation is landscape, a phone's is portrait; rotation 1 flips either. Each device is split
-        # into three groups of tests so the matrix finishes inside the time box.
+        # into four groups of tests so the matrix finishes inside the time box.
         include:
           - { name: tablet-landscape, group: a, profile: pixel_tablet, rotation: 0, tests: 'homes,homesUrdu,states' }
           - { name: tablet-landscape, group: b, profile: pixel_tablet, rotation: 0, tests: 'settingsLanding,settingsCategories' }
@@ -161,7 +161,7 @@ jobs:
       - name: Publish to ci-screenshots
         run: |
           git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
-          EVIDENCE_BRANCH="ci-screenshots/run-${{ github.run_number }}-${GITHUB_SHA:0:12}"
+          EVIDENCE_BRANCH="ci-screenshots/run-${{ github.run_number }}-attempt-${{ github.run_attempt }}-${GITHUB_SHA:0:12}"
           git checkout --orphan "$EVIDENCE_BRANCH"
           git rm -rq --cached . || true
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} + || true

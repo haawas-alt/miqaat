@@ -108,6 +108,19 @@ class AuditLayoutRegressionTest : ComposeSupport() {
             } finally { scenario.close() }
         }
     }
+    @Test fun activeHadithStepStaysVisibleOnPhoneAtTwoHundredPercent() {
+        for (theme in AppTheme.entries) {
+            app.settings.update { settings(theme) }
+            try {
+                show(Dev.PHONE_PORTRAIT, theme, fontScale = 2f) {
+                    AzaanScreen(AzaanService.Phase.HadithPhase(Prayer.DHUHR, HadithLibrary.all.first(),
+                        System.currentTimeMillis(), System.currentTimeMillis() + 60_000, false), {}, {})
+                }
+                inside("flow-current-step")
+                capture("hadith__${theme.name.lowercase()}__phone-portrait__200__active-step")
+            } finally { scenario.close() }
+        }
+    }
     @Test fun qiblaInstructionsRemainReachableAtTwoHundredPercent() {
         for (theme in AppTheme.entries) {
             val s = settings(theme)

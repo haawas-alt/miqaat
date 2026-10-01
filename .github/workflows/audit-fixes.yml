@@ -22,7 +22,7 @@ jobs:
       - name: Screenshot integrity checker tests
         run: python tools/test_screenshot_inventory.py
       - name: Unit, layout regression, lint and compile both flavors and instrumented tests
-        run: ./gradlew --no-daemon testGithubDebugUnitTest lintGithubDebug assembleGithubDebug assemblePlayDebug assembleGithubDebugAndroidTest
+        run: ./gradlew --no-daemon --continue testGithubDebugUnitTest lintGithubDebug assembleGithubDebug assemblePlayDebug assembleGithubDebugAndroidTest
       - uses: actions/upload-artifact@v4
         if: always()
         with:

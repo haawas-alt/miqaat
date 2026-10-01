@@ -19,4 +19,7 @@
     <string name="s_english_translation">English translation</string>
     <string name="s_salam_right">1 · Turn right</string>
     <string name="s_salam_left">2 · Turn left</string>
+    <string name="s_hadith_after_prayer">A hadith after %1$s</string>
+    <string name="s_narrated_by">Narrated by %1$s</string>
+    <string name="s_english_text">English text</string>
 </resources>

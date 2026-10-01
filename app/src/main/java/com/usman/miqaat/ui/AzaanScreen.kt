@@ -150,11 +150,16 @@ private fun StepsBar(phase: Phase, u: Dp) {
         !after -> listOf(Str[R.string.s_step_azaan], Str[R.string.s_step_home])
         else -> listOf(Str[R.string.s_step_azaan], Str[R.string.s_dua_after_azaan], Str[R.string.s_step_hadith], Str[R.string.s_step_home])
     }
+    // Keep the active step visible when accessibility text requires horizontal scrolling.
+    val scroll = rememberScrollState()
+    val density = androidx.compose.ui.platform.LocalDensity.current
+    val stepWidth = maxOf(96.dp * density.fontScale, u * 9)
+    LaunchedEffect(idx, stepWidth) { scroll.scrollTo(with(density) { stepWidth.roundToPx() } * idx) }
     // Step line like the approved mockups: a dot per step joined by a line, label underneath.
-    Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(vertical = 8.dp).testTag("flow-steps"), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.Top) {
+    Row(Modifier.fillMaxWidth().horizontalScroll(scroll).padding(vertical = 8.dp).testTag("flow-steps"), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.Top) {
         labels.forEachIndexed { i, l ->
             val done = i < idx; val cur = i == idx
-            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(maxOf(96.dp * androidx.compose.ui.platform.LocalDensity.current.fontScale, u * 9))) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(stepWidth).then(if (cur) Modifier.testTag("flow-current-step") else Modifier)) {
                 Box(Modifier.size(u * 1.9f).clip(CircleShape).background(if (cur) tk.primary else if (done) tk.success else Color.Transparent)
                     .border(2.dp, if (cur) tk.primary else if (done) tk.success else tk.neutralStroke, CircleShape), contentAlignment = Alignment.Center) {
                     if (done) Text("✓", fontSize = (u.value * 1.2f).sp, color = tk.onPrimary, fontWeight = FontWeight.Bold)
@@ -261,11 +266,12 @@ private fun QuietBody(p: Phase.Quiet, u: Dp, onStop: () -> Unit) {
 private fun HadithBody(p: Phase.HadithPhase, u: Dp) {
     val tk = screenTokens()
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Kicker("A hadith after ${p.prayer.english} · ${p.hadith.source}", u)
+        Kicker(Str.get(R.string.s_hadith_after_prayer, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, p.prayer)) + " · " + p.hadith.source, u)
         val long = p.hadith.arabic.length > 110
         Arabic("قَالَ رَسُولُ اللَّهِ ﷺ: " + p.hadith.arabic, u, size = if (long) 3.3f else 4f)
+        if (L10n.uiUrdu) Text(Str[R.string.s_english_translation], fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary)
         Translation("The Messenger of Allah ﷺ said: “${p.hadith.english}”", u, size = if (p.hadith.english.length > 160) 2f else 2.35f)
-        Source("Narrated by ${p.hadith.narrator}  ·  ${p.hadith.source}", u)
+        Source(Str.get(R.string.s_narrated_by, p.hadith.narrator) + "  ·  " + p.hadith.source, u)
     }
 }
 

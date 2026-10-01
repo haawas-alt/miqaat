@@ -19,4 +19,7 @@
     <string name="s_english_translation">انگریزی ترجمہ</string>
     <string name="s_salam_right">۱؛ دائیں طرف سلام</string>
     <string name="s_salam_left">۲؛ بائیں طرف سلام</string>
+    <string name="s_hadith_after_prayer">%1$s کے بعد حدیث</string>
+    <string name="s_narrated_by">راوی: %1$s</string>
+    <string name="s_english_text">انگریزی متن</string>
 </resources>

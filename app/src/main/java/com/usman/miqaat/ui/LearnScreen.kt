@@ -511,7 +511,12 @@ private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifie
             Text(Str[R.string.s_note_schools_and_source], fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = c.text, modifier = Modifier.weight(1f))
             Icon(Icons.Outlined.ExpandMore, null, tint = c.textSecondary)
         }
-        AnimatedVisibility(showNote) { Text(step.note, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 19.sp, color = c.textSecondary) }
+        AnimatedVisibility(showNote) {
+            Column {
+                if (L10n.uiUrdu) Text(Str[R.string.s_english_text], fontFamily = Nunito, fontSize = 12.sp, color = c.textSecondary)
+                Text(step.note, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 19.sp, color = c.textSecondary)
+            }
+        }
     }
 }
 
