@@ -248,17 +248,17 @@ private fun LessonView(c: LearnColors, lesson: Learn.Lesson, startAt: Int, onExi
     val where = Str.get(R.string.s_lesson_where, Str[lesson.titleRes], a.rakah, lesson.rakat, rakahPos, rakahSteps, if (L10n.uiUrdu) UrduContent.position(a.step) else a.step.position)
 
     BoxWithConstraints(Modifier.fillMaxSize()) {
-        val wide = maxWidth > 720.dp && maxWidth > maxHeight && maxHeight >= 500.dp
+        val wide = maxWidth > 720.dp && maxWidth > maxHeight && maxHeight >= 500.dp && androidx.compose.ui.platform.LocalDensity.current.fontScale <= 1.15f
         val postureHeight = (if (maxWidth >= 600.dp) 380.dp else 280.dp) * androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceAtLeast(1f)
         Column(Modifier.fillMaxSize()) {
             TopBar(c, Str[lesson.titleRes], onExit) { Text("${i + 1} / ${actions.size}", fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary) }
             RakahMap(c, lesson, actions, i, Modifier.padding(horizontal = 20.dp).semantics { contentDescription = where; liveRegion = LiveRegionMode.Polite })
-            val figure: @Composable (Modifier) -> Unit = { m -> PostureCard(c, a.posture, if (L10n.uiUrdu) UrduContent.cue(a) else a.cue, m) }
+            val figure: @Composable (Modifier) -> Unit = { m -> PostureCard(c, a.posture, if (L10n.uiUrdu) UrduContent.cue(a) else a.cue, m, reflow = !wide) }
             val words: @Composable (Modifier) -> Unit = { m -> WordsCard(c, a.step, audio, m) }
             if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
                 figure(Modifier.weight(0.42f).fillMaxHeight()); words(Modifier.weight(0.58f).fillMaxHeight().verticalScroll(rememberScrollState()))
             } else Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                figure(Modifier.fillMaxWidth().height(postureHeight)); words(Modifier.fillMaxWidth())
+                figure(Modifier.fillMaxWidth().heightIn(min = postureHeight)); words(Modifier.fillMaxWidth())
             }
             BottomBar(c, canBack = i > 0, last = i == actions.lastIndex, nextLabel = if (i < actions.lastIndex) Str.get(R.string.s_continue_x, if (L10n.uiUrdu) UrduContent.position(actions[i + 1].step) else actions[i + 1].step.position) else Str[R.string.s_finish_well_done],
                 onBack = { audio.stop(); i-- }, onNext = { audio.stop(); if (i < actions.lastIndex) i++ else onDone() })
@@ -287,22 +287,23 @@ private fun RakahMap(c: LearnColors, lesson: Learn.Lesson, actions: List<Learn.A
 }
 
 @Composable
-private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, modifier: Modifier) {
+private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, modifier: Modifier, reflow: Boolean = false) {
     val tk = screenTokens()
     val shape = RoundedCornerShape(20.dp)
-    Box(modifier.clip(shape).background(c.surface).border(1.dp, c.divider, shape)) {
+    BoxWithConstraints(modifier.clip(shape).background(c.surface).border(1.dp, c.divider, shape)) {
+        val figureHeight = (if (maxWidth >= 600.dp) 320.dp else 220.dp) * androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceAtLeast(1f)
         // The approved Celestial lesson sets the figure against the sunrise scene.
         if (tk.art == ArtStyle.CELESTIAL) {
             androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.art_celestial_landscape_v2), null, Modifier.matchParentSize().clearAndSetSemantics { }, contentScale = androidx.compose.ui.layout.ContentScale.Crop, alignment = Alignment.BottomCenter)
             Box(Modifier.matchParentSize().background(Brush.verticalGradient(listOf(c.surface.copy(alpha = 0.15f), c.surface.copy(alpha = 0.55f)))))
         }
-        Column(Modifier.fillMaxSize().padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+        Column((if (reflow) Modifier.fillMaxWidth() else Modifier.fillMaxSize()).padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Box(if (reflow) Modifier.fillMaxWidth().height(figureHeight) else Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 if (!c.kiswah) MihrabArch(Modifier.fillMaxHeight().aspectRatio(0.9f), color = c.primary.copy(alpha = 0.35f))
                 Figure(posture, c.primary, Modifier.fillMaxHeight(0.8f).aspectRatio(1f).semantics { contentDescription = if (L10n.uiUrdu) UrduContent.postureLabels[posture.ordinal] + ": " + UrduContent.postureDescriptions[posture.ordinal] else "${posture.label}: ${posture.describe}" })
             }
             Text(if (L10n.uiUrdu) UrduContent.postureLabels[posture.ordinal] else if (c.kiswah) posture.label.uppercase() else posture.label, fontFamily = c.display, fontSize = if (c.kiswah) 12.sp else 20.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp))
-            Text(cue, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 18.sp, color = c.textSecondary, textAlign = TextAlign.Center)
+            Text(cue, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 18.sp, color = c.textSecondary, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
         }
     }
 }

@@ -57,7 +57,7 @@ class AuditLayoutRegressionTest : ComposeSupport() {
         val results = mutableListOf<TextLayoutResult>()
         node.fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(results)
         assertTrue("Missing text layout", results.isNotEmpty())
-        results.forEach { assertFalse("Text clipped: ${it.layoutInput.text}", it.didOverflowWidth || it.didOverflowHeight) }
+        results.forEach { assertFalse("Text clipped: ${it.layoutInput.text}; size=${it.size}; constraints=${it.layoutInput.constraints}; widthOverflow=${it.didOverflowWidth}; heightOverflow=${it.didOverflowHeight}", it.didOverflowWidth || it.didOverflowHeight) }
     }
     @Test fun allEightPosturesHaveDistinctArtworkWithoutLabels() {
         val hashes = mutableSetOf<Int>()
@@ -137,8 +137,8 @@ class AuditLayoutRegressionTest : ComposeSupport() {
                     }
                     val cue = rule.onNodeWithText(actions[index].cue)
                     cue.performScrollTo().assertIsDisplayed()
-                    noOverflow(cue)
                     capture("lesson__${posture.name.lowercase()}__${theme.name.lowercase()}__tablet-portrait__200")
+                    noOverflow(cue)
                 } finally { scenario.close() }
             }
         }
