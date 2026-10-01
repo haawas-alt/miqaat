@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.usman.miqaat.ui.SettingsStateTest" tests="5" failures="0" errors="0" skipped="1" time="15.359" timestamp="2026-10-01T05:24:57" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 14" />
+    <property name="flavor" value="github" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="selectedCategoryAndItsOwnScrollSurviveRecreation" classname="com.usman.miqaat.ui.SettingsStateTest" time="4.446" />
+  <testcase name="phoneDetailStartsAtTopAndBackShowsLanding" classname="com.usman.miqaat.ui.SettingsStateTest" time="1.669">
+    <skipped />
+  </testcase>
+  <testcase name="displayAndArtOpensAtTopWithContentImmediately" classname="com.usman.miqaat.ui.SettingsStateTest" time="2.779" />
+  <testcase name="switchingFromScrolledCategoryShowsOnlyTheNewCategoryAtTop" classname="com.usman.miqaat.ui.SettingsStateTest" time="3.186" />
+  <testcase name="readinessLabelsNeverBreakMidWord" classname="com.usman.miqaat.ui.SettingsStateTest" time="2.105" />
+</testsuite>

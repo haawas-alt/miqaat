@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.usman.miqaat.ui.HomeLargeTextTest" tests="1" failures="0" errors="0" skipped="0" time="8.032" timestamp="2026-10-01T05:27:51" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 14" />
+    <property name="flavor" value="github" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="prayerNamesGrowWithTheSystemFontSize" classname="com.usman.miqaat.ui.HomeLargeTextTest" time="7.441" />
+</testsuite>

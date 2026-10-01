@@ -1,0 +1,77 @@
+# proto-message: google.testing.platform.proto.api.core.TestSuiteResult
+# 2026-10-01T05:28:04.204807106Z:
+test_suite_meta_data {
+  scheduled_test_case_count: 1
+  device {
+    id: "emulator-5554"
+    friendly_name: "primary"
+  }
+}
+test_status: PASSED
+test_result {
+  test_case {
+    test_class: "AdhkarEntryTest"
+    test_package: "com.usman.miqaat.ui"
+    test_method: "entriesAreOnScreenInTheirWindowsForEveryTheme"
+    start_time {
+      seconds: 1790832471
+      nanos: 670000000
+    }
+    end_time {
+      seconds: 1790832483
+      nanos: 458000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/logcat-com.usman.miqaat.ui.AdhkarEntryTest-entriesAreOnScreenInTheirWindowsForEveryTheme.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/cpuinfo"
+    }
+  }
+}
+output_artifact {
+  label {
+    label: "test-results.log"
+    namespace: "com.google.testing.platform.runtime.android.driver.AndroidInstrumentationDriver"
+  }
+  source_path {
+    path: "/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/testlog/test-results.log"
+  }
+  type: TEST_DATA
+  mime_type: "text/plain"
+}

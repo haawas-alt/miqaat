@@ -1,0 +1,113 @@
+10-01 05:26:13.451  6519  6538 I TestRunner: started: prayerNamesGrowWithTheSystemFontSize(com.usman.miqaat.ui.HomeLargeTextTest)
+10-01 05:26:13.473   846   846 D TileServices: Couldn't find tile for ComponentInfo{com.google.android.apps.wellbeing/com.google.android.apps.wellbeing.screen.ui.GrayscaleTileService}(0)
+10-01 05:26:13.503  6519  6538 W FileTestStorage: Output properties is not supported.
+10-01 05:26:13.504  6519  6538 I Tracing : Tracer added: class androidx.test.platform.tracing.AndroidXTracer
+10-01 05:26:13.509  6519  6519 D EventInjectionStrategy: Creating injection strategy with input manager.
+10-01 05:26:13.509  6519  6519 W om.usman.miqaat: Accessing hidden method Landroid/hardware/input/InputManager;->getInstance()Landroid/hardware/input/InputManager; (unsupported, reflection, allowed)
+10-01 05:26:13.511  6519  6519 W om.usman.miqaat: Accessing hidden method Landroid/hardware/input/InputManager;->injectInputEvent(Landroid/view/InputEvent;I)Z (unsupported, reflection, allowed)
+10-01 05:26:13.511  6519  6519 W om.usman.miqaat: Accessing hidden field Landroid/hardware/input/InputManager;->INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH:I (unsupported, reflection, allowed)
+10-01 05:26:13.517  6519  6519 W om.usman.miqaat: Accessing hidden method Landroid/os/MessageQueue;->next()Landroid/os/Message; (unsupported, reflection, allowed)
+10-01 05:26:13.517  6519  6519 W om.usman.miqaat: Accessing hidden field Landroid/os/MessageQueue;->mMessages:Landroid/os/Message; (unsupported, reflection, allowed)
+10-01 05:26:13.517  6519  6519 W om.usman.miqaat: Accessing hidden method Landroid/os/Message;->recycleUnchecked()V (unsupported, reflection, allowed)
+10-01 05:26:13.518  6519  6538 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@ff26e5c]
+10-01 05:26:13.537  6519  6538 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-01 05:26:13.550   846   898 D SplashScreenView: Build android.window.SplashScreenView{b92c7f V.E...... ......ID 0,0-0,0}
+10-01 05:26:13.550   846   898 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-01 05:26:13.550   846   898 D SplashScreenView: Branding: view: android.view.View{3a0d44c G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-01 05:26:13.564  1608  1629 I AiAiEcho: Settings changed for uri: content://settings/secure/device_state_rotation_lock
+10-01 05:26:13.566  1608  1922 I AiAiEcho: Predicting[0]:
+10-01 05:26:13.566  1608  1922 I AiAiEcho: EchoTargets:
+10-01 05:26:13.566  1608  1922 I AiAiEcho: Filtered by AiAi flag check:
+10-01 05:26:13.567  1608  1922 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-01 05:26:13.568  1608  1922 I AiAiEcho: Predicting[0]:
+10-01 05:26:13.568  1608  1922 I AiAiEcho: EchoTargets:
+10-01 05:26:13.568  1608  1922 I AiAiEcho: Filtered by AiAi flag check:
+10-01 05:26:13.568  1608  1922 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-01 05:26:13.568  1608  1922 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-01 05:26:13.568  1608  1922 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0 (types=[])
+10-01 05:26:13.569   846   846 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+10-01 05:26:13.571  6519  6547 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+10-01 05:26:13.572  6519  6547 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+10-01 05:26:13.573   400   400 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:13.576  6519  6547 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+10-01 05:26:13.643  6519  6519 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@5d638db in: PRE_ON_CREATE
+10-01 05:26:13.644  6519  6519 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-01 05:26:13.668  6519  6519 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@5d638db in: CREATED
+10-01 05:26:13.669  6519  6519 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@5d638db
+10-01 05:26:13.670  6519  6519 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@5d638db in: STARTED
+10-01 05:26:13.670  6519  6519 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@5d638db
+10-01 05:26:13.682  6519  6519 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@5d638db in: RESUMED
+10-01 05:26:13.683  6519  6519 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@5d638db
+10-01 05:26:13.685  6519  6519 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10192; state: DISABLED
+10-01 05:26:13.686  6519  6519 W OpenGLRenderer: Unknown dataspace 0
+10-01 05:26:13.834  6519  6546 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-01 05:26:13.902   522  6550 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-01 05:26:13.992   136   136 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+10-01 05:26:13.994  6519  6546 I Gralloc4: mapper 4.x is not supported
+10-01 05:26:14.112   522   540 W ziparchive: Unable to open '/data/app/~~SetTgzA4cN3bu3eYtbAK5Q==/com.usman.miqaat-as24XeEYbqK1zejxCem9oQ==/base.dm': No such file or directory
+10-01 05:26:14.114   522   540 I ActivityTaskManager: Displayed com.usman.miqaat/androidx.activity.ComponentActivity for user 0: +568ms
+10-01 05:26:14.134  1093  1139 I ImeTracker: com.google.android.apps.nexuslauncher:90e7c91e: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-01 05:26:14.134   522  2129 I ImeTracker: com.google.android.apps.nexuslauncher:90e7c91e: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-01 05:26:14.140  1093  2279 D OneSearchSuggestProvider: Shut down the binder channel
+10-01 05:26:14.140  1093  2878 I IPCThreadState: oneway function results for code 2 on binder at 0x7ce777ae63d0 will be dropped but finished with status UNKNOWN_TRANSACTION
+10-01 05:26:14.144  1710  2563 W SearchServiceCore: Abort, client detached.
+10-01 05:26:14.155  1032  1316 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:14.159  1032  1316 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:14.160  1710  2694 I PBSessionCacheImpl: Deleted sessionId[7522450366127822] from persistence.
+10-01 05:26:14.173   846   895 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@cbe119b
+10-01 05:26:14.174   522  1203 W InputManager-JNI: Input channel object '3245b9c Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-01 05:26:14.637  1032  1316 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:14.637  1032  1316 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:14.641  5386  5573 I FontLog : Received query Noto Color Emoji Compat, URI content://com.google.android.gms.fonts [CONTEXT service_id=132 ]
+10-01 05:26:14.641  5386  5573 I FontLog : Query [emojicompat-emoji-font] resolved to {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-01 05:26:14.641  5386  5573 I FontLog : Fetch {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false} end status Status{statusCode=SUCCESS, resolution=null} [CONTEXT service_id=132 ]
+10-01 05:26:14.651  5386  5573 I FontLog : Pulling font file for id = 4, cache size = 4 [CONTEXT service_id=132 ]
+10-01 05:26:14.654  5386  5573 I FontLog : Pulling font file for id = 4, cache size = 4 [CONTEXT service_id=132 ]
+10-01 05:26:14.957   832   832 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-01 05:26:16.485  6519  6555 I OpenGLRenderer: Davey! duration=2284ms; Flags=0, FrameTimelineVsyncId=10562, IntendedVsync=270312894904, Vsync=270462894898, InputEventId=0, HandleInputStart=270475608716, AnimationStart=270475610919, PerformTraversalsStart=270475612091, DrawStart=270671536132, FrameDeadline=270329561570, FrameInterval=270475360768, FrameStartTime=16666666, SyncQueued=270757794426, SyncStart=270757842908, IssueDrawCommandsStart=270757922526, SwapBuffers=272519592778, FrameCompleted=272597564486, DequeueBufferDuration=2815, QueueBufferDuration=174399, GpuCompleted=272597564486, SwapBuffersCompleted=272587425752, DisplayPresentTime=0, CommandSubmissionCompleted=272519592778,
+10-01 05:26:17.325  5443  5443 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.constellation.service.START pkg=com.google.android.gms }
+10-01 05:26:17.560  6519  6546 D EGL_emulation: app_time_stats: avg=383.72ms min=47.16ms max=2345.21ms count=9
+10-01 05:26:17.912   846   898 D SplashScreenView: Build android.window.SplashScreenView{cc6d65f V.E...... ......ID 0,0-0,0}
+10-01 05:26:17.912   846   898 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-01 05:26:17.912   846   898 D SplashScreenView: Branding: view: android.view.View{27468ac G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-01 05:26:17.918  6519  6519 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@5d638db in: PAUSED
+10-01 05:26:17.918  6519  6519 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@5d638db
+10-01 05:26:17.925   400   400 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:17.952   336   336 D Zygote  : Forked child process 6559
+10-01 05:26:17.962  6559  6559 I man.miqaat.test: Late-enabling -Xcheck:jni
+10-01 05:26:17.973  6559  6559 I man.miqaat.test: Using CollectorTypeCC GC.
+10-01 05:26:17.974  6559  6559 W man.miqaat.test: Unexpected CPU variant for x86: x86_64.
+10-01 05:26:17.974  6559  6559 W man.miqaat.test: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-01 05:26:18.035   416   431 I adbd    : jdwp connection from 6559
+10-01 05:26:18.053  6559  6559 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10193; state: ENABLED
+10-01 05:26:18.053  6559  6559 D CompatibilityChangeReporter: Compat change id reported: 242716250; UID 10193; state: ENABLED
+10-01 05:26:18.096  6559  6559 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+10-01 05:26:18.101  6559  6559 D nativeloader: Configuring clns-6 for other apk /system/framework/android.test.mock.jar. target_sdk_version=36, uses_libraries=ALL, library_path=/data/app/~~Wg1RcubLLxGic4R6EGtFhQ==/com.usman.miqaat.test-AePqad_JUexYiEnjvoiArA==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.usman.miqaat.test
+10-01 05:26:18.108  6559  6559 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+10-01 05:26:18.111  6559  6559 D nativeloader: Configuring clns-7 for other apk /system/framework/android.test.runner.jar. target_sdk_version=36, uses_libraries=ALL, library_path=/data/app/~~Wg1RcubLLxGic4R6EGtFhQ==/com.usman.miqaat.test-AePqad_JUexYiEnjvoiArA==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.usman.miqaat.test
+10-01 05:26:18.114  6559  6559 W ziparchive: Unable to open '/data/app/~~Wg1RcubLLxGic4R6EGtFhQ==/com.usman.miqaat.test-AePqad_JUexYiEnjvoiArA==/base.dm': No such file or directory
+10-01 05:26:18.115  6559  6559 W ziparchive: Unable to open '/data/app/~~Wg1RcubLLxGic4R6EGtFhQ==/com.usman.miqaat.test-AePqad_JUexYiEnjvoiArA==/base.dm': No such file or directory
+10-01 05:26:18.149  6559  6559 D nativeloader: Configuring clns-8 for other apk /data/app/~~Wg1RcubLLxGic4R6EGtFhQ==/com.usman.miqaat.test-AePqad_JUexYiEnjvoiArA==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~Wg1RcubLLxGic4R6EGtFhQ==/com.usman.miqaat.test-AePqad_JUexYiEnjvoiArA==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.usman.miqaat.test
+10-01 05:26:18.171  6559  6559 V GraphicsEnvironment: Currently set values for:
+10-01 05:26:18.172  6559  6559 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+10-01 05:26:18.172  6559  6559 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+10-01 05:26:18.172  6559  6559 V GraphicsEnvironment: ANGLE GameManagerService for com.usman.miqaat.test: false
+10-01 05:26:18.172  6559  6559 V GraphicsEnvironment: com.usman.miqaat.test is not listed in per-application setting
+10-01 05:26:18.172  6559  6559 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+10-01 05:26:18.187  6559  6578 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+10-01 05:26:18.195  6559  6578 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+10-01 05:26:18.198  6559  6578 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+10-01 05:26:18.225  6519  6519 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@5d638db in: STOPPED
+10-01 05:26:18.226  6519  6519 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@5d638db
+10-01 05:26:18.231  1032  1316 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:18.231  1032  1316 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:18.236  6559  6559 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10193; state: DISABLED
+10-01 05:26:18.240  6559  6559 W OpenGLRenderer: Unknown dataspace 0
+10-01 05:26:18.253  6519  6519 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@5d638db in: DESTROYED
+10-01 05:26:18.256  6519  6519 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-01 05:26:18.257  6519  6519 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@6bd71c
+10-01 05:26:18.273   400   400 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:18.285   522  2129 W InputManager-JNI: Input channel object '2753e91 com.usman.miqaat/androidx.activity.ComponentActivity (client)' was disposed without first being removed with the input manager!
+10-01 05:26:18.334  6559  6576 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-01 05:26:18.345  6519  6538 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@ff26e5c]
+10-01 05:26:18.386  6519  6538 I TestRunner: finished: prayerNamesGrowWithTheSystemFontSize(com.usman.miqaat.ui.HomeLargeTextTest)

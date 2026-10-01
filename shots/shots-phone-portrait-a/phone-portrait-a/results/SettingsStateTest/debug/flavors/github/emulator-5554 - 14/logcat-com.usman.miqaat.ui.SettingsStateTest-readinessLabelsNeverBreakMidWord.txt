@@ -1,0 +1,57 @@
+10-01 05:25:42.209  6169  6189 I TestRunner: started: readinessLabelsNeverBreakMidWord(com.usman.miqaat.ui.SettingsStateTest)
+10-01 05:25:42.212  6169  6189 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@622382f]
+10-01 05:25:42.219  6169  6189 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-01 05:25:42.274   846   898 D SplashScreenView: Build android.window.SplashScreenView{803e0c5 V.E...... ......ID 0,0-0,0}
+10-01 05:25:42.274   846   898 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-01 05:25:42.274   846   898 D SplashScreenView: Branding: view: android.view.View{580ea1a G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-01 05:25:42.283   400   400 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:25:42.390  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@a1f55c3 in: PRE_ON_CREATE
+10-01 05:25:42.390  6169  6169 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-01 05:25:42.396  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@a1f55c3 in: CREATED
+10-01 05:25:42.399  6169  6169 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@a1f55c3
+10-01 05:25:42.401  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@a1f55c3 in: STARTED
+10-01 05:25:42.401  6169  6169 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@a1f55c3
+10-01 05:25:42.402  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@a1f55c3 in: RESUMED
+10-01 05:25:42.403  6169  6169 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@a1f55c3
+10-01 05:25:42.430   846   846 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-01 05:25:42.599   522   540 W ziparchive: Unable to open '/data/app/~~4kewmCiK8u2rCV3vl1aZJA==/com.usman.miqaat-TgjIX_-ttUi1-UhV7GRlWg==/base.dm': No such file or directory
+10-01 05:25:42.600   522   540 I ActivityTaskManager: Displayed com.usman.miqaat/androidx.activity.ComponentActivity for user 0: +372ms
+10-01 05:25:42.665  1032  1316 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:25:42.665  1032  1316 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:25:42.671  1093  2279 D OneSearchSuggestProvider: Shut down the binder channel
+10-01 05:25:42.672   846   895 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@5c6c441
+10-01 05:25:42.685  1093  1139 I ImeTracker: com.google.android.apps.nexuslauncher:9ff503fc: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-01 05:25:42.685   522  1708 I ImeTracker: com.google.android.apps.nexuslauncher:9ff503fc: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-01 05:25:42.702  1093  2878 I IPCThreadState: oneway function results for code 2 on binder at 0x7ce777aca470 will be dropped but finished with status UNKNOWN_TRANSACTION
+10-01 05:25:42.702   522  2363 W InputManager-JNI: Input channel object '1cb79e6 Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-01 05:25:42.762  6169  6169 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-01 05:25:42.790  1710  2694 I PBSessionCacheImpl: Deleted sessionId[7522450366127821] from persistence.
+10-01 05:25:42.799  1710  2563 W SearchServiceCore: Abort, client detached.
+10-01 05:25:42.958   832   832 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-01 05:25:43.699   846   898 D SplashScreenView: Build android.window.SplashScreenView{8fc8c22 V.E...... ......ID 0,0-0,0}
+10-01 05:25:43.699   846   898 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-01 05:25:43.699   846   898 D SplashScreenView: Branding: view: android.view.View{a8636b3 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-01 05:25:43.702  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@a1f55c3 in: PAUSED
+10-01 05:25:43.702  6169  6169 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@a1f55c3
+10-01 05:25:43.706   400   400 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:25:43.843  6209  6230 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-01 05:25:43.939  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@a1f55c3 in: STOPPED
+10-01 05:25:43.940  6169  6169 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@a1f55c3
+10-01 05:25:43.969  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@a1f55c3 in: DESTROYED
+10-01 05:25:43.970  6169  6169 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-01 05:25:43.971  6169  6169 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@5d02ca5
+10-01 05:25:43.971  1093  1113 I s.nexuslauncher: NativeAlloc concurrent copying GC freed 25681(2915KB) AllocSpace objects, 2(32KB) LOS objects, 49% free, 6350KB/12MB, paused 18us,18us total 199.679ms
+10-01 05:25:43.974  1093  1115 W System  : A resource failed to call release.
+10-01 05:25:43.974  1093  1115 W System  : A resource failed to call release.
+10-01 05:25:43.974  1093  1115 W System  : A resource failed to call release.
+10-01 05:25:43.974  1093  1115 W System  : A resource failed to call release.
+10-01 05:25:43.974  1093  1115 W System  : A resource failed to call release.
+10-01 05:25:43.974  1093  1115 W System  : A resource failed to call release.
+10-01 05:25:43.974  1093  1115 W System  : A resource failed to call release.
+10-01 05:25:43.974  1093  1115 W System  : A resource failed to call release.
+10-01 05:25:43.974  1093  1115 W System  : A resource failed to call release.
+10-01 05:25:44.075   522  2824 W InputManager-JNI: Input channel object 'eca5679 com.usman.miqaat/androidx.activity.ComponentActivity (client)' was disposed without first being removed with the input manager!
+10-01 05:25:44.097   522   540 W ziparchive: Unable to open '/data/app/~~K4EXQs8lmxdCMq1huneBUA==/com.usman.miqaat.test-o2rNWDj1PvDxFyrQQQUAHg==/base.dm': No such file or directory
+10-01 05:25:44.100  6169  6189 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@622382f]
+10-01 05:25:44.101   522   540 I ActivityTaskManager: Displayed com.usman.miqaat.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity for user 0: +402ms
+10-01 05:25:44.118  6169  6189 I TestRunner: finished: readinessLabelsNeverBreakMidWord(com.usman.miqaat.ui.SettingsStateTest)

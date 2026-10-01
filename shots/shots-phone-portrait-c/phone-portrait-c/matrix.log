@@ -1,0 +1,130 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :app
+Passing custom test runner argument android.testInstrumentationRunnerArguments.orientation from gradle.properties or command line is not compatible with configuration caching. Please specify this argument using android gradle dsl.
+
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preGithubDebugBuild UP-TO-DATE
+> Task :app:generateGithubDebugBuildConfig
+> Task :app:generateGithubDebugResValues FROM-CACHE
+> Task :app:checkGithubDebugAarMetadata
+> Task :app:mapGithubDebugSourceSetPaths
+> Task :app:generateGithubDebugResources
+> Task :app:packageGithubDebugResources
+> Task :app:mergeGithubDebugResources
+> Task :app:createGithubDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksGithubDebug FROM-CACHE
+> Task :app:parseGithubDebugLocalResources
+> Task :app:processGithubDebugMainManifest
+> Task :app:processGithubDebugManifest
+> Task :app:javaPreCompileGithubDebug FROM-CACHE
+> Task :app:preGithubDebugAndroidTestBuild SKIPPED
+> Task :app:processGithubDebugAndroidTestManifest
+> Task :app:generateGithubDebugAndroidTestBuildConfig
+> Task :app:checkGithubDebugAndroidTestAarMetadata
+> Task :app:generateGithubDebugAndroidTestResValues FROM-CACHE
+> Task :app:mapGithubDebugAndroidTestSourceSetPaths
+> Task :app:generateGithubDebugAndroidTestResources
+> Task :app:javaPreCompileGithubDebugAndroidTest FROM-CACHE
+> Task :app:mergeGithubDebugShaders
+> Task :app:processGithubDebugManifestForPackage
+> Task :app:mergeGithubDebugAndroidTestResources
+> Task :app:compileGithubDebugShaders NO-SOURCE
+> Task :app:generateGithubDebugAssets UP-TO-DATE
+> Task :app:mergeGithubDebugAssets
+> Task :app:compressGithubDebugAssets
+> Task :app:processGithubDebugAndroidTestResources
+> Task :app:desugarGithubDebugFileDependencies
+> Task :app:mergeGithubDebugJniLibFolders
+> Task :app:checkGithubDebugDuplicateClasses
+> Task :app:mergeGithubDebugNativeLibs
+> Task :app:processGithubDebugResources
+> Task :app:mergeExtDexGithubDebug
+> Task :app:mergeLibDexGithubDebug
+> Task :app:validateSigningGithubDebug
+> Task :app:writeGithubDebugAppMetadata
+> Task :app:writeGithubDebugSigningConfigVersions
+
+> Task :app:stripGithubDebugDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so. Run with --info option to learn more.
+
+> Task :app:mergeGithubDebugAndroidTestShaders
+> Task :app:compileGithubDebugAndroidTestShaders NO-SOURCE
+> Task :app:generateGithubDebugAndroidTestAssets UP-TO-DATE
+> Task :app:mergeGithubDebugAndroidTestAssets
+> Task :app:compressGithubDebugAndroidTestAssets FROM-CACHE
+> Task :app:checkGithubDebugAndroidTestDuplicateClasses
+> Task :app:desugarGithubDebugAndroidTestFileDependencies FROM-CACHE
+
+> Task :app:compileGithubDebugKotlin
+e: The daemon has terminated unexpectedly on startup attempt #1 with error code: 0. The daemon process output:
+    1. Kotlin compile daemon is ready
+
+> Task :app:mergeLibDexGithubDebugAndroidTest FROM-CACHE
+> Task :app:mergeGithubDebugAndroidTestJniLibFolders
+> Task :app:mergeGithubDebugAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripGithubDebugAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningGithubDebugAndroidTest
+> Task :app:writeGithubDebugAndroidTestSigningConfigVersions
+> Task :app:mergeExtDexGithubDebugAndroidTest
+
+> Task :app:compileGithubDebugKotlin
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:67:53 'constructor(p0: String!): Locale' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:222:26 'constructor(p0: String!): Locale' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/AccessibleHome.kt:78:59 'val Icons.Outlined.MenuBook: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.MenuBook.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/CelestialHome.kt:135:54 'val Icons.Outlined.MenuBook: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.MenuBook.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/GalleryHome.kt:132:51 'val Icons.Outlined.MenuBook: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.MenuBook.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/GalleryHome.kt:202:33 'val Icons.Outlined.MenuBook: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.MenuBook.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/HomeScreen.kt:150:61 'val Icons.Outlined.MenuBook: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.MenuBook.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/HomeScreen.kt:173:76 'val Icons.Outlined.MenuBook: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.MenuBook.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/KiswahHome.kt:115:96 'val Icons.Outlined.MenuBook: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.MenuBook.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/LandscapeHome.kt:137:45 'val Icons.Outlined.MenuBook: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.MenuBook.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/LearnScreen.kt:416:74 'constructor(p0: String!): Locale' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/LearnScreen.kt:452:38 'constructor(p0: String!): Locale' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/PortraitHome.kt:122:73 'val Icons.Outlined.MenuBook: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.MenuBook.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/Str.kt:18:33 'constructor(p0: String!): Locale' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/TabletHome.kt:173:48 'val Icons.Outlined.MenuBook: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.MenuBook.
+w: file:///home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/ThemeArt.kt:150:65 'fun quadraticBezierTo(x1: Float, y1: Float, x2: Float, y2: Float): Unit' is deprecated. Use quadraticTo() for consistency with cubicTo().
+
+> Task :app:compileGithubDebugJavaWithJavac
+> Task :app:bundleGithubDebugClassesToCompileJar
+> Task :app:dexBuilderGithubDebug
+> Task :app:mergeGithubDebugGlobalSynthetics
+> Task :app:processGithubDebugJavaRes
+> Task :app:mergeProjectDexGithubDebug
+> Task :app:mergeGithubDebugJavaResource
+
+> Task :app:compileGithubDebugAndroidTestKotlin
+w: file:///home/runner/work/miqaat/miqaat/app/src/androidTest/java/com/usman/miqaat/ui/ShotSupport.kt:62:122 'fun getRealSize(p0: Point!): Unit' is deprecated. Deprecated in Java.
+
+> Task :app:compileGithubDebugAndroidTestJavaWithJavac
+> Task :app:packageGithubDebug
+> Task :app:createGithubDebugApkListingFileRedirect
+> Task :app:dexBuilderGithubDebugAndroidTest
+> Task :app:mergeGithubDebugAndroidTestGlobalSynthetics FROM-CACHE
+> Task :app:processGithubDebugAndroidTestJavaRes
+> Task :app:mergeProjectDexGithubDebugAndroidTest
+> Task :app:mergeGithubDebugAndroidTestJavaResource
+> Task :app:packageGithubDebugAndroidTest
+> Task :app:createGithubDebugAndroidTestApkListingFileRedirect
+[EmulatorConsole]: Failed to start Emulator console for 5554
+
+> Task :app:connectedGithubDebugAndroidTest
+Starting 1 tests on emulator-5554 - 14
+
+emulator-5554 - 14 Tests 0/1 completed. (0 skipped) (0 failed)
+Finished 1 tests on emulator-5554 - 14
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__reactivecircus_android-emulator-runner-1790832135644.json
+
+[Incubating] Problems report is available at: file:///home/runner/work/miqaat/miqaat/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 5m 52s
+67 actionable tasks: 58 executed, 9 from cache

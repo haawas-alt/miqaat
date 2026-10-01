@@ -1,0 +1,187 @@
+
+
+emulator-5554primary˛
+è
+SettingsStateTestcom.usman.miqaat.ui0selectedCategoryAndItsOwnScrollSurviveRecreation2ö›˜’Ä∞„-:û›˜’¿Â∫åB
+emulator-5554primary"Ú
+
+logcatandroid‹
+Ÿ/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/logcat-com.usman.miqaat.ui.SettingsStateTest-selectedCategoryAndItsOwnScrollSurviveRecreation.txt"§
+
+device-infoandroidâ
+Ü/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/device-info.pb"§
+
+device-info.meminfoandroidÅ
+/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/meminfo"§
+
+device-info.cpuinfoandroidÅ
+/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/cpuinfoêN
+â
+SettingsStateTestcom.usman.miqaat.ui)phoneDetailStartsAtTopAndBackShowsLanding2û›˜’Äﬂ™ô:†›˜’¿√úÅB
+emulator-5554primaryˇL
+©&org.junit.AssumptionViolatedException: got: <false>, expected: is <true>
+at org.junit.Assume.assumeThat(Assume.java:106)
+at org.junit.Assume.assumeTrue(Assume.java:50)
+at com.usman.miqaat.ui.SettingsStateTest.phoneDetailStartsAtTopAndBackShowsLanding(SettingsStateTest.kt:97)
+at java.lang.reflect.Method.invoke(Native Method)
+at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)
+at androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:66)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)
+at androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)
+at androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)
+at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+at org.junit.runners.Suite.runChild(Suite.java:128)
+at org.junit.runners.Suite.runChild(Suite.java:27)
+at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)
+at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
+at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:463)
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2402)
+%org.junit.AssumptionViolatedException©&org.junit.AssumptionViolatedException: got: <false>, expected: is <true>
+at org.junit.Assume.assumeThat(Assume.java:106)
+at org.junit.Assume.assumeTrue(Assume.java:50)
+at com.usman.miqaat.ui.SettingsStateTest.phoneDetailStartsAtTopAndBackShowsLanding(SettingsStateTest.kt:97)
+at java.lang.reflect.Method.invoke(Native Method)
+at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)
+at androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:66)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)
+at androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)
+at androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)
+at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+at org.junit.runners.Suite.runChild(Suite.java:128)
+at org.junit.runners.Suite.runChild(Suite.java:27)
+at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)
+at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
+at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:463)
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2402)
+¯
+å
+SettingsStateTestcom.usman.miqaat.ui-displayAndArtOpensAtTopWithContentImmediately2†›˜’ÄıªÜ:£›˜’¿§ˇB
+emulator-5554primary"Ô
+
+logcatandroidŸ
+÷/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/logcat-com.usman.miqaat.ui.SettingsStateTest-displayAndArtOpensAtTopWithContentImmediately.txt"§
+
+device-infoandroidâ
+Ü/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/device-info.pb"§
+
+device-info.meminfoandroidÅ
+/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/meminfo"§
+
+device-info.cpuinfoandroidÅ
+/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/cpuinfoê
+ò
+SettingsStateTestcom.usman.miqaat.ui9switchingFromScrolledCategoryShowsOnlyTheNewCategoryAtTop2£›˜’¿¢¨,:¶›˜’¿˛ÖB
+emulator-5554primary"˚
+
+logcatandroidÂ
+‚/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/logcat-com.usman.miqaat.ui.SettingsStateTest-switchingFromScrolledCategoryShowsOnlyTheNewCategoryAtTop.txt"§
+
+device-infoandroidâ
+Ü/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/device-info.pb"§
+
+device-info.meminfoandroidÅ
+/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/meminfo"§
+
+device-info.cpuinfoandroidÅ
+/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/cpuinfoﬂ
+Ä
+SettingsStateTestcom.usman.miqaat.ui readinessLabelsNeverBreakMidWord2¶›˜’¿—Ûó:®›˜’¿ìÀ«B
+emulator-5554primary"‚
+
+logcatandroidÃ
+…/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/logcat-com.usman.miqaat.ui.SettingsStateTest-readinessLabelsNeverBreakMidWord.txt"§
+
+device-infoandroidâ
+Ü/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/device-info.pb"§
+
+device-info.meminfoandroidÅ
+/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/meminfo"§
+
+device-info.cpuinfoandroidÅ
+/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/cpuinfo*â
+c
+test-results.logOcom.google.testing.platform.runtime.android.driver.AndroidInstrumentationDriverì
+ê/home/runner/work/miqaat/miqaat/app/build/outputs/androidTest-results/connected/debug/flavors/github/emulator-5554 - 14/testlog/test-results.log 2
+text/plain

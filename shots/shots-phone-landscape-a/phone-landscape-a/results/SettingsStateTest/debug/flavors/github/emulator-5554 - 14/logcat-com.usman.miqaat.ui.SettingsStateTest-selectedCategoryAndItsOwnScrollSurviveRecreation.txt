@@ -1,0 +1,377 @@
+10-01 05:26:30.869  6103  6122 I TestRunner: started: selectedCategoryAndItsOwnScrollSurviveRecreation(com.usman.miqaat.ui.SettingsStateTest)
+10-01 05:26:30.910  6103  6122 W FileTestStorage: Output properties is not supported.
+10-01 05:26:30.911  6103  6122 I Tracing : Tracer added: class androidx.test.platform.tracing.AndroidXTracer
+10-01 05:26:30.920  6103  6103 D EventInjectionStrategy: Creating injection strategy with input manager.
+10-01 05:26:30.921  6103  6103 W om.usman.miqaat: Accessing hidden method Landroid/hardware/input/InputManager;->getInstance()Landroid/hardware/input/InputManager; (unsupported, reflection, allowed)
+10-01 05:26:30.923  6103  6103 W om.usman.miqaat: Accessing hidden method Landroid/hardware/input/InputManager;->injectInputEvent(Landroid/view/InputEvent;I)Z (unsupported, reflection, allowed)
+10-01 05:26:30.924  6103  6103 W om.usman.miqaat: Accessing hidden field Landroid/hardware/input/InputManager;->INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH:I (unsupported, reflection, allowed)
+10-01 05:26:30.931  6103  6103 W om.usman.miqaat: Accessing hidden method Landroid/os/MessageQueue;->next()Landroid/os/Message; (unsupported, reflection, allowed)
+10-01 05:26:30.931  6103  6103 W om.usman.miqaat: Accessing hidden field Landroid/os/MessageQueue;->mMessages:Landroid/os/Message; (unsupported, reflection, allowed)
+10-01 05:26:30.931  6103  6103 W om.usman.miqaat: Accessing hidden method Landroid/os/Message;->recycleUnchecked()V (unsupported, reflection, allowed)
+10-01 05:26:30.933  6103  6122 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@f8df310]
+10-01 05:26:30.954  6103  6122 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-01 05:26:31.006   398   398 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:31.044   844   900 D SplashScreenView: Build android.window.SplashScreenView{64a5194 V.E...... ......ID 0,0-0,0}
+10-01 05:26:31.044   844   900 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-01 05:26:31.044   844   900 D SplashScreenView: Branding: view: android.view.View{ef8043d G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-01 05:26:31.061  1681  2447 I AiAiEcho: Settings changed for uri: content://settings/secure/device_state_rotation_lock
+10-01 05:26:31.066   521  1830 D ConnectivityService: requestNetwork for uid/pid:10132/1707 activeRequest: null callbackRequest: 144 [NetworkRequest [ REQUEST id=144, [ Transports: CELLULAR Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&NOT_VCN_MANAGED Uid: 10132 RequestorUid: 10132 RequestorPkg: com.google.android.googlequicksearchbox UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647
+10-01 05:26:31.069   334   363 I netd    : networkSetPermissionForNetwork(101, 0) <2.13ms>
+10-01 05:26:31.091  1681  1974 I AiAiEcho: Predicting[0]:
+10-01 05:26:31.096  1681  1974 I AiAiEcho: EchoTargets:
+10-01 05:26:31.096  1681  1974 I AiAiEcho: Filtered by AiAi flag check:
+10-01 05:26:31.110  6103  6134 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+10-01 05:26:31.111  1681  1974 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-01 05:26:31.114  6103  6134 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+10-01 05:26:31.152  1681  1974 I AiAiEcho: Predicting[0]:
+10-01 05:26:31.153  1681  1974 I AiAiEcho: EchoTargets:
+10-01 05:26:31.153  1681  1974 I AiAiEcho: Filtered by AiAi flag check:
+10-01 05:26:31.155  1681  1974 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-01 05:26:31.166  1681  1974 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-01 05:26:31.167  1681  1974 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0 (types=[])
+10-01 05:26:31.169   521   774 D ConnectivityService: NetReassign [144 : null → 101] [c 0] [a 14] [i 70]
+10-01 05:26:31.170   521   774 D ConnectivityService: reportNetworkConnectivity(100, false) by 10132
+10-01 05:26:31.170  1117  1955 D EGL_emulation: app_time_stats: avg=1055.87ms min=184.28ms max=1927.46ms count=2
+10-01 05:26:31.171  1013  1988 D NetworkMonitor/100: Forcing reevaluation for UID 10132. Dns signal count: 0
+10-01 05:26:31.186   844   844 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+10-01 05:26:31.208  6103  6134 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+10-01 05:26:31.285  1013  6142 D TrafficStats: tagSocket(6) with statsTag=0xffffff81, statsUid=-1
+10-01 05:26:31.312  1013  6141 D TrafficStats: tagSocket(75) with statsTag=0xffffff81, statsUid=-1
+10-01 05:26:31.315  1013  6142 D TrafficStats: tagSocket(6) with statsTag=0xffffff81, statsUid=-1
+10-01 05:26:31.316  1013  6141 D TrafficStats: tagSocket(6) with statsTag=0xffffff81, statsUid=-1
+10-01 05:26:31.408   334  6143 I resolv  : ResNSendHandler::run: 0 / {100 983140 100 983140 1073 1}
+10-01 05:26:31.408   334  6143 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x75804b3963f0
+10-01 05:26:31.409   334  6144 I resolv  : ResNSendHandler::run: 0 / {100 983140 100 983140 1073 1}
+10-01 05:26:31.409   334  6144 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x75804b394470
+10-01 05:26:31.458  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.477   334  6146 I resolv  : ResNSendHandler::run: 0 / {100 983140 100 983140 1073 1}
+10-01 05:26:31.477   334  6145 I resolv  : ResNSendHandler::run: 0 / {100 983140 100 983140 1073 1}
+10-01 05:26:31.477   334  6145 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x7580bb392a50
+10-01 05:26:31.489  1707  2304 I BistoDBWrapper: Close DB
+10-01 05:26:31.500  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.508  1013  6142 D NetworkMonitor/100: PROBE_DNS connectivitycheck.gstatic.com 223ms OK 142.251.215.195,2607:f8b0:4007:80b::2003
+10-01 05:26:31.510  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8a7e635 in: PRE_ON_CREATE
+10-01 05:26:31.511  6103  6103 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-01 05:26:31.517  5348  5348 D BoundBrokerSvc: onBind: Intent { act=com.google.android.contextmanager.service.ContextManagerService.START pkg=com.google.android.gms }
+10-01 05:26:31.521  5348  5348 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.contextmanager.service.ContextManagerService.START pkg=com.google.android.gms }
+10-01 05:26:31.529   334  6150 I resolv  : GetAddrInfoHandler::run: {100 983140 100 983140 1073 1}
+10-01 05:26:31.530   334  6152 I resolv  : res_nmkquery: (QUERY, IN, AAAA)
+10-01 05:26:31.530   334  6152 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x75804b3963f0
+10-01 05:26:31.530   334  6152 I resolv  : doQuery: rcode=0, ancount=1, return value=75
+10-01 05:26:31.541   334  6153 I resolv  : res_nmkquery: (QUERY, IN, A)
+10-01 05:26:31.541   334  6153 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x75804b394470
+10-01 05:26:31.541   334  6153 I resolv  : doQuery: rcode=0, ancount=1, return value=63
+10-01 05:26:31.556  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8a7e635 in: CREATED
+10-01 05:26:31.557  6103  6103 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@8a7e635
+10-01 05:26:31.559  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8a7e635 in: STARTED
+10-01 05:26:31.559  6103  6103 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@8a7e635
+10-01 05:26:31.561  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8a7e635 in: RESUMED
+10-01 05:26:31.561  6103  6103 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@8a7e635
+10-01 05:26:31.564  6103  6103 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10192; state: DISABLED
+10-01 05:26:31.566  6103  6103 W OpenGLRenderer: Unknown dataspace 0
+10-01 05:26:31.571  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8a7e635 in: PAUSED
+10-01 05:26:31.571  6103  6103 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@8a7e635
+10-01 05:26:31.572  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8a7e635 in: STOPPED
+10-01 05:26:31.572  6103  6103 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@8a7e635
+10-01 05:26:31.573  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8a7e635 in: DESTROYED
+10-01 05:26:31.574  6103  6103 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-01 05:26:31.574   521  2334 W InputManager-JNI: Input channel object '9ac6e3d com.usman.miqaat/androidx.activity.ComponentActivity (client)' was disposed without first being removed with the input manager!
+10-01 05:26:31.580  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c84be32 in: PRE_ON_CREATE
+10-01 05:26:31.580  6103  6103 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+10-01 05:26:31.586  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c84be32 in: CREATED
+10-01 05:26:31.586  6103  6103 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@c84be32
+10-01 05:26:31.587  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c84be32 in: STARTED
+10-01 05:26:31.588  6103  6103 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@c84be32
+10-01 05:26:31.589  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c84be32 in: RESUMED
+10-01 05:26:31.589  6103  6103 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@c84be32
+10-01 05:26:31.599   398   634 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10192 pid=0
+10-01 05:26:31.599   398   634 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10192 => denied (99 us)
+10-01 05:26:31.599   398   634 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10192 pid=0
+10-01 05:26:31.599   398   634 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10192 => denied (54 us)
+10-01 05:26:31.600   398   634 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10192 pid=0
+10-01 05:26:31.600   398   634 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10192 => denied (50 us)
+10-01 05:26:31.614  6103  6133 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-01 05:26:31.642  1013  6142 D TrafficStats: tagSocket(6) with statsTag=0xffffff81, statsUid=-1
+10-01 05:26:31.666   334  6146 I resolv  : res_nsend: used send_dg 160 terrno: 0
+10-01 05:26:31.666  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.679  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.680  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.681  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.682  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.684  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.685  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.685  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.685  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.686  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.686  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.695  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.696  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.697  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.697  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.698  1013  1013 D TrafficStats: tagSocket(68) with statsTag=0xffffffff, statsUid=-1
+10-01 05:26:31.722  1013  6141 D NetworkMonitor/100: PROBE_DNS www.google.com 410ms OK 142.251.154.119,142.251.150.119,142.251.151.119,142.251.153.119,142.251.152.119,142.251.157.119,142.251.156.119,142.251.155.119,2001:4860:4827:7700::,2001:4860:4828:7700::,2001:4860:482d:7700::,2001:4860:4826:7700::,2001:4860:482b:7700::,2001:4860:4829:7700::,2001:4860:482a:7700::,2001:4860:482c:7700::
+10-01 05:26:31.775   334  6161 I resolv  : GetAddrInfoHandler::run: {100 983140 100 983140 1073 1}
+10-01 05:26:31.776   334  6162 I resolv  : res_nmkquery: (QUERY, IN, AAAA)
+10-01 05:26:31.777   334  6162 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x7580bb392a50
+10-01 05:26:31.777   334  6162 I resolv  : doQuery: rcode=0, ancount=8, return value=256
+10-01 05:26:31.777   334  6163 I resolv  : res_nmkquery: (QUERY, IN, A)
+10-01 05:26:31.777   334  6163 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x75810b39f7f0
+10-01 05:26:31.777   334  6163 I resolv  : doQuery: rcode=0, ancount=8, return value=160
+10-01 05:26:31.779  1013  6141 D TrafficStats: tagSocket(68) with statsTag=0xffffff81, statsUid=-1
+10-01 05:26:31.780   134   134 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+10-01 05:26:31.780  6103  6133 I Gralloc4: mapper 4.x is not supported
+10-01 05:26:31.894  5018  5018 W rules.WifiRx: FenceState currentState is not true
+10-01 05:26:31.899  5018  5018 W rules.WifiRx: FenceState currentState is not true
+10-01 05:26:31.946   521   909 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10192 pid=0
+10-01 05:26:31.946   521   909 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10192 => denied (208 us)
+10-01 05:26:31.946   521   909 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10192 pid=0
+10-01 05:26:31.947   521   909 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10192 => denied (36 us)
+10-01 05:26:31.947   521   909 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10192 pid=0
+10-01 05:26:31.947   521   909 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10192 => denied (115 us)
+10-01 05:26:31.949   844   915 D EGL_emulation: app_time_stats: avg=31900.33ms min=31900.33ms max=31900.33ms count=1
+10-01 05:26:31.962   521   541 W ziparchive: Unable to open '/data/app/~~Z6sp5w877MCB5BpL3g7RMw==/com.usman.miqaat--01A-h-uG_Vf1m7KSIQ-3w==/base.dm': No such file or directory
+10-01 05:26:31.968   521   541 I ActivityTaskManager: Displayed com.usman.miqaat/androidx.activity.ComponentActivity for user 0: +990ms
+10-01 05:26:32.000   521  1296 I ImeTracker: com.usman.miqaat:a12290a0: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-01 05:26:32.000   521  1296 I ImeTracker: com.usman.miqaat:a12290a0: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-01 05:26:32.007  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:32.007  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode 1
+10-01 05:26:32.008  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:32.014  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-01 05:26:32.016  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-01 05:26:32.016  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.usman.miqaat fieldId=0 fieldName=null extras=null}, false)
+10-01 05:26:32.016  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-01 05:26:32.017  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-01 05:26:32.017  1551  1551 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-01 05:26:32.018  1551  1551 I KeyboardModeManager: KeyboardModeManager.setInputView():364 setInputView() : supportsOneHandedMode=true
+10-01 05:26:32.018  1551  1551 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-01 05:26:32.018  1551  1551 I KeyboardModeManager: KeyboardModeManager.setInputView():356 setInputView() : entry=hwn{languageTag=en-US, variant=qwerty, hasLocalizedResources=true, conditionCacheKey=_device=phone_device_size=default_enable_adaptive_text_editing=true_enable_inline_suggestions_on_client_side=false_enable_large_tablet_batch_1=false_enable_large_tablet_batch_2=false_enable_more_candidates_view_for_multilingual=false_enable_nav_redesign=false_enable_number_row=false_enable_preemptive_decode=true_enable_secondary_symbols=false_expressions=normal_four_or_more_letter_rows=false_keyboard_mode=normal_language=en-US_orientation=portrait_physical_keyboard=qwerty_show_secondary_digits=true_show_suggestions=true_split_with_duplicate_keys=true_variant=qwerty, imeDef.stringId=ime_english_united_states, imeDef.className=com.google.android.apps.inputmethod.libs.latin5.LatinIme, imeDef.languageTag=en-US}
+10-01 05:26:32.020  1551  1551 I StyledKeyboardTheme: StyledKeyboardTheme.<init>():87 Pref: [], themeName: [silk:], darkMode: [false], cacheKey: [overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff0f0f3-ff76d1ff-ce191c6173d879ea127e4e40bfd70d3c]
+10-01 05:26:32.021  1551  1551 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-01 05:26:32.021  1551  1551 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-01 05:26:32.021  1551  1551 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-01 05:26:32.022  1551  1551 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-01 05:26:32.022  1551  1551 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-01 05:26:32.022  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.initializeKeyboardTheme():1343 Apply keyboard theme: theme_border_bottom4dp_stylesheet_noshadow_gsans_pillkey_silkpopup_refinedkp_materiallight_phone_400_overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff0f0f3-ff76d1ff-ce191c6173d879ea127e4e40bfd70d3c_port
+10-01 05:26:32.027  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.onCreateInputView():1768 onCreateInputView()
+10-01 05:26:32.115  1013  6142 D NetworkMonitor/100: PROBE_HTTP http://connectivitycheck.gstatic.com/generate_204 time=601ms ret=204 request={Connection=[close], User-Agent=[Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.32 Safari/537.36]} headers={null=[HTTP/1.1 204 No Content], Connection=[close], Content-Length=[0], Cross-Origin-Resource-Policy=[cross-origin], Date=[Thu, 01 Oct 2026 05:26:32 GMT], X-Android-Received-Millis=[1790832392115], X-Android-Response-Source=[NETWORK 204], X-Android-Selected-Protocol=[http/1.1], X-Android-Sent-Millis=[1790832391876]}
+10-01 05:26:32.157  1117  1117 I ActivityThread: Schedule relaunch activity: com.google.android.apps.nexuslauncher.NexusLauncherActivity
+10-01 05:26:32.162  1551  1551 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-01 05:26:32.163  1551  1551 I KeyboardViewUtil: KeyboardViewUtil.getKeyboardHeightRatio():189 systemKeyboardHeightRatio:1.000000; userKeyboardHeightRatio:1.000000.
+10-01 05:26:32.166  1117  1157 I ImeTracker: com.google.android.apps.nexuslauncher:ccfe95bb: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-01 05:26:32.169  1551  1551 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-01 05:26:32.170  1551  1551 I KeyboardModeManager: KeyboardModeManager.setInputView():364 setInputView() : supportsOneHandedMode=true
+10-01 05:26:32.171  1551  1551 I AndroidIME: KeyboardViewManager.updateKeyboardBackgroundFrameVisibility():357 Set background frame visibility. old:8, new:8
+10-01 05:26:32.172  1551  1551 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-01 05:26:32.172  1551  1551 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-01 05:26:32.173  1551  1551 I KeyboardModeManager: KeyboardModeManager.setInputView():356 setInputView() : entry=hwn{languageTag=en-US, variant=qwerty, hasLocalizedResources=true, conditionCacheKey=_device=phone_device_size=default_enable_adaptive_text_editing=true_enable_inline_suggestions_on_client_side=false_enable_large_tablet_batch_1=false_enable_large_tablet_batch_2=false_enable_more_candidates_view_for_multilingual=false_enable_nav_redesign=false_enable_number_row=false_enable_preemptive_decode=true_enable_secondary_symbols=false_expressions=normal_four_or_more_letter_rows=false_keyboard_mode=normal_language=en-US_orientation=portrait_physical_keyboard=qwerty_show_secondary_digits=true_show_suggestions=true_split_with_duplicate_keys=true_variant=qwerty, imeDef.stringId=ime_english_united_states, imeDef.className=com.google.android.apps.inputmethod.libs.latin5.LatinIme, imeDef.languageTag=en-US}
+10-01 05:26:32.182  1117  2262 D OneSearchSuggestProvider: Shut down the binder channel
+10-01 05:26:32.183  1117  2229 I IPCThreadState: oneway function results for code 2 on binder at 0x7309e7f1c5c0 will be dropped but finished with status UNKNOWN_TRANSACTION
+10-01 05:26:32.187  1013  6141 D NetworkMonitor/100: PROBE_HTTPS https://www.google.com/generate_204 time=449ms ret=204 request={Connection=[close], User-Agent=[Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.32 Safari/537.36]} headers={null=[HTTP/1.1 204 No Content], Alt-Svc=[h3=":443"; ma=2592000,h3-29=":443"; ma=2592000], Connection=[close], Content-Length=[0], Cross-Origin-Resource-Policy=[cross-origin], Date=[Thu, 01 Oct 2026 05:26:32 GMT], X-Android-Received-Millis=[1790832392186], X-Android-Response-Source=[NETWORK 204], X-Android-Selected-Protocol=[http/1.1], X-Android-Sent-Millis=[1790832392181]}
+10-01 05:26:32.194   521  1799 I ImeTracker: com.google.android.apps.nexuslauncher:ccfe95bb: onCancelled at PHASE_SERVER_CLIENT_FOCUSED
+10-01 05:26:32.223  1707  2405 W SearchServiceCore: Abort, client detached.
+10-01 05:26:32.245  1013  6136 D NetworkMonitor/100: isCaptivePortal: isSuccessful()=true isPortal()=false RedirectUrl=null isPartialConnectivity()=false Time=1026ms
+10-01 05:26:32.253   521   774 D ConnectivityService: [100 WIFI] validation passed
+10-01 05:26:32.257  1117  1117 D b/254119092: clearActivity
+10-01 05:26:32.257  1117  1117 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-01 05:26:32.262   335   335 D Zygote  : Forked child process 6170
+10-01 05:26:32.272  1117  1117 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@bb4ca16
+10-01 05:26:32.273  1117  1117 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-01 05:26:32.273  1117  1117 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-01 05:26:32.278  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c84be32 in: PAUSED
+10-01 05:26:32.279  6103  6103 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@c84be32
+10-01 05:26:32.304  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:32.305  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode 1
+10-01 05:26:32.305  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:32.324   398   398 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:32.341  1707  2585 I PBSessionCacheImpl: Deleted sessionId[7509256226584802] from persistence.
+10-01 05:26:32.352   844   900 D SplashScreenView: Build android.window.SplashScreenView{5b33619 V.E...... ......ID 0,0-0,0}
+10-01 05:26:32.352   844   900 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-01 05:26:32.352   844   900 D SplashScreenView: Branding: view: android.view.View{81fd6de G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-01 05:26:32.356  6170  6170 I man.miqaat.test: Late-enabling -Xcheck:jni
+10-01 05:26:32.389  6170  6170 I man.miqaat.test: Using CollectorTypeCC GC.
+10-01 05:26:32.389  6170  6170 W man.miqaat.test: Unexpected CPU variant for x86: x86_64.
+10-01 05:26:32.389  6170  6170 W man.miqaat.test: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-01 05:26:32.423  5348  5743 E bwfc    : Phenotype API error. Event # edax@b8203009, EventCode: 5 [CONTEXT service_id=51 ]
+10-01 05:26:32.423  5348  5743 E bwfc    : bwdx: 29501: Stale snapshot for com.google.android.gms.fonts(change count changed - expected 1  but was 0)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at bwfg.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):16)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at bwff.g(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at bwfc.e(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at bwfc.f(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at avsy.eo(:com.google.android.gms@231818047@23.18.18 (190800-535401451):1)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at avtf.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):14)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at dfhf.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at aced.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at aced.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):7)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at acjn.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-01 05:26:32.423  5348  5743 E bwfc    : 	at java.lang.Thread.run(Thread.java:1012)
+10-01 05:26:32.444  5348  5361 I FontLog : Updating from directory version 0 to 25 from disk [CONTEXT service_id=132 ]
+10-01 05:26:32.446  5348  5743 W AsyncOperation: operation=CommitToConfigurationOperationCall, opStatusCode=29501 [CONTEXT service_id=51 ]
+10-01 05:26:32.446  5348  5743 W AsyncOperation: OperationException[Status{statusCode=Stale snapshot for com.google.android.gms.fonts(change count changed - expected 1  but was 0), resolution=null}]
+10-01 05:26:32.446  5348  5743 W AsyncOperation: 	at bwfc.e(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+10-01 05:26:32.446  5348  5743 W AsyncOperation: 	at bwfc.f(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+10-01 05:26:32.446  5348  5743 W AsyncOperation: 	at avsy.eo(:com.google.android.gms@231818047@23.18.18 (190800-535401451):1)
+10-01 05:26:32.446  5348  5743 W AsyncOperation: 	at avtf.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):14)
+10-01 05:26:32.446  5348  5743 W AsyncOperation: 	at dfhf.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+10-01 05:26:32.446  5348  5743 W AsyncOperation: 	at aced.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+10-01 05:26:32.446  5348  5743 W AsyncOperation: 	at aced.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):7)
+10-01 05:26:32.446  5348  5743 W AsyncOperation: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-01 05:26:32.446  5348  5743 W AsyncOperation: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-01 05:26:32.446  5348  5743 W AsyncOperation: 	at acjn.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-01 05:26:32.446  5348  5743 W AsyncOperation: 	at java.lang.Thread.run(Thread.java:1012)
+10-01 05:26:32.446  5348  5498 W MobStoreFlagStore: Failed to commit due to stale snapshot for com.google.android.gms.fonts, triggering flag update. Experiments may be delayed til next app start.
+10-01 05:26:32.447  5348  6083 W ctxmgr  : [NetworkStateProducer] No state change for network connection context [CONTEXT service_id=47 ]
+10-01 05:26:32.452   413   427 I adbd    : jdwp connection from 6170
+10-01 05:26:32.460   844   915 D EGL_emulation: app_time_stats: avg=255679.95ms min=255679.95ms max=255679.95ms count=1
+10-01 05:26:32.467   844   898 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@144f300
+10-01 05:26:32.469  1117  2394 W Binder  : Caught a RuntimeException from the binder stub implementation.
+10-01 05:26:32.469  1117  2394 W Binder  : java.lang.NullPointerException: Attempt to read from field 'java.util.LinkedHashMap com.android.launcher3.QuickstepTransitionManager.mTaskStartParams' on a null object reference in method 'java.util.LinkedHashMap com.android.launcher3.QuickstepTransitionManager.g(com.android.launcher3.QuickstepTransitionManager)'
+10-01 05:26:32.469  1117  2394 W Binder  : 	at com.android.launcher3.QuickstepTransitionManager.g(Unknown Source:0)
+10-01 05:26:32.469  1117  2394 W Binder  : 	at com.android.launcher3.QuickstepTransitionManager$StartingWindowListener.onTaskLaunching(Unknown Source:2)
+10-01 05:26:32.469  1117  2394 W Binder  : 	at com.android.wm.shell.startingsurface.IStartingWindowListener$Stub.onTransact(Unknown Source:40)
+10-01 05:26:32.469  1117  2394 W Binder  : 	at android.os.Binder.execTransactInternal(Binder.java:1344)
+10-01 05:26:32.469  1117  2394 W Binder  : 	at android.os.Binder.execTransact(Binder.java:1275)
+10-01 05:26:32.470   521  1799 W InputManager-JNI: Input channel object '6f61c0f Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-01 05:26:32.480  6170  6170 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10193; state: ENABLED
+10-01 05:26:32.481  6170  6170 D CompatibilityChangeReporter: Compat change id reported: 242716250; UID 10193; state: ENABLED
+10-01 05:26:32.560  6170  6170 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+10-01 05:26:32.563  6170  6170 D nativeloader: Configuring clns-6 for other apk /system/framework/android.test.mock.jar. target_sdk_version=36, uses_libraries=ALL, library_path=/data/app/~~u-tTSPXmRN1XxfTwG3Na_Q==/com.usman.miqaat.test-aKjwhoEHIrFQFis0yg_eFQ==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.usman.miqaat.test
+10-01 05:26:32.563  6170  6170 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+10-01 05:26:32.567  6170  6170 D nativeloader: Configuring clns-7 for other apk /system/framework/android.test.runner.jar. target_sdk_version=36, uses_libraries=ALL, library_path=/data/app/~~u-tTSPXmRN1XxfTwG3Na_Q==/com.usman.miqaat.test-aKjwhoEHIrFQFis0yg_eFQ==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.usman.miqaat.test
+10-01 05:26:32.568  6170  6170 W ziparchive: Unable to open '/data/app/~~u-tTSPXmRN1XxfTwG3Na_Q==/com.usman.miqaat.test-aKjwhoEHIrFQFis0yg_eFQ==/base.dm': No such file or directory
+10-01 05:26:32.568  6170  6170 W ziparchive: Unable to open '/data/app/~~u-tTSPXmRN1XxfTwG3Na_Q==/com.usman.miqaat.test-aKjwhoEHIrFQFis0yg_eFQ==/base.dm': No such file or directory
+10-01 05:26:32.596  1707  3127 W A       : [Download] response code: 400
+10-01 05:26:32.603  5348  5375 I FontLog : Using directory in FlatBuffer format [CONTEXT service_id=132 ]
+10-01 05:26:32.612  1117  1157 I AiAiSuggestUi: Connecting to system intelligence module.
+10-01 05:26:32.638  5348  5361 I FontLog : Received query Noto Color Emoji Compat, URI content://com.google.android.gms.fonts [CONTEXT service_id=132 ]
+10-01 05:26:32.639  5348  5361 I FontLog : Query [emojicompat-emoji-font] resolved to {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-01 05:26:32.655  1681  1681 I AiAiOverview: Created AiAiContentSuggestionsService.
+10-01 05:26:32.663  5348  5361 I FontLog : Fetch {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false} end status Status{statusCode=SUCCESS, resolution=null} [CONTEXT service_id=132 ]
+10-01 05:26:32.669  6170  6170 D nativeloader: Configuring clns-8 for other apk /data/app/~~u-tTSPXmRN1XxfTwG3Na_Q==/com.usman.miqaat.test-aKjwhoEHIrFQFis0yg_eFQ==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~u-tTSPXmRN1XxfTwG3Na_Q==/com.usman.miqaat.test-aKjwhoEHIrFQFis0yg_eFQ==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.usman.miqaat.test
+10-01 05:26:32.703  6170  6170 V GraphicsEnvironment: Currently set values for:
+10-01 05:26:32.703  6170  6170 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+10-01 05:26:32.703  6170  6170 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+10-01 05:26:32.703  6170  6170 V GraphicsEnvironment: ANGLE GameManagerService for com.usman.miqaat.test: false
+10-01 05:26:32.703  6170  6170 V GraphicsEnvironment: com.usman.miqaat.test is not listed in per-application setting
+10-01 05:26:32.703  6170  6170 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+10-01 05:26:32.722  1117  2394 I AiAiSuggestUi: Successfully connected to system intelligence:
+10-01 05:26:32.728  5348  5361 I FontLog : Pulling font file for id = 1, cache size = 1 [CONTEXT service_id=132 ]
+10-01 05:26:32.736  5348  5361 I FontLog : Pulling font file for id = 1, cache size = 1 [CONTEXT service_id=132 ]
+10-01 05:26:32.768  6170  6193 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+10-01 05:26:32.772  6170  6193 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+10-01 05:26:32.777  6170  6193 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+10-01 05:26:32.796   844   856 I ndroid.systemui: Background concurrent copying GC freed 195627(9756KB) AllocSpace objects, 25(500KB) LOS objects, 49% free, 17MB/35MB, paused 43us,32us total 572.731ms
+10-01 05:26:32.824   389   389 I android.hardware.power-service.example: Power isModeSupported: 6
+10-01 05:26:32.915  1117  1117 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-01 05:26:32.959  1117  1117 D DeviceSearchAlg: search timeout = %d200
+10-01 05:26:32.967  1117  1117 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+10-01 05:26:32.967  1117  1117 W BcSmartspaceView: Current card is not present in the Adapter; cannot log.
+10-01 05:26:32.979   844   915 D EGL_emulation: app_time_stats: avg=205.98ms min=17.89ms max=413.23ms count=5
+10-01 05:26:33.001  6170  6170 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10193; state: DISABLED
+10-01 05:26:33.003  6170  6170 W OpenGLRenderer: Unknown dataspace 0
+10-01 05:26:33.031  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:33.032  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode 1
+10-01 05:26:33.032  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:33.034  1117  1117 I OverviewComponentObserver: updateOverviewTargets: mIsHomeDisabled=false, isDefaultHomeNull=false, mIsDefaultHome=true
+10-01 05:26:33.056  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c84be32 in: STOPPED
+10-01 05:26:33.058  6103  6103 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@c84be32
+10-01 05:26:33.059  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c84be32 in: DESTROYED
+10-01 05:26:33.060  6103  6103 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-01 05:26:33.067  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:33.068  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode 1
+10-01 05:26:33.068  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:33.080   398   416 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10193 pid=0
+10-01 05:26:33.080   398   416 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10193 => denied (370 us)
+10-01 05:26:33.080   398   636 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10193 pid=6170
+10-01 05:26:33.080   398   636 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10193 => denied (557 us)
+10-01 05:26:33.080   398   416 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10193 pid=0
+10-01 05:26:33.080   398   416 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10193 => denied (609 us)
+10-01 05:26:33.080   398   636 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10193 pid=6170
+10-01 05:26:33.080   398   636 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10193 => denied (275 us)
+10-01 05:26:33.080   398   416 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10193 pid=0
+10-01 05:26:33.080   398   416 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10193 => denied (202 us)
+10-01 05:26:33.081   398   636 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10193 pid=6170
+10-01 05:26:33.081   398   636 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10193 => denied (369 us)
+10-01 05:26:33.087   398   398 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:33.110  6170  6192 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-01 05:26:33.124  6103  6122 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@f8df310]
+10-01 05:26:33.129  6103  6103 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@e2624d7
+10-01 05:26:33.138   521  1799 W InputManager-JNI: Input channel object 'f6b139 com.usman.miqaat/androidx.activity.ComponentActivity (client)' was disposed without first being removed with the input manager!
+10-01 05:26:33.148  6103  6122 E TestRunner: assumption failed: selectedCategoryAndItsOwnScrollSurviveRecreation(com.usman.miqaat.ui.SettingsStateTest)
+10-01 05:26:33.152  6103  6122 E TestRunner: ----- begin exception -----
+10-01 05:26:33.152  6103  6122 E TestRunner: org.junit.AssumptionViolatedException: got: <false>, expected: is <true>
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.Assume.assumeThat(Assume.java:106)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.Assume.assumeTrue(Assume.java:50)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at com.usman.miqaat.ui.SettingsStateTest.selectedCategoryAndItsOwnScrollSurviveRecreation(SettingsStateTest.kt:83)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:66)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-01 05:26:33.152  6103  6122 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+10-01 05:26:33.167  1681  1681 I AiAiEcho: SearchContextManagerImpl::setSearchContext resultTypes=[141151] extras=[Bundle[mParcelledData.dataSize=684]] sessionId=[com.google.android.apps.nexuslauncher:4e49790e-fe34-470a-a164-f03835262db6,0]
+10-01 05:26:33.169  1117  1117 D AutofillManager: view is not autofillable - activity denied for autofill
+10-01 05:26:33.218  1117  1117 I ContentCaptureHelper: Setting logging level to DEBUG
+10-01 05:26:33.218  1117  1117 D ContentCaptureManager: setFlushViewTreeAppearingEventDisabled(): setting to false
+10-01 05:26:33.218  1117  1117 D ContentCaptureManager: updateWindowAttributes(): window flags=-2137980672
+10-01 05:26:33.222   134   134 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+10-01 05:26:33.222  6170  6192 I Gralloc4: mapper 4.x is not supported
+10-01 05:26:33.224  1117  1117 D ContentCaptureManager: updateWindowAttributes(): window flags=-2137980672
+10-01 05:26:33.227  1117  1117 I Choreographer: Skipped 62 frames!  The application may be doing too much work on its main thread.
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:463)
+10-01 05:26:33.241  6103  6122 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2402)
+10-01 05:26:33.254  6103  6122 E TestRunner: ----- end exception -----
+10-01 05:26:33.269  1117  1157 I ImeTracker: com.google.android.apps.nexuslauncher:4207fef8: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-01 05:26:33.269  1117  1157 I ImeTracker: com.google.android.apps.nexuslauncher:4207fef8: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-01 05:26:33.270  1117  1157 D SearchTargetUtil:  query= size=1
+10-01 05:26:33.270  1117  1157 D SearchTargetUtil: layoutType=icon_row resultType=4096 packageName= extras=Bundle{icon_container_enabled=true,zero_state_all_apps_web_suggest_count=3,rank=1.0,key_ipc_start=305626,hide_subtitle=true,zero_state_qsb_web_suggest_count=10,}ParentID: null targetID: SESSION_INFO:0::zero_state_flags
+10-01 05:26:33.270  1117  1157 I ImeTracker: com.google.android.apps.nexuslauncher:6c0d2961: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-01 05:26:33.271  1117  1157 I ImeTracker: com.google.android.apps.nexuslauncher:6c0d2961: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-01 05:26:33.275  6103  6122 I TestRunner: finished: selectedCategoryAndItsOwnScrollSurviveRecreation(com.usman.miqaat.ui.SettingsStateTest)

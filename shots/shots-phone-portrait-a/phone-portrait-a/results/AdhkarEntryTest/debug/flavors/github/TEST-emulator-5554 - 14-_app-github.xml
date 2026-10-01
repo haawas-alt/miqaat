@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.usman.miqaat.ui.AdhkarEntryTest" tests="1" failures="0" errors="0" skipped="0" time="9.497" timestamp="2026-10-01T05:26:52" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 14" />
+    <property name="flavor" value="github" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="entriesAreOnScreenInTheirWindowsForEveryTheme" classname="com.usman.miqaat.ui.AdhkarEntryTest" time="8.956" />
+</testsuite>

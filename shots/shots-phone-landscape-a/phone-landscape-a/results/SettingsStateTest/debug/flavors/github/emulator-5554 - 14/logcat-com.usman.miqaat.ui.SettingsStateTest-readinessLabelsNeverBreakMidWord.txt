@@ -1,0 +1,152 @@
+10-01 05:26:42.592  6103  6122 I TestRunner: started: readinessLabelsNeverBreakMidWord(com.usman.miqaat.ui.SettingsStateTest)
+10-01 05:26:42.596  6103  6122 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@9ca1c7c]
+10-01 05:26:42.602  6103  6122 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-01 05:26:42.679  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@b677880 in: PRE_ON_CREATE
+10-01 05:26:42.679  6103  6103 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-01 05:26:42.686   398   398 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:42.690   844   900 D SplashScreenView: Build android.window.SplashScreenView{10dc753 V.E...... ......ID 0,0-0,0}
+10-01 05:26:42.690   844   900 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-01 05:26:42.690   844   900 D SplashScreenView: Branding: view: android.view.View{2cb5890 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-01 05:26:42.699  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@b677880 in: CREATED
+10-01 05:26:42.699  6103  6103 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@b677880
+10-01 05:26:42.700  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@b677880 in: STARTED
+10-01 05:26:42.701  6103  6103 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@b677880
+10-01 05:26:42.702  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@b677880 in: RESUMED
+10-01 05:26:42.702  6103  6103 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@b677880
+10-01 05:26:42.998  1117  1955 D EGL_emulation: app_time_stats: avg=184.37ms min=38.91ms max=446.60ms count=7
+10-01 05:26:42.999   844   915 D EGL_emulation: app_time_stats: avg=893.07ms min=39.50ms max=1746.64ms count=2
+10-01 05:26:43.115   521   545 W system_server: Long monitor contention with owner binder:521_8 (932) at android.window.TaskSnapshot com.android.server.wm.ActivityTaskManagerService.takeTaskSnapshot(int, boolean)(ActivityTaskManagerService.java:3820) waiters=0 in void com.android.server.wm.WindowAnimator.lambda$new$1(long) for 140ms
+10-01 05:26:43.119  5348  5590 D TrafficStats: tagSocket(86) with statsTag=0x1065fff, statsUid=10142
+10-01 05:26:43.123   521  1881 W system_server: Long monitor contention with owner binder:521_8 (932) at android.window.TaskSnapshot com.android.server.wm.ActivityTaskManagerService.takeTaskSnapshot(int, boolean)(ActivityTaskManagerService.java:3820) waiters=2 in int com.android.server.wm.WindowOrganizerController.finishTransition(android.os.IBinder, android.window.WindowContainerTransaction, android.window.IWindowContainerTransactionCallback) for 125ms
+10-01 05:26:43.178   844   915 D EGL_emulation: app_time_stats: avg=1343.18ms min=1343.18ms max=1343.18ms count=1
+10-01 05:26:43.261   521   541 W ziparchive: Unable to open '/data/app/~~Z6sp5w877MCB5BpL3g7RMw==/com.usman.miqaat--01A-h-uG_Vf1m7KSIQ-3w==/base.dm': No such file or directory
+10-01 05:26:43.265  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:43.273  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode 1
+10-01 05:26:43.273  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:43.283   844   898 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@42385af
+10-01 05:26:43.286   521  2361 W InputManager-JNI: Input channel object 'd5cbfa9 Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-01 05:26:43.293   521  1850 I ImeTracker: com.usman.miqaat:9159c332: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-01 05:26:43.294   521  1850 I ImeTracker: com.usman.miqaat:9159c332: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-01 05:26:43.297   521   541 I ActivityTaskManager: Displayed com.usman.miqaat/androidx.activity.ComponentActivity for user 0: +627ms
+10-01 05:26:43.301  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-01 05:26:43.306  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-01 05:26:43.307  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.usman.miqaat fieldId=0 fieldName=null extras=null}, false)
+10-01 05:26:43.307  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-01 05:26:43.315  1117  1157 I ImeTracker: com.google.android.apps.nexuslauncher:a7038d5a: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-01 05:26:43.319  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-01 05:26:43.324  1707  2585 I PBSessionCacheImpl: Deleted sessionId[7509256226585080] from persistence.
+10-01 05:26:43.325  6103  6103 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-01 05:26:43.326  1117  2262 D OneSearchSuggestProvider: Shut down the binder channel
+10-01 05:26:43.326  1117  1389 I IPCThreadState: oneway function results for code 2 on binder at 0x7309e7f38940 will be dropped but finished with status UNKNOWN_TRANSACTION
+10-01 05:26:43.330  1117  1117 W FrameTracker: Missed App frame:UNKNOWN: 88, 9351, 508277747, CUJ=J<LAUNCHER_APP_CLOSE_TO_HOME>
+10-01 05:26:43.332  1117  1117 W FrameTracker: Missed SF frame:UNKNOWN: 88, 9351, 508277747, CUJ=J<LAUNCHER_APP_CLOSE_TO_HOME>
+10-01 05:26:43.332  1117  1117 W FrameTracker: Missed App frame:UNKNOWN: 74, 9374, 501194805, CUJ=J<LAUNCHER_APP_CLOSE_TO_HOME>
+10-01 05:26:43.332  1117  1117 W FrameTracker: Missed SF frame:UNKNOWN: 74, 9374, 501194805, CUJ=J<LAUNCHER_APP_CLOSE_TO_HOME>
+10-01 05:26:43.333  1117  1117 W FrameTracker: Missed App frame:UNKNOWN: 74, 9504, 171054263, CUJ=J<LAUNCHER_APP_CLOSE_TO_HOME>
+10-01 05:26:43.333  1117  1117 W FrameTracker: Missed SF frame:UNKNOWN: 74, 9504, 171054263, CUJ=J<LAUNCHER_APP_CLOSE_TO_HOME>
+10-01 05:26:43.333  1117  1117 W FrameTracker: Missing SF jank callback for vsyncId: 9526, CUJ=J<LAUNCHER_APP_CLOSE_TO_HOME>
+10-01 05:26:43.333  1117  1117 W FrameTracker: Missed App frame:UNKNOWN: 10, 9596, 93695530, CUJ=J<LAUNCHER_APP_CLOSE_TO_HOME>
+10-01 05:26:43.333  1117  1117 W FrameTracker: Missed SF frame:UNKNOWN: 10, 9596, 93695530, CUJ=J<LAUNCHER_APP_CLOSE_TO_HOME>
+10-01 05:26:43.333  1117  1117 W FrameTracker: Missing SF jank callback for vsyncId: 9618, CUJ=J<LAUNCHER_APP_CLOSE_TO_HOME>
+10-01 05:26:43.342  1707  2405 W SearchServiceCore: Abort, client detached.
+10-01 05:26:43.417   521  2684 I ImeTracker: com.google.android.apps.nexuslauncher:a7038d5a: onCancelled at PHASE_SERVER_CLIENT_FOCUSED
+10-01 05:26:43.669   132   132 I lowmemorykiller: lmkd data connection established
+10-01 05:26:43.697   132   132 I lowmemorykiller: Using psi monitors for memory pressure detection
+10-01 05:26:43.697   132   132 I lowmemorykiller: Properties reinitilized
+10-01 05:26:43.697  6266  6266 I lowmemorykiller: lmkd updated properties successfully
+10-01 05:26:43.697   132   132 I lowmemorykiller: lmkd data connection dropped
+10-01 05:26:43.697   132   132 I lowmemorykiller: closing lmkd data connection
+10-01 05:26:43.742   521   521 W ServiceConnector.Impl: mayInterruptIfRunning not supported - ignoring
+10-01 05:26:43.743  1681  1681 D AugmentedAutofillService: handleOnConnected(): debug=true, verbose=false
+10-01 05:26:43.743  1681  3015 I AiAiAutofill: Disconnected AiAiAugmentedAutofillService.
+10-01 05:26:43.755  1681  3015 I AiAiAutofill: Connected AiAiAugmentedAutofillService.
+10-01 05:26:44.008  1117  1117 I ActivityThread: Schedule relaunch activity: com.google.android.apps.nexuslauncher.NexusLauncherActivity
+10-01 05:26:44.009   844   844 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-01 05:26:44.010  1117  1117 D b/254119092: clearActivity
+10-01 05:26:44.010  1117  1117 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-01 05:26:44.019  1117  1117 D AutofillManager: view is not autofillable - activity denied for autofill
+10-01 05:26:44.019   521  1235 W InputManager-JNI: Input channel object 'c11c5a3 com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity (client)' was disposed without first being removed with the input manager!
+10-01 05:26:44.022  1117  1117 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-01 05:26:44.022  1117  1117 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-01 05:26:44.031  1117  1157 I AiAiSuggestUi: Connecting to system intelligence module.
+10-01 05:26:44.033  1117  2394 I AiAiSuggestUi: Successfully connected to system intelligence:
+10-01 05:26:44.044  1117  1117 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-01 05:26:44.050  1117  1117 D DeviceSearchAlg: search timeout = %d200
+10-01 05:26:44.052  1117  1117 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+10-01 05:26:44.053  1117  1117 W BcSmartspaceView: Current card is not present in the Adapter; cannot log.
+10-01 05:26:44.056  1117  1117 I OverviewComponentObserver: updateOverviewTargets: mIsHomeDisabled=false, isDefaultHomeNull=false, mIsDefaultHome=true
+10-01 05:26:44.118  1681  1681 I AiAiEcho: SearchContextManagerImpl::setSearchContext resultTypes=[141151] extras=[Bundle[mParcelledData.dataSize=684]] sessionId=[com.google.android.apps.nexuslauncher:120a9d43-2731-4a1c-8f65-278c6f2acfd6,0]
+10-01 05:26:44.120  1117  1157 D SearchTargetUtil:  query= size=1
+10-01 05:26:44.120  1117  1157 D SearchTargetUtil: layoutType=icon_row resultType=4096 packageName= extras=Bundle{icon_container_enabled=true,zero_state_all_apps_web_suggest_count=3,rank=1.0,key_ipc_start=316511,hide_subtitle=true,zero_state_qsb_web_suggest_count=10,}ParentID: null targetID: SESSION_INFO:0::zero_state_flags
+10-01 05:26:44.139  1117  1117 I ContentCaptureHelper: Setting logging level to DEBUG
+10-01 05:26:44.139  1117  1117 D ContentCaptureManager: setFlushViewTreeAppearingEventDisabled(): setting to false
+10-01 05:26:44.139  1117  1117 D ContentCaptureManager: updateWindowAttributes(): window flags=-2137980672
+10-01 05:26:44.149  1117  1117 D MainContentCaptureSession: Destroying session (ctx=com.google.android.apps.nexuslauncher.NexusLauncherActivity@e3f3cbc, id=-1621656380) with 0 event(s) for act:com.google.android.apps.nexuslauncher/.NexusLauncherActivity [state=2 (ACTIVE), disabled=false]
+10-01 05:26:44.206  1117  1117 D AutofillManager: view is not autofillable - activity denied for autofill
+10-01 05:26:44.222  1117  1157 I ImeTracker: com.google.android.apps.nexuslauncher:93d56f39: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-01 05:26:44.222  1117  1157 I ImeTracker: com.google.android.apps.nexuslauncher:93d56f39: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-01 05:26:44.230  1681  2447 I AiAiEcho: Settings changed for uri: content://settings/secure/show_qr_code_scanner_setting
+10-01 05:26:44.231  1681  1974 I AiAiEcho: Predicting[0]:
+10-01 05:26:44.231  1681  1974 I AiAiEcho: EchoTargets:
+10-01 05:26:44.231  1681  1974 I AiAiEcho: Filtered by AiAi flag check:
+10-01 05:26:44.232  1681  1974 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-01 05:26:44.232  1681  1974 I AiAiEcho: Predicting[0]:
+10-01 05:26:44.233  1681  1974 I AiAiEcho: EchoTargets:
+10-01 05:26:44.233  1681  1974 I AiAiEcho: Filtered by AiAi flag check:
+10-01 05:26:44.233  1681  1974 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-01 05:26:44.234  1681  1974 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-01 05:26:44.239  1681  1974 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0 (types=[])
+10-01 05:26:44.272   844   844 D NavigationModeController: getCurrentUserContext: contextUser=0 currentUser=0
+10-01 05:26:44.274  1117  1117 D TISBindHelper: TIS service connected
+10-01 05:26:44.274  1117  1117 D b/254119092: Set mActivity=com.google.android.apps.nexuslauncher.NexusLauncherActivity@3fa12ec
+10-01 05:26:44.274  1117  1117 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-01 05:26:44.274  1117  1117 D MainContentCaptureSession: handleScheduleFlush(act:com.google.android.apps.nexuslauncher/.NexusLauncherActivity [state=1 (WAITING_FOR_SERVER), disabled=false], reason=FORCE_FLUSH): not a timeout reason because mDirectServiceInterface is not ready yet
+10-01 05:26:44.278   844   844 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+10-01 05:26:44.288  1707  1707 I ImeTracker: com.google.android.googlequicksearchbox:search:fc14c463: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-01 05:26:44.288  1707  1707 I ImeTracker: com.google.android.googlequicksearchbox:search:fc14c463: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-01 05:26:44.298  5348  6040 I bwir    : updateFromConfigurations using legacy put method [CONTEXT service_id=204 ]
+10-01 05:26:44.302  1707  1707 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@1a2ae64
+10-01 05:26:44.303   521  1880 W InputManager-JNI: Input channel object 'afa85d4 com.google.android.googlequicksearchbox/android.app.ContextImpl (client)' was disposed without first being removed with the input manager!
+10-01 05:26:44.457   521   521 D BluetoothDeviceConfigChangeTracker: shouldRestartWhenPropertiesUpdated: INIT_gd_hal_snoop_logger_filtering='true',scan_timeout_millis='300000',location_denylist_name='',audio_policy_hf_enabled='true',INIT_gd_hal_snoop_logger_socket='true',location_denylist_advertising_data='⊈0016AAFE40/00FFFFFFF0,⊆0016AAFE/00FFFFFF,⊆00FF4C0002/00FFFFFFFF',le_audio_enabled_by_default='false',location_denylist_mac='',audio_policy_ag_enabled='true'
+10-01 05:26:44.457   521   521 D BluetoothDeviceConfigListener: All properties unchanged, skipping restart
+10-01 05:26:44.486   521   521 E DeviceConfig: Parsing int failed for location_mode
+10-01 05:26:44.502  5348  6083 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.clearcut.uploader.QosUploaderService finished executing. cause:5 result: 1 elapsed_millis: 7359 uptime_millis: 7359 exec_start_elapsed_seconds: 309 [CONTEXT service_id=218 ]
+10-01 05:26:44.533   830   830 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-01 05:26:44.610  6103  6133 D EGL_emulation: app_time_stats: avg=153.36ms min=90.25ms max=380.03ms count=9
+10-01 05:26:44.698   844   915 D EGL_emulation: app_time_stats: avg=412.61ms min=1.05ms max=1203.26ms count=4
+10-01 05:26:44.880   844   900 D SplashScreenView: Build android.window.SplashScreenView{22d3bf8 V.E...... ......ID 0,0-0,0}
+10-01 05:26:44.880   844   900 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-01 05:26:44.880   844   900 D SplashScreenView: Branding: view: android.view.View{f5848d1 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-01 05:26:44.883  5348  5348 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.nearby.exposurenotification.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentApiServiceNoInstantApps }
+10-01 05:26:44.885  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@b677880 in: PAUSED
+10-01 05:26:44.886  6103  6103 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@b677880
+10-01 05:26:44.904   398   398 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:45.086  1117  1133 I s.nexuslauncher: NativeAlloc concurrent copying GC freed 42605(3376KB) AllocSpace objects, 5(80KB) LOS objects, 49% free, 7037KB/13MB, paused 21us,12us total 105.155ms
+10-01 05:26:45.091  6170  6192 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-01 05:26:45.115   844   915 D EGL_emulation: app_time_stats: avg=964.34ms min=353.28ms max=1575.40ms count=2
+10-01 05:26:45.137  1117  1135 W System  : A resource failed to call release.
+10-01 05:26:45.137  1117  1135 W System  : A resource failed to call release.
+10-01 05:26:45.137  1117  1135 W System  : A resource failed to call release.
+10-01 05:26:45.137  1117  1135 W System  : A resource failed to call release.
+10-01 05:26:45.137  1117  1135 W System  : A resource failed to call release.
+10-01 05:26:45.137  1117  1135 W System  : A resource failed to call release.
+10-01 05:26:45.332   521   541 W ziparchive: Unable to open '/data/app/~~u-tTSPXmRN1XxfTwG3Na_Q==/com.usman.miqaat.test-aKjwhoEHIrFQFis0yg_eFQ==/base.dm': No such file or directory
+10-01 05:26:45.333   521   541 I ActivityTaskManager: Displayed com.usman.miqaat.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity for user 0: +456ms
+10-01 05:26:45.363  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:45.363  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode 1
+10-01 05:26:45.363  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:45.363   521  1662 W AppSearchIcing: icing-search-engine.cc:283: Error: 5, Message: Document (com.google.android.googlequicksearchbox$OneSearchZeroStateGoogleSuggestions/default, zp) not found.
+10-01 05:26:45.365  1117  2262 D OneSearchSuggestProvider: Created the binder channel successfully for end point service =com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService , mChannel=z1{delegate=s1{logId=21, target=directaddress:///AndroidComponentAddress%5BIntent%20%7B%20act=grpc.io.action.BIND%20cmp=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService%20%7D%5D}} , mOneSearchConnection=X1.T@649feae
+10-01 05:26:45.374  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@b677880 in: STOPPED
+10-01 05:26:45.375  6103  6103 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@b677880
+10-01 05:26:45.376   521  2363 I ImeTracker: com.usman.miqaat.test:cf6e8fcd: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-01 05:26:45.377   521  2363 I ImeTracker: com.usman.miqaat.test:cf6e8fcd: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-01 05:26:45.385   844   898 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@658f6d3
+10-01 05:26:45.391  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@b677880 in: DESTROYED
+10-01 05:26:45.392  6103  6103 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-01 05:26:45.392  6103  6103 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@45b7b6b
+10-01 05:26:45.395   521  1850 W InputManager-JNI: Input channel object '898ad65 com.usman.miqaat/androidx.activity.ComponentActivity (client)' was disposed without first being removed with the input manager!
+10-01 05:26:45.404   398   398 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:45.430   521  1850 W InputManager-JNI: Input channel object '8a02316 Splash Screen com.usman.miqaat.test (client)' was disposed without first being removed with the input manager!
+10-01 05:26:45.435  6103  6122 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@9ca1c7c]
+10-01 05:26:45.436  6103  6122 I TestRunner: finished: readinessLabelsNeverBreakMidWord(com.usman.miqaat.ui.SettingsStateTest)

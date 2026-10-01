@@ -1,0 +1,248 @@
+10-01 05:25:38.066  6169  6189 I TestRunner: started: displayAndArtOpensAtTopWithContentImmediately(com.usman.miqaat.ui.SettingsStateTest)
+10-01 05:25:38.077  6169  6189 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@2814376]
+10-01 05:25:38.107  6169  6189 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-01 05:25:38.131  1093  1113 I s.nexuslauncher: NativeAlloc concurrent copying GC freed 58743(2932KB) AllocSpace objects, 10(564KB) LOS objects, 49% free, 6605KB/12MB, paused 21us,16us total 134.605ms
+10-01 05:25:38.134   846   898 D SplashScreenView: Build android.window.SplashScreenView{db75d20 V.E...... ......ID 0,0-0,0}
+10-01 05:25:38.134   846   898 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-01 05:25:38.134   846   898 D SplashScreenView: Branding: view: android.view.View{c3296d9 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-01 05:25:38.136  1093  1115 W System  : A resource failed to call release.
+10-01 05:25:38.136  1093  1115 W System  : A resource failed to call release.
+10-01 05:25:38.178  6169  6256 D ProfileInstaller: Installing profile for com.usman.miqaat
+10-01 05:25:38.203  1710  2534 I A       : #enqueuePeriodicJob: running = false
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil:  query= size=15
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=nike running shoes,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=nike running shoes searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: d5250351-10cb-416e-9430-ee2628f6f9bd
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=metallica sphere,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=metallica sphere searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: ab270a89-f702-4836-b32b-6c8e0fa6a7a4
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=ios 27,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=ios 27 searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 6f46889f-3cc9-450b-9f96-050abb723b64
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=weather tornado warning,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=weather tornado warning searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: de482dfa-a3b8-437d-ab49-04a038f3d45d
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=wahlburgers,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=wahlburgers searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 1e25b002-1882-4419-a1c2-940b345b5502
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=extra_tall_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{bitmap_url=data:image/png;base64,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,suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=true,is_personal=false,suggest_raw_text=premier league football,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=Premier League searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 861be292-4046-4977-996a-bb520ca3cae3
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=tsa,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=tsa searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: f6cd5285-dc4e-4f42-88dd-268c96184e9d
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=dragon ball lego,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=dragon ball lego searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 568e1c3c-e9c4-4ee2-94cc-c2da5ce0607d
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=stock markets,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=stock markets searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 223b78f3-24fb-44a0-9f3c-b9ad260ee6fe
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=extra_tall_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{bitmap_url=data:image/jpeg;base64,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
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=samsung galaxy tab s12 ultra,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=samsung galaxy tab s12 ultra searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: de88affd-d6db-4bac-8c0e-2b13bd7c4251
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=nato russia,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=nato russia searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 704d21e5-af74-498c-924a-6f5f0cdbf462
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=2027 bmw 3 series,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=2027 bmw 3 series searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: dd30645d-2a7d-4a1d-afbe-932592b0be94
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=daryl dixon,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=daryl dixon searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 06634c1b-aabc-4825-890b-3155d9c66f9e
+10-01 05:25:38.297  1093  1093 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=tropical storm weather forecast,group_id=web229221,response_id=1cd4b8bb-b370-4335-b8e2-75fc13687cab,support_query_builder=false,} searchAction=tropical storm weather forecast searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 1cd27b2a-a560-4063-803c-8c22eb44666e
+10-01 05:25:38.299  1710  2534 I A       : #scheduledRefresh: enable_prod_refresh is true but we have no valid refresh schedule
+10-01 05:25:38.307   400   400 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:25:38.357  1710  2508 I A       : loading data on surface MinusOne.
+10-01 05:25:38.422  6209  6209 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@e8c222c
+10-01 05:25:38.424   522  1811 W InputManager-JNI: Input channel object '9ac500c com.usman.miqaat.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity (client)' was disposed without first being removed with the input manager!
+10-01 05:25:38.426  1710  1710 I Choreographer: Skipped 41 frames!  The application may be doing too much work on its main thread.
+10-01 05:25:38.432  1710  1710 I A       : onApplyWindowInsets: systemWindowInsets=Insets{left=0, top=128, right=0, bottom=63}
+10-01 05:25:38.451  1710  1710 I A       : onApplyWindowInsets: Adjusting for display cutouts. Safe insets: left=0, top=128, right=0, bottom=0
+10-01 05:25:38.451  1710  1710 I A       : onApplyWindowInsets: systemWindowInsets=Insets{left=0, top=128, right=0, bottom=63}
+10-01 05:25:38.477   846   861 I ndroid.systemui: NativeAlloc concurrent copying GC freed 199639(10008KB) AllocSpace objects, 13(260KB) LOS objects, 49% free, 18MB/36MB, paused 35us,33us total 447.321ms
+10-01 05:25:38.602  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@9fd788b in: PRE_ON_CREATE
+10-01 05:25:38.603  6169  6169 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-01 05:25:38.624  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@9fd788b in: CREATED
+10-01 05:25:38.625  6169  6169 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@9fd788b
+10-01 05:25:38.627  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@9fd788b in: STARTED
+10-01 05:25:38.627  6169  6169 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@9fd788b
+10-01 05:25:38.664  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@9fd788b in: RESUMED
+10-01 05:25:38.664  6169  6169 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@9fd788b
+10-01 05:25:38.852  5386  5398 I FontLog : Received query Google Sans, URI content://com.google.android.gms.fonts [CONTEXT service_id=132 ]
+10-01 05:25:38.852  5386  5398 I FontLog : Query [Google Sans] resolved to {Google Sans, wdth 100.0, wght 400, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-01 05:25:38.862  5386  5398 I FontLog : Font PFD returned from cache for {Google Sans, wdth 100.0, wght 400, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-01 05:25:38.903  5386  5398 I FontLog : Fetch {Google Sans, wdth 100.0, wght 400, ital 0.0, bestEffort false} end status Status{statusCode=SUCCESS, resolution=null} [CONTEXT service_id=132 ]
+10-01 05:25:38.942   522   532 I system_server: NativeAlloc concurrent copying GC freed 510966(19MB) AllocSpace objects, 22(640KB) LOS objects, 47% free, 26MB/50MB, paused 50us,61us total 503.650ms
+10-01 05:25:38.944   522   533 W JavaBinder: BinderProxy is being destroyed but the application did not call unlinkToDeath to unlink all of its death recipients beforehand.  Releasing leaked death recipient: com.android.server.am.ActivityManagerService$14
+10-01 05:25:38.944   522   533 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:25:38.946   522   533 W JavaBinder: BinderProxy is being destroyed but the application did not call unlinkToDeath to unlink all of its death recipients beforehand.  Releasing leaked death recipient: com.android.server.wm.ActivityRecord$$ExternalSyntheticLambda0
+10-01 05:25:38.947   522   533 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:25:38.948  5386  5398 I FontLog : Pulling font file for id = 2, cache size = 2 [CONTEXT service_id=132 ]
+10-01 05:25:38.954  1710  2373 W earchbox:search: Long monitor contention with owner BG Thread #3 (2429) at void java.lang.Runtime.loadLibrary0(java.lang.ClassLoader, java.lang.Class, java.lang.String)(Runtime.java:1084) waiters=0 in void java.lang.Runtime.loadLibrary0(java.lang.ClassLoader, java.lang.Class, java.lang.String) for 506ms
+10-01 05:25:38.976   522   540 W ziparchive: Unable to open '/data/app/~~4kewmCiK8u2rCV3vl1aZJA==/com.usman.miqaat-TgjIX_-ttUi1-UhV7GRlWg==/base.dm': No such file or directory
+10-01 05:25:38.982  1093  2279 D OneSearchSuggestProvider: Shut down the binder channel
+10-01 05:25:38.983  1093  1123 I IPCThreadState: oneway function results for code 2 on binder at 0x7ce777ad5c30 will be dropped but finished with status UNKNOWN_TRANSACTION
+10-01 05:25:38.983  1093  1139 I ImeTracker: com.google.android.apps.nexuslauncher:c3c1973c: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-01 05:25:38.984   522  2684 I ImeTracker: com.google.android.apps.nexuslauncher:c3c1973c: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-01 05:25:38.984   522   540 I ActivityTaskManager: Displayed com.usman.miqaat/androidx.activity.ComponentActivity for user 0: +856ms
+10-01 05:25:38.985  1710  1710 W A       : Could not collect restore state: The DisplayCoordinator's controller has not taken over yet.
+10-01 05:25:38.988  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@9fd788b in: PAUSED
+10-01 05:25:38.988  6169  6169 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@9fd788b
+10-01 05:25:38.991  5386  5790 I FontLog : Received query Google Sans:500, URI content://com.google.android.gms.fonts [CONTEXT service_id=132 ]
+10-01 05:25:38.991  5386  5790 I FontLog : Query [Google Sans:500] resolved to {Google Sans, wdth 100.0, wght 500, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-01 05:25:38.991  5386  5790 I FontLog : Font PFD returned from cache for {Google Sans, wdth 100.0, wght 500, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-01 05:25:38.991  5386  5790 I FontLog : Fetch {Google Sans, wdth 100.0, wght 500, ital 0.0, bestEffort false} end status Status{statusCode=SUCCESS, resolution=null} [CONTEXT service_id=132 ]
+10-01 05:25:38.994  5386  5790 I FontLog : Pulling font file for id = 3, cache size = 3 [CONTEXT service_id=132 ]
+10-01 05:25:39.036  1710  2404 W SQLiteLog: (28) double-quoted string literal: "MAIN_FEED"
+10-01 05:25:39.044   846   898 D SplashScreenView: Build android.window.SplashScreenView{f8b404a V.E...... ......ID 0,0-0,0}
+10-01 05:25:39.044   846   898 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-01 05:25:39.044   846   898 D SplashScreenView: Branding: view: android.view.View{f1d1bbb G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-01 05:25:39.046   846   895 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@e13949b
+10-01 05:25:39.047   522  2888 W InputManager-JNI: Input channel object 'da6faed Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-01 05:25:39.053  1710  1710 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+10-01 05:25:39.053  1710  2404 W SQLiteLog: (28) double-quoted string literal: "Session::Current"
+10-01 05:25:39.053  1710  2404 W SQLiteLog: (28) double-quoted string literal: "MAIN_FEED"
+10-01 05:25:39.053  1710  2404 W SQLiteLog: (28) double-quoted string literal: "Session::Current"
+10-01 05:25:39.119   400   400 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:25:39.138  1710  2563 I A       : Using proto config with mendel
+10-01 05:25:39.164  1710  2508 I A       : Creating in-process transport to InProcessServerAddress[com.google.android.googlequicksearchbox/OnDeviceServer[Hash:60701869]]
+10-01 05:25:39.175  1710  2534 I A       : group apa_head_suggest present without account in *
+10-01 05:25:39.182  1032  1316 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:25:39.186  1710  2534 I A       : incrementApaDataDownloadStoreStatus(latency = PT0.016S, appVersion = 13.17.16.23, status = OK, locale = *, fileGroupnames = apa_head_suggest, accountScoped = false, localGroupsAvailable = false, timeSinceSearchBoot = Optional[PT3M23.15S] (ONE_TO_FIVE_MINUTES), timeSinceDataDownloadInit = PT2M38.297S (ONE_TO_FIVE_MINUTES))
+10-01 05:25:39.187  1710  2404 W A       : Didn't find the session (MAIN_FEED, true)
+10-01 05:25:39.187  1710  2404 W A       : Didn't find the session (MAIN_FEED, false)
+10-01 05:25:39.188  1710  2534 W A       : RenderableStreamDataSource#loadData - failed precheck
+10-01 05:25:39.188  1710  2534 W A       : DiscoverPrecheckException(precheckFailureReason=com.google.android.apps.search.googleapp.discover.w.a.c@915f86e)
+10-01 05:25:39.188  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.w.bb.d(PG:16)
+10-01 05:25:39.188  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.w.ap.invokeSuspend(PG:5)
+10-01 05:25:39.188  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.w.ap.invoke(PG:1)
+10-01 05:25:39.188  1710  2534 W A       : 	at kotlinx.coroutines.f.b.a(PG:1)
+10-01 05:25:39.188  1710  2534 W A       : 	at kotlinx.coroutines.m.a(PG:11)
+10-01 05:25:39.188  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.v.bb.f(PG:2)
+10-01 05:25:39.188  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.v.bb.d(PG:15)
+10-01 05:25:39.188  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.v.an.invokeSuspend(PG:1)
+10-01 05:25:39.188  1710  2534 W A       : 	at i.c.b.a.a.resumeWith(PG:4)
+10-01 05:25:39.188  1710  2534 W A       : 	at kotlinx.coroutines.bk.run(PG:14)
+10-01 05:25:39.188  1710  2534 W A       : 	at com.google.apps.tiktok.coroutines.f.run(PG:1)
+10-01 05:25:39.188  1710  2534 W A       : 	at com.google.android.libraries.i.ae.run(PG:1)
+10-01 05:25:39.188  1710  2534 W A       : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-01 05:25:39.188  1710  2534 W A       : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-01 05:25:39.188  1710  2534 W A       : 	at com.google.android.libraries.i.k.run(PG:2)
+10-01 05:25:39.188  1710  2534 W A       : 	at com.google.android.libraries.i.p.run(PG:4)
+10-01 05:25:39.188  1710  2534 W A       : 	at java.lang.Thread.run(Thread.java:1012)
+10-01 05:25:39.235  1032  1316 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:25:39.319  1710  2563 I A       : Using proto config with mendel
+10-01 05:25:39.375  1710  2563 I PBSessionCacheImpl: Deleted sessionId[7522450366127819] from persistence.
+10-01 05:25:39.380   846   846 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-01 05:25:39.388  1710  2563 W SearchServiceCore: Abort, client detached.
+10-01 05:25:39.419  6209  6230 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-01 05:25:39.423   846   846 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-01 05:25:39.446  1710  2563 E AttachedClient: Dropping clientEvent = 114 coming from client[7522450366127817]
+10-01 05:25:39.713   522   540 W ziparchive: Unable to open '/data/app/~~K4EXQs8lmxdCMq1huneBUA==/com.usman.miqaat.test-o2rNWDj1PvDxFyrQQQUAHg==/base.dm': No such file or directory
+10-01 05:25:39.713   522   540 I ActivityTaskManager: Displayed com.usman.miqaat.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity for user 0: +728ms
+10-01 05:25:39.723   400   400 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:25:39.741  1032  1316 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:25:39.743  1032  1316 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:25:39.751  1710  1710 I A       : StreamFragmentPeer#onPending
+10-01 05:25:39.752  1710  1710 I A       : #fetchAndStoreData() on surface MinusOne.
+10-01 05:25:39.762   846   895 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@1451716
+10-01 05:25:39.765   522  2888 W InputManager-JNI: Input channel object '223dbe2 Splash Screen com.usman.miqaat.test (client)' was disposed without first being removed with the input manager!
+10-01 05:25:39.773  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@9fd788b in: STOPPED
+10-01 05:25:39.778  6169  6169 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@9fd788b
+10-01 05:25:39.779  6169  6169 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@9fd788b in: DESTROYED
+10-01 05:25:39.780  6169  6169 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-01 05:25:39.780  6169  6169 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@57be75f
+10-01 05:25:39.806   522  1708 W InputManager-JNI: Input channel object '587f482 com.usman.miqaat/androidx.activity.ComponentActivity (client)' was disposed without first being removed with the input manager!
+10-01 05:25:39.875  1710  2534 W A       : Fetch failed. Renderable stream failure reason: USER_SIGNED_OUT
+10-01 05:25:39.875  1710  2534 W A       : DiscoverPrecheckException(precheckFailureReason=com.google.android.apps.search.googleapp.discover.w.a.c@915f86e)
+10-01 05:25:39.875  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.w.bb.d(PG:16)
+10-01 05:25:39.875  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.w.ax.invokeSuspend(PG:5)
+10-01 05:25:39.875  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.w.ax.invoke(PG:1)
+10-01 05:25:39.875  1710  2534 W A       : 	at kotlinx.coroutines.f.b.a(PG:1)
+10-01 05:25:39.875  1710  2534 W A       : 	at kotlinx.coroutines.m.a(PG:11)
+10-01 05:25:39.875  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.w.bb.c(PG:2)
+10-01 05:25:39.875  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.v.am.invokeSuspend(PG:5)
+10-01 05:25:39.875  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.v.am.invoke(PG:1)
+10-01 05:25:39.875  1710  2534 W A       : 	at kotlinx.coroutines.f.b.a(PG:1)
+10-01 05:25:39.875  1710  2534 W A       : 	at kotlinx.coroutines.m.a(PG:11)
+10-01 05:25:39.875  1710  2534 W A       : 	at com.google.android.apps.search.googleapp.discover.v.al.invokeSuspend(PG:4)
+10-01 05:25:39.875  1710  2534 W A       : 	at i.c.b.a.a.resumeWith(PG:4)
+10-01 05:25:39.875  1710  2534 W A       : 	at kotlinx.coroutines.bk.run(PG:14)
+10-01 05:25:39.875  1710  2534 W A       : 	at com.google.apps.tiktok.coroutines.f.run(PG:1)
+10-01 05:25:39.875  1710  2534 W A       : 	at com.google.android.libraries.i.ae.run(PG:1)
+10-01 05:25:39.875  1710  2534 W A       : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-01 05:25:39.875  1710  2534 W A       : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-01 05:25:39.875  1710  2534 W A       : 	at com.google.android.libraries.i.k.run(PG:2)
+10-01 05:25:39.875  1710  2534 W A       : 	at com.google.android.libraries.i.p.run(PG:4)
+10-01 05:25:39.875  1710  2534 W A       : 	at java.lang.Thread.run(Thread.java:1012)
+10-01 05:25:39.895   522  1637 W AppSearchIcing: icing-search-engine.cc:283: Error: 5, Message: Document (com.google.android.googlequicksearchbox$OneSearchZeroStateGoogleSuggestions/default, zp) not found.
+10-01 05:25:39.903  1093  2279 D OneSearchSuggestProvider: Created the binder channel successfully for end point service =com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService , mChannel=z1{delegate=s1{logId=17, target=directaddress:///AndroidComponentAddress%5BIntent%20%7B%20act=grpc.io.action.BIND%20cmp=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService%20%7D%5D}} , mOneSearchConnection=X1.T@b0cda08
+10-01 05:25:39.956  1710  1710 W A       : Failed RenderableStream callback; SubscriptionCallbacks#onError(Throwable) called.
+10-01 05:25:39.956  1710  1710 W A       : com.google.android.apps.search.googleapp.discover.v.i: DiscoverPrecheckException(precheckFailureReason=com.google.android.apps.search.googleapp.discover.w.a.c@915f86e)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.android.apps.search.googleapp.discover.v.ak.a(PG:1)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.android.apps.search.googleapp.discover.v.am.invokeSuspend(PG:17)
+10-01 05:25:39.956  1710  1710 W A       : 	at i.c.b.a.a.resumeWith(PG:4)
+10-01 05:25:39.956  1710  1710 W A       : 	at kotlinx.coroutines.bk.run(PG:14)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.apps.tiktok.coroutines.f.run(PG:1)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.android.libraries.i.ae.run(PG:1)
+10-01 05:25:39.956  1710  1710 W A       : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-01 05:25:39.956  1710  1710 W A       : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.android.libraries.i.k.run(PG:2)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.android.libraries.i.p.run(PG:4)
+10-01 05:25:39.956  1710  1710 W A       : 	at java.lang.Thread.run(Thread.java:1012)
+10-01 05:25:39.956  1710  1710 W A       : Caused by: DiscoverPrecheckException(precheckFailureReason=com.google.android.apps.search.googleapp.discover.w.a.c@915f86e)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.android.apps.search.googleapp.discover.w.bb.d(PG:16)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.android.apps.search.googleapp.discover.w.ax.invokeSuspend(PG:5)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.android.apps.search.googleapp.discover.w.ax.invoke(PG:1)
+10-01 05:25:39.956  1710  1710 W A       : 	at kotlinx.coroutines.f.b.a(PG:1)
+10-01 05:25:39.956  1710  1710 W A       : 	at kotlinx.coroutines.m.a(PG:11)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.android.apps.search.googleapp.discover.w.bb.c(PG:2)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.android.apps.search.googleapp.discover.v.am.invokeSuspend(PG:5)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.android.apps.search.googleapp.discover.v.am.invoke(PG:1)
+10-01 05:25:39.956  1710  1710 W A       : 	at kotlinx.coroutines.f.b.a(PG:1)
+10-01 05:25:39.956  1710  1710 W A       : 	at kotlinx.coroutines.m.a(PG:11)
+10-01 05:25:39.956  1710  1710 W A       : 	at com.google.android.apps.search.googleapp.discover.v.al.invokeSuspend(PG:4)
+10-01 05:25:39.956  1710  1710 W A       : 	... 9 more
+10-01 05:25:39.985  1710  2508 I A       : GMSCore Auth returned 0 accounts.
+10-01 05:25:39.985  1710  2508 I A       : GoogleOwnersProvider returned 0 accounts.
+10-01 05:25:39.987  1710  2563 I A       : Using proto config with mendel
+10-01 05:25:39.992  1710  2563 I A       : Using proto config with mendel
+10-01 05:25:39.997  6169  6189 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@2814376]
+10-01 05:25:39.998  6169  6189 E TestRunner: assumption failed: displayAndArtOpensAtTopWithContentImmediately(com.usman.miqaat.ui.SettingsStateTest)
+10-01 05:25:40.002  6169  6189 E TestRunner: ----- begin exception -----
+10-01 05:25:40.002  6169  6189 E TestRunner: org.junit.AssumptionViolatedException: got: <false>, expected: is <true>
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.Assume.assumeThat(Assume.java:106)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.Assume.assumeTrue(Assume.java:50)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at com.usman.miqaat.ui.SettingsStateTest.displayAndArtOpensAtTopWithContentImmediately(SettingsStateTest.kt:71)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:66)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-01 05:25:40.002  6169  6189 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:463)
+10-01 05:25:40.008  6169  6189 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2402)
+10-01 05:25:40.010   522  2363 W system_server: Long monitor contention with owner android.anim (544) at android.content.res.Configuration com.android.server.wm.ActivityTaskManagerService.getGlobalConfigurationForPid(int)(ActivityTaskManagerService.java:1133) waiters=1 in void com.android.server.wm.ActivityClientController.activityDestroyed(android.os.IBinder) for 108ms
+10-01 05:25:40.012  6169  6189 E TestRunner: ----- end exception -----
+10-01 05:25:40.028  6169  6189 I TestRunner: finished: displayAndArtOpensAtTopWithContentImmediately(com.usman.miqaat.ui.SettingsStateTest)

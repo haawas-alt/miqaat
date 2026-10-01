@@ -1,0 +1,274 @@
+10-01 05:26:37.638  6103  6122 I TestRunner: started: displayAndArtOpensAtTopWithContentImmediately(com.usman.miqaat.ui.SettingsStateTest)
+10-01 05:26:37.645  6103  6122 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@b3755db]
+10-01 05:26:37.664  6103  6122 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-01 05:26:37.678   521  1662 W AppSearchIcing: icing-search-engine.cc:283: Error: 5, Message: Document (com.google.android.googlequicksearchbox$OneSearchZeroStateGoogleSuggestions/default, zp) not found.
+10-01 05:26:37.687  1681  1974 I AiAiEcho: Predicting[0]:
+10-01 05:26:37.708   334  6227 I resolv  : GetAddrInfoHandler::run: {100 786532 100 983140 10131 0}
+10-01 05:26:37.715  1117  2262 D OneSearchSuggestProvider: Created the binder channel successfully for end point service =com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService , mChannel=z1{delegate=s1{logId=9, target=directaddress:///AndroidComponentAddress%5BIntent%20%7B%20act=grpc.io.action.BIND%20cmp=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService%20%7D%5D}} , mOneSearchConnection=X1.T@5695228
+10-01 05:26:37.733  3298  3337 D TrafficStats: tagSocket(103) with statsTag=0x1809, statsUid=-1
+10-01 05:26:37.747  1681  1974 I AiAiEcho: EchoTargets:
+10-01 05:26:37.747  1681  1974 I AiAiEcho: Filtered by AiAi flag check:
+10-01 05:26:37.747  1681  1974 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-01 05:26:37.749  1681  1974 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-01 05:26:37.781  3298  3298 W binder:3298_1: type=1400 audit(0.0:205): avc:  denied  { read } for  name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=292 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+10-01 05:26:37.794  3298  3337 W libc    : Access denied finding property "persist.adb.tls_server.enable"
+10-01 05:26:37.808  3298  3337 W libc    : Access denied finding property "service.adb.tls.port"
+10-01 05:26:37.815   521  1405 W system_server: Long monitor contention with owner android.anim (545) at void com.android.server.wm.WindowSurfacePlacer$Traverser.run()(WindowSurfacePlacer.java:58) waiters=0 in boolean com.android.server.wm.ActivityClientController.finishActivity(android.os.IBinder, int, android.content.Intent, int) for 136ms
+10-01 05:26:37.793  3298  3298 W binder:3298_1: type=1400 audit(0.0:206): avc:  denied  { read } for  name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=60 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+10-01 05:26:37.831   844   915 D EGL_emulation: app_time_stats: avg=910.78ms min=35.28ms max=2986.46ms count=4
+10-01 05:26:37.927   844   900 D SplashScreenView: Build android.window.SplashScreenView{af50d5f V.E...... ......ID 0,0-0,0}
+10-01 05:26:37.927   844   900 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-01 05:26:37.927   844   900 D SplashScreenView: Branding: view: android.view.View{ae3d3ac G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-01 05:26:37.936  5348  5375 W GmsUrlRequestImpl: Content-Type header is overwritten.
+10-01 05:26:37.941  1707  1707 I A       : Constructor was called
+10-01 05:26:37.947  1707  1707 I A       : No savedInstanceState.
+10-01 05:26:37.968  1707  1707 I A       : makeRequest: subscribing to new source
+10-01 05:26:37.970  1707  1707 I A       : OnCreate Was Called
+10-01 05:26:37.972  1707  1707 I A       : getMinusOnePromotion
+10-01 05:26:38.009   334  6228 I resolv  : GetAddrInfoHandler::run: {100 786532 100 983140 10131 0}
+10-01 05:26:38.012   334  6231 I resolv  : res_nmkquery: (QUERY, IN, A)
+10-01 05:26:38.012   334  6231 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x757fbb39f450
+10-01 05:26:38.012   334  6231 I resolv  : doQuery: rcode=0, ancount=8, return value=168
+10-01 05:26:38.012   334  6230 I resolv  : res_nmkquery: (QUERY, IN, AAAA)
+10-01 05:26:38.012   334  6230 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x7580bb393bd0
+10-01 05:26:38.012   334  6230 I resolv  : doQuery: rcode=0, ancount=8, return value=264
+10-01 05:26:38.054  5348  5590 D TrafficStats: tagSocket(260) with statsTag=0x401, statsUid=10131
+10-01 05:26:38.066  1707  2304 I A       : #enqueuePeriodicJob: running = false
+10-01 05:26:38.069  1707  2095 W A       : Couldn't calculate ClientInstanceId, no account name
+10-01 05:26:38.100   844   898 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@234eab
+10-01 05:26:38.102   521  1945 W InputManager-JNI: Input channel object '65966fd Splash Screen com.usman.miqaat.test (client)' was disposed without first being removed with the input manager!
+10-01 05:26:38.124  1707  2304 I A       : #scheduledRefresh: enable_prod_refresh is true but we have no valid refresh schedule
+10-01 05:26:38.185  1707  2383 I A       : loading data on surface MinusOne.
+10-01 05:26:38.201  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1fe43af in: PRE_ON_CREATE
+10-01 05:26:38.204  6103  6103 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-01 05:26:38.240  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1fe43af in: CREATED
+10-01 05:26:38.243  6103  6103 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@1fe43af
+10-01 05:26:38.246  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1fe43af in: STARTED
+10-01 05:26:38.253  6103  6103 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@1fe43af
+10-01 05:26:38.261  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1fe43af in: RESUMED
+10-01 05:26:38.262  6103  6103 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@1fe43af
+10-01 05:26:38.381  1707  1707 I Choreographer: Skipped 54 frames!  The application may be doing too much work on its main thread.
+10-01 05:26:38.454  1707  1707 I A       : onApplyWindowInsets: systemWindowInsets=Insets{left=0, top=128, right=0, bottom=63}
+10-01 05:26:38.455  1707  1707 I A       : onApplyWindowInsets: Adjusting for display cutouts. Safe insets: left=0, top=128, right=0, bottom=0
+10-01 05:26:38.455  1707  1707 I A       : onApplyWindowInsets: systemWindowInsets=Insets{left=0, top=128, right=0, bottom=63}
+10-01 05:26:38.460   334  6236 I resolv  : GetAddrInfoHandler::run: {100 786532 100 983140 10131 0}
+10-01 05:26:38.462   334  6237 I resolv  : res_nmkquery: (QUERY, IN, AAAA)
+10-01 05:26:38.498   334  6237 I resolv  : res_nsend: used send_dg 261 terrno: 0
+10-01 05:26:38.498   334  6237 I resolv  : doQuery: rcode=0, ancount=8, return value=261
+10-01 05:26:38.501   334  6238 I resolv  : res_nmkquery: (QUERY, IN, A)
+10-01 05:26:38.503   334  6238 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x757fbb39f2f0
+10-01 05:26:38.512  1117  1133 I s.nexuslauncher: NativeAlloc concurrent copying GC freed 65028(2662KB) AllocSpace objects, 14(860KB) LOS objects, 49% free, 6989KB/13MB, paused 19us,10us total 375.160ms
+10-01 05:26:38.546   334  6238 I resolv  : doQuery: rcode=0, ancount=8, return value=165
+10-01 05:26:38.548   521   541 W ziparchive: Unable to open '/data/app/~~Z6sp5w877MCB5BpL3g7RMw==/com.usman.miqaat--01A-h-uG_Vf1m7KSIQ-3w==/base.dm': No such file or directory
+10-01 05:26:38.549   521   541 I ActivityTaskManager: Displayed com.usman.miqaat/androidx.activity.ComponentActivity for user 0: +685ms
+10-01 05:26:38.550   521   521 W system_server: Long monitor contention with owner android.bg (550) at boolean com.android.server.PackageWatchdog.saveToFile()(PackageWatchdog.java:1101) waiters=0 in void com.android.server.PackageWatchdog.syncRequests() for 298ms
+10-01 05:26:38.584  1117  1135 W System  : A resource failed to call release.
+10-01 05:26:38.584  1117  1135 W System  : A resource failed to call release.
+10-01 05:26:38.584  1117  1135 W System  : A resource failed to call release.
+10-01 05:26:38.605  5348  5590 D TrafficStats: tagSocket(261) with statsTag=0x1065fff, statsUid=-1
+10-01 05:26:38.623  1707  3513 I OpenGLRenderer: Davey! duration=1116ms; Flags=0, FrameTimelineVsyncId=7621, IntendedVsync=309861380037, Vsync=310761380001, InputEventId=0, HandleInputStart=310817737095, AnimationStart=310817737997, PerformTraversalsStart=310817738307, DrawStart=310936940941, FrameDeadline=309878046703, FrameInterval=310772098671, FrameStartTime=16666666, SyncQueued=310946487875, SyncStart=310946510477, IssueDrawCommandsStart=310946563706, SwapBuffers=310961141683, FrameCompleted=310978373904, DequeueBufferDuration=3907, QueueBufferDuration=581035, GpuCompleted=310978373904, SwapBuffersCompleted=310970580554, DisplayPresentTime=0, CommandSubmissionCompleted=310961141683,
+10-01 05:26:38.630   521  1850 I ImeTracker: com.usman.miqaat:d3a2e8d: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-01 05:26:38.632   521  1850 I ImeTracker: com.usman.miqaat:d3a2e8d: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-01 05:26:38.666  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-01 05:26:38.694   844   898 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@3907e98
+10-01 05:26:38.703  6170  6170 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@aaf1955
+10-01 05:26:38.713   521   932 W InputManager-JNI: Input channel object '2919636 Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-01 05:26:38.714  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-01 05:26:38.714  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.usman.miqaat fieldId=0 fieldName=null extras=null}, false)
+10-01 05:26:38.714  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-01 05:26:38.715  5348  5664 I FontLog : Received query Google Sans:500, URI content://com.google.android.gms.fonts [CONTEXT service_id=132 ]
+10-01 05:26:38.715  5348  5664 I FontLog : Query [Google Sans:500] resolved to {Google Sans, wdth 100.0, wght 500, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-01 05:26:38.741   521  2334 W InputManager-JNI: Input channel object '5dfe91c com.usman.miqaat.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity (client)' was disposed without first being removed with the input manager!
+10-01 05:26:38.741  5348  5348 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.auth.account.data.service.START pkg=com.google.android.gms }
+10-01 05:26:38.741  5348  5348 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.auth.account.data.service.START pkg=com.google.android.gms }
+10-01 05:26:38.747  1551  1551 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-01 05:26:38.760  5348  5664 I FontLog : Font PFD returned from cache for {Google Sans, wdth 100.0, wght 500, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-01 05:26:38.760  5348  5664 I FontLog : Fetch {Google Sans, wdth 100.0, wght 500, ital 0.0, bestEffort false} end status Status{statusCode=SUCCESS, resolution=null} [CONTEXT service_id=132 ]
+10-01 05:26:38.777   844   900 D SplashScreenView: Build android.window.SplashScreenView{d0a3dc2 V.E...... ......ID 0,0-0,0}
+10-01 05:26:38.777   844   900 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-01 05:26:38.777   844   900 D SplashScreenView: Branding: view: android.view.View{23997d3 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-01 05:26:38.780  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1fe43af in: PAUSED
+10-01 05:26:38.780  6103  6103 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@1fe43af
+10-01 05:26:38.835   844   915 D EGL_emulation: app_time_stats: avg=200.88ms min=10.44ms max=366.92ms count=5
+10-01 05:26:38.872  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:38.872  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode 1
+10-01 05:26:38.872  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:38.894  5348  5664 I FontLog : Pulling font file for id = 2, cache size = 2 [CONTEXT service_id=132 ]
+10-01 05:26:38.896   398   398 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:38.957  1707  1707 W A       : Could not collect restore state: The DisplayCoordinator's controller has not taken over yet.
+10-01 05:26:38.960  1117  1157 I ImeTracker: com.google.android.apps.nexuslauncher:718693f3: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-01 05:26:38.960  1117  1157 I ImeTracker: com.google.android.apps.nexuslauncher:718693f3: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-01 05:26:38.961  1117  2262 D OneSearchSuggestProvider: Shut down the binder channel
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: *~*~*~ Channel {0} was not shutdown properly!!! ~*~*~*
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1:     Make sure to call shutdown()/shutdownNow() and wait until awaitTermination() returns true.
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: java.lang.RuntimeException: ManagedChannel allocation site
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at io.grpc.internal.y1.<init>(Unknown Source:20)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at io.grpc.internal.z1.<init>(Unknown Source:9)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at io.grpc.binder.d.a(Unknown Source:211)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.N0.d(Unknown Source:88)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.N0.c(Unknown Source:0)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.A0.run(Unknown Source:22)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at com.android.launcher3.util.LooperExecutor.execute(Unknown Source:12)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.y0.apply(Unknown Source:34)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.uniExceptionally(CompletableFuture.java:966)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture$UniExceptionally.tryFire(CompletableFuture.java:950)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:486)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.H0.onResult(Unknown Source:59)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1.lambda$onResult$0(SearchSessionUtil.java:129)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1.$r8$lambda$_nlk9WiPjSfaAsqKYmp0aPvSRC0(SearchSessionUtil.java:1)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1$$ExternalSyntheticLambda0.run(R8$$SyntheticClass:13)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at android.os.Looper.loop(Looper.java:294)
+10-01 05:26:38.962  1117  2262 E io.grpc.internal.z1: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-01 05:26:38.973   844   915 D EGL_emulation: app_time_stats: avg=1841.99ms min=1841.99ms max=1841.99ms count=1
+10-01 05:26:38.979  5348  5375 W GLSUser : [AppCertManager] Exception while requesting key:
+10-01 05:26:38.979  5348  5375 W GLSUser : java.util.concurrent.ExecutionException: avvw: Parse Proto Exception.
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at dlnv.s(:com.google.android.gms@231818047@23.18.18 (190800-535401451):3)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at dlnv.get(:com.google.android.gms@231818047@23.18.18 (190800-535401451):7)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at oub.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):78)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at otz.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at otu.a(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at otx.a(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at lzq.call(:com.google.android.gms@231818047@23.18.18 (190800-535401451):14)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at aced.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at aced.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):7)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at acjn.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at java.lang.Thread.run(Thread.java:1012)
+10-01 05:26:38.979  5348  5375 W GLSUser : Caused by: avvw: Parse Proto Exception.
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at avwn.f(:com.google.android.gms@231818047@23.18.18 (190800-535401451):5)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at avxk.onSucceeded(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at jf.onSucceeded(:com.google.android.gms.dynamite_cronetdynamite@231818047@23.18.18 (190800-0):0)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at ie.run(:com.google.android.gms.dynamite_cronetdynamite@231818047@23.18.18 (190800-0):4)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	... 6 more
+10-01 05:26:38.979  5348  5375 W GLSUser : Caused by: dzfz: Protocol message contained an invalid tag (zero).
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at dzdb.k(:com.google.android.gms@231818047@23.18.18 (190800-535401451):13)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at dzha.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):47)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at dzha.h(:com.google.android.gms@231818047@23.18.18 (190800-535401451):45)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at dzfd.A(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at dzex.f(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at dzcx.d(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at dzcx.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at dzcx.n(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at avwn.h(:com.google.android.gms@231818047@23.18.18 (190800-535401451):7)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	at avwn.f(:com.google.android.gms@231818047@23.18.18 (190800-535401451):1)
+10-01 05:26:38.979  5348  5375 W GLSUser : 	... 9 more
+10-01 05:26:39.053  5348  5534 I FontLog : Received query Google Sans, URI content://com.google.android.gms.fonts [CONTEXT service_id=132 ]
+10-01 05:26:39.070  5348  5534 I FontLog : Query [Google Sans] resolved to {Google Sans, wdth 100.0, wght 400, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-01 05:26:39.099  5348  6086 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.auth.account.be.legacy.AuthCronService finished executing. cause:5 result: 3 elapsed_millis: 1880 uptime_millis: 1880 exec_start_elapsed_seconds: 309 [CONTEXT service_id=218 ]
+10-01 05:26:39.099  5348  5348 W SystemServiceRegistry: No service published for: persistent_data_block
+10-01 05:26:39.195  5348  5534 I FontLog : Font PFD returned from cache for {Google Sans, wdth 100.0, wght 400, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-01 05:26:39.195  5348  5534 I FontLog : Fetch {Google Sans, wdth 100.0, wght 400, ital 0.0, bestEffort false} end status Status{statusCode=SUCCESS, resolution=null} [CONTEXT service_id=132 ]
+10-01 05:26:39.197  1707  2304 I A       : GMSCore Auth returned 0 accounts.
+10-01 05:26:39.197  1707  2304 I A       : GoogleOwnersProvider returned 0 accounts.
+10-01 05:26:39.201  1707  2122 W earchbox:search: Long monitor contention with owner BG Thread #0 (2072) at void java.lang.Runtime.loadLibrary0(java.lang.ClassLoader, java.lang.Class, java.lang.String)(Runtime.java:1084) waiters=0 in void java.lang.Runtime.loadLibrary0(java.lang.ClassLoader, java.lang.Class, java.lang.String) for 819ms
+10-01 05:26:39.250  6170  6192 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-01 05:26:39.258   521   530 I system_server: NativeAlloc concurrent copying GC freed 537597(21MB) AllocSpace objects, 17(564KB) LOS objects, 48% free, 25MB/49MB, paused 810us,53us total 787.453ms
+10-01 05:26:39.258   521   531 W JavaBinder: BinderProxy is being destroyed but the application did not call unlinkToDeath to unlink all of its death recipients beforehand.  Releasing leaked death recipient: com.android.server.wm.ActivityRecord$$ExternalSyntheticLambda0
+10-01 05:26:39.258   521   531 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:39.258   521   531 W JavaBinder: BinderProxy is being destroyed but the application did not call unlinkToDeath to unlink all of its death recipients beforehand.  Releasing leaked death recipient: com.android.server.am.ActivityManagerService$14
+10-01 05:26:39.258   521   531 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:39.345  1707  1707 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+10-01 05:26:39.410  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1fe43af in: STOPPED
+10-01 05:26:39.459   844   898 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@4ca1c3c
+10-01 05:26:39.461  6103  6103 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@1fe43af
+10-01 05:26:39.461   521   541 W ziparchive: Unable to open '/data/app/~~u-tTSPXmRN1XxfTwG3Na_Q==/com.usman.miqaat.test-aKjwhoEHIrFQFis0yg_eFQ==/base.dm': No such file or directory
+10-01 05:26:39.463   521   932 W InputManager-JNI: Input channel object '86afc3d Splash Screen com.usman.miqaat.test (client)' was disposed without first being removed with the input manager!
+10-01 05:26:39.467   521   541 I ActivityTaskManager: Displayed com.usman.miqaat.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity for user 0: +668ms
+10-01 05:26:39.468  6103  6103 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1fe43af in: DESTROYED
+10-01 05:26:39.511  1707  1755 W earchbox:search: Cleared Reference was only reachable from finalizer (only reported once)
+10-01 05:26:39.515  1707  1755 I earchbox:search: Background concurrent copying GC freed 310806(12MB) AllocSpace objects, 28(1916KB) LOS objects, 49% free, 19MB/38MB, paused 30us,22us total 1.079s
+10-01 05:26:39.524  5348  5664 I FontLog : Pulling font file for id = 3, cache size = 3 [CONTEXT service_id=132 ]
+10-01 05:26:39.529  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:39.529  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode 1
+10-01 05:26:39.530  1036  1308 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-01 05:26:39.536   521  1662 W AppSearchIcing: icing-search-engine.cc:283: Error: 5, Message: Document (com.google.android.googlequicksearchbox$OneSearchZeroStateGoogleSuggestions/default, zp) not found.
+10-01 05:26:39.556  1707  2405 I A       : Using proto config with mendel
+10-01 05:26:39.567  6103  6103 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-01 05:26:39.568  6103  6103 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@be58943
+10-01 05:26:39.569  1707  2304 I A       : Creating in-process transport to InProcessServerAddress[com.google.android.googlequicksearchbox/OnDeviceServer[Hash:232655680]]
+10-01 05:26:39.582   398   398 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-01 05:26:39.584  1117  2262 D OneSearchSuggestProvider: Created the binder channel successfully for end point service =com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService , mChannel=z1{delegate=s1{logId=13, target=directaddress:///AndroidComponentAddress%5BIntent%20%7B%20act=grpc.io.action.BIND%20cmp=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService%20%7D%5D}} , mOneSearchConnection=X1.T@b0fc95a
+10-01 05:26:39.651  5348  6088 W .gms.persistent: Long monitor contention with owner lowpool[22] (6083) at java.util.Map aakb.m(dhkg)(:com.google.android.gms@231818047@23.18.18 (190800-535401451):33) waiters=0 in void aaiw.f(android.content.Context) for 304ms
+10-01 05:26:39.652   521  1830 W InputManager-JNI: Input channel object 'af536b1 com.usman.miqaat/androidx.activity.ComponentActivity (client)' was disposed without first being removed with the input manager!
+10-01 05:26:39.695  6103  6122 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@b3755db]
+10-01 05:26:39.700  1681  1974 I AiAiEcho: Predicting[0]:
+10-01 05:26:39.704  1681  1974 I AiAiEcho: EchoTargets:
+10-01 05:26:39.704  1681  1974 I AiAiEcho: Filtered by AiAi flag check:
+10-01 05:26:39.704  1681  1974 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-01 05:26:39.723  1681  1974 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-01 05:26:39.783  1707  2095 W SQLiteLog: (28) double-quoted string literal: "MAIN_FEED"
+10-01 05:26:39.804  6103  6122 E TestRunner: assumption failed: displayAndArtOpensAtTopWithContentImmediately(com.usman.miqaat.ui.SettingsStateTest)
+10-01 05:26:39.834   521   521 I ResourceTimer: GetResourceValue count=9707 pvalues=1000,6000,9000,15000
+10-01 05:26:39.838   521   521 I ResourceTimer: RetrieveAttributes count=12772 pvalues=1000,3000,6000,24000
+10-01 05:26:39.840  6103  6122 E TestRunner: ----- begin exception -----
+10-01 05:26:39.840  6103  6122 E TestRunner: org.junit.AssumptionViolatedException: got: <false>, expected: is <true>
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.Assume.assumeThat(Assume.java:106)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.Assume.assumeTrue(Assume.java:50)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at com.usman.miqaat.ui.SettingsStateTest.displayAndArtOpensAtTopWithContentImmediately(SettingsStateTest.kt:71)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:66)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-01 05:26:39.840  6103  6122 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:463)
+10-01 05:26:39.846  6103  6122 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2402)
+10-01 05:26:39.850  1707  2405 I A       : Using proto config with mendel
+10-01 05:26:39.851  1707  2405 W A       : Task o[ServiceTransaction[SessionController#handleGenericClientEvent]] was queued for 1064ms before starting on executor EventBus
+10-01 05:26:39.855  6103  6122 E TestRunner: ----- end exception -----
+10-01 05:26:39.857  1707  2304 I A       : group apa_head_suggest present without account in *
+10-01 05:26:39.862  1707  2304 I A       : incrementApaDataDownloadStoreStatus(latency = PT0.291S, appVersion = 13.17.16.23, status = OK, locale = *, fileGroupnames = apa_head_suggest, accountScoped = false, localGroupsAvailable = false, timeSinceSearchBoot = Optional[PT4M33.251S] (ONE_TO_FIVE_MINUTES), timeSinceDataDownloadInit = PT3M55.029S (ONE_TO_FIVE_MINUTES))
+10-01 05:26:39.870  1707  2095 W SQLiteLog: (28) double-quoted string literal: "Session::Current"
+10-01 05:26:39.871  6103  6122 I TestRunner: finished: displayAndArtOpensAtTopWithContentImmediately(com.usman.miqaat.ui.SettingsStateTest)
