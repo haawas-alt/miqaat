@@ -257,7 +257,7 @@ private fun LessonView(c: LearnColors, lesson: Learn.Lesson, startAt: Int, onExi
             if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
                 figure(Modifier.weight(0.42f).fillMaxHeight()); words(Modifier.weight(0.58f).fillMaxHeight().verticalScroll(rememberScrollState()))
             } else Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                figure(Modifier.fillMaxWidth().height(if (maxWidth >= 600.dp) 380.dp else 280.dp)); words(Modifier.fillMaxWidth())
+                figure(Modifier.fillMaxWidth().height((if (maxWidth >= 600.dp) 380.dp else 280.dp) * androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceAtLeast(1f))); words(Modifier.fillMaxWidth())
             }
             BottomBar(c, canBack = i > 0, last = i == actions.lastIndex, nextLabel = if (i < actions.lastIndex) Str.get(R.string.s_continue_x, if (L10n.uiUrdu) UrduContent.position(actions[i + 1].step) else actions[i + 1].step.position) else Str[R.string.s_finish_well_done],
                 onBack = { audio.stop(); i-- }, onNext = { audio.stop(); if (i < actions.lastIndex) i++ else onDone() })
@@ -383,7 +383,7 @@ fun Figure(p: Learn.Posture, color: Color, modifier: Modifier) {
                 head(0.47f, 0.21f); foot(0.75f, 0.87f)
                 limb(0.45f to 0.42f, 0.40f to 0.58f, 0.44f to 0.69f); hand(0.44f, 0.70f)             // left hand on the left thigh
                 limb(0.54f to 0.40f, 0.64f to 0.52f, 0.66f to 0.62f); hand(0.66f, 0.635f)             // right hand on the right thigh…
-                drawLine(color, P(0.67f, 0.61f), P(0.74f, 0.50f), sw * 1.8f, cap = StrokeCap.Round)     // …index finger raised
+                drawLine(color, P(0.67f, 0.61f), P(0.70f, 0.55f), sw * 1.8f, cap = StrokeCap.Round)     // …index finger raised
             }
             Learn.Posture.SALAM -> {
                 robe(0.28f, 0.66f, 0.74f, 0.86f, 0.07f)
@@ -536,7 +536,7 @@ private fun WordsView(c: LearnColors, onBack: () -> Unit) {
     Column(Modifier.fillMaxSize()) {
         TopBar(c, Str[R.string.s_the_words], onBack) { Text("${i + 1} / ${words.size}", fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary) }
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp)) { WordsCard(c, words[i], audio, Modifier.fillMaxWidth()) }
-        BottomBar(c, canBack = i > 0, last = i == words.lastIndex, nextLabel = if (i < words.lastIndex) "Next · ${words[i + 1].position}" else Str[R.string.s_back_to_learn_salah],
+        BottomBar(c, canBack = i > 0, last = i == words.lastIndex, nextLabel = if (i < words.lastIndex) Str.get(R.string.s_continue_x, if (L10n.uiUrdu) UrduContent.position(words[i + 1]) else words[i + 1].position) else Str[R.string.s_back_to_learn_salah],
             onBack = { audio.stop(); i-- }, onNext = { audio.stop(); if (i < words.lastIndex) i++ else onBack() })
     }
 }
@@ -553,10 +553,10 @@ private fun MovesView(c: LearnColors, onBack: () -> Unit) {
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 24.dp).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Learn.Posture.entries.forEach { p ->
                 Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(c.surface).border(1.dp, c.divider, RoundedCornerShape(16.dp)).padding(14.dp).semantics(mergeDescendants = true) {}, verticalAlignment = Alignment.CenterVertically) {
-                    Figure(p, c.primary, Modifier.size(84.dp).semantics { contentDescription = p.describe })
+                    Figure(p, c.primary, Modifier.size(84.dp).semantics { contentDescription = if (L10n.uiUrdu) UrduContent.postureDescriptions[p.ordinal] else p.describe })
                     Column(Modifier.padding(start = 14.dp)) {
-                        Text(if (c.kiswah) p.label.uppercase() else p.label, fontFamily = c.display, fontSize = if (c.kiswah) 12.sp else 19.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text)
-                        Text(p.describe, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 18.sp, color = c.textSecondary)
+                        Text(if (L10n.uiUrdu) UrduContent.postureLabels[p.ordinal] else if (c.kiswah) p.label.uppercase() else p.label, fontFamily = c.display, fontSize = if (c.kiswah) 12.sp else 19.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text)
+                        Text(if (L10n.uiUrdu) UrduContent.postureDescriptions[p.ordinal] else p.describe, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 18.sp, color = c.textSecondary)
                         Text(said.getValue(p), fontFamily = Cormorant, fontSize = 16.sp, lineHeight = 21.sp, color = c.primary, modifier = Modifier.padding(top = 4.dp))
                     }
                 }

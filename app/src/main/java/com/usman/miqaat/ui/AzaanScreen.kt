@@ -111,196 +111,248 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
 private fun FlowHeader(phase: Phase, u: Dp, stacked: Boolean) {
     val tk = screenTokens()
     val st = com.usman.miqaat.MiqaatApp.instance.settings.value
-    var tm by remember { mutableStateOf(java.tim…25182 tokens truncated…      Learn.Posture.SITTING -> {
-                robe(0.28f, 0.66f, 0.74f, 0.86f, 0.07f)                                                // folded legs
-                poly(0.40f to 0.32f, 0.54f to 0.32f, 0.58f to 0.68f, 0.36f to 0.68f)                   // upright torso
-                head(0.47f, 0.21f); foot(0.75f, 0.87f)
-                limb(0.52f to 0.40f, 0.60f to 0.55f, 0.62f to 0.69f); hand(0.62f, 0.70f)             // hand resting on the thigh
-            }
-            Learn.Posture.TASHAHHUD -> {
-                robe(0.28f, 0.66f, 0.74f, 0.86f, 0.07f)
-                poly(0.40f to 0.32f, 0.54f to 0.32f, 0.58f to 0.68f, 0.36f to 0.68f)
-                head(0.47f, 0.21f); foot(0.75f, 0.87f)
-                limb(0.45f to 0.42f, 0.40f to 0.58f, 0.44f to 0.69f); hand(0.44f, 0.70f)             // left hand on the left thigh
-                limb(0.54f to 0.40f, 0.64f to 0.52f, 0.66f to 0.62f); hand(0.66f, 0.635f)             // right hand on the right thigh…
-                drawLine(color, P(0.67f, 0.61f), P(0.74f, 0.50f), sw * 1.8f, cap = StrokeCap.Round)     // …index finger raised
-            }
-            Learn.Posture.SALAM -> {
-                robe(0.28f, 0.66f, 0.74f, 0.86f, 0.07f)
-                poly(0.40f to 0.32f, 0.54f to 0.32f, 0.58f to 0.68f, 0.36f to 0.68f)
-                head(0.50f, 0.21f); foot(0.75f, 0.87f)
-                poly(0.585f to 0.20f, 0.625f to 0.225f, 0.585f to 0.245f, closed = true)                // nose: the face is turned
-                limb(0.52f to 0.40f, 0.60f to 0.55f, 0.62f to 0.69f); hand(0.62f, 0.70f)
-                drawArc(color, 200f, 120f, false, topLeft = P(0.26f, 0.04f), size = androidx.compose.ui.geometry.Size(w * 0.48f, h * 0.30f), style = Stroke(sw, cap = StrokeCap.Round))   // turn to the right, then the left
-                drawLine(color, P(0.30f, 0.17f), P(0.32f, 0.12f), sw, cap = StrokeCap.Round); drawLine(color, P(0.70f, 0.17f), P(0.68f, 0.12f), sw, cap = StrokeCap.Round)
-            }
+    var tm by remember { mutableStateOf(java.time.ZonedDateTime.now(st.zone())) }
+    LaunchedEffect(st.zoneId) { while (true) { tm = java.time.ZonedDateTime.now(st.zone()); delay(15_000) } }
+    val status = when (phase) {
+        is Phase.Azaan -> Str.get(R.string.s_x_azaan_playing, L10n.prayer(st, phase.prayer))
+        is Phase.IqamahCountdown, is Phase.IqamahNow -> Str.get(R.string.s_prayer_iqamah, L10n.prayer(st, phase.prayer))
+        else -> Str.get(R.string.s_prayer_after_azaan, L10n.prayer(st, phase.prayer))
+    }
+    val tag: @Composable (Modifier) -> Unit = { m ->
+        Text(status, fontFamily = Nunito, fontSize = maxOf(13f, u.value * 1.3f).sp,
+            fontWeight = FontWeight.Bold, color = tk.accent, modifier = m.testTag("flow-status"))
+    }
+    val placeClock: @Composable (Modifier) -> Unit = { m ->
+        Column(m.testTag("flow-clock"), horizontalAlignment = if (stacked) Alignment.Start else Alignment.End) {
+            if (st.locationName.isNotBlank()) Text(L10n.iso(st.locationName), fontFamily = Nunito,
+                fontSize = maxOf(13f, u.value * 1.4f).sp, color = tk.contentSecondary)
+            Text(L10n.iso(com.usman.miqaat.data.PrayerEngine.clock(tm, st.use24h) + " " + com.usman.miqaat.data.PrayerEngine.suffix(tm, st.use24h)),
+                fontFamily = Cormorant, fontSize = maxOf(20f, u.value * 3.2f).sp, color = tk.contentPrimary)
         }
     }
-}
-
-// ---------------------------------------------------------------- words + audio
-
-/**
- * Audio for a step. Prefers a bundled human recording res/raw/learn_NN.mp3 (learn_NN_slow.mp3 when Slow is on and it exists);
- * falls back to the device's text-to-speech only when no recording is bundled. State (playing / slow / source) is visible to the UI.
- */
-private class Speaker(private val ctx: android.content.Context) {
-    var playing by mutableStateOf(false)
-    var slow by mutableStateOf(false)
-    var arabicOk by mutableStateOf(false)
-    var lastWasRecording by mutableStateOf(false)
-    var ready by mutableStateOf(false)
-    var failed by mutableStateOf(false)
-    private var player: android.media.MediaPlayer? = null
-    private val tts: TextToSpeech = TextToSpeech(ctx) { status ->
-        ready = status == TextToSpeech.SUCCESS
-        failed = !ready
-        if (ready) runCatching { arabicOk = engine().isLanguageAvailable(Locale("ar")) >= TextToSpeech.LANG_AVAILABLE }
-    }
-    private fun engine() = tts
-    init {
-        tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(id: String?) { playing = true }
-            override fun onDone(id: String?) { playing = false }
-            @Deprecated("Deprecated in Java") override fun onError(id: String?) { playing = false }
-        })
-    }
-    private fun recordingId(index: Int): Int {
-        val base = "learn_%02d".format(index + 1)
-        val slowId = if (slow) ctx.resources.getIdentifier(base + "_slow", "raw", ctx.packageName) else 0
-        return if (slowId != 0) slowId else ctx.resources.getIdentifier(base, "raw", ctx.packageName)
-    }
-    fun hasRecording(index: Int) = recordingId(index) != 0
-
-    fun speak(step: Adhkar.Step, index: Int) {
-        stop()
-        val id = recordingId(index)
-        if (id != 0) {
-            lastWasRecording = true
-            player = android.media.MediaPlayer().apply {
-                setAudioAttributes(android.media.AudioAttributes.Builder().setUsage(android.media.AudioAttributes.USAGE_MEDIA).setContentType(android.media.AudioAttributes.CONTENT_TYPE_SPEECH).build())
-                runCatching { setDataSource(ctx, android.net.Uri.parse("android.resource://${ctx.packageName}/$id")); prepare() }
-                    .onFailure { release(); player = null; return }
-                if (slow && ctx.resources.getIdentifier("learn_%02d_slow".format(index + 1), "raw", ctx.packageName) == 0)
-                    runCatching { playbackParams = playbackParams.setSpeed(0.75f) }   // no slow take: slow the normal one
-                setOnCompletionListener { playing = false; it.release(); if (player === it) player = null }
-                setOnErrorListener { mp, _, _ -> playing = false; mp.release(); if (player === mp) player = null; true }
-                start(); playing = true
-            }
-            return
-        }
-        lastWasRecording = false
-        if (!ready) return
-        tts.language = if (arabicOk) Locale("ar") else Locale.ENGLISH
-        tts.setSpeechRate(if (slow) 0.6f else 0.85f)
-        val text = if (arabicOk) step.arabic.replace("۝", "،").replace("·", "،") else step.transliteration
-        playing = tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "learn") == TextToSpeech.SUCCESS
-    }
-    fun stop() { tts.stop(); player?.runCatching { if (isPlaying) stop(); release() }; player = null; playing = false }
-    fun release() { stop(); tts.shutdown() }
-    /** Audio is usable when a recording exists or the voice engine is up. */
-    fun usable(index: Int) = hasRecording(index) || ready
-    fun source(index: Int): String = when {
-        hasRecording(index) -> Str[R.string.s_recited_by_named]
-        failed -> Str[R.string.s_voice_unavailable]
-        !ready -> Str[R.string.s_preparing_voice]
-        arabicOk -> Str[R.string.s_device_text_to_speech_arabic_voice]
-        else -> Str[R.string.s_device_text_to_speech_no_arabic]
+    if (stacked) Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp)) {
+        tag(Modifier.fillMaxWidth()); placeClock(Modifier.fillMaxWidth())
+    } else Row(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+        tag(Modifier.weight(1f)); placeClock(Modifier.weight(1f))
     }
 }
 
 @Composable
-private fun rememberSpeaker(): Speaker {
-    val ctx = LocalContext.current
-    val sp = remember { Speaker(ctx.applicationContext) }
-    DisposableEffect(Unit) { onDispose { sp.release() } }
-    return sp
-}
-
-@Composable
-private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifier: Modifier, index: Int = Learn.words.indexOfFirst { it.arabic == step.arabic }.coerceAtLeast(0)) {
-    var showTranslit by rememberSaveable { mutableStateOf(true) }
-    var showNote by rememberSaveable(step.position) { mutableStateOf(false) }
-    Column(modifier.clip(RoundedCornerShape(20.dp)).background(c.surface).border(1.dp, c.divider, RoundedCornerShape(20.dp)).padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text(if (L10n.uiUrdu) UrduContent.position(step) else if (c.kiswah) step.position.uppercase() else step.position, fontFamily = c.display, fontSize = if (c.kiswah) 12.sp else 20.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.primary, modifier = Modifier.semantics { heading() })
-        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-            Text(step.arabic, fontFamily = c.arabic, fontSize = if (step.arabic.length > 160) 24.sp else 32.sp, lineHeight = if (step.arabic.length > 160) 42.sp else 54.sp, color = screenTokens().arabicText, textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth())
-        }
-        // audio: play / stop, slow toggle, disclosed source
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            val usable = audio.usable(index)
-            Box(Modifier.size(48.dp).clip(CircleShape).background(if (usable) c.primary else c.primary.copy(alpha = 0.35f)).clickable(enabled = usable, role = Role.Button) { if (audio.playing) audio.stop() else audio.speak(step, index) }
-                .semantics { contentDescription = if (audio.playing) Str[R.string.s_stop] else Str[R.string.s_hear_it]; stateDescription = if (!usable) audio.source(index) else if (audio.playing) Str[R.string.s_playing] else Str[R.string.s_not_playing] }, contentAlignment = Alignment.Center) {
-                Icon(if (audio.playing) Icons.Outlined.Stop else Icons.AutoMirrored.Outlined.VolumeUp, null, Modifier.size(24.dp), tint = c.onPrimary)
-            }
-            Box(Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).border(1.dp, if (audio.slow) c.primary else c.divider, RoundedCornerShape(50))
-                .selectable(selected = audio.slow, role = Role.Checkbox) { audio.slow = !audio.slow }.padding(horizontal = 14.dp), contentAlignment = Alignment.Center) {
-                Text(Str[R.string.s_slow], fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = if (audio.slow) c.primary else c.textSecondary)
-            }
-            Text(if (audio.playing) Str[R.string.s_playing] else audio.source(index), fontFamily = Nunito, fontSize = 11.sp, lineHeight = 15.sp, color = c.textSecondary, modifier = Modifier.weight(1f).semantics { liveRegion = LiveRegionMode.Polite })
-        }
-        Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.Switch) { showTranslit = !showTranslit }.semantics { stateDescription = Str[if (showTranslit) R.string.s_show else R.string.s_hide] }, verticalAlignment = Alignment.CenterVertically) {
-            Text(Str[R.string.s_how_to_say_it], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold, color = c.textSecondary, modifier = Modifier.weight(1f))
-            Text(Str[if (showTranslit) R.string.s_hide else R.string.s_show], fontFamily = Nunito, fontSize = 12.sp, color = c.textSecondary)
-        }
-        AnimatedVisibility(showTranslit) { Text(step.transliteration, fontFamily = Cormorant, fontSize = 20.sp, lineHeight = 27.sp, color = c.text) }
-        Text(Str[R.string.s_meaning], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold, color = c.textSecondary)
-        Text(if (L10n.uiUrdu) UrduContent.stepMeanings[Adhkar.salah.indexOfFirst { it.arabic == step.arabic }.coerceAtLeast(0)] else step.meaning, fontFamily = Nunito, fontSize = 15.sp, lineHeight = 22.sp, color = c.text)
-        Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.Button) { showNote = !showNote }.semantics { stateDescription = Str[if (showNote) R.string.s_expanded else R.string.s_collapsed] }, verticalAlignment = Alignment.CenterVertically) {
-            Text(Str[R.string.s_note_schools_and_source], fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = c.text, modifier = Modifier.weight(1f))
-            Icon(Icons.Outlined.ExpandMore, null, tint = c.textSecondary)
-        }
-        AnimatedVisibility(showNote) { Text(step.note, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 19.sp, color = c.textSecondary) }
+private fun StepsBar(phase: Phase, u: Dp) {
+    val tk = screenTokens()
+    val iftar = phase is Phase.Iftar
+    val iq = phase is Phase.IqamahCountdown || phase is Phase.IqamahNow
+    val idx = when (phase) { is Phase.Azaan -> 0; is Phase.Iftar -> 1; is Phase.Dua -> if (iftar) 2 else 1; is Phase.HadithPhase -> if (iftar) 3 else 2; is Phase.IqamahCountdown -> 1; is Phase.IqamahNow -> 2; is Phase.Quiet -> 3 }
+    // Only promise the steps that will actually run: with "after the azaan" off, the screen closes when the azaan ends.
+    val after = com.usman.miqaat.MiqaatApp.instance.settings.value.afterAzaanEnabled || phase !is Phase.Azaan
+    val labels = when {
+        iq -> listOf(Str[R.string.s_step_azaan], Str[R.string.s_iqamah_countdown], Str[R.string.s_iqamah], Str[R.string.s_step_prayer])
+        iftar -> listOf(Str[R.string.s_step_azaan], Str[R.string.s_iftar_dua], Str[R.string.s_dua_after_azaan], Str[R.string.s_step_hadith], Str[R.string.s_step_home])
+        !after -> listOf(Str[R.string.s_step_azaan], Str[R.string.s_step_home])
+        else -> listOf(Str[R.string.s_step_azaan], Str[R.string.s_dua_after_azaan], Str[R.string.s_step_hadith], Str[R.string.s_step_home])
     }
-}
-
-@Composable
-private fun BottomBar(c: LearnColors, canBack: Boolean, last: Boolean, nextLabel: String, onBack: () -> Unit, onNext: () -> Unit) {
-    Row(Modifier.fillMaxWidth().background(c.surfaceRaised.copy(alpha = 0.92f)).navigationBarsPadding().padding(horizontal = 16.dp, vertical = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-        Box(Modifier.size(52.dp).clip(CircleShape).border(1.dp, if (canBack) c.divider else c.divider.copy(alpha = 0.3f), CircleShape).clickable(enabled = canBack, role = Role.Button, onClick = onBack).semantics { contentDescription = Str[R.string.s_previous_step] }, contentAlignment = Alignment.Center) {
-            Text("‹", fontSize = 26.sp, color = if (canBack) c.text else c.textSecondary.copy(alpha = 0.4f))
-        }
-        Box(Modifier.weight(1f).heightIn(min = 52.dp).clip(RoundedCornerShape(50)).background(if (last) c.success else c.primary).clickable(role = Role.Button, onClick = onNext).padding(horizontal = 18.dp), contentAlignment = Alignment.Center) {
-            Text(nextLabel, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = 15.sp, color = c.onPrimary, maxLines = 2, textAlign = TextAlign.Center)
-        }
-    }
-}
-
-// ---------------------------------------------------------------- practice modes
-
-@Composable
-private fun WordsView(c: LearnColors, onBack: () -> Unit) {
-    val words = Learn.words
-    var i by rememberSaveable { mutableIntStateOf(0) }
-    val audio = rememberSpeaker()
-    Column(Modifier.fillMaxSize()) {
-        TopBar(c, Str[R.string.s_the_words], onBack) { Text("${i + 1} / ${words.size}", fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary) }
-        Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp)) { WordsCard(c, words[i], audio, Modifier.fillMaxWidth()) }
-        BottomBar(c, canBack = i > 0, last = i == words.lastIndex, nextLabel = if (i < words.lastIndex) "Next · ${words[i + 1].position}" else Str[R.string.s_back_to_learn_salah],
-            onBack = { audio.stop(); i-- }, onNext = { audio.stop(); if (i < words.lastIndex) i++ else onBack() })
-    }
-}
-
-@Composable
-private fun MovesView(c: LearnColors, onBack: () -> Unit) {
-    val said = mapOf(
-        Learn.Posture.TAKBIR to "Allāhu akbar", Learn.Posture.TASHAHHUD to "At-taḥiyyātu lillāhi waṣ-ṣalawātu waṭ-ṭayyibāt…",
-        Learn.Posture.STANDING to Str[R.string.s_takb_r_the_opening_al_f], Learn.Posture.BOWING to Str[R.string.s_sub_na_rabbiya_l_a_m],
-        Learn.Posture.RISING to Str[R.string.s_sami_a_ll_hu_liman_amidah], Learn.Posture.PROSTRATING to Str[R.string.s_sub_na_rabbiya_l_a_l],
-        Learn.Posture.SITTING to Str[R.string.s_rabbi_ghfir_l_between_the_prostrations], Learn.Posture.SALAM to Str[R.string.s_as_sal_mu_alaykum_wa_ra])
-    Column(Modifier.fillMaxSize()) {
-        TopBar(c, Str[R.string.s_the_movements], onBack)
-        Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 24.dp).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Learn.Posture.entries.forEach { p ->
-                Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(c.surface).border(1.dp, c.divider, RoundedCornerShape(16.dp)).padding(14.dp).semantics(mergeDescendants = true) {}, verticalAlignment = Alignment.CenterVertically) {
-                    Figure(p, c.primary, Modifier.size(84.dp).semantics { contentDescription = p.describe })
-                    Column(Modifier.padding(start = 14.dp)) {
-                        Text(if (c.kiswah) p.label.uppercase() else p.label, fontFamily = c.display, fontSize = if (c.kiswah) 12.sp else 19.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text)
-                        Text(p.describe, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 18.sp, color = c.textSecondary)
-                        Text(said.getValue(p), fontFamily = Cormorant, fontSize = 16.sp, lineHeight = 21.sp, color = c.primary, modifier = Modifier.padding(top = 4.dp))
-                    }
+    // Step line like the approved mockups: a dot per step joined by a line, label underneath.
+    Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(vertical = 8.dp).testTag("flow-steps"), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.Top) {
+        labels.forEachIndexed { i, l ->
+            val done = i < idx; val cur = i == idx
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(maxOf(96.dp * androidx.compose.ui.platform.LocalDensity.current.fontScale, u * 9))) {
+                Box(Modifier.size(u * 1.9f).clip(CircleShape).background(if (cur) tk.primary else if (done) tk.success else Color.Transparent)
+                    .border(2.dp, if (cur) tk.primary else if (done) tk.success else tk.neutralStroke, CircleShape), contentAlignment = Alignment.Center) {
+                    if (done) Text("✓", fontSize = (u.value * 1.2f).sp, color = tk.onPrimary, fontWeight = FontWeight.Bold)
+                    else if (cur) Box(Modifier.size(u * 0.7f).clip(CircleShape).background(tk.onPrimary))
                 }
+                Text(l.uppercase(), fontFamily = Nunito, fontSize = (u.value * 1.2f).sp, letterSpacing = (u.value * 0.1f).sp, fontWeight = if (cur) FontWeight.Bold else FontWeight.SemiBold, textAlign = TextAlign.Center,
+                    color = if (cur) tk.primary else tk.contentPrimary.copy(alpha = 0.6f), modifier = Modifier.padding(top = u * 0.5f, start = u * 0.3f, end = u * 0.3f))
             }
+            if (i < labels.lastIndex) Box(Modifier.padding(top = u * 0.9f).width(u * 2).height(2.dp).background(if (i < idx) tk.success else tk.neutralStroke))
+        }
+    }
+}
+
+@Composable
+private fun AzaanBody(phase: Phase, u: Dp) {
+    val tk = screenTokens()
+    Column(Modifier.fillMaxSize().padding(top = u * 3), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Text("ٱللَّٰهُ أَكْبَرُ", fontFamily = Amiri, fontSize = (u.value * 7f).sp, lineHeight = (u.value * 10.5f).sp, color = tk.arabicText, textAlign = TextAlign.Center)
+        Text(Str.get(R.string.s_prayer_azaan_title, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer)),
+            fontFamily = Cormorant, fontSize = maxOf(20f, u.value * 2.6f).sp, color = tk.contentPrimary,
+            textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth().padding(top = u * 1).testTag("flow-prayer-title"))
+        Text(phase.prayer.arabic, fontFamily = Amiri, fontSize = (u.value * 2.6f).sp, color = tk.arabicText, textAlign = TextAlign.Center)
+        Wave(Modifier.padding(top = u * 4).width(u * 22).height(u * 8))
+        Text(Str[R.string.s_hayya_ala_al_h_come_to], fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, letterSpacing = (u.value * 0.1f).sp, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 3))
+    }
+}
+
+@Composable
+private fun DuaBody(u: Dp) {
+    val tk = screenTokens()
+    Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Kicker(Str[R.string.s_dua_after_the_azaan], u)
+        Arabic(Duas.AFTER_AZAAN_AR, u, size = 4.4f)
+        Translation(if (L10n.uiUrdu) UrduContent.afterAzaan else Duas.AFTER_AZAAN_EN, u)
+        Source("${Duas.AFTER_AZAAN_SRC}  ·  ${if (L10n.uiUrdu) UrduContent.afterAzaanNote else Duas.AFTER_AZAAN_NOTE}", u)
+    }
+}
+
+@Composable
+private fun IftarBody(u: Dp) {
+    val tk = screenTokens()
+    Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Kicker(Str[R.string.s_rama_n_dua_at_iftar], u)
+        Arabic(com.usman.miqaat.data.Ramadan.IFTAR_AR, u, size = 4.8f)
+        Translation(com.usman.miqaat.data.Ramadan.IFTAR_EN, u)
+        Source(com.usman.miqaat.data.Ramadan.IFTAR_SRC, u)
+    }
+}
+
+@Composable
+private fun CountdownBody(p: Phase.IqamahCountdown, u: Dp) {
+    val tk = screenTokens()
+    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(200) } }
+    val total = (p.endsAt - p.startedAt).coerceAtLeast(1)
+    val leftMs = (p.endsAt - now).coerceAtLeast(0)
+    val secs = ((leftMs + 999) / 1000).toInt()
+    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Kicker(Str.get(R.string.s_iqamah_in_title, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, p.prayer)), u)
+        Box(Modifier.padding(vertical = u * 1).size(u * 26), contentAlignment = Alignment.Center) {
+            Canvas(Modifier.fillMaxSize()) {
+                val stroke = Stroke(width = size.width * 0.045f, cap = StrokeCap.Round)
+                drawArc(tk.neutralStroke, 0f, 360f, false, style = stroke)
+                drawArc(tk.primary, -90f, 360f * (leftMs / total.toFloat()), false, style = stroke)
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("$secs", fontFamily = Cormorant, fontSize = (u.value * 10.5f).sp, lineHeight = (u.value * 10.5f).sp, color = tk.contentPrimary)
+                Text(Str[R.string.s_seconds_caps], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f))
+            }
+        }
+        Text(Str[R.string.s_straighten_your_rows], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = tk.contentPrimary.copy(alpha = 0.9f))
+        Text(Str[R.string.s_a_al_bukh_r_723], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f))
+    }
+}
+
+@Composable
+private fun IqamahNowBody(phase: Phase, u: Dp) {
+    val tk = screenTokens()
+    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Kicker(L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer), u)
+        Text("الإقامة", fontFamily = Amiri, fontSize = (u.value * 9f).sp, lineHeight = (u.value * 10f).sp, color = tk.arabicText)
+        Text("قَدْ قَامَتِ الصَّلاَةُ", fontFamily = Amiri, fontSize = (u.value * 4.2f).sp, lineHeight = (u.value * 6f).sp, color = tk.accent)
+        Text(Str[R.string.s_the_prayer_has_begun], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = tk.contentPrimary.copy(alpha = 0.9f), modifier = Modifier.padding(top = u * 0.6f))
+    }
+}
+
+@Composable
+private fun QuietBody(p: Phase.Quiet, u: Dp, onStop: () -> Unit) {
+    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(1000) } }
+    Column(
+        Modifier.fillMaxSize().background(Color(0xFF05090F)).clickable(onClick = onStop),
+        horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
+    ) {
+        val t = java.time.LocalTime.now()
+        Text("%d:%02d".format(if (t.hour % 12 == 0) 12 else t.hour % 12, t.minute), fontFamily = Cormorant, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 12f).sp, color = Palette.textMuted)
+        Text(p.prayer.arabic, fontFamily = Amiri, fontSize = (u.value * 3.4f).sp, color = Color(0xFFF6E7B8).copy(alpha = 0.5f))
+        val left = ((p.endsAt - now).coerceAtLeast(0) / 60_000) + 1
+        Text(Str.get(R.string.s_in_prayer_wake, left.toInt()), fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.08f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 2))
+    }
+}
+
+@Composable
+private fun HadithBody(p: Phase.HadithPhase, u: Dp) {
+    val tk = screenTokens()
+    Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Kicker("A hadith after ${p.prayer.english} · ${p.hadith.source}", u)
+        val long = p.hadith.arabic.length > 110
+        Arabic("قَالَ رَسُولُ اللَّهِ ﷺ: " + p.hadith.arabic, u, size = if (long) 3.3f else 4f)
+        Translation("The Messenger of Allah ﷺ said: “${p.hadith.english}”", u, size = if (p.hadith.english.length > 160) 2f else 2.35f)
+        Source("Narrated by ${p.hadith.narrator}  ·  ${p.hadith.source}", u)
+    }
+}
+
+@Composable private fun Kicker(t: String, u: Dp) = Text(t.uppercase(), fontFamily = Nunito, fontSize = (u.value * 1.35f).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = screenTokens().accent)
+@Composable private fun Arabic(t: String, u: Dp, size: Float) = CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+    Text(t, fontFamily = Amiri, fontSize = (u.value * size).sp, lineHeight = (u.value * size * 1.75f).sp, color = screenTokens().arabicText, textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = u * 1.2f))
+}
+@Composable private fun Translation(t: String, u: Dp, size: Float = 2.35f) = Text(t, fontFamily = Cormorant, fontSize = (u.value * size).sp, lineHeight = (u.value * size * 1.45f).sp, color = screenTokens().contentPrimary, textAlign = TextAlign.Center)
+@Composable private fun Source(t: String, u: Dp) = Text(t, fontFamily = Nunito, fontSize = (u.value * 1.35f).sp, letterSpacing = (u.value * 0.08f).sp, color = screenTokens().contentPrimary.copy(alpha = 0.75f), textAlign = TextAlign.Center, modifier = Modifier.padding(top = u * 1.4f))
+
+@Composable
+private fun BottomBar(phase: Phase, u: Dp, onStop: () -> Unit, onSkip: () -> Unit) {
+    val tk = screenTokens()
+    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(1000) } }
+    @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+    androidx.compose.foundation.layout.FlowRow(
+        Modifier.fillMaxWidth().padding(horizontal = u * 3.6f, vertical = u * 2.6f).clip(RoundedCornerShape(u * 2)).background(tk.surface.copy(alpha = 0.72f))
+            .border(1.dp, tk.neutralStroke, RoundedCornerShape(u * 2)).padding(horizontal = u * 2.4f, vertical = u * 1.4f),
+        verticalArrangement = Arrangement.spacedBy(u * 1f), horizontalArrangement = Arrangement.spacedBy(u * 1.2f)
+    ) {
+        // left: narration state
+        Row(Modifier.weight(1f, fill = false), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
+            val narrating = when (phase) { is Phase.Azaan -> true; is Phase.Dua, is Phase.Iftar -> true; is Phase.HadithPhase -> phase.narrating; is Phase.IqamahNow -> true; else -> false }
+            if (narrating) Wave(Modifier.width(u * 6).height(u * 2.4f), bars = 5)
+            Text(
+                when (phase) { is Phase.Azaan -> Str[R.string.s_azaan_playing]; is Phase.Iftar -> Str[R.string.s_reading_the_iftar_dua]; is Phase.Dua -> Str[R.string.s_reading_the_dua]; is Phase.HadithPhase -> if (phase.narrating) Str[R.string.s_reading_the_hadith] else Str[R.string.s_take_a_moment]; is Phase.IqamahCountdown -> Str[R.string.s_tap_skip_if_the_imam_is]; is Phase.IqamahNow -> Str[R.string.s_iqamah]; is Phase.Quiet -> "" },
+                fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+            )
+        }
+        // middle: countdown ring for hadith
+        if (phase is Phase.HadithPhase) {
+            val total = (phase.endsAt - phase.startedAt).coerceAtLeast(1)
+            val left = (phase.endsAt - now).coerceAtLeast(0)
+            Ring(left / total.toFloat(), "%d:%02d".format(left / 60_000, (left / 1000) % 60), u)
+        } else Spacer(Modifier.width(u * 6.4f))
+        // right: actions
+        Row(horizontalArrangement = Arrangement.spacedBy(u * 1.2f)) {
+            when (phase) {
+                is Phase.Azaan -> { Pill(Str[R.string.s_stop_azaan], true, u.value, onStop); Pill(Str[R.string.s_skip], false, u.value, onSkip) }
+                is Phase.IqamahCountdown -> { Pill(Str[R.string.s_dismiss], false, u.value, onStop); Pill(Str[R.string.s_start_iqamah_now], true, u.value, onSkip) }
+                is Phase.IqamahNow -> Pill(Str[R.string.s_dismiss], false, u.value, onStop)
+                is Phase.HadithPhase -> Pill(Str[R.string.s_back_to_clock], false, u.value, onStop)
+                else -> { Pill(Str[R.string.s_back_to_clock], false, u.value, onStop); Pill(Str[R.string.s_skip], false, u.value, onSkip) }
+            }
+        }
+    }
+}
+
+@Composable
+private fun Ring(fraction: Float, label: String, u: Dp) {
+    val tk = screenTokens()
+    Box(Modifier.size(u * 6.4f), contentAlignment = Alignment.Center) {
+        Canvas(Modifier.fillMaxSize()) {
+            val stroke = Stroke(width = 2.5f * (size.width / 40f), cap = StrokeCap.Round)
+            drawArc(tk.neutralStroke, 0f, 360f, false, style = stroke)
+            drawArc(tk.primary, -90f, 360f * fraction.coerceIn(0f, 1f), false, style = stroke)
+        }
+        Text(label, fontFamily = Cormorant, fontSize = (u.value * 1.9f).sp, color = tk.contentPrimary)
+    }
+}
+
+@Composable
+private fun Pill(label: String, primary: Boolean, u: Float, onClick: () -> Unit) {
+    val tk = screenTokens()
+    val shape = RoundedCornerShape(50)
+    Box(
+        Modifier.clip(shape).background(if (primary) tk.primary else Color.Transparent)
+            .border(1.dp, if (primary) tk.primary else tk.neutralStroke, shape)
+            .clickable(onClick = onClick, role = androidx.compose.ui.semantics.Role.Button).heightIn(min = 52.dp).padding(horizontal = (u * 3f).dp, vertical = (u * 1.3f).dp),
+        contentAlignment = Alignment.Center
+    ) { Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = (u * 1.75f).sp, color = if (primary) tk.onPrimary else tk.contentPrimary, maxLines = 1) }
+}
+
+@Composable
+private fun Wave(modifier: Modifier, bars: Int = 15) {
+    val tk = screenTokens()
+    val still = reduceMotion()
+    val anim by rememberInfiniteTransition(label = "wave").animateFloat(0f, 1f, infiniteRepeatable(tween(1400, easing = LinearEasing), RepeatMode.Restart), label = "t")
+    val t = if (still) 0.25f else anim
+    Canvas(modifier.semantics { contentDescription = Str[R.string.s_audio_playing] }) {
+        val gap = size.width / bars
+        for (i in 0 until bars) {
+            val phase = (i / bars.toFloat()) * PI * 2
+            val hgt = size.height * (0.2f + 0.8f * (0.5f + 0.5f * sin(t * 2 * PI + phase).toFloat()))
+            drawRoundRect(Brush.verticalGradient(listOf(tk.primary, Palette.goldDeep)), topLeft = Offset(i * gap + gap * 0.3f, (size.height - hgt) / 2), size = Size(gap * 0.4f, hgt), cornerRadius = CornerRadius(gap))
         }
     }
 }

@@ -132,8 +132,10 @@ fun QiblaScreen(settings: AppSettings, fixedHeading: Float? = null, onBack: () -
             Column(Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState()).padding(horizontal = u * 4, vertical = u * 2), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
                     IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
-                    Text(Str[R.string.s_qibla], fontFamily = Cormorant, fontSize = (u.value * 8f).sp, color = tk.contentPrimary)
-                    Text("  القبلة", fontFamily = Amiri, fontSize = (u.value * 6.5f).sp, color = tk.accent)
+                    Column(Modifier.weight(1f)) {
+                        Text(Str[R.string.s_qibla], fontFamily = Cormorant, fontSize = (u.value * 8f).sp, color = tk.contentPrimary)
+                        Text("القبلة", fontFamily = Amiri, fontSize = (u.value * 6.5f).sp, color = tk.accent)
+                    }
                 }
                 Box(Modifier.fillMaxWidth().aspectRatio(1f).padding(u * 4).semantics { contentDescription = spoken }, contentAlignment = Alignment.Center) { Compass(needle, heading = if (hasSensor) heading else 0f, u = u.value) }
                 Text("${bearing.toInt()}°  ${PrayerEngine.compass(bearing)}", fontFamily = Cormorant, fontSize = (u.value * 14f).sp, lineHeight = (u.value * 14f).sp, color = tk.contentPrimary)
@@ -148,8 +150,10 @@ fun QiblaScreen(settings: AppSettings, fixedHeading: Float? = null, onBack: () -
             Column(Modifier.weight(1f).fillMaxHeight().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
-                    Text(Str[R.string.s_qibla], fontFamily = Cormorant, fontSize = (u.value * 4.2f).sp, color = tk.contentPrimary)
-                    Text("  القبلة", fontFamily = Amiri, fontSize = (u.value * 3.4f).sp, color = tk.accent)
+                    Column(Modifier.weight(1f)) {
+                        Text(Str[R.string.s_qibla], fontFamily = Cormorant, fontSize = (u.value * 4.2f).sp, color = tk.contentPrimary)
+                        Text("القبلة", fontFamily = Amiri, fontSize = (u.value * 3.4f).sp, color = tk.accent)
+                    }
                 }
                 Text("${bearing.toInt()}°  ${PrayerEngine.compass(bearing)}", fontFamily = Cormorant, fontSize = (u.value * 9f).sp, lineHeight = (u.value * 9f).sp, color = tk.contentPrimary, modifier = Modifier.padding(start = u * 1.5f))
                 Text(Str.get(R.string.s_qibla_from_north, L10n.iso(settings.locationName)), fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, color = tk.contentSecondary, modifier = Modifier.padding(start = u * 1.6f))
