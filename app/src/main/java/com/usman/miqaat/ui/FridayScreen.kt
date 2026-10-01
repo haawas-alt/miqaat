@@ -70,7 +70,7 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
 
     BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
         val compact = maxWidth < 700.dp
-        GirihLattice(Modifier.fillMaxSize(), tile = 120f, alpha = 0.07f)
+        if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedArtwork(maxHeight > maxWidth, Modifier.fillMaxSize(), scrim = 0.7f) else GirihLattice(Modifier.fillMaxSize(), tile = 120f, alpha = 0.07f)
         Column(Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState()).padding(horizontal = if (compact) 16.dp else 32.dp, vertical = 12.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }

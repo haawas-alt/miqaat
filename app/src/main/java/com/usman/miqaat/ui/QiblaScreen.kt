@@ -123,7 +123,7 @@ fun QiblaScreen(settings: AppSettings, fixedHeading: Float? = null, onBack: () -
 
     BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
         val u = minOf(maxWidth / 100, maxHeight / 56)
-        GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.08f)
+        if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedArtwork(maxHeight > maxWidth, Modifier.fillMaxSize(), scrim = 0.7f) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.08f)
         val portrait = maxHeight > maxWidth
         if (portrait) {
             Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = u * 4, vertical = u * 2), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceEvenly) {
@@ -133,7 +133,7 @@ fun QiblaScreen(settings: AppSettings, fixedHeading: Float? = null, onBack: () -
                     Text("  القبلة", fontFamily = Amiri, fontSize = (u.value * 6.5f).sp, color = tk.accent)
                 }
                 Box(Modifier.fillMaxWidth().aspectRatio(1f).padding(u * 4).semantics { contentDescription = spoken }, contentAlignment = Alignment.Center) { Compass(needle, heading = if (hasSensor) heading else 0f, u = u.value) }
-                Text("${bearing.toInt()}°  ${PrayerEngine.compass(bearing)}", fontFamily = Cormorant, fontSize = (u.value * 14f).sp, lineHeight = (u.value * 14f).sp, color = Color(0xFFF6E7B8))
+                Text("${bearing.toInt()}°  ${PrayerEngine.compass(bearing)}", fontFamily = Cormorant, fontSize = (u.value * 14f).sp, lineHeight = (u.value * 14f).sp, color = tk.contentPrimary)
                 Text(Str.get(R.string.s_qibla_from_north, L10n.iso(settings.locationName)), fontFamily = Nunito, fontSize = (u.value * 3.2f).sp, color = tk.contentSecondary)
                 Text("$accuracyWords · $declWords", fontFamily = Nunito, fontSize = (u.value * 2.8f).sp, color = if (accuracyLow) tk.primary else tk.contentMuted, textAlign = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.padding(top = u * 1))
                 Text(if (!hasSensor) Str[R.string.s_no_compass_sensor_face_the_phone] else if (accuracyLow) Str[R.string.s_move_the_phone_in_a_figure] else Str[R.string.s_hold_the_phone_flat_and_turn],
@@ -148,7 +148,7 @@ fun QiblaScreen(settings: AppSettings, fixedHeading: Float? = null, onBack: () -
                     Text(Str[R.string.s_qibla], fontFamily = Cormorant, fontSize = (u.value * 4.2f).sp, color = tk.contentPrimary)
                     Text("  القبلة", fontFamily = Amiri, fontSize = (u.value * 3.4f).sp, color = tk.accent)
                 }
-                Text("${bearing.toInt()}°  ${PrayerEngine.compass(bearing)}", fontFamily = Cormorant, fontSize = (u.value * 9f).sp, lineHeight = (u.value * 9f).sp, color = Color(0xFFF6E7B8), modifier = Modifier.padding(start = u * 1.5f))
+                Text("${bearing.toInt()}°  ${PrayerEngine.compass(bearing)}", fontFamily = Cormorant, fontSize = (u.value * 9f).sp, lineHeight = (u.value * 9f).sp, color = tk.contentPrimary, modifier = Modifier.padding(start = u * 1.5f))
                 Text(Str.get(R.string.s_qibla_from_north, L10n.iso(settings.locationName)), fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, color = tk.contentSecondary, modifier = Modifier.padding(start = u * 1.6f))
                 Text("$accuracyWords · $declWords", fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, color = if (accuracyLow) tk.primary else tk.contentMuted, modifier = Modifier.padding(start = u * 1.6f, top = u * 0.8f))
                 Text(
