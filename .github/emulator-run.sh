@@ -11,8 +11,11 @@ OUT=shots/"$NAME"; mkdir -p "$OUT"
 G="./gradlew --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true connectedGithubDebugAndroidTest"
 
 if [ "${NAME##*-}" = "a" ]; then
-  $G -Pandroid.testInstrumentationRunnerArguments.class=com.usman.miqaat.ui.SettingsStateTest,com.usman.miqaat.ui.HomeLargeTextTest,com.usman.miqaat.ui.AdhkarEntryTest 2>&1 | tee "$OUT"/settings-tests.log | tail -25
-  mkdir -p "$OUT"/results && cp -r app/build/outputs/androidTest-results/connected/. "$OUT"/results/ 2>/dev/null || true
+  # One gradle run per class so a slow or crashed emulator in one test cannot hide the others' results.
+  for C in SettingsStateTest HomeLargeTextTest AdhkarEntryTest; do
+    timeout 900 $G -Pandroid.testInstrumentationRunnerArguments.class=com.usman.miqaat.ui.$C 2>&1 | tee "$OUT"/settings-tests-$C.log | tail -12
+    mkdir -p "$OUT"/results/$C && cp -r app/build/outputs/androidTest-results/connected/. "$OUT"/results/$C/ 2>/dev/null || true
+  done
 fi
 
 CLASSES=$(for t in ${TESTS//,/ }; do printf "com.usman.miqaat.ui.ScreenshotMatrixTest#%s," "$t"; done)
