@@ -1,3 +1,5 @@
+> **Superseded checkpoint:** see [CLOUD_ACCEPTANCE_FOLLOWUP.md](CLOUD_ACCEPTANCE_FOLLOWUP.md) for the 2 October signed testing APK/AAB, fresh Android evidence, corrected test findings and remaining release gates. The historical statements below about no emulator execution and the old APK are no longer current.
+
 # Independent audit remediation: saved cloud checkpoint
 
 ## Outcome
