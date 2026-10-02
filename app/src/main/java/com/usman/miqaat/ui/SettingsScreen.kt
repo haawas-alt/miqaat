@@ -175,6 +175,8 @@ private fun SectionBody(section: Section, store: SettingsStore, settings: AppSet
 fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section? = null, onBack: () -> Unit) {
     val tk = screenTokens()
     val ctx = LocalContext.current
+    val landingScroll = rememberSaveable(saver = ScrollState.Saver) { ScrollState(0) }
+    val landingScope = rememberCoroutineScope()
     var section by rememberSaveable { mutableStateOf(initial ?: Section.LOCATION) }
     var detailOpen by rememberSaveable { mutableStateOf(initial != null) }
     var direct by rememberSaveable { mutableStateOf(initial != null) }   // arrived by deep link: back leaves Settings
@@ -188,15 +190,16 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
     val results = remember(query, index) { SettingsIndex.search(index, query) }
     val readiness = rememberReadiness(settings)
     val version = remember { runCatching { ctx.packageManager.getPackageInfo(ctx.packageName, 0).versionName }.getOrNull() ?: "" }
+    fun backToLanding() { detailOpen = false; landingScope.launch { landingScroll.scrollTo(0) } }
     fun open(sec: Section, focus: String? = null) { section = sec; focusTitle = focus; detailOpen = true; direct = false; query = "" }
 
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
         val compact = maxWidth < Breakpoints.settingsRail || maxHeight < 500.dp
         androidx.activity.compose.BackHandler(enabled = compact && (detailOpen || query.isNotEmpty())) {
-            if (query.isNotEmpty()) query = "" else if (direct) onBack() else detailOpen = false
+            if (query.isNotEmpty()) query = "" else if (direct) onBack() else backToLanding()
         }
         if (compact) {
-            if (!detailOpen) SettingsLanding(settings, readiness, query, { query = it }, results, version, onBack, ::open)
+            if (!detailOpen) SettingsLanding(settings, readiness, landingScroll, query, { query = it }, results, version, onBack, ::open)
             else SettingsDetailPhone(section, store, settings, focusTitle, { if (direct) onBack() else detailOpen = false })
         } else {
             SettingsTablet(section, store, settings, readiness, query, { query = it }, results, focusTitle, onBack, ::open)
@@ -227,11 +230,10 @@ private fun SearchResults(query: String, results: List<SettingEntry>, onPick: (S
 
 @Composable
 private fun SettingsLanding(
-    s: AppSettings, readiness: ReadinessState, query: String, onQuery: (String) -> Unit, results: List<SettingEntry>, version: String,
+    s: AppSettings, readiness: ReadinessState, landingScroll: ScrollState, query: String, onQuery: (String) -> Unit, results: List<SettingEntry>, version: String,
     onBack: () -> Unit, open: (Section, String?) -> Unit
 ) {
     val tk = screenTokens()
-    val landingScroll = rememberSaveable(query.isBlank(), saver = ScrollState.Saver) { ScrollState(0) }
     Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
         SettingsTopBar(Str[R.string.s_settings], onBack)
         Column(Modifier.weight(1f).verticalScroll(landingScroll).padding(horizontal = Space.l).padding(top = Space.s, bottom = Space.xl).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(Space.l)) {

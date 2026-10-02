@@ -100,7 +100,7 @@ class SettingsStateTest {
         assumeTrue(!railLayout)
         prepare()
         rule.setContent { screen() }
-        rule.onNodeWithText(Str[R.string.s_display_art]).performClick()
+        rule.onNodeWithText(Str[R.string.s_display_art]).performScrollTo().performClick()
         rule.waitForIdle()
         rule.onNodeWithText(Str[R.string.s_how_miqaat_looks_on_the_wall]).assertIsDisplayed()
         rule.onNodeWithText(Str[R.string.s_open_miqaat_when_the_device_starts]).performScrollTo()

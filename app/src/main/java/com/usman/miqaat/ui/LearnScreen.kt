@@ -309,95 +309,29 @@ private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, mod
 }
 
 /**
- * One distinct, gender-neutral, faceless robed figure per position, in the approved lesson's style: a softly filled robe with a
- * gold outline, a plain head and hands, standing or sitting on a prayer mat. Nothing is shared between positions except the style.
+ * Eight separately authored vector illustrations: smooth robes, recognisable hands and feet,
+ * clear ground contact in sujud, a resting right hand with raised index finger, and a turned salam profile.
+ * Shared by the lesson and movements overview. Exact approved-reference fidelity still needs the approved files.
  */
 @Composable
 fun Figure(p: Learn.Posture, color: Color, modifier: Modifier) {
-    Canvas(modifier) {
-        val w = size.width; val h = size.height
-        val sw = w * 0.014f
-        val line = Stroke(sw, cap = StrokeCap.Round, join = StrokeJoin.Round)
-        val fill = color.copy(alpha = 0.16f)
-        fun P(x: Float, y: Float) = Offset(w * x, h * y)
-        fun poly(vararg pts: Pair<Float, Float>, closed: Boolean = true) {
-            val path = Path()
-            pts.forEachIndexed { k, (x, y) -> if (k == 0) path.moveTo(w * x, h * y) else path.lineTo(w * x, h * y) }
-            if (closed) path.close()
-            if (closed) drawPath(path, fill)
-            drawPath(path, color, style = line)
-        }
-        fun robe(x0: Float, y0: Float, x1: Float, y1: Float, r: Float = 0.05f) {
-            val rr = androidx.compose.ui.geometry.CornerRadius(w * r)
-            drawRoundRect(fill, P(x0, y0), androidx.compose.ui.geometry.Size(w * (x1 - x0), h * (y1 - y0)), rr)
-            drawRoundRect(color, P(x0, y0), androidx.compose.ui.geometry.Size(w * (x1 - x0), h * (y1 - y0)), rr, style = line)
-        }
-        fun head(x: Float, y: Float, r: Float = 0.085f) { drawCircle(fill, w * r, P(x, y)); drawCircle(color, w * r, P(x, y), style = line) }
-        fun limb(vararg pts: Pair<Float, Float>) {   // an arm or a sleeve: a thick soft stroke with a thin outline over it
-            val path = Path(); pts.forEachIndexed { k, (x, y) -> if (k == 0) path.moveTo(w * x, h * y) else path.lineTo(w * x, h * y) }
-            drawPath(path, color.copy(alpha = 0.30f), style = Stroke(w * 0.045f, cap = StrokeCap.Round, join = StrokeJoin.Round))
-            drawPath(path, color, style = Stroke(sw, cap = StrokeCap.Round, join = StrokeJoin.Round))
-        }
-        fun hand(x: Float, y: Float, r: Float = 0.032f) { drawCircle(fill.copy(alpha = 0.5f), w * r, P(x, y)); drawCircle(color, w * r, P(x, y), style = line) }
-        fun foot(x: Float, y: Float, wd: Float = 0.075f) {
-            drawOval(fill, P(x - wd / 2, y), androidx.compose.ui.geometry.Size(w * wd, h * 0.035f))
-            drawOval(color, P(x - wd / 2, y), androidx.compose.ui.geometry.Size(w * wd, h * 0.035f), style = line)
-        }
-        // prayer mat, seen in perspective
-        poly(0.16f to 0.97f, 0.84f to 0.97f, 0.76f to 0.90f, 0.24f to 0.90f)
-        val standingRobe = { poly(0.37f to 0.30f, 0.50f to 0.275f, 0.63f to 0.30f, 0.665f to 0.88f, 0.335f to 0.88f) }
-        when (p) {
-            Learn.Posture.TAKBIR -> {
-                standingRobe(); head(0.5f, 0.17f); foot(0.43f, 0.885f); foot(0.57f, 0.885f)
-                limb(0.375f to 0.34f, 0.29f to 0.42f, 0.30f to 0.30f); limb(0.625f to 0.34f, 0.71f to 0.42f, 0.70f to 0.30f)   // forearms up
-                hand(0.30f, 0.26f); hand(0.70f, 0.26f)
-            }
-            Learn.Posture.STANDING -> {
-                standingRobe(); head(0.5f, 0.17f); foot(0.43f, 0.885f); foot(0.57f, 0.885f)
-                limb(0.375f to 0.36f, 0.34f to 0.46f, 0.52f to 0.43f); limb(0.625f to 0.36f, 0.66f to 0.46f, 0.47f to 0.45f)    // hands folded across the chest
-                hand(0.53f, 0.43f); hand(0.47f, 0.45f)
-            }
-            Learn.Posture.RISING -> {
-                standingRobe(); head(0.5f, 0.17f); foot(0.43f, 0.885f); foot(0.57f, 0.885f)
-                limb(0.375f to 0.34f, 0.33f to 0.52f, 0.335f to 0.66f); limb(0.625f to 0.34f, 0.67f to 0.52f, 0.665f to 0.66f)   // arms hanging at the sides
-                hand(0.335f, 0.68f); hand(0.665f, 0.68f)
-            }
-            Learn.Posture.BOWING -> {
-                poly(0.58f to 0.42f, 0.68f to 0.42f, 0.69f to 0.88f, 0.57f to 0.88f)                  // legs, upright
-                robe(0.30f, 0.36f, 0.68f, 0.50f, 0.06f)                                                // level back
-                head(0.23f, 0.40f); foot(0.64f, 0.885f)
-                limb(0.36f to 0.47f, 0.50f to 0.60f, 0.585f to 0.665f); hand(0.59f, 0.675f)          // palm on the knee
-            }
-            Learn.Posture.PROSTRATING -> {
-                poly(0.28f to 0.74f, 0.40f to 0.60f, 0.64f to 0.55f, 0.74f to 0.72f, 0.60f to 0.84f, 0.30f to 0.86f)   // back and hips raised
-                poly(0.64f to 0.72f, 0.80f to 0.84f, 0.86f to 0.88f, 0.62f to 0.88f)                                     // shins and feet on the ground
-                head(0.20f, 0.80f); limb(0.34f to 0.76f, 0.36f to 0.86f); hand(0.37f, 0.885f)                          // forehead down, palm flat
-            }
-            Learn.Posture.SITTING -> {
-                robe(0.28f, 0.66f, 0.74f, 0.86f, 0.07f)                                                // folded legs
-                poly(0.40f to 0.32f, 0.54f to 0.32f, 0.58f to 0.68f, 0.36f to 0.68f)                   // upright torso
-                head(0.47f, 0.21f); foot(0.75f, 0.87f)
-                limb(0.52f to 0.40f, 0.60f to 0.55f, 0.62f to 0.69f); hand(0.62f, 0.70f)             // hand resting on the thigh
-            }
-            Learn.Posture.TASHAHHUD -> {
-                robe(0.28f, 0.66f, 0.74f, 0.86f, 0.07f)
-                poly(0.40f to 0.32f, 0.54f to 0.32f, 0.58f to 0.68f, 0.36f to 0.68f)
-                head(0.47f, 0.21f); foot(0.75f, 0.87f)
-                limb(0.45f to 0.42f, 0.40f to 0.58f, 0.44f to 0.69f); hand(0.44f, 0.70f)             // left hand on the left thigh
-                limb(0.54f to 0.40f, 0.64f to 0.52f, 0.66f to 0.62f); hand(0.66f, 0.635f)             // right hand on the right thigh…
-                drawLine(color, P(0.67f, 0.61f), P(0.70f, 0.55f), sw * 1.8f, cap = StrokeCap.Round)     // …index finger raised
-            }
-            Learn.Posture.SALAM -> {
-                robe(0.28f, 0.66f, 0.74f, 0.86f, 0.07f)
-                poly(0.40f to 0.32f, 0.54f to 0.32f, 0.58f to 0.68f, 0.36f to 0.68f)
-                head(0.50f, 0.21f); foot(0.75f, 0.87f)
-                poly(0.585f to 0.20f, 0.625f to 0.225f, 0.585f to 0.245f, closed = true)                // nose: the face is turned
-                limb(0.52f to 0.40f, 0.60f to 0.55f, 0.62f to 0.69f); hand(0.62f, 0.70f)
-                drawArc(color, 200f, 120f, false, topLeft = P(0.26f, 0.04f), size = androidx.compose.ui.geometry.Size(w * 0.48f, h * 0.30f), style = Stroke(sw, cap = StrokeCap.Round))   // turn to the right, then the left
-                drawLine(color, P(0.30f, 0.17f), P(0.32f, 0.12f), sw, cap = StrokeCap.Round); drawLine(color, P(0.70f, 0.17f), P(0.68f, 0.12f), sw, cap = StrokeCap.Round)
-            }
-        }
+    val art = when (p) {
+        Learn.Posture.TAKBIR -> R.drawable.learn_pose_takbir
+        Learn.Posture.STANDING -> R.drawable.learn_pose_standing
+        Learn.Posture.BOWING -> R.drawable.learn_pose_bowing
+        Learn.Posture.RISING -> R.drawable.learn_pose_rising
+        Learn.Posture.PROSTRATING -> R.drawable.learn_pose_prostrating
+        Learn.Posture.SITTING -> R.drawable.learn_pose_sitting
+        Learn.Posture.TASHAHHUD -> R.drawable.learn_pose_tashahhud
+        Learn.Posture.SALAM -> R.drawable.learn_pose_salam
     }
+    androidx.compose.foundation.Image(
+        painter = androidx.compose.ui.res.painterResource(art),
+        contentDescription = null,
+        modifier = modifier,
+        contentScale = androidx.compose.ui.layout.ContentScale.Fit,
+        colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color)
+    )
 }
 
 // ---------------------------------------------------------------- words + audio

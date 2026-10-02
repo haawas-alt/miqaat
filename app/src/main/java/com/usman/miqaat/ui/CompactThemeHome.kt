@@ -30,7 +30,7 @@ import com.usman.miqaat.R
 import com.usman.miqaat.data.*
 
 /** Short landscape is a reading layout, not a scaled-down tablet artwork board. */
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
 @Composable
 fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeActions) {
     val tk = ThemeTokenSets.of(settings.theme)
@@ -38,7 +38,14 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
     val shape = RoundedCornerShape(if (gallery) 8.dp else 20.dp)
     val font = uiFont(settings)
     val hero = heroInfo(state, settings, kicker(state, settings))
-    val links = doors(state, settings, actions)
+    val modes = adhkarModes(state, settings)
+    fun modeLabel(mode: AdhkarMode) = L10n.word(settings, when (mode) {
+        AdhkarMode.MORNING -> "Morning adhkār"
+        AdhkarMode.EVENING -> "Evening adhkār"
+        AdhkarMode.POST -> "After-prayer adhkār"
+    })
+    val adhkarLabels = modes.map(::modeLabel).toSet()
+    val links = doors(state, settings, actions).filterNot { it.label in adhkarLabels }
     var why by remember { mutableStateOf<Prayer?>(null) }
     why?.let { WhyDialog(settings, state.today, it) { why = null } }
     Box(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
@@ -52,6 +59,19 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                 if (settings.kidsMode) IconButton(onClick = actions.onOpenLearn, modifier = Modifier.size(48.dp)) { Icon(Icons.Outlined.MenuBook, Str[R.string.s_learn_salah], tint = tk.primary) }
                 IconButton(onClick = actions.onOpenTimetable, modifier = Modifier.size(48.dp)) { Icon(Icons.Outlined.CalendarMonth, Str[R.string.s_monthly_timetable], tint = tk.primary) }
                 IconButton(onClick = actions.onOpenSettings, modifier = Modifier.size(48.dp)) { Icon(Icons.Outlined.Settings, Str[R.string.s_settings], tint = tk.primary) }
+            }
+            // Timely Adhkar actions stay above both scrolling columns; a tall hero must not hide them.
+            if (modes.isNotEmpty()) FlowRow(
+                Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                modes.forEach { mode ->
+                    Text(modeLabel(mode), fontFamily = font, fontSize = 16.sp, color = tk.contentPrimary,
+                        modifier = Modifier.heightIn(min = 48.dp).clip(shape).background(tk.surface)
+                            .border(1.dp, tk.divider, shape).clickable(role = Role.Button) { actions.onOpenAdhkar(mode) }
+                            .padding(horizontal = 12.dp, vertical = 12.dp))
+                }
             }
             Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 Column(Modifier.weight(0.46f).fillMaxHeight().verticalScroll(rememberScrollState()).padding(bottom = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
