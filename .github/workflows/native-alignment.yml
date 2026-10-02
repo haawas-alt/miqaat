@@ -16,9 +16,10 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
       - name: Install pinned NDK
-        run: sdkmanager "ndk;28.2.13676358"
+        run: |
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | sort -V | tail -1)"
+          "$SDKMANAGER" "ndk;28.2.13676358"
       - name: Rebuild all four ABIs and assert LOAD and RELRO alignment
         run: python3 tools/investigate_native_alignment.py
       - uses: actions/upload-artifact@v4
