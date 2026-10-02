@@ -119,7 +119,7 @@ class SettingsStateTest {
             }
         )
         rule.onNodeWithText(Str[R.string.s_how_miqaat_looks_on_the_wall]).assertDoesNotExist()
-        rule.onNodeWithText(Str[R.string.s_settings_search_hint]).assertIsDisplayed()
+        rule.onNodeWithContentDescription(Str[R.string.s_settings_search_hint]).assertIsDisplayed()
         rule.onNodeWithText(Str[R.string.s_group_prayer_setup]).performScrollTo().assertIsDisplayed()
     }
 

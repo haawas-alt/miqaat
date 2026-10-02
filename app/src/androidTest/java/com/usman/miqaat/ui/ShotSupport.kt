@@ -77,11 +77,14 @@ abstract class ShotSupport {
         if (want != null) {
             val wantLandscape = want == "landscape"
             fun matches(): Boolean { var ok = false; scenario.onActivity { a -> ok = (a.resources.displayMetrics.widthPixels > a.resources.displayMetrics.heightPixels) == wantLandscape }; return ok }
-            if (!matches()) {
-                scenario.onActivity { a -> a.requestedOrientation = if (wantLandscape) android.content.pm.ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE else android.content.pm.ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT }
-                var waited = 0
-                while (!matches() && waited < 6000) { Thread.sleep(300); waited += 300 }
-            }
+            // Pin every fixture activity, even if its initial display metrics already match.
+            // Otherwise a later recreation can silently return a 16 KB image to portrait.
+            scenario.onActivity { a -> a.requestedOrientation = if (wantLandscape) android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE else android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT }
+            var waited = 0
+            while (!matches() && waited < 6000) { Thread.sleep(300); waited += 300 }
+            check(matches()) { "Activity did not reach the requested orientation" }
+            InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+            Thread.sleep(300)
         }
         scenario.onActivity { act ->
             act.setContent {

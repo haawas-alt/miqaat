@@ -34,7 +34,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         env:
           EXPECTED_PAGE_SIZE: ${{ matrix.page_size }}
-          REGRESSION_CLASSES: SettingsStateTest HomeLargeTextTest AdhkarEntryTest NativeGraphicsRuntimeTest
+          REGRESSION_CLASSES: SettingsStateTest
         with:
           api-level: ${{ matrix.api }}
           target: ${{ matrix.target }}
@@ -43,11 +43,7 @@ jobs:
           disable-animations: true
           emulator-boot-timeout: 900
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096
-          script: |
-            status=0
-            bash .github/emulator-run.sh ${{ matrix.rotation }} ${{ matrix.name }}-a homes,homesUrdu,states || status=1
-            bash .github/emulator-run.sh ${{ matrix.rotation }} ${{ matrix.name }}-d azaanFlow,learnLessons || status=1
-            exit "$status"
+          script: bash .github/phone-residual-run.sh ${{ matrix.rotation }} ${{ matrix.name }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:

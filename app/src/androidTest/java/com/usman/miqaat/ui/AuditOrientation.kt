@@ -22,6 +22,14 @@ fun enforceAuditOrientation() {
         Thread.sleep(900)
         if (matches()) break
     }
+    inst.runOnMainSync {
+        val activity = androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry.getInstance()
+            .getActivitiesInStage(androidx.test.runner.lifecycle.Stage.RESUMED).firstOrNull()
+        activity?.requestedOrientation = if (desired == "landscape")
+            android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        else android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
+    Thread.sleep(1000)
     inst.waitForIdleSync()
     check(matches()) { "Could not enforce $desired for gate tests" }
 }
