@@ -300,7 +300,7 @@ private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, mod
         Column((if (reflow) Modifier.fillMaxWidth() else Modifier.fillMaxSize()).padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Box(if (reflow) Modifier.fillMaxWidth().height(figureHeight) else Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 if (!c.kiswah) MihrabArch(Modifier.fillMaxHeight().aspectRatio(0.9f), color = c.primary.copy(alpha = 0.35f))
-                Figure(posture, c.primary, Modifier.fillMaxHeight(0.8f).aspectRatio(1f).semantics { contentDescription = if (L10n.uiUrdu) UrduContent.postureLabels[posture.ordinal] + ": " + UrduContent.postureDescriptions[posture.ordinal] else "${posture.label}: ${posture.describe}" })
+                Figure(posture, c.primary, Modifier.fillMaxHeight(0.88f).fillMaxWidth(0.96f).semantics { contentDescription = if (L10n.uiUrdu) UrduContent.postureLabels[posture.ordinal] + ": " + UrduContent.postureDescriptions[posture.ordinal] else "${posture.label}: ${posture.describe}" })
             }
             Text(if (L10n.uiUrdu) UrduContent.postureLabels[posture.ordinal] else if (c.kiswah) posture.label.uppercase() else posture.label, fontFamily = c.display, fontSize = if (c.kiswah) 12.sp else 20.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp))
             Text(cue, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 18.sp, color = c.textSecondary, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())

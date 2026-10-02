@@ -1,4 +1,5 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="300dp" android:height="300dp" android:viewportWidth="300" android:viewportHeight="300">
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="300dp" android:height="210dp" android:viewportWidth="300" android:viewportHeight="210">
+<group android:translateY="-75">
 <path android:fillColor="#FF000000" android:fillAlpha="0.10" android:strokeColor="#FF000000" android:strokeWidth="2.4" android:strokeLineCap="round" android:strokeLineJoin="round" android:pathData="M 28,266 Q 24,266 28,261 L 48,248 L 252,248 L 272,261 Q 276,266 272,266 Z"/>
 <path android:fillColor="#FF000000" android:fillAlpha="0.18" android:strokeColor="#FF000000" android:strokeWidth="3.2" android:strokeLineCap="round" android:strokeLineJoin="round" android:pathData="M 207,122 Q 223,126 225,147 L 224,239 L 187,239 L 187,160 Q 184,144 177,136"/>
 <path android:fillColor="#FF000000" android:fillAlpha="0.18" android:strokeColor="#FF000000" android:strokeWidth="3.2" android:strokeLineCap="round" android:strokeLineJoin="round" android:pathData="M 86,108 Q 127,101 175,104 L 204,106 Q 220,109 219,124 Q 219,135 201,137 L 128,139 Q 103,138 88,127 Z"/>
@@ -6,4 +7,5 @@
 <path android:fillColor="#FF000000" android:fillAlpha="0.18" android:strokeColor="#FF000000" android:strokeWidth="3.2" android:strokeLineCap="round" android:strokeLineJoin="round" android:pathData="M 107,132 Q 126,145 148,155 L 185,174 Q 194,180 201,176 L 214,171 Q 219,164 211,161 L 198,164 L 160,143 L 134,120"/>
 <path android:fillColor="#FF000000" android:fillAlpha="0.18" android:strokeColor="#FF000000" android:strokeWidth="3.2" android:strokeLineCap="round" android:strokeLineJoin="round" android:pathData="M 197,239 L 197,250 Q 177,250 174,258 Q 174,263 205,262 L 223,262 L 223,239"/>
 <path android:fillColor="#FF000000" android:fillAlpha="0.18" android:strokeColor="#FF000000" android:strokeWidth="3.2" android:strokeLineCap="round" android:strokeLineJoin="round" android:pathData="M 202,185 L 201,228 M 100,115 Q 144,110 187,115"/>
+</group>
 </vector>
