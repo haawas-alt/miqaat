@@ -1,4 +1,4 @@
-# Content review handoff — exact candidate 68ef915cf155f5bde7c4a2f82f107d107a292ff1
+# Content review handoff — exact candidate 9c7fb156bcfcaac489d96089a293b09209ae3638
 
 Status: **not qualified scholarly approval**. This is source triage and a review queue.
 A named qualified Sunni reviewer and fluent Urdu proofreader must review the actual candidate text
@@ -6,7 +6,9 @@ and posture images, record corrections, and sign off the content revision.
 Earlier AI-assisted documents and owner-reported partial reviews do not certify the new Urdu wording.
 
 Files: app/src/main/java/com/usman/miqaat/data/Adhkar.kt, UrduContent.kt, Learn.kt and
-app/src/main/res/drawable/learn_pose_*.xml. Arabic/counts/rulings have not been changed in this checkpoint.
+app/src/main/res/drawable/learn_pose_*.xml. Arabic/counts/rulings are unchanged from68ef915. The sujud asset was subsequently clarified at0f731080; earlier content approval must not be assumed to cover the new vectors.
+
+The tashahhud gesture is on viewer-right in a frontal-looking image: confirm anatomical right-hand orientation and approved viewpoint. The salam lesson uses a single turned profile for its right-then-left action; approve distinct turn depictions or an appropriate approved sequence.
 
 ## Confirmed comparisons and product issues
 
