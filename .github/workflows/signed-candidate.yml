@@ -2,7 +2,7 @@ name: Signed candidate validation
 on:
   push:
     branches: ['fix/run158-audit-remediation']
-    paths: ['.github/workflows/signed-candidate.yml']
+    paths: ['.github/workflows/signed-candidate.yml', 'app/**']
   workflow_dispatch:
 permissions:
   contents: read

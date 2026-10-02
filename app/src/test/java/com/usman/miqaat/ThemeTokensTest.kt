@@ -54,6 +54,21 @@ class ThemeTokensTest {
         }
     }
 
+    /** Timetable small text uses opaque role colours on opaque, tinted row surfaces. */
+    @Test fun timetableTextMeetsAAOnTintedRows() {
+        for (tk in ThemeTokenSets.all) {
+            val rows = listOf(
+                "ordinary" to (tk.contentPrimary to tk.surface),
+                "today" to (tk.todayText to over(tk.primary.copy(alpha = 0.16f), tk.surface)),
+                "Friday" to (tk.fridayText to over(tk.fridayText.copy(alpha = 0.07f), tk.surface))
+            )
+            for ((name, pair) in rows) {
+                val contrast = ratio(pair.first, pair.second)
+                assertTrue("${tk.theme} timetable $name = $contrast", contrast >= 4.5f)
+            }
+        }
+    }
+
     @Test fun lightAndDarkAreWhatTheyClaim() {
         assertTrue(ThemeTokenSets.gallery.dark.not() && lum(ThemeTokenSets.gallery.background) > 0.8f)
         listOf(ThemeTokenSets.miqaat, ThemeTokenSets.kiswah, ThemeTokenSets.celestial).forEach { assertTrue(it.dark && lum(it.background) < 0.05f) }

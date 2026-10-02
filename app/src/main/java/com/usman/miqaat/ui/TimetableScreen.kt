@@ -127,15 +127,15 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                     val spoken = d.date.format(DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.ENGLISH)) + (if (isToday) ", today" else "") + (if (fri) ", Friday" else "") + ", " + h.short + ": " +
                         Prayer.entries.joinToString(", ") { "${it.english} ${PrayerEngine.clock(d[it], settings.use24h)} ${PrayerEngine.suffix(d[it], settings.use24h)}" }
                     Row(
-                        Modifier.fillMaxWidth().background(when { isToday -> tk.primary.copy(alpha = 0.16f); fri -> tk.fridayText.copy(alpha = 0.07f); else -> Color.Transparent })
+                        Modifier.fillMaxWidth().background(tk.surface).background(when { isToday -> tk.primary.copy(alpha = 0.16f); fri -> tk.fridayText.copy(alpha = 0.07f); else -> Color.Transparent })
                             .padding(vertical = 8.dp, horizontal = 14.dp).semantics(mergeDescendants = true) { contentDescription = spoken },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         cells { i, m ->
                             when (i) {
                                 0 -> Text(d.date.format(DateTimeFormatter.ofPattern("EEE d", Locale.ENGLISH)), m, fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal, color = color, maxLines = 1)
-                                1 -> Text(h.short + (if (h.isRamadan) " ☾" else ""), m, fontFamily = Nunito, fontSize = 14.sp, color = color.copy(alpha = 0.75f), maxLines = 1)
-                                else -> { val p = Prayer.entries[i - 2]; Text(PrayerEngine.clock(d[p], settings.use24h), m, fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal, color = if (p == Prayer.SUNRISE) color.copy(alpha = 0.7f) else color, maxLines = 1) }
+                                1 -> Text(h.short + (if (h.isRamadan) " ☾" else ""), m, fontFamily = Nunito, fontSize = 14.sp, color = color, maxLines = 1)
+                                else -> { val p = Prayer.entries[i - 2]; Text(PrayerEngine.clock(d[p], settings.use24h), m, fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal, color = color, maxLines = 1) }
                             }
                         }
                     }
