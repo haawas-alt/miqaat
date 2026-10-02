@@ -1,0 +1,39 @@
+name: Publish validated APK test download
+on:
+  push:
+    branches: ['fix/run158-audit-remediation']
+    paths: ['.github/workflows/audit-download.yml']
+permissions:
+  contents: write
+  actions: read
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 36863571017
+          name: audit-fix-validation-36863571017
+          path: validated
+      - name: Verify exact validated APK
+        run: |
+          set -euo pipefail
+          cp validated/outputs/apk/github/debug/app-github-debug.apk Miqaat-audit.apk
+          echo '01a314336a632cac564d2ed1579bf6506054a1d1b19d87c897e727d901b6d0a8  Miqaat-audit.apk' | sha256sum -c -
+          sha256sum Miqaat-audit.apk > Miqaat-audit.apk.sha256
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: audit-fixes-3895c823
+          target_commitish: 3895c823d2b5f3f33bb51c9bafd55046ec208c09
+          name: Audit fixes — debug testing APK
+          prerelease: true
+          make_latest: false
+          body: |
+            Validated debug testing APK, source3895c823d2b5f3f33bb51c9bafd55046ec208c09, validation run36863571017.
+            Includes confirmed RTL/responsive audit fixes. Not a production release or99% fidelity certification.
+            Debug signing key: may require uninstalling a release-signed installation first; uninstall clears local app settings.
+            Production updater is unchanged. Full Android16 acceptance and qualified content/device/store checks remain pending.
+          files: |
+            Miqaat-audit.apk
+            Miqaat-audit.apk.sha256
