@@ -17,11 +17,11 @@ setrot() {
 setrot
 adb shell wm size; adb shell wm density
 OUT=shots/"$NAME"; mkdir -p "$OUT"
-G="./gradlew --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true -Pandroid.testInstrumentationRunnerArguments.orientation=$ORIENT connectedGithubDebugAndroidTest"
+G="./gradlew --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true -Pandroid.testInstrumentationRunnerArguments.orientation=$ORIENT -Pandroid.testInstrumentationRunnerArguments.expectedPageSize=${EXPECTED_PAGE_SIZE:-4096} connectedGithubDebugAndroidTest"
 
 if [ "${NAME##*-}" = "a" ]; then
   # One gradle run per class so a slow or crashed emulator in one test cannot hide the others' results.
-  for C in SettingsStateTest HomeLargeTextTest AdhkarEntryTest; do
+  for C in ${REGRESSION_CLASSES:-SettingsStateTest HomeLargeTextTest AdhkarEntryTest}; do
     setrot
     timeout 900 $G -Pandroid.testInstrumentationRunnerArguments.class=com.usman.miqaat.ui.$C 2>&1 | tee "$OUT"/settings-tests-$C.log | tail -12 || status=1
     mkdir -p "$OUT"/results/$C && cp -r app/build/outputs/androidTest-results/connected/. "$OUT"/results/$C/ 2>/dev/null || true
@@ -29,8 +29,6 @@ if [ "${NAME##*-}" = "a" ]; then
 fi
 
 setrot
-# Sequential groups reuse an installed app; fresh isolated groups may not have one yet.
-# Clear only stale captures, preserving app settings and already-pulled evidence.
 if adb shell pm path com.usman.miqaat | grep -q '^package:'; then
   adb shell run-as com.usman.miqaat rm -rf files/screens
 fi
