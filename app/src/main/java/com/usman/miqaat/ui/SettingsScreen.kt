@@ -76,6 +76,7 @@ import com.usman.miqaat.R
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import androidx.compose.ui.text.font.FontWeight
@@ -236,7 +237,7 @@ private fun SettingsLanding(
     val tk = screenTokens()
     Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
         SettingsTopBar(Str[R.string.s_settings], onBack)
-        Column(Modifier.weight(1f).verticalScroll(landingScroll).padding(horizontal = Space.l).padding(top = Space.s, bottom = Space.xl).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(Space.l)) {
+        Column(Modifier.weight(1f).testTag("settings-landing-scroll").verticalScroll(landingScroll).padding(horizontal = Space.l).padding(top = Space.s, bottom = Space.xl).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(Space.l)) {
             MiqSearchField(query, onQuery, Str[R.string.s_settings_search_hint], Str[R.string.s_settings_search_clear])
             if (query.isNotBlank()) SearchResults(query, results) { open(it.section, if (it.isDestination) null else it.title) }
             else {

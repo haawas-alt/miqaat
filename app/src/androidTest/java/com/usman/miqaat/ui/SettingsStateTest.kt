@@ -110,7 +110,17 @@ class SettingsStateTest {
             activity.onBackPressedDispatcher.onBackPressed()
         }
         rule.waitForIdle()
-        rule.onNodeWithText(Str[R.string.s_group_prayer_setup]).assertIsDisplayed()
+        // Readiness may put the first category below the fold, especially in landscape.
+        // Assert the actual navigation/scroll contract, then verify the category is reachable.
+        rule.onNodeWithTag("settings-landing-scroll").assert(
+            SemanticsMatcher("landing scroll starts at zero") { node ->
+                node.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.VerticalScrollAxisRange)
+                    ?.value?.invoke()?.let { kotlin.math.abs(it) < 1f } == true
+            }
+        )
+        rule.onNodeWithText(Str[R.string.s_how_miqaat_looks_on_the_wall]).assertDoesNotExist()
+        rule.onNodeWithText(Str[R.string.s_settings_search_hint]).assertIsDisplayed()
+        rule.onNodeWithText(Str[R.string.s_group_prayer_setup]).performScrollTo().assertIsDisplayed()
     }
 
     /** No word of any readiness label may be split across lines, at 100%, 130% and 200%, in every theme. */
