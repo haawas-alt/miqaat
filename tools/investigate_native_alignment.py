@@ -45,7 +45,7 @@ for abi in ("arm64-v8a", "armeabi-v7a", "x86", "x86_64"):
     subprocess.run(["cmake", "-S", str(SOURCE), "-B", str(build),
         f"-DCMAKE_TOOLCHAIN_FILE={ndk}/build/cmake/android.toolchain.cmake",
         f"-DANDROID_ABI={abi}", "-DANDROID_PLATFORM=android-26",
-        "-DANDROID_STL=none", "-DCMAKE_BUILD_TYPE=Release"], check=True)
+        "-DANDROID_STL=c++_static", "-DCMAKE_BUILD_TYPE=Release"], check=True)
     subprocess.run(["cmake", "--build", str(build), "--parallel", "2"], check=True)
     library = build / "libandroidx.graphics.path.so"
     output = subprocess.check_output([str(readelf), "-lW", str(library)], text=True)
