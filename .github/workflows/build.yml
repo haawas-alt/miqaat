@@ -69,6 +69,7 @@ jobs:
           sha256sum Miqaat-play.aab | cut -d' ' -f1 > Miqaat-play.aab.sha256
           echo "SHA=$(cat Miqaat.apk.sha256)" >> $GITHUB_ENV
           echo "SHA_PLAY=$(cat Miqaat-play.aab.sha256)" >> $GITHUB_ENV
+          python3 -c 'import json; print(json.load(open("app/build/outputs/apk/github/release/output-metadata.json"))["elements"][0]["versionCode"])' > Miqaat.versionCode
           ls -la Miqaat*
           { echo "NOTES<<EOF"; git log -5 --pretty=format:'- %s'; echo; echo "EOF"; } >> $GITHUB_ENV
           mkdir -p reports && cp -r app/build/reports/lint-results* reports/ 2>/dev/null || true
@@ -84,6 +85,7 @@ jobs:
             Miqaat-play.apk.sha256
             Miqaat-play.aab
             Miqaat-play.aab.sha256
+            Miqaat.versionCode
             reports/
 
   # Screenshots and UI regression tests on a real Android emulator (tablet and phone, both orientations), for the branch
@@ -186,6 +188,7 @@ jobs:
           path: .
       - name: Restore artifact metadata
         run: |
+          echo "VERSION_CODE=$(cat Miqaat.versionCode)" >> "$GITHUB_ENV"
           echo "SHA=$(cat Miqaat.apk.sha256)" >> "$GITHUB_ENV"
           echo "SHA_PLAY=$(cat Miqaat-play.aab.sha256)" >> "$GITHUB_ENV"
           { echo "NOTES<<EOF"; git log -5 --pretty=format:'- %s'; echo; echo "EOF"; } >> "$GITHUB_ENV"
@@ -231,6 +234,7 @@ jobs:
           name: Miqaat 1.${{ github.run_number }}
           body: |
             build=${{ github.run_number }}
+            version_code=${{ env.VERSION_CODE }}
             commit=${{ github.sha }}
 
             **Direct-download edition** — `Miqaat.apk` (in-app updater, verifies this SHA-256 before installing): `${{ env.SHA }}`
@@ -257,6 +261,7 @@ jobs:
           name: Miqaat (latest build)
           body: |
             build=${{ github.run_number }}
+            version_code=${{ env.VERSION_CODE }}
             commit=${{ github.sha }}
 
             Pointer to the newest build, used by the in-app updater. The permanent copy of this exact build is release `v1.${{ github.run_number }}`.

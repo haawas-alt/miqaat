@@ -630,4 +630,6 @@
     <string name="s_rakah_n">رکعت %1$d</string>
     <string name="s_friday_masjid_azaan">آپ کی مسجد میں جمعہ: اذان %1$s</string>
     <string name="s_friday_masjid_iqamah"> · اقامت %1$s</string>
+    <string name="s_debug_updates_disabled">اس ڈیبگ آزمائشی نسخے میں خودکار اپ ڈیٹس بند ہیں۔ دستخط شدہ آزمائشی نسخہ الگ نصب کریں۔</string>
+    <string name="s_testing_build">آزمائشی نسخہ</string>
 </resources>

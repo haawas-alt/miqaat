@@ -20,12 +20,13 @@ android {
         versionCode = (System.getenv("MIQAAT_VERSION_CODE")?.toInt() ?: (100 + run)).also {
             require(it in 1..2_100_000_000) { "versionCode must satisfy Google Play's range" }
         }
-        versionName = "1.$run"
+        versionName = System.getenv("MIQAAT_VERSION_NAME") ?: "1.$run"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("int", "BUILD_NUMBER", run.toString())
         buildConfigField("String", "REPO", "\"haawas-alt/miqaat\"")
         // Provenance: every build names the exact source commit it was built from (shown in About).
         buildConfigField("String", "GIT_SHA", "\"${System.getenv("GITHUB_SHA") ?: "local"}\"")
-        buildConfigField("String", "BUILD_TAG", "\"${if (run > 0) "v1.$run" else "local"}\"")
+        buildConfigField("String", "BUILD_TAG", "\"${System.getenv("MIQAAT_BUILD_TAG") ?: if (run > 0) "v1.$run" else "local"}\"")
     }
 
     // Two editions from one code base:

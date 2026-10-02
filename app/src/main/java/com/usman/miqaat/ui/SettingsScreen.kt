@@ -844,10 +844,11 @@ private fun AboutSection(s: AppSettings) {
     androidx.lifecycle.compose.LifecycleResumeEffect(Unit) { tick++; onPauseOrDispose { } }
     val canInstall = remember(tick) { Updater.canInstall(ctx) }
     Heading(Str[R.string.s_about_miqaat], Str[R.string.s_an_appointed_time])
-    Text(Str.get(R.string.s_version_line, Updater.currentName, Updater.currentBuild, Str[if (Updater.enabled) R.string.s_direct_download_edition else R.string.s_google_play_edition]), fontFamily = Nunito, fontSize = 15.sp, color = tk.accent)
+    Text(Str.get(R.string.s_version_line, Updater.currentName, Updater.currentBuild, Str[if (com.usman.miqaat.BuildConfig.SELF_UPDATE) R.string.s_direct_download_edition else R.string.s_google_play_edition]), fontFamily = Nunito, fontSize = 15.sp, color = tk.accent)
     Text(Str.get(R.string.s_built_from_commit, com.usman.miqaat.BuildConfig.GIT_SHA.take(12), com.usman.miqaat.BuildConfig.BUILD_TAG), fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary, lineHeight = 18.sp)
     Spacer(Modifier.height(10.dp))
-    if (!Updater.enabled) SettingRow(Str[R.string.s_updates], Str[R.string.s_this_edition_is_updated_by_google]) { Value(Str[R.string.s_play]) }
+    if (com.usman.miqaat.BuildConfig.DEBUG && com.usman.miqaat.BuildConfig.SELF_UPDATE) SettingRow(Str[R.string.s_updates], Str[R.string.s_debug_updates_disabled]) { Value(Str[R.string.s_testing_build]) }
+    else if (!com.usman.miqaat.BuildConfig.SELF_UPDATE) SettingRow(Str[R.string.s_updates], Str[R.string.s_this_edition_is_updated_by_google]) { Value(Str[R.string.s_play]) }
     else when (val u = up) {
         is Updater.State.Available -> {
             SettingRow(Str.get(R.string.s_update_available_version, u.info.versionName), if (canInstall) Str[R.string.s_downloads_from_github_and_opens_the] else Str[R.string.s_first_allow_miqaat_to_install_updates]) {

@@ -630,4 +630,6 @@
     <string name="s_rakah_n">Rakʿah %1$d</string>
     <string name="s_friday_masjid_azaan">Jumuʿah at your masjid: azaan %1$s</string>
     <string name="s_friday_masjid_iqamah"> · iqamah %1$s</string>
+    <string name="s_debug_updates_disabled">Automatic updates are disabled in this debug testing build. Install the signed testing candidate separately.</string>
+    <string name="s_testing_build">Testing build</string>
 </resources>
