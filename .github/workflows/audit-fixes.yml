@@ -3,6 +3,7 @@ name: Audit fix validation
 on:
   push:
     branches: ['fix/run158-audit-remediation']
+    paths: ['app/**', 'tools/**', '.github/workflows/audit-fixes.yml']
   workflow_dispatch:
 
 permissions:

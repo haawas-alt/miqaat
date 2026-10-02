@@ -200,7 +200,7 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
         }
         if (compact) {
             if (!detailOpen) SettingsLanding(settings, readiness, landingScroll, query, { query = it }, results, version, onBack, ::open)
-            else SettingsDetailPhone(section, store, settings, focusTitle, { if (direct) onBack() else detailOpen = false })
+            else SettingsDetailPhone(section, store, settings, focusTitle, { if (direct) onBack() else backToLanding() })
         } else {
             SettingsTablet(section, store, settings, readiness, query, { query = it }, results, focusTitle, onBack, ::open)
         }

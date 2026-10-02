@@ -48,6 +48,14 @@ jobs:
           ! grep -q REQUEST_INSTALL_PACKAGES candidate/play-permissions.txt
           grep -q USE_EXACT_ALARM candidate/play-permissions.txt
           grep -q "targetSdkVersion:'36'" candidate/play-badging.txt
+          "$BT/zipalign" -c -P 16 -v 4 candidate/Miqaat-play.apk > candidate/play-zipalign.txt
+          "$BT/zipalign" -c -P 16 -v 4 candidate/Miqaat.apk > candidate/github-zipalign.txt
+          python3 tools/check_release_integrity.py candidate/Miqaat.apk candidate/Miqaat-play.apk > candidate/native-page-alignment.json
+          curl -fsSL --retry 3 https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -o bundletool.jar
+          echo 'a099cfa1543f55593bc2ed16a70a7c67fe54b1747bb7301f37fdfd6d91028e29  bundletool.jar' | sha256sum -c -
+          java -jar bundletool.jar validate --bundle=candidate/Miqaat-play.aab > candidate/bundle-validation.txt
+          java -jar bundletool.jar dump config --bundle=candidate/Miqaat-play.aab > candidate/bundle-config.json
+          grep -q PAGE_ALIGNMENT_16K candidate/bundle-config.json
           jarsigner -verify -verbose -certs candidate/Miqaat-play.aab > candidate/aab-signature.txt
           grep -q 'jar verified' candidate/aab-signature.txt
           sha256sum candidate/Miqaat.apk candidate/Miqaat-play.apk candidate/Miqaat-play.aab > candidate/SHA256SUMS
