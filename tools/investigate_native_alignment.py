@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rebuild pinned AndroidX native code for investigation; never publish or patch an ELF."""
 import hashlib, json, os, pathlib, subprocess, urllib.request
-ROOT = pathlib.Path("native-investigation")
+ROOT = pathlib.Path(os.environ.get("MIQAAT_GRAPHICS_BUILD_DIR", "native-investigation"))
 SOURCE = ROOT / "source"
 SOURCE.mkdir(parents=True, exist_ok=True)
 UPSTREAM = "794e3806700833665f48f56f7dd3581642a6057f"
@@ -38,6 +38,11 @@ target_link_libraries(androidx.graphics.path PRIVATE android m)
 """)
 sdk = pathlib.Path(os.environ["ANDROID_HOME"])
 ndk = sdk / "ndk" / "28.2.13676358"
+if not ndk.exists():
+    managers = sorted((sdk / "cmdline-tools").glob("*/bin/sdkmanager"))
+    if not managers:
+        raise RuntimeError("Install Android NDK 28.2.13676358 with SDK Manager")
+    subprocess.run([str(managers[-1]), "ndk;28.2.13676358"], check=True)
 readelf = ndk / "toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-readelf"
 results = []
 for abi in ("arm64-v8a", "armeabi-v7a", "x86", "x86_64"):
@@ -65,6 +70,7 @@ import io, zipfile
 with urllib.request.urlopen("https://dl.google.com/dl/android/maven2/androidx/graphics/graphics-path/1.1.0/graphics-path-1.1.0.aar", timeout=60) as response:
     original = response.read()
 original_hash = hashlib.sha256(original).hexdigest()
+assert original_hash == "d031370d45ba4129a175fe9de913328a512b01a3c267e0eaf6b9b759f35842ae", "Published graphics-path AAR integrity mismatch"
 out = ROOT / "graphics-path-1.1.0-miqaat-16kb.aar"
 replaced = []
 with zipfile.ZipFile(io.BytesIO(original)) as source, zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as dest:

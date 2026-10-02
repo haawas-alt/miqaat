@@ -4,6 +4,18 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
+/** Rebuild only the pinned AndroidX native payload; keep its published managed API intact. */
+val graphicsPathOutput = layout.buildDirectory.dir("vendor/graphics-path")
+val rebuildGraphicsPath by tasks.registering(Exec::class) {
+    inputs.file(rootProject.file("tools/investigate_native_alignment.py"))
+    outputs.file(graphicsPathOutput.map { it.file("graphics-path-1.1.0-miqaat-16kb.aar") })
+    workingDir(rootProject.projectDir)
+    environment("MIQAAT_GRAPHICS_BUILD_DIR", graphicsPathOutput.get().asFile.absolutePath)
+    commandLine("python3", rootProject.file("tools/investigate_native_alignment.py").absolutePath)
+}
+// Do not package the upstream prebuilt native library alongside the rebuilt version.
+configurations.configureEach { exclude(group = "androidx.graphics", module = "graphics-path") }
+
 android {
     namespace = "com.usman.miqaat"
     // Google Play (from 31 Aug 2026): new apps and updates must target API 36.
@@ -97,8 +109,9 @@ dependencies {
     implementation(bom)
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
-    // The older transitive native path library has 4 KiB RELRO boundaries despite 16 KiB LOAD alignment.
-    implementation("androidx.graphics:graphics-path:1.1.0")
+    implementation(files(graphicsPathOutput.map { it.file("graphics-path-1.1.0-miqaat-16kb.aar") }).builtBy(rebuildGraphicsPath))
+    // Preserve dependencies declared by the published graphics-path 1.1.0 module.
+    implementation("androidx.collection:collection:1.5.0")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
