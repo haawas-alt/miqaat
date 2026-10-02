@@ -29,6 +29,7 @@ jobs:
         run: |
           if [ -z "$KEYSTORE_BASE64" ]; then echo "KEYSTORE_BASE64 secret is not set"; exit 1; fi
           mkdir -p keystore && echo "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
+          echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
 
       # Gates, in order: unit tests → lint (accessibility + correctness errors fail the build) →
       # release builds for both editions (github APK with updater, play AAB + APK without).
