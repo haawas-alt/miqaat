@@ -44,7 +44,7 @@ class ApprovedSalahRebuildTest : ComposeSupport() {
         val layouts = mutableListOf<TextLayoutResult>()
         node.fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
         assertTrue("Missing layout for $tag", layouts.isNotEmpty())
-        layouts.forEach { assertFalse("$tag clipped: ${it.layoutInput.text}", it.didOverflowWidth || it.didOverflowHeight) }
+        layouts.forEach { assertFalse("$tag clipped: ${it.layoutInput.text}; size=${it.size}; constraints=${it.layoutInput.constraints}; width=${it.didOverflowWidth}; height=${it.didOverflowHeight}", it.didOverflowWidth || it.didOverflowHeight) }
     }
     private fun inside(tag: String) {
         val root = rule.onRoot().getUnclippedBoundsInRoot()
@@ -58,6 +58,8 @@ class ApprovedSalahRebuildTest : ComposeSupport() {
             val name = "takbir__${theme.name.lowercase()}__${dev.label}__${(scale * 100).toInt()}${if (urdu) "__ur" else ""}"
             try {
                 show(dev, theme, fontScale = scale, rtl = urdu) { LearnScreen(s, previewLesson = Learn.Lesson.FAJR) {} }
+                render(name + "__precheck")
+                if (dev == Dev.PHONE_LANDSCAPE && scale > 1.3f) rule.onNodeWithTag("lesson-next").performScrollTo().assertIsDisplayed()
                 inside("lesson-next")
                 noOverflow("lesson-next-label")
                 val next = rule.onNodeWithTag("lesson-next") .getUnclippedBoundsInRoot()
@@ -91,4 +93,30 @@ class ApprovedSalahRebuildTest : ComposeSupport() {
             } finally { runCatching { scenario.close() } }
         }
     }
+    @Test fun tahlilCounterUsesOneTotalWhenMovingFromMorningToEvening() {
+        val context = androidx.test.core.app.ApplicationProvider.getApplicationContext<android.content.Context>()
+        context.getSharedPreferences("miqaat_daily_tahlil", android.content.Context.MODE_PRIVATE).edit().clear().commit()
+        val daily = DailyDhikrProgress(context)
+        repeat(40) { daily.increment() }
+        val s = AppSettings(theme = AppTheme.PRAYER_GALLERY, language = Language.EN)
+        app.settings.update { s }
+        try {
+            for (mode in listOf(AdhkarMode.MORNING, AdhkarMode.EVENING)) {
+                try {
+                    show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY) { AdhkarScreen(mode) {} }
+                    val list = if (mode == AdhkarMode.MORNING) Adhkar.morning() else Adhkar.evening()
+                    rule.onNode(hasScrollToIndexAction()).performScrollToIndex(list.indexOfFirst { it.id == "tahlil" })
+                    rule.onNodeWithText(list.first { it.id == "tahlil" }.title).performClick()
+                    val before = if (mode == AdhkarMode.MORNING) 40 else 41
+                    val counter = rule.onNodeWithContentDescription(Str.get(R.string.s_count_remaining, 100 - before, 100))
+                    counter.assertIsDisplayed().performClick()
+                    org.junit.Assert.assertEquals(before + 1, daily.count())
+                    render("tahlil__${mode.name.lowercase()}__gallery__tablet-landscape__100")
+                } finally { runCatching { scenario.close() } }
+            }
+        } finally {
+            context.getSharedPreferences("miqaat_daily_tahlil", android.content.Context.MODE_PRIVATE).edit().clear().commit()
+        }
+    }
+
 }

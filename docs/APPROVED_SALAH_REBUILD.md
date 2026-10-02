@@ -64,4 +64,4 @@ Alongside the artwork, the draft now corrects the evening `bika_e` citation to I
 
 The tahlil target now has one saved daily counter shared between morning and evening instead of a separate 100 on every reopening/session. The date is the device civil date, not a new religious claim about day boundaries. Unit tests exercise reopening across sessions, day rollover and capping at 100. Other session-specific counts stay separate.
 
-The radeetu count-specific citation/grading disagreement remains explicitly in the qualified review queue; it is not resolved by pretending AI research is scholarly approval. New Urdu wording is still a proofreader/qualified-review draft.
+The radeetu source now identifies Hisn al-Muslim 87 and its count-specific references, separately attributing the grades attached to the related Abu Dawud/Tirmidhi texts. This corrects the previous conflation; chain-specific verification remains in the qualified review queue. New Urdu wording is still a proofreader/qualified-review draft.

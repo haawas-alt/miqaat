@@ -57,7 +57,7 @@ object Adhkar {
             3, "Abū Dāwūd 5088, at-Tirmidhī 3388 (ṣaḥīḥ)"),
         Dhikr("radeetu", "Raḍītu billāhi", "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالإِسْلاَمِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا",
             "I am pleased with Allah as Lord, with Islam as religion, and with Muhammad ﷺ as Prophet.",
-            3, "Abū Dāwūd 5072, at-Tirmidhī 3389 · three times is in the narration · grading disputed: ḥasan gharīb (at-Tirmidhī), ḍaʿīf (al-Albānī), ḥasan (Ibn Bāz)"),
+            3, "Three times morning/evening: Hisn al-Muslim 87, citing Aḥmad 4/337 and an-Nasāʾī, ʿAmal al-Yawm wa-l-Laylah; ḥasan attributed to Ibn Bāz. Related wording: Abū Dāwūd 5072 (ḍaʿīf, al-Albānī); at-Tirmidhī 3389 (ḥasan gharīb, at-Tirmidhī)."),
         Dhikr("afini", "Allāhumma ʿāfinī", "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لاَ إِلَهَ إِلاَّ أَنْتَ",
             "O Allah, grant my body health; O Allah, grant my hearing health; O Allah, grant my sight health. There is no god but You.",
             3, "Abū Dāwūd 5090 (ḥasan)"),

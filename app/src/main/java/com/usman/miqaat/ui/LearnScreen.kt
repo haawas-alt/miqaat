@@ -97,7 +97,7 @@ fun learnColors(settings: AppSettings): LearnColors {
     val tk = screenTokens()
     val fresh = tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY
     return if (fresh) LearnColors(
-        background = tk.backgroundBrush, surface = tk.surface, surfaceRaised = tk.surfaceRaised, primary = tk.primary, onPrimary = tk.onPrimary,
+        background = tk.backgroundBrush, surface = tk.surface, surfaceRaised = tk.surfaceRaised, primary = if (tk.art == ArtStyle.GALLERY) Color(0xFF233F9A) else tk.primary, onPrimary = tk.onPrimary,
         text = tk.contentPrimary, textSecondary = tk.contentSecondary, divider = tk.divider, success = tk.success, display = tk.fontDisplay, arabic = tk.fontArabic, kiswah = false
     ) else legacyLearnColors(settings)
 }
@@ -257,7 +257,22 @@ private fun LessonView(c: LearnColors, lesson: Learn.Lesson, startAt: Int, onExi
         val wide = maxWidth >= 840.dp && maxWidth > maxHeight && maxHeight >= 600.dp && scale <= 1.3f
         // Phone landscape gets a two-column SCROLLABLE body, without compressing typography or artwork.
         val shortWide = maxWidth > maxHeight && maxWidth >= 600.dp && scale <= 1.3f
-        Column(Modifier.fillMaxSize()) {
+        if (maxHeight < 520.dp && scale > 1.3f) {
+            Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+                TopBar(c, Str[lesson.titleRes], onExit) {
+                    Text(Str.get(R.string.learn_step_of, i + 1, actions.size), fontFamily = c.display, fontSize = 16.sp, color = c.textSecondary)
+                }
+                RakahMap(c, lesson, actions, i, Modifier.padding(horizontal = 20.dp, vertical = 8.dp)
+                    .semantics { contentDescription = where; liveRegion = LiveRegionMode.Polite })
+                Column(Modifier.padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                    PostureCard(c, a.posture, if (L10n.uiUrdu) UrduContent.cue(a) else a.cue, Modifier.fillMaxWidth(), reflow = true)
+                    LessonWords(c, a.step, audio, Modifier.fillMaxWidth(), editorial = false)
+                }
+                BottomBar(c, canBack = i > 0, last = i == actions.lastIndex,
+                    nextLabel = if (i < actions.lastIndex) Str.get(R.string.s_continue_x, if (L10n.uiUrdu) UrduContent.position(actions[i + 1].step) else actions[i + 1].step.position) else Str[R.string.s_finish_well_done],
+                    onBack = { audio.stop(); i-- }, onNext = { audio.stop(); if (i < actions.lastIndex) i++ else onDone() })
+            }
+        } else Column(Modifier.fillMaxSize()) {
             TopBar(c, Str[lesson.titleRes], onExit) {
                 Text(Str.get(R.string.learn_step_of, i + 1, actions.size), fontFamily = c.display, fontSize = 16.sp, color = c.textSecondary)
             }
@@ -484,7 +499,7 @@ private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifie
             Text(Str[if (showTranslit) R.string.s_hide else R.string.s_show], fontFamily = Nunito, fontSize = 12.sp, color = c.textSecondary)
         }
         AnimatedVisibility(showTranslit) { Text(step.transliteration, fontFamily = Cormorant, fontSize = 20.sp, lineHeight = 27.sp, color = c.text) }
-        Text(Str[R.string.s_meaning], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold, color = c.textSecondary)
+        Text(Str[if ('…' in step.meaning) R.string.learn_meaning_summary else R.string.s_meaning], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold, color = c.textSecondary)
         Text(if (L10n.uiUrdu) UrduContent.stepMeanings[Adhkar.salah.indexOfFirst { it.arabic == step.arabic }.coerceAtLeast(0)] else step.meaning, fontFamily = Nunito, fontSize = 15.sp, lineHeight = 22.sp, color = c.text)
         Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.Button) { showNote = !showNote }.semantics { stateDescription = Str[if (showNote) R.string.s_expanded else R.string.s_collapsed] }, verticalAlignment = Alignment.CenterVertically) {
             Text(Str[R.string.s_note_schools_and_source], fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = c.text, modifier = Modifier.weight(1f))
@@ -513,8 +528,8 @@ private fun LessonWords(c: LearnColors, step: Adhkar.Step, audio: Speaker, modif
             fontFamily = lessonUiFont(), fontSize = 12.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp,
             color = screenTokens().accent, modifier = Modifier.semantics { heading() })
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-            Text(step.arabic, fontFamily = c.arabic, fontSize = if (longArabic) 27.sp else if (editorial) 48.sp else 36.sp,
-                lineHeight = if (longArabic) 44.sp else if (editorial) 70.sp else 56.sp,
+            Text(step.arabic, fontFamily = c.arabic, fontSize = if (longArabic) 27.sp else if (editorial) 64.sp else 36.sp,
+                lineHeight = if (longArabic) 44.sp else if (editorial) 88.sp else 56.sp,
                 color = screenTokens().arabicText, textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth().testTag("lesson-arabic"))
         }
@@ -547,13 +562,13 @@ private fun LessonWords(c: LearnColors, step: Adhkar.Step, audio: Speaker, modif
             }
         }
         Text(Str[if ('…' in step.meaning) R.string.learn_meaning_summary else R.string.s_meaning], fontFamily = lessonUiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary)
-        Text(if (L10n.uiUrdu) UrduContent.stepMeanings[index] else step.meaning, fontFamily = lessonUiFont(), fontSize = 17.sp, lineHeight = 26.sp, color = c.text,
+        Text(if (L10n.uiUrdu) UrduContent.stepMeanings[index] else step.meaning, fontFamily = if (L10n.uiUrdu) Nastaliq else Cormorant, fontSize = 22.sp, lineHeight = 32.sp, color = c.text,
             modifier = Modifier.fillMaxWidth().testTag("lesson-meaning"))
         Text(Str[R.string.learn_notes], fontFamily = lessonUiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary)
         // This source copy is unchanged; Urdu UI explicitly discloses that the detailed note is still English.
         if (L10n.uiUrdu) Text(Str[R.string.s_english_text], fontFamily = lessonUiFont(), fontSize = 11.sp, color = c.textSecondary)
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-            Text(step.note, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 20.sp, color = c.textSecondary,
+            Text(step.note, fontFamily = Cormorant, fontSize = 17.sp, lineHeight = 24.sp, color = c.textSecondary,
                 modifier = Modifier.fillMaxWidth().testTag("lesson-note"))
         }
         Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).clip(RoundedCornerShape(12.dp)).background(c.surfaceRaised)
@@ -572,7 +587,6 @@ private fun LessonWords(c: LearnColors, step: Adhkar.Step, audio: Speaker, modif
         }
     }
 }
-private fun Modifier.testTag(tag: String) = this.then(Modifier.testTag(tag))
 
 @Composable
 private fun BottomBar(c: LearnColors, canBack: Boolean, last: Boolean, nextLabel: String, onBack: () -> Unit, onNext: () -> Unit) {
@@ -580,8 +594,8 @@ private fun BottomBar(c: LearnColors, canBack: Boolean, last: Boolean, nextLabel
         Box(Modifier.width(52.dp).heightIn(min = 52.dp).clip(RoundedCornerShape(26.dp)).border(1.dp, if (canBack) c.divider else c.divider.copy(alpha = 0.3f), CircleShape).clickable(enabled = canBack, role = Role.Button, onClick = onBack).semantics { contentDescription = Str[R.string.s_previous_step] }, contentAlignment = Alignment.Center) {
             Text("‹", fontSize = 26.sp, color = if (canBack) c.text else c.textSecondary.copy(alpha = 0.4f))
         }
-        Box(Modifier.weight(1f).heightIn(min = 52.dp).testTag("lesson-next").clip(RoundedCornerShape(50)).background(if (last) c.success else c.primary).clickable(role = Role.Button, onClick = onNext).padding(horizontal = 18.dp), contentAlignment = Alignment.Center) {
-            Text(nextLabel, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = 15.sp, color = c.onPrimary, textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = 12.dp).testTag("lesson-next-label"))
+        Column(Modifier.weight(1f).heightIn(min = 52.dp).testTag("lesson-next").clip(RoundedCornerShape(50)).background(if (last) c.success else c.primary).clickable(role = Role.Button, onClick = onNext).padding(horizontal = 18.dp, vertical = 14.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+            Text(nextLabel, fontFamily = lessonUiFont(), fontWeight = FontWeight.Bold, fontSize = 15.sp, lineHeight = 24.sp, color = c.onPrimary, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth().testTag("lesson-next-label"))
         }
     }
 }
