@@ -29,6 +29,9 @@ if [ "${NAME##*-}" = "a" ]; then
 fi
 
 setrot
+# A targeted job may capture multiple groups in the same installed app.
+# Remove only prior screenshot output; preserve settings and already-pulled evidence.
+adb shell run-as com.usman.miqaat rm -rf files/screens
 CLASSES=$(for t in ${TESTS//,/ }; do printf "com.usman.miqaat.ui.ScreenshotMatrixTest#%s," "$t"; done)
 timeout 1700 $G -Pandroid.testInstrumentationRunnerArguments.class="${CLASSES%,}" 2>&1 | tee "$OUT"/matrix.log | tail -15 || status=1
 adb exec-out run-as com.usman.miqaat tar c -C files screens 2>/dev/null > "$OUT"/screens.tar || true
