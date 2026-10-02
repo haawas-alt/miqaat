@@ -27,13 +27,13 @@ jobs:
           sha256sum Miqaat-1.84-audit.apk > Miqaat-1.84-audit.apk.sha256
       - uses: softprops/action-gh-release@v2
         with:
-          tag_name: audit-candidate-af185b53529d
+          tag_name: audit-fixes-3895c823
           target_commitish: af185b53529d311ebd9fde5b7a60b7244e9a0701
           name: Miqaat 1.84-audit — signed testing candidate
           prerelease: true
           make_latest: false
           body: |
-            Release-signed testing APK from commit af185b53529d311ebd9fde5b7a60b7244e9a0701, validated run 36952515546.
+            The existing testing tag points to the earlier debug source; the signed APK asset is independently sourced from commit af185b53529d311ebd9fde5b7a60b7244e9a0701, validated run 36952515546.
             Includes updater package/version/signature checks and audit fixes. Export settings before uninstalling an older debug build: debug-to-release switching requires uninstall and clears local data.
             Testing only. Two Android acceptance jobs failed; content review, approved mockup comparison, physical accessibility and Play checks remain open. Production/latest is unchanged.
           files: |
