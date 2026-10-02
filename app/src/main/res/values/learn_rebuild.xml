@@ -1,0 +1,11 @@
+<resources>
+    <string name="learn_step_of">Step %1$d of %2$d</string>
+    <string name="learn_listen">Listen</string>
+    <string name="learn_say">SAY</string>
+    <string name="learn_notes">NOTES</string>
+    <string name="learn_schools">Different schools</string>
+    <string name="learn_schools_detail">See how valid practices differ.</string>
+    <string name="learn_school_guidance">This guide shows one common form. Details such as hand placement, sitting and the finger gesture vary by school. Follow your teacher’s guidance; the step note describes the relevant differences and sources.</string>
+    <string name="learn_salam_right">1 · Your right</string>
+    <string name="learn_salam_left">2 · Your left</string>
+</resources>

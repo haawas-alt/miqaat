@@ -1,0 +1,11 @@
+<resources>
+    <string name="learn_step_of">مرحلہ %1$d از %2$d</string>
+    <string name="learn_listen">سنیں</string>
+    <string name="learn_say">تلفظ</string>
+    <string name="learn_notes">وضاحت</string>
+    <string name="learn_schools">مختلف فقہی طریقے</string>
+    <string name="learn_schools_detail">معتبر طریقوں کے فرق دیکھیں۔</string>
+    <string name="learn_school_guidance">یہ رہنما نماز کا ایک عام طریقہ دکھاتا ہے۔ ہاتھ باندھنے، بیٹھنے اور انگلی کے اشارے کی تفصیلات فقہی طریقوں کے مطابق مختلف ہو سکتی ہیں۔ اپنے استاد کی رہنمائی پر عمل کریں؛ اس مرحلے کی وضاحت میں متعلقہ فرق اور مآخذ دیے گئے ہیں۔</string>
+    <string name="learn_salam_right">۱ · آپ کی دائیں جانب</string>
+    <string name="learn_salam_left">۲ · آپ کی بائیں جانب</string>
+</resources>

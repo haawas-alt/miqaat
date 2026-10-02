@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="620" viewBox="0 0 600 620">
+<path d="M 0,0 H 600 V 620 H 0 Z" fill="#E9E3D8" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 45,505 V 225 C 45,110 145,28 277,0 C 408,28 507,110 507,225 V 505 Z" fill="#F4EBDD" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 344,376 A 26,26 0 1,0 396,376 A 26,26 0 1,0 344,376 Z" fill="#E8C575" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 45,410 Q 158,328 263,388 Q 382,445 507,386 V 507 H 45 Z" fill="#D6AE93" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 45,442 Q 165,387 267,435 Q 390,492 507,421 V 507 H 45 Z" fill="#C6B191" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 45,466 Q 156,405 261,451 Q 368,494 507,456 V 507 H 45 Z" fill="#78866A" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 45,507 V 225 C 45,110 145,28 277,0 C 408,28 507,110 507,225 V 507" fill="none" stroke="#D5CCBC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 70,505 V 225 C 70,123 155,50 277,22 C 397,50 482,123 482,225 V 505" fill="none" stroke="#D5CCBC" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 0,544 L 95,507 H 463 L 600,558 V 620 H 0 Z" fill="#E9E3D8" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 89,574 L 145,531 H 414 L 478,574 Z" fill="#C6B191" stroke="#D5CCBC" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 115,566 L 151,537 H 409 L 451,566 Z" fill="none" stroke="#D5CCBC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 551,457 Q 559,381 531,302" fill="none" stroke="#63704E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 551,425 Q 523,409 516,389 Q 541,397 551,425 Z" fill="#73805A" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 553,403 Q 577,385 577,367 Q 559,380 553,403 Z" fill="#73805A" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 549,379 Q 520,362 520,346 Q 541,356 549,379 Z" fill="#73805A" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 542,354 Q 566,336 561,319 Q 545,334 542,354 Z" fill="#73805A" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 533,329 Q 513,313 515,297 Q 532,312 533,329 Z" fill="#73805A" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -32,6 +32,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.VolumeUp
+import androidx.compose.material.icons.outlined.Balance
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.Stop
@@ -60,6 +61,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.Role
@@ -151,7 +153,7 @@ private fun TopBar(c: LearnColors, title: String, onBack: () -> Unit, trailing: 
 @Composable
 private fun Library(c: LearnColors, p: Learn.Progress, onLesson: (Learn.Lesson) -> Unit, onWords: () -> Unit, onMoves: () -> Unit, onBack: () -> Unit, onReset: () -> Unit) {
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize()) {
-        if (maxWidth >= 840.dp && maxHeight >= 600.dp && maxWidth > maxHeight) LibraryWide(c, p, onLesson, onWords, onMoves, onBack, onReset)
+        if (maxWidth >= 840.dp && maxHeight >= 600.dp && maxWidth > maxHeight && androidx.compose.ui.platform.LocalDensity.current.fontScale <= 1.15f) LibraryWide(c, p, onLesson, onWords, onMoves, onBack, onReset)
         else LibraryNarrow(c, p, onLesson, onWords, onMoves, onBack, onReset)
     }
 }
@@ -236,6 +238,7 @@ private fun LibraryCard(c: LearnColors, title: String, subtitle: String, primary
 
 // ---------------------------------------------------------------- guided lesson
 
+/** Approved editorial lesson: illustration and recitation side by side on tablet, flowing on narrow/large-text screens. */
 @Composable
 private fun LessonView(c: LearnColors, lesson: Learn.Lesson, startAt: Int, onExit: () -> Unit, onDone: () -> Unit) {
     val ctx = LocalContext.current
@@ -244,76 +247,120 @@ private fun LessonView(c: LearnColors, lesson: Learn.Lesson, startAt: Int, onExi
     val a = actions[i]
     LaunchedEffect(i) { Learn.save(ctx, lesson, i) }
     val audio = rememberSpeaker()
-    val rakahSteps = actions.count { it.rakah == a.rakah }; val rakahPos = actions.take(i + 1).count { it.rakah == a.rakah }
+    val rakahSteps = actions.count { it.rakah == a.rakah }
+    val rakahPos = actions.take(i + 1).count { it.rakah == a.rakah }
     val where = Str.get(R.string.s_lesson_where, Str[lesson.titleRes], a.rakah, lesson.rakat, rakahPos, rakahSteps, if (L10n.uiUrdu) UrduContent.position(a.step) else a.step.position)
-
     BoxWithConstraints(Modifier.fillMaxSize()) {
-        val wide = maxWidth > 720.dp && maxWidth > maxHeight && maxHeight >= 500.dp && androidx.compose.ui.platform.LocalDensity.current.fontScale <= 1.15f
-        val postureHeight = (if (maxWidth >= 600.dp) 380.dp else 280.dp) * androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceAtLeast(1f)
+        val scale = androidx.compose.ui.platform.LocalDensity.current.fontScale
+        val wide = maxWidth >= 840.dp && maxWidth > maxHeight && maxHeight >= 600.dp && scale <= 1.3f
+        // Phone landscape gets a two-column SCROLLABLE body, without compressing typography or artwork.
+        val shortWide = maxWidth > maxHeight && maxWidth >= 600.dp && scale <= 1.3f
         Column(Modifier.fillMaxSize()) {
-            TopBar(c, Str[lesson.titleRes], onExit) { Text("${i + 1} / ${actions.size}", fontFamily = Nunito, fontSize = 13.sp, color = c.textSecondary) }
-            RakahMap(c, lesson, actions, i, Modifier.padding(horizontal = 20.dp).semantics { contentDescription = where; liveRegion = LiveRegionMode.Polite })
-            val figure: @Composable (Modifier) -> Unit = { m -> PostureCard(c, a.posture, if (L10n.uiUrdu) UrduContent.cue(a) else a.cue, m, reflow = !wide) }
-            val words: @Composable (Modifier) -> Unit = { m -> WordsCard(c, a.step, audio, m) }
-            if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
-                figure(Modifier.weight(0.42f).fillMaxHeight()); words(Modifier.weight(0.58f).fillMaxHeight().verticalScroll(rememberScrollState()))
-            } else Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                figure(Modifier.fillMaxWidth().heightIn(min = postureHeight)); words(Modifier.fillMaxWidth())
+            TopBar(c, Str[lesson.titleRes], onExit) {
+                Text(Str.get(R.string.learn_step_of, i + 1, actions.size), fontFamily = c.display, fontSize = 16.sp, color = c.textSecondary)
             }
-            BottomBar(c, canBack = i > 0, last = i == actions.lastIndex, nextLabel = if (i < actions.lastIndex) Str.get(R.string.s_continue_x, if (L10n.uiUrdu) UrduContent.position(actions[i + 1].step) else actions[i + 1].step.position) else Str[R.string.s_finish_well_done],
+            RakahMap(c, lesson, actions, i, Modifier.padding(horizontal = if (wide) 28.dp else 20.dp, vertical = 8.dp)
+                .semantics { contentDescription = where; liveRegion = LiveRegionMode.Polite })
+            if (wide) {
+                Row(Modifier.weight(1f).fillMaxWidth().padding(horizontal = 28.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(28.dp)) {
+                    PostureCard(c, a.posture, if (L10n.uiUrdu) UrduContent.cue(a) else a.cue,
+                        Modifier.weight(0.48f).fillMaxHeight())
+                    LessonWords(c, a.step, audio, Modifier.weight(0.52f).fillMaxHeight().verticalScroll(rememberScrollState()), editorial = true)
+                }
+            } else if (shortWide) {
+                Row(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+                    PostureCard(c, a.posture, if (L10n.uiUrdu) UrduContent.cue(a) else a.cue,
+                        Modifier.weight(0.44f), reflow = true)
+                    LessonWords(c, a.step, audio, Modifier.weight(0.56f), editorial = true)
+                }
+            } else {
+                Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                    PostureCard(c, a.posture, if (L10n.uiUrdu) UrduContent.cue(a) else a.cue, Modifier.fillMaxWidth(), reflow = true)
+                    LessonWords(c, a.step, audio, Modifier.fillMaxWidth(), editorial = false)
+                }
+            }
+            BottomBar(c, canBack = i > 0, last = i == actions.lastIndex,
+                nextLabel = if (i < actions.lastIndex) Str.get(R.string.s_continue_x, if (L10n.uiUrdu) UrduContent.position(actions[i + 1].step) else actions[i + 1].step.position) else Str[R.string.s_finish_well_done],
                 onBack = { audio.stop(); i-- }, onNext = { audio.stop(); if (i < actions.lastIndex) i++ else onDone() })
         }
     }
 }
 
-/** Segmented progress: one segment per rakʿah, filled by steps; the current one is bright. */
+/** One dot per actual action, preserving the 21-step Fajr sequence and rakʿah grouping. */
 @Composable
 private fun RakahMap(c: LearnColors, lesson: Learn.Lesson, actions: List<Learn.Action>, i: Int, modifier: Modifier) {
+    val accent = screenTokens().accent
     Column(modifier) {
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             for (r in 1..lesson.rakat) {
                 val steps = actions.withIndex().filter { it.value.rakah == r }
-                val done = steps.count { it.index <= i }.toFloat() / steps.size
-                Box(Modifier.weight(1f).height(4.dp).clip(RoundedCornerShape(2.dp)).background(c.divider)) {
-                    Box(Modifier.fillMaxHeight().fillMaxWidth(done).background(if (actions[i].rakah == r) c.primary else c.primary.copy(alpha = 0.6f)))
+                Column(Modifier.weight(steps.size.toFloat()), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(Str.get(R.string.s_rakah_n, r).let { if (L10n.uiUrdu) it else it.uppercase() },
+                        fontFamily = uiFont(), fontSize = 10.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp,
+                        color = if (actions[i].rakah == r) screenTokens().accent else c.textSecondary)
+                    Canvas(Modifier.fillMaxWidth().height(18.dp).clearAndSetSemantics { }) {
+                        val rtl = layoutDirection == LayoutDirection.Rtl
+                        val xs = steps.indices.map { j ->
+                            val x = 4.dp.toPx() + j * (size.width - 8.dp.toPx()) / (steps.size - 1).coerceAtLeast(1)
+                            if (rtl) size.width - x else x
+                        }
+                        val y = size.height / 2
+                        drawLine(c.divider, Offset(xs.first(), y), Offset(xs.last(), y), strokeWidth = 2.dp.toPx(), cap = StrokeCap.Round)
+                        steps.forEachIndexed { j, step ->
+                            if (j > 0 && step.index <= i) drawLine(accent, Offset(xs[j-1], y), Offset(xs[j], y), strokeWidth = 2.dp.toPx(), cap = StrokeCap.Round)
+                            drawCircle(if (step.index <= i) accent else c.divider, if (step.index == i) 3.5.dp.toPx() else 2.4.dp.toPx(), Offset(xs[j], y))
+                        }
+                    }
                 }
             }
-        }
-        Row(Modifier.fillMaxWidth().padding(top = 6.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            for (r in 1..lesson.rakat) Text(Str.get(R.string.s_rakah_n, r).let { if (c.kiswah) it.uppercase() else it }, fontFamily = if (c.kiswah) Cinzel else Nunito, fontSize = 11.sp, letterSpacing = if (c.kiswah) 1.5.sp else 0.5.sp,
-                color = if (actions[i].rakah == r) c.text else c.textSecondary, modifier = Modifier.weight(1f), textAlign = TextAlign.Center)
         }
     }
 }
 
 @Composable
 private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, modifier: Modifier, reflow: Boolean = false) {
-    val tk = screenTokens()
-    val shape = RoundedCornerShape(20.dp)
-    BoxWithConstraints(modifier.clip(shape).background(c.surface).border(1.dp, c.divider, shape)) {
-        val figureHeight = (if (maxWidth >= 600.dp) 320.dp else 220.dp) * androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceAtLeast(1f)
-        // The approved Celestial lesson sets the figure against the sunrise scene.
-        if (tk.art == ArtStyle.CELESTIAL) {
-            androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.art_celestial_landscape_v2), null, Modifier.matchParentSize().clearAndSetSemantics { }, contentScale = androidx.compose.ui.layout.ContentScale.Crop, alignment = Alignment.BottomCenter)
-            Box(Modifier.matchParentSize().background(Brush.verticalGradient(listOf(c.surface.copy(alpha = 0.15f), c.surface.copy(alpha = 0.55f)))))
+    val art = screenTokens().art
+    val scene = when (art) {
+        ArtStyle.GALLERY -> R.drawable.learn_scene_gallery
+        ArtStyle.CELESTIAL -> R.drawable.learn_scene_celestial
+        ArtStyle.KISWAH_SILK -> R.drawable.learn_scene_kiswah
+        ArtStyle.ILLUMINATED_SKY -> R.drawable.learn_scene_miqaat
+    }
+    val shape = RoundedCornerShape(if (c.kiswah) 12.dp else 18.dp)
+    val figureHeight = if (androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp >= 600) 360.dp else 300.dp
+    Column(modifier.testTag("lesson-posture").clip(shape).background(c.surfaceRaised).border(1.dp, c.divider, shape), horizontalAlignment = Alignment.CenterHorizontally) {
+        Box((if (reflow) Modifier.height(figureHeight) else Modifier.weight(1f)).fillMaxWidth()
+            .semantics { contentDescription = if (L10n.uiUrdu) UrduContent.postureDescriptions[posture.ordinal] else posture.describe }, contentAlignment = Alignment.Center) {
+            androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(scene), null, Modifier.matchParentSize().clearAndSetSemantics { }, contentScale = androidx.compose.ui.layout.ContentScale.Crop)
+            if (posture == Learn.Posture.SALAM) {
+                // Never mirror the anatomical right hand in RTL. Two separately drawn head turns.
+                CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                    Row(Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Figure(posture, c.primary, Modifier.fillMaxWidth().weight(1f))
+                            Text(Str[R.string.learn_salam_right], fontFamily = uiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
+                        }
+                        Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+                            androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.learn_pose_salam_left), null,
+                                Modifier.fillMaxWidth().weight(1f), contentScale = androidx.compose.ui.layout.ContentScale.Fit)
+                            Text(Str[R.string.learn_salam_left], fontFamily = uiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
+                        }
+                    }
+                }
+            } else Figure(posture, c.primary, Modifier.fillMaxHeight(0.93f).fillMaxWidth(0.82f))
         }
-        Column((if (reflow) Modifier.fillMaxWidth() else Modifier.fillMaxSize()).padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Box(if (reflow) Modifier.fillMaxWidth().height(figureHeight) else Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-                if (!c.kiswah) MihrabArch(Modifier.fillMaxHeight().aspectRatio(0.9f), color = c.primary.copy(alpha = 0.35f))
-                Figure(posture, c.primary, Modifier.fillMaxHeight(0.88f).fillMaxWidth(0.96f).semantics { contentDescription = if (L10n.uiUrdu) UrduContent.postureLabels[posture.ordinal] + ": " + UrduContent.postureDescriptions[posture.ordinal] else "${posture.label}: ${posture.describe}" })
-            }
-            Text(if (L10n.uiUrdu) UrduContent.postureLabels[posture.ordinal] else if (c.kiswah) posture.label.uppercase() else posture.label, fontFamily = c.display, fontSize = if (c.kiswah) 12.sp else 20.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text, modifier = Modifier.padding(top = 8.dp))
-            Text(cue, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 18.sp, color = c.textSecondary, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
-        }
+        Text(if (L10n.uiUrdu) UrduContent.postureLabels[posture.ordinal] else posture.label.uppercase(),
+            fontFamily = if (L10n.uiUrdu) uiFont() else c.display, fontSize = 18.sp,
+            letterSpacing = if (L10n.uiUrdu) 0.sp else 1.5.sp, color = c.text, textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 12.dp).semantics { heading() })
+        Text(cue, fontFamily = uiFont(), fontSize = 14.sp, lineHeight = 21.sp, color = c.textSecondary, textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth().padding(start = 18.dp, end = 18.dp, top = 4.dp, bottom = 14.dp))
     }
 }
 
-/**
- * Eight separately authored vector illustrations: smooth robes, recognisable hands and feet,
- * clear ground contact in sujud, a resting right hand with raised index finger, and a turned salam profile.
- * Shared by the lesson and movements overview. Exact approved-reference fidelity still needs the approved files.
- */
+/** Original robe line drawings from the supplied approved reference. Solid paper fill preserves legibility on all scenes. */
 @Composable
+@Suppress("UNUSED_PARAMETER")
 fun Figure(p: Learn.Posture, color: Color, modifier: Modifier) {
     val art = when (p) {
         Learn.Posture.TAKBIR -> R.drawable.learn_pose_takbir
@@ -325,13 +372,8 @@ fun Figure(p: Learn.Posture, color: Color, modifier: Modifier) {
         Learn.Posture.TASHAHHUD -> R.drawable.learn_pose_tashahhud
         Learn.Posture.SALAM -> R.drawable.learn_pose_salam
     }
-    androidx.compose.foundation.Image(
-        painter = androidx.compose.ui.res.painterResource(art),
-        contentDescription = null,
-        modifier = modifier,
-        contentScale = androidx.compose.ui.layout.ContentScale.Fit,
-        colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color)
-    )
+    androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(art), null, modifier,
+        contentScale = androidx.compose.ui.layout.ContentScale.Fit)
 }
 
 // ---------------------------------------------------------------- words + audio
@@ -455,14 +497,89 @@ private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifie
     }
 }
 
+/** Reading composition from the approved board. Notes and source remain visible instead of hidden in a generic card. */
+@Composable
+private fun LessonWords(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifier: Modifier, editorial: Boolean) {
+    val index = Learn.words.indexOfFirst { it.arabic == step.arabic }.coerceAtLeast(0)
+    var showTranslit by rememberSaveable { mutableStateOf(true) }
+    var showSchools by rememberSaveable(step.position) { mutableStateOf(false) }
+    val longArabic = step.arabic.length > 160
+    val base = if (editorial) modifier.padding(vertical = 8.dp) else modifier
+        .clip(RoundedCornerShape(18.dp)).background(c.surface).border(1.dp, c.divider, RoundedCornerShape(18.dp)).padding(18.dp)
+    Column(base, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Text(if (L10n.uiUrdu) UrduContent.position(step) else step.position.uppercase(),
+            fontFamily = uiFont(), fontSize = 12.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp,
+            color = screenTokens().accent, modifier = Modifier.semantics { heading() })
+        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+            Text(step.arabic, fontFamily = c.arabic, fontSize = if (longArabic) 27.sp else if (editorial) 48.sp else 36.sp,
+                lineHeight = if (longArabic) 44.sp else if (editorial) 70.sp else 56.sp,
+                color = screenTokens().arabicText, textAlign = TextAlign.Start,
+                modifier = Modifier.fillMaxWidth().testTag("lesson-arabic"))
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(14.dp), verticalAlignment = Alignment.CenterVertically) {
+            val usable = audio.usable(index)
+            Row(Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).background(if (usable) c.primary else c.primary.copy(alpha = 0.35f))
+                .clickable(enabled = usable, role = Role.Button) { if (audio.playing) audio.stop() else audio.speak(step, index) }
+                .semantics { contentDescription = Str[if (audio.playing) R.string.s_stop else R.string.s_hear_it]; stateDescription = if (!usable) audio.source(index) else Str[if (audio.playing) R.string.s_playing else R.string.s_not_playing] }
+                .padding(horizontal = 18.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                Icon(if (audio.playing) Icons.Outlined.Stop else Icons.AutoMirrored.Outlined.VolumeUp, null, Modifier.size(22.dp), tint = c.onPrimary)
+                Text(Str[if (audio.playing) R.string.s_stop else R.string.learn_listen], fontFamily = uiFont(), fontSize = 16.sp, color = c.onPrimary)
+            }
+            Box(Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).border(1.dp, if (audio.slow) c.primary else c.divider, RoundedCornerShape(50))
+                .selectable(selected = audio.slow, role = Role.Checkbox) { audio.slow = !audio.slow }
+                .padding(horizontal = 16.dp, vertical = 10.dp), contentAlignment = Alignment.Center) {
+                Text(Str[R.string.s_slow], fontFamily = uiFont(), fontSize = 15.sp, color = if (audio.slow) c.primary else c.textSecondary)
+            }
+        }
+        Text(if (audio.playing) Str[R.string.s_playing] else audio.source(index), fontFamily = uiFont(), fontSize = 11.sp, lineHeight = 17.sp,
+            color = c.textSecondary, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
+        Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.Switch) { showTranslit = !showTranslit }
+            .semantics { stateDescription = Str[if (showTranslit) R.string.s_show else R.string.s_hide] }, verticalAlignment = Alignment.CenterVertically) {
+            Text(Str[R.string.learn_say], fontFamily = uiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary, modifier = Modifier.weight(1f))
+            Text(Str[if (showTranslit) R.string.s_hide else R.string.s_show], fontFamily = uiFont(), fontSize = 11.sp, color = c.textSecondary)
+        }
+        AnimatedVisibility(showTranslit) {
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                Text(step.transliteration, fontFamily = Cormorant, fontSize = if (editorial) 26.sp else 22.sp, lineHeight = 32.sp, color = c.text,
+                    modifier = Modifier.fillMaxWidth().testTag("lesson-transliteration"))
+            }
+        }
+        Text(Str[R.string.s_meaning], fontFamily = uiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary)
+        Text(if (L10n.uiUrdu) UrduContent.stepMeanings[index] else step.meaning, fontFamily = uiFont(), fontSize = 17.sp, lineHeight = 26.sp, color = c.text,
+            modifier = Modifier.fillMaxWidth().testTag("lesson-meaning"))
+        Text(Str[R.string.learn_notes], fontFamily = uiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary)
+        // This source copy is unchanged; Urdu UI explicitly discloses that the detailed note is still English.
+        if (L10n.uiUrdu) Text(Str[R.string.s_english_text], fontFamily = uiFont(), fontSize = 11.sp, color = c.textSecondary)
+        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+            Text(step.note, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 20.sp, color = c.textSecondary,
+                modifier = Modifier.fillMaxWidth().testTag("lesson-note"))
+        }
+        Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).clip(RoundedCornerShape(12.dp)).background(c.surfaceRaised)
+            .clickable(role = Role.Button) { showSchools = !showSchools }
+            .semantics { stateDescription = Str[if (showSchools) R.string.s_expanded else R.string.s_collapsed] }
+            .padding(horizontal = 14.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Icon(Icons.Outlined.Balance, null, Modifier.size(28.dp), tint = screenTokens().accent)
+            Column(Modifier.weight(1f)) {
+                Text(Str[R.string.learn_schools], fontFamily = uiFont(), fontSize = 15.sp, color = c.text)
+                Text(Str[R.string.learn_schools_detail], fontFamily = uiFont(), fontSize = 12.sp, lineHeight = 18.sp, color = c.textSecondary)
+            }
+            Icon(Icons.Outlined.ExpandMore, null, tint = c.textSecondary)
+        }
+        AnimatedVisibility(showSchools) {
+            Text(Str[R.string.learn_school_guidance], fontFamily = uiFont(), fontSize = 13.sp, lineHeight = 20.sp, color = c.textSecondary)
+        }
+    }
+}
+private fun Modifier.testTag(tag: String) = this.then(Modifier.testTag(tag))
+
 @Composable
 private fun BottomBar(c: LearnColors, canBack: Boolean, last: Boolean, nextLabel: String, onBack: () -> Unit, onNext: () -> Unit) {
     Row(Modifier.fillMaxWidth().background(c.surfaceRaised.copy(alpha = 0.92f)).navigationBarsPadding().padding(horizontal = 16.dp, vertical = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-        Box(Modifier.size(52.dp).clip(CircleShape).border(1.dp, if (canBack) c.divider else c.divider.copy(alpha = 0.3f), CircleShape).clickable(enabled = canBack, role = Role.Button, onClick = onBack).semantics { contentDescription = Str[R.string.s_previous_step] }, contentAlignment = Alignment.Center) {
+        Box(Modifier.width(52.dp).heightIn(min = 52.dp).clip(RoundedCornerShape(26.dp)).border(1.dp, if (canBack) c.divider else c.divider.copy(alpha = 0.3f), CircleShape).clickable(enabled = canBack, role = Role.Button, onClick = onBack).semantics { contentDescription = Str[R.string.s_previous_step] }, contentAlignment = Alignment.Center) {
             Text("‹", fontSize = 26.sp, color = if (canBack) c.text else c.textSecondary.copy(alpha = 0.4f))
         }
-        Box(Modifier.weight(1f).heightIn(min = 52.dp).clip(RoundedCornerShape(50)).background(if (last) c.success else c.primary).clickable(role = Role.Button, onClick = onNext).padding(horizontal = 18.dp), contentAlignment = Alignment.Center) {
-            Text(nextLabel, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = 15.sp, color = c.onPrimary, maxLines = 2, textAlign = TextAlign.Center)
+        Box(Modifier.weight(1f).heightIn(min = 52.dp).testTag("lesson-next").clip(RoundedCornerShape(50)).background(if (last) c.success else c.primary).clickable(role = Role.Button, onClick = onNext).padding(horizontal = 18.dp), contentAlignment = Alignment.Center) {
+            Text(nextLabel, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = 15.sp, color = c.onPrimary, textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = 12.dp).testTag("lesson-next-label"))
         }
     }
 }
@@ -495,7 +612,7 @@ private fun MovesView(c: LearnColors, onBack: () -> Unit) {
             Learn.Posture.entries.forEach { p ->
                 Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(c.surface).border(1.dp, c.divider, RoundedCornerShape(16.dp)).padding(14.dp).semantics(mergeDescendants = true) {}, verticalAlignment = Alignment.CenterVertically) {
                     Figure(p, c.primary, Modifier.size(84.dp).semantics { contentDescription = if (L10n.uiUrdu) UrduContent.postureDescriptions[p.ordinal] else p.describe })
-                    Column(Modifier.padding(start = 14.dp)) {
+                    Column(Modifier.weight(1f).padding(start = 14.dp)) {
                         Text(if (L10n.uiUrdu) UrduContent.postureLabels[p.ordinal] else if (c.kiswah) p.label.uppercase() else p.label, fontFamily = c.display, fontSize = if (c.kiswah) 12.sp else 19.sp, letterSpacing = if (c.kiswah) 2.sp else 0.sp, color = c.text)
                         Text(if (L10n.uiUrdu) UrduContent.postureDescriptions[p.ordinal] else p.describe, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 18.sp, color = c.textSecondary)
                         Text(said.getValue(p), fontFamily = Cormorant, fontSize = 16.sp, lineHeight = 21.sp, color = c.primary, modifier = Modifier.padding(top = 4.dp))
@@ -505,3 +622,4 @@ private fun MovesView(c: LearnColors, onBack: () -> Unit) {
         }
     }
 }
+

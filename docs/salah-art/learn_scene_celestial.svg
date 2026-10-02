@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="620" viewBox="0 0 600 620">
+<path d="M 0,0 H 600 V 620 H 0 Z" fill="#102C4B" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 45,505 V 225 C 45,110 145,28 277,0 C 408,28 507,110 507,225 V 505 Z" fill="#173D59" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 344,376 A 26,26 0 1,0 396,376 A 26,26 0 1,0 344,376 Z" fill="#E5BC75" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 45,410 Q 158,328 263,388 Q 382,445 507,386 V 507 H 45 Z" fill="#566E83" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 45,442 Q 165,387 267,435 Q 390,492 507,421 V 507 H 45 Z" fill="#3B6073" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 45,466 Q 156,405 261,451 Q 368,494 507,456 V 507 H 45 Z" fill="#23485C" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 45,507 V 225 C 45,110 145,28 277,0 C 408,28 507,110 507,225 V 507" fill="none" stroke="#61778B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 70,505 V 225 C 70,123 155,50 277,22 C 397,50 482,123 482,225 V 505" fill="none" stroke="#61778B" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 0,544 L 95,507 H 463 L 600,558 V 620 H 0 Z" fill="#102C4B" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 89,574 L 145,531 H 414 L 478,574 Z" fill="#3B6073" stroke="#61778B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 115,566 L 151,537 H 409 L 451,566 Z" fill="none" stroke="#61778B" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 93,252 A 174,174 0 0,1 443,252" fill="none" stroke="#B8A172" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 134,125 l 2,5 l 5,2 l -5,2 l -2,5 l -2,-5 l -5,-2 l 5,-2 Z" fill="#E9DCB7" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 393,164 A 2,2 0 1,0 397,164 A 2,2 0 1,0 393,164 Z" fill="#E9DCB7" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
