@@ -58,7 +58,7 @@ for side in ('right','left'):
     base=seatFront[:3]+[path('M 148,176 L 147,195 Q 149,207 161,209 Q 174,207 176,195 L 175,176 Z',PAPER)]+seatFront[5:7]
     # Remove finger gesture: relaxed right palm, mirroring the left hand resting on thigh.
     base += [path('M 111,314 L 124,318 L 122,330 L 113,338 L 95,341 Q 86,341 91,336 L 107,331 Z',PAPER,width=1.8),seatFront[7]]
-    if side=='right':face=path('M 175,116 C 157,108 139,117 137,135 Q 133,150 142,165 Q 151,179 164,179 L 175,168 L 177,158 L 181,154 Q 181,151 175,146 L 178,140 Q 182,124 175,116 Z',PAPER)
+    if side=='left':face=path('M 175,116 C 157,108 139,117 137,135 Q 133,150 142,165 Q 151,179 164,179 L 175,168 L 177,158 L 181,154 Q 181,151 175,146 L 178,140 Q 182,124 175,116 Z',PAPER)
     else:face=path('M 147,116 C 165,108 183,117 185,135 Q 189,150 180,165 Q 171,179 158,179 L 147,168 L 145,158 L 141,154 Q 141,151 147,146 L 144,140 Q 140,124 147,116 Z',PAPER)
     base+=[face,seatFront[-1]]
     write('learn_pose_salam' if side=='right' else 'learn_pose_salam_left',base)

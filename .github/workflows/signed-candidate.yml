@@ -26,7 +26,7 @@ jobs:
           mkdir -p keystore
           printf '%s' "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
           echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
-          echo "MIQAAT_VERSION_NAME=1.84-audit" >> "$GITHUB_ENV"
+          echo "MIQAAT_VERSION_NAME=1.85-salah" >> "$GITHUB_ENV"
           echo "MIQAAT_BUILD_TAG=audit-candidate-${GITHUB_SHA:0:12}" >> "$GITHUB_ENV"
       - name: Build and inspect signed testing candidate
         env:
@@ -69,3 +69,4 @@ jobs:
             app/build/reports/
             app/build/test-results/
           if-no-files-found: error
+

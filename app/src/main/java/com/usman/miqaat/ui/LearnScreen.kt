@@ -113,6 +113,8 @@ private fun legacyLearnColors(settings: AppSettings): LearnColors = if (settings
     success = Palette.mint, display = Cormorant, arabic = Amiri, kiswah = false
 )
 
+private fun lessonUiFont(): FontFamily = if (L10n.uiUrdu) Nastaliq else Nunito
+
 private enum class Mode { LIBRARY, LESSON, WORDS, MOVES }
 
 /** Learn Salah — for beginners of any age. Library → guided prayer (rakʿah by rakʿah), words practice, or movement review. */
@@ -296,7 +298,7 @@ private fun RakahMap(c: LearnColors, lesson: Learn.Lesson, actions: List<Learn.A
                 val steps = actions.withIndex().filter { it.value.rakah == r }
                 Column(Modifier.weight(steps.size.toFloat()), horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(Str.get(R.string.s_rakah_n, r).let { if (L10n.uiUrdu) it else it.uppercase() },
-                        fontFamily = uiFont(), fontSize = 10.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp,
+                        fontFamily = lessonUiFont(), fontSize = 10.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp,
                         color = if (actions[i].rakah == r) screenTokens().accent else c.textSecondary)
                     Canvas(Modifier.fillMaxWidth().height(18.dp).clearAndSetSemantics { }) {
                         val rtl = layoutDirection == LayoutDirection.Rtl
@@ -338,22 +340,22 @@ private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, mod
                     Row(Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
                             Figure(posture, c.primary, Modifier.fillMaxWidth().weight(1f))
-                            Text(Str[R.string.learn_salam_right], fontFamily = uiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
+                            Text(Str[R.string.learn_salam_right], fontFamily = lessonUiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
                         }
                         Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
                             androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.learn_pose_salam_left), null,
                                 Modifier.fillMaxWidth().weight(1f), contentScale = androidx.compose.ui.layout.ContentScale.Fit)
-                            Text(Str[R.string.learn_salam_left], fontFamily = uiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
+                            Text(Str[R.string.learn_salam_left], fontFamily = lessonUiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
                         }
                     }
                 }
-            } else Figure(posture, c.primary, Modifier.fillMaxHeight(0.93f).fillMaxWidth(0.82f))
+            } else Figure(posture, c.primary, Modifier.align(Alignment.BottomCenter).padding(bottom = 20.dp).fillMaxHeight(0.85f).fillMaxWidth(0.82f))
         }
         Text(if (L10n.uiUrdu) UrduContent.postureLabels[posture.ordinal] else posture.label.uppercase(),
-            fontFamily = if (L10n.uiUrdu) uiFont() else c.display, fontSize = 18.sp,
+            fontFamily = if (L10n.uiUrdu) lessonUiFont() else c.display, fontSize = 18.sp,
             letterSpacing = if (L10n.uiUrdu) 0.sp else 1.5.sp, color = c.text, textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 12.dp).semantics { heading() })
-        Text(cue, fontFamily = uiFont(), fontSize = 14.sp, lineHeight = 21.sp, color = c.textSecondary, textAlign = TextAlign.Center,
+        Text(cue, fontFamily = lessonUiFont(), fontSize = 14.sp, lineHeight = 21.sp, color = c.textSecondary, textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth().padding(start = 18.dp, end = 18.dp, top = 4.dp, bottom = 14.dp))
     }
 }
@@ -508,7 +510,7 @@ private fun LessonWords(c: LearnColors, step: Adhkar.Step, audio: Speaker, modif
         .clip(RoundedCornerShape(18.dp)).background(c.surface).border(1.dp, c.divider, RoundedCornerShape(18.dp)).padding(18.dp)
     Column(base, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(if (L10n.uiUrdu) UrduContent.position(step) else step.position.uppercase(),
-            fontFamily = uiFont(), fontSize = 12.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp,
+            fontFamily = lessonUiFont(), fontSize = 12.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp,
             color = screenTokens().accent, modifier = Modifier.semantics { heading() })
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             Text(step.arabic, fontFamily = c.arabic, fontSize = if (longArabic) 27.sp else if (editorial) 48.sp else 36.sp,
@@ -523,20 +525,20 @@ private fun LessonWords(c: LearnColors, step: Adhkar.Step, audio: Speaker, modif
                 .semantics { contentDescription = Str[if (audio.playing) R.string.s_stop else R.string.s_hear_it]; stateDescription = if (!usable) audio.source(index) else Str[if (audio.playing) R.string.s_playing else R.string.s_not_playing] }
                 .padding(horizontal = 18.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 Icon(if (audio.playing) Icons.Outlined.Stop else Icons.AutoMirrored.Outlined.VolumeUp, null, Modifier.size(22.dp), tint = c.onPrimary)
-                Text(Str[if (audio.playing) R.string.s_stop else R.string.learn_listen], fontFamily = uiFont(), fontSize = 16.sp, color = c.onPrimary)
+                Text(Str[if (audio.playing) R.string.s_stop else R.string.learn_listen], fontFamily = lessonUiFont(), fontSize = 16.sp, color = c.onPrimary)
             }
             Box(Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).border(1.dp, if (audio.slow) c.primary else c.divider, RoundedCornerShape(50))
                 .selectable(selected = audio.slow, role = Role.Checkbox) { audio.slow = !audio.slow }
                 .padding(horizontal = 16.dp, vertical = 10.dp), contentAlignment = Alignment.Center) {
-                Text(Str[R.string.s_slow], fontFamily = uiFont(), fontSize = 15.sp, color = if (audio.slow) c.primary else c.textSecondary)
+                Text(Str[R.string.s_slow], fontFamily = lessonUiFont(), fontSize = 15.sp, color = if (audio.slow) c.primary else c.textSecondary)
             }
         }
-        Text(if (audio.playing) Str[R.string.s_playing] else audio.source(index), fontFamily = uiFont(), fontSize = 11.sp, lineHeight = 17.sp,
+        Text(if (audio.playing) Str[R.string.s_playing] else audio.source(index), fontFamily = lessonUiFont(), fontSize = 11.sp, lineHeight = 17.sp,
             color = c.textSecondary, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
         Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.Switch) { showTranslit = !showTranslit }
             .semantics { stateDescription = Str[if (showTranslit) R.string.s_show else R.string.s_hide] }, verticalAlignment = Alignment.CenterVertically) {
-            Text(Str[R.string.learn_say], fontFamily = uiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary, modifier = Modifier.weight(1f))
-            Text(Str[if (showTranslit) R.string.s_hide else R.string.s_show], fontFamily = uiFont(), fontSize = 11.sp, color = c.textSecondary)
+            Text(Str[R.string.learn_say], fontFamily = lessonUiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary, modifier = Modifier.weight(1f))
+            Text(Str[if (showTranslit) R.string.s_hide else R.string.s_show], fontFamily = lessonUiFont(), fontSize = 11.sp, color = c.textSecondary)
         }
         AnimatedVisibility(showTranslit) {
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
@@ -544,12 +546,12 @@ private fun LessonWords(c: LearnColors, step: Adhkar.Step, audio: Speaker, modif
                     modifier = Modifier.fillMaxWidth().testTag("lesson-transliteration"))
             }
         }
-        Text(Str[R.string.s_meaning], fontFamily = uiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary)
-        Text(if (L10n.uiUrdu) UrduContent.stepMeanings[index] else step.meaning, fontFamily = uiFont(), fontSize = 17.sp, lineHeight = 26.sp, color = c.text,
+        Text(Str[R.string.s_meaning], fontFamily = lessonUiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary)
+        Text(if (L10n.uiUrdu) UrduContent.stepMeanings[index] else step.meaning, fontFamily = lessonUiFont(), fontSize = 17.sp, lineHeight = 26.sp, color = c.text,
             modifier = Modifier.fillMaxWidth().testTag("lesson-meaning"))
-        Text(Str[R.string.learn_notes], fontFamily = uiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary)
+        Text(Str[R.string.learn_notes], fontFamily = lessonUiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary)
         // This source copy is unchanged; Urdu UI explicitly discloses that the detailed note is still English.
-        if (L10n.uiUrdu) Text(Str[R.string.s_english_text], fontFamily = uiFont(), fontSize = 11.sp, color = c.textSecondary)
+        if (L10n.uiUrdu) Text(Str[R.string.s_english_text], fontFamily = lessonUiFont(), fontSize = 11.sp, color = c.textSecondary)
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
             Text(step.note, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 20.sp, color = c.textSecondary,
                 modifier = Modifier.fillMaxWidth().testTag("lesson-note"))
@@ -560,13 +562,13 @@ private fun LessonWords(c: LearnColors, step: Adhkar.Step, audio: Speaker, modif
             .padding(horizontal = 14.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Icon(Icons.Outlined.Balance, null, Modifier.size(28.dp), tint = screenTokens().accent)
             Column(Modifier.weight(1f)) {
-                Text(Str[R.string.learn_schools], fontFamily = uiFont(), fontSize = 15.sp, color = c.text)
-                Text(Str[R.string.learn_schools_detail], fontFamily = uiFont(), fontSize = 12.sp, lineHeight = 18.sp, color = c.textSecondary)
+                Text(Str[R.string.learn_schools], fontFamily = lessonUiFont(), fontSize = 15.sp, color = c.text)
+                Text(Str[R.string.learn_schools_detail], fontFamily = lessonUiFont(), fontSize = 12.sp, lineHeight = 18.sp, color = c.textSecondary)
             }
             Icon(Icons.Outlined.ExpandMore, null, tint = c.textSecondary)
         }
         AnimatedVisibility(showSchools) {
-            Text(Str[R.string.learn_school_guidance], fontFamily = uiFont(), fontSize = 13.sp, lineHeight = 20.sp, color = c.textSecondary)
+            Text(Str[R.string.learn_school_guidance], fontFamily = lessonUiFont(), fontSize = 13.sp, lineHeight = 20.sp, color = c.textSecondary)
         }
     }
 }
