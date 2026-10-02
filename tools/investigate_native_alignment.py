@@ -58,3 +58,34 @@ for abi in ("arm64-v8a", "armeabi-v7a", "x86", "x86_64"):
     assert all((int(h[2], 16) + int(h[5], 16)) % 16384 == 0 for h in relros), f"{abi}: RELRO boundary"
     results.append({"abi": abi, "sha256": hashlib.sha256(library.read_bytes()).hexdigest(), "load_and_relro_16kb": True})
 (ROOT / "RESULTS.json").write_text(json.dumps({"upstream": UPSTREAM, "ndk": "28.2.13676358", "libraries": results, "status": "Experimental rebuild only; not integrated, device-tested or released"}, indent=2))
+
+# Preserve the published managed API, manifest, resources and consumer rules exactly.
+# Only the four native libraries change, by compiling pinned unmodified source.
+import io, zipfile
+with urllib.request.urlopen("https://dl.google.com/dl/android/maven2/androidx/graphics/graphics-path/1.1.0/graphics-path-1.1.0.aar", timeout=60) as response:
+    original = response.read()
+original_hash = hashlib.sha256(original).hexdigest()
+out = ROOT / "graphics-path-1.1.0-miqaat-16kb.aar"
+replaced = []
+with zipfile.ZipFile(io.BytesIO(original)) as source, zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as dest:
+    for item in source.infolist():
+        data = source.read(item.filename)
+        if item.filename.startswith("jni/") and item.filename.endswith("/libandroidx.graphics.path.so"):
+            abi = item.filename.split("/")[1]
+            data = (ROOT / abi / "libandroidx.graphics.path.so").read_bytes()
+            replaced.append(abi)
+        dest.writestr(item, data)
+assert set(replaced) == {"arm64-v8a", "armeabi-v7a", "x86", "x86_64"}
+with zipfile.ZipFile(io.BytesIO(original)) as source, zipfile.ZipFile(out) as dest:
+    assert set(source.namelist()) == set(dest.namelist())
+    for name in source.namelist():
+        if not name.startswith("jni/"):
+            assert source.read(name) == dest.read(name), f"Managed artifact changed: {name}"
+(ROOT / "AAR-PROVENANCE.json").write_text(json.dumps({
+    "original_maven_coordinate": "androidx.graphics:graphics-path:1.1.0",
+    "original_sha256": original_hash,
+    "rebuilt_sha256": hashlib.sha256(out.read_bytes()).hexdigest(),
+    "upstream_source": UPSTREAM,
+    "managed_entries_identical": True,
+    "changed_native_abis": replaced
+}, indent=2))
