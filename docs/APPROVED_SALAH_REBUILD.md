@@ -57,3 +57,11 @@ Final run IDs, raw capture inventory, visual review and downloadable candidate w
 - Play Console upload/prelaunch reports, account eligibility, installed-signature/version compatibility and listing/privacy/data safety approval.
 
 A signed APK/AAB passing local technical checks is a testing candidate, not production acceptance.
+
+## Confirmed content and counter residual fixes
+
+Alongside the artwork, the draft now corrects the evening `bika_e` citation to Ibn Majah 3868 (displayed evening wording ends with al-maṣīr; grade attributed to Darussalam), marks `asbahna`/`amsayna` as excerpts rather than complete Muslim 2723b supplications, and labels abbreviated meanings as summaries. It corrects the Urdu post-prayer three-Quls title/guidance so it covers all three displayed surahs. Arabic recitation text is unchanged.
+
+The tahlil target now has one saved daily counter shared between morning and evening instead of a separate 100 on every reopening/session. The date is the device civil date, not a new religious claim about day boundaries. Unit tests exercise reopening across sessions, day rollover and capping at 100. Other session-specific counts stay separate.
+
+The radeetu count-specific citation/grading disagreement remains explicitly in the qualified review queue; it is not resolved by pretending AI research is scholarly approval. New Urdu wording is still a proofreader/qualified-review draft.

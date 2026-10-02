@@ -8,4 +8,8 @@
     <string name="learn_school_guidance">This guide shows one common form. Details such as hand placement, sitting and the finger gesture vary by school. Follow your teacher’s guidance; the step note describes the relevant differences and sources.</string>
     <string name="learn_salam_right">1 · Your right</string>
     <string name="learn_salam_left">2 · Your left</string>
+    <string name="learn_meaning_summary">Meaning · summary</string>
+    <string name="learn_excerpt">Excerpt from the longer supplication</string>
+    <string name="learn_recitation_guidance">Recitation guidance</string>
+    <string name="learn_daily_tahlil">100 in a day · today’s total is shared between Morning and Evening and saved on this device.</string>
 </resources>

@@ -61,7 +61,7 @@ class ApprovedSalahRebuildTest : ComposeSupport() {
                 inside("lesson-next")
                 noOverflow("lesson-next-label")
                 val next = rule.onNodeWithTag("lesson-next") .getUnclippedBoundsInRoot()
-                assertTrue("Continue target below 48dp", next.width >= 48.dp && next.height >= 48.dp)
+                assertTrue("Continue target below 48dp", next.right - next.left >= 48.dp && next.bottom - next.top >= 48.dp)
                 render(name)
                 for (tag in listOf("lesson-arabic", "lesson-transliteration", "lesson-meaning", "lesson-note")) {
                     rule.onNodeWithTag(tag, useUnmergedTree = true).performScrollTo().assertIsDisplayed()

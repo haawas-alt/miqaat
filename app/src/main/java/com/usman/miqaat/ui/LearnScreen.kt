@@ -546,7 +546,7 @@ private fun LessonWords(c: LearnColors, step: Adhkar.Step, audio: Speaker, modif
                     modifier = Modifier.fillMaxWidth().testTag("lesson-transliteration"))
             }
         }
-        Text(Str[R.string.s_meaning], fontFamily = lessonUiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary)
+        Text(Str[if ('…' in step.meaning) R.string.learn_meaning_summary else R.string.s_meaning], fontFamily = lessonUiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary)
         Text(if (L10n.uiUrdu) UrduContent.stepMeanings[index] else step.meaning, fontFamily = lessonUiFont(), fontSize = 17.sp, lineHeight = 26.sp, color = c.text,
             modifier = Modifier.fillMaxWidth().testTag("lesson-meaning"))
         Text(Str[R.string.learn_notes], fontFamily = lessonUiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary)
