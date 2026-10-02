@@ -25,9 +25,18 @@ def check(apk):
             else:
                 raise ValueError("Unsupported ELF class: " + item.filename)
             loads = []
+            relro = []
             for index in range(count):
                 offset = phoff + index * entsize
-                if struct.unpack_from(endian + "I", lib, offset)[0] == 1:
+                segment_type = struct.unpack_from(endian + "I", lib, offset)[0]
+                if segment_type == 0x6474e552:
+                    va_offset, mem_offset = (16, 40) if lib[4] == 2 else (8, 20)
+                    va = struct.unpack_from(endian + align_format, lib, offset + va_offset)[0]
+                    mem = struct.unpack_from(endian + align_format, lib, offset + mem_offset)[0]
+                    relro.append({"virtual_address": va, "memory_size": mem})
+                    if (va + mem) % 16384:
+                        raise ValueError("RELRO end is not 16 KiB aligned: " + item.filename)
+                if segment_type == 1:
                     loads.append(struct.unpack_from(endian + align_format, lib, offset + align_offset)[0])
             if not loads or min(loads) < 16384:
                 raise ValueError("ELF load alignment <16 KiB: " + item.filename)
@@ -36,7 +45,7 @@ def check(apk):
             if item.compress_type == zipfile.ZIP_STORED and payload_offset % 16384:
                 raise ValueError("Uncompressed library ZIP alignment <16 KiB: " + item.filename)
             rows.append({"library": item.filename, "elf_load_alignment": loads, "zip_offset": payload_offset,
-                         "uncompressed": item.compress_type == zipfile.ZIP_STORED})
+                         "uncompressed": item.compress_type == zipfile.ZIP_STORED, "relro": relro})
     return {"apk": str(apk), "native_libraries": rows, "result": "PASS"}
 
 if __name__ == "__main__":
