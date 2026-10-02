@@ -28,7 +28,7 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: audit-fixes-3895c823
-          target_commitish: af185b53529d311ebd9fde5b7a60b7244e9a0701
+          target_commitish: 3895c823d2b5f3f33bb51c9bafd55046ec208c09
           name: Miqaat 1.84-audit — signed testing candidate
           prerelease: true
           make_latest: false
