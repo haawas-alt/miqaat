@@ -41,5 +41,5 @@ class SettingsBackAcceptanceTest : ComposeSupport() {
     }
     @Test fun portraitBackRestoresLandingAndCategoriesRemainReachable() = checkBack(Dev.PHONE_PORTRAIT)
     @Test fun landscapeBackRestoresLandingAndCategoriesRemainReachable() = checkBack(Dev.PHONE_LANDSCAPE)
-    @After fun close() { if (::scenario.isInitialized) scenario.close() }
+    @After fun close() { runCatching { scenario.close() } }
 }
