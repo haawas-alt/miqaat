@@ -1,14 +1,24 @@
-# Content review handoff — exact candidate 9c7fb156bcfcaac489d96089a293b09209ae3638
+# Content review handoff — rebuilt candidate 3903c60b5ffcab8645fcb176282c962cfda71bc6
 
 Status: **not qualified scholarly approval**. This is source triage and a review queue.
 A named qualified Sunni reviewer and fluent Urdu proofreader must review the actual candidate text
 and posture images, record corrections, and sign off the content revision.
 Earlier AI-assisted documents and owner-reported partial reviews do not certify the new Urdu wording.
 
-Files: app/src/main/java/com/usman/miqaat/data/Adhkar.kt, UrduContent.kt, Learn.kt and
-app/src/main/res/drawable/learn_pose_*.xml. Arabic/counts/rulings are unchanged from68ef915. The sujud asset was subsequently clarified at0f731080; earlier content approval must not be assumed to cover the new vectors.
+Files: app/src/main/java/com/usman/miqaat/data/Adhkar.kt, UrduContent.kt, Learn.kt, DailyDhikrProgress.kt, values/learn_rebuild.xml, values-ur/learn_rebuild.xml and app/src/main/res/drawable/learn_pose_*.xml. All posture drawings are independently rebuilt; previous approvals do not cover them. Arabic recitation strings were preserved, but source attribution, Urdu guidance, summary labels and counter behavior changed.
 
-The tashahhud gesture is on viewer-right in a frontal-looking image: confirm anatomical right-hand orientation and approved viewpoint. The salam lesson uses a single turned profile for its right-then-left action; approve distinct turn depictions or an appropriate approved sequence.
+The tashahhud index is now on the worshipper's anatomical right (viewer-left). Salam has separate right and left head-turn drawings, not an RTL-mirrored single view. Confirm those views, limb/contact geometry and valid school variations against the exact candidate.
+
+## Supersession of the findings below
+
+The original comparison table is retained as the reason for remediation, not a description of unfixed candidate behavior. In this candidate:
+- bika_e cites Ibn Majah 3868 for its evening return wording.
+- radeetu cites Hisn al-Muslim 87 for three repetitions, with related Abu Dawud/Tirmidhi grades separately attributed.
+- asbahna/amsayna are explicitly marked excerpts; abbreviated meanings are labelled summaries.
+- tahlil persists one shared civil-date total across morning/evening, reopening and a 100 cap.
+- pp_ikhlas Urdu title/guidance identifies all three Quls.
+
+These are implemented corrections requiring qualified approval of the exact adopted wording, references and illustrations. No external reviewer has signed this candidate.
 
 ## Confirmed comparisons and product issues
 

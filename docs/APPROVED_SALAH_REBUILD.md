@@ -65,3 +65,48 @@ Alongside the artwork, the draft now corrects the evening `bika_e` citation to I
 The tahlil target now has one saved daily counter shared between morning and evening instead of a separate 100 on every reopening/session. The date is the device civil date, not a new religious claim about day boundaries. Unit tests exercise reopening across sessions, day rollover and capping at 100. Other session-specific counts stay separate.
 
 The radeetu source now identifies Hisn al-Muslim 87 and its count-specific references, separately attributing the grades attached to the related Abu Dawud/Tirmidhi texts. This corrects the previous conflation; chain-specific verification remains in the qualified review queue. New Urdu wording is still a proofreader/qualified-review draft.
+
+## Final cloud checkpoint — 3 October 2026
+
+Source candidate: `3903c60b5ffcab8645fcb176282c962cfda71bc6`. The final refinement commit independently repositions the lower postures to the common floor line, moves takbir palms outside the shoulders, redraws sleeve bends and makes the anatomical-right tashahhud index upright. Lesson scene cropping is bottom-aligned so the prayer mat remains visible in portrait aspect ratios.
+
+The previous checkpoint 104b745 had 408 raw PNGs, with the complete 96-case takbir matrix captured in initial, navigation-checked and scrolled-note states (288), eight postures × four themes on tablet landscape (32), two shared-counter states and 86 existing regression captures. XML reports show 82 reported tests: 81 executed successfully and one opt-in full-page screenshot suite skipped. This is predecessor evidence, not proof of the final changes.
+
+| Target | Raw PNG size | Lesson matrix |
+|---|---|---|
+| Phone portrait | 822 × 1782 | All four themes, English/Urdu, 100/130/200% |
+| Phone landscape | 1782 × 822 | All four themes, English/Urdu, 100/130/200% |
+| Tablet portrait | 1600 × 2560 | All four themes, English/Urdu, 100/130/200% |
+| Tablet landscape | 2560 × 1600 | All four themes, English/Urdu, 100/130/200% |
+
+These are Robolectric native-graphics renderings of the app, not emulator or physical-device screenshots. Matrices were inventoried programmatically and visually scanned; selected raw captures were inspected at readable resolution. Do not describe this as a pixel-by-pixel review of every screenshot.
+
+### Honest mockup comparison
+
+Gallery reproduces the approved editorial two-column lesson, restrained ivory/charcoal faceless figure, cream arch, earth-toned landscape, foliage and blue controls. It is not a verified 99% replica: the photo's rakah-count subtitle and translucent architectural pillars are absent; geometric proportions, illustration contours, terrain, typography spacing and some control styling differ. The other seven posture approvals and four full theme boards remain unavailable. Their newly drawn figures are review candidates, not independently verified approved golden images.
+
+Portrait and 200% text legitimately scroll. In short phone landscape, the initial viewport shows only part of the body, but the lesson body is scrollable; the screenshot's initial crop does not itself demonstrate inaccessible content. Long recitations require separate scrolling/reachability checks. Detailed legacy notes remain English, with explicit disclosure in Urdu.
+
+### Required acceptance gates
+
+- [ ] Exact approved archive recovered and each actual board identified/versioned.
+- [ ] Approved comparison of all eight posture drawings, including school variants, contact points and salām directions.
+- [ ] Independent golden comparisons for each theme and device target; no overflow at supported scales/languages.
+- [ ] Named qualified Sunni reviewer and fluent Urdu proofreader sign exact candidate/content/art hashes.
+- [ ] Physical Android testing of TalkBack, focus order, switch access, touch targets, 200% text, audio, notifications, reboot/DST/OEM restrictions and Qibla sensors.
+- [ ] Installed-app upgrade verified against the user's actual signing identity and versionCode, preserving data.
+- [ ] Play Console accepts the exact signed bundle; prelaunch reports, signing/version policy, listing, privacy and Data Safety checks completed.
+
+No credentialed reviewer, physical device or Play Console session is available in this task. These gates remain open. The cloud deliverable is an internal testing candidate, not a production release or a 9.9/10 certification.
+
+### Verified final artifacts
+
+- Audit validation: [run 37101494544](https://github.com/haawas-alt/miqaat/actions/runs/37101494544), SUCCESS; artifact 11265957583. Signed validation: [run 37101494556](https://github.com/haawas-alt/miqaat/actions/runs/37101494556), SUCCESS; artifact 11266117453. Both use source `3903c60b5ffcab8645fcb176282c962cfda71bc6`.
+- Both final XML report sets contain 82 reported tests, 81 executed passes, zero failures/errors and one opt-in ScreenshotTest skip. ApprovedSalahRebuildTest has three passes; DailyDhikrProgressTest has three passes.
+- Final audit archive: 408 PNGs. All 288 takbir matrix states, 32 posture/theme captures and two counter captures exist; no missing expected matrix filenames. Inventory and hashes: `audit/salah-1.85-inventory.csv`.
+- Inspected final raw Gallery phone portrait takbir, tablet landscape sujud and paired salām confirm the mat/figure alignment correction. All 32 final posture/theme captures were also visually scanned. Readable raw predecessor language/scale samples informed the final crop correction. This is selected raw inspection plus inventory, not a claim that every final pixel was manually reviewed.
+- Version name `1.85-salah`, versionCode `1791007113`, package `com.usman.miqaat`, min SDK 26, target SDK 36. Certificate SHA-256 `6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01` matches the existing stable release signing identity.
+- APK SHA-256 `e35f0c3bd02c81766e4b5433da3e26b5ebe25e7d07817f02122c5817f0d90bfa`; Play AAB SHA-256 `51caf86c26321c0f8a6cf4dc32a28ec91bbd73d5ce6013e4b134733b1c152a9d`. All three packaged artifact hashes independently matched their recorded sums.
+- Build checks include signed APK verification, lint, forbidden assets, target SDK, Play permission inspection, bundletool validation, AAB signature verification and 16KB native/ZIP alignment. Play Console policy/account/listing acceptance is still unverified.
+
+Download assets are published through the separately gated testing-download workflow; verify its conclusion and release asset digest before telling a user that publication succeeded.
