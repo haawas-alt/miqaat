@@ -346,25 +346,28 @@ private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, mod
     val shape = RoundedCornerShape(if (c.kiswah) 12.dp else 18.dp)
     val figureHeight = if (androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp >= 600) 360.dp else 300.dp
     Column(modifier.testTag("lesson-posture").clip(shape).background(c.surfaceRaised).border(1.dp, c.divider, shape), horizontalAlignment = Alignment.CenterHorizontally) {
-        Box((if (reflow) Modifier.height(figureHeight) else Modifier.weight(1f)).fillMaxWidth()
+        BoxWithConstraints((if (reflow) Modifier.height(figureHeight) else Modifier.weight(1f)).fillMaxWidth()
             .semantics { contentDescription = if (L10n.uiUrdu) UrduContent.postureDescriptions[posture.ordinal] else posture.describe }, contentAlignment = Alignment.Center) {
+            // Crop uses the larger scale: anchor contact points within the mat (scene y=528..580), not below its front edge.
+            val sceneScale = maxOf(maxWidth / 600f, maxHeight / 620f)
+            val groundInset = sceneScale * 54f
             androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(scene), null, Modifier.matchParentSize().clearAndSetSemantics { }, contentScale = androidx.compose.ui.layout.ContentScale.Crop, alignment = Alignment.BottomCenter)
             if (posture == Learn.Posture.SALAM) {
                 // Never mirror the anatomical right hand in RTL. Two separately drawn head turns.
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                    Row(Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Row(Modifier.fillMaxSize().padding(start = 12.dp, end = 12.dp, top = 12.dp, bottom = maxOf(12.dp, groundInset - 32.dp)), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
                             Figure(posture, c.primary, Modifier.fillMaxWidth().weight(1f))
-                            Text(Str[R.string.learn_salam_right], fontFamily = lessonUiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
+                            Text(Str[R.string.learn_salam_right], fontFamily = lessonUiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.heightIn(min = 32.dp).background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
                         }
                         Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
                             androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.learn_figure_salam_left), null,
                                 Modifier.fillMaxWidth().weight(1f), contentScale = androidx.compose.ui.layout.ContentScale.Fit, alignment = Alignment.BottomCenter)
-                            Text(Str[R.string.learn_salam_left], fontFamily = lessonUiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
+                            Text(Str[R.string.learn_salam_left], fontFamily = lessonUiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.heightIn(min = 32.dp).background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
                         }
                     }
                 }
-            } else Figure(posture, c.primary, Modifier.align(Alignment.BottomCenter).padding(bottom = 20.dp).fillMaxHeight(0.85f).fillMaxWidth(0.82f))
+            } else Figure(posture, c.primary, Modifier.align(Alignment.BottomCenter).padding(bottom = groundInset).fillMaxHeight(0.85f).fillMaxWidth(0.82f))
         }
         Text(if (L10n.uiUrdu) UrduContent.postureLabels[posture.ordinal] else posture.label.uppercase(),
             fontFamily = if (L10n.uiUrdu) lessonUiFont() else c.display, fontSize = 18.sp,

@@ -8,8 +8,8 @@
 <path d="M 45,507 V 225 C 45,110 145,28 277,0 C 408,28 507,110 507,225 V 507" fill="none" stroke="#8B7C55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 70,505 V 225 C 70,123 155,50 277,22 C 397,50 482,123 482,225 V 505" fill="none" stroke="#8B7C55" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 0,544 L 95,507 H 463 L 600,558 V 620 H 0 Z" fill="#201F1B" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M 89,574 L 145,531 H 414 L 478,574 Z" fill="#514C3D" stroke="#8B7C55" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M 115,566 L 151,537 H 409 L 451,566 Z" fill="none" stroke="#8B7C55" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 8,580 L 24,528 H 576 L 592,580 Z" fill="#514C3D" stroke="#8B7C55" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 20,570 L 34,538 H 566 L 580,570 Z" fill="none" stroke="#8B7C55" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 15,40 H 585 M 15,53 H 585 M 15,76 H 585 M 15,89 H 585" fill="none" stroke="#988663" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 22,53 L 34,65 L 22,76 L 10,65 Z M 578,53 L 590,65 L 578,76 L 566,65 Z" fill="none" stroke="#988663" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

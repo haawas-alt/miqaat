@@ -8,8 +8,8 @@
 <path d="M 45,507 V 225 C 45,110 145,28 277,0 C 408,28 507,110 507,225 V 507" fill="none" stroke="#D5CCBC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 70,505 V 225 C 70,123 155,50 277,22 C 397,50 482,123 482,225 V 505" fill="none" stroke="#D5CCBC" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 0,544 L 95,507 H 463 L 600,558 V 620 H 0 Z" fill="#E9E3D8" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M 89,574 L 145,531 H 414 L 478,574 Z" fill="#C6B191" stroke="#D5CCBC" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M 115,566 L 151,537 H 409 L 451,566 Z" fill="none" stroke="#D5CCBC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 8,580 L 24,528 H 576 L 592,580 Z" fill="#C6B191" stroke="#D5CCBC" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 20,570 L 34,538 H 566 L 580,570 Z" fill="none" stroke="#D5CCBC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 551,457 Q 559,381 531,302" fill="none" stroke="#63704E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 551,425 Q 523,409 516,389 Q 541,397 551,425 Z" fill="#73805A" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 553,403 Q 577,385 577,367 Q 559,380 553,403 Z" fill="#73805A" stroke="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
