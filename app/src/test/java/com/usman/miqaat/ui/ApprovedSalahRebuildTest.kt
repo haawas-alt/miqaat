@@ -73,23 +73,24 @@ class ApprovedSalahRebuildTest : ComposeSupport() {
             } finally { runCatching { scenario.close() } }
         }
     }
-    @Test fun allPosturesAndBothSalamTurnsRenderOnTabletInEveryTheme() {
+    @Test fun allPosturesAndBothSalamTurnsRenderAcrossDevicesInEveryTheme() {
         val actions = Learn.actions(Learn.Lesson.FAJR)
-        for (theme in AppTheme.entries) for (posture in Learn.Posture.entries) {
+        for (theme in AppTheme.entries) for (dev in Dev.entries) for (posture in Learn.Posture.entries) {
             val s = AppSettings(theme = theme, language = Language.EN)
             app.settings.update { s }
             try {
-                show(Dev.TABLET_LANDSCAPE, theme) {
+                show(dev, theme) {
                     LearnScreen(s, previewLesson = Learn.Lesson.FAJR, previewStep = actions.indexOfFirst { it.posture == posture }) {}
                 }
-                inside("lesson-posture")
+                if (dev == Dev.TABLET_LANDSCAPE) inside("lesson-posture")
                 noOverflow("lesson-arabic")
-                rule.onNodeWithText(actions.first { it.posture == posture }.cue).assertIsDisplayed()
+                render("posture__${posture.name.lowercase()}__${theme.name.lowercase()}__${dev.label}__100__top")
+                rule.onNodeWithText(actions.first { it.posture == posture }.cue).performScrollTo().assertIsDisplayed()
                 if (posture == Learn.Posture.SALAM) {
                     rule.onNodeWithText(Str[R.string.learn_salam_right]).assertIsDisplayed()
                     rule.onNodeWithText(Str[R.string.learn_salam_left]).assertIsDisplayed()
                 }
-                render("posture__${posture.name.lowercase()}__${theme.name.lowercase()}__tablet-landscape__100")
+                render("posture__${posture.name.lowercase()}__${theme.name.lowercase()}__${dev.label}__100__cue")
             } finally { runCatching { scenario.close() } }
         }
     }

@@ -358,7 +358,7 @@ private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, mod
                             Text(Str[R.string.learn_salam_right], fontFamily = lessonUiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
                         }
                         Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
-                            androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.learn_pose_salam_left), null,
+                            androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.learn_figure_salam_left), null,
                                 Modifier.fillMaxWidth().weight(1f), contentScale = androidx.compose.ui.layout.ContentScale.Fit, alignment = Alignment.BottomCenter)
                             Text(Str[R.string.learn_salam_left], fontFamily = lessonUiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
                         }
@@ -375,19 +375,19 @@ private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, mod
     }
 }
 
-/** Original robe line drawings from the supplied approved reference. Solid paper fill preserves legibility on all scenes. */
+/** Detailed original figure assets; anatomical right/left are never mirrored by RTL. */
 @Composable
 @Suppress("UNUSED_PARAMETER")
 fun Figure(p: Learn.Posture, color: Color, modifier: Modifier) {
     val art = when (p) {
-        Learn.Posture.TAKBIR -> R.drawable.learn_pose_takbir
-        Learn.Posture.STANDING -> R.drawable.learn_pose_standing
-        Learn.Posture.BOWING -> R.drawable.learn_pose_bowing
-        Learn.Posture.RISING -> R.drawable.learn_pose_rising
-        Learn.Posture.PROSTRATING -> R.drawable.learn_pose_prostrating
-        Learn.Posture.SITTING -> R.drawable.learn_pose_sitting
-        Learn.Posture.TASHAHHUD -> R.drawable.learn_pose_tashahhud
-        Learn.Posture.SALAM -> R.drawable.learn_pose_salam
+        Learn.Posture.TAKBIR -> R.drawable.learn_figure_takbir
+        Learn.Posture.STANDING -> R.drawable.learn_figure_standing
+        Learn.Posture.BOWING -> R.drawable.learn_figure_bowing
+        Learn.Posture.RISING -> R.drawable.learn_figure_rising
+        Learn.Posture.PROSTRATING -> R.drawable.learn_figure_prostrating
+        Learn.Posture.SITTING -> R.drawable.learn_figure_sitting
+        Learn.Posture.TASHAHHUD -> R.drawable.learn_figure_tashahhud
+        Learn.Posture.SALAM -> R.drawable.learn_figure_salam
     }
     androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(art), null, modifier,
         contentScale = androidx.compose.ui.layout.ContentScale.Fit, alignment = Alignment.BottomCenter)

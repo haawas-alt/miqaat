@@ -143,7 +143,7 @@ private fun GalleryNav(icon: ImageVector, label: String, description: String, tk
             .semantics(mergeDescendants = true) { contentDescription = description }.padding(horizontal = u * 1.2f),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center
     ) {
-        Icon(icon, null, Modifier.size(u * 2.4f), tint = tk.contentPrimary)
+        Icon(icon, null, Modifier.size(if (showLabel) u * 2.4f else 26.dp), tint = tk.contentPrimary)
         if (showLabel) {
             Spacer(Modifier.width(u * 0.7f))
             Text(label, fontFamily = F, fontSize = (u.value * 1.7f).sp, color = tk.contentPrimary, maxLines = 1)
@@ -290,7 +290,7 @@ private fun GalleryStackedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
     val selected = r.isNow || r.isNext
     val ink = if (selected) tk.primary else tk.contentPrimary
     Row(
-        Modifier.fillMaxWidth().heightIn(min = (72 * k).dp).background(if (selected) tk.surface else Color.Transparent)
+        Modifier.fillMaxWidth().heightIn(min = (80 * k).dp).background(if (selected) tk.surface else Color.Transparent)
             .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = "Switch between clock time and time until", onLongClickLabel = "Why this time?", role = Role.Button)
             .semantics(mergeDescendants = true) { contentDescription = r.spoken },
         verticalAlignment = Alignment.CenterVertically
@@ -299,7 +299,7 @@ private fun GalleryStackedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
         PrayerCardArt(r.prayer, Modifier.padding(start = 12.dp, top = 8.dp, bottom = 8.dp).size(width = (64 * k).dp, height = (56 * k).dp).clip(RoundedCornerShape(10.dp)).clearAndSetSemantics { })
         Column(Modifier.weight(1f).padding(horizontal = 14.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = (22 * k).sp, color = ink, maxLines = 1)
+                Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = (24 * k).sp, color = ink, maxLines = 1)
                 when {
                     r.isNow || r.isNext -> Text("  · " + L10n.word(s, if (r.isNow) "NOW" else "NEXT").lowercase(), fontFamily = Nunito, fontSize = (12 * k).sp, fontWeight = FontWeight.Bold, color = tk.primary)
                     r.done -> Icon(Icons.Outlined.Check, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.success)
@@ -310,7 +310,7 @@ private fun GalleryStackedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
             if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = (12 * k).sp, color = tk.contentSecondary, maxLines = 2)
         }
         Row(verticalAlignment = Alignment.Bottom) {
-            Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = if (s.showRelative) (17 * k).sp else (30 * k).sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.75f else 1f))
+            Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = if (s.showRelative) (17 * k).sp else (32 * k).sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.75f else 1f))
             if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = tk.fontDisplay, fontSize = (13 * k).sp, color = tk.contentSecondary, modifier = Modifier.padding(bottom = 4.dp))
         }
         Box(Modifier.padding(horizontal = 4.dp).size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = Role.Button).semantics { contentDescription = Str[R.string.s_why_this_time] }, contentAlignment = Alignment.Center) {
@@ -327,6 +327,7 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
     // On a phone w/60 is only ~6dp, which made the header, date and links 5-9sp. These floors keep them readable.
     val barU: Dp = if (roomy) u * 0.62f else maxOf(u * 0.62f, 7.5.dp)
     val railU: Dp = if (roomy) u * 0.5f else maxOf(u * 0.5f, 8.dp)
+    val compactPhone = w < 600.dp && w >= 340.dp && LocalDensity.current.fontScale <= 1.15f
     val body: @Composable ColumnScope.() -> Unit = {
         GalleryHeader(s, a, tk, barU, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp))
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
@@ -343,10 +344,14 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
             }
         ) {
         GalleryDate(state, s, tk, barU, F, urdu, Modifier.fillMaxWidth().padding(top = 10.dp))
+        if (compactPhone) {
+            GalleryCompactHero(hero, state, s, tk, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 10.dp))
+        } else {
         Row(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 GalleryHeroLeft(hero, state, s, tk, u * 0.62f, F, urdu)
             }
+        }
         }
         val detailsButton: @Composable () -> Unit = {
             Row(
@@ -358,7 +363,9 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
             }
         }
         // On a phone the clock and the button no longer compete for one line (Urdu day-part words made the clock overflow).
-        Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp)) {
+        if (compactPhone) {
+            Box(Modifier.padding(horizontal = 18.dp, vertical = 2.dp)) { detailsButton() }
+        } else Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = 56.sp, color = tk.contentPrimary, maxLines = 1)
                 if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (urdu) F else tk.fontDisplay, fontSize = 20.sp, color = tk.contentSecondary, maxLines = 1, modifier = Modifier.padding(top = 18.dp))
@@ -382,4 +389,42 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
     // One screen, no scrolling, on every phone and tablet: the page is scaled down just enough to fit the height it is given.
     // (Large system text is handled by AccessibleHome, which is the one layout that scrolls.)
     FitHeight(page, verticalBias = 0f) { Column(Modifier.fillMaxWidth(), content = body) }
+}
+
+/** Compact phone hero: prayer and clock share a baseline; scales above normal use the flowing fallback. */
+@Composable
+private fun GalleryCompactHero(hero: HeroInfo, state: PrayerState, s: AppSettings, tk: ThemeTokens, F: FontFamily, urdu: Boolean, modifier: Modifier) {
+    Column(modifier.testTag("gallery-mobile-hero").semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
+        hero.special?.let { Text(it, fontFamily = F, fontSize = 12.sp, color = tk.accent) }
+        Text(hero.kickerLabel, fontFamily = F, fontSize = 11.sp, letterSpacing = if (urdu) 0.sp else 1.6.sp, color = tk.contentSecondary)
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(hero.label, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium,
+                fontSize = if (urdu) 30.sp else 38.sp, color = tk.contentPrimary, maxLines = 1,
+                modifier = Modifier.weight(1f).alignByBaseline().testTag("gallery-mobile-prayer-name"))
+            Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium,
+                fontSize = 44.sp, color = tk.contentPrimary, maxLines = 1,
+                modifier = Modifier.alignByBaseline().testTag("gallery-mobile-prayer-time"))
+        }
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            if (!urdu) Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = 24.sp, color = tk.accent)
+            Spacer(Modifier.weight(1f))
+            if (hero.suffix.isNotEmpty()) Text(hero.suffix, fontFamily = if (urdu) F else tk.fontDisplay, fontSize = 14.sp, color = tk.contentSecondary)
+        }
+        Row(Modifier.padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+            Icon(if (hero.justPassed) Icons.Outlined.CheckCircle else Icons.Outlined.Schedule, null, Modifier.size(16.dp), tint = tk.accent)
+            Spacer(Modifier.width(6.dp))
+            Text(hero.status, fontFamily = F, fontSize = 13.sp, color = tk.contentPrimary, maxLines = 2)
+        }
+        fastProgress(state, s)?.let { (frac, label) ->
+            Column(Modifier.padding(top = 6.dp).fillMaxWidth()) {
+                Box(Modifier.fillMaxWidth().height(4.dp).clip(RoundedCornerShape(50)).background(tk.divider)) {
+                    Box(Modifier.fillMaxWidth(frac).fillMaxHeight().background(tk.primary))
+                }
+                Text(label, fontFamily = F, fontSize = 12.sp, color = tk.primary, modifier = Modifier.padding(top = 3.dp))
+            }
+        }
+        tarawihLine(state, s)?.let {
+            Text(it, fontFamily = F, fontSize = 12.sp, color = tk.primary, modifier = Modifier.padding(top = 4.dp), maxLines = 3)
+        }
+    }
 }
