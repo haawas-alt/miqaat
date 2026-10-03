@@ -522,6 +522,7 @@ private fun GalleryPhoneFit(state: PrayerState, s: AppSettings, a: HomeActions, 
                     Icon(if (d.warn) Icons.Outlined.NotificationsActive else Icons.Outlined.ChevronRight,
                         null, Modifier.size(24.dp), tint = if (d.warn) tk.warning else tk.accent)
                     Text(d.label, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp,
+                        style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)),
                         color = tk.contentPrimary, maxLines = 2, modifier = Modifier.weight(1f))
                 }
             }
@@ -564,7 +565,8 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
         Column(Modifier.weight(1f)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(r.label, fontFamily = if (urdu) tk.fontArabic else Cormorant,
-                    fontSize = if (urdu) 22.sp else 24.sp, color = ink, maxLines = 1,
+                    fontSize = if (urdu) 20.sp else 24.sp,
+                    style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)), color = ink, maxLines = 1,
                     modifier = Modifier.testTag("gallery-fit-label-${r.prayer.name}"),
                     fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium)
                 if (!urdu) Text("  ${r.arabic}", fontFamily = tk.fontArabic, fontSize = 16.sp,
@@ -572,7 +574,8 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
                 if (selected) Icon(if (r.isNow) Icons.Outlined.Schedule else Icons.Outlined.ChevronRight,
                     null, Modifier.size(16.dp), tint = ink)
             }
-            Text(r.small, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp, color = tk.contentSecondary, maxLines = 1,
+            Text(r.small, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp,
+                style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)), color = tk.contentSecondary, maxLines = 1,
                 modifier = Modifier.testTag("gallery-fit-detail-${r.prayer.name}"))
         }
         Column(horizontalAlignment = Alignment.End) {
@@ -581,6 +584,7 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
                 fontSize = if (s.showRelative) 16.sp else 30.sp, fontWeight = FontWeight.Medium,
                 color = ink, maxLines = 1)
             if (!s.showRelative) Text(r.suffix, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 11.sp,
+                style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)),
                 color = tk.contentSecondary, maxLines = 1)
         }
         Box(Modifier.size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = Role.Button)
