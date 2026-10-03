@@ -15,11 +15,17 @@ def oval(cx,cy,rx,ry,fill=PAPER):
 def write(name,items,w=320,h=460):
     xml=[f'<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="{w}dp" android:height="{h}dp" android:viewportWidth="{w}" android:viewportHeight="{h}">']
     svg=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    floor_offset={'learn_pose_prostrating':46,'learn_pose_sitting':31,'learn_pose_tashahhud':30,'learn_pose_salam':30,'learn_pose_salam_left':30}.get(name,0)
+    if floor_offset:
+        xml.append(f'    <group android:translateY="{floor_offset}">')
+        svg.append(f'<g transform="translate(0,{floor_offset})">')
     for p in items:
         attrs=f'android:pathData="{escape(p["d"])}" android:fillColor="{p["fill"] if p["fill"]!="none" else "#00000000"}"'
         if p['stroke']!='none':attrs+=f' android:strokeColor="{p["stroke"]}" android:strokeWidth="{p["width"]}" android:strokeLineCap="round" android:strokeLineJoin="round"'
         xml.append('    <path '+attrs+' />')
         svg.append(f'<path d="{p["d"]}" fill="{p["fill"]}" stroke="{p["stroke"]}" stroke-width="{p["width"]}" stroke-linecap="round" stroke-linejoin="round"/>')
+    if floor_offset:
+        xml.append('    </group>'); svg.append('</g>')
     xml.append('</vector>'); svg.append('</svg>')
     (OUT/(name+'.xml')).write_text('\n'.join(xml)+'\n')
     (SVG/(name+'.svg')).write_text('\n'.join(svg)+'\n')
@@ -32,7 +38,16 @@ head=oval(161,72,28,34)
 # Raised hands: individually drawn fingers and opposed thumbs, palms toward viewer.
 leftHand=path('M 96,146 L 91,135 L 91,116 Q 89,111 91,108 L 94,89 Q 96,85 98,90 L 96,109 L 100,84 Q 102,80 104,85 L 101,108 L 107,83 Q 110,81 111,87 L 108,110 L 114,90 Q 117,88 118,94 L 114,116 L 120,110 Q 125,108 126,113 Q 125,118 119,126 L 113,137 L 111,149 Z',PAPER,width=2)
 rightHand=path('M 225,146 L 230,135 L 230,116 Q 232,111 230,108 L 227,89 Q 225,85 223,90 L 225,109 L 221,84 Q 219,80 217,85 L 220,108 L 214,83 Q 211,81 210,87 L 213,110 L 207,90 Q 204,88 203,94 L 207,116 L 201,110 Q 196,108 195,113 Q 196,118 202,126 L 208,137 L 210,149 Z',PAPER,width=2)
-sleevesTak=[path('M 91,143 L 84,163 Q 78,181 94,186 Q 105,187 113,174 L 131,145 Q 134,135 117,128 L 107,149 L 101,168 Q 98,172 94,169 L 109,147 Z',PAPER),path('M 231,143 L 238,163 Q 244,181 228,186 Q 217,187 209,174 L 191,145 Q 188,135 205,128 L 215,149 L 221,168 Q 224,172 228,169 L 213,147 Z',PAPER)]
+def move_hand(d,dx):
+    import re
+    parts=[]
+    for command in re.findall(r'[A-Za-z][^A-Za-z]*',d):
+        numbers=[float(v) for v in re.findall(r'-?\d+(?:\.\d+)?',command[1:])]
+        parts.append(command[0]+' '+' '.join(f'{v+dx if i%2==0 else v:g}' for i,v in enumerate(numbers)))
+    return ' '.join(parts)
+leftHand['d']=move_hand(leftHand['d'],-18)
+rightHand['d']=move_hand(rightHand['d'],18)
+sleevesTak=[path('M 113,128 L 125,140 L 101,187 Q 84,206 69,187 L 65,180 L 74,142 L 93,146 L 86,171 Q 86,175 90,174 L 110,147 Z',PAPER),path('M 209,128 L 197,140 L 221,187 Q 238,206 253,187 L 257,180 L 248,142 L 229,146 L 236,171 Q 236,175 232,174 L 212,147 Z',PAPER)]
 write('learn_pose_takbir',feet+[robe,neck,head]+sleevesTak+[leftHand,rightHand]+seams)
 # Folded: left wrist below right palm; enough finger definition to show the overlap.
 sleevesFold=[path('M 113,128 Q 100,149 99,186 Q 99,200 111,204 L 155,190 L 149,176 L 119,184 L 125,153',PAPER),path('M 207,128 Q 219,151 222,187 Q 222,199 210,204 L 164,191 L 168,176 L 202,184 L 196,153',PAPER)]
@@ -51,7 +66,7 @@ write('learn_pose_prostrating',sujud)
 sitBody=[path('M 189,375 Q 162,388 125,391 Q 115,393 114,400 Q 116,405 132,406 L 206,399 L 214,382 Z',PAPER),path('M 233,366 L 241,369 L 245,390 Q 246,399 242,402 L 223,402 Q 215,401 221,396 L 233,392 L 229,378 Z',PAPER),path('M 134,199 Q 120,205 117,223 L 117,304 Q 121,325 139,336 L 217,350 Q 235,357 234,374 Q 232,388 211,392 L 126,379 Q 104,374 103,355 L 109,281 L 108,229 Q 108,208 119,201 Z',PAPER),path('M 119,183 L 118,200 Q 128,211 142,207 L 143,183 Z',PAPER),oval(129,157,26,33),path('M 137,214 Q 150,233 153,273 L 171,319 L 159,329 L 133,279 Q 126,258 124,242',PAPER),path('M 161,318 Q 170,320 185,330 L 201,335 Q 205,339 201,341 L 184,338 L 169,333 L 161,329 Z',PAPER,width=1.8),path('M 181,332 L 197,336 M 177,335 L 192,340',width=1),path('M 126,293 Q 136,314 146,321 M 145,362 L 214,376',stroke=SHADOW,width=1.2)]
 write('learn_pose_sitting',sitBody)
 # Frontal seated: anatomical RIGHT hand is on viewer LEFT. Raised index separate from folded fingers.
-seatFront=[path('M 110,375 L 103,383 L 102,398 Q 102,406 114,406 L 132,403 Q 140,401 134,397 L 116,395 L 119,381 Z',PAPER),path('M 204,382 Q 213,392 229,398 Q 233,404 221,406 L 182,401 L 176,389 Z',PAPER),path('M 146,195 Q 126,198 112,209 Q 103,234 111,281 L 110,321 Q 85,328 81,350 Q 77,368 96,384 Q 124,401 161,395 Q 197,401 225,384 Q 244,368 239,350 Q 235,328 210,321 L 212,281 Q 220,234 208,209 Q 191,198 176,195 Z',PAPER),path('M 148,176 L 147,195 Q 149,207 161,209 Q 174,207 176,195 L 175,176 Z',PAPER),oval(161,147,28,34),path('M 113,211 Q 100,238 103,270 L 100,313 Q 109,324 122,318 L 129,265 L 131,224',PAPER),path('M 209,211 Q 222,238 219,270 L 222,313 Q 213,324 200,318 L 193,265 L 191,224',PAPER),path('M 202,314 L 199,326 L 204,337 Q 211,342 219,341 L 231,338 Q 235,333 228,334 L 217,335 L 208,324 L 220,317 Z',PAPER,width=1.8),path('M 111,313 Q 104,312 100,318 L 95,325 L 79,311 Q 74,309 75,314 L 96,333 Q 101,344 111,342 L 120,338 Q 124,334 120,330 L 114,326 L 121,319 Z',PAPER,width=1.8),path('M 101,331 Q 107,332 110,329 M 105,336 Q 111,338 115,334',width=1.1),path('M 161,212 L 161,245 M 161,345 L 161,381 M 149,297 Q 147,326 140,341 M 169,298 Q 173,326 181,341 M 97,362 Q 124,369 143,375 M 178,375 Q 202,370 226,362',stroke=SHADOW,width=1.2)]
+seatFront=[path('M 110,375 L 103,383 L 102,398 Q 102,406 114,406 L 132,403 Q 140,401 134,397 L 116,395 L 119,381 Z',PAPER),path('M 204,382 Q 213,392 229,398 Q 233,404 221,406 L 182,401 L 176,389 Z',PAPER),path('M 146,195 Q 126,198 112,209 Q 103,234 111,281 L 110,321 Q 85,328 81,350 Q 77,368 96,384 Q 124,401 161,395 Q 197,401 225,384 Q 244,368 239,350 Q 235,328 210,321 L 212,281 Q 220,234 208,209 Q 191,198 176,195 Z',PAPER),path('M 148,176 L 147,195 Q 149,207 161,209 Q 174,207 176,195 L 175,176 Z',PAPER),oval(161,147,28,34),path('M 113,211 Q 100,238 103,270 L 100,313 Q 109,324 122,318 L 129,265 L 131,224',PAPER),path('M 209,211 Q 222,238 219,270 L 222,313 Q 213,324 200,318 L 193,265 L 191,224',PAPER),path('M 202,314 L 199,326 L 204,337 Q 211,342 219,341 L 231,338 Q 235,333 228,334 L 217,335 L 208,324 L 220,317 Z',PAPER,width=1.8),path('M 111,313 Q 104,312 100,318 L 101,325 L 101,304 Q 98,302 96,305 L 96,328 Q 101,344 111,342 L 120,338 Q 124,334 120,330 L 114,326 L 121,319 Z',PAPER,width=1.8),path('M 101,331 Q 107,332 110,329 M 105,336 Q 111,338 115,334',width=1.1),path('M 161,212 L 161,245 M 161,345 L 161,381 M 149,297 Q 147,326 140,341 M 169,298 Q 173,326 181,341 M 97,362 Q 124,369 143,375 M 178,375 Q 202,370 226,362',stroke=SHADOW,width=1.2)]
 write('learn_pose_tashahhud',seatFront)
 # Salam is TWO views; only head/neck turn, seated body and resting hands remain stable.
 for side in ('right','left'):
@@ -82,3 +97,4 @@ for theme,wall,sky,far,mid,near,sun,line in [
     else:s += [path('M 30,52 L 45,68 L 30,84 L 15,68 Z M 553,52 L 568,68 L 553,84 L 538,68 Z',stroke='#8990A0',width=1)]
     write('learn_scene_'+theme,s,600,620)
 print('Generated nine posture views and four authored scene vectors.')
+

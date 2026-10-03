@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="460" viewBox="0 0 320 460">
+<g transform="translate(0,46)">
 <path d="M 257,358 Q 273,361 287,368 L 297,384 Q 297,391 290,390 L 275,390 L 279,381 L 251,379 Z" fill="#F9F6EE" stroke="#39443F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 123,268 Q 143,222 200,207 Q 215,205 226,226 L 252,352 Q 252,377 232,385 L 166,383 Q 151,378 140,363 L 94,323 Q 98,293 123,268 Z" fill="#F9F6EE" stroke="#39443F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 89,322 L 102,325 L 108,339 L 92,351 L 78,340 Z" fill="#F9F6EE" stroke="#39443F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -8,4 +9,5 @@
 <path d="M 87,389 L 105,389 M 90,386 L 104,387" fill="none" stroke="#39443F" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 234,383 Q 245,380 249,369 M 273,389 L 290,389 M 280,385 L 292,385" fill="none" stroke="#39443F" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 168,256 Q 195,276 219,346 M 171,372 L 222,371" fill="none" stroke="#DDD7CA" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
 </svg>
