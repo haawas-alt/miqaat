@@ -399,11 +399,11 @@ private fun GalleryCompactHero(hero: HeroInfo, state: PrayerState, s: AppSetting
         Text(hero.kickerLabel, fontFamily = F, fontSize = 11.sp, letterSpacing = if (urdu) 0.sp else 1.6.sp, color = tk.contentSecondary)
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(hero.label, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium,
-                fontSize = if (urdu) 30.sp else 38.sp, color = tk.contentPrimary, maxLines = 1,
+                fontSize = if (urdu) 30.sp else 38.sp, lineHeight = if (urdu) 54.sp else 46.sp, color = tk.contentPrimary, maxLines = 1,
                 modifier = Modifier.weight(1f).alignByBaseline().testTag("gallery-mobile-prayer-name"))
             Spacer(Modifier.width(12.dp))
             Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium,
-                fontSize = 44.sp, color = tk.contentPrimary, maxLines = 1,
+                fontSize = 44.sp, lineHeight = 56.sp, color = tk.contentPrimary, maxLines = 1, softWrap = false,
                 modifier = Modifier.alignByBaseline().testTag("gallery-mobile-prayer-time"))
         }
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {

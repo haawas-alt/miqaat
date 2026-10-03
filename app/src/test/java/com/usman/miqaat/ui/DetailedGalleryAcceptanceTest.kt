@@ -34,6 +34,15 @@ class DetailedGalleryAcceptanceTest : ComposeSupport() {
             app.settings.update { s }
             try {
                 show(Dev.PHONE_PORTRAIT, s.theme, rtl = urdu) { GalleryHome(state, s, a) }
+                rule.waitForIdle()
+                scenario.onActivity { act ->
+                    val view = act.findViewById<View>(android.R.id.content)
+                    val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+                    view.draw(Canvas(bitmap))
+                    File("build/audit-screens/detailed-gallery").also { it.mkdirs() }
+                        .resolve("home__phone-portrait__100__hour-$hour${if (urdu) "__ur" else ""}.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
+                    bitmap.recycle()
+                }
                 val root = rule.onRoot().fetchSemanticsNode().boundsInRoot
                 val name = rule.onNodeWithTag("gallery-mobile-prayer-name", true).fetchSemanticsNode().boundsInRoot
                 val time = rule.onNodeWithTag("gallery-mobile-prayer-time", true).fetchSemanticsNode().boundsInRoot
@@ -49,16 +58,7 @@ class DetailedGalleryAcceptanceTest : ComposeSupport() {
                     val layouts = mutableListOf<TextLayoutResult>()
                     rule.onNodeWithTag(tag, true).fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
                     assertTrue("Missing layout for $tag", layouts.isNotEmpty())
-                    layouts.forEach { assertFalse("$tag overflow", it.didOverflowWidth || it.didOverflowHeight) }
-                }
-                rule.waitForIdle()
-                scenario.onActivity { act ->
-                    val view = act.findViewById<View>(android.R.id.content)
-                    val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-                    view.draw(Canvas(bitmap))
-                    File("build/audit-screens/detailed-gallery").also { it.mkdirs() }
-                        .resolve("home__phone-portrait__100__hour-$hour${if (urdu) "__ur" else ""}.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
-                    bitmap.recycle()
+                    layouts.forEach { assertFalse("$tag overflow; urdu=$urdu hour=$hour; text=${it.layoutInput.text}; size=${it.size}; constraints=${it.layoutInput.constraints}; width=${it.didOverflowWidth}; height=${it.didOverflowHeight}", it.didOverflowWidth || it.didOverflowHeight) }
                 }
             } finally { runCatching { scenario.close() } }
         }
