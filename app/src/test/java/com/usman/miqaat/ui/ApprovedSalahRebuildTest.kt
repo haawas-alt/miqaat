@@ -85,7 +85,9 @@ class ApprovedSalahRebuildTest : ComposeSupport() {
                 if (dev == Dev.TABLET_LANDSCAPE) inside("lesson-posture")
                 noOverflow("lesson-arabic")
                 render("posture__${posture.name.lowercase()}__${theme.name.lowercase()}__${dev.label}__100__top")
-                rule.onNodeWithText(actions.first { it.posture == posture }.cue).performScrollTo().assertIsDisplayed()
+                val cue = rule.onNodeWithText(actions.first { it.posture == posture }.cue)
+                if (dev != Dev.TABLET_LANDSCAPE) cue.performScrollTo()
+                cue.assertIsDisplayed()
                 if (posture == Learn.Posture.SALAM) {
                     rule.onNodeWithText(Str[R.string.learn_salam_right]).assertIsDisplayed()
                     rule.onNodeWithText(Str[R.string.learn_salam_left]).assertIsDisplayed()
