@@ -44,6 +44,16 @@ class DetailedGalleryAcceptanceTest : ComposeSupport() {
                     bitmap.recycle()
                 }
                 val root = rule.onRoot().fetchSemanticsNode().boundsInRoot
+                val fit = rule.onNodeWithTag("gallery-phone-fit", true).fetchSemanticsNode()
+                assertTrue("Normal phone home must not scroll",
+                    fit.config.getOrNull(androidx.compose.ui.semantics.SemanticsActions.ScrollBy) == null)
+                val footer = rule.onNodeWithTag("gallery-phone-footer", true).fetchSemanticsNode().boundsInRoot
+                assertTrue("Footer must fit the viewport: $footer / $root", footer.bottom <= root.bottom)
+                for (prayer in listOf(Prayer.FAJR, Prayer.SUNRISE, Prayer.DHUHR, Prayer.ASR, Prayer.MAGHRIB, Prayer.ISHA)) {
+                    val row = rule.onNodeWithTag("gallery-fit-row-${prayer.name}", true).fetchSemanticsNode().boundsInRoot
+                    assertTrue("Prayer row outside viewport: $prayer / $row", row.top >= root.top && row.bottom <= footer.top)
+                    assertTrue("Prayer row smaller than a touch target: $prayer / $row", row.height >= 48f * app.resources.displayMetrics.density)
+                }
                 val name = rule.onNodeWithTag("gallery-mobile-prayer-name", true).fetchSemanticsNode().boundsInRoot
                 val time = rule.onNodeWithTag("gallery-mobile-prayer-time", true).fetchSemanticsNode().boundsInRoot
                 assertTrue("Prayer and time must occupy the same line", name.top < time.bottom && time.top < name.bottom)

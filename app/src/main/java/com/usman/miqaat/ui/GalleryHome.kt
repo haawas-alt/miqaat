@@ -328,6 +328,10 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
     val barU: Dp = if (roomy) u * 0.62f else maxOf(u * 0.62f, 7.5.dp)
     val railU: Dp = if (roomy) u * 0.5f else maxOf(u * 0.5f, 8.dp)
     val compactPhone = w < 600.dp && w >= 340.dp && LocalDensity.current.fontScale <= 1.15f
+    if (compactPhone) {
+        GalleryPhoneFit(state, s, a, tk, hero, doorList, F, urdu, onWhy)
+        return
+    }
     val body: @Composable ColumnScope.() -> Unit = {
         GalleryHeader(s, a, tk, barU, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp))
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
@@ -426,6 +430,132 @@ private fun GalleryCompactHero(hero: HeroInfo, state: PrayerState, s: AppSetting
         }
         tarawihLine(state, s)?.let {
             Text(it, fontFamily = F, fontSize = 12.sp, color = tk.primary, modifier = Modifier.padding(top = 4.dp), maxLines = 3)
+        }
+    }
+}
+
+
+/** Normal-size phone home budgets the prayer list from the usable viewport, after system insets.
+ * Large text keeps the flowing layout above; no text or touch target is scaled down.
+ */
+@Composable
+private fun GalleryPhoneFit(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens,
+    hero: HeroInfo, doorList: List<Door>, F: FontFamily, urdu: Boolean, onWhy: (Prayer) -> Unit) {
+    Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().navigationBarsPadding()
+        .testTag("gallery-phone-fit")) {
+        GalleryHeader(s, a, tk, 7.5.dp, F, urdu,
+            Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 2.dp))
+        GalleryDate(state, s, tk, 6.dp, F, urdu, Modifier.fillMaxWidth())
+        Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp)
+            .testTag("gallery-mobile-hero").semantics(mergeDescendants = true) {
+                contentDescription = hero.spoken; heading()
+            }) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Text(hero.special ?: hero.kickerLabel, fontFamily = F, fontSize = 11.sp,
+                    color = tk.contentSecondary, maxLines = 1, modifier = Modifier.weight(1f))
+                Text(hero.suffix, fontFamily = F, fontSize = 12.sp, color = tk.contentSecondary, maxLines = 1)
+            }
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Text(hero.label, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium,
+                    fontSize = if (urdu) 30.sp else 38.sp, lineHeight = if (urdu) 54.sp else 46.sp,
+                    color = tk.contentPrimary, maxLines = 1,
+                    modifier = Modifier.weight(1f).alignByBaseline().testTag("gallery-mobile-prayer-name"))
+                Spacer(Modifier.width(12.dp))
+                Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium,
+                    fontSize = 44.sp, lineHeight = 56.sp, color = tk.contentPrimary, maxLines = 1,
+                    softWrap = true, textAlign = TextAlign.End,
+                    modifier = Modifier.width(120.dp).alignByBaseline().testTag("gallery-mobile-prayer-time"))
+            }
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                if (!urdu) {
+                    Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = 20.sp, color = tk.accent)
+                    Spacer(Modifier.width(12.dp))
+                }
+                Text(hero.status, fontFamily = F, fontSize = 12.sp, color = tk.contentPrimary,
+                    maxLines = 1, modifier = Modifier.weight(1f))
+                Box(Modifier.size(48.dp).clip(CircleShape).background(tk.primary)
+                    .clickable(onClick = { onWhy(hero.prayer) }, role = Role.Button)
+                    .semantics { contentDescription = Str[R.string.s_view_prayer_details] },
+                    contentAlignment = Alignment.Center) {
+                    Icon(Icons.Outlined.Info, null, Modifier.size(24.dp), tint = tk.onPrimary)
+                }
+            }
+            fastProgress(state, s)?.let { (fraction, label) ->
+                Box(Modifier.fillMaxWidth().height(3.dp).background(tk.divider)) {
+                    Box(Modifier.fillMaxWidth(fraction).fillMaxHeight().background(tk.primary))
+                }
+                Text(label, fontFamily = F, fontSize = 12.sp, color = tk.primary, maxLines = 1)
+            }
+            tarawihLine(state, s)?.let {
+                Text(it, fontFamily = F, fontSize = 12.sp, color = tk.primary, maxLines = 1)
+            }
+        }
+        val shown = listedPrayers(s)
+        Column(Modifier.weight(1f).fillMaxWidth().testTag("gallery-phone-prayers")) {
+            shown.forEach { p ->
+                val r = rowInfo(p, state, s)
+                val selected = r.isNow || r.isNext
+                val ink = if (selected) tk.primary else tk.contentPrimary
+                GalleryPhoneFitRow(r, s, tk, F, urdu, ink, selected, a.onToggleRelative,
+                    { onWhy(p) }, Modifier.weight(1f).testTag("gallery-fit-row-${p.name}"))
+                Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
+            }
+        }
+        Row(Modifier.fillMaxWidth().testTag("gallery-phone-footer").padding(horizontal = 12.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            doorList.forEach { d ->
+                Row(Modifier.weight(1f).heightIn(min = 48.dp).clip(RoundedCornerShape(24.dp))
+                    .then(if (d.onClick != null) Modifier.clickable(onClick = d.onClick, role = Role.Button) else Modifier)
+                    .padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Icon(if (d.warn) Icons.Outlined.NotificationsActive else Icons.Outlined.ChevronRight,
+                        null, Modifier.size(24.dp), tint = if (d.warn) tk.warning else tk.accent)
+                    Text(d.label, fontFamily = F, fontSize = 12.sp, color = tk.contentPrimary,
+                        maxLines = 1, modifier = Modifier.weight(1f))
+                }
+            }
+        }
+        if (s.showDisliked) DayThread(s, state.today, state.now,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 2.dp),
+            labelSize = 9.sp, fullNames = false, gnomon = true)
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: FontFamily,
+    urdu: Boolean, ink: Color, selected: Boolean, onToggle: () -> Unit, onWhy: () -> Unit,
+    modifier: Modifier) {
+    Row(modifier.fillMaxWidth().background(if (selected) tk.surface else Color.Transparent)
+        .combinedClickable(onClick = onToggle, onLongClick = onWhy, role = Role.Button)
+        .semantics(mergeDescendants = true) { contentDescription = r.spoken },
+        verticalAlignment = Alignment.CenterVertically) {
+        Box(Modifier.width(4.dp).fillMaxHeight().background(if (selected) tk.primary else Color.Transparent))
+        PrayerCardArt(r.prayer, Modifier.padding(horizontal = 8.dp).size(52.dp)
+            .clip(RoundedCornerShape(10.dp)).clearAndSetSemantics { })
+        Column(Modifier.weight(1f)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(r.label, fontFamily = if (urdu) F else Cormorant,
+                    fontSize = if (urdu) 22.sp else 24.sp, color = ink, maxLines = 1,
+                    fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium)
+                if (!urdu) Text("  ${r.arabic}", fontFamily = tk.fontArabic, fontSize = 16.sp,
+                    color = tk.accent, maxLines = 1)
+                if (selected) Icon(if (r.isNow) Icons.Outlined.Schedule else Icons.Outlined.ChevronRight,
+                    null, Modifier.size(16.dp), tint = ink)
+            }
+            Text(r.small, fontFamily = F, fontSize = 12.sp, color = tk.contentSecondary, maxLines = 1)
+        }
+        Column(horizontalAlignment = Alignment.End) {
+            Text(if (s.showRelative) r.relative else r.clock,
+                fontFamily = if (s.showRelative) F else tk.fontDisplay,
+                fontSize = if (s.showRelative) 16.sp else 30.sp, fontWeight = FontWeight.Medium,
+                color = ink, maxLines = 1)
+            if (!s.showRelative) Text(r.suffix, fontFamily = F, fontSize = 11.sp,
+                color = tk.contentSecondary, maxLines = 1)
+        }
+        Box(Modifier.size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = Role.Button)
+            .semantics { contentDescription = Str[R.string.s_why_this_time] },
+            contentAlignment = Alignment.Center) {
+            Icon(Icons.Outlined.Info, null, Modifier.size(20.dp), tint = tk.contentMuted)
         }
     }
 }
