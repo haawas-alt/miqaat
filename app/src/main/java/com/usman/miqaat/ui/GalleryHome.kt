@@ -403,7 +403,7 @@ private fun GalleryCompactHero(hero: HeroInfo, state: PrayerState, s: AppSetting
                 modifier = Modifier.weight(1f).alignByBaseline().testTag("gallery-mobile-prayer-name"))
             Spacer(Modifier.width(12.dp))
             Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium,
-                fontSize = 44.sp, lineHeight = 56.sp, color = tk.contentPrimary, maxLines = 1, softWrap = false, textAlign = TextAlign.End,
+                fontSize = 44.sp, lineHeight = 56.sp, color = tk.contentPrimary, maxLines = 1, softWrap = true, textAlign = TextAlign.End,
                 modifier = Modifier.widthIn(min = 120.dp).alignByBaseline().testTag("gallery-mobile-prayer-time"))
         }
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
