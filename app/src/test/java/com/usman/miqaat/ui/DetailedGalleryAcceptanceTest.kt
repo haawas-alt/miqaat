@@ -58,7 +58,7 @@ class DetailedGalleryAcceptanceTest : ComposeSupport() {
                     val layouts = mutableListOf<TextLayoutResult>()
                     rule.onNodeWithTag(tag, true).fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
                     assertTrue("Missing layout for $tag", layouts.isNotEmpty())
-                    layouts.forEach { assertFalse("$tag overflow; urdu=$urdu hour=$hour; text=${it.layoutInput.text}; size=${it.size}; constraints=${it.layoutInput.constraints}; width=${it.didOverflowWidth}; height=${it.didOverflowHeight}", it.didOverflowWidth || it.didOverflowHeight) }
+                    layouts.forEach { assertFalse("$tag overflow; urdu=$urdu hour=$hour; text=${it.layoutInput.text}; size=${it.size}; constraints=${it.layoutInput.constraints}; paragraph=${it.multiParagraph.width} x ${it.multiParagraph.height}; width=${it.didOverflowWidth}; height=${it.didOverflowHeight}", it.didOverflowWidth || it.didOverflowHeight) }
                 }
             } finally { runCatching { scenario.close() } }
         }
