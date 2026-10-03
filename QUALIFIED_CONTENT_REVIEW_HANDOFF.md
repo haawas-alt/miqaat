@@ -1,11 +1,11 @@
-# Content review handoff — rebuilt candidate 3903c60b5ffcab8645fcb176282c962cfda71bc6
+# Content review handoff — rebuilt candidate 3e6ae9236f0b9425b757d55f23109b3b5b6ea85e
 
 Status: **not qualified scholarly approval**. This is source triage and a review queue.
 A named qualified Sunni reviewer and fluent Urdu proofreader must review the actual candidate text
 and posture images, record corrections, and sign off the content revision.
 Earlier AI-assisted documents and owner-reported partial reviews do not certify the new Urdu wording.
 
-Files: app/src/main/java/com/usman/miqaat/data/Adhkar.kt, UrduContent.kt, Learn.kt, DailyDhikrProgress.kt, values/learn_rebuild.xml, values-ur/learn_rebuild.xml and app/src/main/res/drawable/learn_pose_*.xml. All posture drawings are independently rebuilt; previous approvals do not cover them. Arabic recitation strings were preserved, but source attribution, Urdu guidance, summary labels and counter behavior changed.
+Files: app/src/main/java/com/usman/miqaat/data/Adhkar.kt, UrduContent.kt, Learn.kt, DailyDhikrProgress.kt, values/learn_rebuild.xml, values-ur/learn_rebuild.xml and app/src/main/res/drawable-nodpi/learn_figure_*.webp. All posture illustrations are independently rebuilt; previous approvals do not cover them. Arabic recitation strings were preserved, but source attribution, Urdu guidance, summary labels and counter behavior changed.
 
 The tashahhud index is now on the worshipper's anatomical right (viewer-left). Salam has separate right and left head-turn drawings, not an RTL-mirrored single view. Confirm those views, limb/contact geometry and valid school variations against the exact candidate.
 
@@ -90,3 +90,7 @@ do not constitute pedagogical approval.
 - Approval of all24 dhikr entries,12 lesson text groups and8 posture illustrations.
 - Explicit exclusions and any further reviewer required.
 - Written approval retained with the release evidence; do not convert a partial review into complete approval.
+
+
+## 1.86-detail review update
+Detailed original adult artwork replaces the rejected1.85outline vectors. All8posture classes and both salam head turns are included; frontal seated views partly obscure the left foot and require qualified anatomy/school review. The owner has not approved this new realistic treatment. Urdu explanatory notes still use an explicitly labelled English fallback. The18-page religious/Urdu PDF includes exact draft meanings/descriptions and a named-reviewer sign-off queue; it is not a qualification certificate. Final technical evidence and remaining gates: docs/DETAILED_SALAH_RELEASE_CHECKPOINT.md.

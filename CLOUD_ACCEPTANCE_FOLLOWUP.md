@@ -1,3 +1,5 @@
+> Superseded testing checkpoint: 1.86-detail is published. See [the current release checkpoint](docs/DETAILED_SALAH_RELEASE_CHECKPOINT.md) for exact source, downloads, final validation and remaining external gates. Older evidence below retains its original scope.
+
 > Superseded testing-download checkpoint: 1.85-salah (source 3903c60b5ffcab8645fcb176282c962cfda71bc6) is now published. See docs/APPROVED_SALAH_REBUILD.md for final validation, download links and remaining external acceptance gates. The older evidence below retains its original source scope.
 
 # Miqaat cloud acceptance follow-up — 2 October 2026

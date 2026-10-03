@@ -1,3 +1,5 @@
+> Superseded1.85testing checkpoint. The owner rejected these outline figures. [Current1.86detailed artwork and release evidence](DETAILED_SALAH_RELEASE_CHECKPOINT.md) supersede the artwork and downloads below; prior evidence retains its source scope.
+
 # Approved-reference Salah rebuild — 2 October 2026
 
 This supersedes the 1.84-audit Salah artwork. It does not supersede the original run-158 independent audit or claim production acceptance.

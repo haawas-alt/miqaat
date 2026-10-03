@@ -28,3 +28,13 @@ At normal system text on phones at least 340dp wide, prayer name and clock share
 The cloud acceptance suite renders actual Compose UI using native Robolectric graphics. It checks text overflow, reachable lesson content, navigation bounds, and the compact Gallery hero's separate name/time bounds. It captures all eight postures across all four themes and all four device/orientation targets, including top and cue scroll states. It does NOT assert anatomical validity or 99% fidelity.
 
 Final raw screenshot review and run IDs are recorded in the follow-up evidence document after cloud validation. No new paid emulator matrix is requested. Physical-device accessibility, signed upgrade on the owner's device, qualified Urdu/Islamic sign-off and Play Console account/pre-launch acceptance remain external gates.
+
+## Final layout corrections
+The mat now spans scene x8..592, keeping wide sujud and paired salam inside its borders. Figure ground positioning compensates for cropped scene backgrounds rather than using a constant inset. At normal phone landscape text scale, the whole posture panel remains fixed while the words column scrolls independently; the previous shared scrolling could cut off the head/feet.
+
+Normal compact Gallery phone Home no longer scales the entire page down. It keeps 48dp navigation targets, enlarged rows and a scrolling footer. The clock uses a fixed 120dp paragraph column, 44sp type and 56sp leading. EN/UR and four next-prayer states are checked separately; no overflow assertion was removed.
+
+## Review boundaries
+The supplied stock posture reference guides anatomy, while the newly generated adult figures remain a review candidate. They are not the earlier approved line-art mockup character. Owner approval of this new treatment and qualified review of seated-foot geometry/finger variants remain necessary. Urdu explanatory notes retain an explicitly labelled English fallback; complete Urdu notes translation is not claimed.
+
+All 128 normal-scale posture top captures (8 poses x4 themes x4 targets) were screened in matrices, with individual raw inspection of all eight Gallery phone-landscape poses and selected phone/tablet/theme views. Screening sheets do not count as full-resolution approval of every capture. Final provenance and technical test counts are recorded in docs/DETAILED_SALAH_RELEASE_CHECKPOINT.md.
