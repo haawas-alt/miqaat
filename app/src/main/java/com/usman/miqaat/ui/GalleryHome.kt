@@ -563,11 +563,11 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
         PrayerCardArt(r.prayer, Modifier.padding(horizontal = 8.dp).size(52.dp)
             .clip(RoundedCornerShape(10.dp)).clearAndSetSemantics { })
         Column(Modifier.weight(1f)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Text(r.label, fontFamily = if (urdu) tk.fontArabic else Cormorant,
                     fontSize = if (urdu) 20.sp else 24.sp,
                     style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)), color = ink, maxLines = 1,
-                    modifier = Modifier.testTag("gallery-fit-label-${r.prayer.name}"),
+                    modifier = Modifier.weight(1f).testTag("gallery-fit-label-${r.prayer.name}"),
                     fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium)
                 if (!urdu) Text("  ${r.arabic}", fontFamily = tk.fontArabic, fontSize = 16.sp,
                     color = tk.accent, maxLines = 1)
@@ -576,7 +576,7 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
             }
             Text(r.small, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp,
                 style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)), color = tk.contentSecondary, maxLines = 1,
-                modifier = Modifier.testTag("gallery-fit-detail-${r.prayer.name}"))
+                modifier = Modifier.fillMaxWidth().testTag("gallery-fit-detail-${r.prayer.name}"))
         }
         Column(horizontalAlignment = Alignment.End) {
             Text(if (s.showRelative) r.relative else r.clock,
