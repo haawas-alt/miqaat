@@ -401,6 +401,7 @@ private fun GalleryCompactHero(hero: HeroInfo, state: PrayerState, s: AppSetting
             Text(hero.label, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium,
                 fontSize = if (urdu) 30.sp else 38.sp, color = tk.contentPrimary, maxLines = 1,
                 modifier = Modifier.weight(1f).alignByBaseline().testTag("gallery-mobile-prayer-name"))
+            Spacer(Modifier.width(12.dp))
             Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium,
                 fontSize = 44.sp, color = tk.contentPrimary, maxLines = 1,
                 modifier = Modifier.alignByBaseline().testTag("gallery-mobile-prayer-time"))
