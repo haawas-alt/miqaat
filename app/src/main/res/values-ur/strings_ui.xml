@@ -325,12 +325,12 @@
     <string name="s_compass_accuracy_medium_about_5">کمپاس کی درستگی درمیانی (تقریباً ±5°)</string>
     <string name="s_compass_accuracy_high">کمپاس کی درستگی زیادہ</string>
     <string name="s_qibla">قبلہ</string>
-    <string name="s_no_compass_sensor_face_the_phone">کمپاس سینسر نہیں: فون کا اوپری کنارہ شمال کی طرف کریں اور سنہری سوئی دیکھیں۔</string>
+    <string name="s_no_compass_sensor_face_the_phone">کمپاس سینسر نہیں: فون کا اوپری کنارہ شمال کی طرف کریں اور قبلے کی سوئی دیکھیں۔</string>
     <string name="s_move_the_phone_in_a_figure">فون کو اسپیکر، مقناطیس اور دھات سے دور آٹھ کی شکل میں گھمائیں جب تک درستگی بہتر نہ ہو۔</string>
-    <string name="s_hold_the_phone_flat_and_turn">فون کو سیدھا رکھیں اور گھومیں جب تک سنہری سوئی اوپر کی طرف نہ ہو۔</string>
-    <string name="s_this_tablet_has_no_compass_sensor">اس ڈیوائس میں کمپاس سینسر نہیں۔ اسے سیدھا رکھیں، اوپری کنارہ حقیقی شمال کی طرف (فون کا کمپاس یا نقشہ مدد دے گا)، اور سنہری سوئی قبلہ دکھائے گی۔</string>
+    <string name="s_hold_the_phone_flat_and_turn">فون کو سیدھا رکھیں اور گھومیں جب تک قبلے کی سوئی اوپر کی طرف نہ ہو۔</string>
+    <string name="s_this_tablet_has_no_compass_sensor">اس ڈیوائس میں کمپاس سینسر نہیں۔ اسے سیدھا رکھیں، اوپری کنارہ حقیقی شمال کی طرف (فون کا کمپاس یا نقشہ مدد دے گا)، اور قبلے کی سوئی قبلہ دکھائے گی۔</string>
     <string name="s_compass_needs_calibrating_move_the_tablet">کمپاس کو کیلیبریشن چاہیے: ڈیوائس کو اسپیکر، مقناطیس اور دھات سے دور چند بار آٹھ کی شکل میں گھمائیں۔ درستگی بہتر ہونے تک سوئی کو تخمینی سمجھیں۔</string>
-    <string name="s_lay_the_tablet_flat_turn_until">ڈیوائس کو سیدھا رکھیں۔ گھومیں جب تک سنہری سوئی بالکل اوپر نہ ہو، تب آپ کا رخ کعبہ کی طرف ہے۔ پہلی بار نقشے یا اپنی مسجد سے تصدیق کریں۔</string>
+    <string name="s_lay_the_tablet_flat_turn_until">ڈیوائس کو سیدھا رکھیں۔ گھومیں جب تک قبلے کی سوئی بالکل اوپر نہ ہو، تب آپ کا رخ کعبہ کی طرف ہے۔ پہلی بار نقشے یا اپنی مسجد سے تصدیق کریں۔</string>
     <string name="s_calculated_from">حساب کی بنیاد</string>
     <string name="s_source">ماخذ</string>
     <string name="s_calculated_on_this_device">اس ڈیوائس پر حساب شدہ</string>
@@ -630,4 +630,6 @@
     <string name="s_rakah_n">رکعت %1$d</string>
     <string name="s_friday_masjid_azaan">آپ کی مسجد میں جمعہ: اذان %1$s</string>
     <string name="s_friday_masjid_iqamah"> · اقامت %1$s</string>
+    <string name="s_debug_updates_disabled">اس ڈیبگ آزمائشی نسخے میں خودکار اپ ڈیٹس بند ہیں۔ دستخط شدہ آزمائشی نسخہ الگ نصب کریں۔</string>
+    <string name="s_testing_build">آزمائشی نسخہ</string>
 </resources>

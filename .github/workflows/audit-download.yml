@@ -1,0 +1,111 @@
+name: Publish checked signed APK test download
+on:
+  push:
+    branches: ['fix/run158-audit-remediation']
+    paths: ['.github/workflows/audit-download.yml']
+permissions:
+  contents: write
+  actions: read
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require successful validation for the exact candidate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, subprocess
+          source = "7f25a976c94f937e130f6cc48831e0947001a391"
+          for run in (37137386752, 37137386623):
+              data = json.loads(subprocess.check_output(["gh", "api", f"repos/haawas-alt/miqaat/actions/runs/{run}"]))
+              assert data["head_sha"] == source and data["conclusion"] == "success", f"Validation gate not met: {run}"
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 37137386752
+          name: signed-candidate-37137386752
+          path: validated
+      - name: Verify exact signed candidate and layout/counter regressions
+        run: |
+          set -euo pipefail
+          cd validated
+          sha256sum -c candidate/SHA256SUMS
+          grep -q 'commit=7f25a976c94f937e130f6cc48831e0947001a391' candidate/PROVENANCE.txt
+          grep -q '6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01' candidate/github-signature.txt
+          echo '52265822e547cfe4ad134aaa77b965398582d65257375be64168cd4f830c2423  candidate/Miqaat.apk' | sha256sum -c -
+          python3 - <<'PY'
+          import pathlib, xml.etree.ElementTree as ET, json
+          files = list(pathlib.Path(".").rglob("TEST-com.usman.miqaat.ui.SettingsBackAcceptanceTest.xml"))
+          assert files, "Missing corrected Settings regression evidence"
+          for path in files:
+              root = ET.parse(path).getroot()
+              assert root.get("tests") == "2"
+              assert all(root.get(k, "0") == "0" for k in ("failures", "errors", "skipped"))
+          for suite, count in (("ApprovedSalahRebuildTest", "3"), ("DailyDhikrProgressTest", "3"), ("DetailedGalleryAcceptanceTest", "1")):
+              suites = [p for p in pathlib.Path(".").rglob("TEST-*.xml") if p.name.endswith("." + suite + ".xml")]
+              assert suites, f"Missing {suite} evidence"
+              for path in suites:
+                  root = ET.parse(path).getroot()
+                  assert root.get("tests") == count
+                  assert all(root.get(k, "0") == "0" for k in ("failures", "errors", "skipped"))
+          reports = json.loads(pathlib.Path("candidate/native-page-alignment.json").read_text())
+          assert len(reports) == 2 and all(r["result"] == "PASS" for r in reports)
+          PY
+          cp candidate/Miqaat.apk ../Miqaat-1.87-fit.apk
+          cp candidate/Miqaat-play.aab ../Miqaat-1.87-fit-play.aab
+          cp candidate/PROVENANCE.txt ../Miqaat-1.87-fit-PROVENANCE.txt
+          cd ..
+          sha256sum Miqaat-1.87-fit.apk > Miqaat-1.87-fit.apk.sha256
+          sha256sum Miqaat-1.87-fit-play.aab > Miqaat-1.87-fit-play.aab.sha256
+          cat >> Miqaat-1.87-fit-PROVENANCE.txt <<'TXT'
+          Native runtime: source68ef915cf155f5bde7c4a2f82f107d107a292ff1; run36982213209; two native tests pass on API33/4KB and API35/16KB. Overall run failed other assertions.
+          Raw phone evidence: sourceb4737afab4b928a3509e79a635e5e5fbb1cb8232; run36984122910; all216 captures pass strict inventory; overall run failed a case-sensitive Settings heading assertion.
+          That assertion is corrected and the complete back/scroll contract passes both native JVM phone layouts; final Android assertion correction was compiled, not rerun.
+          Detailed original Salah artwork, mat alignment, landscape posture panels and viewport-fitted Gallery phone Home (including inset-space, row clipping and name/time gap checks): source7f25a976c94f937e130f6cc48831e0947001a391; audit37137386623 and signed37137386752. Native JVM rendered evidence; no fresh physical-device or emulator acceptance claimed.
+          The complete earlier approved ZIP remains unretrieved. Qualified Urdu/Islamic approval of the new artwork, physical accessibility/OEM acceptance and Play Console approval remain pending.
+          This existing testing release tag predates the candidate source; use this provenance and asset hashes, not the tag commit, to identify the build.
+          TXT
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 37137386623
+          name: audit-fix-validation-37137386623
+          path: validated-ui
+      - name: Package raw Gallery posture and Home review evidence
+        run: |
+          python3 - <<'PY'
+          import pathlib, zipfile, hashlib, json
+          import struct
+          root = pathlib.Path("validated-ui/audit-screens")
+          all_images = sorted(root.rglob("*.png"))
+          assert len(all_images) == 648, f"Incomplete final capture set: {len(all_images)}"
+          themes = ("miqaat", "kiswah", "celestial_meridian", "prayer_gallery")
+          devs = ("phone-portrait", "phone-landscape", "tablet-portrait", "tablet-landscape")
+          poses = ("takbir", "standing", "bowing", "rising", "prostrating", "sitting", "tashahhud", "salam")
+          for theme in themes:
+              for dev in devs:
+                  for pose in poses:
+                      for state in ("top", "cue"):
+                          assert (root / "approved-salah" / f"posture__{pose}__{theme}__{dev}__100__{state}.png").exists()
+          gallery = sorted(root.glob("approved-salah/posture__*__prayer_gallery__*__100__top.png"))
+          home = sorted(root.glob("detailed-gallery/home__*.png"))
+          assert len(gallery) == 32 and len(home) == 16
+          records = []
+          with zipfile.ZipFile("Miqaat-1.87-fit-review.zip", "w", zipfile.ZIP_DEFLATED) as out:
+              for path in gallery + home:
+                  name = path.relative_to(root).as_posix()
+                  size = list(struct.unpack(">II", path.read_bytes()[16:24]))
+                  records.append({"path": name, "dimensions": size, "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
+                  out.write(path, name)
+              out.writestr("PROVENANCE.json", json.dumps({"source": "7f25a976c94f937e130f6cc48831e0947001a391", "audit_run": 37137386623, "scope": "32 raw Gallery posture captures across all four targets plus 16 EN/UR mobile Home states, including a 360dp phone with reserved system-bar space; full 648 captures remain in Actions", "images": records}, indent=2))
+          PY
+          sha256sum Miqaat-1.87-fit-review.zip > Miqaat-1.87-fit-review.zip.sha256
+      - name: Attach exact artifacts to existing testing release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          gh release upload audit-fixes-3895c823 Miqaat-1.87-fit.apk Miqaat-1.87-fit.apk.sha256 Miqaat-1.87-fit-play.aab Miqaat-1.87-fit-play.aab.sha256 Miqaat-1.87-fit-PROVENANCE.txt Miqaat-1.87-fit-review.zip Miqaat-1.87-fit-review.zip.sha256 --repo haawas-alt/miqaat --clobber

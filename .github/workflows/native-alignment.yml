@@ -1,0 +1,30 @@
+name: Native alignment investigation
+on:
+  push:
+    branches: ['fix/run158-audit-remediation']
+    paths: ['tools/investigate_native_alignment.py', '.github/workflows/native-alignment.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install pinned NDK
+        run: |
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | sort -V | tail -1)"
+          "$SDKMANAGER" "ndk;28.2.13676358"
+      - name: Rebuild all four ABIs and assert LOAD and RELRO alignment
+        run: python3 tools/investigate_native_alignment.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-alignment-investigation-${{ github.run_id }}
+          path: native-investigation/
+          if-no-files-found: error

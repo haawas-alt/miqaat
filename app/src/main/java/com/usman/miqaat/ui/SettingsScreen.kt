@@ -76,6 +76,7 @@ import com.usman.miqaat.R
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import androidx.compose.ui.text.font.FontWeight
@@ -175,6 +176,8 @@ private fun SectionBody(section: Section, store: SettingsStore, settings: AppSet
 fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section? = null, onBack: () -> Unit) {
     val tk = screenTokens()
     val ctx = LocalContext.current
+    val landingScroll = rememberSaveable(saver = ScrollState.Saver) { ScrollState(0) }
+    val landingScope = rememberCoroutineScope()
     var section by rememberSaveable { mutableStateOf(initial ?: Section.LOCATION) }
     var detailOpen by rememberSaveable { mutableStateOf(initial != null) }
     var direct by rememberSaveable { mutableStateOf(initial != null) }   // arrived by deep link: back leaves Settings
@@ -188,16 +191,17 @@ fun SettingsScreen(store: SettingsStore, settings: AppSettings, initial: Section
     val results = remember(query, index) { SettingsIndex.search(index, query) }
     val readiness = rememberReadiness(settings)
     val version = remember { runCatching { ctx.packageManager.getPackageInfo(ctx.packageName, 0).versionName }.getOrNull() ?: "" }
+    fun backToLanding() { detailOpen = false; landingScope.launch { landingScroll.scrollTo(0) } }
     fun open(sec: Section, focus: String? = null) { section = sec; focusTitle = focus; detailOpen = true; direct = false; query = "" }
 
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
-        val compact = maxWidth < Breakpoints.settingsRail
+        val compact = maxWidth < Breakpoints.settingsRail || maxHeight < 500.dp
         androidx.activity.compose.BackHandler(enabled = compact && (detailOpen || query.isNotEmpty())) {
-            if (query.isNotEmpty()) query = "" else if (direct) onBack() else detailOpen = false
+            if (query.isNotEmpty()) query = "" else if (direct) onBack() else backToLanding()
         }
         if (compact) {
-            if (!detailOpen) SettingsLanding(settings, readiness, query, { query = it }, results, version, onBack, ::open)
-            else SettingsDetailPhone(section, store, settings, focusTitle, { if (direct) onBack() else detailOpen = false })
+            if (!detailOpen) SettingsLanding(settings, readiness, landingScroll, query, { query = it }, results, version, onBack, ::open)
+            else SettingsDetailPhone(section, store, settings, focusTitle, { if (direct) onBack() else backToLanding() })
         } else {
             SettingsTablet(section, store, settings, readiness, query, { query = it }, results, focusTitle, onBack, ::open)
         }
@@ -227,14 +231,13 @@ private fun SearchResults(query: String, results: List<SettingEntry>, onPick: (S
 
 @Composable
 private fun SettingsLanding(
-    s: AppSettings, readiness: ReadinessState, query: String, onQuery: (String) -> Unit, results: List<SettingEntry>, version: String,
+    s: AppSettings, readiness: ReadinessState, landingScroll: ScrollState, query: String, onQuery: (String) -> Unit, results: List<SettingEntry>, version: String,
     onBack: () -> Unit, open: (Section, String?) -> Unit
 ) {
     val tk = screenTokens()
-    val landingScroll = rememberSaveable(query.isBlank(), saver = ScrollState.Saver) { ScrollState(0) }
     Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding()) {
         SettingsTopBar(Str[R.string.s_settings], onBack)
-        Column(Modifier.weight(1f).verticalScroll(landingScroll).padding(horizontal = Space.l).padding(top = Space.s, bottom = Space.xl).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(Space.l)) {
+        Column(Modifier.weight(1f).testTag("settings-landing-scroll").verticalScroll(landingScroll).padding(horizontal = Space.l).padding(top = Space.s, bottom = Space.xl).navigationBarsPadding(), verticalArrangement = Arrangement.spacedBy(Space.l)) {
             MiqSearchField(query, onQuery, Str[R.string.s_settings_search_hint], Str[R.string.s_settings_search_clear])
             if (query.isNotBlank()) SearchResults(query, results) { open(it.section, if (it.isDestination) null else it.title) }
             else {
@@ -844,10 +847,11 @@ private fun AboutSection(s: AppSettings) {
     androidx.lifecycle.compose.LifecycleResumeEffect(Unit) { tick++; onPauseOrDispose { } }
     val canInstall = remember(tick) { Updater.canInstall(ctx) }
     Heading(Str[R.string.s_about_miqaat], Str[R.string.s_an_appointed_time])
-    Text(Str.get(R.string.s_version_line, Updater.currentName, Updater.currentBuild, Str[if (Updater.enabled) R.string.s_direct_download_edition else R.string.s_google_play_edition]), fontFamily = Nunito, fontSize = 15.sp, color = tk.accent)
+    Text(Str.get(R.string.s_version_line, Updater.currentName, Updater.currentBuild, Str[if (com.usman.miqaat.BuildConfig.SELF_UPDATE) R.string.s_direct_download_edition else R.string.s_google_play_edition]), fontFamily = Nunito, fontSize = 15.sp, color = tk.accent)
     Text(Str.get(R.string.s_built_from_commit, com.usman.miqaat.BuildConfig.GIT_SHA.take(12), com.usman.miqaat.BuildConfig.BUILD_TAG), fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary, lineHeight = 18.sp)
     Spacer(Modifier.height(10.dp))
-    if (!Updater.enabled) SettingRow(Str[R.string.s_updates], Str[R.string.s_this_edition_is_updated_by_google]) { Value(Str[R.string.s_play]) }
+    if (com.usman.miqaat.BuildConfig.DEBUG && com.usman.miqaat.BuildConfig.SELF_UPDATE) SettingRow(Str[R.string.s_updates], Str[R.string.s_debug_updates_disabled]) { Value(Str[R.string.s_testing_build]) }
+    else if (!com.usman.miqaat.BuildConfig.SELF_UPDATE) SettingRow(Str[R.string.s_updates], Str[R.string.s_this_edition_is_updated_by_google]) { Value(Str[R.string.s_play]) }
     else when (val u = up) {
         is Updater.State.Available -> {
             SettingRow(Str.get(R.string.s_update_available_version, u.info.versionName), if (canInstall) Str[R.string.s_downloads_from_github_and_opens_the] else Str[R.string.s_first_allow_miqaat_to_install_updates]) {

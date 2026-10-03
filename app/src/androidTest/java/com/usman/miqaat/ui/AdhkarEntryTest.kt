@@ -23,6 +23,7 @@ import java.time.ZonedDateTime
  */
 @RunWith(AndroidJUnit4::class)
 class AdhkarEntryTest {
+    @org.junit.Before fun enforceOrientation() = enforceAuditOrientation()
     @get:Rule val rule = createComposeRule()
     private val app get() = ApplicationProvider.getApplicationContext<Application>() as MiqaatApp
 

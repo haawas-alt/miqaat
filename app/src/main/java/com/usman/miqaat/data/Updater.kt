@@ -27,8 +27,8 @@ import java.net.URL
  * signing certificate differs from the installed app's.
  */
 object Updater {
-    data class Info(val build: Int, val apkUrl: String, val versionName: String, val sha256Url: String, val commit: String)
-    val enabled: Boolean get() = BuildConfig.SELF_UPDATE
+    data class Info(val build: Int, val apkUrl: String, val versionName: String, val sha256Url: String, val commit: String, val versionCode: Int = 100 + build)
+    val enabled: Boolean get() = UpdatePolicy.selfUpdateEnabled(BuildConfig.SELF_UPDATE, BuildConfig.DEBUG)
 
     sealed class State {
         object Idle : State()
@@ -44,7 +44,7 @@ object Updater {
     val state: StateFlow<State> = _state
     private const val PREFS = "miqaat_updater"
 
-    val currentBuild: Int get() = BuildConfig.VERSION_CODE - 100
+    val currentBuild: Int get() = BuildConfig.BUILD_NUMBER
     val currentName: String get() = BuildConfig.VERSION_NAME
 
     suspend fun check(ctx: Context, force: Boolean = false) {
@@ -70,7 +70,7 @@ object Updater {
                     if (name.endsWith(".apk")) url = a.getString("browser_download_url")
                     if (name.endsWith(".sha256")) sha = a.getString("browser_download_url")
                 }
-                Info(build, url, "1.$build", sha, commit)
+                Info(build, url, "1.$build", sha, commit, UpdatePolicy.releaseVersionCode(body, build) ?: error("Invalid release version code"))
             }.getOrNull()
         }
         prefs.edit().putLong("lastCheck", System.currentTimeMillis()).apply()
@@ -78,7 +78,7 @@ object Updater {
             info == null -> State.Failed("Couldn't reach GitHub. Is the tablet online?")
             info.apkUrl.isEmpty() -> State.Failed("No APK in the latest release")
             info.sha256Url.isEmpty() -> State.Failed("Release has no checksum; not installing")
-            info.build > currentBuild -> State.Available(info)
+            info.versionCode > BuildConfig.VERSION_CODE -> State.Available(info)
             else -> State.UpToDate
         }
     }
@@ -92,6 +92,7 @@ object Updater {
     }
 
     fun download(ctx: Context, info: Info) {
+        if (!enabled) return
         val dir = File(ctx.getExternalFilesDir(null), "updates").apply { mkdirs() }
         val file = File(dir, "Miqaat-${info.build}.apk")
         if (file.exists()) { verifyThenInstall(ctx, info, file); return }
@@ -134,12 +135,32 @@ object Updater {
     }
 
     fun install(ctx: Context, file: File) {
+        if (!enabled) return
+        val problem = archiveProblem(ctx, file)
+        if (problem != null) { _state.value = State.Failed(problem); return }
         val uri = FileProvider.getUriForFile(ctx, "${ctx.packageName}.files", file)
         val i = Intent(Intent.ACTION_VIEW)
             .setDataAndType(uri, "application/vnd.android.package-archive")
             .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
         runCatching { ctx.startActivity(i) }.onFailure { _state.value = State.Failed("Couldn't open the installer") }
     }
+
+    /** Refuse mismatched signatures/downgrades before opening Android's otherwise vague installer. */
+    @Suppress("DEPRECATION")
+    private fun archiveProblem(ctx: Context, file: File): String? = runCatching {
+        val flags = if (Build.VERSION.SDK_INT >= 28) android.content.pm.PackageManager.GET_SIGNING_CERTIFICATES else android.content.pm.PackageManager.GET_SIGNATURES
+        val pm = ctx.packageManager
+        val installed = pm.getPackageInfo(ctx.packageName, flags)
+        val archive = pm.getPackageArchiveInfo(file.absolutePath, flags) ?: return@runCatching "Cannot read the downloaded APK; not installing"
+        fun signers(p: android.content.pm.PackageInfo): Set<String> {
+            val values = if (Build.VERSION.SDK_INT >= 28) p.signingInfo?.apkContentsSigners else p.signatures
+            return values.orEmpty().map { sig ->
+                java.security.MessageDigest.getInstance("SHA-256").digest(sig.toByteArray()).joinToString("") { "%02x".format(it) }
+            }.toSet()
+        }
+        val code = if (Build.VERSION.SDK_INT >= 28) archive.longVersionCode else archive.versionCode.toLong()
+        UpdatePolicy.archiveProblem(ctx.packageName, archive.packageName, BuildConfig.VERSION_CODE.toLong(), code, signers(installed), signers(archive))
+    }.getOrElse { "Cannot verify APK compatibility; not installing" }
 
     fun reset() { if (_state.value !is State.Downloading) _state.value = State.Idle }
 }

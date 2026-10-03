@@ -16,6 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -92,18 +93,18 @@ private fun CelestialWide(
     val ox = (bw - sc * 1585f) / 2; val oy = (bh - sc * 992f) / 2
     fun Modifier.at(x: Float, y: Float, w: Float, h: Float) = this.absoluteOffset(ox + sc * x, oy + sc * y).size(sc * w, sc * h)
     val u = sc * 13.8f
-    Box(Modifier.fillMaxSize()) {
+    Box(Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.AbsoluteAlignment.TopLeft) {
         ThemedArtwork(portrait = false, modifier = Modifier.at(0f, 0f, 1585f, 992f), scrim = 0f)
         Box(Modifier.at(0f, 0f, 1585f, 122f).background(tk.background.copy(alpha = 0.55f))) {
             CelestialTopBar(state, s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = sc * 60f))
         }
         Box(Modifier.at(0f, 121f, 1585f, 1.5f).background(tk.divider))
         SolarArc(Modifier.at(240f, 500f, 880f, 250f), state, s, tk)
-        Box(Modifier.at(130f, 150f, 500f, 410f)) {
+        Box(Modifier.at(130f, 150f, 500f, 410f).testTag("home-hero")) {
             FitHeight(Modifier.fillMaxSize()) { CelestialHero(hero, state, s, tk, u, F, urdu, Alignment.CenterHorizontally) }
         }
         if (s.showDisliked) DayThread(s, state.today, state.now, modifier = Modifier.at(140f, 780f, 900f, 90f), labelSize = (u.value * 1.05f).sp, fullNames = true, gnomon = true)
-        CelestialPanel(state, s, tk, u, F, urdu, onWhy, a, Modifier.at(1093f, 153f, 458f, 674f))
+        CelestialPanel(state, s, tk, u, F, urdu, onWhy, a, Modifier.at(1093f, 153f, 458f, 674f).testTag("home-prayers"))
         CelestialRail(doorList, tk, u, F, urdu, Modifier.at(0f, 892f, 1585f, 100f).background(tk.background.copy(alpha = 0.92f)).navigationBarsPadding().displayCutoutPadding().padding(horizontal = sc * 60f), spread = true)
     }
 }

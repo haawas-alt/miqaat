@@ -29,6 +29,7 @@ jobs:
         run: |
           if [ -z "$KEYSTORE_BASE64" ]; then echo "KEYSTORE_BASE64 secret is not set"; exit 1; fi
           mkdir -p keystore && echo "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
+          echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
 
       # Gates, in order: unit tests → lint (accessibility + correctness errors fail the build) →
       # release builds for both editions (github APK with updater, play AAB + APK without).
@@ -68,6 +69,7 @@ jobs:
           sha256sum Miqaat-play.aab | cut -d' ' -f1 > Miqaat-play.aab.sha256
           echo "SHA=$(cat Miqaat.apk.sha256)" >> $GITHUB_ENV
           echo "SHA_PLAY=$(cat Miqaat-play.aab.sha256)" >> $GITHUB_ENV
+          python3 -c 'import json; print(json.load(open("app/build/outputs/apk/github/release/output-metadata.json"))["elements"][0]["versionCode"])' > Miqaat.versionCode
           ls -la Miqaat*
           { echo "NOTES<<EOF"; git log -5 --pretty=format:'- %s'; echo; echo "EOF"; } >> $GITHUB_ENV
           mkdir -p reports && cp -r app/build/reports/lint-results* reports/ 2>/dev/null || true
@@ -80,114 +82,23 @@ jobs:
             Miqaat.apk
             Miqaat.apk.sha256
             Miqaat-play.apk
-            Miqaat-play.aab
-            Miqaat-play.aab.sha256
-            reports/
-
-      # Branch previews (four-themes): a pre-release under its own tag so the APK can be installed for testing.
-      # The in-app updater only reads the `latest` tag, so this never reaches anyone's updater.
-      - name: Publish branch preview APK (four-themes only)
-        if: github.ref == 'refs/heads/four-themes'
-        run: |
-          git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
-          git tag -f four-themes-preview "${{ github.sha }}"
-          git push -f origin four-themes-preview
-      - name: Branch preview release
-        if: github.ref == 'refs/heads/four-themes'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: four-themes-preview
-          name: Four-themes preview (build ${{ github.run_number }})
-          body: |
-            Preview of the four-theme work. build=${{ github.run_number }} commit=${{ github.sha }}
-            Not a release: the in-app updater ignores this tag.
-          files: |
-            Miqaat.apk
-            Miqaat.apk.sha256
-          prerelease: true
-          make_latest: false
-
-      # Immutable provenance: an annotated tag per build, at the exact commit that was built.
-      - name: Tag this build (main only)
-        if: github.ref == 'refs/heads/main'
-        run: |
-          git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
-          git tag -a "v1.${{ github.run_number }}" -m "Miqaat build ${{ github.run_number }} · sha256 ${{ env.SHA }}" "${{ github.sha }}"
-          git push origin "v1.${{ github.run_number }}"
-          # 'latest' is a moving pointer for the in-app updater; keep it on the commit that was actually built.
-          git tag -f latest "${{ github.sha }}"
-          git push -f origin latest
-
-      - name: Permanent release for this build (main only)
-        if: github.ref == 'refs/heads/main'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v1.${{ github.run_number }}
-          name: Miqaat 1.${{ github.run_number }}
-          body: |
-            build=${{ github.run_number }}
-            commit=${{ github.sha }}
-
-            **Direct-download edition** — `Miqaat.apk` (in-app updater, verifies this SHA-256 before installing): `${{ env.SHA }}`
-            **Google Play edition** — `Miqaat-play.aab` for the Play Console: `${{ env.SHA_PLAY }}`
-
-            **Recent changes**
-            ${{ env.NOTES }}
-
-            Built by GitHub Actions from the commit above · content register in ISLAMIC_REVIEW_PACK.md · remediation log in AUDIT_REMEDIATION.md
-          files: |
-            Miqaat.apk
-            Miqaat.apk.sha256
-            Miqaat-play.apk
             Miqaat-play.apk.sha256
             Miqaat-play.aab
             Miqaat-play.aab.sha256
-          prerelease: false
-
-      - name: Update the 'latest' pointer release (main only)
-        if: github.ref == 'refs/heads/main'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: latest
-          name: Miqaat (latest build)
-          body: |
-            build=${{ github.run_number }}
-            commit=${{ github.sha }}
-
-            Pointer to the newest build, used by the in-app updater. The permanent copy of this exact build is release `v1.${{ github.run_number }}`.
-
-            SHA-256 `${{ env.SHA }}` · built from `${{ github.sha }}` by GitHub Actions
-          files: |
-            Miqaat.apk
-            Miqaat.apk.sha256
-          prerelease: false
-
-      - name: Publish the stable backup (stable branch only)
-        if: github.ref == 'refs/heads/stable'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: stable
-          name: Miqaat (stable backup)
-          body: |
-            Backup of the stable branch. Install this if a newer build misbehaves.
-            commit=${{ github.sha }} · SHA-256 `${{ env.SHA }}`
-          files: |
-            Miqaat.apk
-            Miqaat.apk.sha256
-          prerelease: false
+            Miqaat.versionCode
+            reports/
 
   # Screenshots and UI regression tests on a real Android emulator (tablet and phone, both orientations), for the branch
-  # under review. Never blocks the APK. Each profile uploads its PNGs; the publish job pushes them to ci-screenshots.
+  # under review. Required for preview publication. Each profile uploads its PNGs; the publish job pushes them to ci-screenshots.
   emulator:
     if: github.ref == 'refs/heads/four-themes'
     runs-on: ubuntu-latest
-    continue-on-error: true
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
         # A tablet's natural orientation is landscape, a phone's is portrait; rotation 1 flips either. Each device is split
-        # into three groups of tests so the matrix finishes inside the time box.
+        # into four groups of tests so the matrix finishes inside the time box.
         include:
           - { name: tablet-landscape, group: a, profile: pixel_tablet, rotation: 0, tests: 'homes,homesUrdu,states' }
           - { name: tablet-landscape, group: b, profile: pixel_tablet, rotation: 0, tests: 'settingsLanding,settingsCategories' }
@@ -238,13 +149,12 @@ jobs:
         with:
           name: shots-${{ matrix.name }}-${{ matrix.group }}
           path: shots/
-          if-no-files-found: ignore
+          if-no-files-found: error
 
   publish-screens:
     needs: emulator
-    if: always() && github.ref == 'refs/heads/four-themes'
+    if: success() && github.ref == 'refs/heads/four-themes'
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -254,11 +164,124 @@ jobs:
       - name: Publish to ci-screenshots
         run: |
           git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
-          git checkout --orphan ci-screenshots
+          EVIDENCE_BRANCH="ci-screenshots/run-${{ github.run_number }}-attempt-${{ github.run_attempt }}-${GITHUB_SHA:0:12}"
+          git checkout --orphan "$EVIDENCE_BRANCH"
           git rm -rq --cached . || true
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} + || true
           mkdir -p shots && cp -r /tmp/shots/. shots/
           echo "run ${{ github.run_number }} commit ${{ github.sha }}" > shots/RUN.txt
           git add -A shots
           git commit -qm "screenshots ${{ github.run_number }} (${{ github.sha }})" || true
-          git push -f origin ci-screenshots
+          git push origin "HEAD:refs/heads/$EVIDENCE_BRANCH"
+
+  publish-build:
+    needs: [build, emulator]
+    if: always() && needs.build.result == 'success' && (needs.emulator.result == 'success' || (github.ref != 'refs/heads/four-themes' && needs.emulator.result == 'skipped'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          name: Miqaat-build-${{ github.run_number }}
+          path: .
+      - name: Restore artifact metadata
+        run: |
+          echo "VERSION_CODE=$(cat Miqaat.versionCode)" >> "$GITHUB_ENV"
+          echo "SHA=$(cat Miqaat.apk.sha256)" >> "$GITHUB_ENV"
+          echo "SHA_PLAY=$(cat Miqaat-play.aab.sha256)" >> "$GITHUB_ENV"
+          { echo "NOTES<<EOF"; git log -5 --pretty=format:'- %s'; echo; echo "EOF"; } >> "$GITHUB_ENV"
+      # Branch previews (four-themes): a pre-release under its own tag so the APK can be installed for testing.
+      # The in-app updater only reads the `latest` tag, so this never reaches anyone's updater.
+      - name: Publish branch preview APK (four-themes only)
+        if: github.ref == 'refs/heads/four-themes'
+        run: |
+          git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
+          git tag -f four-themes-preview "${{ github.sha }}"
+          git push -f origin four-themes-preview
+      - name: Branch preview release
+        if: github.ref == 'refs/heads/four-themes'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: four-themes-preview
+          name: Four-themes preview (build ${{ github.run_number }})
+          body: |
+            Preview of the four-theme work. build=${{ github.run_number }} commit=${{ github.sha }}
+            Not a release: the in-app updater ignores this tag.
+          files: |
+            Miqaat.apk
+            Miqaat.apk.sha256
+          prerelease: true
+          make_latest: false
+
+      # Immutable provenance: an annotated tag per build, at the exact commit that was built.
+      - name: Tag this build (main only)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
+          git tag -a "v1.${{ github.run_number }}" -m "Miqaat build ${{ github.run_number }} · sha256 ${{ env.SHA }}" "${{ github.sha }}"
+          git push origin "v1.${{ github.run_number }}"
+          # 'latest' is a moving pointer for the in-app updater; keep it on the commit that was actually built.
+          git tag -f latest "${{ github.sha }}"
+          git push -f origin latest
+
+      - name: Permanent release for this build (main only)
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.${{ github.run_number }}
+          name: Miqaat 1.${{ github.run_number }}
+          body: |
+            build=${{ github.run_number }}
+            version_code=${{ env.VERSION_CODE }}
+            commit=${{ github.sha }}
+
+            **Direct-download edition** — `Miqaat.apk` (in-app updater, verifies this SHA-256 before installing): `${{ env.SHA }}`
+            **Google Play edition** — `Miqaat-play.aab` for the Play Console: `${{ env.SHA_PLAY }}`
+
+            **Recent changes**
+            ${{ env.NOTES }}
+
+            Built by GitHub Actions from the commit above · content register in ISLAMIC_REVIEW_PACK.md · remediation log in AUDIT_REMEDIATION.md
+          files: |
+            Miqaat.apk
+            Miqaat.apk.sha256
+            Miqaat-play.apk
+            Miqaat-play.apk.sha256
+            Miqaat-play.aab
+            Miqaat-play.aab.sha256
+          prerelease: false
+
+      - name: Update the 'latest' pointer release (main only)
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Miqaat (latest build)
+          body: |
+            build=${{ github.run_number }}
+            version_code=${{ env.VERSION_CODE }}
+            commit=${{ github.sha }}
+
+            Pointer to the newest build, used by the in-app updater. The permanent copy of this exact build is release `v1.${{ github.run_number }}`.
+
+            SHA-256 `${{ env.SHA }}` · built from `${{ github.sha }}` by GitHub Actions
+          files: |
+            Miqaat.apk
+            Miqaat.apk.sha256
+          prerelease: false
+
+      - name: Publish the stable backup (stable branch only)
+        if: github.ref == 'refs/heads/stable'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: stable
+          name: Miqaat (stable backup)
+          body: |
+            Backup of the stable branch. Install this if a newer build misbehaves.
+            commit=${{ github.sha }} · SHA-256 `${{ env.SHA }}`
+          files: |
+            Miqaat.apk
+            Miqaat.apk.sha256
+          prerelease: false

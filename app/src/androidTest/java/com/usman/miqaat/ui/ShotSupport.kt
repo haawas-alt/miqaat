@@ -77,11 +77,14 @@ abstract class ShotSupport {
         if (want != null) {
             val wantLandscape = want == "landscape"
             fun matches(): Boolean { var ok = false; scenario.onActivity { a -> ok = (a.resources.displayMetrics.widthPixels > a.resources.displayMetrics.heightPixels) == wantLandscape }; return ok }
-            if (!matches()) {
-                scenario.onActivity { a -> a.requestedOrientation = if (wantLandscape) android.content.pm.ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE else android.content.pm.ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT }
-                var waited = 0
-                while (!matches() && waited < 6000) { Thread.sleep(300); waited += 300 }
-            }
+            // Pin every fixture activity, even if its initial display metrics already match.
+            // Otherwise a later recreation can silently return a 16 KB image to portrait.
+            scenario.onActivity { a -> a.requestedOrientation = if (wantLandscape) android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE else android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT }
+            var waited = 0
+            while (!matches() && waited < 6000) { Thread.sleep(300); waited += 300 }
+            check(matches()) { "Activity did not reach the requested orientation" }
+            InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+            Thread.sleep(300)
         }
         scenario.onActivity { act ->
             act.setContent {
@@ -94,12 +97,16 @@ abstract class ShotSupport {
         }
         rule.waitForIdle()
         readDevice()
+        val expected = want?.let { if (it == "landscape") "landscape" else "portrait" }
+        check(expected == null || device.endsWith(expected)) { "Requested $expected, captured $device" }
     }
 
     protected fun shot(name: String, theme: AppTheme, scale: Float = 1f, rtl: Boolean = false, content: @Composable (AppSettings, PrayerState) -> Unit) {
         var label = "$name-$theme"
         try {
             val s = settingsFor(theme, rtl); val st = stateAt(s)
+            app.settings.update { s }
+            Learn.clear(app)
             host(theme, scale, rtl) { content(s, st) }
             label = "${name}__${theme.name.lowercase()}__${device}__${(scale * 100).toInt()}${if (rtl) "__ur" else ""}"
             Thread.sleep(700); rule.waitForIdle()
@@ -109,8 +116,14 @@ abstract class ShotSupport {
         } catch (t: Throwable) {
             errors += "$label: ${t.javaClass.simpleName}: ${t.message?.take(200)}"
             runCatching { scenario.close() }
+            throw AssertionError("Capture failed: $label", t)
         }
     }
 
-    protected fun flushErrors() { if (errors.isNotEmpty()) File(out, "_errors_${device}.txt").appendText(errors.joinToString("\n") + "\n") }
+    protected fun flushErrors() {
+        if (errors.isNotEmpty()) {
+            File(out, "_errors_${device}.txt").appendText(errors.joinToString("\n") + "\n")
+            throw AssertionError(errors.joinToString("\n"))
+        }
+    }
 }
