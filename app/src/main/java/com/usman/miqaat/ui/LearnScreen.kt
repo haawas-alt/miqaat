@@ -284,6 +284,13 @@ private fun LessonView(c: LearnColors, lesson: Learn.Lesson, startAt: Int, onExi
                         Modifier.weight(0.48f).fillMaxHeight())
                     LessonWords(c, a.step, audio, Modifier.weight(0.52f).fillMaxHeight().verticalScroll(rememberScrollState()), editorial = true)
                 }
+            } else if (shortWide && scale <= 1.15f) {
+                // On normal-size landscape phones keep the COMPLETE posture in view while long words scroll separately.
+                Row(Modifier.weight(1f).fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+                    PostureCard(c, a.posture, if (L10n.uiUrdu) UrduContent.cue(a) else a.cue,
+                        Modifier.weight(0.44f).fillMaxHeight())
+                    LessonWords(c, a.step, audio, Modifier.weight(0.56f).fillMaxHeight().verticalScroll(rememberScrollState()), editorial = true)
+                }
             } else if (shortWide) {
                 Row(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
                     PostureCard(c, a.posture, if (L10n.uiUrdu) UrduContent.cue(a) else a.cue,

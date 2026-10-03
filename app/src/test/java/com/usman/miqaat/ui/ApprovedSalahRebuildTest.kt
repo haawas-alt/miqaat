@@ -82,11 +82,11 @@ class ApprovedSalahRebuildTest : ComposeSupport() {
                 show(dev, theme) {
                     LearnScreen(s, previewLesson = Learn.Lesson.FAJR, previewStep = actions.indexOfFirst { it.posture == posture }) {}
                 }
-                if (dev == Dev.TABLET_LANDSCAPE) inside("lesson-posture")
+                if (dev == Dev.TABLET_LANDSCAPE || dev == Dev.PHONE_LANDSCAPE) inside("lesson-posture")
                 noOverflow("lesson-arabic")
                 render("posture__${posture.name.lowercase()}__${theme.name.lowercase()}__${dev.label}__100__top")
                 val cue = rule.onNodeWithText(actions.first { it.posture == posture }.cue)
-                if (dev != Dev.TABLET_LANDSCAPE) cue.performScrollTo()
+                if (dev == Dev.PHONE_PORTRAIT || dev == Dev.TABLET_PORTRAIT) cue.performScrollTo()
                 cue.assertIsDisplayed()
                 if (posture == Learn.Posture.SALAM) {
                     rule.onNodeWithText(Str[R.string.learn_salam_right]).assertIsDisplayed()
