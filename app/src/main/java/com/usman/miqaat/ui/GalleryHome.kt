@@ -570,7 +570,7 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
                     modifier = Modifier.weight(1f).testTag("gallery-fit-label-${r.prayer.name}"),
                     fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium)
                 if (!urdu) Text("  ${r.arabic}", fontFamily = tk.fontArabic, fontSize = 16.sp,
-                    color = tk.accent, maxLines = 1)
+                    color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"))
                 if (selected) Icon(if (r.isNow) Icons.Outlined.Schedule else Icons.Outlined.ChevronRight,
                     null, Modifier.size(16.dp), tint = ink)
             }
@@ -578,11 +578,12 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
                 style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)), color = tk.contentSecondary, maxLines = 1,
                 modifier = Modifier.fillMaxWidth().testTag("gallery-fit-detail-${r.prayer.name}"))
         }
+        Spacer(Modifier.width(8.dp))
         Column(horizontalAlignment = Alignment.End) {
             Text(if (s.showRelative) r.relative else r.clock,
                 fontFamily = if (s.showRelative) F else tk.fontDisplay,
                 fontSize = if (s.showRelative) 16.sp else 30.sp, fontWeight = FontWeight.Medium,
-                color = ink, maxLines = 1)
+                color = ink, maxLines = 1, modifier = Modifier.testTag("gallery-fit-clock-${r.prayer.name}"))
             if (!s.showRelative) Text(r.suffix, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 11.sp,
                 style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)),
                 color = tk.contentSecondary, maxLines = 1)

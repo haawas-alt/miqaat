@@ -61,6 +61,11 @@ class DetailedGalleryAcceptanceTest : ComposeSupport() {
                     val row = rule.onNodeWithTag("gallery-fit-row-${prayer.name}", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Prayer row outside viewport: $prayer / $row", row.top >= root.top && row.bottom <= footer.top)
                     assertTrue("Prayer row smaller than a touch target: $prayer / $row", row.height >= 48f * app.resources.displayMetrics.density)
+                    if (!urdu) {
+                        val arabic = rule.onNodeWithTag("gallery-fit-arabic-${prayer.name}", true).fetchSemanticsNode().boundsInRoot
+                        val clock = rule.onNodeWithTag("gallery-fit-clock-${prayer.name}", true).fetchSemanticsNode().boundsInRoot
+                        assertTrue("Arabic and clock need a readable gap: $prayer", clock.left - arabic.right >= 6f * app.resources.displayMetrics.density)
+                    }
                     for (kind in listOf("label", "detail")) {
                         val node = rule.onNodeWithTag("gallery-fit-$kind-${prayer.name}", true).fetchSemanticsNode()
                         val layouts = mutableListOf<TextLayoutResult>()
