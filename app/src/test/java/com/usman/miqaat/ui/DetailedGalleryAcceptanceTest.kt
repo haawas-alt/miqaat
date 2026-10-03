@@ -1,5 +1,7 @@
 package com.usman.miqaat.ui
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.unit.dp
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.view.View
@@ -25,7 +27,7 @@ import java.time.ZonedDateTime
 @Config(sdk = [34])
 class DetailedGalleryAcceptanceTest : ComposeSupport() {
     @Test fun mobilePrayerAndClockShareTheHeroLineAndRemainInsideTheScreen() {
-        for (urdu in listOf(false, true)) for (hour in listOf(2, 12, 18, 22)) {
+        for (small in listOf(false, true)) for (urdu in listOf(false, true)) for (hour in listOf(2, 12, 18, 22)) {
             val s = AppSettings(theme = AppTheme.PRAYER_GALLERY, language = if (urdu) Language.UR else Language.EN,
                 locationName = "Oakville, Ontario", latitude = 43.4675, longitude = -79.6877, locationSet = true, setupDone = true,
                 zoneId = "America/Toronto", kidsMode = true)
@@ -33,14 +35,20 @@ class DetailedGalleryAcceptanceTest : ComposeSupport() {
             val a = HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {})
             app.settings.update { s }
             try {
-                show(Dev.PHONE_PORTRAIT, s.theme, rtl = urdu) { GalleryHome(state, s, a) }
+                show(Dev.PHONE_PORTRAIT, s.theme, rtl = urdu,
+                    qualifiers = if (small) "w360dp-h800dp-port-xhdpi" else null) {
+                    androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier
+                        .then(if (small) androidx.compose.ui.Modifier.padding(top = 24.dp, bottom = 48.dp) else androidx.compose.ui.Modifier)) {
+                        GalleryHome(state, s, a)
+                    }
+                }
                 rule.waitForIdle()
                 scenario.onActivity { act ->
                     val view = act.findViewById<View>(android.R.id.content)
                     val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
                     view.draw(Canvas(bitmap))
                     File("build/audit-screens/detailed-gallery").also { it.mkdirs() }
-                        .resolve("home__phone-portrait__100__hour-$hour${if (urdu) "__ur" else ""}.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
+                        .resolve("home__phone-portrait__100__${if (small) "360-insets__" else ""}hour-$hour${if (urdu) "__ur" else ""}.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
                     bitmap.recycle()
                 }
                 val root = rule.onRoot().fetchSemanticsNode().boundsInRoot

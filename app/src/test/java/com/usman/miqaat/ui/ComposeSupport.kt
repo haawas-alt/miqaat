@@ -34,8 +34,8 @@ abstract class ComposeSupport {
     protected lateinit var scenario: ActivityScenario<ComponentActivity>
     protected val app: MiqaatApp get() = ApplicationProvider.getApplicationContext<Application>() as MiqaatApp
 
-    protected fun show(dev: Dev, theme: AppTheme = AppTheme.PRAYER_GALLERY, fontScale: Float = 1f, rtl: Boolean = false, language: Language? = null, content: @Composable () -> Unit) {
-        RuntimeEnvironment.setQualifiers("+" + dev.q)
+    protected fun show(dev: Dev, theme: AppTheme = AppTheme.PRAYER_GALLERY, fontScale: Float = 1f, rtl: Boolean = false, language: Language? = null, qualifiers: String? = null, content: @Composable () -> Unit) {
+        RuntimeEnvironment.setQualifiers("+" + (qualifiers ?: dev.q))
         val a = app
         shadowOf(a.packageManager).addActivityIfNotPresent(ComponentName(a.packageName, ComponentActivity::class.java.name))
         Str.apply(a, language ?: if (rtl) Language.UR else Language.EN)

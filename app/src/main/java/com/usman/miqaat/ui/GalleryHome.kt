@@ -441,8 +441,15 @@ private fun GalleryCompactHero(hero: HeroInfo, state: PrayerState, s: AppSetting
 @Composable
 private fun GalleryPhoneFit(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens,
     hero: HeroInfo, doorList: List<Door>, F: FontFamily, urdu: Boolean, onWhy: (Prayer) -> Unit) {
+    val art = androidx.compose.ui.res.painterResource(R.drawable.art_gallery_portrait_v2)
     Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().navigationBarsPadding()
-        .testTag("gallery-phone-fit")) {
+        .testTag("gallery-phone-fit").drawBehind {
+            val bandH = size.width * 0.68f
+            clipRect(bottom = bandH) {
+                with(art) { draw(androidx.compose.ui.geometry.Size(size.width, size.width * 1672f / 941f), alpha = 0.55f) }
+                drawRect(Brush.verticalGradient(listOf(tk.background.copy(alpha = 0.55f), tk.background), endY = bandH))
+            }
+        }) {
         GalleryHeader(s, a, tk, 7.5.dp, F, urdu,
             Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 2.dp))
         GalleryDate(state, s, tk, 6.dp, F, urdu, Modifier.fillMaxWidth())
@@ -514,6 +521,9 @@ private fun GalleryPhoneFit(state: PrayerState, s: AppSettings, a: HomeActions, 
                 }
             }
         }
+        Text(Str[R.string.s_theme_signature], fontFamily = if (urdu) F else Cormorant,
+            fontSize = 10.sp, color = tk.contentSecondary, maxLines = 1,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp), textAlign = TextAlign.End)
         if (s.showDisliked) DayThread(s, state.today, state.now,
             modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 2.dp),
             labelSize = 9.sp, fullNames = false, gnomon = true)
