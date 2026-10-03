@@ -110,3 +110,13 @@ No credentialed reviewer, physical device or Play Console session is available i
 - Build checks include signed APK verification, lint, forbidden assets, target SDK, Play permission inspection, bundletool validation, AAB signature verification and 16KB native/ZIP alignment. Play Console policy/account/listing acceptance is still unverified.
 
 Download assets are published through the separately gated testing-download workflow; verify its conclusion and release asset digest before telling a user that publication succeeded.
+
+### Publication confirmed
+
+[Testing-download run 37102152384](https://github.com/haawas-alt/miqaat/actions/runs/37102152384) completed SUCCESS. GitHub release metadata independently reports the expected APK and AAB SHA-256 digests. Assets:
+
+- [Miqaat 1.85-salah APK](https://github.com/haawas-alt/miqaat/releases/download/audit-fixes-3895c823/Miqaat-1.85-salah.apk) — 42,891,278 bytes.
+- [Signed Play bundle](https://github.com/haawas-alt/miqaat/releases/download/audit-fixes-3895c823/Miqaat-1.85-salah-play.aab) — 43,061,681 bytes; not uploaded to Play Console.
+- [Build provenance](https://github.com/haawas-alt/miqaat/releases/download/audit-fixes-3895c823/Miqaat-1.85-salah-PROVENANCE.txt).
+
+This signed APK can update an older installation using the same stable certificate and lower versionCode. It cannot update an installation signed with the earlier debug certificate. Actual installation on the owner's device has not been tested; preserve app data before any signature-transition decision.
