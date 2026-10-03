@@ -9,6 +9,7 @@ import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.text.TextLayoutResult
 import org.junit.Assert.assertFalse
 import com.usman.miqaat.data.*
+import com.usman.miqaat.R
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -39,6 +40,11 @@ class DetailedGalleryAcceptanceTest : ComposeSupport() {
                 assertTrue("Prayer and time must occupy the same line", name.top < time.bottom && time.top < name.bottom)
                 assertTrue("Clock must remain inside viewport", time.left >= root.left && time.right <= root.right)
                 assertTrue("Name and time must not overlap: $name / $time / $root", name.right <= time.left || time.right <= name.left)
+                for (description in listOf(Str[R.string.s_learn_salah], Str[R.string.s_monthly_timetable], Str[R.string.s_settings])) {
+                    val target = rule.onNodeWithContentDescription(description).fetchSemanticsNode().boundsInRoot
+                    val minimum = 48f * app.resources.displayMetrics.density
+                    assertTrue("Small navigation target: $description / $target", target.width >= minimum && target.height >= minimum)
+                }
                 for (tag in listOf("gallery-mobile-prayer-name", "gallery-mobile-prayer-time")) {
                     val layouts = mutableListOf<TextLayoutResult>()
                     rule.onNodeWithTag(tag, true).fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)

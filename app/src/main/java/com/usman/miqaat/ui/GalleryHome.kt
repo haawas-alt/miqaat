@@ -386,9 +386,9 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
         if (s.showDisliked) DayThread(s, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp), labelSize = 9.sp, fullNames = false, gnomon = true)
     }
     val page = Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().navigationBarsPadding()
-    // One screen, no scrolling, on every phone and tablet: the page is scaled down just enough to fit the height it is given.
-    // (Large system text is handled by AccessibleHome, which is the one layout that scrolls.)
-    FitHeight(page, verticalBias = 0f) { Column(Modifier.fillMaxWidth(), content = body) }
+    // Compact phones keep real text and 48dp targets. Footer content can flow below the fold rather than shrinking the whole page.
+    if (compactPhone) Column(page.verticalScroll(rememberScrollState()), content = body)
+    else FitHeight(page, verticalBias = 0f) { Column(Modifier.fillMaxWidth(), content = body) }
 }
 
 /** Compact phone hero: prayer and clock share a baseline; scales above normal use the flowing fallback. */
