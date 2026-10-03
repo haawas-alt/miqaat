@@ -508,16 +508,35 @@ private fun GalleryPhoneFit(state: PrayerState, s: AppSettings, a: HomeActions, 
                 Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
             }
         }
+        val visibleDoors = if (doorList.size <= 2) doorList else
+            (doorList.filter { it.warn }.take(1) + doorList.filter { !it.warn }.take(1))
+        val extraDoors = doorList.filter { it !in visibleDoors }
+        var more by remember { mutableStateOf(false) }
         Row(Modifier.fillMaxWidth().testTag("gallery-phone-footer").padding(horizontal = 12.dp),
             verticalAlignment = Alignment.CenterVertically) {
-            doorList.forEach { d ->
+            visibleDoors.forEach { d ->
                 Row(Modifier.weight(1f).heightIn(min = 48.dp).clip(RoundedCornerShape(24.dp))
                     .then(if (d.onClick != null) Modifier.clickable(onClick = d.onClick, role = Role.Button) else Modifier)
+                    .semantics(mergeDescendants = true) { contentDescription = d.label }
                     .padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                     Icon(if (d.warn) Icons.Outlined.NotificationsActive else Icons.Outlined.ChevronRight,
                         null, Modifier.size(24.dp), tint = if (d.warn) tk.warning else tk.accent)
-                    Text(d.label, fontFamily = F, fontSize = 12.sp, color = tk.contentPrimary,
-                        maxLines = 1, modifier = Modifier.weight(1f))
+                    Text(d.label, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp,
+                        color = tk.contentPrimary, maxLines = 2, modifier = Modifier.weight(1f))
+                }
+            }
+            if (extraDoors.isNotEmpty()) Box {
+                Box(Modifier.size(48.dp).clip(CircleShape).clickable(onClick = { more = true }, role = Role.Button)
+                    .semantics { contentDescription = if (urdu) "مزید اختیارات" else "More actions" },
+                    contentAlignment = Alignment.Center) {
+                    Icon(Icons.Outlined.MoreHoriz, null, Modifier.size(24.dp), tint = tk.contentPrimary)
+                }
+                androidx.compose.material3.DropdownMenu(expanded = more, onDismissRequest = { more = false }) {
+                    extraDoors.forEach { d ->
+                        androidx.compose.material3.DropdownMenuItem(
+                            text = { Text(d.label, fontFamily = F, fontSize = 14.sp) },
+                            onClick = { more = false; d.onClick?.invoke() })
+                    }
                 }
             }
         }
@@ -544,22 +563,24 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
             .clip(RoundedCornerShape(10.dp)).clearAndSetSemantics { })
         Column(Modifier.weight(1f)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(r.label, fontFamily = if (urdu) F else Cormorant,
+                Text(r.label, fontFamily = if (urdu) tk.fontArabic else Cormorant,
                     fontSize = if (urdu) 22.sp else 24.sp, color = ink, maxLines = 1,
+                    modifier = Modifier.testTag("gallery-fit-label-${r.prayer.name}"),
                     fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium)
                 if (!urdu) Text("  ${r.arabic}", fontFamily = tk.fontArabic, fontSize = 16.sp,
                     color = tk.accent, maxLines = 1)
                 if (selected) Icon(if (r.isNow) Icons.Outlined.Schedule else Icons.Outlined.ChevronRight,
                     null, Modifier.size(16.dp), tint = ink)
             }
-            Text(r.small, fontFamily = F, fontSize = 12.sp, color = tk.contentSecondary, maxLines = 1)
+            Text(r.small, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp, color = tk.contentSecondary, maxLines = 1,
+                modifier = Modifier.testTag("gallery-fit-detail-${r.prayer.name}"))
         }
         Column(horizontalAlignment = Alignment.End) {
             Text(if (s.showRelative) r.relative else r.clock,
                 fontFamily = if (s.showRelative) F else tk.fontDisplay,
                 fontSize = if (s.showRelative) 16.sp else 30.sp, fontWeight = FontWeight.Medium,
                 color = ink, maxLines = 1)
-            if (!s.showRelative) Text(r.suffix, fontFamily = F, fontSize = 11.sp,
+            if (!s.showRelative) Text(r.suffix, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 11.sp,
                 color = tk.contentSecondary, maxLines = 1)
         }
         Box(Modifier.size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = Role.Button)

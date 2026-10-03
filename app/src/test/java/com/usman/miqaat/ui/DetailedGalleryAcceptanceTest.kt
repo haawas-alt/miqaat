@@ -61,6 +61,17 @@ class DetailedGalleryAcceptanceTest : ComposeSupport() {
                     val row = rule.onNodeWithTag("gallery-fit-row-${prayer.name}", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Prayer row outside viewport: $prayer / $row", row.top >= root.top && row.bottom <= footer.top)
                     assertTrue("Prayer row smaller than a touch target: $prayer / $row", row.height >= 48f * app.resources.displayMetrics.density)
+                    for (kind in listOf("label", "detail")) {
+                        val node = rule.onNodeWithTag("gallery-fit-$kind-${prayer.name}", true).fetchSemanticsNode()
+                        val layouts = mutableListOf<TextLayoutResult>()
+                        node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                        layouts.forEach {
+                            assertFalse("Clipped $kind: $prayer, urdu=$urdu small=$small", it.didOverflowWidth || it.didOverflowHeight)
+                            assertTrue("Row clips $kind: $prayer, urdu=$urdu small=$small",
+                                node.boundsInRoot.height + 1f >= it.size.height.toFloat())
+                            assertTrue("Text exceeds row: $prayer/$kind", node.boundsInRoot.top >= row.top && node.boundsInRoot.bottom <= row.bottom)
+                        }
+                    }
                 }
                 val name = rule.onNodeWithTag("gallery-mobile-prayer-name", true).fetchSemanticsNode().boundsInRoot
                 val time = rule.onNodeWithTag("gallery-mobile-prayer-time", true).fetchSemanticsNode().boundsInRoot
