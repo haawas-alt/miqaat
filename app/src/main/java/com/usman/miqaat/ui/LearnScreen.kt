@@ -359,7 +359,7 @@ private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, mod
                         }
                         Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
                             androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.learn_pose_salam_left), null,
-                                Modifier.fillMaxWidth().weight(1f), contentScale = androidx.compose.ui.layout.ContentScale.Fit)
+                                Modifier.fillMaxWidth().weight(1f), contentScale = androidx.compose.ui.layout.ContentScale.Fit, alignment = Alignment.BottomCenter)
                             Text(Str[R.string.learn_salam_left], fontFamily = lessonUiFont(), fontSize = 12.sp, color = c.text, modifier = Modifier.background(c.surface.copy(alpha = 0.95f)).padding(6.dp))
                         }
                     }
@@ -390,7 +390,7 @@ fun Figure(p: Learn.Posture, color: Color, modifier: Modifier) {
         Learn.Posture.SALAM -> R.drawable.learn_pose_salam
     }
     androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(art), null, modifier,
-        contentScale = androidx.compose.ui.layout.ContentScale.Fit)
+        contentScale = androidx.compose.ui.layout.ContentScale.Fit, alignment = Alignment.BottomCenter)
 }
 
 // ---------------------------------------------------------------- words + audio
