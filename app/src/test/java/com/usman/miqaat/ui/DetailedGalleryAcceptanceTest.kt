@@ -33,12 +33,12 @@ class DetailedGalleryAcceptanceTest : ComposeSupport() {
             app.settings.update { s }
             try {
                 show(Dev.PHONE_PORTRAIT, s.theme, rtl = urdu) { GalleryHome(state, s, a) }
-                val root = rule.onRoot().getUnclippedBoundsInRoot()
-                val name = rule.onNodeWithTag("gallery-mobile-prayer-name", true).getUnclippedBoundsInRoot()
-                val time = rule.onNodeWithTag("gallery-mobile-prayer-time", true).getUnclippedBoundsInRoot()
+                val root = rule.onRoot().fetchSemanticsNode().boundsInRoot
+                val name = rule.onNodeWithTag("gallery-mobile-prayer-name", true).fetchSemanticsNode().boundsInRoot
+                val time = rule.onNodeWithTag("gallery-mobile-prayer-time", true).fetchSemanticsNode().boundsInRoot
                 assertTrue("Prayer and time must occupy the same line", name.top < time.bottom && time.top < name.bottom)
                 assertTrue("Clock must remain inside viewport", time.left >= root.left && time.right <= root.right)
-                assertTrue("Name and time must not overlap", name.right <= time.left || time.right <= name.left)
+                assertTrue("Name and time must not overlap: $name / $time / $root", name.right <= time.left || time.right <= name.left)
                 for (tag in listOf("gallery-mobile-prayer-name", "gallery-mobile-prayer-time")) {
                     val layouts = mutableListOf<TextLayoutResult>()
                     rule.onNodeWithTag(tag, true).fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
