@@ -348,7 +348,7 @@ private fun PostureCard(c: LearnColors, posture: Learn.Posture, cue: String, mod
     Column(modifier.testTag("lesson-posture").clip(shape).background(c.surfaceRaised).border(1.dp, c.divider, shape), horizontalAlignment = Alignment.CenterHorizontally) {
         Box((if (reflow) Modifier.height(figureHeight) else Modifier.weight(1f)).fillMaxWidth()
             .semantics { contentDescription = if (L10n.uiUrdu) UrduContent.postureDescriptions[posture.ordinal] else posture.describe }, contentAlignment = Alignment.Center) {
-            androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(scene), null, Modifier.matchParentSize().clearAndSetSemantics { }, contentScale = androidx.compose.ui.layout.ContentScale.Crop)
+            androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(scene), null, Modifier.matchParentSize().clearAndSetSemantics { }, contentScale = androidx.compose.ui.layout.ContentScale.Crop, alignment = Alignment.BottomCenter)
             if (posture == Learn.Posture.SALAM) {
                 // Never mirror the anatomical right hand in RTL. Two separately drawn head turns.
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
