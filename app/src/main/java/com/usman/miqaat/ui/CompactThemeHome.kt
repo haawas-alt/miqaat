@@ -155,9 +155,11 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                                     fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (urdu) 17.sp else if (short) 18.sp else 21.sp,
                                     color = ink, maxLines = 1)
                                 Text(L10n.iso(if (settings.showRelative) row.relative else "${row.clock} ${row.suffix}".trim()),
-                                    Modifier.width(if (urdu) 104.dp else if (settings.showRelative) 112.dp else 104.dp).testTag("landscape-row-time-${prayer.name}"), fontFamily = font,
-                                    fontWeight = FontWeight.Medium, fontSize = if (urdu) 15.sp else if (settings.showRelative) 17.sp else 20.sp,
-                                    maxLines = 1, textAlign = TextAlign.End, color = ink)
+                                    Modifier.width(if (urdu && settings.showRelative) 140.dp else if (urdu) 104.dp else if (settings.showRelative) 112.dp else 104.dp).testTag("landscape-row-time-${prayer.name}"), fontFamily = font,
+                                    fontWeight = FontWeight.Medium, fontSize = if (urdu && settings.showRelative) 14.sp else if (urdu) 15.sp else if (settings.showRelative) 17.sp else 20.sp,
+                                    maxLines = if (urdu && settings.showRelative) 2 else 1,
+                                    lineHeight = if (urdu && settings.showRelative) 17.sp else TextUnit.Unspecified,
+                                    textAlign = TextAlign.End, color = ink)
                                 Icon(Icons.Outlined.ChevronRight, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.contentSecondary)
                             }
                         }
