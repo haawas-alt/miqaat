@@ -27,6 +27,9 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.*
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
@@ -60,7 +63,8 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                         fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = 20.sp, maxLines = 1, color = ink)
                 }
                 Text(L10n.dateShort(settings, state.now), Modifier.width(if (urdu) 120.dp else 96.dp).padding(horizontal = 8.dp).testTag("landscape-date"),
-                    fontFamily = font, fontSize = 17.sp, maxLines = 1, color = ink)
+                    fontFamily = font, fontSize = 17.sp, maxLines = 1, textAlign = if (gallery) TextAlign.End else TextAlign.Center, color = ink)
+                Row(Modifier.then(if (gallery) Modifier else Modifier.weight(1f)), horizontalArrangement = Arrangement.End) {
                 if (settings.kidsMode) IconButton(actions.onOpenLearn, Modifier.size(48.dp)) {
                     Icon(Icons.Outlined.MenuBook, Str[R.string.s_learn_salah], Modifier.size(26.dp), tint = if (gallery) ink else tk.primary)
                 }
@@ -91,6 +95,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                             DropdownMenuItem(text = { Text(line) }, onClick = {}, enabled = false)
                         }
                     }
+                }
                 }
             }
             BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
@@ -140,7 +145,12 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                                         when (prayer) { Prayer.DHUHR, Prayer.ISHA -> tk.primary; Prayer.SUNRISE, Prayer.ASR -> Color(0xFFB26900); else -> tk.accent }
                                     } else tk.primary)
                                 }
-                                Text(row.label + if (selected) " · " + L10n.word(settings, if (row.isNow) "NOW" else "NEXT") else "",
+                                Text(buildAnnotatedString {
+                                    append(row.label)
+                                    if (selected) withStyle(SpanStyle(color = if (gallery) tk.accent else tk.primary, fontWeight = FontWeight.Bold)) {
+                                        append(" · " + L10n.word(settings, if (row.isNow) "NOW" else "NEXT"))
+                                    }
+                                },
                                     Modifier.weight(1f).padding(horizontal = 8.dp).testTag("landscape-row-name-${prayer.name}"),
                                     fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (urdu) 17.sp else if (short) 18.sp else 21.sp,
                                     color = ink, maxLines = 1)

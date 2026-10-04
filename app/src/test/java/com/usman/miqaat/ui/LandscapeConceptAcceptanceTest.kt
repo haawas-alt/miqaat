@@ -79,6 +79,9 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                             layouts.forEach { assertFalse("Clipped $tag: theme=$theme small=$small urdu=$urdu relative=$relative hour=$hour size=${it.size} width=${it.didOverflowWidth} height=${it.didOverflowHeight}",
                                 it.didOverflowWidth || it.didOverflowHeight) }
                         }
+                        val location = rule.onNodeWithTag("landscape-location", true).getUnclippedBoundsInRoot()
+                        val date = rule.onNodeWithTag("landscape-date", true).getUnclippedBoundsInRoot()
+                        assertTrue("Date overlaps location", location.right <= date.left || date.right <= location.left)
                         inside("landscape-authored-hero")
                         inside("landscape-timeline-panel")
                         inside("landscape-more-actions", true)
