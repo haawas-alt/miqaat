@@ -147,13 +147,13 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                                 }
                                 Text(buildAnnotatedString {
                                     append(row.label)
-                                    if (selected) withStyle(SpanStyle(color = if (gallery) tk.accent else tk.primary, fontWeight = FontWeight.Bold)) {
-                                        append(" · " + L10n.word(settings, if (row.isNow) "NOW" else "NEXT"))
+                                    if (selected) withStyle(SpanStyle(color = if (gallery) tk.accent else tk.primary, fontWeight = FontWeight.Bold, fontSize = if (short) 12.sp else TextUnit.Unspecified)) {
+                                        append((if (short) "\n" else " · ") + L10n.word(settings, if (row.isNow) "NOW" else "NEXT"))
                                     }
                                 },
                                     Modifier.weight(1f).padding(horizontal = 8.dp).testTag("landscape-row-name-${prayer.name}"),
                                     fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (urdu) 17.sp else if (short) 18.sp else 21.sp,
-                                    color = ink, maxLines = 1)
+                                    color = ink, maxLines = if (short && selected) 2 else 1, lineHeight = if (short && selected) 20.sp else TextUnit.Unspecified)
                                 Text(L10n.iso(if (settings.showRelative) row.relative else "${row.clock} ${row.suffix}".trim()),
                                     Modifier.width(if (urdu && settings.showRelative) 140.dp else if (urdu) 104.dp else if (settings.showRelative) 112.dp else 104.dp).testTag("landscape-row-time-${prayer.name}"), fontFamily = font,
                                     fontWeight = FontWeight.Medium, fontSize = if (urdu && settings.showRelative) 14.sp else if (urdu) 15.sp else if (settings.showRelative) 17.sp else 20.sp,
@@ -178,7 +178,7 @@ private fun ApprovedLandscapeHero(state: PrayerState, s: AppSettings, a: HomeAct
     val urdu = L10n.isUrdu(s)
     val font = if (urdu) tk.fontArabic else tk.fontDisplay
     val shape = RoundedCornerShape(if (gallery) 0.dp else 12.dp)
-    BoxWithConstraints(modifier.clip(shape).testTag("landscape-authored-hero")
+    Box(modifier.clip(shape).testTag("landscape-authored-hero")
         .then(if (gallery) Modifier else Modifier.border(1.dp, tk.divider, shape))) {
         Image(painterResource(if (gallery) R.drawable.gallery_landscape_approved else R.drawable.celestial_landscape_approved), null,
             Modifier.fillMaxSize().testTag(if (gallery) "landscape-gallery-art" else "landscape-celestial-art"), contentScale = ContentScale.Crop)
