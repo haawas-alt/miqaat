@@ -20,3 +20,5 @@ Certificate SHA-256: 6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d34899845
 Version name 1.88-landscape; build versionCode 1791122099. Signed Play bundle validated and native 16KB alignment reports pass; Play Console acceptance remains unverified.
 
 Publication workflow gates on the exact source SHA and both successful runs, pins the APK hash and packages 80 raw screenshots (32 Gallery posture, 16 portrait Home, 32 landscape concept captures). Assets are added to the existing prerelease audit-fixes-3895c823; earlier 1.87 files remain available. Production branch remains unchanged and the remediation PR remains a draft.
+
+Publication run 37208120415 succeeded. GitHub release asset digest and size match the independently checked signed APK above. Download: https://github.com/haawas-alt/miqaat/releases/download/audit-fixes-3895c823/Miqaat-1.88-landscape.apk
