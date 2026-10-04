@@ -71,7 +71,7 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                             query.assertIsDisplayed()
                             val r = query.getUnclippedBoundsInRoot()
                             assertTrue("$tag exceeds usable screen", r.left >= board.left && r.right <= board.right && r.top >= board.top && r.bottom <= board.bottom)
-                            if (minTarget) assertTrue("$tag must be at least 48dp", (r.bottom - r.top).value >= 47.99f && (r.right - r.left).value >= 48f)
+                            if (minTarget) assertTrue("$tag must be at least 48dp: theme=$theme small=$small urdu=$urdu relative=$relative hour=$hour bounds=$r", (r.bottom - r.top).value >= 47.99f && (r.right - r.left).value >= 48f)
                         }
                         fun readable(tag: String) {
                             inside(tag)

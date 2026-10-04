@@ -189,17 +189,17 @@ private fun ApprovedLandscapeHero(state: PrayerState, s: AppSettings, a: HomeAct
             Column(Modifier.weight(0.53f).fillMaxHeight().semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() },
                 verticalArrangement = Arrangement.SpaceBetween) {
                 Text(hero.kickerLabel, Modifier.testTag("landscape-hero-kicker"), fontFamily = if (urdu) font else tk.fontUi,
-                    fontWeight = FontWeight.SemiBold, fontSize = if (short) 10.sp else 12.sp, maxLines = 1,
+                    fontWeight = FontWeight.SemiBold, fontSize = if (short && urdu) 9.sp else if (short) 10.sp else 12.sp, maxLines = 1,
                     letterSpacing = if (urdu) 0.sp else 1.5.sp, color = if (gallery) ink else tk.primary)
                 Text(hero.label, Modifier.fillMaxWidth().testTag("landscape-hero-name"), fontFamily = font,
-                    fontWeight = FontWeight.SemiBold, fontSize = if (short) 32.sp else 40.sp, maxLines = 1, lineHeight = if (short) 34.sp else 42.sp, color = ink)
+                    fontWeight = FontWeight.SemiBold, fontSize = if (short && urdu) 22.sp else if (short) 32.sp else 40.sp, maxLines = 1, lineHeight = if (short) 34.sp else 42.sp, color = ink)
                 if (!urdu) Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = if (short) 19.sp else 23.sp,
                     lineHeight = if (short) 22.sp else 27.sp, color = if (gallery) ink else tk.primary)
                 Text(L10n.iso("${hero.clock} ${hero.suffix}".trim()), Modifier.fillMaxWidth().testTag("landscape-hero-clock"),
-                    fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (short) 29.sp else 34.sp,
+                    fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (short && urdu) 20.sp else if (short) 29.sp else 34.sp,
                     maxLines = 1, lineHeight = if (short) 32.sp else 38.sp, color = ink)
                 Text(hero.status, Modifier.fillMaxWidth().testTag("landscape-hero-status"), fontFamily = font,
-                    fontSize = if (short) 12.sp else 15.sp, maxLines = 2, lineHeight = if (short) 14.sp else 18.sp,
+                    fontSize = if (short && urdu) 10.sp else if (short) 12.sp else 15.sp, maxLines = 2, lineHeight = if (short) 14.sp else 18.sp,
                     color = if (gallery) tk.contentSecondary else tk.contentPrimary)
                 Row(Modifier.fillMaxWidth().height(48.dp).testTag("landscape-hero-details")
                     .clip(RoundedCornerShape(24.dp)).background(if (gallery) tk.primary else Color(0xCC03182D))
