@@ -76,14 +76,14 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                             val layouts = mutableListOf<TextLayoutResult>()
                             node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
                             assertTrue("Missing text layout for $tag", layouts.isNotEmpty())
-                            layouts.forEach { assertFalse("Clipped $tag: theme=$theme small=$small urdu=$urdu relative=$relative hour=$hour",
+                            layouts.forEach { assertFalse("Clipped $tag: theme=$theme small=$small urdu=$urdu relative=$relative hour=$hour size=${it.size} width=${it.didOverflowWidth} height=${it.didOverflowHeight}",
                                 it.didOverflowWidth || it.didOverflowHeight) }
                         }
                         inside("landscape-authored-hero")
                         inside("landscape-timeline-panel")
                         inside("landscape-more-actions", true)
                         inside("landscape-hero-details", true)
-                        for (tag in listOf("landscape-location", "landscape-hero-name", "landscape-hero-clock", "landscape-hero-status", "landscape-hijri")) readable(tag)
+                        for (tag in listOf("landscape-location", "landscape-date", "landscape-hero-name", "landscape-hero-clock", "landscape-hero-status", "landscape-hijri")) readable(tag)
                         rule.onNodeWithTag("landscape-hero-status", true).assertTextEquals(heroInfo(state, s, null).status)
                         for (prayer in Prayer.entries) {
                             inside("compact-prayer-${prayer.name}", true)

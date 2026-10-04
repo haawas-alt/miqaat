@@ -56,11 +56,11 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                 Row(Modifier.weight(1f).fillMaxHeight().clickable(role = Role.Button, onClick = actions.onOpenLocation),
                     verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.Outlined.LocationOn, null, Modifier.size(24.dp), tint = if (gallery) ink else tk.primary)
-                    Text(settings.locationName, Modifier.padding(start = 6.dp).testTag("landscape-location"),
+                    Text(settings.locationName, Modifier.weight(1f).padding(start = 6.dp).testTag("landscape-location"),
                         fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = 20.sp, maxLines = 1, color = ink)
                 }
-                Text(L10n.dateShort(settings, state.now), Modifier.padding(horizontal = 8.dp),
-                    fontFamily = font, fontSize = 17.sp, color = ink)
+                Text(L10n.dateShort(settings, state.now), Modifier.padding(horizontal = 8.dp).testTag("landscape-date"),
+                    fontFamily = font, fontSize = 17.sp, maxLines = 1, color = ink)
                 if (settings.kidsMode) IconButton(actions.onOpenLearn, Modifier.size(48.dp)) {
                     Icon(Icons.Outlined.MenuBook, Str[R.string.s_learn_salah], Modifier.size(26.dp), tint = if (gallery) ink else tk.primary)
                 }
