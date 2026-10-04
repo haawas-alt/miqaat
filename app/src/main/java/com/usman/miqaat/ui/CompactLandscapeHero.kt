@@ -87,8 +87,8 @@ internal fun CompactLandscapeHero(
                     }
                 }
                 Column(Modifier.padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(L10n.duration(s, state.delta), modifier = Modifier.testTag("landscape-countdown-value"),
-                        fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = 23.sp,
+                    Text(L10n.duration(s, state.delta), modifier = Modifier.fillMaxWidth().testTag("landscape-countdown-value"),
+                        fontFamily = if (urdu) font else tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = if (urdu) 18.sp else 20.sp,
                         textAlign = TextAlign.Center, color = tk.contentPrimary)
                     Text(if (urdu) hero.kickerLabel else
                         (if (hero.justPassed) "Since ${hero.label}" else "Until ${hero.label}"),

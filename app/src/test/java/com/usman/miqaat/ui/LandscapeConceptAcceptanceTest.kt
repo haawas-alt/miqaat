@@ -65,8 +65,16 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                             it.didOverflowWidth || it.didOverflowHeight) }
                         assertTrue("Hero text overlaps illustration", node.boundsInRoot.right <= visual.left || visual.right <= node.boundsInRoot.left)
                     }
-                    if (theme == AppTheme.CELESTIAL_MERIDIAN)
-                        rule.onNodeWithTag("landscape-countdown-value", true).assertTextEquals(L10n.duration(s, state.delta))
+                    if (theme == AppTheme.CELESTIAL_MERIDIAN) {
+                        val value = rule.onNodeWithTag("landscape-countdown-value", true)
+                        value.assertTextEquals(L10n.duration(s, state.delta))
+                        val node = value.fetchSemanticsNode()
+                        val layouts = mutableListOf<TextLayoutResult>()
+                        node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                        layouts.forEach { assertFalse("Countdown text clips", it.didOverflowWidth || it.didOverflowHeight) }
+                        val margin = 6 * app.resources.displayMetrics.density
+                        assertTrue("Countdown needs breathing room within dial", node.boundsInRoot.left >= visual.left + margin && node.boundsInRoot.right <= visual.right - margin)
+                    }
                     else rule.onNodeWithTag("landscape-hero-status", true).assertTextEquals(heroInfo(state, s, null).status)
                     for (prayer in Prayer.entries) {
                         rule.onNodeWithTag("compact-prayer-${prayer.name}", true).assertExists()
