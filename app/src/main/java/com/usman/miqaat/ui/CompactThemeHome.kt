@@ -213,9 +213,7 @@ private fun ApprovedLandscapeHero(state: PrayerState, s: AppSettings, a: HomeAct
                     }
                 } else {
                     Box(Modifier.fillMaxWidth().aspectRatio(1f).testTag("landscape-countdown-dial"), contentAlignment = Alignment.Center) {
-                        val previous = state.current?.let { state.today[it] }
-                        val interval = previous?.let { Duration.between(it, state.heroTime).seconds.coerceAtLeast(1) }
-                        val remaining = if (state.justPassed || interval == null) 1f else (state.delta.seconds.toFloat() / interval).coerceIn(0f, 1f)
+                        val remaining = landscapeCountdownFraction(state)
                         Canvas(Modifier.fillMaxSize()) {
                             val inset = 8.dp.toPx(); val d = size.minDimension - 2 * inset
                             val top = Offset((size.width - d) / 2, (size.height - d) / 2)
@@ -223,6 +221,7 @@ private fun ApprovedLandscapeHero(state: PrayerState, s: AppSettings, a: HomeAct
                             drawArc(tk.primary, -90f, 360f * remaining, false, top, Size(d, d), style = Stroke(3.dp.toPx(), cap = StrokeCap.Round))
                             drawCircle(tk.primary, 5.dp.toPx(), Offset(size.width / 2, top.y))
                         }
+                        Icon(Icons.Outlined.LightMode, null, Modifier.align(Alignment.TopCenter).size(18.dp).background(Color(0xFF03182D), RoundedCornerShape(50)), tint = tk.primary)
                         Column(Modifier.fillMaxWidth().padding(horizontal = 14.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(L10n.duration(s, state.delta), Modifier.fillMaxWidth().testTag("landscape-countdown-value"),
                                 fontFamily = font, fontSize = if (urdu || short) 17.sp else 22.sp,
@@ -262,4 +261,13 @@ private fun ApprovedLandscapeTimeline(state: PrayerState, s: AppSettings, tk: Th
                 textAlign = TextAlign.Center, color = if (p == state.hero) (if (gallery) tk.accent else tk.primary) else ink) }
         }
     }
+}
+
+/** Remaining share of the previous-to-next listed period, including yesterday before Fajr. */
+internal fun landscapeCountdownFraction(state: PrayerState): Float {
+    if (state.justPassed) return 1f
+    val previous = Prayer.entries.flatMap { p -> listOf(state.today[p], state.today[p].minusDays(1)) }
+        .filter { it.isBefore(state.heroTime) }.maxOrNull() ?: return 1f
+    val total = Duration.between(previous, state.heroTime).seconds.coerceAtLeast(1)
+    return (state.delta.seconds.toFloat() / total).coerceIn(0f, 1f)
 }

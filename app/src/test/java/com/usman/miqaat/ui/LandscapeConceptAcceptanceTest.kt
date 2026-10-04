@@ -93,6 +93,7 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                         }
                         if (theme == AppTheme.CELESTIAL_MERIDIAN) {
                             inside("landscape-countdown-dial")
+                            if (!state.justPassed) assertTrue("Live countdown arc must preserve elapsed and remaining portions, including overnight", landscapeCountdownFraction(state) in 0.001f..0.999f)
                             readable("landscape-countdown-value")
                             rule.onNodeWithTag("landscape-countdown-value", true).assertTextEquals(L10n.duration(s, state.delta))
                         } else {
