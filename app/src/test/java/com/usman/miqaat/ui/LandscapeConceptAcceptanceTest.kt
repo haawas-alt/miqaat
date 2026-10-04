@@ -54,8 +54,8 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                     assertTrue("Visual must fill the spare hero space", visual.width >= 80 * app.resources.displayMetrics.density)
                     assertTrue("Visual must remain inside hero", visual.left >= hero.left && visual.right <= hero.right && visual.top >= hero.top && visual.bottom <= hero.bottom)
                     assertTrue("Hero must remain inside horizontal viewport", hero.left >= root.left && hero.right <= root.right)
-                    val detail = rule.onNodeWithTag("landscape-hero-details", true).fetchSemanticsNode().boundsInRoot
-                    assertTrue("Details target must be full size", detail.height >= 48 * app.resources.displayMetrics.density)
+                    val detail = rule.onNodeWithTag("landscape-hero-details", true).getUnclippedBoundsInRoot()
+                    assertTrue("Details target must retain its full size inside the scrolling column", detail.height.value >= 48f && detail.width.value >= 48f)
                     for (tag in listOf("landscape-hero-name", "landscape-hero-clock")) {
                         val node = rule.onNodeWithTag(tag, true).fetchSemanticsNode()
                         val layouts = mutableListOf<TextLayoutResult>()
@@ -72,7 +72,7 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                         rule.onNodeWithTag("compact-prayer-${prayer.name}", true).assertExists()
                     }
                     if (theme == AppTheme.PRAYER_GALLERY) {
-                        rule.onNodeWithTag("landscape-gallery-learn", true).performClick()
+                        rule.onNodeWithTag("landscape-gallery-learn", true).performScrollTo().performClick()
                         assertTrue("Learn shortcut must open the existing destination", learn)
                     }
                 } finally { runCatching { scenario.close() } }
