@@ -13,15 +13,17 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          run-id: 37232523750
-          name: signed-candidate-37232523750
+          run-id: 37232523709
+          name: audit-fix-validation-37232523709
           path: evidence
-      - name: Report exact layout failure
+      - name: Report exact layout failure and capture coverage
         run: |
           python3 - <<'PY'
           import pathlib, xml.etree.ElementTree as E
           for p in pathlib.Path("evidence").rglob("TEST-*.xml"):
               r = E.parse(p).getroot()
-              for f in r.iter("failure"):
-                  print(p.name, f.get("message"), flush=True)
+              for f in r.iter("failure"): print(p.name, f.get("message"), flush=True)
+          names = sorted(p.name for p in pathlib.Path("evidence/audit-screens/landscape-concepts").glob("*.png"))
+          print("CAPTURE_COUNT", len(names))
+          for name in names: print(name)
           PY
