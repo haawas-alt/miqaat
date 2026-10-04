@@ -37,11 +37,13 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                         showRelative = relative)
                     val state = PrayerEngine.state(s, ZonedDateTime.of(2026, 10, 4, hour, 20, 0, 0, ZoneId.of(s.zoneId)))
                     var learn = false
+                    var firstMenuLabel = ""
                     val a = HomeActions({}, {}, {}, {}, {}, {}, { learn = true }, false, {}, {})
                     app.settings.update { s }
                     try {
                         show(Dev.PHONE_LANDSCAPE, theme, rtl = urdu,
                             qualifiers = if (small) "w740dp-h360dp-land-xhdpi" else null) {
+                            firstMenuLabel = doors(state, s, a).first().label
                             // Explicit usable-space reserve: status bar plus landscape side navigation.
                             Box(Modifier.fillMaxSize().padding(top = 24.dp, end = 24.dp)) {
                                 HomeRouter(state, s, a, false, {})
@@ -101,7 +103,7 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                         }
                         rule.onNodeWithTag("landscape-more-actions", true).performClick()
                         // Qibla and timely Adhkar remain accessible, without consuming Home height.
-                        rule.onNodeWithText(doors(state, s, a).first().label).assertExists()
+                        rule.onNodeWithText(firstMenuLabel).assertExists()
                     } finally { runCatching { scenario.close() } }
                 }
     }
