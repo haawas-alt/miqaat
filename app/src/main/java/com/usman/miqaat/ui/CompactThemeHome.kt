@@ -253,6 +253,7 @@ private fun ApprovedLandscapeTimeline(state: PrayerState, s: AppSettings, tk: Th
     val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
     val gallery = s.theme == AppTheme.PRAYER_GALLERY
     val periods = listedPrayers(s)
+    val active = if (state.heroTime.toLocalDate() == state.now.toLocalDate()) state.hero else state.current
     val font = if (L10n.isUrdu(s)) tk.fontArabic else tk.fontDisplay
     Box(modifier.testTag("landscape-circular-timeline")) {
         Canvas(Modifier.fillMaxWidth().height(20.dp)) {
@@ -261,7 +262,7 @@ private fun ApprovedLandscapeTimeline(state: PrayerState, s: AppSettings, tk: Th
             periods.forEachIndexed { i, p ->
                 val slot = if (rtl) periods.lastIndex - i else i
                 val pt = Offset((slot + 0.5f) * size.width / periods.size, size.height / 2)
-                val selected = p == state.hero
+                val selected = p == active
                 drawCircle(if (selected) (if (gallery) tk.accent else tk.primary) else tk.background, if (selected) 5.dp.toPx() else 3.5.dp.toPx(), pt)
                 drawCircle(if (selected) (if (gallery) tk.accent else tk.primary) else tk.contentSecondary,
                     if (selected) 5.dp.toPx() else 3.5.dp.toPx(), pt, style = Stroke(1.dp.toPx()))
@@ -270,7 +271,7 @@ private fun ApprovedLandscapeTimeline(state: PrayerState, s: AppSettings, tk: Th
         Row(Modifier.fillMaxWidth().align(Alignment.BottomCenter)) {
             periods.forEach { p -> Text(L10n.prayer(s, p), Modifier.weight(1f).testTag("landscape-timeline-${p.name}"),
                 fontFamily = font, fontSize = if (L10n.isUrdu(s)) 11.sp else 12.sp, maxLines = 1,
-                textAlign = TextAlign.Center, color = if (p == state.hero) (if (gallery) tk.accent else tk.primary) else ink) }
+                textAlign = TextAlign.Center, color = if (p == active) (if (gallery) tk.accent else tk.primary) else ink) }
         }
     }
 }

@@ -58,6 +58,9 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                                 .outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
                             bitmap.recycle()
                         }
+                        if (state.heroTime.toLocalDate() != state.now.toLocalDate()) {
+                            assertFalse("Today\'s passed Fajr cannot be labelled NEXT for tomorrow", rowInfo(Prayer.FAJR, state, s).isNext)
+                        }
                         val board = rule.onNodeWithTag("landscape-fit-board", true).getUnclippedBoundsInRoot()
                         val noScroll = SemanticsMatcher("Home must have no scrolling container") {
                             it.config.getOrNull(SemanticsActions.ScrollBy) != null

@@ -24,7 +24,7 @@ internal fun rowInfo(p: Prayer, state: PrayerState, s: AppSettings): RowInfo {
     val label = if (isFri && p == Prayer.DHUHR) L10n.word(s, "Jumuʿah") else L10n.prayer(s, p)
     val passed = !t.isAfter(state.now)
     val isNow = p == state.hero && state.justPassed
-    val isNext = p == state.next && !state.justPassed
+    val isNext = p == state.next && !state.justPassed && t == state.heroTime
     val done = passed && p.isPrayer && !isNow
     val iq = PrayerEngine.iqamah(s, state.today, p)
     val endT = if (s.showEndTimes) PrayerEngine.endOf(s, state.today, p) else null
