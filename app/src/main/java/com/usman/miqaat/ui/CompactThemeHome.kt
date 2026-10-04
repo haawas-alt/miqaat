@@ -59,7 +59,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                     Text(settings.locationName, Modifier.weight(1f).padding(start = 6.dp).testTag("landscape-location"),
                         fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = 20.sp, maxLines = 1, color = ink)
                 }
-                Text(L10n.dateShort(settings, state.now), Modifier.padding(horizontal = 8.dp).testTag("landscape-date"),
+                Text(L10n.dateShort(settings, state.now), Modifier.width(if (urdu) 120.dp else 96.dp).padding(horizontal = 8.dp).testTag("landscape-date"),
                     fontFamily = font, fontSize = 17.sp, maxLines = 1, color = ink)
                 if (settings.kidsMode) IconButton(actions.onOpenLearn, Modifier.size(48.dp)) {
                     Icon(Icons.Outlined.MenuBook, Str[R.string.s_learn_salah], Modifier.size(26.dp), tint = if (gallery) ink else tk.primary)
@@ -107,7 +107,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                                 .background(Color(0xCC03182D)).border(1.dp, tk.divider, RoundedCornerShape(12.dp)))
                             .padding(horizontal = 12.dp), verticalArrangement = Arrangement.Center) {
                             if (settings.showHijri) Text(L10n.hijri(settings, PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)),
-                                Modifier.testTag("landscape-hijri"), fontFamily = font, fontSize = 14.sp, maxLines = 1, color = ink)
+                                Modifier.fillMaxWidth().testTag("landscape-hijri"), fontFamily = font, fontSize = 14.sp, maxLines = 1, color = ink)
                             if (settings.showDisliked) ApprovedLandscapeTimeline(state, settings, tk, ink, Modifier.fillMaxWidth().height(48.dp))
                         }
                     }
@@ -145,9 +145,9 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                                     fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (urdu) 17.sp else if (short) 18.sp else 21.sp,
                                     color = ink, maxLines = 1)
                                 Text(L10n.iso(if (settings.showRelative) row.relative else "${row.clock} ${row.suffix}".trim()),
-                                    Modifier.testTag("landscape-row-time-${prayer.name}"), fontFamily = font,
+                                    Modifier.width(if (urdu) 104.dp else if (settings.showRelative) 112.dp else 104.dp).testTag("landscape-row-time-${prayer.name}"), fontFamily = font,
                                     fontWeight = FontWeight.Medium, fontSize = if (urdu) 15.sp else if (settings.showRelative) 17.sp else 20.sp,
-                                    maxLines = 1, color = ink)
+                                    maxLines = 1, textAlign = TextAlign.End, color = ink)
                                 Icon(Icons.Outlined.ChevronRight, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.contentSecondary)
                             }
                         }
