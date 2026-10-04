@@ -55,7 +55,7 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                     assertTrue("Visual must remain inside hero", visual.left >= hero.left && visual.right <= hero.right && visual.top >= hero.top && visual.bottom <= hero.bottom)
                     assertTrue("Hero must remain inside horizontal viewport", hero.left >= root.left && hero.right <= root.right)
                     val detail = rule.onNodeWithTag("landscape-hero-details", true).getUnclippedBoundsInRoot()
-                    assertTrue("Details target must retain its full size inside the scrolling column", detail.height.value >= 48f && detail.width.value >= 48f)
+                    assertTrue("Details target must retain its full size inside the scrolling column", (detail.bottom - detail.top).value >= 48f && (detail.right - detail.left).value >= 48f)
                     for (tag in listOf("landscape-hero-name", "landscape-hero-clock")) {
                         val node = rule.onNodeWithTag(tag, true).fetchSemanticsNode()
                         val layouts = mutableListOf<TextLayoutResult>()
