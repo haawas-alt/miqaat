@@ -48,13 +48,13 @@ internal fun CompactLandscapeHero(
         horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically
     ) {
         Column(Modifier.weight(0.58f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Column(Modifier.semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
+            Column(Modifier.fillMaxWidth().semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
                 Text(hero.kickerLabel, fontFamily = font, fontSize = 12.sp, color = tk.contentSecondary)
                 hero.special?.let { Text(it, fontFamily = font, fontSize = 12.sp, color = tk.accent) }
-                Text(hero.label, modifier = Modifier.testTag("landscape-hero-name"), fontFamily = if (urdu) font else tk.fontDisplay,
+                Text(hero.label, modifier = Modifier.fillMaxWidth().testTag("landscape-hero-name"), fontFamily = if (urdu) font else tk.fontDisplay,
                     fontSize = 28.sp, color = tk.contentPrimary)
                 if (!urdu) Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = 24.sp, color = tk.accent)
-                Text(L10n.iso("${hero.clock} ${hero.suffix}"), modifier = Modifier.testTag("landscape-hero-clock"),
+                Text(L10n.iso("${hero.clock} ${hero.suffix}"), modifier = Modifier.fillMaxWidth().testTag("landscape-hero-clock"),
                     fontFamily = tk.fontDisplay, fontSize = 32.sp, color = tk.contentPrimary)
                 // Celestial places the status in its dial once; Gallery keeps it beside the clock.
                 if (gallery) Text(hero.status, modifier = Modifier.testTag("landscape-hero-status"),

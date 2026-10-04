@@ -38,6 +38,15 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                         qualifiers = if (small) "w740dp-h360dp-land-xhdpi" else null) {
                         CompactThemeHome(state, s, a)
                     }
+                    scenario.onActivity { act ->
+                        val view = act.findViewById<View>(android.R.id.content)
+                        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+                        view.draw(Canvas(bitmap))
+                        File("build/audit-screens/landscape-concepts").also { it.mkdirs() }
+                            .resolve("home__${theme.name.lowercase()}__${if (small) "740x360" else "891x411"}__hour-$hour${if (urdu) "__ur" else ""}.png")
+                            .outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
+                        bitmap.recycle()
+                    }
                     val root = rule.onRoot().fetchSemanticsNode().boundsInRoot
                     val hero = rule.onNodeWithTag("landscape-authored-hero", true).fetchSemanticsNode().boundsInRoot
                     val visualTag = if (theme == AppTheme.PRAYER_GALLERY) "landscape-gallery-art" else "landscape-countdown-dial"
@@ -61,15 +70,6 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                     else rule.onNodeWithTag("landscape-hero-status", true).assertTextEquals(heroInfo(state, s, null).status)
                     for (prayer in Prayer.entries) {
                         rule.onNodeWithTag("compact-prayer-${prayer.name}", true).assertExists()
-                    }
-                    scenario.onActivity { act ->
-                        val view = act.findViewById<View>(android.R.id.content)
-                        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-                        view.draw(Canvas(bitmap))
-                        File("build/audit-screens/landscape-concepts").also { it.mkdirs() }
-                            .resolve("home__${theme.name.lowercase()}__${if (small) "740x360" else "891x411"}__hour-$hour${if (urdu) "__ur" else ""}.png")
-                            .outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
-                        bitmap.recycle()
                     }
                     if (theme == AppTheme.PRAYER_GALLERY) {
                         rule.onNodeWithTag("landscape-gallery-learn", true).performClick()
