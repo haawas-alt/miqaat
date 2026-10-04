@@ -1,111 +1,265 @@
 package com.usman.miqaat.ui
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.*
 import com.usman.miqaat.R
 import com.usman.miqaat.data.*
+import java.time.Duration
 
-/** Short landscape is a reading layout, not a scaled-down tablet artwork board. */
-@OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
+/** The approved short landscape board. Neither Home column is a scroll container. */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeActions) {
     val tk = ThemeTokenSets.of(settings.theme)
     val gallery = settings.theme == AppTheme.PRAYER_GALLERY
-    val shape = RoundedCornerShape(if (gallery) 8.dp else 20.dp)
-    val font = uiFont(settings)
+    val urdu = L10n.isUrdu(settings)
+    val font = if (urdu) tk.fontArabic else tk.fontDisplay
+    val ink = if (gallery) Color(0xFF072D40) else tk.contentPrimary
     val hero = heroInfo(state, settings, kicker(state, settings))
-    val modes = adhkarModes(state, settings)
-    fun modeLabel(mode: AdhkarMode) = L10n.word(settings, when (mode) {
-        AdhkarMode.MORNING -> "Morning adhkār"
-        AdhkarMode.EVENING -> "Evening adhkār"
-        AdhkarMode.POST -> "After-prayer adhkār"
-    })
-    val adhkarLabels = modes.map(::modeLabel).toSet()
-    val links = doors(state, settings, actions).filterNot { it.label in adhkarLabels }
     var why by remember { mutableStateOf<Prayer?>(null) }
+    var more by remember { mutableStateOf(false) }
     why?.let { WhyDialog(settings, state.today, it) { why = null } }
-    Box(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
-        ThemedArtwork(portrait = false, modifier = Modifier.fillMaxSize(), scrim = if (gallery) 0.65f else 0.4f)
-        Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().displayCutoutPadding().padding(horizontal = 16.dp)) {
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f).heightIn(min = 48.dp).clickable(role = Role.Button, onClick = actions.onOpenLocation).padding(vertical = 6.dp)) {
-                    Text(settings.locationName, fontFamily = font, fontSize = 16.sp, color = tk.contentPrimary)
-                    Text(L10n.dateShort(settings, state.now), fontFamily = font, fontSize = 13.sp, color = tk.contentSecondary)
+    Box(Modifier.fillMaxSize().background(if (gallery) tk.background else Color(0xFF03182D))) {
+        if (!gallery) Image(painterResource(R.drawable.celestial_landscape_approved), null,
+            Modifier.fillMaxSize(), contentScale = ContentScale.Crop, alpha = 0.35f)
+        Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().displayCutoutPadding()
+            .padding(horizontal = 12.dp).testTag("landscape-fit-board")) {
+            Row(Modifier.fillMaxWidth().height(48.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(Modifier.weight(1f).fillMaxHeight().clickable(role = Role.Button, onClick = actions.onOpenLocation),
+                    verticalAlignment = Alignment.CenterVertically) {
+                    Icon(Icons.Outlined.LocationOn, null, Modifier.size(24.dp), tint = if (gallery) ink else tk.primary)
+                    Text(settings.locationName, Modifier.padding(start = 6.dp).testTag("landscape-location"),
+                        fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = 20.sp, maxLines = 1, color = ink)
                 }
-                if (settings.kidsMode) IconButton(onClick = actions.onOpenLearn, modifier = Modifier.size(48.dp)) { Icon(Icons.Outlined.MenuBook, Str[R.string.s_learn_salah], tint = tk.primary) }
-                IconButton(onClick = actions.onOpenTimetable, modifier = Modifier.size(48.dp)) { Icon(Icons.Outlined.CalendarMonth, Str[R.string.s_monthly_timetable], tint = tk.primary) }
-                IconButton(onClick = actions.onOpenSettings, modifier = Modifier.size(48.dp)) { Icon(Icons.Outlined.Settings, Str[R.string.s_settings], tint = tk.primary) }
-            }
-            // Timely Adhkar actions stay above both scrolling columns; a tall hero must not hide them.
-            if (modes.isNotEmpty()) FlowRow(
-                Modifier.fillMaxWidth().padding(bottom = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                modes.forEach { mode ->
-                    Text(modeLabel(mode), fontFamily = font, fontSize = 16.sp, color = tk.contentPrimary,
-                        modifier = Modifier.heightIn(min = 48.dp).clip(shape).background(tk.surface)
-                            .border(1.dp, tk.divider, shape).clickable(role = Role.Button) { actions.onOpenAdhkar(mode) }
-                            .padding(horizontal = 12.dp, vertical = 12.dp))
+                Text(L10n.dateShort(settings, state.now), Modifier.padding(horizontal = 8.dp),
+                    fontFamily = font, fontSize = 17.sp, color = ink)
+                if (settings.kidsMode) IconButton(actions.onOpenLearn, Modifier.size(48.dp)) {
+                    Icon(Icons.Outlined.MenuBook, Str[R.string.s_learn_salah], Modifier.size(26.dp), tint = if (gallery) ink else tk.primary)
                 }
-            }
-            Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                Column(Modifier.weight(0.46f).fillMaxHeight().verticalScroll(rememberScrollState()).padding(bottom = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    CompactLandscapeHero(state, settings, actions, tk, hero, shape) { why = hero.prayer }
-                    if (settings.showHijri) Text(L10n.hijri(settings, PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)), fontFamily = font, fontSize = 14.sp, color = tk.accent)
-                    if (settings.showDisliked) DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().height(70.dp), labelSize = 13.sp, fullNames = true, gnomon = true)
-                    fastProgress(state, settings)?.let { (_, text) -> Text(text, fontFamily = font, fontSize = 14.sp, color = tk.accent) }
-                    tarawihLine(state, settings)?.let { Text(it, fontFamily = font, fontSize = 14.sp, color = tk.accent) }
-                    links.forEach { link ->
-                        Text(link.label, fontFamily = font, fontSize = 16.sp, color = if (link.warn) tk.warning else tk.contentPrimary,
-                            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).clip(shape).background(tk.surface.copy(alpha = 0.94f))
-                                .then(if (link.onClick != null) Modifier.clickable(role = Role.Button, onClick = link.onClick) else Modifier).padding(12.dp))
+                IconButton(actions.onOpenTimetable, Modifier.size(48.dp)) {
+                    Icon(Icons.Outlined.CalendarMonth, Str[R.string.s_monthly_timetable], Modifier.size(26.dp), tint = if (gallery) ink else tk.primary)
+                }
+                IconButton(actions.onOpenSettings, Modifier.size(48.dp)) {
+                    Icon(Icons.Outlined.Settings, Str[R.string.s_settings], Modifier.size(26.dp), tint = if (gallery) ink else tk.primary)
+                }
+                Box {
+                    IconButton({ more = true }, Modifier.size(48.dp).testTag("landscape-more-actions")) {
+                        Icon(Icons.Outlined.MoreHoriz, L10n.word(settings, "More actions"), tint = if (gallery) ink else tk.primary)
+                    }
+                    DropdownMenu(more, { more = false }) {
+                        adhkarModes(state, settings).forEach { mode ->
+                            val label = L10n.word(settings, when (mode) {
+                                AdhkarMode.MORNING -> "Morning adhkār"
+                                AdhkarMode.EVENING -> "Evening adhkār"
+                                AdhkarMode.POST -> "After-prayer adhkār"
+                            })
+                            DropdownMenuItem(text = { Text(label) }, onClick = { more = false; actions.onOpenAdhkar(mode) })
+                        }
+                        doors(state, settings, actions).forEach { link ->
+                            DropdownMenuItem(text = { Text(link.label, color = if (link.warn) tk.warning else tk.contentPrimary) },
+                                onClick = { more = false; link.onClick?.invoke() })
+                        }
+                        listOfNotNull(hero.special, fastProgress(state, settings)?.second, tarawihLine(state, settings)).forEach { line ->
+                            DropdownMenuItem(text = { Text(line) }, onClick = {}, enabled = false)
+                        }
                     }
                 }
-                Column(Modifier.weight(0.54f).fillMaxHeight().verticalScroll(rememberScrollState()).padding(bottom = 12.dp), verticalArrangement = Arrangement.spacedBy(if (gallery) 4.dp else 8.dp)) {
-                    listedPrayers(settings).forEach { prayer ->
-                        val row = rowInfo(prayer, state, settings)
-                        val selected = row.isNow || row.isNext
-                        Row(Modifier.fillMaxWidth().testTag("compact-prayer-${prayer.name}").heightIn(min = 52.dp).clip(shape).background(if (selected) tk.selectedSurface else tk.surface.copy(alpha = 0.94f))
-                            .border(if (selected) 2.dp else 1.dp, if (selected) tk.primary else tk.divider, shape)
-                            .combinedClickable(onClick = actions.onToggleRelative, onLongClick = { why = prayer }, role = Role.Button,
-                                onClickLabel = Str[R.string.s_switch_clock_time_until], onLongClickLabel = Str[R.string.s_why_this_time])
-                            .semantics(mergeDescendants = true) { contentDescription = row.spoken }.padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                            if (gallery) Icon(when (prayer) { Prayer.FAJR, Prayer.ISHA -> Icons.Outlined.DarkMode; Prayer.SUNRISE, Prayer.MAGHRIB -> Icons.Outlined.WbTwilight; else -> Icons.Outlined.LightMode }, null, Modifier.size(28.dp), tint = tk.accent)
-                            Column(Modifier.weight(1f).padding(start = if (gallery) 10.dp else 0.dp)) {
-                                Text(row.label + if (selected) " · " + L10n.word(settings, if (row.isNow) "NOW" else "NEXT") else "", fontFamily = font, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = 16.sp, color = tk.contentPrimary)
-                                if (row.small.isNotBlank()) Text(row.small, fontFamily = font, fontSize = 13.sp, color = tk.contentSecondary)
+            }
+            BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+                val short = maxHeight < 300.dp
+                val gap = ((maxHeight - 288.dp) / 5).coerceIn(0.dp, 4.dp)
+                val prayers = listedPrayers(settings)
+                Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Column(Modifier.weight(0.54f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        ApprovedLandscapeHero(state, settings, actions, hero, tk, ink, short,
+                            Modifier.weight(1f).fillMaxWidth()) { why = hero.prayer }
+                        Column(Modifier.fillMaxWidth().height(if (settings.showDisliked) 76.dp else 24.dp)
+                            .testTag("landscape-timeline-panel")
+                            .then(if (gallery) Modifier else Modifier.clip(RoundedCornerShape(12.dp))
+                                .background(Color(0xCC03182D)).border(1.dp, tk.divider, RoundedCornerShape(12.dp)))
+                            .padding(horizontal = 12.dp), verticalArrangement = Arrangement.Center) {
+                            if (settings.showHijri) Text(L10n.hijri(settings, PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)),
+                                Modifier.testTag("landscape-hijri"), fontFamily = font, fontSize = 14.sp, maxLines = 1, color = ink)
+                            if (settings.showDisliked) ApprovedLandscapeTimeline(state, settings, tk, ink, Modifier.fillMaxWidth().height(48.dp))
+                        }
+                    }
+                    Column(Modifier.weight(0.46f).fillMaxHeight().testTag("landscape-prayer-list"),
+                        verticalArrangement = Arrangement.spacedBy(gap)) {
+                        prayers.forEach { prayer ->
+                            val row = rowInfo(prayer, state, settings)
+                            val selected = row.isNow || row.isNext
+                            val shape = RoundedCornerShape(if (gallery) 8.dp else 12.dp)
+                            val surface = if (gallery) {
+                                if (selected) Color(0xFFFFEEDD) else tk.surface
+                            } else if (selected) Color(0xFF23323D) else Color(0xE60A2238)
+                            Row(Modifier.weight(1f).fillMaxWidth().testTag("compact-prayer-${prayer.name}").clip(shape)
+                                .background(surface).border(if (selected) 1.5.dp else 1.dp,
+                                    if (selected) (if (gallery) tk.accent else tk.primary) else tk.divider, shape)
+                                .combinedClickable(onClick = actions.onToggleRelative, onLongClick = { why = prayer }, role = Role.Button,
+                                    onClickLabel = Str[R.string.s_switch_clock_time_until], onLongClickLabel = Str[R.string.s_why_this_time])
+                                .semantics(mergeDescendants = true) { contentDescription = row.spoken }
+                                .padding(horizontal = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                                val icon = when (prayer) {
+                                    Prayer.FAJR, Prayer.SUNRISE, Prayer.MAGHRIB -> Icons.Outlined.WbTwilight
+                                    Prayer.ISHA -> Icons.Outlined.DarkMode
+                                    Prayer.ASR -> Icons.Outlined.WbCloudy
+                                    else -> Icons.Outlined.LightMode
+                                }
+                                Box(Modifier.size(if (short) 28.dp else 34.dp)
+                                    .then(if (gallery) Modifier else Modifier.clip(RoundedCornerShape(50)).background(Color.White.copy(alpha = 0.08f))),
+                                    contentAlignment = Alignment.Center) {
+                                    Icon(icon, null, Modifier.size(if (short) 22.dp else 26.dp), tint = if (gallery) {
+                                        when (prayer) { Prayer.DHUHR, Prayer.ISHA -> tk.primary; Prayer.SUNRISE, Prayer.ASR -> Color(0xFFB26900); else -> tk.accent }
+                                    } else tk.primary)
+                                }
+                                Text(row.label + if (selected) " · " + L10n.word(settings, if (row.isNow) "NOW" else "NEXT") else "",
+                                    Modifier.weight(1f).padding(horizontal = 8.dp).testTag("landscape-row-name-${prayer.name}"),
+                                    fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (urdu) 17.sp else if (short) 18.sp else 21.sp,
+                                    color = ink, maxLines = 1)
+                                Text(L10n.iso(if (settings.showRelative) row.relative else "${row.clock} ${row.suffix}".trim()),
+                                    Modifier.testTag("landscape-row-time-${prayer.name}"), fontFamily = font,
+                                    fontWeight = FontWeight.Medium, fontSize = if (urdu) 15.sp else if (settings.showRelative) 17.sp else 20.sp,
+                                    maxLines = 1, color = ink)
+                                Icon(Icons.Outlined.ChevronRight, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.contentSecondary)
                             }
-                            Text(L10n.iso(if (settings.showRelative) row.relative else "${row.clock} ${row.suffix}"), fontFamily = tk.fontDisplay, fontSize = 22.sp, color = if (selected) tk.primary else tk.contentPrimary)
                         }
                     }
                 }
             }
         }
         if (settings.nightDim && state.period == Prayer.ISHA && !state.justPassed) Box(Modifier.fillMaxSize().background(tk.background.copy(alpha = 0.3f)))
+    }
+}
+
+@Composable
+private fun ApprovedLandscapeHero(state: PrayerState, s: AppSettings, a: HomeActions, hero: HeroInfo, tk: ThemeTokens,
+    ink: Color, short: Boolean, modifier: Modifier, onDetails: () -> Unit) {
+    val gallery = s.theme == AppTheme.PRAYER_GALLERY
+    val urdu = L10n.isUrdu(s)
+    val font = if (urdu) tk.fontArabic else tk.fontDisplay
+    val shape = RoundedCornerShape(if (gallery) 0.dp else 12.dp)
+    BoxWithConstraints(modifier.clip(shape).testTag("landscape-authored-hero")
+        .then(if (gallery) Modifier else Modifier.border(1.dp, tk.divider, shape))) {
+        Image(painterResource(if (gallery) R.drawable.gallery_landscape_approved else R.drawable.celestial_landscape_approved), null,
+            Modifier.fillMaxSize().testTag(if (gallery) "landscape-gallery-art" else "landscape-celestial-art"), contentScale = ContentScale.Crop)
+        if (gallery && urdu) Box(Modifier.fillMaxSize().background(Brush.horizontalGradient(listOf(Color.Transparent, tk.background.copy(alpha = 0.95f)))))
+        if (!gallery) Box(Modifier.fillMaxSize().background(Color(0xFF03182D).copy(alpha = 0.20f)))
+        val pad = if (short) 10.dp else 16.dp
+        Row(Modifier.fillMaxSize().padding(pad), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(0.53f).fillMaxHeight().semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() },
+                verticalArrangement = Arrangement.SpaceBetween) {
+                Text(hero.kickerLabel, Modifier.testTag("landscape-hero-kicker"), fontFamily = if (urdu) font else tk.fontUi,
+                    fontWeight = FontWeight.SemiBold, fontSize = if (short) 10.sp else 12.sp, maxLines = 1,
+                    letterSpacing = if (urdu) 0.sp else 1.5.sp, color = if (gallery) ink else tk.primary)
+                Text(hero.label, Modifier.fillMaxWidth().testTag("landscape-hero-name"), fontFamily = font,
+                    fontWeight = FontWeight.SemiBold, fontSize = if (short) 32.sp else 40.sp, maxLines = 1, lineHeight = if (short) 34.sp else 42.sp, color = ink)
+                if (!urdu) Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = if (short) 19.sp else 23.sp,
+                    lineHeight = if (short) 22.sp else 27.sp, color = if (gallery) ink else tk.primary)
+                Text(L10n.iso("${hero.clock} ${hero.suffix}".trim()), Modifier.fillMaxWidth().testTag("landscape-hero-clock"),
+                    fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (short) 29.sp else 34.sp,
+                    maxLines = 1, lineHeight = if (short) 32.sp else 38.sp, color = ink)
+                Text(hero.status, Modifier.fillMaxWidth().testTag("landscape-hero-status"), fontFamily = font,
+                    fontSize = if (short) 12.sp else 15.sp, maxLines = 2, lineHeight = if (short) 14.sp else 18.sp,
+                    color = if (gallery) tk.contentSecondary else tk.contentPrimary)
+                Row(Modifier.fillMaxWidth().height(48.dp).testTag("landscape-hero-details")
+                    .clip(RoundedCornerShape(24.dp)).background(if (gallery) tk.primary else Color(0xCC03182D))
+                    .then(if (gallery) Modifier else Modifier.border(1.dp, tk.primary, RoundedCornerShape(24.dp)))
+                    .clickable(role = Role.Button, onClick = onDetails).padding(horizontal = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                    Text(Str[R.string.s_view_prayer_details], Modifier.weight(1f), fontFamily = font, maxLines = 1,
+                        fontSize = if (short) 12.sp else 14.sp, color = if (gallery) tk.onPrimary else tk.contentPrimary)
+                    Icon(Icons.Outlined.ChevronRight, null, Modifier.size(18.dp), tint = if (gallery) tk.onPrimary else tk.contentPrimary)
+                }
+            }
+            Spacer(Modifier.width(8.dp))
+            Box(Modifier.weight(0.47f).fillMaxHeight(), contentAlignment = if (gallery) Alignment.BottomCenter else Alignment.Center) {
+                if (gallery) {
+                    if (s.kidsMode) Row(Modifier.fillMaxWidth().height(48.dp).clip(RoundedCornerShape(12.dp))
+                        .background(Color(0xFFFFF0DD)).testTag("landscape-gallery-learn")
+                        .clickable(role = Role.Button, onClick = a.onOpenLearn).padding(horizontal = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Outlined.WbTwilight, null, Modifier.size(20.dp), tint = tk.accent)
+                        Text(if (urdu) Str[R.string.s_learn_salah] else "Prepare for ${hero.label}", Modifier.weight(1f).padding(horizontal = 6.dp),
+                            fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (short) 12.sp else 14.sp, maxLines = 2, color = ink)
+                        Icon(Icons.Outlined.ChevronRight, null, Modifier.size(16.dp), tint = tk.accent)
+                    }
+                } else {
+                    Box(Modifier.fillMaxWidth().aspectRatio(1f).testTag("landscape-countdown-dial"), contentAlignment = Alignment.Center) {
+                        val previous = state.current?.let { state.today[it] }
+                        val interval = previous?.let { Duration.between(it, state.heroTime).seconds.coerceAtLeast(1) }
+                        val remaining = if (state.justPassed || interval == null) 1f else (state.delta.seconds.toFloat() / interval).coerceIn(0f, 1f)
+                        Canvas(Modifier.fillMaxSize()) {
+                            val inset = 8.dp.toPx(); val d = size.minDimension - 2 * inset
+                            val top = Offset((size.width - d) / 2, (size.height - d) / 2)
+                            drawArc(tk.contentSecondary.copy(alpha = 0.45f), 0f, 360f, false, top, Size(d, d), style = Stroke(3.dp.toPx()))
+                            drawArc(tk.primary, -90f, 360f * remaining, false, top, Size(d, d), style = Stroke(3.dp.toPx(), cap = StrokeCap.Round))
+                            drawCircle(tk.primary, 5.dp.toPx(), Offset(size.width / 2, top.y))
+                        }
+                        Column(Modifier.fillMaxWidth().padding(horizontal = 14.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(L10n.duration(s, state.delta), Modifier.fillMaxWidth().testTag("landscape-countdown-value"),
+                                fontFamily = font, fontSize = if (urdu || short) 17.sp else 22.sp,
+                                maxLines = 2, lineHeight = 23.sp, textAlign = TextAlign.Center, color = tk.contentPrimary)
+                            Text(if (urdu) hero.kickerLabel else "${if (hero.justPassed) "Since" else "Until"} ${hero.label}",
+                                fontFamily = font, fontSize = if (short) 13.sp else 16.sp, textAlign = TextAlign.Center, color = tk.primary)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ApprovedLandscapeTimeline(state: PrayerState, s: AppSettings, tk: ThemeTokens, ink: Color, modifier: Modifier) {
+    val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+    val gallery = s.theme == AppTheme.PRAYER_GALLERY
+    val periods = listedPrayers(s)
+    val font = if (L10n.isUrdu(s)) tk.fontArabic else tk.fontDisplay
+    Box(modifier.testTag("landscape-circular-timeline")) {
+        Canvas(Modifier.fillMaxWidth().height(20.dp)) {
+            val x0 = size.width / (periods.size * 2)
+            drawLine(tk.contentSecondary.copy(alpha = 0.7f), Offset(x0, size.height / 2), Offset(size.width - x0, size.height / 2), 1.dp.toPx())
+            periods.forEachIndexed { i, p ->
+                val slot = if (rtl) periods.lastIndex - i else i
+                val pt = Offset((slot + 0.5f) * size.width / periods.size, size.height / 2)
+                val selected = p == state.hero
+                drawCircle(if (selected) (if (gallery) tk.accent else tk.primary) else tk.background, if (selected) 5.dp.toPx() else 3.5.dp.toPx(), pt)
+                drawCircle(if (selected) (if (gallery) tk.accent else tk.primary) else tk.contentSecondary,
+                    if (selected) 5.dp.toPx() else 3.5.dp.toPx(), pt, style = Stroke(1.dp.toPx()))
+            }
+        }
+        Row(Modifier.fillMaxWidth().align(Alignment.BottomCenter)) {
+            periods.forEach { p -> Text(L10n.prayer(s, p), Modifier.weight(1f).testTag("landscape-timeline-${p.name}"),
+                fontFamily = font, fontSize = if (L10n.isUrdu(s)) 11.sp else 12.sp, maxLines = 1,
+                textAlign = TextAlign.Center, color = if (p == state.hero) (if (gallery) tk.accent else tk.primary) else ink) }
+        }
     }
 }
