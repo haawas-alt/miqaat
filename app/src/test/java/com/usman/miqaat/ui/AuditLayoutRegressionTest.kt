@@ -108,7 +108,7 @@ class AuditLayoutRegressionTest : ComposeSupport() {
             } finally { scenario.close() }
         }
     }
-    @Test fun shortLandscapeNewThemeHomesKeepEveryPrayerReachableInBothLanguages() {
+    @Test fun shortLandscapeNewThemeHomesShowEveryPrayerWithoutScrollingInBothLanguages() {
         for (theme in listOf(AppTheme.CELESTIAL_MERIDIAN, AppTheme.PRAYER_GALLERY)) for (urdu in listOf(false, true)) {
             val s = settings(theme, urdu)
             app.settings.update { s }
@@ -117,7 +117,7 @@ class AuditLayoutRegressionTest : ComposeSupport() {
                 capture("home__${theme.name.lowercase()}__phone-landscape__100${if (urdu) "__ur" else ""}")
                 for (prayer in listedPrayers(s)) {
                     val node = rule.onNodeWithTag("compact-prayer-${prayer.name}")
-                    node.performScrollTo().assertIsDisplayed()
+                    node.assertIsDisplayed()
                     inside("compact-prayer-${prayer.name}")
                 }
                 capture("home__${theme.name.lowercase()}__phone-landscape__100${if (urdu) "__ur" else ""}__last-prayer")
