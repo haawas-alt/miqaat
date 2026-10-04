@@ -75,17 +75,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
             }
             Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 Column(Modifier.weight(0.46f).fillMaxHeight().verticalScroll(rememberScrollState()).padding(bottom = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Column(Modifier.fillMaxWidth().clip(shape).background(tk.surface.copy(alpha = 0.94f)).border(1.dp, tk.divider, shape).padding(16.dp)
-                        .semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
-                        Text(hero.kickerLabel, fontFamily = font, fontSize = 14.sp, color = tk.contentSecondary)
-                        hero.special?.let { Text(it, fontFamily = font, fontSize = 14.sp, color = tk.accent) }
-                        Text(hero.label, fontFamily = tk.fontDisplay, fontSize = 28.sp, color = tk.contentPrimary)
-                        if (!L10n.isUrdu(settings)) Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = 24.sp, color = tk.accent)
-                        Text(L10n.iso("${hero.clock} ${hero.suffix}"), fontFamily = tk.fontDisplay, fontSize = 38.sp, color = tk.contentPrimary)
-                        Text(hero.status, fontFamily = font, fontSize = 14.sp, color = tk.accent)
-                        Text(Str[R.string.s_view_prayer_details], fontFamily = font, fontSize = 16.sp, color = tk.primary,
-                            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.Button) { why = hero.prayer }.padding(vertical = 12.dp))
-                    }
+                    CompactLandscapeHero(state, settings, actions, tk, hero, shape) { why = hero.prayer }
                     if (settings.showHijri) Text(L10n.hijri(settings, PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)), fontFamily = font, fontSize = 14.sp, color = tk.accent)
                     if (settings.showDisliked) DayThread(settings, state.today, state.now, modifier = Modifier.fillMaxWidth().height(70.dp), labelSize = 13.sp, fullNames = true, gnomon = true)
                     fastProgress(state, settings)?.let { (_, text) -> Text(text, fontFamily = font, fontSize = 14.sp, color = tk.accent) }
