@@ -58,7 +58,7 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                     }
                     if (theme == AppTheme.CELESTIAL_MERIDIAN)
                         rule.onNodeWithTag("landscape-countdown-value", true).assertTextEquals(L10n.duration(s, state.delta))
-                    else rule.onNodeWithTag("landscape-hero-status", true).assertTextEquals(heroInfo(state, s, kicker(state, s)).status)
+                    else rule.onNodeWithTag("landscape-hero-status", true).assertTextEquals(heroInfo(state, s, null).status)
                     for (prayer in Prayer.entries) {
                         rule.onNodeWithTag("compact-prayer-${prayer.name}", true).assertExists()
                     }
