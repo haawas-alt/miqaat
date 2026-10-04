@@ -1,0 +1,27 @@
+name: Inspect existing candidate evidence
+on:
+  push:
+    branches: ['fix/run158-audit-remediation']
+    paths: ['.github/workflows/inspect-candidate.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 37232523750
+          name: signed-candidate-37232523750
+          path: evidence
+      - name: Report exact layout failure
+        run: |
+          python3 - <<'PY'
+          import pathlib, xml.etree.ElementTree as E
+          for p in pathlib.Path("evidence").rglob("TEST-*.xml"):
+              r = E.parse(p).getroot()
+              for f in r.iter("failure"):
+                  print(p.name, f.get("message"), flush=True)
+          PY
