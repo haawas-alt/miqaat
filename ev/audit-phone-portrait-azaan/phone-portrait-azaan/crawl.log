@@ -1,0 +1,66 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1696, "t": 2.1}
+{"ev": "setup-screen", "step": 0, "shot": "phone-portrait-azaan__setup0.png", "key": "964113c261", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 202
+{"ev": "setup-tap", "label": "Begin", "t": 7.5}
+{"ev": "setup-screen", "step": 1, "shot": "phone-portrait-azaan__setup1.png", "key": "e0d67aafeb", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 202
+{"ev": "detect-result", "shot": "phone-portrait-azaan__setup1_after-detect-20s.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Learn Salah", "Monthly timetable", "Settings
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 37.6}
+{"ev": "setup-screen", "step": 2, "shot": "phone-portrait-azaan__setup2.png", "key": "5f08f0cbe2", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Settin
+{"ev": "setup-tap", "label": "Next", "t": 40.6}
+{"ev": "setup-screen", "step": 3, "shot": "phone-portrait-azaan__setup3.png", "key": "ae1b0e47bc", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Settin
+{"ev": "setup-stuck", "t": 45.7}
+{"ev": "setup-screen", "step": 4, "shot": "phone-portrait-azaan__setup4.png", "key": "ed45c212b4", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Settin
+{"ev": "setup-stuck", "t": 50.8}
+{"ev": "setup-screen", "step": 5, "shot": "phone-portrait-azaan__setup5.png", "key": "7835f0e93a", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Settin
+{"ev": "setup-tap", "label": "These look right", "t": 56.4}
+{"ev": "setup-screen", "step": 6, "shot": "phone-portrait-azaan__setup6.png", "key": "6965a2bf03", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Settin
+{"ev": "setup-tap", "label": "Finish", "t": 61.8}
+{"ev": "setup-done", "step": 7, "t": 66.6}
+{"ev": "setup-result", "ok": true, "t": 66.6}
+{"ev": "theme-set", "kw": "Miqaat", "t": 78.7}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "phone-portrait-azaan-Miqaat__001__azaan-full-fajr-t4.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:02 PM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَرُ", "Fa
+{"ev": "shot", "name": "azaan-full-fajr-t31", "shot": "phone-portrait-azaan-Miqaat__002__azaan-full-fajr-t31.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:03 PM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَرُ", "
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "phone-portrait-azaan-Miqaat__003__azaan-recording-t4.png", "labels": ["Back", "Try it now", "Run any part of the experience right now, without waiting for a prayer ti
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "phone-portrait-azaan-Miqaat__004__dua-hadith-t5.png", "labels": ["Back", "Try it now", "Dua after azaan → hadith → back to the clock, with narration", "Start", "Play one h
+{"ev": "shot", "name": "dua-hadith-t67", "shot": "phone-portrait-azaan-Miqaat__005__dua-hadith-t67.png", "labels": ["Back", "Try it now", "Dua after azaan → hadith → back to the clock, with narration", "Start", "Play one
+{"ev": "shot", "name": "dua-hadith-t140", "shot": "phone-portrait-azaan-Miqaat__006__dua-hadith-t140.png", "labels": ["Back", "Try it now", "Dua after azaan → hadith → back to the clock, with narration", "Start", "Play o
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "phone-portrait-azaan-Miqaat__007__iqamah-short-t4.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:06 PM⁩", "✓", "AZAAN", "IQAMAH COUNTDOWN", "IQAMAH", "PRAYER
+{"ev": "shot", "name": "iqamah-short-t18", "shot": "phone-portrait-azaan-Miqaat__008__iqamah-short-t18.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:07 PM⁩", "✓", "AZAAN", "✓", "IQAMAH COUNTDOWN", "IQAMAH", 
+{"ev": "shot", "name": "iqamah-short-t33", "shot": "phone-portrait-azaan-Miqaat__009__iqamah-short-t33.png", "labels": ["Back", "Try it now", "Play one hadith", "Choose a number (1–36) to hear its Arabic and English reco
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "phone-portrait-azaan-Miqaat__010__quiet-screen-t3.png", "labels": ["Back", "Try it now", "Decrease", "−", "1", "Increase", "+", "Play", "Ramaḍān Maghrib sequence", "Ifta
+{"ev": "theme-set", "kw": "Kiswah", "t": 435.9}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "phone-portrait-azaan-Kiswah__011__azaan-full-fajr-t4.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:08 PM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَرُ", "Fa
+{"ev": "shot", "name": "azaan-full-fajr-t31", "shot": "phone-portrait-azaan-Kiswah__012__azaan-full-fajr-t31.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:09 PM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَرُ", "
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "phone-portrait-azaan-Kiswah__013__azaan-recording-t4.png", "labels": ["Back", "Try it now", "Run any part of the experience right now, without waiting for a prayer ti
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "phone-portrait-azaan-Kiswah__014__dua-hadith-t5.png", "labels": ["Back", "Try it now", "Dua after azaan → hadith → back to the clock, with narration", "Start", "Play one h
+{"ev": "shot", "name": "dua-hadith-t67", "shot": "phone-portrait-azaan-Kiswah__015__dua-hadith-t67.png", "labels": ["Back", "Try it now", "Dua after azaan → hadith → back to the clock, with narration", "Start", "Play one
+{"ev": "shot", "name": "dua-hadith-t139", "shot": "phone-portrait-azaan-Kiswah__016__dua-hadith-t139.png", "labels": ["Back", "Try it now", "Dua after azaan → hadith → back to the clock, with narration", "Start", "Play o
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "phone-portrait-azaan-Kiswah__017__iqamah-short-t4.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:12 PM⁩", "✓", "AZAAN", "IQAMAH COUNTDOWN", "IQAMAH", "PRAYER
+{"ev": "shot", "name": "iqamah-short-t16", "shot": "phone-portrait-azaan-Kiswah__018__iqamah-short-t16.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:12 PM⁩", "✓", "AZAAN", "✓", "IQAMAH COUNTDOWN", "IQAMAH", 
+{"ev": "shot", "name": "iqamah-short-t30", "shot": "phone-portrait-azaan-Kiswah__019__iqamah-short-t30.png", "labels": ["Back", "Try it now", "Decrease", "−", "1", "Increase", "+", "Play", "Ramaḍān Maghrib sequence", "If
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "phone-portrait-azaan-Kiswah__020__quiet-screen-t3.png", "labels": ["Back", "Try it now", "Choose a number (1–36) to hear its Arabic and English recording; the daily rota
+{"ev": "theme-set", "kw": "Celestial", "t": 788.3}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "phone-portrait-azaan-Celestial__021__azaan-full-fajr-t4.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:14 PM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَرُ", 
+{"ev": "shot", "name": "azaan-full-fajr-t31", "shot": "phone-portrait-azaan-Celestial__022__azaan-full-fajr-t31.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:15 PM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَرُ"
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "phone-portrait-azaan-Celestial__023__azaan-recording-t4.png", "labels": ["Back", "Try it now", "Run any part of the experience right now, without waiting for a prayer
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "phone-portrait-azaan-Celestial__024__dua-hadith-t5.png", "labels": ["Back", "Try it now", "Dua after azaan → hadith → back to the clock, with narration", "Start", "Play on
+{"ev": "shot", "name": "dua-hadith-t68", "shot": "phone-portrait-azaan-Celestial__025__dua-hadith-t68.png", "labels": ["Back", "Try it now", "Dua after azaan → hadith → back to the clock, with narration", "Start", "Play 
+{"ev": "shot", "name": "dua-hadith-t141", "shot": "phone-portrait-azaan-Celestial__026__dua-hadith-t141.png", "labels": ["Back", "Try it now", "Dua after azaan → hadith → back to the clock, with narration", "Start", "Pla
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "phone-portrait-azaan-Celestial__027__iqamah-short-t4.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:18 PM⁩", "✓", "AZAAN", "IQAMAH COUNTDOWN", "IQAMAH", "PRA
+{"ev": "shot", "name": "iqamah-short-t17", "shot": "phone-portrait-azaan-Celestial__028__iqamah-short-t17.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:18 PM⁩", "✓", "AZAAN", "✓", "IQAMAH COUNTDOWN", "IQAMAH
+{"ev": "shot", "name": "iqamah-short-t32", "shot": "phone-portrait-azaan-Celestial__029__iqamah-short-t32.png", "labels": ["Back", "Try it now", "The whole iqamah flow, starting with a 60-second countdown", "Start", "Sho
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "phone-portrait-azaan-Celestial__030__quiet-screen-t3.png", "labels": ["Back", "Try it now", "Play one hadith", "Choose a number (1–36) to hear its Arabic and English rec
+{"ev": "theme-set", "kw": "Gallery", "t": 1145.5}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "phone-portrait-azaan-Gallery__031__azaan-full-fajr-t4.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:20 PM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَرُ", "F
+{"ev": "shot", "name": "azaan-full-fajr-t31", "shot": "phone-portrait-azaan-Gallery__032__azaan-full-fajr-t31.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:20 PM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَرُ", 
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "phone-portrait-azaan-Gallery__033__azaan-recording-t4.png", "labels": ["Back", "Try it now", "Run any part of the experience right now, without waiting for a prayer t
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "phone-portrait-azaan-Gallery__034__dua-hadith-t5.png", "labels": ["Back", "Try it now", "Dua after azaan → hadith → back to the clock, with narration", "Start", "Play one 
+{"ev": "shot", "name": "dua-hadith-t67", "shot": "phone-portrait-azaan-Gallery__035__dua-hadith-t67.png", "labels": ["Back", "Try it now", "Dua after azaan → hadith → back to the clock, with narration", "Start", "Play on
+{"ev": "shot", "name": "dua-hadith-t139", "shot": "phone-portrait-azaan-Gallery__036__dua-hadith-t139.png", "labels": ["Back", "Try it now", "Dua after azaan → hadith → back to the clock, with narration", "Start", "Play 
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "phone-portrait-azaan-Gallery__037__iqamah-short-t4.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:24 PM⁩", "✓", "AZAAN", "IQAMAH COUNTDOWN", "IQAMAH", "PRAYE
+{"ev": "shot", "name": "iqamah-short-t16", "shot": "phone-portrait-azaan-Gallery__038__iqamah-short-t16.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:24 PM⁩", "✓", "AZAAN", "✓", "IQAMAH COUNTDOWN", "IQAMAH",
+{"ev": "shot", "name": "iqamah-short-t30", "shot": "phone-portrait-azaan-Gallery__039__iqamah-short-t30.png", "labels": ["Back", "Try it now", "Play one hadith", "Choose a number (1–36) to hear its Arabic and English rec
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "phone-portrait-azaan-Gallery__040__quiet-screen-t3.png", "labels": ["Back", "Try it now", "Play one hadith", "Choose a number (1–36) to hear its Arabic and English recor
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 1486.5}
+{"ev": "gfx", "lines": ["Total frames rendered: 9", "Janky frames: 9 (100.00%)", "Janky frames (legacy): 9 (100.00%)", "50th percentile: 85ms", "90th percentile: 1800ms", "95th percentile: 1800ms", "99th percentile: 1800
+{"ev": "mem", "lines": ["  Native Heap    21720    21616        0        0    24908    29932    24792     1276", "        TOTAL    41614    30952     3412        0   159692    40354    30019     6471", "           Java H

@@ -1,0 +1,62 @@
+{"ev": "env", "density": 2.0, "size": "Physical size: 2560x1600", "rot": "", "t": 0.0}
+{"ev": "cold-start-ms", "ms": 1445, "t": 1.8}
+{"ev": "setup-screen", "step": 0, "shot": "tablet-portrait-azaan__setup0.png", "key": "0d2d711142", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 20
+{"ev": "setup-tap", "label": "Begin", "t": 7.0}
+{"ev": "setup-screen", "step": 1, "shot": "tablet-portrait-azaan__setup1.png", "key": "1205850701", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 20
+{"ev": "detect-result", "shot": "tablet-portrait-azaan__setup1_after-detect-20s.png", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 2026", "24 Rabīʿ
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 36.9}
+{"ev": "setup-screen", "step": 2, "shot": "tablet-portrait-azaan__setup2.png", "key": "9e9bbd571f", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "Next", "t": 39.8}
+{"ev": "setup-screen", "step": 3, "shot": "tablet-portrait-azaan__setup3.png", "key": "e6bd65616f", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "These look right", "t": 44.8}
+{"ev": "setup-screen", "step": 4, "shot": "tablet-portrait-azaan__setup4.png", "key": "47d19dcb07", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "Finish", "t": 49.9}
+{"ev": "setup-done", "step": 5, "t": 54.7}
+{"ev": "setup-result", "ok": true, "t": 54.7}
+{"ev": "theme-set", "kw": "Miqaat", "t": 66.5}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "tablet-portrait-azaan-Miqaat__001__azaan-full-fajr-t4.png", "labels": [], "t": 139.2}
+{"ev": "shot", "name": "azaan-full-fajr-t78", "shot": "tablet-portrait-azaan-Miqaat__002__azaan-full-fajr-t78.png", "labels": [], "t": 213.9}
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "tablet-portrait-azaan-Miqaat__003__azaan-recording-t4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer times", "Azaan & alerts", "Iqamah", 
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "tablet-portrait-azaan-Miqaat__004__dua-hadith-t5.png", "labels": ["Back", "Settings", "Search settings", "About", "Theme", "Preview a theme", "Applies straight away; press
+{"ev": "shot", "name": "dua-hadith-t67", "shot": "tablet-portrait-azaan-Miqaat__005__dua-hadith-t67.png", "labels": ["Back", "Settings", "Search settings", "Privacy", "About", "Theme", "Preview a theme", "Applies straigh
+{"ev": "shot", "name": "dua-hadith-t139", "shot": "tablet-portrait-azaan-Miqaat__006__dua-hadith-t139.png", "labels": ["Back", "Settings", "Search settings", "Privacy", "About", "Theme", "Preview a theme", "Applies strai
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "tablet-portrait-azaan-Miqaat__007__iqamah-short-t4.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:07 PM⁩", "✓", "AZAAN", "IQAMAH COUNTDOWN", "IQAMAH", "PRAYE
+{"ev": "shot", "name": "iqamah-short-t18", "shot": "tablet-portrait-azaan-Miqaat__008__iqamah-short-t18.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:08 PM⁩", "✓", "AZAAN", "✓", "IQAMAH COUNTDOWN", "IQAMAH",
+{"ev": "shot", "name": "iqamah-short-t32", "shot": "tablet-portrait-azaan-Miqaat__009__iqamah-short-t32.png", "labels": ["12:08", "المغرب", "in prayer · screen wakes in 10 min · tap to wake now"], "t": 463.6}
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "tablet-portrait-azaan-Miqaat__010__quiet-screen-t3.png", "labels": ["12:09", "المغرب", "in prayer · screen wakes in 10 min · tap to wake now"], "t": 497.5}
+{"ev": "theme-set", "kw": "Kiswah", "t": 516.4}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "tablet-portrait-azaan-Kiswah__011__azaan-full-fajr-t4.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:09 PM⁩", "AZAAN", "DUA AFTER AZAAN", "HADITH", "H
+{"ev": "shot", "name": "azaan-full-fajr-t31", "shot": "tablet-portrait-azaan-Kiswah__012__azaan-full-fajr-t31.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:10 PM⁩", "AZAAN", "DUA AFTER AZAAN", "HADITH", 
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "tablet-portrait-azaan-Kiswah__013__azaan-recording-t4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer times", "Azaan & alerts", "Iqamah", 
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "tablet-portrait-azaan-Kiswah__014__dua-hadith-t5.png", "labels": ["Back", "Settings", "Search settings", "About", "Theme", "Preview a theme", "Applies straight away; press
+{"ev": "shot", "name": "dua-hadith-t67", "shot": "tablet-portrait-azaan-Kiswah__015__dua-hadith-t67.png", "labels": ["Back", "Settings", "Search settings", "Privacy", "About", "Theme", "Preview a theme", "Applies straigh
+{"ev": "shot", "name": "dua-hadith-t139", "shot": "tablet-portrait-azaan-Kiswah__016__dua-hadith-t139.png", "labels": ["Back", "Settings", "Search settings", "Privacy", "About", "Theme", "Preview a theme", "Applies strai
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "tablet-portrait-azaan-Kiswah__017__iqamah-short-t4.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:13 PM⁩", "✓", "AZAAN", "IQAMAH COUNTDOWN", "IQAMAH", "PRAYE
+{"ev": "shot", "name": "iqamah-short-t16", "shot": "tablet-portrait-azaan-Kiswah__018__iqamah-short-t16.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:14 PM⁩", "✓", "AZAAN", "✓", "IQAMAH COUNTDOWN", "IQAMAH",
+{"ev": "shot", "name": "iqamah-short-t30", "shot": "tablet-portrait-azaan-Kiswah__019__iqamah-short-t30.png", "labels": ["12:14", "المغرب", "in prayer · screen wakes in 10 min · tap to wake now"], "t": 814.8}
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "tablet-portrait-azaan-Kiswah__020__quiet-screen-t3.png", "labels": ["12:14", "المغرب", "in prayer · screen wakes in 10 min · tap to wake now"], "t": 845.2}
+{"ev": "theme-set", "kw": "Celestial", "t": 863.8}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "tablet-portrait-azaan-Celestial__021__azaan-full-fajr-t4.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:15 PM⁩", "AZAAN", "DUA AFTER AZAAN", "HADITH",
+{"ev": "shot", "name": "azaan-full-fajr-t31", "shot": "tablet-portrait-azaan-Celestial__022__azaan-full-fajr-t31.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:16 PM⁩", "AZAAN", "DUA AFTER AZAAN", "HADITH
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "tablet-portrait-azaan-Celestial__023__azaan-recording-t4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer times", "Azaan & alerts", "Iqamah
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "tablet-portrait-azaan-Celestial__024__dua-hadith-t5.png", "labels": ["Back", "Settings", "Search settings", "About", "Theme", "Preview a theme", "Applies straight away; pr
+{"ev": "shot", "name": "dua-hadith-t67", "shot": "tablet-portrait-azaan-Celestial__025__dua-hadith-t67.png", "labels": ["Back", "Settings", "Search settings", "Privacy", "About", "Theme", "Preview a theme", "Applies stra
+{"ev": "shot", "name": "dua-hadith-t140", "shot": "tablet-portrait-azaan-Celestial__026__dua-hadith-t140.png", "labels": ["Back", "Settings", "Search settings", "Privacy", "About", "Theme", "Preview a theme", "Applies st
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "tablet-portrait-azaan-Celestial__027__iqamah-short-t4.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:19 PM⁩", "✓", "AZAAN", "IQAMAH COUNTDOWN", "IQAMAH", "PR
+{"ev": "shot", "name": "iqamah-short-t17", "shot": "tablet-portrait-azaan-Celestial__028__iqamah-short-t17.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:19 PM⁩", "✓", "AZAAN", "✓", "IQAMAH COUNTDOWN", "IQAMA
+{"ev": "shot", "name": "iqamah-short-t32", "shot": "tablet-portrait-azaan-Celestial__029__iqamah-short-t32.png", "labels": ["12:20", "المغرب", "in prayer · screen wakes in 10 min · tap to wake now"], "t": 1168.4}
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "tablet-portrait-azaan-Celestial__030__quiet-screen-t3.png", "labels": ["12:20", "المغرب", "in prayer · screen wakes in 10 min · tap to wake now"], "t": 1202.0}
+{"ev": "theme-set", "kw": "Gallery", "t": 1220.5}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "tablet-portrait-azaan-Gallery__031__azaan-full-fajr-t4.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:21 PM⁩", "AZAAN", "DUA AFTER AZAAN", "HADITH", "
+{"ev": "shot", "name": "azaan-full-fajr-t31", "shot": "tablet-portrait-azaan-Gallery__032__azaan-full-fajr-t31.png", "labels": ["Fajr azaan · playing", "⁨Sydney, NSW⁩", "⁨11:22 PM⁩", "AZAAN", "DUA AFTER AZAAN", "HADITH",
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "tablet-portrait-azaan-Gallery__033__azaan-recording-t4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer times", "Azaan & alerts", "Iqamah",
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "tablet-portrait-azaan-Gallery__034__dua-hadith-t5.png", "labels": ["Back", "Settings", "Search settings", "About", "Theme", "Preview a theme", "Applies straight away; pres
+{"ev": "shot", "name": "dua-hadith-t67", "shot": "tablet-portrait-azaan-Gallery__035__dua-hadith-t67.png", "labels": ["Back", "Settings", "Search settings", "Privacy", "About", "Theme", "Preview a theme", "Applies straig
+{"ev": "shot", "name": "dua-hadith-t139", "shot": "tablet-portrait-azaan-Gallery__036__dua-hadith-t139.png", "labels": ["Back", "Settings", "Search settings", "Privacy", "About", "Theme", "Preview a theme", "Applies stra
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "tablet-portrait-azaan-Gallery__037__iqamah-short-t4.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:25 PM⁩", "✓", "AZAAN", "IQAMAH COUNTDOWN", "IQAMAH", "PRAY
+{"ev": "shot", "name": "iqamah-short-t16", "shot": "tablet-portrait-azaan-Gallery__038__iqamah-short-t16.png", "labels": ["Maghrib · iqamah", "⁨Sydney, NSW⁩", "⁨11:25 PM⁩", "✓", "AZAAN", "✓", "IQAMAH COUNTDOWN", "IQAMAH"
+{"ev": "shot", "name": "iqamah-short-t30", "shot": "tablet-portrait-azaan-Gallery__039__iqamah-short-t30.png", "labels": ["12:26", "المغرب", "in prayer · screen wakes in 10 min · tap to wake now"], "t": 1520.8}
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "tablet-portrait-azaan-Gallery__040__quiet-screen-t3.png", "labels": ["12:26", "المغرب", "in prayer · screen wakes in 10 min · tap to wake now"], "t": 1554.3}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 1561.0}
+{"ev": "gfx", "lines": ["Total frames rendered: 5", "Janky frames: 5 (100.00%)", "Janky frames (legacy): 5 (100.00%)", "50th percentile: 350ms", "90th percentile: 1150ms", "95th percentile: 1150ms", "99th percentile: 115
+{"ev": "mem", "lines": ["  Native Heap    22214    22112        0        0    25400    30072    25290     1077", "        TOTAL    42264    31556     3280        0   160380    40671    30606     6360", "           Java H
