@@ -1,7 +1,5 @@
 name: Black-box audit of the 1.90 audit-fix candidate (compared with 1.89)
 on:
-  push:
-    branches: ['audit/v1.89-emulator']
   workflow_dispatch:
 permissions:
   contents: write
@@ -12,8 +10,8 @@ jobs:
       - name: Download and verify the exact APK under audit
         run: |
           mkdir -p apk && cd apk
-          curl -sSL -o Miqaat.apk https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-3/Miqaat-1.90-audit-fixes.apk
-          curl -sSL -o Miqaat.apk.sha256 https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-3/Miqaat-1.90-audit-fixes.apk.sha256
+          curl -sSL -o Miqaat.apk https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-4/Miqaat-1.90-audit-fixes.apk
+          curl -sSL -o Miqaat.apk.sha256 https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-4/Miqaat-1.90-audit-fixes.apk.sha256
           cat Miqaat.apk.sha256; sha256sum Miqaat.apk
           grep -q "$(sha256sum Miqaat.apk | cut -d' ' -f1)  Miqaat-1.90-audit-fixes.apk" Miqaat.apk.sha256
           curl -sSL -o Miqaat-1.89.apk https://github.com/haawas-alt/miqaat/releases/download/audit-fixes-3895c823/Miqaat-1.89-mockup-fit.apk

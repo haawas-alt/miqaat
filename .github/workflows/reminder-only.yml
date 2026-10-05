@@ -1,0 +1,79 @@
+name: Reminder runtime test on final 1.90 build
+on:
+  push:
+    branches: ['audit/v1.89-emulator-rem']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download and verify the exact APK under audit
+        run: |
+          mkdir -p apk && cd apk
+          curl -sSL -o Miqaat.apk https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-4/Miqaat-1.90-audit-fixes.apk
+          curl -sSL -o Miqaat.apk.sha256 https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-4/Miqaat-1.90-audit-fixes.apk.sha256
+          cat Miqaat.apk.sha256; sha256sum Miqaat.apk
+          grep -q "$(sha256sum Miqaat.apk | cut -d' ' -f1)  Miqaat-1.90-audit-fixes.apk" Miqaat.apk.sha256
+          curl -sSL -o Miqaat-1.89.apk https://github.com/haawas-alt/miqaat/releases/download/audit-fixes-3895c823/Miqaat-1.89-mockup-fit.apk
+          echo "734e121bf42d4f1e913068245da3fe43c5d64828144a3fe0f90347721ddc4ebb  Miqaat-1.89.apk" | sha256sum -c -
+      - uses: actions/upload-artifact@v4
+        with: { name: apk, path: apk/ }
+  reminder:
+    needs: fetch
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { label: v1.89, apk: apk/Miqaat-1.89.apk }
+          - { label: v1.90, apk: apk/Miqaat.apk }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: apk, path: apk }
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: default
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-boot-timeout: 900
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096
+          script: bash audit/reminder.sh ${{ matrix.apk }} ${{ matrix.label }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-reminder-${{ matrix.label }}-reminder
+          path: out/
+          if-no-files-found: ignore
+  publish:
+    needs: [reminder]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: audit-*
+          path: /tmp/ev
+      - name: Publish evidence, one branch per variant
+        run: |
+          git config user.name audit-ci; git config user.email audit-ci@users.noreply.github.com
+          for v in reminder; do
+            rm -rf /tmp/pub && mkdir -p /tmp/pub/ev
+            for d in /tmp/ev/audit-*-$v; do [ -d "$d" ] && cp -r "$d" /tmp/pub/ev/; done
+            git checkout -q --orphan "audit-ev4-$v"
+            git rm -rq --cached . 2>/dev/null || true
+            find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+            cp -r /tmp/pub/ev ./ev
+            echo "run ${{ github.run_number }} commit ${{ github.sha }} variant $v" > ev/RUN.txt
+            git add -A ev && git commit -qm "audit evidence $v run ${{ github.run_number }}" && git push -q -f origin "audit-ev4-$v" || echo "push failed $v"
+          done
