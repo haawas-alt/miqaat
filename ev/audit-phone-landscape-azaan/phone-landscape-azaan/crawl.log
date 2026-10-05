@@ -1,0 +1,100 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.2}
+{"ev": "cold-start-ms", "ms": 2281, "t": 2.9}
+{"ev": "setup-screen", "step": 0, "shot": "phone-landscape-azaan__setup0.png", "key": "b36ef12b79", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Learn Salah", "M
+{"ev": "setup-stuck", "t": 8.5}
+{"ev": "setup-screen", "step": 1, "shot": "phone-landscape-azaan__setup1.png", "key": "f37fc9d2f4", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Learn Salah", "M
+{"ev": "setup-tap", "label": "Begin", "t": 13.9}
+{"ev": "setup-screen", "step": 2, "shot": "phone-landscape-azaan__setup2.png", "key": "a86cb0b272", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Learn Salah", "M
+{"ev": "detect-result", "shot": "phone-landscape-azaan__setup2_after-detect-20s.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī
+{"ev": "setup-screen", "step": 3, "shot": "phone-landscape-azaan__setup3.png", "key": "5f7d2689dd", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-tap", "label": "Next", "t": 45.0}
+{"ev": "setup-screen", "step": 4, "shot": "phone-landscape-azaan__setup4.png", "key": "b85dcc3254", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-stuck", "t": 50.1}
+{"ev": "setup-screen", "step": 5, "shot": "phone-landscape-azaan__setup5.png", "key": "dbbe8f8da2", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-stuck", "t": 56.0}
+{"ev": "setup-screen", "step": 6, "shot": "phone-landscape-azaan__setup6.png", "key": "40001fb741", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-stuck", "t": 61.1}
+{"ev": "setup-screen", "step": 7, "shot": "phone-landscape-azaan__setup7.png", "key": "8a87be791a", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-stuck", "t": 66.2}
+{"ev": "setup-screen", "step": 8, "shot": "phone-landscape-azaan__setup8.png", "key": "2e3344318a", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-tap", "label": "These look right", "t": 72.0}
+{"ev": "setup-screen", "step": 9, "shot": "phone-landscape-azaan__setup9.png", "key": "08f355ed7e", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-stuck", "t": 77.1}
+{"ev": "setup-screen", "step": 10, "shot": "phone-landscape-azaan__setup10.png", "key": "05fff4d502", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "2
+{"ev": "setup-stuck", "t": 82.5}
+{"ev": "setup-screen", "step": 11, "shot": "phone-landscape-azaan__setup11.png", "key": "036d10e7bb", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "2
+{"ev": "setup-stuck", "t": 87.6}
+{"ev": "setup-screen", "step": 12, "shot": "phone-landscape-azaan__setup12.png", "key": "7b0cc0cbb8", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "2
+{"ev": "setup-stuck", "t": 93.0}
+{"ev": "setup-screen", "step": 13, "shot": "phone-landscape-azaan__setup13.png", "key": "3f4634e7ea", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "2
+{"ev": "setup-stuck", "t": 98.5}
+{"ev": "setup-screen", "step": 14, "shot": "phone-landscape-azaan__setup14.png", "key": "cb494badda", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "2
+{"ev": "setup-tap", "label": "Finish", "t": 103.9}
+{"ev": "setup-done", "step": 15, "t": 108.8}
+{"ev": "setup-result", "ok": true, "t": 108.8}
+{"ev": "theme-set", "kw": "Miqaat", "t": 155.2}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "phone-landscape-azaan-Miqaat__001__azaan-full-fajr-t4.png", "labels": ["Fajr azaan · playing", "⁨33.99°S, 150.80°E⁩", "⁨4:20 AM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَرُ
+{"ev": "shot", "name": "azaan-full-fajr-t31", "shot": "phone-landscape-azaan-Miqaat__002__azaan-full-fajr-t31.png", "labels": ["Fajr azaan · playing", "⁨33.99°S, 150.80°E⁩", "⁨4:21 AM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَ
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Miqaat__003__azaan-recording-t4", "dims": [1080, 2400], "t": 275.8}
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "phone-landscape-azaan-Miqaat__003__azaan-recording-t4.png", "labels": ["Back", "Try it now", "Run any part of the experience right now, without waiting for a prayer t
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Miqaat__004__dua-hadith-t5", "dims": [1080, 2400], "t": 306.7}
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "phone-landscape-azaan-Miqaat__004__dua-hadith-t5.png", "labels": ["Back", "Try it now", "Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the clock 
+{"ev": "shot", "name": "dua-hadith-t71", "shot": "phone-landscape-azaan-Miqaat__005__dua-hadith-t71.png", "labels": ["Back", "Try it now", "Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the cloc
+{"ev": "shot", "name": "dua-hadith-t143", "shot": "phone-landscape-azaan-Miqaat__006__dua-hadith-t143.png", "labels": ["Back", "Try it now", "Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the cl
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Miqaat__007__iqamah-short-t4", "dims": [1080, 2400], "t": 480.0}
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "phone-landscape-azaan-Miqaat__007__iqamah-short-t4.png", "labels": ["Maghrib · iqamah", "⁨33.99°S, 150.80°E⁩", "⁨4:25 AM⁩", "✓", "AZAAN", "IQAMAH COUNTDOWN", "IQAMAH", "
+{"ev": "shot", "name": "iqamah-short-t24", "shot": "phone-landscape-azaan-Miqaat__008__iqamah-short-t24.png", "labels": ["Back", "Try it now", "Short countdown", "Same flow, 15-second countdown, to hear the ticks quickly
+{"ev": "shot", "name": "iqamah-short-t39", "shot": "phone-landscape-azaan-Miqaat__009__iqamah-short-t39.png", "labels": ["Back", "Try it now", "Short countdown", "Same flow, 15-second countdown, to hear the ticks quickly
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Miqaat__010__quiet-screen-t3", "dims": [1080, 2400], "t": 550.1}
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "phone-landscape-azaan-Miqaat__010__quiet-screen-t3.png", "labels": ["4:26", "AM", "المغرب", "in prayer · screen wakes in 1 min · tap to wake now"], "t": 555.6}
+{"ev": "theme-set", "kw": "Kiswah", "t": 575.7}
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Kiswah__011__azaan-full-fajr-t4", "dims": [1080, 2400], "t": 604.1}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "phone-landscape-azaan-Kiswah__011__azaan-full-fajr-t4.png", "labels": ["Fajr azaan · playing", "⁨33.99°S, 150.80°E⁩", "⁨4:27 AM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَرُ
+{"ev": "shot", "name": "azaan-full-fajr-t34", "shot": "phone-landscape-azaan-Kiswah__012__azaan-full-fajr-t34.png", "labels": ["Fajr azaan · playing", "⁨33.99°S, 150.80°E⁩", "⁨4:27 AM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَ
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Kiswah__013__azaan-recording-t4", "dims": [1080, 2400], "t": 661.0}
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "phone-landscape-azaan-Kiswah__013__azaan-recording-t4.png", "labels": ["Back", "Try it now", "Run any part of the experience right now, without waiting for a prayer t
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Kiswah__014__dua-hadith-t5", "dims": [1080, 2400], "t": 691.6}
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "phone-landscape-azaan-Kiswah__014__dua-hadith-t5.png", "labels": ["Back", "Try it now", "Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the clock 
+{"ev": "shot", "name": "dua-hadith-t70", "shot": "phone-landscape-azaan-Kiswah__015__dua-hadith-t70.png", "labels": ["Back", "Try it now", "Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the cloc
+{"ev": "shot", "name": "dua-hadith-t143", "shot": "phone-landscape-azaan-Kiswah__016__dua-hadith-t143.png", "labels": ["Back", "Try it now", "Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the cl
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Kiswah__017__iqamah-short-t4", "dims": [1080, 2400], "t": 862.4}
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "phone-landscape-azaan-Kiswah__017__iqamah-short-t4.png", "labels": ["Maghrib · iqamah", "⁨33.99°S, 150.80°E⁩", "⁨4:31 AM⁩", "✓", "AZAAN", "IQAMAH COUNTDOWN", "IQAMAH", "
+{"ev": "shot", "name": "iqamah-short-t19", "shot": "phone-landscape-azaan-Kiswah__018__iqamah-short-t19.png", "labels": ["Maghrib · iqamah", "⁨33.99°S, 150.80°E⁩", "⁨4:31 AM⁩", "✓", "AZAAN", "✓", "IQAMAH COUNTDOWN", "IQA
+{"ev": "shot", "name": "iqamah-short-t34", "shot": "phone-landscape-azaan-Kiswah__019__iqamah-short-t34.png", "labels": ["Back", "Try it now", "Iqamah sound only", "Plays the iqamah recording and shows the iqamah screen"
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Kiswah__020__quiet-screen-t3", "dims": [1080, 2400], "t": 924.3}
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "phone-landscape-azaan-Kiswah__020__quiet-screen-t3.png", "labels": ["4:32", "AM", "المغرب", "in prayer · screen wakes in 1 min · tap to wake now"], "t": 929.7}
+{"ev": "theme-set", "kw": "Celestial", "t": 949.2}
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Celestial__021__azaan-full-fajr-t4", "dims": [1080, 2400], "t": 978.3}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "phone-landscape-azaan-Celestial__021__azaan-full-fajr-t4.png", "labels": ["Fajr azaan · playing", "⁨33.99°S, 150.80°E⁩", "⁨4:33 AM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْب
+{"ev": "shot", "name": "azaan-full-fajr-t36", "shot": "phone-landscape-azaan-Celestial__022__azaan-full-fajr-t36.png", "labels": ["Fajr azaan · playing", "⁨33.99°S, 150.80°E⁩", "⁨4:34 AM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَك
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Celestial__023__azaan-recording-t4", "dims": [1080, 2400], "t": 1036.4}
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "phone-landscape-azaan-Celestial__023__azaan-recording-t4.png", "labels": ["Back", "Try it now", "Run any part of the experience right now, without waiting for a praye
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Celestial__024__dua-hadith-t5", "dims": [1080, 2400], "t": 1067.8}
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "phone-landscape-azaan-Celestial__024__dua-hadith-t5.png", "labels": ["Back", "Try it now", "Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the clo
+{"ev": "shot", "name": "dua-hadith-t72", "shot": "phone-landscape-azaan-Celestial__025__dua-hadith-t72.png", "labels": ["Back", "Try it now", "Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the c
+{"ev": "shot", "name": "dua-hadith-t145", "shot": "phone-landscape-azaan-Celestial__026__dua-hadith-t145.png", "labels": ["Back", "Try it now", "Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Celestial__027__iqamah-short-t4", "dims": [1080, 2400], "t": 1241.8}
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "phone-landscape-azaan-Celestial__027__iqamah-short-t4.png", "labels": ["Maghrib · iqamah", "⁨33.99°S, 150.80°E⁩", "⁨4:38 AM⁩", "✓", "AZAAN", "IQAMAH COUNTDOWN", "IQAMAH"
+{"ev": "shot", "name": "iqamah-short-t22", "shot": "phone-landscape-azaan-Celestial__028__iqamah-short-t22.png", "labels": ["Back", "Try it now", "Short countdown", "Same flow, 15-second countdown, to hear the ticks quic
+{"ev": "shot", "name": "iqamah-short-t37", "shot": "phone-landscape-azaan-Celestial__029__iqamah-short-t37.png", "labels": ["Back", "Try it now", "Short countdown", "Same flow, 15-second countdown, to hear the ticks quic
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Celestial__030__quiet-screen-t3", "dims": [1080, 2400], "t": 1305.8}
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "phone-landscape-azaan-Celestial__030__quiet-screen-t3.png", "labels": ["4:39", "AM", "المغرب", "in prayer · screen wakes in 1 min · tap to wake now"], "t": 1311.2}
+{"ev": "theme-set", "kw": "Gallery", "t": 1330.8}
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Gallery__031__azaan-full-fajr-t4", "dims": [1080, 2400], "t": 1359.3}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "phone-landscape-azaan-Gallery__031__azaan-full-fajr-t4.png", "labels": ["Fajr azaan · playing", "⁨33.99°S, 150.80°E⁩", "⁨4:39 AM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْبَر
+{"ev": "shot", "name": "azaan-full-fajr-t34", "shot": "phone-landscape-azaan-Gallery__032__azaan-full-fajr-t34.png", "labels": ["Fajr azaan · playing", "⁨33.99°S, 150.80°E⁩", "⁨4:40 AM⁩", "AZAAN", "HOME", "ٱللَّٰهُ أَكْب
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Gallery__033__azaan-recording-t4", "dims": [1080, 2400], "t": 1416.1}
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "phone-landscape-azaan-Gallery__033__azaan-recording-t4.png", "labels": ["Back", "Try it now", "Run any part of the experience right now, without waiting for a prayer 
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Gallery__034__dua-hadith-t5", "dims": [1080, 2400], "t": 1447.1}
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "phone-landscape-azaan-Gallery__034__dua-hadith-t5.png", "labels": ["Back", "Try it now", "Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the clock
+{"ev": "shot", "name": "dua-hadith-t71", "shot": "phone-landscape-azaan-Gallery__035__dua-hadith-t71.png", "labels": ["Back", "Try it now", "Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the clo
+{"ev": "shot", "name": "dua-hadith-t143", "shot": "phone-landscape-azaan-Gallery__036__dua-hadith-t143.png", "labels": ["Back", "Try it now", "Everything, exactly as at prayer time", "Azaan → dua → hadith → back to the c
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Gallery__037__iqamah-short-t4", "dims": [1080, 2400], "t": 1618.6}
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "phone-landscape-azaan-Gallery__037__iqamah-short-t4.png", "labels": ["Maghrib · iqamah", "⁨33.99°S, 150.80°E⁩", "⁨4:44 AM⁩", "✓", "AZAAN", "IQAMAH COUNTDOWN", "IQAMAH", 
+{"ev": "shot", "name": "iqamah-short-t20", "shot": "phone-landscape-azaan-Gallery__038__iqamah-short-t20.png", "labels": ["Maghrib · iqamah", "⁨33.99°S, 150.80°E⁩", "⁨4:44 AM⁩", "✓", "AZAAN", "✓", "IQAMAH COUNTDOWN", "IQ
+{"ev": "shot", "name": "iqamah-short-t34", "shot": "phone-landscape-azaan-Gallery__039__iqamah-short-t34.png", "labels": ["Back", "Try it now", "Iqamah sound only", "Plays the iqamah recording and shows the iqamah screen
+{"ev": "rotation-lost", "name": "phone-landscape-azaan-Gallery__040__quiet-screen-t3", "dims": [1080, 2400], "t": 1684.6}
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "phone-landscape-azaan-Gallery__040__quiet-screen-t3.png", "labels": ["4:45", "AM", "المغرب", "in prayer · screen wakes in 1 min · tap to wake now"], "t": 1690.0}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 1697.5}
+{"ev": "gfx", "lines": ["Total frames rendered: 9", "Janky frames: 9 (100.00%)", "Janky frames (legacy): 9 (100.00%)", "50th percentile: 81ms", "90th percentile: 2250ms", "95th percentile: 2250ms", "99th percentile: 2250
+{"ev": "mem", "lines": ["  Native Heap    21864    21764        0        0    24992    30060    24969     1301", "        TOTAL    41719    31008     3420        0   159536    40507    30209     6508", "           Java H
