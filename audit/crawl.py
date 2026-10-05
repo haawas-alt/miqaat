@@ -66,11 +66,16 @@ def parse(x):
         l, t, r, b = map(int, m.groups())
         out.append(dict(text=n.get("text", ""), desc=n.get("content-desc", ""), click=n.get("clickable") == "true",
                         scroll=n.get("scrollable") == "true", pkg=n.get("package", ""), cls=n.get("class", ""),
-                        b=(l, t, r, b), enabled=n.get("enabled") == "true", checked=n.get("checked") == "true"))
+                        b=(l, t, r, b), enabled=n.get("enabled") == "true", checked=n.get("checked") == "true",
+                        sel=n.get("selected") == "true", foc=n.get("focusable") == "true", chk=n.get("checkable") == "true"))
     return out
 
 def label(n): return (n["text"] or n["desc"]).strip().replace("\n", " ")
-def skey(nodes): return hashlib.md5("|".join(sorted({label(n) for n in nodes if label(n)})).encode()).hexdigest()[:10]
+def skey(nodes): return hashlib.md5("|".join(sorted({re.sub(r"[0-9٠-٩]+", "#", label(n)) for n in nodes if label(n)})).encode()).hexdigest()[:10]
+def actionable(n, W=None, H=None):
+    if not (n["enabled"] and label(n)): return False
+    if not (n["click"] or n["chk"] or n["foc"]): return False
+    return True
 def screen_size(nodes):
     return max(n["b"][2] for n in nodes), max(n["b"][3] for n in nodes)
 
@@ -191,10 +196,10 @@ def screens_of(tag, path, nodes, depth):
         f = shot(f"{tag}__{shotn[0]:03d}__d{depth}__p{pos}")
         log(ev="screen", depth=depth, path=path, key=skey(cur), pos=pos, shot=f,
             labels=[label(n) for n in cur if label(n)][:60],
-            clickables=[label(n) for n in cur if n["click"] and label(n)][:40],
+            clickables=[label(n) for n in cur if actionable(n)][:40],
             tiny=[label(n) for n in cur if n["click"] and (n["b"][2]-n["b"][0] < 44*DENS or n["b"][3]-n["b"][1] < 44*DENS) and label(n)][:20])
         for n in cur:
-            if n["click"] and n["enabled"] and label(n) and n["pkg"] == PKG:
+            if actionable(n) and n["pkg"] == PKG and not n["scroll"]:
                 lab = label(n); labseen[lab] = labseen.get(lab, 0) + 1
                 if (lab, labseen[lab] - 1) not in [(c[1], c[2]) for c in cands]: cands.append((pos, lab, labseen[lab] - 1))
         if pos >= 5: break
@@ -218,7 +223,7 @@ def tap_label(lab, nth, pos):
     tap(n); return True
 
 def find_exact(nodes, lab, nth):
-    m = [n for n in nodes if label(n) == lab and n["click"]]
+    m = [n for n in nodes if label(n) == lab and actionable(n)]
     return m[nth] if len(m) > nth else None
 
 def replay(path):
@@ -278,13 +283,21 @@ def metrics(tag):
 
 def pick_theme(kw):
     if kw == "none": return True
-    if not nav_settings("Theme, language"): return False
-    n = scroll_find(kw)
-    if not n: log(ev="theme-not-found", kw=kw); return False
-    tap(n); log(ev="theme-set", kw=kw); return True
+    if not nav_settings(None): return False
+    d = scroll_find("Display & art")
+    if d: tap(d)
+    for i in range(10):
+        nodes = dump() or []
+        c = [n for n in nodes if actionable(n) and kw.lower() in label(n).lower()]
+        if c:
+            tap(c[0]); log(ev="theme-set", kw=kw, label=label(c[0])); return True
+        if nodes: swipe(*screen_size(nodes))
+    log(ev="theme-not-found", kw=kw); return False
 
 def set_lang_urdu():
-    if not nav_settings("Theme, language"): return False
+    if not nav_settings(None): return False
+    d = scroll_find("Display & art")
+    if d: tap(d)
     n = scroll_find("اردو") or scroll_find("Urdu")
     if not n: log(ev="lang-not-found"); return False
     tap(n); time.sleep(2); log(ev="lang-set"); return True
