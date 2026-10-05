@@ -1,0 +1,1866 @@
+--------- beginning of system
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.667   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.668   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.669   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.670   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.671   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.672   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.673   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.674   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.675   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.676   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.677   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.678   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.679   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.680   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.681   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.682   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.683   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.684   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.685   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.686   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.687   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.688   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.689   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.690   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.691   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.692   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.693   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.694   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.695   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.696   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.697   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.698   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.699   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.700   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.701   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.702   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.703   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.704   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.705   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.706   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.707   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.708   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.709   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.710   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.711   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.712   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.713   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.714   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.715   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.716   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.717   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.718   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.719   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.720   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.721   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.722   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.723   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.724   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.725   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.726   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.727   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.728   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.729   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.730   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.731   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+10-07 11:34:52.732   504  4869 W InputManager: Input event injection from pid 5599 failed.
+--------- beginning of main
+10-07 11:34:53.768  5604  5604 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:34:53.768  5604  5604 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:34:53.769  5604  5604 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:34:53.770  5604  5604 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:34:53.784  5604  5604 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:34:53.787   504  4869 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:53.788   504   504 E IPCThreadState: Binder transaction failure: 1166705/29201/-28
+10-07 11:34:53.788   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:53.793   504   504 E IPCThreadState: Binder transaction failure: 1166723/29201/-28
+10-07 11:34:53.793   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:53.793   504   504 E IPCThreadState: Binder transaction failure: 1166733/29201/-28
+10-07 11:34:53.793   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:53.797   504  2158 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:53.799   504   504 E IPCThreadState: Binder transaction failure: 1166807/29201/-28
+10-07 11:34:53.799   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:53.799   504   504 E IPCThreadState: Binder transaction failure: 1166817/29201/-28
+10-07 11:34:53.799   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:54.816  5604  5604 W AccessibilityNodeInfoDumper: Fetch time: 17ms
+10-07 11:34:54.817   504   597 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:54.817   504   504 E IPCThreadState: Binder transaction failure: 1166989/29201/-28
+10-07 11:34:54.817   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:54.817   504   504 E IPCThreadState: Binder transaction failure: 1166999/29201/-28
+10-07 11:34:54.817   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:54.821   504   504 E IPCThreadState: Binder transaction failure: 1167035/29201/-28
+10-07 11:34:54.821   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:56.979  5417  5425 W om.usman.miqaat: Cleared Reference was only reachable from finalizer (only reported once)
+10-07 11:34:57.255   504  4869 W ActivityTaskManager: Current config: {1.0 310mcc260mnc [en_US] ldltr sw411dp w818dp h387dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 2400, 1080) mAppBounds=Rect(128, 0 - 2274, 1080) mMaxBounds=Rect(0, 0 - 2400, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.3 s.6512 fontWeightAdjustment=0} unchanged for IME proc com.android.inputmethod.latin
+10-07 11:34:57.277   504   525 W system_server: Long monitor contention with owner binder:504_20 (4869) at android.content.res.Configuration com.android.server.wm.ActivityTaskManagerService.getGlobalConfigurationForPid(int)(ActivityTaskManagerService.java:1133) waiters=2 in void com.android.server.wm.WindowAnimator.lambda$new$1(long) for 149ms
+10-07 11:34:57.285   504  1687 W system_server: Long monitor contention with owner binder:504_4 (597) at com.android.internal.inputmethod.InputBindResult com.android.server.inputmethod.InputMethodManagerService.startInputOrWindowGainedFocus(int, com.android.internal.inputmethod.IInputMethodClient, android.os.IBinder, int, int, int, android.view.inputmethod.EditorInfo, com.android.internal.inputmethod.IRemoteInputConnection, com.android.internal.inputmethod.IRemoteAccessibilityInputConnection, int, int, android.window.ImeOnBackInvokedDispatcher)(InputMethodManagerService.java:3708) waiters=0 in void com.android.server.inputmethod.InputMethodManagerService.reportFullscreenMode(android.os.IBinder, boolean) for 101ms
+10-07 11:34:57.369   800   832 W Looper  : Slow dispatch took 307ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.RemoteTransitionHandler$1$$ExternalSyntheticLambda0@17a116f m=0
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: No service published for: ethernet
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:166)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$139.createService(SystemServiceRegistry.java:1872)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:1971)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1645)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2212)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.content.ContextWrapper.getSystemService(ContextWrapper.java:934)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.isEthernetSupported(Tethering.java:1582)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.makeSupportedDownstreams(Tethering.java:2550)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateSupportedDownstreams(Tethering.java:2524)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateConfiguration(Tethering.java:546)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.-$$Nest$mupdateConfiguration(Tethering.java:0)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering$StateReceiver.onReceive(Tethering.java:1184)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0(LoadedApk.java:1802)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.$r8$lambda$gDuJqgxY6Zb-ifyeubKeivTLAwk(Unknown Source:0)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0.run(Unknown Source:2)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.os.Looper.loop(Looper.java:294)
+10-07 11:34:57.373   954   978 E SystemServiceRegistry: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-07 11:34:57.377   800   832 W Looper  : Slow delivery took 301ms wmshell.main h=android.os.Handler c=null m=2
+10-07 11:34:57.391   800   832 W Looper  : Drained
+10-07 11:34:57.465   800   832 W Looper  : Slow delivery took 60ms wmshell.main h=android.view.Choreographer$FrameHandler c=android.view.Choreographer$FrameDisplayEventReceiver@d2437ab m=0
+10-07 11:34:57.475   800   832 W Looper  : Drained
+10-07 11:34:57.475   800   848 E OpenGLRenderer: Unable to match the desired swap behavior.
+10-07 11:34:57.575  5417  5417 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@d5afcb2
+10-07 11:34:57.623   504  2157 W InputManager-JNI: Input channel object '553ce78 com.usman.miqaat/com.usman.miqaat.MainActivity (client)' was disposed without first being removed with the input manager!
+10-07 11:34:58.632  5635  5635 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:34:58.632  5635  5635 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:34:58.634  5635  5635 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:34:58.635  5635  5635 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:34:58.656  5635  5635 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+--------- beginning of kernel
+10-07 11:34:58.862     0     0 W binder_debug: 22 callbacks suppressed
+10-07 11:34:58.658   504  2157 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:58.666   504   504 E IPCThreadState: Binder transaction failure: 1168788/29201/-28
+10-07 11:34:58.666   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:58.667   504  2157 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:58.672   504   504 E IPCThreadState: Binder transaction failure: 1168808/29201/-28
+10-07 11:34:58.672   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:58.678   504   504 E IPCThreadState: Binder transaction failure: 1168830/29201/-28
+10-07 11:34:58.678   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:58.682   504   504 E IPCThreadState: Binder transaction failure: 1168891/29201/-28
+10-07 11:34:58.682   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:58.686   504   504 E IPCThreadState: Binder transaction failure: 1168901/29201/-28
+10-07 11:34:58.686   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:59.683  5635  5635 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-07 11:34:59.686   504  2157 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:59.687   504   504 E IPCThreadState: Binder transaction failure: 1168977/29201/-28
+10-07 11:34:59.687   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:59.687   504   504 E IPCThreadState: Binder transaction failure: 1168987/29201/-28
+10-07 11:34:59.687   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:59.687   504   504 E IPCThreadState: Binder transaction failure: 1168998/29201/-28
+10-07 11:34:59.687   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:00.557   504   524 W ActivityManager: setHasOverlayUi called on unknown pid: 5417
+10-07 11:35:00.571   388   388 E BpTransactionCompletedListener: Failed to transact (-32)
+10-07 11:35:00.637   504  1829 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-07 11:35:00.740  5673  5673 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:00.740  5673  5673 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:00.752  5673  5673 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-07 11:35:00.753  5673  5673 W Monkey  :  arg: "-p"
+10-07 11:35:00.753  5673  5673 W Monkey  :  arg: "com.usman.miqaat"
+10-07 11:35:00.753  5673  5673 W Monkey  :  arg: "-c"
+10-07 11:35:00.753  5673  5673 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-07 11:35:00.754  5673  5673 W Monkey  :  arg: "1"
+10-07 11:35:00.754  5673  5673 W Monkey  : data="com.usman.miqaat"
+10-07 11:35:00.754  5673  5673 W Monkey  : data="android.intent.category.LAUNCHER"
+10-07 11:35:00.760   504   597 W ActivityManager: registerReceiverWithFeature: no app for null
+10-07 11:35:00.761  5673  5673 W System  : No Compatibility callbacks set! Querying change 263076149
+10-07 11:35:00.761  5673  5673 W System  : No Compatibility callbacks set! Querying change 263076149
+10-07 11:35:00.761  5673  5673 W System  : No Compatibility callbacks set! Querying change 263076149
+10-07 11:35:00.818  5686  5686 W om.usman.miqaat: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:00.818  5686  5686 W om.usman.miqaat: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:00.819  5686  5686 E om.usman.miqaat: Not starting debugger since process cannot load the jdwp agent.
+10-07 11:35:01.122  5686  5686 W OpenGLRenderer: Unknown dataspace 0
+10-07 11:35:01.125   504   597 W WindowManager: Failed looking up window session=Session{5b72889 5686:u0a10141} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:6034 com.android.server.wm.Session.updateRequestedVisibleTypes:690 android.view.IWindowSession$Stub.onTransact:1034 
+10-07 11:35:01.285  5686  5708 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-07 11:35:02.291  5686  5711 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#0) as ready
+10-07 11:35:02.292  5686  5711 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#1) as ready
+10-07 11:35:02.317   800   845 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@eeec38d
+10-07 11:35:02.317   504   517 W InputManager-JNI: Input channel object 'b03af65 Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-07 11:35:04.271   504  1829 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-07 11:35:04.519  5724  5724 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:04.519  5724  5724 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:04.520  5724  5724 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:04.520  5724  5724 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:04.533  5724  5724 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:04.534   504   597 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:04.737     0     0 W binder_debug: 6 callbacks suppressed
+10-07 11:35:04.538   504   504 E IPCThreadState: Binder transaction failure: 1170770/29201/-28
+10-07 11:35:04.538   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:04.543   504   504 E IPCThreadState: Binder transaction failure: 1170793/29201/-28
+10-07 11:35:04.543   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:04.547   504   504 E IPCThreadState: Binder transaction failure: 1170809/29201/-28
+10-07 11:35:04.547   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:04.549   504  1537 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:04.558   504   504 E IPCThreadState: Binder transaction failure: 1170848/29201/-28
+10-07 11:35:04.558   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:04.564   504   504 E IPCThreadState: Binder transaction failure: 1170894/29201/-28
+10-07 11:35:04.564   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:05.630  5724  5724 W AccessibilityNodeInfoDumper: Fetch time: 62ms
+10-07 11:35:05.637   504   910 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:05.638   504   504 E IPCThreadState: Binder transaction failure: 1171167/29201/-28
+10-07 11:35:05.638   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:05.640   504   504 E IPCThreadState: Binder transaction failure: 1171202/29201/-28
+10-07 11:35:05.640   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:05.641   504   504 E IPCThreadState: Binder transaction failure: 1171216/29201/-28
+10-07 11:35:05.641   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:06.604  5745  5745 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:06.604  5745  5745 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:06.604  5745  5745 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:06.605  5745  5745 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:06.617  5745  5745 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:06.619   504   597 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:06.620   504   504 E IPCThreadState: Binder transaction failure: 1171359/29201/-28
+10-07 11:35:06.620   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:06.620   504   934 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:06.622   504   504 E IPCThreadState: Binder transaction failure: 1171428/29201/-28
+10-07 11:35:06.622   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:06.622   504   504 E IPCThreadState: Binder transaction failure: 1171445/29201/-28
+10-07 11:35:06.622   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:06.623   504   504 E IPCThreadState: Binder transaction failure: 1171455/29201/-28
+10-07 11:35:06.623   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:06.623   504   504 E IPCThreadState: Binder transaction failure: 1171473/29201/-28
+10-07 11:35:06.624   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:07.675  5745  5745 W AccessibilityNodeInfoDumper: Fetch time: 41ms
+10-07 11:35:07.680   504   910 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:07.680   504   504 E IPCThreadState: Binder transaction failure: 1171872/29201/-28
+10-07 11:35:07.680   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:07.681   504   504 E IPCThreadState: Binder transaction failure: 1171882/29201/-28
+10-07 11:35:07.681   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:07.681   504   504 E IPCThreadState: Binder transaction failure: 1171892/29201/-28
+10-07 11:35:07.681   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:09.961  5771  5771 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:09.961  5771  5771 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:09.962  5771  5771 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:09.962  5771  5771 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:09.975  5771  5771 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:09.976   504  2158 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:10.180     0     0 W binder_debug: 22 callbacks suppressed
+10-07 11:35:09.980   504   504 E IPCThreadState: Binder transaction failure: 1172082/29201/-28
+10-07 11:35:09.980   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:09.982   504  3754 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:09.984   504   504 E IPCThreadState: Binder transaction failure: 1172129/29201/-28
+10-07 11:35:09.984   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:09.987   504   504 E IPCThreadState: Binder transaction failure: 1172165/29201/-28
+10-07 11:35:09.987   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:09.990   504   504 E IPCThreadState: Binder transaction failure: 1172187/29201/-28
+10-07 11:35:09.990   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:09.994   504   504 E IPCThreadState: Binder transaction failure: 1172204/29201/-28
+10-07 11:35:09.994   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:11.057  5771  5771 W AccessibilityNodeInfoDumper: Fetch time: 68ms
+10-07 11:35:11.067   504   910 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:11.067   504   504 E IPCThreadState: Binder transaction failure: 1172659/29201/-28
+10-07 11:35:11.068   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:11.069   504   504 E IPCThreadState: Binder transaction failure: 1172670/29201/-28
+10-07 11:35:11.069   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:11.072   504   504 E IPCThreadState: Binder transaction failure: 1172690/29201/-28
+10-07 11:35:11.072   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:11.981  5794  5794 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-07 11:35:11.981  5794  5794 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-07 11:35:12.463   504  3754 W ActivityTaskManager: Current config: {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h818dp 420dpi nrml long port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 128 - 1080, 2274) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.6540 fontWeightAdjustment=0} unchanged for IME proc com.android.inputmethod.latin
+10-07 11:35:12.497   504  3754 W ImageReader_JNI: Unable to acquire a buffer item, very likely client tried to acquire more than maxImages buffers
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: No service published for: ethernet
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:166)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$139.createService(SystemServiceRegistry.java:1872)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:1971)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1645)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2212)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.content.ContextWrapper.getSystemService(ContextWrapper.java:934)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.isEthernetSupported(Tethering.java:1582)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.makeSupportedDownstreams(Tethering.java:2550)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateSupportedDownstreams(Tethering.java:2524)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateConfiguration(Tethering.java:546)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.-$$Nest$mupdateConfiguration(Tethering.java:0)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering$StateReceiver.onReceive(Tethering.java:1184)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0(LoadedApk.java:1802)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.$r8$lambda$gDuJqgxY6Zb-ifyeubKeivTLAwk(Unknown Source:0)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0.run(Unknown Source:2)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.os.Looper.loop(Looper.java:294)
+10-07 11:35:12.569   954   978 E SystemServiceRegistry: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-07 11:35:12.592   800   832 W Looper  : Slow dispatch took 137ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.Transitions$TransitionPlayerImpl$$ExternalSyntheticLambda1@a246990 m=0
+10-07 11:35:12.592   800   832 W Looper  : Slow delivery took 135ms wmshell.main h=android.os.Handler c=null m=20
+10-07 11:35:12.596   800   832 W Looper  : Drained
+10-07 11:35:15.667  5813  5813 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-07 11:35:15.667  5813  5813 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-07 11:35:16.204  5817  5817 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:16.204  5817  5817 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:16.205  5817  5817 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:16.206  5817  5817 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:16.218  5817  5817 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:16.221   504  3754 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:16.424     0     0 W binder_debug: 6 callbacks suppressed
+10-07 11:35:16.225   504   504 E IPCThreadState: Binder transaction failure: 1173848/29201/-28
+10-07 11:35:16.225   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:16.231   504  3754 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:16.235   504   504 E IPCThreadState: Binder transaction failure: 1173871/29201/-28
+10-07 11:35:16.235   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:16.244   504   504 E IPCThreadState: Binder transaction failure: 1173915/29201/-28
+10-07 11:35:16.244   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:16.249   504   504 E IPCThreadState: Binder transaction failure: 1173961/29201/-28
+10-07 11:35:16.249   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:16.254   504   504 E IPCThreadState: Binder transaction failure: 1173978/29201/-28
+10-07 11:35:16.254   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:17.266  5817  5817 W AccessibilityNodeInfoDumper: Fetch time: 21ms
+10-07 11:35:17.267   504  3754 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:17.267   504   504 E IPCThreadState: Binder transaction failure: 1174189/29201/-28
+10-07 11:35:17.267   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:17.268   504   504 E IPCThreadState: Binder transaction failure: 1174199/29201/-28
+10-07 11:35:17.268   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:17.268   504   504 E IPCThreadState: Binder transaction failure: 1174209/29201/-28
+10-07 11:35:17.268   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:19.558  5842  5842 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:19.558  5842  5842 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:19.560  5842  5842 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:19.560  5842  5842 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:19.574  5842  5842 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:19.576   504   910 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:19.576   504   504 E IPCThreadState: Binder transaction failure: 1174369/29201/-28
+10-07 11:35:19.576   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:19.576   504   504 E IPCThreadState: Binder transaction failure: 1174379/29201/-28
+10-07 11:35:19.576   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:19.577   504   504 E IPCThreadState: Binder transaction failure: 1174389/29201/-28
+10-07 11:35:19.577   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:19.577   504   910 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:19.578   504   504 E IPCThreadState: Binder transaction failure: 1174445/29201/-28
+10-07 11:35:19.578   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:19.578   504   504 E IPCThreadState: Binder transaction failure: 1174458/29201/-28
+10-07 11:35:19.578   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:20.592  5842  5842 W AccessibilityNodeInfoDumper: Fetch time: 11ms
+10-07 11:35:20.593   504   910 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:20.593   504   504 E IPCThreadState: Binder transaction failure: 1174630/29201/-28
+10-07 11:35:20.593   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:20.593   504   504 E IPCThreadState: Binder transaction failure: 1174641/29201/-28
+10-07 11:35:20.593   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:20.593   504   504 E IPCThreadState: Binder transaction failure: 1174651/29201/-28
+10-07 11:35:20.593   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:21.633   800   848 E OpenGLRenderer: Unable to match the desired swap behavior.
+10-07 11:35:21.636   504   597 W ActivityTaskManager: Current config: {1.0 310mcc260mnc [en_US] ldltr sw411dp w818dp h387dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 2400, 1080) mAppBounds=Rect(128, 0 - 2274, 1080) mMaxBounds=Rect(0, 0 - 2400, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.3 s.6570 fontWeightAdjustment=0} unchanged for IME proc com.android.inputmethod.latin
+10-07 11:35:21.675   800   832 W Looper  : Slow dispatch took 67ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.RemoteTransitionHandler$1$$ExternalSyntheticLambda0@a1d635 m=0
+10-07 11:35:21.691   800   832 W Looper  : Slow delivery took 57ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.Transitions$TransitionPlayerImpl$$ExternalSyntheticLambda1@8a2d43b m=0
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: No service published for: ethernet
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:166)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$139.createService(SystemServiceRegistry.java:1872)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:1971)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1645)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2212)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.content.ContextWrapper.getSystemService(ContextWrapper.java:934)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.isEthernetSupported(Tethering.java:1582)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.makeSupportedDownstreams(Tethering.java:2550)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateSupportedDownstreams(Tethering.java:2524)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateConfiguration(Tethering.java:546)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.-$$Nest$mupdateConfiguration(Tethering.java:0)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering$StateReceiver.onReceive(Tethering.java:1184)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0(LoadedApk.java:1802)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.$r8$lambda$gDuJqgxY6Zb-ifyeubKeivTLAwk(Unknown Source:0)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0.run(Unknown Source:2)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.os.Looper.loop(Looper.java:294)
+10-07 11:35:21.814   954   978 E SystemServiceRegistry: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-07 11:35:21.902   800   832 W Looper  : Slow dispatch took 186ms wmshell.main h=android.os.Handler c=com.android.wm.shell.common.DisplayController$DisplayWindowListenerImpl$$ExternalSyntheticLambda3@ce98fb3 m=0
+10-07 11:35:21.974  5686  5686 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@d5afcb2
+10-07 11:35:22.002   504   910 W InputManager-JNI: Input channel object 'e2d6cbc com.usman.miqaat/com.usman.miqaat.MainActivity (client)' was disposed without first being removed with the input manager!
+10-07 11:35:22.035   800   832 W Looper  : Slow dispatch took 132ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.Transitions$TransitionPlayerImpl$$ExternalSyntheticLambda0@1301821 m=0
+10-07 11:35:22.343   800   832 W Looper  : Drained
+10-07 11:35:22.884  5871  5871 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:22.884  5871  5871 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:22.886  5871  5871 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:22.886  5871  5871 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:22.904  5871  5871 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:22.906   504  2158 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:23.110     0     0 W binder_debug: 22 callbacks suppressed
+10-07 11:35:22.913   504   504 E IPCThreadState: Binder transaction failure: 1176258/29201/-28
+10-07 11:35:22.913   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:22.914   504  2158 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:22.918   504   504 E IPCThreadState: Binder transaction failure: 1176286/29201/-28
+10-07 11:35:22.918   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:22.925   504   504 E IPCThreadState: Binder transaction failure: 1176371/29201/-28
+10-07 11:35:22.926   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:22.929   504   504 E IPCThreadState: Binder transaction failure: 1176381/29201/-28
+10-07 11:35:22.930   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:22.934   504   504 E IPCThreadState: Binder transaction failure: 1176392/29201/-28
+10-07 11:35:22.934   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:23.924  5871  5871 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-07 11:35:23.925   504   934 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:23.925   504   504 E IPCThreadState: Binder transaction failure: 1176484/29201/-28
+10-07 11:35:23.926   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:23.927   504   504 E IPCThreadState: Binder transaction failure: 1176520/29201/-28
+10-07 11:35:23.927   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:23.928   504   504 E IPCThreadState: Binder transaction failure: 1176538/29201/-28
+10-07 11:35:23.928   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:24.781   504   524 W ActivityManager: setHasOverlayUi called on unknown pid: 5686
+10-07 11:35:24.948  5908  5908 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:24.948  5908  5908 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:24.960  5908  5908 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-07 11:35:24.960  5908  5908 W Monkey  :  arg: "-p"
+10-07 11:35:24.961  5908  5908 W Monkey  :  arg: "com.usman.miqaat"
+10-07 11:35:24.961  5908  5908 W Monkey  :  arg: "-c"
+10-07 11:35:24.961  5908  5908 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-07 11:35:24.961  5908  5908 W Monkey  :  arg: "1"
+10-07 11:35:24.961  5908  5908 W Monkey  : data="com.usman.miqaat"
+10-07 11:35:24.962  5908  5908 W Monkey  : data="android.intent.category.LAUNCHER"
+10-07 11:35:24.968   504   597 W ActivityManager: registerReceiverWithFeature: no app for null
+10-07 11:35:24.969  5908  5908 W System  : No Compatibility callbacks set! Querying change 263076149
+10-07 11:35:24.969  5908  5908 W System  : No Compatibility callbacks set! Querying change 263076149
+10-07 11:35:24.970  5908  5908 W System  : No Compatibility callbacks set! Querying change 263076149
+10-07 11:35:25.023  5921  5921 W om.usman.miqaat: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:25.023  5921  5921 W om.usman.miqaat: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:25.037  5921  5921 E om.usman.miqaat: Not starting debugger since process cannot load the jdwp agent.
+10-07 11:35:25.125  5921  5921 W om.usman.miqaat: Suspending all threads took: 27.435ms
+10-07 11:35:25.125   800   837 W Looper  : Slow delivery took 32ms wmshell.anim h=android.view.Choreographer$FrameHandler c=android.view.Choreographer$FrameDisplayEventReceiver@3fab124 m=0
+10-07 11:35:25.250   800   832 W Looper  : Slow delivery took 49ms wmshell.main h=android.os.Handler c=com.android.wm.shell.pip.phone.PipController$$ExternalSyntheticLambda1@27df353 m=0
+10-07 11:35:25.285   800   832 W Looper  : Drained
+10-07 11:35:25.301  5921  5921 W OpenGLRenderer: Unknown dataspace 0
+10-07 11:35:25.303   504  4297 W WindowManager: Failed looking up window session=Session{91d6ba8 5921:u0a10141} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:6034 com.android.server.wm.Session.updateRequestedVisibleTypes:690 android.view.IWindowSession$Stub.onTransact:1034 
+10-07 11:35:25.466  5921  5944 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-07 11:35:26.010   504  1829 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-07 11:35:26.483  5921  5948 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#0) as ready
+10-07 11:35:26.485  5921  5948 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#1) as ready
+10-07 11:35:26.492   800   845 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@1bec5d9
+10-07 11:35:26.493   504  2158 W InputManager-JNI: Input channel object '39e2d1d Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-07 11:35:27.001     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-07 11:35:28.719  5960  5960 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:28.719  5960  5960 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:28.720  5960  5960 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:28.721  5960  5960 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:28.734  5960  5960 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:28.737   504   934 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:28.941     0     0 W binder_debug: 6 callbacks suppressed
+10-07 11:35:28.741   504   504 E IPCThreadState: Binder transaction failure: 1178197/29201/-28
+10-07 11:35:28.741   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:28.750   504   504 E IPCThreadState: Binder transaction failure: 1178256/29201/-28
+10-07 11:35:28.750   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:28.762   504  2158 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:28.762   504   504 E IPCThreadState: Binder transaction failure: 1178273/29201/-28
+10-07 11:35:28.763   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:28.766   504   504 E IPCThreadState: Binder transaction failure: 1178324/29201/-28
+10-07 11:35:28.766   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:28.771   504   504 E IPCThreadState: Binder transaction failure: 1178335/29201/-28
+10-07 11:35:28.771   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:29.825  5960  5960 W AccessibilityNodeInfoDumper: Fetch time: 60ms
+10-07 11:35:29.826   504  2157 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:29.826   504   504 E IPCThreadState: Binder transaction failure: 1178571/29201/-28
+10-07 11:35:29.826   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:29.826   504   504 E IPCThreadState: Binder transaction failure: 1178581/29201/-28
+10-07 11:35:29.833   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:29.834   504   504 E IPCThreadState: Binder transaction failure: 1178623/29201/-28
+10-07 11:35:29.838   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:30.792  5981  5981 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:30.792  5981  5981 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:30.793  5981  5981 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:30.793  5981  5981 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:30.806  5981  5981 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:30.807   504  2158 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:30.808   504   504 E IPCThreadState: Binder transaction failure: 1178780/29201/-28
+10-07 11:35:30.808   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:30.808   504   504 E IPCThreadState: Binder transaction failure: 1178790/29201/-28
+10-07 11:35:30.808   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:30.810   504   504 E IPCThreadState: Binder transaction failure: 1178850/29201/-28
+10-07 11:35:30.810   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:30.814   504  2157 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:30.814   504   504 E IPCThreadState: Binder transaction failure: 1178884/29201/-28
+10-07 11:35:30.814   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:30.815   504   504 E IPCThreadState: Binder transaction failure: 1178894/29201/-28
+10-07 11:35:30.815   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:31.852  5981  5981 W AccessibilityNodeInfoDumper: Fetch time: 40ms
+10-07 11:35:31.853   504  2157 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:31.853   504   504 E IPCThreadState: Binder transaction failure: 1179240/29201/-28
+10-07 11:35:31.853   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:31.853   504   504 E IPCThreadState: Binder transaction failure: 1179251/29201/-28
+10-07 11:35:31.853   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:31.853   504   504 E IPCThreadState: Binder transaction failure: 1179262/29201/-28
+10-07 11:35:31.853   504   504 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
