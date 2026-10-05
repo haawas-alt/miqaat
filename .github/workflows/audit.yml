@@ -1,0 +1,51 @@
+name: Black-box audit of released APK (no app source involved)
+on:
+  push:
+    branches: ['audit/v1.89-emulator']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download and verify the exact APK under audit
+        run: |
+          mkdir -p apk && cd apk
+          curl -sSL -o Miqaat.apk https://github.com/haawas-alt/miqaat/releases/download/audit-fixes-3895c823/Miqaat-1.89-mockup-fit.apk
+          echo "734e121bf42d4f1e913068245da3fe43c5d64828144a3fe0f90347721ddc4ebb  Miqaat.apk" | sha256sum -c -
+      - uses: actions/upload-artifact@v4
+        with: { name: apk, path: apk/Miqaat.apk }
+  crawl:
+    needs: fetch
+    runs-on: ubuntu-latest
+    timeout-minutes: 140
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: tablet-landscape, profile: pixel_tablet, rot: 0 }
+          - { name: tablet-portrait,  profile: pixel_tablet, rot: 1 }
+          - { name: phone-portrait,   profile: pixel_6,      rot: 0 }
+          - { name: phone-landscape,  profile: pixel_6,      rot: 1 }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: apk, path: apk }
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: ${{ matrix.profile }}
+          disable-animations: true
+          emulator-boot-timeout: 900
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096
+          script: bash audit/run.sh ${{ matrix.name }} ${{ matrix.rot }} discover none en 1.0 3 120
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: audit-${{ matrix.name }}-discover, path: out/ , if-no-files-found: ignore }
