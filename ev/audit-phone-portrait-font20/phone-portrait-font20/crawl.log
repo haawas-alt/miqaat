@@ -1,0 +1,118 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.0}
+{"ev": "cold-start-ms", "ms": 1575, "t": 2.0}
+{"ev": "setup-screen", "step": 0, "shot": "phone-portrait-font20__setup0.png", "key": "b2afd48273", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Asr
+{"ev": "setup-stuck", "t": 7.5}
+{"ev": "setup-screen", "step": 1, "shot": "phone-portrait-font20__setup1.png", "key": "0389e804c4", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Asr
+{"ev": "setup-tap", "label": "Begin", "t": 12.8}
+{"ev": "setup-screen", "step": 2, "shot": "phone-portrait-font20__setup2.png", "key": "835e35ed08", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Asr
+{"ev": "detect-result", "shot": "phone-portrait-font20__setup2_after-detect-20s.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. 
+{"ev": "setup-screen", "step": 3, "shot": "phone-portrait-font20__setup3.png", "key": "d10a192839", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", 
+{"ev": "setup-tap", "label": "Next", "t": 43.9}
+{"ev": "setup-screen", "step": 4, "shot": "phone-portrait-font20__setup4.png", "key": "dea1cae403", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", 
+{"ev": "setup-stuck", "t": 49.0}
+{"ev": "setup-screen", "step": 5, "shot": "phone-portrait-font20__setup5.png", "key": "c7379469b2", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", 
+{"ev": "setup-stuck", "t": 54.3}
+{"ev": "setup-screen", "step": 6, "shot": "phone-portrait-font20__setup6.png", "key": "7a55fd7234", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", 
+{"ev": "setup-stuck", "t": 59.5}
+{"ev": "setup-screen", "step": 7, "shot": "phone-portrait-font20__setup7.png", "key": "35776c3939", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", 
+{"ev": "setup-tap", "label": "These look right", "t": 64.7}
+{"ev": "setup-screen", "step": 8, "shot": "phone-portrait-font20__setup8.png", "key": "9a8cc3d5a3", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", 
+{"ev": "setup-stuck", "t": 69.8}
+{"ev": "setup-screen", "step": 9, "shot": "phone-portrait-font20__setup9.png", "key": "093cad1d28", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", 
+{"ev": "setup-stuck", "t": 75.0}
+{"ev": "setup-screen", "step": 10, "shot": "phone-portrait-font20__setup10.png", "key": "f8ef315f8c", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448"
+{"ev": "setup-stuck", "t": 80.4}
+{"ev": "setup-screen", "step": 11, "shot": "phone-portrait-font20__setup11.png", "key": "6785fa7b49", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448"
+{"ev": "setup-tap", "label": "Finish", "t": 85.8}
+{"ev": "setup-screen", "step": 12, "shot": "phone-portrait-font20__setup12.png", "key": "b51091893b", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Learn Salah", "Monthly time
+{"ev": "setup-stuck", "t": 91.0}
+{"ev": "setup-screen", "step": 13, "shot": "phone-portrait-font20__setup13.png", "key": "78c22be3da", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 52 min", "NEXT PRAYER", "Fajr", "الفجر", "5:03", "AM", "In 5 h 52 min",
+{"ev": "setup-stuck", "t": 96.2}
+{"ev": "setup-done", "step": 14, "t": 101.2}
+{"ev": "setup-result", "ok": true, "t": 101.2}
+{"ev": "nav-fail", "what": "Settings", "t": 132.2}
+{"ev": "screen", "depth": 0, "path": [], "key": "280ade4399", "pos": 0, "shot": "phone-portrait-font20-Miqaat-en-f2.0__001__d0__p0.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 52 min", "View prayer details", "Qib
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4b5fb80ae1", "pos": 0, "shot": "phone-portrait-font20-Miqaat-en-f2.0__002__d1__p0.png", "labels": ["Why 5:04? · Fajr الفجر", "CALCULATED FROM", "Source", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "8463811d36", "pos": 1, "shot": "phone-portrait-font20-Miqaat-en-f2.0__003__d1__p1.png", "labels": ["Why 5:04? · Fajr الفجر", "Rule", "Sun 18.0° below the h
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "efe4f4f81d", "pos": 2, "shot": "phone-portrait-font20-Miqaat-en-f2.0__004__d1__p2.png", "labels": ["Why 5:04? · Fajr الفجر", "Settings › Prayer times › Min
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "212fc50aba", "pos": 3, "shot": "phone-portrait-font20-Miqaat-en-f2.0__005__d1__p3.png", "labels": ["Why 5:04? · Fajr الفجر", "5:04 AM – 6:29 AM  ·  After p
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "771c563bc5", "pos": 4, "shot": "phone-portrait-font20-Miqaat-en-f2.0__006__d1__p4.png", "labels": ["Why 5:04? · Fajr الفجر", "6:29 AM – 6:44 AM  ·  After s
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "23e4d8dd34", "pos": 5, "shot": "phone-portrait-font20-Miqaat-en-f2.0__007__d1__p5.png", "labels": ["Why 5:04? · Fajr الفجر", "4:19 PM – 7:02 PM  ·  After p
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f3d85008fc", "pos": 0, "shot": "phone-portrait-font20-Miqaat-en-f2.0__008__d1__p0.png", "labels": ["Why 6:29? · Sunrise الشروق", "CALCULATED FROM", "Source
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "975120a93e", "pos": 1, "shot": "phone-portrait-font20-Miqaat-en-f2.0__009__d1__p1.png", "labels": ["Why 6:29? · Sunrise الشروق", "Fajr 18°, Isha 17° · wide
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "db603f2d07", "pos": 2, "shot": "phone-portrait-font20-Miqaat-en-f2.0__010__d1__p2.png", "labels": ["Why 6:29? · Sunrise الشروق", "Your adjustment", "None",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "83359e712f", "pos": 3, "shot": "phone-portrait-font20-Miqaat-en-f2.0__011__d1__p3.png", "labels": ["Why 6:29? · Sunrise الشروق", "5:04 AM – 6:29 AM  ·  Aft
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "ded7d8d65d", "pos": 4, "shot": "phone-portrait-font20-Miqaat-en-f2.0__012__d1__p4.png", "labels": ["Why 6:29? · Sunrise الشروق", "12:36 PM – 12:46 PM  ·  Z
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c83c34de6d", "pos": 5, "shot": "phone-portrait-font20-Miqaat-en-f2.0__013__d1__p5.png", "labels": ["Why 6:29? · Sunrise الشروق", "These windows are conserv
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "491580c505", "pos": 0, "shot": "phone-portrait-font20-Miqaat-en-f2.0__014__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "Source",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e5219960ac", "pos": 1, "shot": "phone-portrait-font20-Miqaat-en-f2.0__015__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Fajr 18°, Isha 17° · widely
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "42b6e97b6d", "pos": 2, "shot": "phone-portrait-font20-Miqaat-en-f2.0__016__d1__p2.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Settings › Prayer times › M
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9aca3af142", "pos": 3, "shot": "phone-portrait-font20-Miqaat-en-f2.0__017__d1__p3.png", "labels": ["Why 12:46? · Dhuhr الظهر", "5:04 AM – 6:29 AM  ·  After
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4bf6e4e45b", "pos": 4, "shot": "phone-portrait-font20-Miqaat-en-f2.0__018__d1__p4.png", "labels": ["Why 12:46? · Dhuhr الظهر", "6:29 AM – 6:44 AM  ·  After
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "dc54714086", "pos": 5, "shot": "phone-portrait-font20-Miqaat-en-f2.0__019__d1__p5.png", "labels": ["Why 12:46? · Dhuhr الظهر", "4:19 PM – 7:02 PM  ·  After
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "775fa6baea", "pos": 0, "shot": "phone-portrait-font20-Miqaat-en-f2.0__020__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Source", "C
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "511788b940", "pos": 1, "shot": "phone-portrait-font20-Miqaat-en-f2.0__021__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "Fajr 18°, Isha 17° · widely us
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "893bacdd56", "pos": 2, "shot": "phone-portrait-font20-Miqaat-en-f2.0__022__d1__p2.png", "labels": ["Why 4:19? · Asr العصر", "YOUR SETTINGS", "Your adjustme
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "b56aa84dab", "pos": 3, "shot": "phone-portrait-font20-Miqaat-en-f2.0__023__d1__p3.png", "labels": ["Why 4:19? · Asr العصر", "At sunset. Many scholars call 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "19cff45934", "pos": 4, "shot": "phone-portrait-font20-Miqaat-en-f2.0__024__d1__p4.png", "labels": ["Why 4:19? · Asr العصر", "6:29 AM – 6:44 AM  ·  After su
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "b2042995fe", "pos": 5, "shot": "phone-portrait-font20-Miqaat-en-f2.0__025__d1__p5.png", "labels": ["Why 4:19? · Asr العصر", "4:19 PM – 7:02 PM  ·  After pr
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "bbe99f5d3d", "pos": 0, "shot": "phone-portrait-font20-Miqaat-en-f2.0__026__d1__p0.png", "labels": ["Why 7:02? · Maghrib المغرب", "CALCULATED FROM", "Source
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "ec6c1b5035", "pos": 1, "shot": "phone-portrait-font20-Miqaat-en-f2.0__027__d1__p1.png", "labels": ["Why 7:02? · Maghrib المغرب", "Fajr 18°, Isha 17° · wide
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "6612b59b88", "pos": 2, "shot": "phone-portrait-font20-Miqaat-en-f2.0__028__d1__p2.png", "labels": ["Why 7:02? · Maghrib المغرب", "Settings › Prayer times ›
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "659ea09a85", "pos": 3, "shot": "phone-portrait-font20-Miqaat-en-f2.0__029__d1__p3.png", "labels": ["Why 7:02? · Maghrib المغرب", "6:29 AM – 6:44 AM  ·  Aft
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a4540b027", "pos": 4, "shot": "phone-portrait-font20-Miqaat-en-f2.0__030__d1__p4.png", "labels": ["Why 7:02? · Maghrib المغرب", "4:19 PM – 7:02 PM  ·  Aft
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e26dee9c2e", "pos": 5, "shot": "phone-portrait-font20-Miqaat-en-f2.0__031__d1__p5.png", "labels": ["Why 7:02? · Maghrib المغرب", "These windows are conserv
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4349aefa0b", "pos": 0, "shot": "phone-portrait-font20-Miqaat-en-f2.0__032__d1__p0.png", "labels": ["Why 8:22? · Isha العشاء", "CALCULATED FROM", "Source", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "6f95e93510", "pos": 1, "shot": "phone-portrait-font20-Miqaat-en-f2.0__033__d1__p1.png", "labels": ["Why 8:22? · Isha العشاء", "Fajr 18°, Isha 17° · widely 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "b7fb57081c", "pos": 2, "shot": "phone-portrait-font20-Miqaat-en-f2.0__034__d1__p2.png", "labels": ["Why 8:22? · Isha العشاء", "Your adjustment", "None", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "0e06e19690", "pos": 3, "shot": "phone-portrait-font20-Miqaat-en-f2.0__035__d1__p3.png", "labels": ["Why 8:22? · Isha العشاء", "Shown at sharʿī midnight (ha
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "1d088dad83", "pos": 4, "shot": "phone-portrait-font20-Miqaat-en-f2.0__036__d1__p4.png", "labels": ["Why 8:22? · Isha العشاء", "6:29 AM – 6:44 AM  ·  After 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "687796c59d", "pos": 5, "shot": "phone-portrait-font20-Miqaat-en-f2.0__037__d1__p5.png", "labels": ["Why 8:22? · Isha العشاء", "4:19 PM – 7:02 PM  ·  After 
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-portrait-font20-Miqaat-en-f2.0__038__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to face
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 380.4}
+{"ev": "replay-fail", "path": [], "t": 411.9}
+{"ev": "theme-done", "tag": "phone-portrait-font20-Miqaat-en-f2.0", "actions": 7, "screens": 38, "t": 411.9}
+{"ev": "home-fail", "tag": "phone-portrait-font20-Kiswah-en-f2.0", "t": 494.5}
+{"ev": "screen", "depth": 0, "path": [], "key": "b51091893b", "pos": 0, "shot": "phone-portrait-font20-Kiswah-en-f2.0__039__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.
+{"ev": "screen", "depth": 0, "path": [], "key": "78c22be3da", "pos": 1, "shot": "phone-portrait-font20-Kiswah-en-f2.0__040__d0__p1.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 45 min", "NEXT PRAYER", "Fajr", "الف
+{"ev": "screen", "depth": 0, "path": [], "key": "280ade4399", "pos": 2, "shot": "phone-portrait-font20-Kiswah-en-f2.0__041__d0__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 45 min", "View prayer details", "Qib
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "40f36e7a73", "pos": 0, "shot": "phone-portrait-font20-Kiswah-en-f2.0__042__d1__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "78c22be3da", "pos": 1, "shot": "phone-portrait-font20-Kiswah-en-f2.0__043__d1__p1.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 45 min", "NEXT PRAYER", "Fajr"
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "280ade4399", "pos": 2, "shot": "phone-portrait-font20-Kiswah-en-f2.0__044__d1__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 45 min", "View prayer details"
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 534.1}
+{"ev": "replay-fail", "path": [], "t": 565.7}
+{"ev": "theme-done", "tag": "phone-portrait-font20-Kiswah-en-f2.0", "actions": 1, "screens": 44, "t": 565.7}
+{"ev": "home-fail", "tag": "phone-portrait-font20-Celestial-en-f2.0", "t": 648.4}
+{"ev": "screen", "depth": 0, "path": [], "key": "b51091893b", "pos": 0, "shot": "phone-portrait-font20-Celestial-en-f2.0__045__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 1
+{"ev": "screen", "depth": 0, "path": [], "key": "b46a94ce48", "pos": 1, "shot": "phone-portrait-font20-Celestial-en-f2.0__046__d0__p1.png", "labels": ["24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:03 AM, In 5 h 42 min"
+{"ev": "screen", "depth": 0, "path": [], "key": "2e59e05abf", "pos": 2, "shot": "phone-portrait-font20-Celestial-en-f2.0__047__d0__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 42 min", "In 5 h 42 min", "View p
+{"ev": "screen", "depth": 0, "path": [], "key": "280ade4399", "pos": 3, "shot": "phone-portrait-font20-Celestial-en-f2.0__048__d0__p3.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 42 min", "View prayer details", "
+{"ev": "no-change", "label": "Fajr", "shot": "phone-portrait-font20-Celestial-en-f2.0__049__same__Fajr.png", "path": [], "t": 674.6}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4b5fb80ae1", "pos": 0, "shot": "phone-portrait-font20-Celestial-en-f2.0__050__d1__p0.png", "labels": ["Why 5:04? · Fajr الفجر", "CALCULATED FROM", "Source"
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d4d77c0033", "pos": 1, "shot": "phone-portrait-font20-Celestial-en-f2.0__051__d1__p1.png", "labels": ["Why 5:04? · Fajr الفجر", "Fajr 18°, Isha 17° · widel
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "3d80937674", "pos": 2, "shot": "phone-portrait-font20-Celestial-en-f2.0__052__d1__p2.png", "labels": ["Why 5:04? · Fajr الفجر", "Your adjustment", "None", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "212fc50aba", "pos": 3, "shot": "phone-portrait-font20-Celestial-en-f2.0__053__d1__p3.png", "labels": ["Why 5:04? · Fajr الفجر", "5:04 AM – 6:29 AM  ·  Afte
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "771c563bc5", "pos": 4, "shot": "phone-portrait-font20-Celestial-en-f2.0__054__d1__p4.png", "labels": ["Why 5:04? · Fajr الفجر", "6:29 AM – 6:44 AM  ·  Afte
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "23e4d8dd34", "pos": 5, "shot": "phone-portrait-font20-Celestial-en-f2.0__055__d1__p5.png", "labels": ["Why 5:04? · Fajr الفجر", "4:19 PM – 7:02 PM  ·  Afte
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 737.0}
+{"ev": "replay-fail", "path": [], "t": 768.7}
+{"ev": "theme-done", "tag": "phone-portrait-font20-Celestial-en-f2.0", "actions": 3, "screens": 55, "t": 768.7}
+{"ev": "home-fail", "tag": "phone-portrait-font20-Gallery-en-f2.0", "t": 851.7}
+{"ev": "screen", "depth": 0, "path": [], "key": "b51091893b", "pos": 0, "shot": "phone-portrait-font20-Gallery-en-f2.0__056__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150
+{"ev": "screen", "depth": 0, "path": [], "key": "b46a94ce48", "pos": 1, "shot": "phone-portrait-font20-Gallery-en-f2.0__057__d0__p1.png", "labels": ["24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:03 AM, In 5 h 39 min", 
+{"ev": "screen", "depth": 0, "path": [], "key": "2e59e05abf", "pos": 2, "shot": "phone-portrait-font20-Gallery-en-f2.0__058__d0__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 39 min", "In 5 h 39 min", "View pra
+{"ev": "screen", "depth": 0, "path": [], "key": "280ade4399", "pos": 3, "shot": "phone-portrait-font20-Gallery-en-f2.0__059__d0__p3.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 39 min", "View prayer details", "Qi
+{"ev": "no-change", "label": "Fajr", "shot": "phone-portrait-font20-Gallery-en-f2.0__060__same__Fajr.png", "path": [], "t": 877.7}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-portrait-font20-Gallery-en-f2.0__061__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to fac
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4b5fb80ae1", "pos": 0, "shot": "phone-portrait-font20-Gallery-en-f2.0__062__d1__p0.png", "labels": ["Why 5:04? · Fajr الفجر", "CALCULATED FROM", "Source", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9096c5127c", "pos": 1, "shot": "phone-portrait-font20-Gallery-en-f2.0__063__d1__p1.png", "labels": ["Why 5:04? · Fajr الفجر", "Fajr 18°, Isha 17° · widely 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "afb4cbe3da", "pos": 2, "shot": "phone-portrait-font20-Gallery-en-f2.0__064__d1__p2.png", "labels": ["Why 5:04? · Fajr الفجر", "YOUR SETTINGS", "Your adjust
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c07cdf511b", "pos": 3, "shot": "phone-portrait-font20-Gallery-en-f2.0__065__d1__p3.png", "labels": ["Why 5:04? · Fajr الفجر", "Disliked for voluntary praye
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "771c563bc5", "pos": 4, "shot": "phone-portrait-font20-Gallery-en-f2.0__066__d1__p4.png", "labels": ["Why 5:04? · Fajr الفجر", "6:29 AM – 6:44 AM  ·  After 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "23e4d8dd34", "pos": 5, "shot": "phone-portrait-font20-Gallery-en-f2.0__067__d1__p5.png", "labels": ["Why 5:04? · Fajr الفجر", "4:19 PM – 7:02 PM  ·  After 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 938.9}
+{"ev": "replay-fail", "path": [], "t": 970.8}
+{"ev": "theme-done", "tag": "phone-portrait-font20-Gallery-en-f2.0", "actions": 3, "screens": 67, "t": 970.8}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 998.4}
+{"ev": "gfx", "lines": ["Total frames rendered: 25", "Janky frames: 25 (100.00%)", "Janky frames (legacy): 25 (100.00%)", "50th percentile: 85ms", "90th percentile: 900ms", "95th percentile: 950ms", "99th percentile: 105
+{"ev": "mem", "lines": ["  Native Heap    16247    16152        0        0    19344    24672    19161     1817", "        TOTAL    36912    26000     3220        0   156284    36013    24832     7487", "           Java H

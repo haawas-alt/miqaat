@@ -1,0 +1,88 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1679, "t": 2.3}
+{"ev": "setup-screen", "step": 0, "shot": "phone-landscape-font20__setup0.png", "key": "b2afd48273", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. As
+{"ev": "setup-stuck", "t": 7.6}
+{"ev": "setup-screen", "step": 1, "shot": "phone-landscape-font20__setup1.png", "key": "d90b4f5a9a", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. As
+{"ev": "setup-stuck", "t": 12.7}
+{"ev": "setup-screen", "step": 2, "shot": "phone-landscape-font20__setup2.png", "key": "0389e804c4", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. As
+{"ev": "setup-tap", "label": "Begin", "t": 18.2}
+{"ev": "setup-screen", "step": 3, "shot": "phone-landscape-font20__setup3.png", "key": "835e35ed08", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. As
+{"ev": "detect-result", "shot": "phone-landscape-font20__setup3_after-detect-20s.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER.
+{"ev": "setup-screen", "step": 4, "shot": "phone-landscape-font20__setup4.png", "key": "d10a192839", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448",
+{"ev": "setup-tap", "label": "Next", "t": 49.2}
+{"ev": "setup-screen", "step": 5, "shot": "phone-landscape-font20__setup5.png", "key": "dea1cae403", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448",
+{"ev": "setup-stuck", "t": 54.3}
+{"ev": "setup-screen", "step": 6, "shot": "phone-landscape-font20__setup6.png", "key": "041fc631c4", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448",
+{"ev": "setup-stuck", "t": 59.7}
+{"ev": "setup-screen", "step": 7, "shot": "phone-landscape-font20__setup7.png", "key": "35776c3939", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448",
+{"ev": "setup-tap", "label": "These look right", "t": 65.0}
+{"ev": "setup-screen", "step": 8, "shot": "phone-landscape-font20__setup8.png", "key": "9a8cc3d5a3", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448",
+{"ev": "setup-stuck", "t": 70.1}
+{"ev": "setup-screen", "step": 9, "shot": "phone-landscape-font20__setup9.png", "key": "093cad1d28", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448",
+{"ev": "setup-stuck", "t": 75.4}
+{"ev": "setup-screen", "step": 10, "shot": "phone-landscape-font20__setup10.png", "key": "57f96dc560", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448
+{"ev": "setup-stuck", "t": 80.7}
+{"ev": "setup-screen", "step": 11, "shot": "phone-landscape-font20__setup11.png", "key": "43c6da431d", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448
+{"ev": "setup-stuck", "t": 86.1}
+{"ev": "setup-screen", "step": 12, "shot": "phone-landscape-font20__setup12.png", "key": "6785fa7b49", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448
+{"ev": "setup-tap", "label": "Finish", "t": 91.3}
+{"ev": "setup-screen", "step": 13, "shot": "phone-landscape-font20__setup13.png", "key": "61e52714f9", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Learn Salah", "Monthly tim
+{"ev": "setup-stuck", "t": 96.4}
+{"ev": "setup-screen", "step": 14, "shot": "phone-landscape-font20__setup14.png", "key": "40fbbd64b9", "labels": ["24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:03 AM, In 6 h", "NEXT PRAYER", "Fajr", "الفجر", "5:03", "A
+{"ev": "setup-stuck", "t": 101.6}
+{"ev": "setup-done", "step": 15, "t": 106.5}
+{"ev": "setup-result", "ok": true, "t": 106.5}
+{"ev": "nav-fail", "what": "Settings", "t": 137.4}
+{"ev": "screen", "depth": 0, "path": [], "key": "16835c4ba0", "pos": 0, "shot": "phone-landscape-font20-Miqaat-en-f2.0__001__d0__p0.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 6 h", "View prayer details", "Qibla ⁨27
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4b5fb80ae1", "pos": 0, "shot": "phone-landscape-font20-Miqaat-en-f2.0__002__d1__p0.png", "labels": ["Why 5:04? · Fajr الفجر", "CALCULATED FROM", "Source", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "03b262352d", "pos": 1, "shot": "phone-landscape-font20-Miqaat-en-f2.0__003__d1__p1.png", "labels": ["Why 5:04? · Fajr الفجر", "Rule", "Sun 18.0° below the 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "efe4f4f81d", "pos": 2, "shot": "phone-landscape-font20-Miqaat-en-f2.0__004__d1__p2.png", "labels": ["Why 5:04? · Fajr الفجر", "Settings › Prayer times › Mi
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "212fc50aba", "pos": 3, "shot": "phone-landscape-font20-Miqaat-en-f2.0__005__d1__p3.png", "labels": ["Why 5:04? · Fajr الفجر", "5:04 AM – 6:29 AM  ·  After 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "771c563bc5", "pos": 4, "shot": "phone-landscape-font20-Miqaat-en-f2.0__006__d1__p4.png", "labels": ["Why 5:04? · Fajr الفجر", "6:29 AM – 6:44 AM  ·  After 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "23e4d8dd34", "pos": 5, "shot": "phone-landscape-font20-Miqaat-en-f2.0__007__d1__p5.png", "labels": ["Why 5:04? · Fajr الفجر", "4:19 PM – 7:02 PM  ·  After 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 180.8}
+{"ev": "replay-fail", "path": [], "t": 212.4}
+{"ev": "theme-done", "tag": "phone-landscape-font20-Miqaat-en-f2.0", "actions": 1, "screens": 7, "t": 212.4}
+{"ev": "home-fail", "tag": "phone-landscape-font20-Kiswah-en-f2.0", "t": 295.0}
+{"ev": "screen", "depth": 0, "path": [], "key": "b51091893b", "pos": 0, "shot": "phone-landscape-font20-Kiswah-en-f2.0__008__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150
+{"ev": "screen", "depth": 0, "path": [], "key": "78c22be3da", "pos": 1, "shot": "phone-landscape-font20-Kiswah-en-f2.0__009__d0__p1.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 57 min", "NEXT PRAYER", "Fajr", "ال
+{"ev": "screen", "depth": 0, "path": [], "key": "280ade4399", "pos": 2, "shot": "phone-landscape-font20-Kiswah-en-f2.0__010__d0__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 57 min", "View prayer details", "Qi
+{"ev": "no-change", "label": "Fajr", "shot": "phone-landscape-font20-Kiswah-en-f2.0__011__same__Fajr.png", "path": [], "t": 316.2}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-font20-Kiswah-en-f2.0__012__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to fac
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4b5fb80ae1", "pos": 0, "shot": "phone-landscape-font20-Kiswah-en-f2.0__013__d1__p0.png", "labels": ["Why 5:04? · Fajr الفجر", "CALCULATED FROM", "Source", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "03b262352d", "pos": 1, "shot": "phone-landscape-font20-Kiswah-en-f2.0__014__d1__p1.png", "labels": ["Why 5:04? · Fajr الفجر", "Rule", "Sun 18.0° below the 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "efe4f4f81d", "pos": 2, "shot": "phone-landscape-font20-Kiswah-en-f2.0__015__d1__p2.png", "labels": ["Why 5:04? · Fajr الفجر", "Settings › Prayer times › Mi
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "212fc50aba", "pos": 3, "shot": "phone-landscape-font20-Kiswah-en-f2.0__016__d1__p3.png", "labels": ["Why 5:04? · Fajr الفجر", "5:04 AM – 6:29 AM  ·  After 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "b064ec82f6", "pos": 4, "shot": "phone-landscape-font20-Kiswah-en-f2.0__017__d1__p4.png", "labels": ["Why 5:04? · Fajr الفجر", "12:36 PM – 12:46 PM  ·  Zawā
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "b1e8bf3117", "pos": 5, "shot": "phone-landscape-font20-Kiswah-en-f2.0__018__d1__p5.png", "labels": ["Why 5:04? · Fajr الفجر", "These windows are conservati
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 387.7}
+{"ev": "replay-fail", "path": [], "t": 419.5}
+{"ev": "theme-done", "tag": "phone-landscape-font20-Kiswah-en-f2.0", "actions": 3, "screens": 18, "t": 419.5}
+{"ev": "home-fail", "tag": "phone-landscape-font20-Celestial-en-f2.0", "t": 502.6}
+{"ev": "screen", "depth": 0, "path": [], "key": "b51091893b", "pos": 0, "shot": "phone-landscape-font20-Celestial-en-f2.0__019__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 
+{"ev": "screen", "depth": 0, "path": [], "key": "b46a94ce48", "pos": 1, "shot": "phone-landscape-font20-Celestial-en-f2.0__020__d0__p1.png", "labels": ["24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:03 AM, In 5 h 53 min
+{"ev": "screen", "depth": 0, "path": [], "key": "280ade4399", "pos": 2, "shot": "phone-landscape-font20-Celestial-en-f2.0__021__d0__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 53 min", "View prayer details", 
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "e279a28d87", "pos": 0, "shot": "phone-landscape-font20-Celestial-en-f2.0__022__d1__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "b46a94ce48", "pos": 1, "shot": "phone-landscape-font20-Celestial-en-f2.0__023__d1__p1.png", "labels": ["24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:03 AM, In 5 h 
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "280ade4399", "pos": 2, "shot": "phone-landscape-font20-Celestial-en-f2.0__024__d1__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 53 min", "View prayer deta
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 542.2}
+{"ev": "replay-fail", "path": [], "t": 573.7}
+{"ev": "theme-done", "tag": "phone-landscape-font20-Celestial-en-f2.0", "actions": 1, "screens": 24, "t": 573.7}
+{"ev": "home-fail", "tag": "phone-landscape-font20-Gallery-en-f2.0", "t": 656.5}
+{"ev": "screen", "depth": 0, "path": [], "key": "b51091893b", "pos": 0, "shot": "phone-landscape-font20-Gallery-en-f2.0__025__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 15
+{"ev": "screen", "depth": 0, "path": [], "key": "b46a94ce48", "pos": 1, "shot": "phone-landscape-font20-Gallery-en-f2.0__026__d0__p1.png", "labels": ["24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:03 AM, In 5 h 51 min",
+{"ev": "screen", "depth": 0, "path": [], "key": "280ade4399", "pos": 2, "shot": "phone-landscape-font20-Gallery-en-f2.0__027__d0__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:03 AM, In 5 h 51 min", "View prayer details", "Q
+{"ev": "no-change", "label": "Fajr", "shot": "phone-landscape-font20-Gallery-en-f2.0__028__same__Fajr.png", "path": [], "t": 677.7}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-font20-Gallery-en-f2.0__029__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to fa
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4b5fb80ae1", "pos": 0, "shot": "phone-landscape-font20-Gallery-en-f2.0__030__d1__p0.png", "labels": ["Why 5:04? · Fajr الفجر", "CALCULATED FROM", "Source",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9096c5127c", "pos": 1, "shot": "phone-landscape-font20-Gallery-en-f2.0__031__d1__p1.png", "labels": ["Why 5:04? · Fajr الفجر", "Fajr 18°, Isha 17° · widely
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "afb4cbe3da", "pos": 2, "shot": "phone-landscape-font20-Gallery-en-f2.0__032__d1__p2.png", "labels": ["Why 5:04? · Fajr الفجر", "YOUR SETTINGS", "Your adjus
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "212fc50aba", "pos": 3, "shot": "phone-landscape-font20-Gallery-en-f2.0__033__d1__p3.png", "labels": ["Why 5:04? · Fajr الفجر", "5:04 AM – 6:29 AM  ·  After
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "771c563bc5", "pos": 4, "shot": "phone-landscape-font20-Gallery-en-f2.0__034__d1__p4.png", "labels": ["Why 5:04? · Fajr الفجر", "6:29 AM – 6:44 AM  ·  After
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "23e4d8dd34", "pos": 5, "shot": "phone-landscape-font20-Gallery-en-f2.0__035__d1__p5.png", "labels": ["Why 5:04? · Fajr الفجر", "4:19 PM – 7:02 PM  ·  After
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 740.8}
+{"ev": "replay-fail", "path": [], "t": 772.4}
+{"ev": "theme-done", "tag": "phone-landscape-font20-Gallery-en-f2.0", "actions": 3, "screens": 35, "t": 772.4}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 799.9}
+{"ev": "gfx", "lines": ["Total frames rendered: 25", "Janky frames: 25 (100.00%)", "Janky frames (legacy): 25 (100.00%)", "50th percentile: 85ms", "90th percentile: 900ms", "95th percentile: 1000ms", "99th percentile: 10
+{"ev": "mem", "lines": ["  Native Heap    16235    16140        0        0    19328    24672    19169     1840", "        TOTAL    36782    25904     3220        0   155600    35925    24812     7450", "           Java H
