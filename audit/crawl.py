@@ -14,6 +14,7 @@ ap.add_argument("--font", default="1.0")
 ap.add_argument("--depth", type=int, default=3)
 ap.add_argument("--max-actions", type=int, default=160)
 ap.add_argument("--budget-min", type=int, default=100)
+ap.add_argument("--mode", default="crawl")   # crawl | lessons | azaan | times
 A = ap.parse_args()
 os.makedirs(A.out, exist_ok=True)
 T0 = time.time()
@@ -291,6 +292,40 @@ def metrics(tag):
     m = sh("shell", "dumpsys", "meminfo", PKG)
     log(ev="mem", lines=[l for l in m.splitlines() if re.search(r"TOTAL|Java Heap|Native Heap|Graphics", l)][:8])
 
+THEME_LABEL_EN = {"Miqaat": "Miqaat · illuminated", "Kiswah": "Kiswah", "Celestial": "Celestial", "Gallery": "Prayer Gallery"}
+THEME_LABEL_UR = {"Miqaat": "میقات", "Kiswah": "کسوہ", "Celestial": "سماوی", "Gallery": "نماز گیلری"}
+def L(en, ur): return ur if A.lang == "ur" else en
+
+def tap_text(text, exact=True, maxs=8, startswith=False):
+    """Scroll until a node with this label is visible and tap it (works for non-clickable labels: the click propagates)."""
+    for i in range(maxs + 1):
+        nodes = dump()
+        if nodes:
+            w, h = screen_size(nodes)
+            for n in nodes:
+                l = label(n)
+                ok = (l == text) if exact else (l.startswith(text) if startswith else text in l)
+                if ok and n["pkg"] == PKG and 0 <= n["b"][1] and n["b"][3] <= h and n["b"][2] > n["b"][0]:
+                    tap(n); return True
+            if i < maxs: swipe(w, h)
+    return False
+
+def to_top():
+    for _ in range(3):
+        nodes = dump()
+        if not nodes: return
+        w, h = screen_size(nodes); swipe(w, h, up=False)
+
+def pick_theme2(kw):
+    if kw == "none": return True
+    want = (THEME_LABEL_UR if A.lang == "ur" else THEME_LABEL_EN).get(kw, kw)
+    if not go_home(): return False
+    if not tap_text(L("Settings", "ترتیبات")): log(ev="nav-fail", what="Settings"); return False
+    if not tap_text(L("Display & art", "ڈسپلے اور آرٹ")): log(ev="nav-fail", what="Display & art"); return False
+    if not tap_text(want, exact=False, startswith=True): log(ev="theme-not-found", kw=kw); return False
+    log(ev="theme-set", kw=kw); time.sleep(1.5)
+    return go_home()
+
 def pick_theme(kw):
     if kw == "none": return True
     if not nav_settings(None): return False
@@ -324,15 +359,134 @@ def main():
     time.sleep(3)
     ok = setup(A.tag)
     log(ev="setup-result", ok=ok)
+    if A.lang == "ur":
+        go_home()
+        if tap_text("Settings") and tap_text("Display & art"):
+            if tap_text("اردو", exact=False): log(ev="lang-set"); time.sleep(2)
+            else: log(ev="lang-not-found")
+        go_home()
+    if A.mode != "crawl": return run_mode()
     for kw in A.themes.split(","):
         tag = f"{A.tag}-{re.sub(r'[^A-Za-z0-9]+','',kw)}-{A.lang}-f{A.font}"
-        if A.lang == "ur" and not set_lang_urdu(): pass
-        if not pick_theme(kw): pass
+        if not pick_theme2(kw): pass
         if not go_home(): log(ev="home-fail", tag=tag)
         seen.clear(); actions[0] = 0
         explore(tag, [], 0)
         log(ev="theme-done", tag=tag, actions=actions[0], screens=shotn[0])
         go_home()
+    metrics(A.tag)
+
+def snap(tag, name, n=None):
+    shotn[0] += 1
+    f = shot(f"{tag}__{shotn[0]:03d}__{name}")
+    nodes = n or dump() or []
+    log(ev="shot", name=name, shot=f, labels=[label(x) for x in nodes if label(x)][:60])
+    return f
+
+def step_through(tag, prefix, maxsteps=45, scroll_every=6):
+    """Walk a lesson with its Continue button, one screenshot per step."""
+    for i in range(maxsteps):
+        nodes = dump()
+        if not nodes: break
+        snap(tag, f"{prefix}-step{i+1:02d}", nodes)
+        if i % scroll_every == 0:
+            w, h = screen_size(nodes); swipe(w, h); snap(tag, f"{prefix}-step{i+1:02d}-scrolled"); swipe(w, h, up=False)
+        nxt = [n for n in nodes if label(n).startswith(("Continue", "Next", "Finish", "Done")) and n["pkg"] == PKG and n["b"][1] > screen_size(nodes)[1] * 0.5]
+        if not nxt: log(ev="lesson-end", prefix=prefix, steps=i + 1, last=[label(x) for x in nodes if label(x)][-8:]); break
+        tap(nxt[0]); time.sleep(0.6)
+
+def back_until(text, tries=5):
+    for _ in range(tries):
+        nodes = dump() or []
+        if any(text in label(n) for n in nodes): return True
+        back()
+    return False
+
+def open_learn():
+    go_home()
+    return tap_text("Learn Salah", exact=True)
+
+def mode_lessons():
+    for kw in A.themes.split(","):
+        tag = f"{A.tag}-{kw}-{A.lang}"
+        pick_theme2(kw)
+        lessons = ["Fajr"] + (["Maghrib", "Dhuhr · ʿAsr · Isha"] if kw == A.themes.split(",")[0] else [])
+        for les in lessons:
+            if not open_learn(): log(ev="nav-fail", what="Learn"); continue
+            snap(tag, "learn-overview")
+            if not tap_text(les, exact=False, startswith=True): log(ev="nav-fail", what=les); continue
+            time.sleep(1)
+            step_through(tag, "lesson-" + re.sub(r"[^A-Za-z]+", "", les)[:10], maxsteps=45 if les == "Fajr" else 40)
+        for pg in ("The words", "The movements"):
+            if not open_learn(): continue
+            if tap_text(pg):
+                time.sleep(1)
+                if pg == "The movements":
+                    n0 = dump() or []; w, h = screen_size(n0) if n0 else (1080, 2400)
+                    for k in range(7):
+                        snap(tag, f"movements-p{k}"); swipe(w, h)
+                else:
+                    step_through(tag, "words", maxsteps=14, scroll_every=99)
+        go_home()
+
+def tap_after(anchor, button, maxs=6):
+    for i in range(maxs + 1):
+        nodes = dump() or []
+        if not nodes: continue
+        w, h = screen_size(nodes)
+        a = [n for n in nodes if label(n) == anchor and n["pkg"] == PKG]
+        if a:
+            ay = a[0]["b"][1]
+            b = sorted([n for n in nodes if label(n) == button and n["b"][1] >= ay and n["b"][3] <= h], key=lambda n: n["b"][1])
+            if b: tap(b[0]); return True
+        swipe(w, h)
+    return False
+
+def mode_azaan():
+    for kw in A.themes.split(","):
+        tag = f"{A.tag}-{kw}"
+        pick_theme2(kw)
+        for name, anchor, button, waits in (
+            ("azaan-full-fajr", "Everything, exactly as at prayer time", "Fajr", [4, 25]),
+            ("azaan-recording", "Azaan recording", "Fajr", [4]),
+            ("dua-hadith", "Full sequence after azaan", "Start", [5, 60, 70]),
+            ("iqamah-short", "Short countdown", "Start", [4, 10, 12]),
+            ("quiet-screen", "Quiet screen", "show", [3]),
+        ):
+            go_home()
+            if not (tap_text("Settings") and tap_text("Try it now")): log(ev="nav-fail", what="Try it now"); continue
+            if not tap_after(anchor, button): log(ev="nav-fail", what=name); continue
+            t0 = time.time()
+            for wsec in waits:
+                time.sleep(wsec); snap(tag, f"{name}-t{int(time.time()-t0)}")
+            sh("shell", "am", "force-stop", PKG); time.sleep(1); launch(); go_home()
+
+# Sydney local -> UTC (AEDT, UTC+11 from 4 Oct 2026)
+SCENARIOS = [
+  ("predawn-0430",   "100517302026"),   # Tue 6 Oct 04:30 AEDT
+  ("morning-0545",   "100518452026"),   # 05:45 (after Fajr, before sunrise)
+  ("forenoon-0930",  "100522302026"),   # 09:30
+  ("friday-1250",    "100901502026"),   # Fri 9 Oct 12:50 after Dhuhr: Friday
+  ("afternoon-1630", "100705302026"),   # Wed 7 Oct 16:30
+  ("maghrib-1915",   "100708152026"),   # 19:15
+  ("night-2230",     "100711302026"),   # 22:30
+]
+def mode_times():
+    r = sh("root"); log(ev="adb-root", out=r.strip()[:80]); time.sleep(3)
+    sh("shell", "settings", "put", "global", "auto_time", "0"); sh("shell", "settings", "put", "global", "auto_time_zone", "0")
+    for kw in A.themes.split(","):
+        pick_theme2(kw)
+        for sc, stamp in SCENARIOS:
+            o = sh("shell", "date", "-u", stamp[:8] + stamp[8:] + ".00")
+            log(ev="set-time", sc=sc, out=o.strip()[:60])
+            sh("shell", "am", "force-stop", PKG); launch(); time.sleep(3); go_home()
+            seen.clear(); actions[0] = 0
+            A.depth = 1; A.max_actions = 12
+            explore(f"{A.tag}-{kw}-{sc}", [], 0)
+            go_home()
+
+def run_mode():
+    {"lessons": mode_lessons, "azaan": mode_azaan, "times": mode_times}[A.mode]()
     metrics(A.tag)
 
 main()
