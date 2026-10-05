@@ -15,7 +15,7 @@ jobs:
           curl -sSL -o Miqaat.apk https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-3/Miqaat-1.90-audit-fixes.apk
           curl -sSL -o Miqaat.apk.sha256 https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-3/Miqaat-1.90-audit-fixes.apk.sha256
           cat Miqaat.apk.sha256; sha256sum Miqaat.apk
-          test "$(cut -d' ' -f1 Miqaat.apk.sha256)" = "$(sha256sum Miqaat.apk | cut -d' ' -f1)"
+          grep -q "$(sha256sum Miqaat.apk | cut -d' ' -f1)  Miqaat-1.90-audit-fixes.apk" Miqaat.apk.sha256
           curl -sSL -o Miqaat-1.89.apk https://github.com/haawas-alt/miqaat/releases/download/audit-fixes-3895c823/Miqaat-1.89-mockup-fit.apk
           echo "734e121bf42d4f1e913068245da3fe43c5d64828144a3fe0f90347721ddc4ebb  Miqaat-1.89.apk" | sha256sum -c -
       - uses: actions/upload-artifact@v4
