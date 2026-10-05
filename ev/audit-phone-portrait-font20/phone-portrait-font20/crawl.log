@@ -1,0 +1,92 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1717, "t": 2.2}
+{"ev": "setup-screen", "step": 0, "shot": "phone-portrait-font20__setup0.png", "key": "69ed81229a", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Mag
+{"ev": "setup-stuck", "t": 7.5}
+{"ev": "setup-screen", "step": 1, "shot": "phone-portrait-font20__setup1.png", "key": "28f8409b4d", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Mag
+{"ev": "setup-stuck", "t": 12.7}
+{"ev": "setup-screen", "step": 2, "shot": "phone-portrait-font20__setup2.png", "key": "fc6be0f91a", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Mag
+{"ev": "setup-tap", "label": "Begin", "t": 17.8}
+{"ev": "setup-screen", "step": 3, "shot": "phone-portrait-font20__setup3.png", "key": "597b5a77af", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Mag
+{"ev": "detect-result", "shot": "phone-portrait-font20__setup3_after-detect-20s.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448", "NEXT PRAYER.
+{"ev": "setup-screen", "step": 4, "shot": "phone-portrait-font20__setup4.png", "key": "e395d6488c", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448",
+{"ev": "setup-tap", "label": "Next", "t": 48.9}
+{"ev": "setup-screen", "step": 5, "shot": "phone-portrait-font20__setup5.png", "key": "e3c3eaece1", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448",
+{"ev": "setup-stuck", "t": 54.0}
+{"ev": "setup-screen", "step": 6, "shot": "phone-portrait-font20__setup6.png", "key": "fbc0644481", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448",
+{"ev": "setup-stuck", "t": 59.1}
+{"ev": "setup-screen", "step": 7, "shot": "phone-portrait-font20__setup7.png", "key": "344293f5a2", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448",
+{"ev": "setup-stuck", "t": 64.5}
+{"ev": "setup-screen", "step": 8, "shot": "phone-portrait-font20__setup8.png", "key": "092632e84f", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448",
+{"ev": "setup-stuck", "t": 69.6}
+{"ev": "setup-screen", "step": 9, "shot": "phone-portrait-font20__setup9.png", "key": "1720e7dcfd", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448",
+{"ev": "setup-tap", "label": "These look right", "t": 75.0}
+{"ev": "setup-screen", "step": 10, "shot": "phone-portrait-font20__setup10.png", "key": "97a792cee4", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448
+{"ev": "setup-stuck", "t": 80.1}
+{"ev": "setup-screen", "step": 11, "shot": "phone-portrait-font20__setup11.png", "key": "cf06038791", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448
+{"ev": "setup-stuck", "t": 85.4}
+{"ev": "setup-screen", "step": 12, "shot": "phone-portrait-font20__setup12.png", "key": "bba8f867c0", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448
+{"ev": "setup-stuck", "t": 90.5}
+{"ev": "setup-screen", "step": 13, "shot": "phone-portrait-font20__setup13.png", "key": "2b71f6b200", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448
+{"ev": "setup-stuck", "t": 95.6}
+{"ev": "setup-screen", "step": 14, "shot": "phone-portrait-font20__setup14.png", "key": "39437d0a16", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448
+{"ev": "setup-stuck", "t": 100.7}
+{"ev": "setup-screen", "step": 15, "shot": "phone-portrait-font20__setup15.png", "key": "f43e986441", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448
+{"ev": "setup-stuck", "t": 106.1}
+{"ev": "setup-result", "ok": false, "t": 107.4}
+{"ev": "home-fail", "tag": "phone-portrait-font20-Miqaat-en-f2.0", "t": 163.5}
+{"ev": "screen", "depth": 0, "path": [], "key": "1f10113d21", "pos": 0, "shot": "phone-portrait-font20-Miqaat-en-f2.0__001__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 Oct
+{"ev": "screen", "depth": 0, "path": [], "key": "9ca5631cbd", "pos": 1, "shot": "phone-portrait-font20-Miqaat-en-f2.0__002__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 Oct
+{"ev": "screen", "depth": 0, "path": [], "key": "be1f164eb8", "pos": 2, "shot": "phone-portrait-font20-Miqaat-en-f2.0__003__d0__p2.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 Oct
+{"ev": "no-change", "label": "Fajr", "shot": "phone-portrait-font20-Miqaat-en-f2.0__004__same__Fajr.png", "path": [], "t": 185.2}
+{"ev": "no-dump", "label": "Qibla ⁨277° W⁩", "t": 201.7}
+{"ev": "tap-fail", "label": "Fajr", "t": 229.1}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 255.4}
+{"ev": "tap-fail", "label": "Fajr", "t": 281.9}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 303.1}
+{"ev": "tap-fail", "label": "Begin", "t": 323.7}
+{"ev": "theme-done", "tag": "phone-portrait-font20-Miqaat-en-f2.0", "actions": 7, "screens": 4, "t": 323.7}
+{"ev": "home-fail", "tag": "phone-portrait-font20-Kiswah-en-f2.0", "t": 417.0}
+{"ev": "screen", "depth": 0, "path": [], "key": "1f10113d21", "pos": 0, "shot": "phone-portrait-font20-Kiswah-en-f2.0__005__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 Oct
+{"ev": "screen", "depth": 0, "path": [], "key": "970128de71", "pos": 1, "shot": "phone-portrait-font20-Kiswah-en-f2.0__006__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 Oct
+{"ev": "screen", "depth": 0, "path": [], "key": "be1f164eb8", "pos": 2, "shot": "phone-portrait-font20-Kiswah-en-f2.0__007__d0__p2.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 Oct
+{"ev": "no-change", "label": "Fajr", "shot": "phone-portrait-font20-Kiswah-en-f2.0__008__same__Fajr.png", "path": [], "t": 439.1}
+{"ev": "no-dump", "label": "Qibla ⁨277° W⁩", "t": 455.4}
+{"ev": "tap-fail", "label": "Fajr", "t": 474.9}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 507.0}
+{"ev": "tap-fail", "label": "Fajr", "t": 548.6}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 574.9}
+{"ev": "tap-fail", "label": "Begin", "t": 606.2}
+{"ev": "theme-done", "tag": "phone-portrait-font20-Kiswah-en-f2.0", "actions": 7, "screens": 8, "t": 606.2}
+{"ev": "home-fail", "tag": "phone-portrait-font20-Celestial-en-f2.0", "t": 696.5}
+{"ev": "screen", "depth": 0, "path": [], "key": "1f10113d21", "pos": 0, "shot": "phone-portrait-font20-Celestial-en-f2.0__009__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 
+{"ev": "screen", "depth": 0, "path": [], "key": "9ca5631cbd", "pos": 1, "shot": "phone-portrait-font20-Celestial-en-f2.0__010__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 
+{"ev": "screen", "depth": 0, "path": [], "key": "be1f164eb8", "pos": 2, "shot": "phone-portrait-font20-Celestial-en-f2.0__011__d0__p2.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 
+{"ev": "no-change", "label": "Fajr", "shot": "phone-portrait-font20-Celestial-en-f2.0__012__same__Fajr.png", "path": [], "t": 718.4}
+{"ev": "no-dump", "label": "Qibla ⁨277° W⁩", "t": 734.6}
+{"ev": "tap-fail", "label": "Fajr", "t": 760.7}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 787.0}
+{"ev": "tap-fail", "label": "Fajr", "t": 822.9}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 848.9}
+{"ev": "tap-fail", "label": "Begin", "t": 874.5}
+{"ev": "theme-done", "tag": "phone-portrait-font20-Celestial-en-f2.0", "actions": 7, "screens": 12, "t": 874.5}
+{"ev": "home-fail", "tag": "phone-portrait-font20-Gallery-en-f2.0", "t": 960.2}
+{"ev": "screen", "depth": 0, "path": [], "key": "1f10113d21", "pos": 0, "shot": "phone-portrait-font20-Gallery-en-f2.0__013__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 Oc
+{"ev": "screen", "depth": 0, "path": [], "key": "9ca5631cbd", "pos": 1, "shot": "phone-portrait-font20-Gallery-en-f2.0__014__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 Oc
+{"ev": "screen", "depth": 0, "path": [], "key": "be1f164eb8", "pos": 2, "shot": "phone-portrait-font20-Gallery-en-f2.0__015__d0__p2.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 Oc
+{"ev": "no-change", "label": "Fajr", "shot": "phone-portrait-font20-Gallery-en-f2.0__016__same__Fajr.png", "path": [], "t": 982.0}
+{"ev": "tap-fail", "label": "Fajr", "t": 1015.4}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 1020.8}
+{"ev": "tap-fail", "label": "Fajr", "t": 1029.9}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 1038.6}
+{"ev": "screen", "depth": 1, "path": ["Begin"], "key": "1d225dbcf2", "pos": 0, "shot": "phone-portrait-font20-Gallery-en-f2.0__017__d1__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesd
+{"ev": "screen", "depth": 1, "path": ["Begin"], "key": "ee0bfa1325", "pos": 1, "shot": "phone-portrait-font20-Gallery-en-f2.0__018__d1__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesd
+{"ev": "screen", "depth": 1, "path": ["Begin"], "key": "c800753739", "pos": 2, "shot": "phone-portrait-font20-Gallery-en-f2.0__019__d1__p2.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesd
+{"ev": "screen", "depth": 1, "path": ["Begin"], "key": "e7f0ea0cbb", "pos": 3, "shot": "phone-portrait-font20-Gallery-en-f2.0__020__d1__p3.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesd
+{"ev": "screen", "depth": 1, "path": ["Begin"], "key": "cf1f2ae0fa", "pos": 4, "shot": "phone-portrait-font20-Gallery-en-f2.0__021__d1__p4.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesd
+{"ev": "screen", "depth": 1, "path": ["Begin"], "key": "b99b69e07b", "pos": 5, "shot": "phone-portrait-font20-Gallery-en-f2.0__022__d1__p5.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesd
+{"ev": "back-mismatch", "label": "Begin", "path": [], "t": 1082.0}
+{"ev": "replay-fail", "path": [], "t": 1114.2}
+{"ev": "theme-done", "tag": "phone-portrait-font20-Gallery-en-f2.0", "actions": 7, "screens": 22, "t": 1114.2}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 1142.4}
+{"ev": "gfx", "lines": ["Total frames rendered: 25", "Janky frames: 25 (100.00%)", "Janky frames (legacy): 25 (100.00%)", "50th percentile: 300ms", "90th percentile: 1350ms", "95th percentile: 1350ms", "99th percentile: 
+{"ev": "mem", "lines": ["  Native Heap    21426    21332        0        0    24568    28628    22066     3231", "        TOTAL    42369    31032     3316        0   162440    40354    27929     9094", "           Java H

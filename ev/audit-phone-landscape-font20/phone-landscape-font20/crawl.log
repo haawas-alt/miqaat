@@ -1,0 +1,82 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.2}
+{"ev": "cold-start-ms", "ms": 1680, "t": 2.2}
+{"ev": "rotation-lost", "name": "phone-landscape-font20__setup0", "dims": [1080, 2400], "t": 7.6}
+{"ev": "setup-screen", "step": 0, "shot": "phone-landscape-font20__setup0.png", "key": "69ed81229a", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Ma
+{"ev": "setup-stuck", "t": 11.0}
+{"ev": "setup-screen", "step": 1, "shot": "phone-landscape-font20__setup1.png", "key": "274f91c158", "labels": ["Location: ⁨⁩. Opens location settings", "NEXT PRAYER. Maghrib, 3:05 PM, In 55 min", "Maghrib", "المغرب", "S
+{"ev": "setup-stuck", "t": 16.1}
+{"ev": "setup-screen", "step": 2, "shot": "phone-landscape-font20__setup2.png", "key": "274f91c158", "labels": ["Location: ⁨⁩. Opens location settings", "NEXT PRAYER. Maghrib, 3:05 PM, In 55 min", "Maghrib", "المغرب", "S
+{"ev": "setup-stuck", "t": 21.2}
+{"ev": "setup-screen", "step": 3, "shot": "phone-landscape-font20__setup3.png", "key": "6f0c7de23e", "labels": ["Location: ⁨⁩. Opens location settings", "NEXT PRAYER. Maghrib, 3:05 PM, In 55 min", "Maghrib", "المغرب", "S
+{"ev": "setup-stuck", "t": 26.3}
+{"ev": "setup-screen", "step": 4, "shot": "phone-landscape-font20__setup4.png", "key": "0bce853d16", "labels": ["Location: ⁨⁩. Opens location settings", "NEXT PRAYER. Maghrib, 3:05 PM, In 55 min", "Maghrib", "المغرب", "S
+{"ev": "setup-stuck", "t": 31.6}
+{"ev": "setup-screen", "step": 5, "shot": "phone-landscape-font20__setup5.png", "key": "9612981d2b", "labels": ["Location: ⁨⁩. Opens location settings", "NEXT PRAYER. Maghrib, 3:05 PM, In 55 min", "Maghrib", "المغرب", "S
+{"ev": "setup-tap", "label": "Begin", "t": 36.7}
+{"ev": "setup-screen", "step": 6, "shot": "phone-landscape-font20__setup6.png", "key": "8f58eaa1d7", "labels": ["Location: ⁨⁩. Opens location settings", "NEXT PRAYER. Maghrib, 3:05 PM, In 55 min", "المغرب", "Step 2 of 4:
+{"ev": "detect-result", "shot": "phone-landscape-font20__setup6_after-detect-20s.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "NEXT PRAYER. Fajr, 5:03 AM, In 3 h 52 min"
+{"ev": "setup-screen", "step": 7, "shot": "phone-landscape-font20__setup7.png", "key": "7630924367", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "NEXT PRAYER. Fajr, 5:03 AM, 
+{"ev": "setup-tap", "label": "Next", "t": 67.8}
+{"ev": "setup-screen", "step": 8, "shot": "phone-landscape-font20__setup8.png", "key": "7f5e4e1402", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "NEXT PRAYER. Fajr, 5:03 AM, 
+{"ev": "setup-stuck", "t": 72.9}
+{"ev": "setup-screen", "step": 9, "shot": "phone-landscape-font20__setup9.png", "key": "3a8be18d9d", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "NEXT PRAYER. Fajr, 5:03 AM, 
+{"ev": "setup-stuck", "t": 78.4}
+{"ev": "setup-screen", "step": 10, "shot": "phone-landscape-font20__setup10.png", "key": "5ad025ba4b", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "NEXT PRAYER. Fajr, 5:03 AM
+{"ev": "setup-stuck", "t": 83.7}
+{"ev": "setup-screen", "step": 11, "shot": "phone-landscape-font20__setup11.png", "key": "80ec726bcd", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "NEXT PRAYER. Fajr, 5:03 AM
+{"ev": "setup-stuck", "t": 88.9}
+{"ev": "setup-screen", "step": 12, "shot": "phone-landscape-font20__setup12.png", "key": "08f55c4252", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "NEXT PRAYER. Fajr, 5:03 AM
+{"ev": "setup-stuck", "t": 94.2}
+{"ev": "setup-screen", "step": 13, "shot": "phone-landscape-font20__setup13.png", "key": "3849566ccb", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "NEXT PRAYER. Fajr, 5:03 AM
+{"ev": "setup-stuck", "t": 99.3}
+{"ev": "setup-screen", "step": 14, "shot": "phone-landscape-font20__setup14.png", "key": "882a1c2050", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "NEXT PRAYER. Fajr, 5:03 AM
+{"ev": "setup-tap", "label": "These look right", "t": 104.5}
+{"ev": "setup-screen", "step": 15, "shot": "phone-landscape-font20__setup15.png", "key": "7e25fcff6d", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "NEXT PRAYER. Fajr, 5:03 AM
+{"ev": "setup-stuck", "t": 109.7}
+{"ev": "setup-result", "ok": false, "t": 110.9}
+{"ev": "home-fail", "tag": "phone-landscape-font20-Miqaat-en-f2.0", "t": 168.5}
+{"ev": "rotation-lost", "name": "phone-landscape-font20-Miqaat-en-f2.0__001__d0__p0", "dims": [1080, 2400], "t": 170.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "1f10113d21", "pos": 0, "shot": "phone-landscape-font20-Miqaat-en-f2.0__001__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 Oc
+{"ev": "screen", "depth": 0, "path": [], "key": "0ccfcfa78b", "pos": 1, "shot": "phone-landscape-font20-Miqaat-en-f2.0__002__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "0ccfcfa78b", "pos": 0, "shot": "phone-landscape-font20-Miqaat-en-f2.0__003__d1__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "890ca72634", "pos": 1, "shot": "phone-landscape-font20-Miqaat-en-f2.0__004__d1__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "8a8f7f81be", "pos": 2, "shot": "phone-landscape-font20-Miqaat-en-f2.0__005__d1__p2.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "51b4f7ffac", "pos": 3, "shot": "phone-landscape-font20-Miqaat-en-f2.0__006__d1__p3.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 213.6}
+{"ev": "replay-fail", "path": [], "t": 246.3}
+{"ev": "theme-done", "tag": "phone-landscape-font20-Miqaat-en-f2.0", "actions": 1, "screens": 6, "t": 246.3}
+{"ev": "home-fail", "tag": "phone-landscape-font20-Kiswah-en-f2.0", "t": 334.0}
+{"ev": "rotation-lost", "name": "phone-landscape-font20-Kiswah-en-f2.0__007__d0__p0", "dims": [1080, 2400], "t": 336.4}
+{"ev": "screen", "depth": 0, "path": [], "key": "1f10113d21", "pos": 0, "shot": "phone-landscape-font20-Kiswah-en-f2.0__007__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 Oc
+{"ev": "screen", "depth": 0, "path": [], "key": "0ccfcfa78b", "pos": 1, "shot": "phone-landscape-font20-Kiswah-en-f2.0__008__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "0ccfcfa78b", "pos": 0, "shot": "phone-landscape-font20-Kiswah-en-f2.0__009__d1__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 362.8}
+{"ev": "replay-fail", "path": [], "t": 396.0}
+{"ev": "theme-done", "tag": "phone-landscape-font20-Kiswah-en-f2.0", "actions": 1, "screens": 9, "t": 396.0}
+{"ev": "home-fail", "tag": "phone-landscape-font20-Celestial-en-f2.0", "t": 482.7}
+{"ev": "rotation-lost", "name": "phone-landscape-font20-Celestial-en-f2.0__010__d0__p0", "dims": [1080, 2400], "t": 485.0}
+{"ev": "screen", "depth": 0, "path": [], "key": "1f10113d21", "pos": 0, "shot": "phone-landscape-font20-Celestial-en-f2.0__010__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6
+{"ev": "screen", "depth": 0, "path": [], "key": "0ccfcfa78b", "pos": 1, "shot": "phone-landscape-font20-Celestial-en-f2.0__011__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "0ccfcfa78b", "pos": 0, "shot": "phone-landscape-font20-Celestial-en-f2.0__012__d1__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "890ca72634", "pos": 1, "shot": "phone-landscape-font20-Celestial-en-f2.0__013__d1__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "dcf1cbdd14", "pos": 2, "shot": "phone-landscape-font20-Celestial-en-f2.0__014__d1__p2.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "8a8f7f81be", "pos": 3, "shot": "phone-landscape-font20-Celestial-en-f2.0__015__d1__p3.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "51b4f7ffac", "pos": 4, "shot": "phone-landscape-font20-Celestial-en-f2.0__016__d1__p4.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 532.4}
+{"ev": "replay-fail", "path": [], "t": 565.9}
+{"ev": "theme-done", "tag": "phone-landscape-font20-Celestial-en-f2.0", "actions": 1, "screens": 16, "t": 565.9}
+{"ev": "home-fail", "tag": "phone-landscape-font20-Gallery-en-f2.0", "t": 653.0}
+{"ev": "rotation-lost", "name": "phone-landscape-font20-Gallery-en-f2.0__017__d0__p0", "dims": [1080, 2400], "t": 655.3}
+{"ev": "screen", "depth": 0, "path": [], "key": "1f10113d21", "pos": 0, "shot": "phone-landscape-font20-Gallery-en-f2.0__017__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "Tuesday 6 O
+{"ev": "screen", "depth": 0, "path": [], "key": "0ccfcfa78b", "pos": 1, "shot": "phone-landscape-font20-Gallery-en-f2.0__018__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 15
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "0ccfcfa78b", "pos": 0, "shot": "phone-landscape-font20-Gallery-en-f2.0__019__d1__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "890ca72634", "pos": 1, "shot": "phone-landscape-font20-Gallery-en-f2.0__020__d1__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "dcf1cbdd14", "pos": 2, "shot": "phone-landscape-font20-Gallery-en-f2.0__021__d1__p2.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "8a8f7f81be", "pos": 3, "shot": "phone-landscape-font20-Gallery-en-f2.0__022__d1__p3.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "51b4f7ffac", "pos": 4, "shot": "phone-landscape-font20-Gallery-en-f2.0__023__d1__p4.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 702.6}
+{"ev": "replay-fail", "path": [], "t": 735.4}
+{"ev": "theme-done", "tag": "phone-landscape-font20-Gallery-en-f2.0", "actions": 1, "screens": 23, "t": 735.4}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 764.6}
+{"ev": "gfx", "lines": ["Total frames rendered: 30", "Janky frames: 30 (100.00%)", "Janky frames (legacy): 30 (100.00%)", "50th percentile: 300ms", "90th percentile: 1150ms", "95th percentile: 1200ms", "99th percentile: 
+{"ev": "mem", "lines": ["  Native Heap    22973    22880        0        0    26068    30980    23505     3560", "        TOTAL    44818    33468     3356        0   164476    42915    29489     9511", "           Java H
