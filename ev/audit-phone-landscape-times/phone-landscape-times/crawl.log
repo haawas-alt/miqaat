@@ -1,0 +1,461 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 2050, "t": 2.5}
+{"ev": "setup-screen", "step": 0, "shot": "phone-landscape-times__setup0.png", "key": "727730c51f", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Learn Salah", "M
+{"ev": "setup-stuck", "t": 7.9}
+{"ev": "setup-screen", "step": 1, "shot": "phone-landscape-times__setup1.png", "key": "e5493b4a4a", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Learn Salah", "M
+{"ev": "setup-tap", "label": "Begin", "t": 13.6}
+{"ev": "setup-screen", "step": 2, "shot": "phone-landscape-times__setup2.png", "key": "c86a84345f", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Learn Salah", "M
+{"ev": "detect-result", "shot": "phone-landscape-times__setup2_after-detect-20s.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 
+{"ev": "setup-screen", "step": 3, "shot": "phone-landscape-times__setup3.png", "key": "91675d5361", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Monday 5 October 2026", "24 R
+{"ev": "setup-tap", "label": "Next", "t": 44.7}
+{"ev": "setup-screen", "step": 4, "shot": "phone-landscape-times__setup4.png", "key": "a4d6055339", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Monday 5 October 2026", "24 R
+{"ev": "setup-stuck", "t": 49.8}
+{"ev": "setup-screen", "step": 5, "shot": "phone-landscape-times__setup5.png", "key": "59c8d648ad", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Monday 5 October 2026", "24 R
+{"ev": "setup-stuck", "t": 55.2}
+{"ev": "setup-screen", "step": 6, "shot": "phone-landscape-times__setup6.png", "key": "4c0ae03e4b", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Monday 5 October 2026", "24 R
+{"ev": "setup-tap", "label": "These look right", "t": 60.9}
+{"ev": "setup-screen", "step": 7, "shot": "phone-landscape-times__setup7.png", "key": "72562db740", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Monday 5 October 2026", "24 R
+{"ev": "setup-stuck", "t": 66.0}
+{"ev": "setup-screen", "step": 8, "shot": "phone-landscape-times__setup8.png", "key": "6986209330", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Monday 5 October 2026", "24 R
+{"ev": "setup-stuck", "t": 71.3}
+{"ev": "setup-screen", "step": 9, "shot": "phone-landscape-times__setup9.png", "key": "194f709306", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Monday 5 October 2026", "24 R
+{"ev": "setup-tap", "label": "Finish", "t": 76.7}
+{"ev": "setup-done", "step": 10, "t": 81.6}
+{"ev": "setup-result", "ok": true, "t": 81.6}
+{"ev": "adb-root", "out": "restarting adbd as root", "t": 82.8}
+{"ev": "theme-set", "kw": "Miqaat", "t": 104.6}
+{"ev": "set-time", "sc": "predawn-0430", "out": "Mon Oct  5 17:30:00 UTC 2026", "t": 116.5}
+{"ev": "screen", "depth": 0, "path": [], "key": "3fb2ecce40", "pos": 0, "shot": "phone-landscape-times-Miqaat-predawn-0430__001__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Miqaat-predawn-0430__002__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Miqaat-predawn-0430__003__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Miqaat-predawn-0430__004__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "da5ba18838", "pos": 0, "shot": "phone-landscape-times-Miqaat-predawn-0430__005__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Miqaat-predawn-0430__006__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-predawn-0430__007__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to
+{"ev": "set-time", "sc": "morning-0545", "out": "Mon Oct  5 18:45:00 UTC 2026", "t": 211.4}
+{"ev": "screen", "depth": 0, "path": [], "key": "0accfe45c7", "pos": 0, "shot": "phone-landscape-times-Miqaat-morning-0545__008__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Miqaat-morning-0545__009__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Miqaat-morning-0545__010__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Miqaat-morning-0545__011__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "698251fed0", "pos": 0, "shot": "phone-landscape-times-Miqaat-morning-0545__012__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Miqaat-morning-0545__013__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-morning-0545__014__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "7003770a1d", "pos": 0, "shot": "phone-landscape-times-Miqaat-morning-0545__015__d1__p0.png", "labels": ["Back", "Morning adhkār  ·  1 of 13", "ĀYAT AL-KURS
+{"ev": "set-time", "sc": "forenoon-0930", "out": "Mon Oct  5 22:30:00 UTC 2026", "t": 318.2}
+{"ev": "screen", "depth": 0, "path": [], "key": "69bf228f01", "pos": 0, "shot": "phone-landscape-times-Miqaat-forenoon-0930__016__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Miqaat-forenoon-0930__017__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Miqaat-forenoon-0930__018__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Miqaat-forenoon-0930__019__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "698251fed0", "pos": 0, "shot": "phone-landscape-times-Miqaat-forenoon-0930__020__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Miqaat-forenoon-0930__021__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-forenoon-0930__022__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees t
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "7003770a1d", "pos": 0, "shot": "phone-landscape-times-Miqaat-forenoon-0930__023__d1__p0.png", "labels": ["Back", "Morning adhkār  ·  1 of 13", "ĀYAT AL-KUR
+{"ev": "set-time", "sc": "friday-1250", "out": "Fri Oct  9 01:50:00 UTC 2026", "t": 424.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "e2cb0b14c7", "pos": 0, "shot": "phone-landscape-times-Miqaat-friday-1250__024__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Miqaat-friday-1250__025__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form of
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "400861cded", "pos": 0, "shot": "phone-landscape-times-Miqaat-friday-1250__026__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ū
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Miqaat-friday-1250__027__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ū
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "55c31b62a7", "pos": 0, "shot": "phone-landscape-times-Miqaat-friday-1250__028__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention be
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Miqaat-friday-1250__029__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S, 
+{"ev": "no-change", "label": "Friday 9 October 2026", "shot": "phone-landscape-times-Miqaat-friday-1250__030__same__Friday_9_October_2026.png", "path": [], "t": 499.3}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-friday-1250__031__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to 
+{"ev": "screen", "depth": 1, "path": ["Jumuʿah"], "key": "699e2c51cf", "pos": 0, "shot": "phone-landscape-times-Miqaat-friday-1250__032__d1__p0.png", "labels": ["Back", "Jumuʿah", "يوم الجمعة  ·  9 October", "\"The best 
+{"ev": "screen", "depth": 1, "path": ["Jumuʿah"], "key": "f74318dd97", "pos": 1, "shot": "phone-landscape-times-Miqaat-friday-1250__033__d1__p1.png", "labels": ["SŪRAT AL-KAHF", "سورة الكهف", "\"Whoever reads Sūrat al-Ka
+{"ev": "set-time", "sc": "afternoon-1630", "out": "Wed Oct  7 05:30:00 UTC 2026", "t": 552.4}
+{"ev": "screen", "depth": 0, "path": [], "key": "2348238605", "pos": 0, "shot": "phone-landscape-times-Miqaat-afternoon-1630__034__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Miqaat-afternoon-1630__035__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Miqaat-afternoon-1630__036__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Miqaat-afternoon-1630__037__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "d186c5d2dd", "pos": 0, "shot": "phone-landscape-times-Miqaat-afternoon-1630__038__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Miqaat-afternoon-1630__039__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-afternoon-1630__040__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees 
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "63dc002422", "pos": 0, "shot": "phone-landscape-times-Miqaat-afternoon-1630__041__d1__p0.png", "labels": ["Back", "Evening adhkār  ·  1 of 14", "ĀYAT AL-KU
+{"ev": "set-time", "sc": "maghrib-1915", "out": "Wed Oct  7 08:15:00 UTC 2026", "t": 657.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "041e6bd0d0", "pos": 0, "shot": "phone-landscape-times-Miqaat-maghrib-1915__042__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Miqaat-maghrib-1915__043__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Miqaat-maghrib-1915__044__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Miqaat-maghrib-1915__045__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "f232d730dd", "pos": 0, "shot": "phone-landscape-times-Miqaat-maghrib-1915__046__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Miqaat-maghrib-1915__047__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-maghrib-1915__048__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "63dc002422", "pos": 0, "shot": "phone-landscape-times-Miqaat-maghrib-1915__049__d1__p0.png", "labels": ["Back", "Evening adhkār  ·  1 of 14", "ĀYAT AL-KURS
+{"ev": "set-time", "sc": "night-2230", "out": "Wed Oct  7 11:30:00 UTC 2026", "t": 770.2}
+{"ev": "screen", "depth": 0, "path": [], "key": "c6eaeaf3eb", "pos": 0, "shot": "phone-landscape-times-Miqaat-night-2230__050__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 1
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Miqaat-night-2230__051__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form of 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Miqaat-night-2230__052__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ūl
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Miqaat-night-2230__053__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ūl
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "491295f05e", "pos": 0, "shot": "phone-landscape-times-Miqaat-night-2230__054__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention bef
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Miqaat-night-2230__055__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S, 1
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-night-2230__056__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to f
+{"ev": "theme-set", "kw": "Kiswah", "t": 881.9}
+{"ev": "set-time", "sc": "predawn-0430", "out": "Mon Oct  5 17:30:00 UTC 2026", "t": 893.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "3fb2ecce40", "pos": 0, "shot": "phone-landscape-times-Kiswah-predawn-0430__057__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a2e8cb114e", "pos": 0, "shot": "phone-landscape-times-Kiswah-predawn-0430__058__d1__p0.png", "labels": ["Back", "LEARN SALAH", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Kiswah-predawn-0430__059__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Kiswah-predawn-0430__060__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "da5ba18838", "pos": 0, "shot": "phone-landscape-times-Kiswah-predawn-0430__061__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Kiswah-predawn-0430__062__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Kiswah-predawn-0430__063__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to
+{"ev": "set-time", "sc": "morning-0545", "out": "Mon Oct  5 18:45:00 UTC 2026", "t": 990.5}
+{"ev": "screen", "depth": 0, "path": [], "key": "0accfe45c7", "pos": 0, "shot": "phone-landscape-times-Kiswah-morning-0545__064__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a2e8cb114e", "pos": 0, "shot": "phone-landscape-times-Kiswah-morning-0545__065__d1__p0.png", "labels": ["Back", "LEARN SALAH", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Kiswah-morning-0545__066__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Kiswah-morning-0545__067__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "698251fed0", "pos": 0, "shot": "phone-landscape-times-Kiswah-morning-0545__068__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Kiswah-morning-0545__069__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Kiswah-morning-0545__070__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "7003770a1d", "pos": 0, "shot": "phone-landscape-times-Kiswah-morning-0545__071__d1__p0.png", "labels": ["Back", "Morning adhkār  ·  1 of 13", "ĀYAT AL-KURS
+{"ev": "set-time", "sc": "forenoon-0930", "out": "Mon Oct  5 22:30:00 UTC 2026", "t": 1106.4}
+{"ev": "screen", "depth": 0, "path": [], "key": "69bf228f01", "pos": 0, "shot": "phone-landscape-times-Kiswah-forenoon-0930__072__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a2e8cb114e", "pos": 0, "shot": "phone-landscape-times-Kiswah-forenoon-0930__073__d1__p0.png", "labels": ["Back", "LEARN SALAH", "الصَّلَاة", "One common form 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Kiswah-forenoon-0930__074__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Kiswah-forenoon-0930__075__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "698251fed0", "pos": 0, "shot": "phone-landscape-times-Kiswah-forenoon-0930__076__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Kiswah-forenoon-0930__077__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Kiswah-forenoon-0930__078__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees t
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "7003770a1d", "pos": 0, "shot": "phone-landscape-times-Kiswah-forenoon-0930__079__d1__p0.png", "labels": ["Back", "Morning adhkār  ·  1 of 13", "ĀYAT AL-KUR
+{"ev": "set-time", "sc": "friday-1250", "out": "Fri Oct  9 01:50:00 UTC 2026", "t": 1212.6}
+{"ev": "screen", "depth": 0, "path": [], "key": "e2cb0b14c7", "pos": 0, "shot": "phone-landscape-times-Kiswah-friday-1250__080__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a2e8cb114e", "pos": 0, "shot": "phone-landscape-times-Kiswah-friday-1250__081__d1__p0.png", "labels": ["Back", "LEARN SALAH", "الصَّلَاة", "One common form of
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "400861cded", "pos": 0, "shot": "phone-landscape-times-Kiswah-friday-1250__082__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ū
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Kiswah-friday-1250__083__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ū
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "55c31b62a7", "pos": 0, "shot": "phone-landscape-times-Kiswah-friday-1250__084__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention be
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Kiswah-friday-1250__085__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S, 
+{"ev": "no-change", "label": "Friday 9 October 2026", "shot": "phone-landscape-times-Kiswah-friday-1250__086__same__Friday_9_October_2026.png", "path": [], "t": 1285.5}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Kiswah-friday-1250__087__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to 
+{"ev": "screen", "depth": 1, "path": ["Jumuʿah"], "key": "699e2c51cf", "pos": 0, "shot": "phone-landscape-times-Kiswah-friday-1250__088__d1__p0.png", "labels": ["Back", "Jumuʿah", "يوم الجمعة  ·  9 October", "\"The best 
+{"ev": "screen", "depth": 1, "path": ["Jumuʿah"], "key": "f74318dd97", "pos": 1, "shot": "phone-landscape-times-Kiswah-friday-1250__089__d1__p1.png", "labels": ["SŪRAT AL-KAHF", "سورة الكهف", "\"Whoever reads Sūrat al-Ka
+{"ev": "set-time", "sc": "afternoon-1630", "out": "Wed Oct  7 05:30:00 UTC 2026", "t": 1329.1}
+{"ev": "screen", "depth": 0, "path": [], "key": "2348238605", "pos": 0, "shot": "phone-landscape-times-Kiswah-afternoon-1630__090__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a2e8cb114e", "pos": 0, "shot": "phone-landscape-times-Kiswah-afternoon-1630__091__d1__p0.png", "labels": ["Back", "LEARN SALAH", "الصَّلَاة", "One common form
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Kiswah-afternoon-1630__092__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Kiswah-afternoon-1630__093__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "d186c5d2dd", "pos": 0, "shot": "phone-landscape-times-Kiswah-afternoon-1630__094__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Kiswah-afternoon-1630__095__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Kiswah-afternoon-1630__096__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees 
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "63dc002422", "pos": 0, "shot": "phone-landscape-times-Kiswah-afternoon-1630__097__d1__p0.png", "labels": ["Back", "Evening adhkār  ·  1 of 14", "ĀYAT AL-KU
+{"ev": "set-time", "sc": "maghrib-1915", "out": "Wed Oct  7 08:15:00 UTC 2026", "t": 1436.9}
+{"ev": "screen", "depth": 0, "path": [], "key": "041e6bd0d0", "pos": 0, "shot": "phone-landscape-times-Kiswah-maghrib-1915__098__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a2e8cb114e", "pos": 0, "shot": "phone-landscape-times-Kiswah-maghrib-1915__099__d1__p0.png", "labels": ["Back", "LEARN SALAH", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Kiswah-maghrib-1915__100__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Kiswah-maghrib-1915__101__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "f232d730dd", "pos": 0, "shot": "phone-landscape-times-Kiswah-maghrib-1915__102__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Kiswah-maghrib-1915__103__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Kiswah-maghrib-1915__104__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "63dc002422", "pos": 0, "shot": "phone-landscape-times-Kiswah-maghrib-1915__105__d1__p0.png", "labels": ["Back", "Evening adhkār  ·  1 of 14", "ĀYAT AL-KURS
+{"ev": "set-time", "sc": "night-2230", "out": "Wed Oct  7 11:30:00 UTC 2026", "t": 1544.7}
+{"ev": "screen", "depth": 0, "path": [], "key": "c6eaeaf3eb", "pos": 0, "shot": "phone-landscape-times-Kiswah-night-2230__106__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 1
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a2e8cb114e", "pos": 0, "shot": "phone-landscape-times-Kiswah-night-2230__107__d1__p0.png", "labels": ["Back", "LEARN SALAH", "الصَّلَاة", "One common form of 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Kiswah-night-2230__108__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ūl
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Kiswah-night-2230__109__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ūl
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "491295f05e", "pos": 0, "shot": "phone-landscape-times-Kiswah-night-2230__110__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention bef
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Kiswah-night-2230__111__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S, 1
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Kiswah-night-2230__112__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to f
+{"ev": "theme-set", "kw": "Celestial", "t": 1647.8}
+{"ev": "set-time", "sc": "predawn-0430", "out": "Mon Oct  5 17:30:00 UTC 2026", "t": 1659.6}
+{"ev": "screen", "depth": 0, "path": [], "key": "e8fead4521", "pos": 0, "shot": "phone-landscape-times-Celestial-predawn-0430__113__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Celestial-predawn-0430__114__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common for
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Celestial-predawn-0430__115__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Celestial-predawn-0430__116__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "da5ba18838", "pos": 0, "shot": "phone-landscape-times-Celestial-predawn-0430__117__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attentio
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Celestial-predawn-0430__118__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Celestial-predawn-0430__119__d1__p0.png", "labels": ["Why 5:03? · Fajr الفجر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Celestial-predawn-0430__120__d1__p1.png", "labels": ["Why 5:03? · Fajr الفجر", "Sun 18.0° below the h
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Celestial-predawn-0430__121__d1__p0.png", "labels": ["Why 6:28? · Sunrise الشروق", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Celestial-predawn-0430__122__d1__p1.png", "labels": ["Why 6:28? · Sunrise الشروق", "Method", "Muslim 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Celestial-predawn-0430__123__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Celestial-predawn-0430__124__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Sun passes the meri
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Celestial-predawn-0430__125__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Celestial-predawn-0430__126__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would g
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Celestial-predawn-0430__127__d1__p0.png", "labels": ["Why 7:03? · Maghrib المغرب", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Celestial-predawn-0430__128__d1__p1.png", "labels": ["Why 7:03? · Maghrib المغرب", "Sunset: the sun's
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Celestial-predawn-0430__129__d1__p0.png", "labels": ["Why 8:23? · Isha العشاء", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Celestial-predawn-0430__130__d1__p1.png", "labels": ["Why 8:23? · Isha العشاء", "Location", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Celestial-predawn-0430__131__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees
+{"ev": "set-time", "sc": "morning-0545", "out": "Mon Oct  5 18:45:00 UTC 2026", "t": 1866.9}
+{"ev": "screen", "depth": 0, "path": [], "key": "56f052eea8", "pos": 0, "shot": "phone-landscape-times-Celestial-morning-0545__132__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Celestial-morning-0545__133__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common for
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Celestial-morning-0545__134__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Celestial-morning-0545__135__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "698251fed0", "pos": 0, "shot": "phone-landscape-times-Celestial-morning-0545__136__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attentio
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Celestial-morning-0545__137__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Celestial-morning-0545__138__d1__p0.png", "labels": ["Why 5:03? · Fajr الفجر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Celestial-morning-0545__139__d1__p1.png", "labels": ["Why 5:03? · Fajr الفجر", "Sun 18.0° below the h
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Celestial-morning-0545__140__d1__p0.png", "labels": ["Why 6:28? · Sunrise الشروق", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Celestial-morning-0545__141__d1__p1.png", "labels": ["Why 6:28? · Sunrise الشروق", "Method", "Muslim 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Celestial-morning-0545__142__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Celestial-morning-0545__143__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Sun passes the meri
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1992.8}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Celestial-morning-0545__144__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Celestial-morning-0545__145__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would g
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2018.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Celestial-morning-0545__146__d1__p0.png", "labels": ["Why 7:03? · Maghrib المغرب", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Celestial-morning-0545__147__d1__p1.png", "labels": ["Why 7:03? · Maghrib المغرب", "Sunset: the sun's
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2044.2}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Celestial-morning-0545__148__d1__p0.png", "labels": ["Why 8:23? · Isha العشاء", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Celestial-morning-0545__149__d1__p1.png", "labels": ["Why 8:23? · Isha العشاء", "Location", "33.99°S,
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2069.7}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Celestial-morning-0545__150__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 2098.1}
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "7003770a1d", "pos": 0, "shot": "phone-landscape-times-Celestial-morning-0545__151__d1__p0.png", "labels": ["Back", "Morning adhkār  ·  1 of 13", "ĀYAT AL-K
+{"ev": "back-mismatch", "label": "Morning adhkār", "path": [], "t": 2119.3}
+{"ev": "set-time", "sc": "forenoon-0930", "out": "Mon Oct  5 22:30:00 UTC 2026", "t": 2127.5}
+{"ev": "screen", "depth": 0, "path": [], "key": "7859ff655c", "pos": 0, "shot": "phone-landscape-times-Celestial-forenoon-0930__152__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.9
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Celestial-forenoon-0930__153__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common fo
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Celestial-forenoon-0930__154__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Celestial-forenoon-0930__155__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "698251fed0", "pos": 0, "shot": "phone-landscape-times-Celestial-forenoon-0930__156__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attenti
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Celestial-forenoon-0930__157__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.9
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Celestial-forenoon-0930__158__d1__p0.png", "labels": ["Why 5:03? · Fajr الفجر", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Celestial-forenoon-0930__159__d1__p1.png", "labels": ["Why 5:03? · Fajr الفجر", "Sun 18.0° below the 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Celestial-forenoon-0930__160__d1__p0.png", "labels": ["Why 6:28? · Sunrise الشروق", "CALCULATED FROM"
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Celestial-forenoon-0930__161__d1__p1.png", "labels": ["Why 6:28? · Sunrise الشروق", "Method", "Muslim
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Celestial-forenoon-0930__162__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Celestial-forenoon-0930__163__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Sun passes the mer
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Celestial-forenoon-0930__164__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Celestial-forenoon-0930__165__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Celestial-forenoon-0930__166__d1__p0.png", "labels": ["Why 7:03? · Maghrib المغرب", "CALCULATED FROM"
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Celestial-forenoon-0930__167__d1__p1.png", "labels": ["Why 7:03? · Maghrib المغرب", "Sunset: the sun'
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Celestial-forenoon-0930__168__d1__p0.png", "labels": ["Why 8:23? · Isha العشاء", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Celestial-forenoon-0930__169__d1__p1.png", "labels": ["Why 8:23? · Isha العشاء", "Location", "33.99°S
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Celestial-forenoon-0930__170__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degree
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "7003770a1d", "pos": 0, "shot": "phone-landscape-times-Celestial-forenoon-0930__171__d1__p0.png", "labels": ["Back", "Morning adhkār  ·  1 of 13", "ĀYAT AL-
+{"ev": "set-time", "sc": "friday-1250", "out": "Fri Oct  9 01:50:00 UTC 2026", "t": 2352.6}
+{"ev": "screen", "depth": 0, "path": [], "key": "2d7834dbce", "pos": 0, "shot": "phone-landscape-times-Celestial-friday-1250__172__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Celestial-friday-1250__173__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "400861cded", "pos": 0, "shot": "phone-landscape-times-Celestial-friday-1250__174__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Celestial-friday-1250__175__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "55c31b62a7", "pos": 0, "shot": "phone-landscape-times-Celestial-friday-1250__176__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Celestial-friday-1250__177__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Celestial-friday-1250__178__d1__p0.png", "labels": ["Why 4:58? · Fajr الفجر", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Celestial-friday-1250__179__d1__p1.png", "labels": ["Why 4:58? · Fajr الفجر", "Sun 18.0° below the ho
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Celestial-friday-1250__180__d1__p0.png", "labels": ["Why 6:24? · Sunrise الشروق", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Celestial-friday-1250__181__d1__p1.png", "labels": ["Why 6:24? · Sunrise الشروق", "Method", "Muslim W
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Celestial-friday-1250__182__d1__p0.png", "labels": ["Why 12:45? · Dhuhr الظهر", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Celestial-friday-1250__183__d1__p1.png", "labels": ["Why 12:45? · Dhuhr الظهر", "Sun passes the merid
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Celestial-friday-1250__184__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Celestial-friday-1250__185__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would gi
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Celestial-friday-1250__186__d1__p0.png", "labels": ["Why 7:05? · Maghrib المغرب", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Celestial-friday-1250__187__d1__p1.png", "labels": ["Why 7:05? · Maghrib المغرب", "Sunset: the sun's 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Celestial-friday-1250__188__d1__p0.png", "labels": ["Why 8:26? · Isha العشاء", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Celestial-friday-1250__189__d1__p1.png", "labels": ["Why 8:26? · Isha العشاء", "Location", "33.99°S, 
+{"ev": "no-change", "label": "Friday 9 October 2026", "shot": "phone-landscape-times-Celestial-friday-1250__190__same__Friday_9_October_2026.png", "path": [], "t": 2543.6}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Celestial-friday-1250__191__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees 
+{"ev": "set-time", "sc": "afternoon-1630", "out": "Wed Oct  7 05:30:00 UTC 2026", "t": 2575.3}
+{"ev": "screen", "depth": 0, "path": [], "key": "e95671a679", "pos": 0, "shot": "phone-landscape-times-Celestial-afternoon-1630__192__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Celestial-afternoon-1630__193__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common f
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Celestial-afternoon-1630__194__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumād
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Celestial-afternoon-1630__195__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumād
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "d186c5d2dd", "pos": 0, "shot": "phone-landscape-times-Celestial-afternoon-1630__196__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attent
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Celestial-afternoon-1630__197__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Celestial-afternoon-1630__198__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Celestial-afternoon-1630__199__d1__p1.png", "labels": ["Why 5:01? · Fajr الفجر", "Sun 18.0° below the
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Celestial-afternoon-1630__200__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Celestial-afternoon-1630__201__d1__p1.png", "labels": ["Why 6:26? · Sunrise الشروق", "Method", "Musli
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Celestial-afternoon-1630__202__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Celestial-afternoon-1630__203__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Sun passes the me
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Celestial-afternoon-1630__204__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Celestial-afternoon-1630__205__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Celestial-afternoon-1630__206__d1__p0.png", "labels": ["Why 7:04? · Maghrib المغرب", "CALCULATED FROM
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Celestial-afternoon-1630__207__d1__p1.png", "labels": ["Why 7:04? · Maghrib المغرب", "Sunset: the sun
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Celestial-afternoon-1630__208__d1__p0.png", "labels": ["Why 8:24? · Isha العشاء", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Celestial-afternoon-1630__209__d1__p1.png", "labels": ["Why 8:24? · Isha العشاء", "Location", "33.99°
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Celestial-afternoon-1630__210__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degre
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "63dc002422", "pos": 0, "shot": "phone-landscape-times-Celestial-afternoon-1630__211__d1__p0.png", "labels": ["Back", "Evening adhkār  ·  1 of 14", "ĀYAT AL
+{"ev": "set-time", "sc": "maghrib-1915", "out": "Wed Oct  7 08:15:00 UTC 2026", "t": 2800.2}
+{"ev": "screen", "depth": 0, "path": [], "key": "d84020d3fc", "pos": 0, "shot": "phone-landscape-times-Celestial-maghrib-1915__212__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Celestial-maghrib-1915__213__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common for
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Celestial-maghrib-1915__214__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Celestial-maghrib-1915__215__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "f232d730dd", "pos": 0, "shot": "phone-landscape-times-Celestial-maghrib-1915__216__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attentio
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Celestial-maghrib-1915__217__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Celestial-maghrib-1915__218__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Celestial-maghrib-1915__219__d1__p1.png", "labels": ["Why 5:01? · Fajr الفجر", "Sun 18.0° below the h
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Celestial-maghrib-1915__220__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Celestial-maghrib-1915__221__d1__p1.png", "labels": ["Why 6:26? · Sunrise الشروق", "Method", "Muslim 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Celestial-maghrib-1915__222__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Celestial-maghrib-1915__223__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Sun passes the meri
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Celestial-maghrib-1915__224__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Celestial-maghrib-1915__225__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would g
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Celestial-maghrib-1915__226__d1__p0.png", "labels": ["Why 7:04? · Maghrib المغرب", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Celestial-maghrib-1915__227__d1__p1.png", "labels": ["Why 7:04? · Maghrib المغرب", "Sunset: the sun's
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Celestial-maghrib-1915__228__d1__p0.png", "labels": ["Why 8:24? · Isha العشاء", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Celestial-maghrib-1915__229__d1__p1.png", "labels": ["Why 8:24? · Isha العشاء", "Location", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Celestial-maghrib-1915__230__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "63dc002422", "pos": 0, "shot": "phone-landscape-times-Celestial-maghrib-1915__231__d1__p0.png", "labels": ["Back", "Evening adhkār  ·  1 of 14", "ĀYAT AL-K
+{"ev": "set-time", "sc": "night-2230", "out": "Wed Oct  7 11:30:00 UTC 2026", "t": 3024.6}
+{"ev": "screen", "depth": 0, "path": [], "key": "a9f7031e9c", "pos": 0, "shot": "phone-landscape-times-Celestial-night-2230__232__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Celestial-night-2230__233__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Celestial-night-2230__234__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Celestial-night-2230__235__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "491295f05e", "pos": 0, "shot": "phone-landscape-times-Celestial-night-2230__236__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Celestial-night-2230__237__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Celestial-night-2230__238__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Celestial-night-2230__239__d1__p1.png", "labels": ["Why 5:01? · Fajr الفجر", "Sun 18.0° below the hor
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Celestial-night-2230__240__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Celestial-night-2230__241__d1__p1.png", "labels": ["Why 6:26? · Sunrise الشروق", "Method", "Muslim Wo
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Celestial-night-2230__242__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Celestial-night-2230__243__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Sun passes the meridi
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Celestial-night-2230__244__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Celestial-night-2230__245__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would giv
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Celestial-night-2230__246__d1__p0.png", "labels": ["Why 7:04? · Maghrib المغرب", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Celestial-night-2230__247__d1__p1.png", "labels": ["Why 7:04? · Maghrib المغرب", "Sunset: the sun's d
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Celestial-night-2230__248__d1__p0.png", "labels": ["Why 8:24? · Isha العشاء", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Celestial-night-2230__249__d1__p1.png", "labels": ["Why 8:24? · Isha العشاء", "Location", "33.99°S, 1
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Celestial-night-2230__250__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees t
+{"ev": "theme-set", "kw": "Gallery", "t": 3246.8}
+{"ev": "set-time", "sc": "predawn-0430", "out": "Mon Oct  5 17:30:00 UTC 2026", "t": 3258.7}
+{"ev": "screen", "depth": 0, "path": [], "key": "a5081799a1", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__251__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location settings"
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__252__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__253__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__254__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "da5ba18838", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__255__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__256__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__257__d1__p0.png", "labels": ["Why 5:03? · Fajr الفجر", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__258__d1__p1.png", "labels": ["Why 5:03? · Fajr الفجر", "Sun 18.0° below th
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__259__d1__p0.png", "labels": ["Why 6:28? · Sunrise الشروق", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__260__d1__p1.png", "labels": ["Why 6:28? · Sunrise الشروق", "Method", "Muslim Wo
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__261__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__262__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Sun passes the meridi
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__263__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__264__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would giv
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__265__d1__p0.png", "labels": ["Why 7:03? · Maghrib المغرب", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__266__d1__p1.png", "labels": ["Why 7:03? · Maghrib المغرب", "Sunset: the sun's d
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__267__d1__p0.png", "labels": ["Why 8:23? · Isha العشاء", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__268__d1__p1.png", "labels": ["Why 8:23? · Isha العشاء", "Location", "33.99°S, 1
+{"ev": "no-change", "label": "Fajr", "shot": "phone-landscape-times-Gallery-predawn-0430__269__same__Fajr.png", "path": [], "t": 3459.6}
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3468.2}
+{"ev": "set-time", "sc": "morning-0545", "out": "Mon Oct  5 18:45:00 UTC 2026", "t": 3476.0}
+{"ev": "screen", "depth": 0, "path": [], "key": "f1eb9a1b71", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__270__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location settings"
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__271__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__272__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__273__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "698251fed0", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__274__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__275__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__276__d1__p0.png", "labels": ["Why 5:03? · Fajr الفجر", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__277__d1__p1.png", "labels": ["Why 5:03? · Fajr الفجر", "Sun 18.0° below th
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__278__d1__p0.png", "labels": ["Why 6:28? · Sunrise الشروق", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__279__d1__p1.png", "labels": ["Why 6:28? · Sunrise الشروق", "Method", "Muslim Wo
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__280__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__281__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Sun passes the meridi
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3612.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__282__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__283__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would giv
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3638.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__284__d1__p0.png", "labels": ["Why 7:03? · Maghrib المغرب", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__285__d1__p1.png", "labels": ["Why 7:03? · Maghrib المغرب", "Sunset: the sun's d
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3664.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__286__d1__p0.png", "labels": ["Why 8:23? · Isha العشاء", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__287__d1__p1.png", "labels": ["Why 8:23? · Isha العشاء", "Location", "33.99°S, 1
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3690.4}
+{"ev": "tap-fail", "label": "More actions", "t": 3698.7}
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3707.3}
+{"ev": "set-time", "sc": "forenoon-0930", "out": "Mon Oct  5 22:30:00 UTC 2026", "t": 3715.3}
+{"ev": "screen", "depth": 0, "path": [], "key": "def5ad6e62", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__288__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location settings
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__289__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__290__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__291__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "698251fed0", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__292__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__293__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__294__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__295__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Sun passes the 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__296__d1__p0.png", "labels": ["Why 5:03? · Fajr الفجر", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__297__d1__p1.png", "labels": ["Why 5:03? · Fajr الفجر", "Sun 18.0° below the ho
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__298__d1__p0.png", "labels": ["Why 6:28? · Sunrise الشروق", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__299__d1__p1.png", "labels": ["Why 6:28? · Sunrise الشروق", "Method", "Muslim W
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__300__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__301__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would gi
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__302__d1__p0.png", "labels": ["Why 7:03? · Maghrib المغرب", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__303__d1__p1.png", "labels": ["Why 7:03? · Maghrib المغرب", "Sunset: the sun's 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__304__d1__p0.png", "labels": ["Why 8:23? · Isha العشاء", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__305__d1__p1.png", "labels": ["Why 8:23? · Isha العشاء", "Location", "33.99°S, 
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "ee3851b121", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__306__d1__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location se
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3925.6}
+{"ev": "no-change", "label": "Maghrib", "shot": "phone-landscape-times-Gallery-forenoon-0930__307__same__Maghrib.png", "path": [], "t": 3937.5}
+{"ev": "set-time", "sc": "friday-1250", "out": "Fri Oct  9 01:50:00 UTC 2026", "t": 3939.6}
+{"ev": "screen", "depth": 0, "path": [], "key": "caea458b77", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__308__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location settings",
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__309__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "400861cded", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__310__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__311__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "55c31b62a7", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__312__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__313__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__314__d1__p0.png", "labels": ["Why 12:45? · Dhuhr الظهر", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__315__d1__p1.png", "labels": ["Why 12:45? · Dhuhr الظهر", "Sun passes the me
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__316__d1__p0.png", "labels": ["Why 4:58? · Fajr الفجر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__317__d1__p1.png", "labels": ["Why 4:58? · Fajr الفجر", "Sun 18.0° below the hori
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__318__d1__p0.png", "labels": ["Why 6:24? · Sunrise الشروق", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__319__d1__p1.png", "labels": ["Why 6:24? · Sunrise الشروق", "Method", "Muslim Wor
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__320__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Source
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__321__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would give
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__322__d1__p0.png", "labels": ["Why 7:05? · Maghrib المغرب", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__323__d1__p1.png", "labels": ["Why 7:05? · Maghrib المغرب", "Sunset: the sun's di
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__324__d1__p0.png", "labels": ["Why 8:26? · Isha العشاء", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__325__d1__p1.png", "labels": ["Why 8:26? · Isha العشاء", "Location", "33.99°S, 15
+{"ev": "external", "label": "More actions", "fg": "Pop-Up", "shot": "phone-landscape-times-Gallery-friday-1250__326__external.png", "path": [], "t": 4140.8}
+{"ev": "no-change", "label": "Friday 9 October 2026", "shot": "phone-landscape-times-Gallery-friday-1250__327__same__Friday_9_October_2026.png", "path": [], "t": 4158.9}
+{"ev": "set-time", "sc": "afternoon-1630", "out": "Wed Oct  7 05:30:00 UTC 2026", "t": 4161.0}
+{"ev": "screen", "depth": 0, "path": [], "key": "c59514d194", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__328__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location setting
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__329__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common for
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__330__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__331__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "d186c5d2dd", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__332__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attentio
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__333__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__334__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__335__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view wo
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__336__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__337__d1__p1.png", "labels": ["Why 5:01? · Fajr الفجر", "Sun 18.0° below the h
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__338__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__339__d1__p1.png", "labels": ["Why 6:26? · Sunrise الشروق", "Method", "Muslim 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__340__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__341__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Sun passes the meri
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__342__d1__p0.png", "labels": ["Why 7:04? · Maghrib المغرب", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__343__d1__p1.png", "labels": ["Why 7:04? · Maghrib المغرب", "Sunset: the sun's
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__344__d1__p0.png", "labels": ["Why 8:24? · Isha العشاء", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__345__d1__p1.png", "labels": ["Why 8:24? · Isha العشاء", "Location", "33.99°S,
+{"ev": "external", "label": "More actions", "fg": "Pop-Up", "shot": "phone-landscape-times-Gallery-afternoon-1630__346__external.png", "path": [], "t": 4363.3}
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 4384.1}
+{"ev": "set-time", "sc": "maghrib-1915", "out": "Wed Oct  7 08:15:00 UTC 2026", "t": 4392.1}
+{"ev": "screen", "depth": 0, "path": [], "key": "7f1e95a447", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__347__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location settings"
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__348__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__349__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__350__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "f232d730dd", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__351__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__352__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__353__d1__p0.png", "labels": ["Why 7:04? · Maghrib المغرب", "CALCULATED FRO
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__354__d1__p1.png", "labels": ["Why 7:04? · Maghrib المغرب", "Sunset: the su
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__355__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__356__d1__p1.png", "labels": ["Why 5:01? · Fajr الفجر", "Sun 18.0° below the hor
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__357__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__358__d1__p1.png", "labels": ["Why 6:26? · Sunrise الشروق", "Method", "Muslim Wo
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__359__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__360__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Sun passes the meridi
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__361__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__362__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would giv
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__363__d1__p0.png", "labels": ["Why 8:24? · Isha العشاء", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__364__d1__p1.png", "labels": ["Why 8:24? · Isha العشاء", "Location", "33.99°S, 1
+{"ev": "external", "label": "More actions", "fg": "Pop-Up", "shot": "phone-landscape-times-Gallery-maghrib-1915__365__external.png", "path": [], "t": 4594.7}
+{"ev": "no-change", "label": "Maghrib", "shot": "phone-landscape-times-Gallery-maghrib-1915__366__same__Maghrib.png", "path": [], "t": 4612.8}
+{"ev": "set-time", "sc": "night-2230", "out": "Wed Oct  7 11:30:00 UTC 2026", "t": 4614.9}
+{"ev": "screen", "depth": 0, "path": [], "key": "049906d635", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__367__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__368__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form of
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__369__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ū
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2a1e5895a7", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__370__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ū
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "491295f05e", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__371__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention be
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "90d02651b1", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__372__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "33.99°S, 
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "d960504b9b", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__373__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "927d10dc90", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__374__d1__p1.png", "labels": ["Why 5:01? · Fajr الفجر", "Sun 18.0° below the 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "323854c58e", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__375__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "793699f802", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__376__d1__p1.png", "labels": ["Why 6:26? · Sunrise الشروق", "Method", "Muslim Worl
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f61a7bb321", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__377__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c94d8a50d2", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__378__d1__p1.png", "labels": ["Why 12:46? · Dhuhr الظهر", "Sun passes the meridian
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a62b33ceb1", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__379__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Source"
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5b0546ad3a", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__380__d1__p1.png", "labels": ["Why 4:19? · Asr العصر", "The other view would give 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "220421c06f", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__381__d1__p0.png", "labels": ["Why 7:04? · Maghrib المغرب", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c5cf94bc6f", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__382__d1__p1.png", "labels": ["Why 7:04? · Maghrib المغرب", "Sunset: the sun's dis
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a2e9632d99", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__383__d1__p0.png", "labels": ["Why 8:24? · Isha العشاء", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "101878a506", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__384__d1__p1.png", "labels": ["Why 8:24? · Isha العشاء", "Location", "33.99°S, 150
+{"ev": "no-change", "label": "Fajr", "shot": "phone-landscape-times-Gallery-night-2230__385__same__Fajr.png", "path": [], "t": 4816.9}
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 4825.5}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 4833.3}
+{"ev": "gfx", "lines": ["Total frames rendered: 11", "Janky frames: 11 (100.00%)", "Janky frames (legacy): 11 (100.00%)", "50th percentile: 48ms", "90th percentile: 2100ms", "95th percentile: 2250ms", "99th percentile: 2
+{"ev": "mem", "lines": ["  Native Heap    21742    21640        0        0    24880    29932    24803     1292", "        TOTAL    42351    31500     3408        0   160672    40441    30058     6546", "           Java H
