@@ -35,6 +35,18 @@ def log(**k):
 def over_budget(): return (time.time() - T0) > A.budget_min * 60
 
 def dump():
+    r = dump0()
+    for _ in range(3):
+        if r and any("isn't responding" in label(n) or "isn’t responding" in label(n) for n in r):
+            who = [label(n) for n in r if "responding" in label(n)]
+            log(ev="system-anr-dialog", who=who)
+            w = [n for n in r if label(n) == "Wait"]
+            if w: tap(w[0])
+            r = dump0()
+        else: break
+    return r
+
+def dump0():
     for _ in range(4):
         sh("shell", "rm", "-f", "/sdcard/u.xml")
         sh("shell", "uiautomator", "dump", "/sdcard/u.xml")
