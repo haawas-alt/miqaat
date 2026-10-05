@@ -137,7 +137,8 @@ def setup(tag):
         if pick: log(ev="setup-tap", label=label(pick)); tap(pick)
         else:
             log(ev="setup-stuck")
-            if i > 12: break
+            w, h = screen_size(nodes); swipe(w, h)
+            if i > 14: break
         time.sleep(1.5)
     return False
 
@@ -202,6 +203,7 @@ def screens_of(tag, path, nodes, depth):
             if actionable(n) and n["pkg"] == PKG and not n["scroll"]:
                 lab = label(n); labseen[lab] = labseen.get(lab, 0) + 1
                 if (lab, labseen[lab] - 1) not in [(c[1], c[2]) for c in cands]: cands.append((pos, lab, labseen[lab] - 1))
+        text_cands(cur, cands, labseen, pos)
         if pos >= 5: break
         before = skey(cur)
         swipe(w, h)
@@ -210,6 +212,14 @@ def screens_of(tag, path, nodes, depth):
         cur = nxt; pos += 1
     for _ in range(pos): swipe(w, h, up=False)
     return cands
+
+ALLOW = re.compile(r"^(Location|Prayer times|Azaan & alerts|Iqamah|Hijri calendar|Display & art|Try it now|Reliability & backup|Privacy|About|Fajr|Maghrib|Dhuhr · .Asr · Isha|The words|The movements|Next|Continue|Start|Begin|Done|Finish|Play.*|Slow.*|Replay.*|Stop.*|Qibla.*|Morning.*|Evening.*|After prayer.*|Friday.*|Jumu.*)$")
+def text_cands(cur, cands, labseen, pos):
+    for n in cur:
+        lab = label(n)
+        if lab and n["pkg"] == PKG and ALLOW.match(lab) and not n["scroll"]:
+            labseen[lab] = labseen.get(lab, 0) + 1
+            if (lab, labseen[lab] - 1) not in [(c[1], c[2]) for c in cands]: cands.append((pos, lab, labseen[lab] - 1))
 
 def tap_label(lab, nth, pos):
     for _ in range(pos): 
@@ -223,7 +233,7 @@ def tap_label(lab, nth, pos):
     tap(n); return True
 
 def find_exact(nodes, lab, nth):
-    m = [n for n in nodes if label(n) == lab and actionable(n)]
+    m = [n for n in nodes if label(n) == lab and n["pkg"] == PKG]
     return m[nth] if len(m) > nth else None
 
 def replay(path):
