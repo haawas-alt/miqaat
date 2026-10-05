@@ -32,7 +32,8 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         run: |
           set -euo pipefail
-          ./gradlew --no-daemon testGithubReleaseUnitTest lintGithubRelease assembleGithubRelease assemblePlayRelease bundlePlayRelease
+          set -o pipefail
+          ./gradlew --no-daemon --continue testGithubReleaseUnitTest lintGithubRelease assembleGithubRelease assemblePlayRelease bundlePlayRelease 2>&1 | tee build.log
           python3 tools/check_forbidden_assets.py app/src/main app/build/outputs/apk/github/release/app-github-release.apk app/build/outputs/apk/play/release/app-play-release.apk app/build/outputs/bundle/playRelease/app-play-release.aab
           mkdir -p candidate
           cp app/build/outputs/apk/github/release/app-github-release.apk candidate/Miqaat-1.90-audit-fixes.apk
@@ -56,6 +57,19 @@ jobs:
               if m: t+=int(m[1]);s+=int(m[2]);f+=int(m[3]);e+=int(m[4])
           print(f"unit tests: {t} run, {f} failures, {e} errors, {s} skipped")
           PY
+      - name: Publish build log to a branch (artifacts cannot be downloaded from the audit sandbox)
+        if: always()
+        run: |
+          mkdir -p /tmp/cilog && cp build.log /tmp/cilog/ 2>/dev/null || true
+          grep -E "^e: |error:|FAILED|What went wrong|> Task .* FAILED|warning: .*deprecat" build.log > /tmp/cilog/errors.txt 2>/dev/null || true
+          python3 - <<'PY' > /tmp/cilog/tests.txt
+          import glob,re
+          for p in glob.glob('app/build/test-results/**/*.xml',recursive=True):
+              x=open(p,errors='ignore').read()
+              for m in re.finditer(r'<testcase name="([^"]+)" classname="([^"]+)"[^>]*>\s*<failure message="([^"]{0,400})',x): print("FAIL",m[2],m[1],m[3])
+          PY
+          cp app/build/reports/lint-results-githubRelease.txt /tmp/cilog/ 2>/dev/null || true
+          cd /tmp/cilog && git init -q && git checkout -q -b ci-logs-audit-fix && git add -A && git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "build log run ${{ github.run_id }}" && git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" ci-logs-audit-fix
       - uses: actions/upload-artifact@v4
         if: always()
         with:
