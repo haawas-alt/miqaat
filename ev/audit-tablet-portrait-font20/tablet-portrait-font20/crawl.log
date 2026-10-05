@@ -1,0 +1,171 @@
+{"ev": "env", "density": 2.0, "size": "Physical size: 2560x1600", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 2572, "t": 3.1}
+{"ev": "setup-screen", "step": 0, "shot": "tablet-portrait-font20__setup0.png", "key": "b4aa3e9814", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "PRAYER TIME. Is
+{"ev": "setup-tap", "label": "Begin", "t": 8.5}
+{"ev": "setup-screen", "step": 1, "shot": "tablet-portrait-font20__setup1.png", "key": "bfa3130e6f", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "PRAYER TIME. Is
+{"ev": "detect-result", "shot": "tablet-portrait-font20__setup1_after-detect-20s.png", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "PRAYER TIME. Isha, 4:14 PM, A
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 38.8}
+{"ev": "setup-screen", "step": 2, "shot": "tablet-portrait-font20__setup2.png", "key": "28e82d8e4e", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 6 October 2026", "25 Rabīʿ al-Th
+{"ev": "setup-tap", "label": "Next", "t": 41.3}
+{"ev": "setup-screen", "step": 3, "shot": "tablet-portrait-font20__setup3.png", "key": "86d162bfae", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 6 October 2026", "25 Rabīʿ al-Th
+{"ev": "setup-tap", "label": "These look right", "t": 46.5}
+{"ev": "setup-screen", "step": 4, "shot": "tablet-portrait-font20__setup4.png", "key": "9bb9ddc392", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 6 October 2026", "25 Rabīʿ al-Th
+{"ev": "setup-tap", "label": "Finish", "t": 51.8}
+{"ev": "setup-done", "step": 5, "t": 56.6}
+{"ev": "setup-result", "ok": true, "t": 56.6}
+{"ev": "theme-set", "kw": "Miqaat", "t": 68.7}
+{"ev": "screen", "depth": 0, "path": [], "key": "1a292508cb", "pos": 0, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__001__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Lea
+{"ev": "screen", "depth": 0, "path": [], "key": "691e8c3b2f", "pos": 1, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__002__d0__p1.png", "labels": ["Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr,
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__003__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "Source", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "2cd9c9c882", "pos": 0, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__004__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "8162a36283", "pos": 1, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__005__d1__p1.png", "labels": ["Why 6:26? · Sunrise الشروق", "Settings › Prayer times 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a6bd09cbe", "pos": 0, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__006__d1__p0.png", "labels": ["Why 12:44? · Dhuhr الظهر", "CALCULATED FROM", "Source"
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e7916933c1", "pos": 0, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__007__d1__p0.png", "labels": ["Why 4:17? · Asr العصر", "CALCULATED FROM", "Source", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9fa55e0631", "pos": 0, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__008__d1__p0.png", "labels": ["Why 7:01? · Maghrib المغرب", "CALCULATED FROM", "Sourc
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 165.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Miqaat-en-f2.0__009__d1__p0", "dims": [2560, 1600], "t": 180.8}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "d118929990", "pos": 0, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__009__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW"
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "aa86a04da4", "pos": 1, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__010__d1__p1.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 59 min", "5:01", "AM", "In 59 min
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "11452241b5", "pos": 2, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__011__d1__p2.png", "labels": ["Qibla ⁨277° W⁩", "Fajr, 5:01 AM, in 59 min, next prayer, ends 6:
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "ee7efa3528", "pos": 3, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__012__d1__p3.png", "labels": ["Sunrise, 6:26 AM, in 2 h 24 min", "ḍuḥā from 6:41", "6:26", "Why
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 205.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Miqaat-en-f2.0__013__d1__p0", "dims": [2560, 1600], "t": 225.6}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__013__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true north,
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__014__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true north,
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 246.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Miqaat-en-f2.0__015__d1__p0", "dims": [2560, 1600], "t": 260.8}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "dd4c367a59", "pos": 0, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__015__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW"
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "11fba8be70", "pos": 1, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__016__d1__p1.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 58 min", "NEXT PRAYER", "Fajr", "
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "705ae6c132", "pos": 2, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__017__d1__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 58 min", "5:01", "AM", "In 58 min
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "9e898848c1", "pos": 3, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__018__d1__p3.png", "labels": ["Fajr, 5:01 AM, in 58 min, next prayer, ends 6:26", "Fajr", "ends
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "be0dd1b1c2", "pos": 4, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__019__d1__p4.png", "labels": ["Sunrise, 6:26 AM, in 2 h 23 min", "ḍuḥā from 6:41", "in 2 h 23 m
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 290.9}
+{"ev": "back-mismatch", "label": "Maghrib", "path": [], "t": 307.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Miqaat-en-f2.0__020__d1__p0", "dims": [2560, 1600], "t": 326.6}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "6b75ad6e69", "pos": 0, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__020__d1__p0.png", "labels": ["Why 8:21? · Isha العشاء", "CALCULATED FROM", "Source",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c71597b5de", "pos": 1, "shot": "tablet-portrait-font20-Miqaat-en-f2.0__021__d1__p1.png", "labels": ["Why 8:21? · Isha العشاء", "CALCULATED FROM", "Source",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 341.5}
+{"ev": "tap-fail", "label": "Why this time?", "t": 354.1}
+{"ev": "tap-fail", "label": "Why this time?", "t": 359.6}
+{"ev": "tap-fail", "label": "Why this time?", "t": 365.0}
+{"ev": "tap-fail", "label": "Why this time?", "t": 370.4}
+{"ev": "theme-done", "tag": "tablet-portrait-font20-Miqaat-en-f2.0", "actions": 14, "screens": 21, "t": 370.4}
+{"ev": "theme-set", "kw": "Kiswah", "t": 387.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Kiswah-en-f2.0__022__d0__p0", "dims": [2560, 1600], "t": 400.0}
+{"ev": "screen", "depth": 0, "path": [], "key": "d118929990", "pos": 0, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__022__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Lea
+{"ev": "screen", "depth": 0, "path": [], "key": "f850467f82", "pos": 1, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__023__d0__p1.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 56 min", "5:01", "AM", "In 56 min", "Vi
+{"ev": "screen", "depth": 0, "path": [], "key": "fae5f3dada", "pos": 2, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__024__d0__p2.png", "labels": ["Fajr, 5:01 AM, in 56 min, next prayer, ends 6:26", "Fajr", "ends 6:26"
+{"ev": "screen", "depth": 0, "path": [], "key": "ee7efa3528", "pos": 3, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__025__d0__p3.png", "labels": ["Sunrise, 6:26 AM, in 2 h 21 min", "ḍuḥā from 6:41", "6:26", "Why this 
+{"ev": "tap-fail", "label": "Why this time?", "t": 423.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 425.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 427.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 429.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 432.0}
+{"ev": "tap-fail", "label": "Why this time?", "t": 434.0}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "872a2eccb0", "pos": 0, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__026__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW"
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "f8af9c572e", "pos": 1, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__027__d1__p1.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 56 min", "Fajr", "الفجر", "5:01",
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "f850467f82", "pos": 2, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__028__d1__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 56 min", "In 56 min", "View praye
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "308314d8b6", "pos": 3, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__029__d1__p3.png", "labels": ["Fajr, 5:01 AM, in 56 min, next prayer, ends 6:26", "Fajr", "ends
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "ee7efa3528", "pos": 4, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__030__d1__p4.png", "labels": ["Sunrise, 6:26 AM, in 2 h 21 min", "ḍuḥā from 6:41", "6:26", "Why
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 468.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Kiswah-en-f2.0__031__d1__p0", "dims": [2560, 1600], "t": 490.8}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__031__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true north,
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__032__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true north,
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 511.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Kiswah-en-f2.0__033__d1__p0", "dims": [2560, 1600], "t": 526.2}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "dd4c367a59", "pos": 0, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__033__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW"
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "6a882837c0", "pos": 1, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__034__d1__p1.png", "labels": ["25 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:01 AM, In 53 min"
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "705ae6c132", "pos": 2, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__035__d1__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 53 min", "5:01", "AM", "In 53 min
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "9e898848c1", "pos": 3, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__036__d1__p3.png", "labels": ["Fajr, 5:01 AM, in 53 min, next prayer, ends 6:26", "Fajr", "ends
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "be0dd1b1c2", "pos": 4, "shot": "tablet-portrait-font20-Kiswah-en-f2.0__037__d1__p4.png", "labels": ["Sunrise, 6:26 AM, in 2 h 18 min", "ḍuḥā from 6:41", "in 2 h 18 m
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 556.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Kiswah-en-f2.0__038__same__Maghrib", "dims": [2560, 1600], "t": 568.1}
+{"ev": "no-change", "label": "Maghrib", "shot": "tablet-portrait-font20-Kiswah-en-f2.0__038__same__Maghrib.png", "path": [], "t": 571.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 577.0}
+{"ev": "tap-fail", "label": "Why this time?", "t": 582.4}
+{"ev": "tap-fail", "label": "Why this time?", "t": 587.7}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 593.1}
+{"ev": "theme-done", "tag": "tablet-portrait-font20-Kiswah-en-f2.0", "actions": 14, "screens": 38, "t": 593.1}
+{"ev": "theme-set", "kw": "Celestial", "t": 660.4}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Celestial-en-f2.0__039__d0__p0", "dims": [2560, 1600], "t": 684.2}
+{"ev": "screen", "depth": 0, "path": [], "key": "d118929990", "pos": 0, "shot": "tablet-portrait-font20-Celestial-en-f2.0__039__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "
+{"ev": "screen", "depth": 0, "path": [], "key": "6a882837c0", "pos": 1, "shot": "tablet-portrait-font20-Celestial-en-f2.0__040__d0__p1.png", "labels": ["25 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:01 AM, In 51 min", "
+{"ev": "screen", "depth": 0, "path": [], "key": "b40334231b", "pos": 2, "shot": "tablet-portrait-font20-Celestial-en-f2.0__041__d0__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 51 min", "الفجر", "5:01", "AM", "In 
+{"ev": "screen", "depth": 0, "path": [], "key": "34a9e40e85", "pos": 3, "shot": "tablet-portrait-font20-Celestial-en-f2.0__042__d0__p3.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 51 min", "View prayer details", "Qib
+{"ev": "screen", "depth": 0, "path": [], "key": "cc1d172c97", "pos": 4, "shot": "tablet-portrait-font20-Celestial-en-f2.0__043__d0__p4.png", "labels": ["Fajr, 5:01 AM, in 51 min, next prayer, ends 6:26", "ends 6:26", "Wh
+{"ev": "screen", "depth": 0, "path": [], "key": "ee7efa3528", "pos": 5, "shot": "tablet-portrait-font20-Celestial-en-f2.0__044__d0__p5.png", "labels": ["Sunrise, 6:26 AM, in 2 h 16 min", "ḍuḥā from 6:41", "6:26", "Why th
+{"ev": "tap-fail", "label": "Why this time?", "t": 715.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 717.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 719.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 721.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 724.0}
+{"ev": "tap-fail", "label": "Why this time?", "t": 726.0}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "872a2eccb0", "pos": 0, "shot": "tablet-portrait-font20-Celestial-en-f2.0__045__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, N
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "6a882837c0", "pos": 1, "shot": "tablet-portrait-font20-Celestial-en-f2.0__046__d1__p1.png", "labels": ["25 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:01 AM, In 51 m
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "b40334231b", "pos": 2, "shot": "tablet-portrait-font20-Celestial-en-f2.0__047__d1__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 51 min", "الفجر", "5:01", "AM"
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "9ff5fb7a79", "pos": 3, "shot": "tablet-portrait-font20-Celestial-en-f2.0__048__d1__p3.png", "labels": ["Qibla ⁨277° W⁩", "Fajr, 5:01 AM, in 51 min, next prayer, ends
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "cc1d172c97", "pos": 4, "shot": "tablet-portrait-font20-Celestial-en-f2.0__049__d1__p4.png", "labels": ["Fajr, 5:01 AM, in 51 min, next prayer, ends 6:26", "Sunrise, 
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "ee7efa3528", "pos": 5, "shot": "tablet-portrait-font20-Celestial-en-f2.0__050__d1__p5.png", "labels": ["Sunrise, 6:26 AM, in 2 h 16 min", "ḍuḥā from 6:41", "6:26", "
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 763.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Celestial-en-f2.0__051__d1__p0", "dims": [2560, 1600], "t": 786.0}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-font20-Celestial-en-f2.0__051__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true nor
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-font20-Celestial-en-f2.0__052__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true nor
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 809.4}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Celestial-en-f2.0__053__d1__p0", "dims": [2560, 1600], "t": 824.3}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "dd4c367a59", "pos": 0, "shot": "tablet-portrait-font20-Celestial-en-f2.0__053__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, N
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "6a882837c0", "pos": 1, "shot": "tablet-portrait-font20-Celestial-en-f2.0__054__d1__p1.png", "labels": ["25 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:01 AM, In 49 m
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "c1026bea25", "pos": 2, "shot": "tablet-portrait-font20-Celestial-en-f2.0__055__d1__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 49 min", "الفجر", "5:01", "AM"
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "5ecf9a39dc", "pos": 3, "shot": "tablet-portrait-font20-Celestial-en-f2.0__056__d1__p3.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 49 min", "Qibla ⁨277° W⁩", "Fa
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "e21a4effdf", "pos": 4, "shot": "tablet-portrait-font20-Celestial-en-f2.0__057__d1__p4.png", "labels": ["Fajr, 5:01 AM, in 49 min, next prayer, ends 6:26", "Fajr", "e
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "be0dd1b1c2", "pos": 5, "shot": "tablet-portrait-font20-Celestial-en-f2.0__058__d1__p5.png", "labels": ["Sunrise, 6:26 AM, in 2 h 14 min", "ḍuḥā from 6:41", "in 2 h 1
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 856.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Celestial-en-f2.0__059__same__Maghrib", "dims": [2560, 1600], "t": 869.3}
+{"ev": "no-change", "label": "Maghrib", "shot": "tablet-portrait-font20-Celestial-en-f2.0__059__same__Maghrib.png", "path": [], "t": 873.1}
+{"ev": "tap-fail", "label": "Fajr", "t": 878.5}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 884.0}
+{"ev": "tap-fail", "label": "Why this time?", "t": 892.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 901.3}
+{"ev": "theme-done", "tag": "tablet-portrait-font20-Celestial-en-f2.0", "actions": 14, "screens": 59, "t": 901.3}
+{"ev": "theme-set", "kw": "Gallery", "t": 972.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Gallery-en-f2.0__060__d0__p0", "dims": [2560, 1600], "t": 996.5}
+{"ev": "screen", "depth": 0, "path": [], "key": "d118929990", "pos": 0, "shot": "tablet-portrait-font20-Gallery-en-f2.0__060__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Le
+{"ev": "screen", "depth": 0, "path": [], "key": "6a882837c0", "pos": 1, "shot": "tablet-portrait-font20-Gallery-en-f2.0__061__d0__p1.png", "labels": ["25 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:01 AM, In 46 min", "NE
+{"ev": "screen", "depth": 0, "path": [], "key": "7f281f9d10", "pos": 2, "shot": "tablet-portrait-font20-Gallery-en-f2.0__062__d0__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 46 min", "5:01", "AM", "In 46 min", "V
+{"ev": "screen", "depth": 0, "path": [], "key": "11452241b5", "pos": 3, "shot": "tablet-portrait-font20-Gallery-en-f2.0__063__d0__p3.png", "labels": ["Qibla ⁨277° W⁩", "Fajr, 5:01 AM, in 46 min, next prayer, ends 6:26", 
+{"ev": "screen", "depth": 0, "path": [], "key": "f1995b9de4", "pos": 4, "shot": "tablet-portrait-font20-Gallery-en-f2.0__064__d0__p4.png", "labels": ["Sunrise, 6:26 AM, in 2 h 11 min", "Sunrise", "ḍuḥā from 6:41", "6:26"
+{"ev": "screen", "depth": 0, "path": [], "key": "ee7efa3528", "pos": 5, "shot": "tablet-portrait-font20-Gallery-en-f2.0__065__d0__p5.png", "labels": ["Sunrise, 6:26 AM, in 2 h 11 min", "ḍuḥā from 6:41", "6:26", "Why this
+{"ev": "tap-fail", "label": "Why this time?", "t": 1028.1}
+{"ev": "tap-fail", "label": "Why this time?", "t": 1030.1}
+{"ev": "tap-fail", "label": "Why this time?", "t": 1032.2}
+{"ev": "tap-fail", "label": "Why this time?", "t": 1034.2}
+{"ev": "tap-fail", "label": "Why this time?", "t": 1036.2}
+{"ev": "tap-fail", "label": "Why this time?", "t": 1038.2}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "872a2eccb0", "pos": 0, "shot": "tablet-portrait-font20-Gallery-en-f2.0__066__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "6a882837c0", "pos": 1, "shot": "tablet-portrait-font20-Gallery-en-f2.0__067__d1__p1.png", "labels": ["25 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:01 AM, In 46 min
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "b40334231b", "pos": 2, "shot": "tablet-portrait-font20-Gallery-en-f2.0__068__d1__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 46 min", "الفجر", "5:01", "AM", 
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "34a9e40e85", "pos": 3, "shot": "tablet-portrait-font20-Gallery-en-f2.0__069__d1__p3.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 46 min", "View prayer details", 
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "cc1d172c97", "pos": 4, "shot": "tablet-portrait-font20-Gallery-en-f2.0__070__d1__p4.png", "labels": ["Fajr, 5:01 AM, in 45 min, next prayer, ends 6:26", "ends 6:26",
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "ee7efa3528", "pos": 5, "shot": "tablet-portrait-font20-Gallery-en-f2.0__071__d1__p5.png", "labels": ["Sunrise, 6:26 AM, in 2 h 10 min", "ḍuḥā from 6:41", "6:26", "Wh
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 1075.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Gallery-en-f2.0__072__d1__p0", "dims": [2560, 1600], "t": 1094.6}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-font20-Gallery-en-f2.0__072__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true north
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-font20-Gallery-en-f2.0__073__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true north
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 1114.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Gallery-en-f2.0__074__d1__p0", "dims": [2560, 1600], "t": 1131.0}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "dd4c367a59", "pos": 0, "shot": "tablet-portrait-font20-Gallery-en-f2.0__074__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "6a882837c0", "pos": 1, "shot": "tablet-portrait-font20-Gallery-en-f2.0__075__d1__p1.png", "labels": ["25 Rabīʿ al-Thānī 1448", "NEXT PRAYER. Fajr, 5:01 AM, In 43 min
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "c1026bea25", "pos": 2, "shot": "tablet-portrait-font20-Gallery-en-f2.0__076__d1__p2.png", "labels": ["NEXT PRAYER. Fajr, 5:01 AM, In 43 min", "الفجر", "5:01", "AM", 
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "b254d4c8ac", "pos": 3, "shot": "tablet-portrait-font20-Gallery-en-f2.0__077__d1__p3.png", "labels": ["Qibla ⁨277° W⁩", "Fajr, 5:01 AM, in 43 min, next prayer, ends 6
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "6eb32507d6", "pos": 4, "shot": "tablet-portrait-font20-Gallery-en-f2.0__078__d1__p4.png", "labels": ["Sunrise, 6:26 AM, in 2 h 8 min", "Sunrise", "ḍuḥā from 6:41", "
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "be0dd1b1c2", "pos": 5, "shot": "tablet-portrait-font20-Gallery-en-f2.0__079__d1__p5.png", "labels": ["Sunrise, 6:26 AM, in 2 h 8 min", "ḍuḥā from 6:41", "in 2 h 8 mi
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 1163.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-font20-Gallery-en-f2.0__080__same__Maghrib", "dims": [2560, 1600], "t": 1177.2}
+{"ev": "no-change", "label": "Maghrib", "shot": "tablet-portrait-font20-Gallery-en-f2.0__080__same__Maghrib.png", "path": [], "t": 1181.1}
+{"ev": "tap-fail", "label": "Fajr", "t": 1186.5}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 1191.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 1200.6}
+{"ev": "tap-fail", "label": "Why this time?", "t": 1209.4}
+{"ev": "theme-done", "tag": "tablet-portrait-font20-Gallery-en-f2.0", "actions": 14, "screens": 80, "t": 1209.4}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 1211.5}
+{"ev": "gfx", "lines": ["Total frames rendered: 60", "Janky frames: 59 (98.33%)", "Janky frames (legacy): 60 (100.00%)", "50th percentile: 121ms", "90th percentile: 200ms", "95th percentile: 350ms", "99th percentile: 185
+{"ev": "mem", "lines": ["  Native Heap    28961    28868        0        0    32060    36740    31204     2016", "        TOTAL    51651    40908     3224        0   170292    47870    36785     7565", "           Java H
