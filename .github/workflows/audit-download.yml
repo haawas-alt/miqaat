@@ -17,25 +17,25 @@ jobs:
           set -euo pipefail
           python3 - <<'PY'
           import json, subprocess
-          source = "92d557bbcc7caae727091602af24a834cec5e4d6"
-          for run in (37207303147, 37207303107):
+          source = "cfc5b57b5cb0899ea51ef513ff097f4242bb3ff4"
+          for run in (37266216421, 37266216424):
               data = json.loads(subprocess.check_output(["gh", "api", f"repos/haawas-alt/miqaat/actions/runs/{run}"]))
               assert data["head_sha"] == source and data["conclusion"] == "success", f"Validation gate not met: {run}"
           PY
       - uses: actions/download-artifact@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          run-id: 37207303147
-          name: signed-candidate-37207303147
+          run-id: 37266216421
+          name: signed-candidate-37266216421
           path: validated
       - name: Verify exact signed candidate and layout/counter regressions
         run: |
           set -euo pipefail
           cd validated
           sha256sum -c candidate/SHA256SUMS
-          grep -q 'commit=92d557bbcc7caae727091602af24a834cec5e4d6' candidate/PROVENANCE.txt
+          grep -q 'commit=cfc5b57b5cb0899ea51ef513ff097f4242bb3ff4' candidate/PROVENANCE.txt
           grep -q '6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01' candidate/github-signature.txt
-          echo '746d63e9e0ec65ce3d66af6daca5ee4cdb72d4588f990f8786797d324309838a  candidate/Miqaat.apk' | sha256sum -c -
+          echo '734e121bf42d4f1e913068245da3fe43c5d64828144a3fe0f90347721ddc4ebb  candidate/Miqaat.apk' | sha256sum -c -
           python3 - <<'PY'
           import pathlib, xml.etree.ElementTree as ET, json
           files = list(pathlib.Path(".").rglob("TEST-com.usman.miqaat.ui.SettingsBackAcceptanceTest.xml"))
@@ -54,26 +54,26 @@ jobs:
           reports = json.loads(pathlib.Path("candidate/native-page-alignment.json").read_text())
           assert len(reports) == 2 and all(r["result"] == "PASS" for r in reports)
           PY
-          cp candidate/Miqaat.apk ../Miqaat-1.88-landscape.apk
-          cp candidate/Miqaat-play.aab ../Miqaat-1.88-landscape-play.aab
-          cp candidate/PROVENANCE.txt ../Miqaat-1.88-landscape-PROVENANCE.txt
+          cp candidate/Miqaat.apk ../Miqaat-1.89-mockup-fit.apk
+          cp candidate/Miqaat-play.aab ../Miqaat-1.89-mockup-fit-play.aab
+          cp candidate/PROVENANCE.txt ../Miqaat-1.89-mockup-fit-PROVENANCE.txt
           cd ..
-          sha256sum Miqaat-1.88-landscape.apk > Miqaat-1.88-landscape.apk.sha256
-          sha256sum Miqaat-1.88-landscape-play.aab > Miqaat-1.88-landscape-play.aab.sha256
-          cat >> Miqaat-1.88-landscape-PROVENANCE.txt <<'TXT'
+          sha256sum Miqaat-1.89-mockup-fit.apk > Miqaat-1.89-mockup-fit.apk.sha256
+          sha256sum Miqaat-1.89-mockup-fit-play.aab > Miqaat-1.89-mockup-fit-play.aab.sha256
+          cat >> Miqaat-1.89-mockup-fit-PROVENANCE.txt <<'TXT'
           Native runtime: source68ef915cf155f5bde7c4a2f82f107d107a292ff1; run36982213209; two native tests pass on API33/4KB and API35/16KB. Overall run failed other assertions.
           Raw phone evidence: sourceb4737afab4b928a3509e79a635e5e5fbb1cb8232; run36984122910; all216 captures pass strict inventory; overall run failed a case-sensitive Settings heading assertion.
           That assertion is corrected and the complete back/scroll contract passes both native JVM phone layouts; final Android assertion correction was compiled, not rerun.
-          Detailed original Salah artwork, mat alignment, landscape posture panels and viewport-fitted Gallery phone Home (including inset-space, row clipping and name/time gap checks): source92d557bbcc7caae727091602af24a834cec5e4d6; audit37207303107 and signed37207303147. Native JVM rendered evidence; no fresh physical-device or emulator acceptance claimed.
-          New phone landscape: Celestial countdown dial and Prayer Gallery original dawn artwork/Learn shortcut. 32 native JVM EN/UR cases; existing independent scrolling is retained for smaller screens/contextual actions. No new physical-device or emulator acceptance claimed.
-          The complete earlier approved ZIP remains unretrieved. Qualified Urdu/Islamic approval of the new artwork, physical accessibility/OEM acceptance and Play Console approval remain pending.
+          Detailed original Salah artwork, mat alignment, landscape posture panels and viewport-fitted Gallery phone Home (including inset-space, row clipping and name/time gap checks): sourcecfc5b57b5cb0899ea51ef513ff097f4242bb3ff4; audit37266216424 and signed37266216421. Native JVM rendered evidence; no fresh physical-device or emulator acceptance claimed.
+          Phone landscape rebuilt against retrieved selected Countdown Meridian option 1 and Dawn Landscape option 3 mockups. Full hero paintings, prayer icons, circular timeline, correct overnight countdown and contextual actions in More. 64 native JVM EN/UR clock/relative cases reject scrolling Home nodes and require all six rows, full timeline, unclipped text and 48dp primary controls inside viewport with reserved system-bar space. Large system text retains AccessibleHome. No new physical-device or emulator acceptance claimed.
+          The selected October 4 mockup references were retrieved and compared. The complete earlier approved ZIP remains unretrieved. Qualified Urdu/Islamic approval of the new artwork, physical accessibility/OEM acceptance and Play Console approval remain pending.
           This existing testing release tag predates the candidate source; use this provenance and asset hashes, not the tag commit, to identify the build.
           TXT
       - uses: actions/download-artifact@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          run-id: 37207303107
-          name: audit-fix-validation-37207303107
+          run-id: 37266216424
+          name: audit-fix-validation-37266216424
           path: validated-ui
       - name: Package raw Gallery posture and Home review evidence
         run: |
@@ -82,7 +82,7 @@ jobs:
           import struct
           root = pathlib.Path("validated-ui/audit-screens")
           all_images = sorted(root.rglob("*.png"))
-          assert len(all_images) == 680, f"Incomplete final capture set: {len(all_images)}"
+          assert len(all_images) == 712, f"Incomplete final capture set: {len(all_images)}"
           themes = ("miqaat", "kiswah", "celestial_meridian", "prayer_gallery")
           devs = ("phone-portrait", "phone-landscape", "tablet-portrait", "tablet-landscape")
           poses = ("takbir", "standing", "bowing", "rising", "prostrating", "sitting", "tashahhud", "salam")
@@ -94,20 +94,20 @@ jobs:
           gallery = sorted(root.glob("approved-salah/posture__*__prayer_gallery__*__100__top.png"))
           home = sorted(root.glob("detailed-gallery/home__*.png"))
           landscape = sorted(root.glob("landscape-concepts/home__*.png"))
-          assert len(gallery) == 32 and len(home) == 16 and len(landscape) == 32
+          assert len(gallery) == 32 and len(home) == 16 and len(landscape) == 64
           records = []
-          with zipfile.ZipFile("Miqaat-1.88-landscape-review.zip", "w", zipfile.ZIP_DEFLATED) as out:
+          with zipfile.ZipFile("Miqaat-1.89-mockup-fit-review.zip", "w", zipfile.ZIP_DEFLATED) as out:
               for path in gallery + home + landscape:
                   name = path.relative_to(root).as_posix()
                   size = list(struct.unpack(">II", path.read_bytes()[16:24]))
                   records.append({"path": name, "dimensions": size, "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
                   out.write(path, name)
-              out.writestr("PROVENANCE.json", json.dumps({"source": "92d557bbcc7caae727091602af24a834cec5e4d6", "audit_run": 37207303107, "scope": "32 raw Gallery posture captures across all four targets plus 16 EN/UR mobile Home states, including a 360dp phone with reserved system-bar space, plus 32 EN/UR landscape concepts at 891x411dp and 740x360dp; full 680 captures remain in Actions", "images": records}, indent=2))
+              out.writestr("PROVENANCE.json", json.dumps({"source": "cfc5b57b5cb0899ea51ef513ff097f4242bb3ff4", "audit_run": 37266216424, "scope": "32 raw Gallery posture captures across all four targets plus 16 EN/UR mobile Home states, including a 360dp phone with reserved system-bar space, plus 64 EN/UR clock/relative landscape concepts at 891x411dp and 740x360dp; full 712 captures remain in Actions", "images": records}, indent=2))
           PY
-          sha256sum Miqaat-1.88-landscape-review.zip > Miqaat-1.88-landscape-review.zip.sha256
+          sha256sum Miqaat-1.89-mockup-fit-review.zip > Miqaat-1.89-mockup-fit-review.zip.sha256
       - name: Attach exact artifacts to existing testing release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          gh release upload audit-fixes-3895c823 Miqaat-1.88-landscape.apk Miqaat-1.88-landscape.apk.sha256 Miqaat-1.88-landscape-play.aab Miqaat-1.88-landscape-play.aab.sha256 Miqaat-1.88-landscape-PROVENANCE.txt Miqaat-1.88-landscape-review.zip Miqaat-1.88-landscape-review.zip.sha256 --repo haawas-alt/miqaat --clobber
+          gh release upload audit-fixes-3895c823 Miqaat-1.89-mockup-fit.apk Miqaat-1.89-mockup-fit.apk.sha256 Miqaat-1.89-mockup-fit-play.aab Miqaat-1.89-mockup-fit-play.aab.sha256 Miqaat-1.89-mockup-fit-PROVENANCE.txt --repo haawas-alt/miqaat --clobber
