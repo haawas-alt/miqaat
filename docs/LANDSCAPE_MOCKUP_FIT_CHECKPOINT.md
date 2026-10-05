@@ -28,3 +28,5 @@ Publication is gated on those exact source runs and APK hash, targeting the exis
 Direct APK after publication: https://github.com/haawas-alt/miqaat/releases/download/audit-fixes-3895c823/Miqaat-1.89-mockup-fit.apk
 
 No paid emulator run requested or started. Qualified Urdu/Islamic sign-off, physical accessibility/OEM acceptance and actual Play Console acceptance remain unverified. Production promotion remains NO-GO; PR stays draft.
+
+Publication run https://github.com/haawas-alt/miqaat/actions/runs/37267371486 succeeded on 5 October 2026. Release server size/digest verified against independently hashed APK and AAB. Version 1.88 and earlier release assets remain intact.
