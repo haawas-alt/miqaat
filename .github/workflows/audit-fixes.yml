@@ -1,0 +1,36 @@
+name: Audit fix validation
+
+on:
+  push:
+    branches: ['fix/run158-audit-remediation']
+    paths: ['app/**', 'tools/**', '.github/workflows/audit-fixes.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Screenshot integrity checker tests
+        run: python tools/test_screenshot_inventory.py
+      - name: Unit, layout regression, lint and compile both flavors and instrumented tests
+        run: ./gradlew --no-daemon --continue testGithubDebugUnitTest lintGithubDebug assembleGithubDebug assemblePlayDebug assembleGithubDebugAndroidTest
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-fix-validation-${{ github.run_id }}
+          path: |
+            app/build/reports/
+            app/build/test-results/
+            app/build/audit-screens/
+            app/build/outputs/apk/
+          if-no-files-found: error

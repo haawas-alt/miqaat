@@ -1,0 +1,72 @@
+name: Signed candidate validation
+on:
+  push:
+    branches: ['fix/run158-audit-remediation']
+    paths: ['.github/workflows/signed-candidate.yml', 'app/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  signed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Restore existing release signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_BASE64"
+          mkdir -p keystore
+          printf '%s' "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
+          echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
+          echo "MIQAAT_VERSION_NAME=1.89-mockup-fit" >> "$GITHUB_ENV"
+          echo "MIQAAT_BUILD_TAG=audit-candidate-${GITHUB_SHA:0:12}" >> "$GITHUB_ENV"
+      - name: Build and inspect signed testing candidate
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon testGithubReleaseUnitTest lintGithubRelease assembleGithubRelease assemblePlayRelease bundlePlayRelease
+          python3 tools/check_forbidden_assets.py app/src/main app/build/outputs/apk/github/release/app-github-release.apk app/build/outputs/apk/play/release/app-play-release.apk app/build/outputs/bundle/playRelease/app-play-release.aab
+          mkdir -p candidate
+          cp app/build/outputs/apk/github/release/app-github-release.apk candidate/Miqaat.apk
+          cp app/build/outputs/apk/play/release/app-play-release.apk candidate/Miqaat-play.apk
+          cp app/build/outputs/bundle/playRelease/app-play-release.aab candidate/Miqaat-play.aab
+          BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
+          "$BT/apksigner" verify --verbose --print-certs candidate/Miqaat-play.apk > candidate/play-signature.txt
+          "$BT/apksigner" verify --verbose --print-certs candidate/Miqaat.apk > candidate/github-signature.txt
+          "$BT/aapt" dump badging candidate/Miqaat-play.apk > candidate/play-badging.txt
+          "$BT/aapt" dump permissions candidate/Miqaat-play.apk > candidate/play-permissions.txt
+          "$BT/aapt" dump xmltree candidate/Miqaat-play.apk AndroidManifest.xml > candidate/play-manifest.txt
+          ! grep -q REQUEST_INSTALL_PACKAGES candidate/play-permissions.txt
+          grep -q USE_EXACT_ALARM candidate/play-permissions.txt
+          grep -q "targetSdkVersion:'36'" candidate/play-badging.txt
+          "$BT/zipalign" -c -P 16 -v 4 candidate/Miqaat-play.apk > candidate/play-zipalign.txt
+          "$BT/zipalign" -c -P 16 -v 4 candidate/Miqaat.apk > candidate/github-zipalign.txt
+          python3 tools/check_release_integrity.py candidate/Miqaat.apk candidate/Miqaat-play.apk > candidate/native-page-alignment.json
+          curl -fsSL --retry 3 https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -o bundletool.jar
+          echo 'a099cfa1543f55593bc2ed16a70a7c67fe54b1747bb7301f37fdfd6d91028e29  bundletool.jar' | sha256sum -c -
+          java -jar bundletool.jar validate --bundle=candidate/Miqaat-play.aab > candidate/bundle-validation.txt
+          java -jar bundletool.jar dump config --bundle=candidate/Miqaat-play.aab > candidate/bundle-config.json
+          grep -q PAGE_ALIGNMENT_16K candidate/bundle-config.json
+          jarsigner -verify -verbose -certs candidate/Miqaat-play.aab > candidate/aab-signature.txt
+          grep -q 'jar verified' candidate/aab-signature.txt
+          sha256sum candidate/Miqaat.apk candidate/Miqaat-play.apk candidate/Miqaat-play.aab > candidate/SHA256SUMS
+          printf 'run=%s\ncommit=%s\nTesting candidate only; verify versionCode against Play Console before upload. No publish or promotion.\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" > candidate/PROVENANCE.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: signed-candidate-${{ github.run_id }}
+          path: |
+            candidate/
+            app/build/reports/
+            app/build/test-results/
+          if-no-files-found: error
+

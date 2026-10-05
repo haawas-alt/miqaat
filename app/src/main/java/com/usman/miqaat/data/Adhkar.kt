@@ -39,10 +39,10 @@ object Adhkar {
             3, "Qur'an 114 · Abū Dāwūd 5082, at-Tirmidhī 3575 (ḥasan ṣaḥīḥ)"),
         Dhikr("asbahna", "Aṣbaḥnā", "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ",
             "We have entered the morning and the dominion belongs to Allah. Praise be to Allah; there is no god but Allah alone, without partner. His is the dominion and His is the praise, and He is able to do all things. My Lord, I ask You for the good of this day and the good after it, and I seek refuge in You from the evil of this day and the evil after it.",
-            1, "Ṣaḥīḥ Muslim 2723", morningOnly = true),
+            1, "Ṣaḥīḥ Muslim 2723b · excerpt; final petitions are not displayed", morningOnly = true),
         Dhikr("amsayna", "Amsaynā", "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذِهِ اللَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا",
             "We have entered the evening and the dominion belongs to Allah. Praise be to Allah; there is no god but Allah alone, without partner. His is the dominion and His is the praise, and He is able to do all things. My Lord, I ask You for the good of this night and the good after it, and I seek refuge in You from the evil of this night and the evil after it.",
-            1, "Ṣaḥīḥ Muslim 2723", eveningOnly = true),
+            1, "Ṣaḥīḥ Muslim 2723b · excerpt; final petitions are not displayed", eveningOnly = true),
         Dhikr("sayyid", "Sayyid al-Istighfār", "اللَّهُمَّ أَنْتَ رَبِّي لاَ إِلَهَ إِلاَّ أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي، فَإِنَّهُ لاَ يَغْفِرُ الذُّنُوبَ إِلاَّ أَنْتَ",
             "O Allah, You are my Lord; there is no god but You. You created me and I am Your servant, and I keep Your covenant and promise as far as I am able. I seek refuge in You from the evil I have done. I acknowledge Your favour upon me and I acknowledge my sin, so forgive me, for none forgives sins but You.",
             1, "Ṣaḥīḥ al-Bukhārī 6306"),
@@ -51,13 +51,13 @@ object Adhkar {
             1, "Abū Dāwūd 5068 (ṣaḥīḥ) · at-Tirmidhī 3391", morningOnly = true),
         Dhikr("bika_e", "Bika amsaynā", "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ",
             "O Allah, by You we enter the evening and by You we enter the morning; by You we live and by You we die, and to You is the final return.",
-            1, "Abū Dāwūd 5068 (ṣaḥīḥ) · at-Tirmidhī 3391", eveningOnly = true),
+            1, "Ibn Mājah 3868 (ṣaḥīḥ, Darussalam; evening wording with al-maṣīr)", eveningOnly = true),
         Dhikr("bismillah", "Bismillāh alladhī", "بِسْمِ اللَّهِ الَّذِي لاَ يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الأَرْضِ وَلاَ فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
             "In the name of Allah, with whose name nothing on earth or in the heavens can cause harm, and He is the All-Hearing, the All-Knowing.",
             3, "Abū Dāwūd 5088, at-Tirmidhī 3388 (ṣaḥīḥ)"),
         Dhikr("radeetu", "Raḍītu billāhi", "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالإِسْلاَمِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا",
             "I am pleased with Allah as Lord, with Islam as religion, and with Muhammad ﷺ as Prophet.",
-            3, "Abū Dāwūd 5072, at-Tirmidhī 3389 · three times is in the narration · grading disputed: ḥasan gharīb (at-Tirmidhī), ḍaʿīf (al-Albānī), ḥasan (Ibn Bāz)"),
+            3, "Three times morning/evening: Hisn al-Muslim 87, citing Aḥmad 4/337 and an-Nasāʾī, ʿAmal al-Yawm wa-l-Laylah; ḥasan attributed to Ibn Bāz. Related wording: Abū Dāwūd 5072 (ḍaʿīf, al-Albānī); at-Tirmidhī 3389 (ḥasan gharīb, at-Tirmidhī)."),
         Dhikr("afini", "Allāhumma ʿāfinī", "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لاَ إِلَهَ إِلاَّ أَنْتَ",
             "O Allah, grant my body health; O Allah, grant my hearing health; O Allah, grant my sight health. There is no god but You.",
             3, "Abū Dāwūd 5090 (ḥasan)"),
@@ -126,3 +126,4 @@ object Ramadan {
     const val SALAWAT_NOTE = "Increase your ṣalawāt upon me on Friday"
     const val SALAWAT_SRC = "Abū Dāwūd 1047 (ṣaḥīḥ)"
 }
+

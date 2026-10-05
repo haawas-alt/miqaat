@@ -1,3 +1,5 @@
+> **Independent acceptance notice (1 October 2026):** The PASS labels below are historical claims from the four-themes work, not independent acceptance. Run159 only changes this document. The current ci-screenshots head identifies run159 and is not an immutable run158 archive. See [RUN158_INDEPENDENT_AUDIT.md](RUN158_INDEPENDENT_AUDIT.md) and [RUN158_FIX_STATUS.md](RUN158_FIX_STATUS.md) for verified evidence, isolated fixes and open gates. No9.9/10,99% fidelity or production Play-ready claim is accepted.
+
 # Miqaat — Tablet Audit v3 acceptance status (CI run 158, commit b5562a0, branch `four-themes`)
 
 Evidence: 16 emulator jobs (4 devices x 4 groups) green; 28 gate tests, 0 failures (8 skipped by design); 976 screenshots on branch `ci-screenshots`, 244 per device, every one in the orientation its device name claims (earlier runs had tablet-portrait and phone-landscape silently rendering in the wrong orientation; fixed in runs 151-155, so earlier portrait/landscape claims were re-verified here). Sheets delivered in chat.

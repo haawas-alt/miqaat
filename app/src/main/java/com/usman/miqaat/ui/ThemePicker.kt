@@ -97,7 +97,11 @@ private fun ThemeCard(theme: AppTheme, cur: Boolean, host: ThemeTokens, modifier
                 Text(desc, fontFamily = Nunito, fontSize = 14.sp, color = host.contentSecondary, maxLines = 2)
             }
         }
-        ThemePreview(tk, Modifier.fillMaxWidth().height(96.dp).clearAndSetSemantics { })
+        // Decorative illustration only. Its external title/description remain fully font-scaled.
+        val density = androidx.compose.ui.platform.LocalDensity.current
+        androidx.compose.runtime.CompositionLocalProvider(androidx.compose.ui.platform.LocalDensity provides androidx.compose.ui.unit.Density(density.density, 1f)) {
+            ThemePreview(tk, Modifier.fillMaxWidth().height(112.dp).clearAndSetSemantics { })
+        }
     }
 }
 
@@ -115,7 +119,7 @@ private fun ThemePreview(tk: ThemeTokens, modifier: Modifier) {
             androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(art), null, Modifier.matchParentSize().clip(RoundedCornerShape(8.dp)), contentScale = androidx.compose.ui.layout.ContentScale.Crop)
             Box(Modifier.matchParentSize().clip(RoundedCornerShape(8.dp)).background(tk.background.copy(alpha = 0.28f)))
         }
-        Column(Modifier.align(Alignment.CenterStart)) {
+        Column(Modifier.align(Alignment.TopStart)) {
             Text("Dhuhr", fontFamily = tk.fontDisplay, fontSize = 13.sp, color = tk.contentPrimary)
             Text("12:24 PM", fontFamily = tk.fontDisplay, fontSize = 22.sp, fontWeight = FontWeight.Medium, color = tk.contentPrimary)
         }

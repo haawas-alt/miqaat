@@ -31,6 +31,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import com.usman.miqaat.data.DailyDhikrProgress
+import java.time.LocalDate
+import kotlinx.coroutines.delay
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateMapOf
@@ -39,6 +48,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.usman.miqaat.R
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.ui.semantics.liveRegion
@@ -55,6 +65,8 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.usman.miqaat.data.Adhkar
+import com.usman.miqaat.data.L10n
+import com.usman.miqaat.data.UrduContent
 import com.usman.miqaat.data.Dhikr
 
 /**
@@ -71,10 +83,27 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
     val tk = screenTokens()
     val morning = mode == AdhkarMode.MORNING
     val list = remember(mode) { when (mode) { AdhkarMode.MORNING -> Adhkar.morning(); AdhkarMode.EVENING -> Adhkar.evening(); AdhkarMode.POST -> Adhkar.postPrayer } }
+    val context = LocalContext.current
+    val daily = remember { DailyDhikrProgress(context) }
+    var today by remember { androidx.compose.runtime.mutableStateOf(LocalDate.now()) }
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    DisposableEffect(lifecycle) {
+        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_RESUME) today = LocalDate.now() }
+        lifecycle.addObserver(observer)
+        onDispose { lifecycle.removeObserver(observer) }
+    }
+    LaunchedEffect(Unit) { while (true) { today = LocalDate.now(); delay(60_000) } }
     val counts = remember(mode) { mutableStateMapOf<String, Int>() }
+    LaunchedEffect(today, mode) { counts["tahlil"] = daily.count(today) }
     var index by remember(mode) { mutableIntStateOf(0) }
     val cur = list[index]
     val done = (counts[cur.id] ?: 0) >= cur.count
+    fun countOne() {
+        if (cur.id == "tahlil") {
+            today = LocalDate.now()
+            counts[cur.id] = daily.increment(today)
+        } else if (!done) counts[cur.id] = (counts[cur.id] ?: 0) + 1
+    }
     val listState = rememberLazyListState()
 
     BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
@@ -94,7 +123,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                     }
                 }
                 val finished = list.count { (counts[it.id] ?: 0) >= it.count }
-                Text("$finished of ${list.size} complete", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary, modifier = Modifier.padding(start = u * 2.6f, bottom = u * 1))
+                Text(Str.get(R.string.s_count_complete, finished, list.size), fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary, modifier = Modifier.padding(start = u * 2.6f, bottom = u * 1))
                 LazyColumn(state = listState) {
                     items(list.size) { i ->
                         val d = list[i]
@@ -103,7 +132,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                         Row(
                             Modifier.fillMaxWidth().heightIn(min = 48.dp).background(if (isCur) tk.primary.copy(alpha = 0.14f) else Color.Transparent)
                                 .selectable(selected = isCur, role = androidx.compose.ui.semantics.Role.Tab) { index = i }.padding(horizontal = u * 2.2f, vertical = u * 1.1f)
-                                .semantics(mergeDescendants = true) { stateDescription = if (c >= d.count) "Completed" else if (d.count > 1) "$c of ${d.count}" else Str[R.string.s_not_yet_read] },
+                                .semantics(mergeDescendants = true) { stateDescription = if (c >= d.count) Str[R.string.s_complete] else if (d.count > 1) Str.get(R.string.s_count_of, c, d.count) else Str[R.string.s_not_yet_read] },
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Box(Modifier.size(u * 2.4f).clip(CircleShape).background(if (c >= d.count) tk.success else tk.softFill).border(1.dp, if (isCur) tk.primary else tk.neutralStroke, CircleShape), contentAlignment = Alignment.Center) {
@@ -112,8 +141,8 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                             }
                             Spacer(Modifier.width(u * 1.2f))
                             Column(Modifier.weight(1f)) {
-                                Text(d.title, fontFamily = Nunito, fontSize = (u.value * 1.55f).sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary.copy(alpha = if (isCur) 1f else 0.8f))
-                                Text(if (d.count > 1) "$c / ${d.count}" else if (c > 0) "done" else "once", fontFamily = Nunito, fontSize = (u.value * 1.15f).sp, color = tk.contentMuted)
+                                Text(if (L10n.uiUrdu) UrduContent.dhikrTitles.getValue(d.id) else d.title, fontFamily = Nunito, fontSize = (u.value * 1.55f).sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary.copy(alpha = if (isCur) 1f else 0.8f))
+                                Text(if (d.count > 1) "\u2066$c / ${d.count}\u2069" else if (c > 0) Str[R.string.s_complete] else Str[R.string.s_not_yet_read], fontFamily = Nunito, fontSize = (u.value * 1.15f).sp, color = tk.contentMuted)
                             }
                         }
                     }
@@ -123,21 +152,25 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
             // ---- reader
             Column(
                 Modifier.weight(1f).fillMaxHeight()
-                    .clickable(onClickLabel = if (cur.count > 1) Str[R.string.s_count_one_recitation] else Str[R.string.s_mark_as_read]) { if (!done) counts[cur.id] = (counts[cur.id] ?: 0) + 1; if ((counts[cur.id] ?: 0) >= cur.count && index < list.size - 1 && cur.count == 1) index++ }
+                    .clickable(onClickLabel = if (cur.count > 1) Str[R.string.s_count_one_recitation] else Str[R.string.s_mark_as_read]) { countOne(); if ((counts[cur.id] ?: 0) >= cur.count && index < list.size - 1 && cur.count == 1) index++ }
                     .padding(horizontal = u * 4, vertical = u * 2.4f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 if (compact) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
-                    Text(mode.title + "  ·  ${index + 1} of ${list.size}", fontFamily = Nunito, fontSize = 14.sp, color = tk.contentPrimary.copy(alpha = 0.8f))
+                    Text(mode.title + "  ·  " + Str.get(R.string.s_count_of, index + 1, list.size), fontFamily = Nunito, fontSize = 14.sp, color = tk.contentPrimary.copy(alpha = 0.8f))
                 }
-                Text(cur.title.uppercase(), fontFamily = Nunito, fontSize = (u.value * (if (compact) 3f else 1.3f)).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = tk.accent)
+                Text(if (L10n.uiUrdu) UrduContent.dhikrTitles.getValue(cur.id) else cur.title.uppercase(), fontFamily = Nunito, fontSize = (u.value * (if (compact) 3f else 1.3f)).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = tk.accent)
                 Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                     val longText = cur.arabic.length > 220
                     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                         Text(cur.arabic, fontFamily = Amiri, fontSize = (u.value * (if (longText) 2.7f else 3.6f)).sp, lineHeight = (u.value * (if (longText) 4.6f else 6.2f)).sp, color = tk.arabicText, textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = u * 1))
                     }
-                    Text(cur.english, fontFamily = Cormorant, fontSize = (u.value * (if (longText) 1.8f else 2.1f)).sp, lineHeight = (u.value * 2.9f).sp, color = tk.contentPrimary, textAlign = TextAlign.Center)
+                    val meaning = if (L10n.uiUrdu) UrduContent.dhikrMeanings.getValue(cur.id) else cur.english
+                    if ('…' in meaning || cur.id == "pp_ikhlas") Text(Str[if (cur.id == "pp_ikhlas") R.string.learn_recitation_guidance else R.string.learn_meaning_summary], fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary)
+                    if (cur.id == "asbahna" || cur.id == "amsayna") Text(Str[R.string.learn_excerpt], fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary)
+                    if (cur.id == "tahlil") Text(Str[R.string.learn_daily_tahlil], fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary, textAlign = TextAlign.Center)
+                    Text(if (L10n.uiUrdu) UrduContent.dhikrMeanings.getValue(cur.id) else cur.english, fontFamily = Cormorant, fontSize = (u.value * (if (longText) 1.8f else 2.1f)).sp, lineHeight = (u.value * 2.9f).sp, color = tk.contentPrimary, textAlign = TextAlign.Center)
                     Text(cur.source, fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, color = tk.contentSecondary, textAlign = TextAlign.Center, modifier = Modifier.padding(top = u * 1.2f))
                 }
                 // counter
@@ -145,8 +178,8 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                     val c = counts[cur.id] ?: 0
                     Box(
                         Modifier.size(maxOf(u * 7.5f, 56.dp)).clip(CircleShape).background(if (done) tk.success else tk.primary)
-                            .clickable(role = androidx.compose.ui.semantics.Role.Button, onClickLabel = if (cur.count > 1) Str[R.string.s_count_one_recitation] else Str[R.string.s_mark_as_read]) { if (!done) counts[cur.id] = c + 1 }
-                            .semantics { contentDescription = if (done) Str[R.string.s_complete] else if (cur.count > 1) "${cur.count - c} remaining of ${cur.count}" else Str[R.string.s_tap_when_read]; stateDescription = if (done) Str[R.string.s_complete] else "$c of ${cur.count}"; liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite },
+                            .clickable(role = androidx.compose.ui.semantics.Role.Button, onClickLabel = if (cur.count > 1) Str[R.string.s_count_one_recitation] else Str[R.string.s_mark_as_read]) { countOne() }
+                            .semantics { contentDescription = if (done) Str[R.string.s_complete] else if (cur.count > 1) Str.get(R.string.s_count_remaining, cur.count - c, cur.count) else Str[R.string.s_tap_when_read]; stateDescription = if (done) Str[R.string.s_complete] else Str.get(R.string.s_count_of, c, cur.count); liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite },
                         contentAlignment = Alignment.Center
                     ) {
                         if (done) Icon(Icons.Outlined.Check, null, Modifier.size(u * 3.4f), tint = tk.onPrimary)
@@ -154,7 +187,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                     }
                     Column {
                         Text(if (done) Str[R.string.s_complete] else if (cur.count == 1) Str[R.string.s_tap_when_read] else Str[R.string.s_tap_for_each_recitation], fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
-                        Text(if (cur.count > 1) "$c of ${cur.count}" else "", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary)
+                        Text(if (cur.count > 1) Str.get(R.string.s_count_of, c, cur.count) else "", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary)
                     }
                     Spacer(Modifier.weight(1f))
                     if (!compact) {
@@ -176,7 +209,9 @@ private fun Nav(label: String, u: Float, primary: Boolean = false, onClick: () -
     val tk = screenTokens()
     val shape = RoundedCornerShape(50)
     Box(
-        Modifier.clip(shape).background(if (primary) tk.primary else Color.Transparent).border(1.dp, if (primary) tk.primary else tk.neutralStroke, shape)
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.heightIn(min = 48.dp).widthIn(min = 48.dp).clip(shape).background(if (primary) tk.primary else Color.Transparent).border(1.dp, if (primary) tk.primary else tk.neutralStroke, shape)
             .clickable(onClick = onClick).padding(horizontal = (u * 2).dp, vertical = (u * 1).dp)
     ) { Text(label, fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = (u * 1.4f).sp, color = if (primary) tk.onPrimary else tk.contentPrimary) }
 }
+

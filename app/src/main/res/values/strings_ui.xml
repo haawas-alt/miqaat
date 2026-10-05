@@ -325,12 +325,12 @@
     <string name="s_compass_accuracy_medium_about_5">Compass accuracy medium (about ±5°)</string>
     <string name="s_compass_accuracy_high">Compass accuracy high</string>
     <string name="s_qibla">Qibla</string>
-    <string name="s_no_compass_sensor_face_the_phone">No compass sensor: face the phone\'s top edge north and read the gold needle.</string>
+    <string name="s_no_compass_sensor_face_the_phone">No compass sensor: face the phone\'s top edge north and read the Qibla needle.</string>
     <string name="s_move_the_phone_in_a_figure">Move the phone in a figure-of-eight, away from speakers, magnets and metal, until accuracy improves.</string>
-    <string name="s_hold_the_phone_flat_and_turn">Hold the phone flat and turn until the gold needle points up.</string>
-    <string name="s_this_tablet_has_no_compass_sensor">This device has no compass sensor. Lay it flat with its top edge facing true north (a phone compass or a map helps), and the gold needle shows the Qibla.</string>
+    <string name="s_hold_the_phone_flat_and_turn">Hold the phone flat and turn until the Qibla needle points up.</string>
+    <string name="s_this_tablet_has_no_compass_sensor">This device has no compass sensor. Lay it flat with its top edge facing true north (a phone compass or a map helps), and the Qibla needle shows the Qibla.</string>
     <string name="s_compass_needs_calibrating_move_the_tablet">Compass needs calibrating: move the device in a figure-of-eight a few times, away from speakers, magnets and metal. Treat the needle as approximate until accuracy improves.</string>
-    <string name="s_lay_the_tablet_flat_turn_until">Lay the device flat. Turn until the gold needle points straight up, then you are facing the Kaʿbah. Confirm with a map or your masjid the first time.</string>
+    <string name="s_lay_the_tablet_flat_turn_until">Lay the device flat. Turn until the Qibla needle points straight up, then you are facing the Kaʿbah. Confirm with a map or your masjid the first time.</string>
     <string name="s_calculated_from">Calculated from</string>
     <string name="s_source">Source</string>
     <string name="s_calculated_on_this_device">Calculated on this device</string>
@@ -630,4 +630,6 @@
     <string name="s_rakah_n">Rakʿah %1$d</string>
     <string name="s_friday_masjid_azaan">Jumuʿah at your masjid: azaan %1$s</string>
     <string name="s_friday_masjid_iqamah"> · iqamah %1$s</string>
+    <string name="s_debug_updates_disabled">Automatic updates are disabled in this debug testing build. Install the signed testing candidate separately.</string>
+    <string name="s_testing_build">Testing build</string>
 </resources>

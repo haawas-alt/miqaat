@@ -4,6 +4,18 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
+/** Rebuild only the pinned AndroidX native payload; keep its published managed API intact. */
+val graphicsPathOutput = layout.buildDirectory.dir("vendor/graphics-path")
+val rebuildGraphicsPath by tasks.registering(Exec::class) {
+    inputs.file(rootProject.file("tools/investigate_native_alignment.py"))
+    outputs.file(graphicsPathOutput.map { it.file("graphics-path-1.1.0-miqaat-16kb.aar") })
+    workingDir(rootProject.projectDir)
+    environment("MIQAAT_GRAPHICS_BUILD_DIR", graphicsPathOutput.get().asFile.absolutePath)
+    commandLine("python3", rootProject.file("tools/investigate_native_alignment.py").absolutePath)
+}
+// Do not package the upstream prebuilt native library alongside the rebuilt version.
+configurations.configureEach { exclude(group = "androidx.graphics", module = "graphics-path") }
+
 android {
     namespace = "com.usman.miqaat"
     // Google Play (from 31 Aug 2026): new apps and updates must target API 36.
@@ -15,13 +27,18 @@ android {
         targetSdk = 36
         // CI stamps the GitHub run number so every build is newer than the last
         val run = (System.getenv("GITHUB_RUN_NUMBER") ?: "0").toInt()
-        versionCode = 100 + run
-        versionName = "1.$run"
+        // Independent validation workflows restart their run numbers. Release CI supplies
+        // one epoch-based version code so a testing candidate cannot downgrade an installed build.
+        versionCode = (System.getenv("MIQAAT_VERSION_CODE")?.toInt() ?: (100 + run)).also {
+            require(it in 1..2_100_000_000) { "versionCode must satisfy Google Play's range" }
+        }
+        versionName = System.getenv("MIQAAT_VERSION_NAME") ?: "1.$run"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("int", "BUILD_NUMBER", run.toString())
         buildConfigField("String", "REPO", "\"haawas-alt/miqaat\"")
         // Provenance: every build names the exact source commit it was built from (shown in About).
         buildConfigField("String", "GIT_SHA", "\"${System.getenv("GITHUB_SHA") ?: "local"}\"")
-        buildConfigField("String", "BUILD_TAG", "\"${if (run > 0) "v1.$run" else "local"}\"")
+        buildConfigField("String", "BUILD_TAG", "\"${System.getenv("MIQAAT_BUILD_TAG") ?: if (run > 0) "v1.$run" else "local"}\"")
     }
 
     // Two editions from one code base:
@@ -60,7 +77,9 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
         debug {
-            signingConfig = signingConfigs.getByName("release")
+            // Secretless validation uses the standard debug key; configured release CI retains its existing signing key.
+            val releaseSigning = signingConfigs.getByName("release")
+            signingConfig = if (releaseSigning.storeFile != null) releaseSigning else signingConfigs.getByName("debug")
         }
     }
 
@@ -90,6 +109,9 @@ dependencies {
     implementation(bom)
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
+    implementation(files(graphicsPathOutput.map { it.file("graphics-path-1.1.0-miqaat-16kb.aar") }).builtBy(rebuildGraphicsPath))
+    // Preserve dependencies declared by the published graphics-path 1.1.0 module.
+    implementation("androidx.collection:collection:1.5.0")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")

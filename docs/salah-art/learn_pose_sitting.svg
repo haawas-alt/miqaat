@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="460" viewBox="0 0 320 460">
+<g transform="translate(0,31)">
+<path d="M 189,375 Q 162,388 125,391 Q 115,393 114,400 Q 116,405 132,406 L 206,399 L 214,382 Z" fill="#F9F6EE" stroke="#39443F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 233,366 L 241,369 L 245,390 Q 246,399 242,402 L 223,402 Q 215,401 221,396 L 233,392 L 229,378 Z" fill="#F9F6EE" stroke="#39443F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 134,199 Q 120,205 117,223 L 117,304 Q 121,325 139,336 L 217,350 Q 235,357 234,374 Q 232,388 211,392 L 126,379 Q 104,374 103,355 L 109,281 L 108,229 Q 108,208 119,201 Z" fill="#F9F6EE" stroke="#39443F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 119,183 L 118,200 Q 128,211 142,207 L 143,183 Z" fill="#F9F6EE" stroke="#39443F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 103,157 A 26,33 0 1,0 155,157 A 26,33 0 1,0 103,157 Z" fill="#F9F6EE" stroke="#39443F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 137,214 Q 150,233 153,273 L 171,319 L 159,329 L 133,279 Q 126,258 124,242" fill="#F9F6EE" stroke="#39443F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 161,318 Q 170,320 185,330 L 201,335 Q 205,339 201,341 L 184,338 L 169,333 L 161,329 Z" fill="#F9F6EE" stroke="#39443F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 181,332 L 197,336 M 177,335 L 192,340" fill="none" stroke="#39443F" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 126,293 Q 136,314 146,321 M 145,362 L 214,376" fill="none" stroke="#DDD7CA" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

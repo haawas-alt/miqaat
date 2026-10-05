@@ -22,13 +22,13 @@ class ScreenshotMatrixTest : ShotSupport() {
 
     @Composable private fun settingsUi(s: AppSettings, initial: Section?) {
         val live by app.settings.settings.collectAsState()
-        SettingsScreen(app.settings, live.copy(theme = s.theme, language = s.language, locationName = s.locationName, locationSet = true, setupDone = true), initial) {}
+        SettingsScreen(app.settings, live, initial) {}
     }
     private val themes = AppTheme.entries
 
     @Test fun homes() { for (t in themes) for (sc in listOf(1f, 1.3f, 2f)) shot("home", t, sc) { s, st -> HomeRouter(st, s, actions, showLarge = false) {} } }
 
-    @Test fun homesUrdu() { for (t in themes) for (sc in listOf(1f, 1.3f)) shot("home", t, sc, rtl = true) { s, st -> HomeRouter(st, s, actions, showLarge = false) {} } }
+    @Test fun homesUrdu() { for (t in themes) for (sc in listOf(1f, 1.3f, 2f)) shot("home", t, sc, rtl = true) { s, st -> HomeRouter(st, s, actions, showLarge = false) {} } }
 
     @Test fun settingsLanding() {
         for (t in themes) for (sc in listOf(1f, 1.3f, 2f)) shot("settings", t, sc) { s, _ -> settingsUi(s, null) }

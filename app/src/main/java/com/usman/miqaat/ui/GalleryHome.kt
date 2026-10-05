@@ -17,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.draw.drawBehind
@@ -85,16 +86,16 @@ private fun GalleryWide(state: PrayerState, s: AppSettings, a: HomeActions, tk: 
     val ox = (bw - sc * 1586f) / 2; val oy = (bh - sc * 992f) / 2
     fun Modifier.at(x: Float, y: Float, w: Float, h: Float) = this.absoluteOffset(ox + sc * x, oy + sc * y).size(sc * w, sc * h)
     val u = sc * 13.8f
-    Box(Modifier.fillMaxSize()) {
+    Box(Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.AbsoluteAlignment.TopLeft) {
         ThemedArtwork(portrait = false, modifier = Modifier.at(0f, 104f, 1586f, 734f), scrim = 0f, fill = true)
         Box(Modifier.at(0f, 0f, 1586f, 104f).background(tk.background.copy(alpha = 0.55f))) {
             GalleryHeader(s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = sc * 52f))
         }
         Box(Modifier.at(0f, 103f, 1586f, 1.5f).background(tk.divider))
         GalleryDate(state, s, tk, u * 0.92f, F, urdu, Modifier.at(400f, 104f, 786f, 84f).padding(top = sc * 4f))
-        Box(Modifier.at(120f, 196f, 500f, 290f)) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroLeft(hero, state, s, tk, u, F, urdu) } }
-        Box(Modifier.at(1090f, 216f, 450f, 262f)) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroRight(hero, tk, u, F, urdu) { onWhy(hero.prayer) } } }
-        Row(Modifier.at(0f, 503f, 1586f, 362f)) {
+        Box(Modifier.at(120f, 196f, 500f, 290f).testTag("home-hero")) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroLeft(hero, state, s, tk, u, F, urdu) } }
+        Box(Modifier.at(1090f, 216f, 450f, 262f).testTag("home-time")) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroRight(hero, tk, u, F, urdu) { onWhy(hero.prayer) } } }
+        Row(Modifier.at(0f, 503f, 1586f, 362f).testTag("home-prayers")) {
             listedPrayers(s).forEach { p -> GalleryCard(rowInfo(p, state, s), s, tk, u, F, urdu, a.onToggleRelative, Modifier.weight(1f).fillMaxHeight()) { onWhy(p) } }
         }
         Box(Modifier.at(0f, 868f, 1586f, 124f)) {
@@ -142,7 +143,7 @@ private fun GalleryNav(icon: ImageVector, label: String, description: String, tk
             .semantics(mergeDescendants = true) { contentDescription = description }.padding(horizontal = u * 1.2f),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center
     ) {
-        Icon(icon, null, Modifier.size(u * 2.4f), tint = tk.contentPrimary)
+        Icon(icon, null, Modifier.size(if (showLabel) u * 2.4f else 26.dp), tint = tk.contentPrimary)
         if (showLabel) {
             Spacer(Modifier.width(u * 0.7f))
             Text(label, fontFamily = F, fontSize = (u.value * 1.7f).sp, color = tk.contentPrimary, maxLines = 1)
@@ -289,7 +290,7 @@ private fun GalleryStackedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
     val selected = r.isNow || r.isNext
     val ink = if (selected) tk.primary else tk.contentPrimary
     Row(
-        Modifier.fillMaxWidth().heightIn(min = (72 * k).dp).background(if (selected) tk.surface else Color.Transparent)
+        Modifier.fillMaxWidth().heightIn(min = (80 * k).dp).background(if (selected) tk.surface else Color.Transparent)
             .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = "Switch between clock time and time until", onLongClickLabel = "Why this time?", role = Role.Button)
             .semantics(mergeDescendants = true) { contentDescription = r.spoken },
         verticalAlignment = Alignment.CenterVertically
@@ -298,7 +299,7 @@ private fun GalleryStackedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
         PrayerCardArt(r.prayer, Modifier.padding(start = 12.dp, top = 8.dp, bottom = 8.dp).size(width = (64 * k).dp, height = (56 * k).dp).clip(RoundedCornerShape(10.dp)).clearAndSetSemantics { })
         Column(Modifier.weight(1f).padding(horizontal = 14.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = (22 * k).sp, color = ink, maxLines = 1)
+                Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = (24 * k).sp, color = ink, maxLines = 1)
                 when {
                     r.isNow || r.isNext -> Text("  · " + L10n.word(s, if (r.isNow) "NOW" else "NEXT").lowercase(), fontFamily = Nunito, fontSize = (12 * k).sp, fontWeight = FontWeight.Bold, color = tk.primary)
                     r.done -> Icon(Icons.Outlined.Check, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.success)
@@ -309,7 +310,7 @@ private fun GalleryStackedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
             if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = (12 * k).sp, color = tk.contentSecondary, maxLines = 2)
         }
         Row(verticalAlignment = Alignment.Bottom) {
-            Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = if (s.showRelative) (17 * k).sp else (30 * k).sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.75f else 1f))
+            Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = if (s.showRelative) (17 * k).sp else (32 * k).sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.75f else 1f))
             if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = tk.fontDisplay, fontSize = (13 * k).sp, color = tk.contentSecondary, modifier = Modifier.padding(bottom = 4.dp))
         }
         Box(Modifier.padding(horizontal = 4.dp).size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = Role.Button).semantics { contentDescription = Str[R.string.s_why_this_time] }, contentAlignment = Alignment.Center) {
@@ -326,6 +327,11 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
     // On a phone w/60 is only ~6dp, which made the header, date and links 5-9sp. These floors keep them readable.
     val barU: Dp = if (roomy) u * 0.62f else maxOf(u * 0.62f, 7.5.dp)
     val railU: Dp = if (roomy) u * 0.5f else maxOf(u * 0.5f, 8.dp)
+    val compactPhone = w < 600.dp && w >= 340.dp && LocalDensity.current.fontScale <= 1.15f
+    if (compactPhone) {
+        GalleryPhoneFit(state, s, a, tk, hero, doorList, F, urdu, onWhy)
+        return
+    }
     val body: @Composable ColumnScope.() -> Unit = {
         GalleryHeader(s, a, tk, barU, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp))
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
@@ -342,10 +348,14 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
             }
         ) {
         GalleryDate(state, s, tk, barU, F, urdu, Modifier.fillMaxWidth().padding(top = 10.dp))
+        if (compactPhone) {
+            GalleryCompactHero(hero, state, s, tk, F, urdu, Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 10.dp))
+        } else {
         Row(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 GalleryHeroLeft(hero, state, s, tk, u * 0.62f, F, urdu)
             }
+        }
         }
         val detailsButton: @Composable () -> Unit = {
             Row(
@@ -357,7 +367,9 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
             }
         }
         // On a phone the clock and the button no longer compete for one line (Urdu day-part words made the clock overflow).
-        Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp)) {
+        if (compactPhone) {
+            Box(Modifier.padding(horizontal = 18.dp, vertical = 2.dp)) { detailsButton() }
+        } else Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = 56.sp, color = tk.contentPrimary, maxLines = 1)
                 if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (urdu) F else tk.fontDisplay, fontSize = 20.sp, color = tk.contentSecondary, maxLines = 1, modifier = Modifier.padding(top = 18.dp))
@@ -378,7 +390,208 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
         if (s.showDisliked) DayThread(s, state.today, state.now, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp), labelSize = 9.sp, fullNames = false, gnomon = true)
     }
     val page = Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().navigationBarsPadding()
-    // One screen, no scrolling, on every phone and tablet: the page is scaled down just enough to fit the height it is given.
-    // (Large system text is handled by AccessibleHome, which is the one layout that scrolls.)
-    FitHeight(page, verticalBias = 0f) { Column(Modifier.fillMaxWidth(), content = body) }
+    // Compact phones keep real text and 48dp targets. Footer content can flow below the fold rather than shrinking the whole page.
+    if (compactPhone) Column(page.verticalScroll(rememberScrollState()), content = body)
+    else FitHeight(page, verticalBias = 0f) { Column(Modifier.fillMaxWidth(), content = body) }
+}
+
+/** Compact phone hero: prayer and clock share a baseline; scales above normal use the flowing fallback. */
+@Composable
+private fun GalleryCompactHero(hero: HeroInfo, state: PrayerState, s: AppSettings, tk: ThemeTokens, F: FontFamily, urdu: Boolean, modifier: Modifier) {
+    Column(modifier.testTag("gallery-mobile-hero").semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
+        hero.special?.let { Text(it, fontFamily = F, fontSize = 12.sp, color = tk.accent) }
+        Text(hero.kickerLabel, fontFamily = F, fontSize = 11.sp, letterSpacing = if (urdu) 0.sp else 1.6.sp, color = tk.contentSecondary)
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(hero.label, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium,
+                fontSize = if (urdu) 30.sp else 38.sp, lineHeight = if (urdu) 54.sp else 46.sp, color = tk.contentPrimary, maxLines = 1,
+                modifier = Modifier.weight(1f).alignByBaseline().testTag("gallery-mobile-prayer-name"))
+            Spacer(Modifier.width(12.dp))
+            Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium,
+                fontSize = 44.sp, lineHeight = 56.sp, color = tk.contentPrimary, maxLines = 1, softWrap = true, textAlign = TextAlign.End,
+                modifier = Modifier.width(120.dp).alignByBaseline().testTag("gallery-mobile-prayer-time"))
+        }
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            if (!urdu) Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = 24.sp, color = tk.accent)
+            Spacer(Modifier.weight(1f))
+            if (hero.suffix.isNotEmpty()) Text(hero.suffix, fontFamily = if (urdu) F else tk.fontDisplay, fontSize = 14.sp, color = tk.contentSecondary)
+        }
+        Row(Modifier.padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+            Icon(if (hero.justPassed) Icons.Outlined.CheckCircle else Icons.Outlined.Schedule, null, Modifier.size(16.dp), tint = tk.accent)
+            Spacer(Modifier.width(6.dp))
+            Text(hero.status, fontFamily = F, fontSize = 13.sp, color = tk.contentPrimary, maxLines = 2)
+        }
+        fastProgress(state, s)?.let { (frac, label) ->
+            Column(Modifier.padding(top = 6.dp).fillMaxWidth()) {
+                Box(Modifier.fillMaxWidth().height(4.dp).clip(RoundedCornerShape(50)).background(tk.divider)) {
+                    Box(Modifier.fillMaxWidth(frac).fillMaxHeight().background(tk.primary))
+                }
+                Text(label, fontFamily = F, fontSize = 12.sp, color = tk.primary, modifier = Modifier.padding(top = 3.dp))
+            }
+        }
+        tarawihLine(state, s)?.let {
+            Text(it, fontFamily = F, fontSize = 12.sp, color = tk.primary, modifier = Modifier.padding(top = 4.dp), maxLines = 3)
+        }
+    }
+}
+
+
+/** Normal-size phone home budgets the prayer list from the usable viewport, after system insets.
+ * Large text keeps the flowing layout above; no text or touch target is scaled down.
+ */
+@Composable
+private fun GalleryPhoneFit(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens,
+    hero: HeroInfo, doorList: List<Door>, F: FontFamily, urdu: Boolean, onWhy: (Prayer) -> Unit) {
+    val art = androidx.compose.ui.res.painterResource(R.drawable.art_gallery_portrait_v2)
+    Column(Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().navigationBarsPadding()
+        .testTag("gallery-phone-fit").drawBehind {
+            val bandH = size.width * 0.68f
+            clipRect(bottom = bandH) {
+                with(art) { draw(androidx.compose.ui.geometry.Size(size.width, size.width * 1672f / 941f), alpha = 0.55f) }
+                drawRect(Brush.verticalGradient(listOf(tk.background.copy(alpha = 0.55f), tk.background), endY = bandH))
+            }
+        }) {
+        GalleryHeader(s, a, tk, 7.5.dp, F, urdu,
+            Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 2.dp))
+        GalleryDate(state, s, tk, 6.dp, F, urdu, Modifier.fillMaxWidth())
+        Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp)
+            .testTag("gallery-mobile-hero").semantics(mergeDescendants = true) {
+                contentDescription = hero.spoken; heading()
+            }) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Text(hero.special ?: hero.kickerLabel, fontFamily = F, fontSize = 11.sp,
+                    color = tk.contentSecondary, maxLines = 1, modifier = Modifier.weight(1f))
+                Text(hero.suffix, fontFamily = F, fontSize = 12.sp, color = tk.contentSecondary, maxLines = 1)
+            }
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Text(hero.label, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium,
+                    fontSize = if (urdu) 30.sp else 38.sp, lineHeight = if (urdu) 54.sp else 46.sp,
+                    color = tk.contentPrimary, maxLines = 1,
+                    modifier = Modifier.weight(1f).alignByBaseline().testTag("gallery-mobile-prayer-name"))
+                Spacer(Modifier.width(12.dp))
+                Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium,
+                    fontSize = 44.sp, lineHeight = 56.sp, color = tk.contentPrimary, maxLines = 1,
+                    softWrap = true, textAlign = TextAlign.End,
+                    modifier = Modifier.width(120.dp).alignByBaseline().testTag("gallery-mobile-prayer-time"))
+            }
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                if (!urdu) {
+                    Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = 20.sp, color = tk.accent)
+                    Spacer(Modifier.width(12.dp))
+                }
+                Text(hero.status, fontFamily = F, fontSize = 12.sp, color = tk.contentPrimary,
+                    maxLines = 1, modifier = Modifier.weight(1f))
+                Box(Modifier.size(48.dp).clip(CircleShape).background(tk.primary)
+                    .clickable(onClick = { onWhy(hero.prayer) }, role = Role.Button)
+                    .semantics { contentDescription = Str[R.string.s_view_prayer_details] },
+                    contentAlignment = Alignment.Center) {
+                    Icon(Icons.Outlined.Info, null, Modifier.size(24.dp), tint = tk.onPrimary)
+                }
+            }
+            fastProgress(state, s)?.let { (fraction, label) ->
+                Box(Modifier.fillMaxWidth().height(3.dp).background(tk.divider)) {
+                    Box(Modifier.fillMaxWidth(fraction).fillMaxHeight().background(tk.primary))
+                }
+                Text(label, fontFamily = F, fontSize = 12.sp, color = tk.primary, maxLines = 1)
+            }
+            tarawihLine(state, s)?.let {
+                Text(it, fontFamily = F, fontSize = 12.sp, color = tk.primary, maxLines = 1)
+            }
+        }
+        val shown = listedPrayers(s)
+        Column(Modifier.weight(1f).fillMaxWidth().testTag("gallery-phone-prayers")) {
+            shown.forEach { p ->
+                val r = rowInfo(p, state, s)
+                val selected = r.isNow || r.isNext
+                val ink = if (selected) tk.primary else tk.contentPrimary
+                GalleryPhoneFitRow(r, s, tk, F, urdu, ink, selected, a.onToggleRelative,
+                    { onWhy(p) }, Modifier.weight(1f).testTag("gallery-fit-row-${p.name}"))
+                Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
+            }
+        }
+        val visibleDoors = if (doorList.size <= 2) doorList else
+            (doorList.filter { it.warn }.take(1) + doorList.filter { !it.warn }.take(1))
+        val extraDoors = doorList.filter { it !in visibleDoors }
+        var more by remember { mutableStateOf(false) }
+        Row(Modifier.fillMaxWidth().testTag("gallery-phone-footer").padding(horizontal = 12.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            visibleDoors.forEach { d ->
+                Row(Modifier.weight(1f).heightIn(min = 48.dp).clip(RoundedCornerShape(24.dp))
+                    .then(if (d.onClick != null) Modifier.clickable(onClick = d.onClick, role = Role.Button) else Modifier)
+                    .semantics(mergeDescendants = true) { contentDescription = d.label }
+                    .padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Icon(if (d.warn) Icons.Outlined.NotificationsActive else Icons.Outlined.ChevronRight,
+                        null, Modifier.size(24.dp), tint = if (d.warn) tk.warning else tk.accent)
+                    Text(d.label, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp,
+                        style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)),
+                        color = tk.contentPrimary, maxLines = 2, modifier = Modifier.weight(1f))
+                }
+            }
+            if (extraDoors.isNotEmpty()) Box {
+                Box(Modifier.size(48.dp).clip(CircleShape).clickable(onClick = { more = true }, role = Role.Button)
+                    .semantics { contentDescription = if (urdu) "مزید اختیارات" else "More actions" },
+                    contentAlignment = Alignment.Center) {
+                    Icon(Icons.Outlined.MoreHoriz, null, Modifier.size(24.dp), tint = tk.contentPrimary)
+                }
+                androidx.compose.material3.DropdownMenu(expanded = more, onDismissRequest = { more = false }) {
+                    extraDoors.forEach { d ->
+                        androidx.compose.material3.DropdownMenuItem(
+                            text = { Text(d.label, fontFamily = F, fontSize = 14.sp) },
+                            onClick = { more = false; d.onClick?.invoke() })
+                    }
+                }
+            }
+        }
+        Text(Str[R.string.s_theme_signature], fontFamily = if (urdu) F else Cormorant,
+            fontSize = 10.sp, color = tk.contentSecondary, maxLines = 1,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp), textAlign = TextAlign.End)
+        if (s.showDisliked) DayThread(s, state.today, state.now,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 2.dp),
+            labelSize = 9.sp, fullNames = false, gnomon = true)
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: FontFamily,
+    urdu: Boolean, ink: Color, selected: Boolean, onToggle: () -> Unit, onWhy: () -> Unit,
+    modifier: Modifier) {
+    Row(modifier.fillMaxWidth().background(if (selected) tk.surface else Color.Transparent)
+        .combinedClickable(onClick = onToggle, onLongClick = onWhy, role = Role.Button)
+        .semantics(mergeDescendants = true) { contentDescription = r.spoken },
+        verticalAlignment = Alignment.CenterVertically) {
+        Box(Modifier.width(4.dp).fillMaxHeight().background(if (selected) tk.primary else Color.Transparent))
+        PrayerCardArt(r.prayer, Modifier.padding(horizontal = 8.dp).size(52.dp)
+            .clip(RoundedCornerShape(10.dp)).clearAndSetSemantics { })
+        Column(Modifier.weight(1f)) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Text(r.label, fontFamily = if (urdu) tk.fontArabic else Cormorant,
+                    fontSize = if (urdu) 20.sp else 24.sp,
+                    style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)), color = ink, maxLines = 1,
+                    modifier = Modifier.weight(1f).testTag("gallery-fit-label-${r.prayer.name}"),
+                    fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium)
+                if (!urdu) Text("  ${r.arabic}", fontFamily = tk.fontArabic, fontSize = 16.sp,
+                    color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"))
+                if (selected) Icon(if (r.isNow) Icons.Outlined.Schedule else Icons.Outlined.ChevronRight,
+                    null, Modifier.size(16.dp), tint = ink)
+            }
+            Text(r.small, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp,
+                style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)), color = tk.contentSecondary, maxLines = 1,
+                modifier = Modifier.fillMaxWidth().testTag("gallery-fit-detail-${r.prayer.name}"))
+        }
+        Spacer(Modifier.width(8.dp))
+        Column(horizontalAlignment = Alignment.End) {
+            Text(if (s.showRelative) r.relative else r.clock,
+                fontFamily = if (s.showRelative) F else tk.fontDisplay,
+                fontSize = if (s.showRelative) 16.sp else 30.sp, fontWeight = FontWeight.Medium,
+                color = ink, maxLines = 1, modifier = Modifier.testTag("gallery-fit-clock-${r.prayer.name}"))
+            if (!s.showRelative) Text(r.suffix, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 11.sp,
+                style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)),
+                color = tk.contentSecondary, maxLines = 1)
+        }
+        Box(Modifier.size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = Role.Button)
+            .semantics { contentDescription = Str[R.string.s_why_this_time] },
+            contentAlignment = Alignment.Center) {
+            Icon(Icons.Outlined.Info, null, Modifier.size(20.dp), tint = tk.contentMuted)
+        }
+    }
 }
