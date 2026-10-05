@@ -87,7 +87,7 @@ def is_home(nodes):
     labs = " ".join(label(n) for n in nodes)
     return sum(p in labs for p in PRAYERS) >= 4 or "فجر" in labs and "مغرب" in labs
 
-SETUP_PRIORITY = ["begin", "use my location", "use this", "looks right", "continue", "next", "turn on", "allow", "done", "finish", "start", "got it", "skip"]
+SETUP_PRIORITY = ["got it", "begin", "use my location", "use this", "looks right", "continue", "next", "turn on", "allow", "done", "finish", "start", "got it", "skip"]
 UNDER = {"settings", "learn salah", "monthly timetable", "back", "ترتیبات"}
 def setup(tag):
     """Walk the first-run gate, recording every screen. Home controls remain exposed under it (audited separately)."""
@@ -99,6 +99,18 @@ def setup(tag):
         f = shot(f"{tag}__setup{i}")
         log(ev="setup-screen", step=i, shot=f, key=skey(nodes), labels=[label(n) for n in nodes if label(n)][:60],
             clickables=[label(n) for n in nodes if n["click"] and label(n)])
+        labs = [label(n) for n in nodes]
+        if "Where will Miqaat be used?" in labs and not getattr(setup, "locdone", False):
+            setup.locdone = True
+            n = find(nodes, "Use my location")
+            if n:
+                tap(n); time.sleep(20)
+                nn = dump() or []
+                f2 = shot(f"{tag}__setup{i}_after-detect-20s")
+                log(ev="detect-result", shot=f2, labels=[label(x) for x in nn if label(x)][:40])
+                if in_setup(nn) and find(nn, "Sydney, NSW"): 
+                    tap(find(nn, "Sydney, NSW")); log(ev="setup-tap", label="Sydney, NSW (preset; detect did not complete)")
+                continue
         cl = [n for n in nodes if n["enabled"] and label(n) and label(n).lower() not in UNDER]
         pick = None
         for want in SETUP_PRIORITY:
@@ -106,7 +118,9 @@ def setup(tag):
                 if label(n).lower().startswith(want) or label(n).lower() == want: pick = n; break
             if pick: break
         if pick: log(ev="setup-tap", label=label(pick)); tap(pick)
-        else: log(ev="setup-stuck"); back()
+        else:
+            log(ev="setup-stuck")
+            if i > 12: break
         time.sleep(1.5)
     return False
 
