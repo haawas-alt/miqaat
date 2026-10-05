@@ -81,13 +81,13 @@ class AzaanService : Service() {
         when (intent?.action) {
             ACTION_STOP -> { finishAll(); return START_NOT_STICKY }
             ACTION_SKIP -> { skip(); return START_NOT_STICKY }
-            ACTION_REMINDER -> { if (prayer != null) showReminder(prayer, intent.getStringExtra(AzaanScheduler.EXTRA_NOTE)); stopSelf(); return START_NOT_STICKY }
+            ACTION_REMINDER -> { if (prayer != null) showReminder(prayer, intent.getStringExtra(AzaanScheduler.EXTRA_NOTE)) else satisfyForegroundContract(); stopSelf(); return START_NOT_STICKY }
             ACTION_PLAY, ACTION_PREVIEW -> if (prayer != null) startAzaan(prayer, preview = intent.action == ACTION_PREVIEW)
             ACTION_PREVIEW_AFTER -> if (prayer != null) { begin(prayer); startDua(prayer) }
             ACTION_PREVIEW_HADITH -> if (prayer != null) { forcedHadith = intent.getIntExtra(EXTRA_HADITH, 0); begin(prayer); startHadith(prayer) }
             ACTION_IQAMAH -> if (prayer != null) startIqamahCountdown(prayer, intent.getIntExtra(EXTRA_SECONDS, -1))
             ACTION_IQAMAH_NOW -> if (prayer != null) { begin(prayer); startIqamahNow(prayer) }
-            ACTION_QUIET -> if (prayer != null) { begin(prayer); startQuiet(prayer) }
+            ACTION_QUIET -> if (prayer != null) { begin(prayer); startQuiet(prayer, forceTest = true) }
         }
         return START_NOT_STICKY
     }
@@ -185,7 +185,7 @@ class AzaanService : Service() {
     private fun startHadith(prayer: Prayer) {
         handler.removeCallbacksAndMessages(null)
         val settings = (application as MiqaatApp).settings.value
-        val h = HadithLibrary.all.firstOrNull { it.id == forcedHadith } ?: HadithLibrary.next(this)
+        val h = HadithLibrary.all.firstOrNull { it.id == forcedHadith } ?: HadithLibrary.next(this, prayer)
         forcedHadith = 0
         com.usman.miqaat.data.Health.log(this, com.usman.miqaat.data.Health.Kind.INFO, "Hadith #${h.id} shown", h.source)
         val startedAt = System.currentTimeMillis()
@@ -286,12 +286,14 @@ class AzaanService : Service() {
         handler.postDelayed({ if (seq == sequenceId) startQuiet(prayer) }, holdMs)
     }
 
-    private fun startQuiet(prayer: Prayer) {
+    /** [forceTest]: the Try it now button must show the screen even when the quiet screen is switched off (phone default), for one minute. */
+    private fun startQuiet(prayer: Prayer, forceTest: Boolean = false) {
         handler.removeCallbacksAndMessages(null)
         stopPlayer()
         val settings = (application as MiqaatApp).settings.value
-        if (settings.quietMinutes <= 0) { finishAll(); return }
-        val end = System.currentTimeMillis() + settings.quietMinutes * 60_000L
+        val minutes = if (settings.quietMinutes <= 0 && forceTest) 1 else settings.quietMinutes
+        if (minutes <= 0) { finishAll(); return }
+        val end = System.currentTimeMillis() + minutes * 60_000L
         _phase.value = Phase.Quiet(prayer, end)
         val seq = sequenceId
         // release the wake lock: the screen may sleep during prayer, the activity keeps its own flag
@@ -354,16 +356,44 @@ class AzaanService : Service() {
         return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM) ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) ?: Uri.EMPTY
     }
 
+    /** Never leave a startForegroundService() call unanswered, even for a malformed intent. */
+    private fun satisfyForegroundContract() {
+        val n = NotificationCompat.Builder(this, MiqaatApp.CHANNEL_SILENT).setSmallIcon(R.drawable.ic_launcher_monochrome).setContentTitle("Miqaat").build()
+        runCatching { if (Build.VERSION.SDK_INT >= 29) startForeground(NOTIF_ID + 1, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK) else startForeground(NOTIF_ID + 1, n) }
+        stopForeground(STOP_FOREGROUND_REMOVE)
+    }
+
     private fun showReminder(prayer: Prayer, note: String?) {
         val suhoor = note?.startsWith("Suhoor") == true
+        val st = (application as MiqaatApp).settings.value
+        val ur = com.usman.miqaat.data.L10n.isUrdu(st)
+        val name = com.usman.miqaat.data.L10n.prayer(st, prayer)
+        val title = when {
+            suhoor -> if (ur) "سحری" else "Suhoor"
+            note != null -> if (ur) "جمعہ" else "Jumuʿah"
+            else -> if (ur) "$name میں چند منٹ باقی" else "${prayer.english} in a few minutes"
+        }
+        val text = note ?: if (ur) "$name کی نماز کی تیاری کریں" else "Prepare for ${prayer.english} prayer"
         val n = NotificationCompat.Builder(this, if (suhoor) MiqaatApp.CHANNEL_AZAAN else MiqaatApp.CHANNEL_SILENT)
             .setSmallIcon(R.drawable.ic_launcher_monochrome)
-            .setContentTitle(when { suhoor -> "Suhoor"; note != null -> "Jumuʿah"; else -> "${prayer.english} in a few minutes" })
-            .setContentText(note ?: "Prepare for ${prayer.english} prayer")
-            .setStyle(NotificationCompat.BigTextStyle().bigText(note ?: "Prepare for ${prayer.english} prayer"))
+            .setContentTitle(title)
+            .setContentText(text)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(text))
             .setAutoCancel(true).build()
-        getSystemService(android.app.NotificationManager::class.java).notify(NOTIF_ID + 1, n)
-        if (suhoor) { begin(prayer); playShort("chime", 0.8f); handler.postDelayed({ finishAll() }, 6000) }
+        val nm = getSystemService(android.app.NotificationManager::class.java)
+        if (suhoor) {
+            nm.notify(NOTIF_ID + 1, n)
+            begin(prayer); playShort("chime", 0.8f); handler.postDelayed({ finishAll() }, 6000)
+            return
+        }
+        // The receiver started this service with startForegroundService(), so Android requires startForeground()
+        // within a few seconds or it raises ForegroundServiceDidNotStartInTimeException. Promote briefly, then
+        // detach so the reminder stays in the shade after the service stops.
+        val promoted = runCatching {
+            if (Build.VERSION.SDK_INT >= 29) startForeground(NOTIF_ID + 1, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK) else startForeground(NOTIF_ID + 1, n)
+        }.isSuccess
+        if (promoted) stopForeground(STOP_FOREGROUND_DETACH)
+        else nm.notify(NOTIF_ID + 1, n)
     }
 
     /** Heads-up + full-screen intent only when the tablet is dark or locked; otherwise a silent entry. */

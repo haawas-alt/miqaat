@@ -58,7 +58,7 @@ internal fun heroInfo(state: PrayerState, s: AppSettings, special: String?): Her
     val clock = PrayerEngine.clock(state.heroTime, s.use24h)
     val suffix = PrayerEngine.suffix(state.heroTime, s.use24h)
     val status = buildString {
-        append(if (state.justPassed) L10n.ago(s, state.delta).replaceFirstChar { it.uppercase() } else L10n.inFor(s, state.delta).replaceFirstChar { it.uppercase() })
+        append(if (state.justPassed) L10n.ago(s, state.delta).replaceFirstChar { it.uppercase() } else L10n.inForState(s, state).replaceFirstChar { it.uppercase() })
         state.current?.let { cur -> PrayerEngine.iqamah(s, state.today, cur)?.takeIf { it.isAfter(state.now) }?.let { iq -> append("  ·  ${L10n.word(s, "Iqamah")} ${PrayerEngine.clock(iq, s.use24h)}") } }
     }
     val kicker = Str[if (state.justPassed) R.string.s_home_prayer_now else R.string.s_home_next_prayer]

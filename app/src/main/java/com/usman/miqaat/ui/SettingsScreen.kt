@@ -697,7 +697,7 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
     SettingRow(Str[R.string.s_countdown_iqamah_quiet_screen], Str.get(R.string.s_iqamah_test_detail, s.iqamahCountdownSeconds)) { GoldButton(Str[R.string.s_start]) { AzaanService.testIqamah(ctx, Prayer.MAGHRIB) } }
     SettingRow(Str[R.string.s_short_countdown], Str[R.string.s_same_flow_15_second_countdown_to]) { GoldButton(Str[R.string.s_start]) { AzaanService.testIqamah(ctx, Prayer.MAGHRIB, 15) } }
     SettingRow(Str[R.string.s_iqamah_sound_only], Str.get(R.string.s_plays_x_and_shows_iqamah, s.iqamahSound.text.lowercase())) { GoldButton(Str[R.string.s_play]) { AzaanService.testIqamahNow(ctx, Prayer.MAGHRIB) } }
-    SettingRow(Str[R.string.s_quiet_screen], Str.get(R.string.s_quiet_test_detail, s.quietMinutes)) { GoldButton(Str[R.string.s_show]) { AzaanService.testQuiet(ctx, Prayer.MAGHRIB) } }
+    SettingRow(Str[R.string.s_quiet_screen], if (s.quietMinutes <= 0) Str[R.string.s_quiet_test_detail_off] else Str.get(R.string.s_quiet_test_detail, s.quietMinutes)) { GoldButton(Str[R.string.s_show]) { AzaanService.testQuiet(ctx, Prayer.MAGHRIB) } }
     Spacer(Modifier.height(14.dp))
     Text(Str[R.string.s_home_screen_modes], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     SettingRow(Str[R.string.s_rama_n_mode], Str[R.string.s_force_it_on_to_see_suhoor]) {

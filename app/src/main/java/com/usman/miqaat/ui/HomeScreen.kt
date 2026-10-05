@@ -184,7 +184,7 @@ fun HomeScreen(
                     }
                     val heroWords = (if (state.justPassed) "${L10n.prayer(settings, state.hero)} was at " else "Next prayer ${L10n.prayer(settings, state.hero)} at ") +
                         PrayerEngine.clock(state.heroTime, settings.use24h) + " " + PrayerEngine.suffix(state.heroTime, settings.use24h) + ", " +
-                        (if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inFor(settings, state.delta))
+                        (if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inForState(settings, state))
                     FitHeight(Modifier.fillMaxSize()) { Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.semantics(mergeDescendants = true) { contentDescription = heroWords; heading() }) {
                         val kicker = when {
                             eidMorning -> "ʿĪd mubārak · اللهُ أكبر اللهُ أكبر لا إله إلا الله"
@@ -313,7 +313,7 @@ private fun IconChip(icon: ImageVector, u: Dp, onClick: () -> Unit, label: Strin
 @Composable
 private fun StatePill(state: PrayerState, u: Dp, settings: AppSettings) {
     val dot = if (state.justPassed) Palette.mint else Palette.gold
-    val text = if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inFor(settings, state.delta)
+    val text = if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inForState(settings, state)
     Row(
         Modifier.padding(top = u * 1f).clip(RoundedCornerShape(50)).background(Color.Black.copy(alpha = 0.28f))
             .border(1.dp, Color.White.copy(alpha = 0.15f), RoundedCornerShape(50)).padding(horizontal = u * 1.8f, vertical = u * 0.65f),

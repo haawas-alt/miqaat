@@ -196,7 +196,7 @@ private fun Hero(state: PrayerState, s: AppSettings, u: Dp, kiswah: Boolean, ara
     val k = kicker(state, s)
     val name = (if (isFri && state.hero == Prayer.DHUHR) L10n.word(s, "Jumuʿah") else L10n.prayer(s, state.hero))
     val status = buildString {
-        append(if (state.justPassed) L10n.ago(s, state.delta).replaceFirstChar { it.uppercase() } else L10n.inFor(s, state.delta).replaceFirstChar { it.uppercase() })
+        append(if (state.justPassed) L10n.ago(s, state.delta).replaceFirstChar { it.uppercase() } else L10n.inForState(s, state).replaceFirstChar { it.uppercase() })
         state.current?.let { cur -> PrayerEngine.iqamah(s, state.today, cur)?.takeIf { it.isAfter(state.now) }?.let { iq -> append("  ·  ${L10n.word(s, "Iqamah")} ${PrayerEngine.clock(iq, s.use24h)}") } }
     }
     val words = "$name, ${PrayerEngine.clock(state.heroTime, s.use24h)} ${PrayerEngine.suffix(state.heroTime, s.use24h)}, $status"

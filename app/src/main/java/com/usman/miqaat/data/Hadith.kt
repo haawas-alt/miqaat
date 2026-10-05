@@ -139,11 +139,20 @@ object HadithLibrary {
     )
 
     /** One per azaan, no repeats until the whole set has been shown. */
-    fun next(ctx: Context): Hadith {
+    /** Narrations that are specifically about Fajr and ʿAṣr: they are only offered after those two prayers, so the "hadith after Dhuhr" heading is never contradicted by the text. */
+    /** Entries whose own text is a narrative about the Prophet ﷺ (ids 7 and 19), not his direct words. */
+    val narrativeFraming = setOf(7, 19)
+
+    private val fajrAsrOnly = setOf(33)
+
+    fun eligible(h: Hadith, prayer: Prayer?): Boolean = h.id !in fajrAsrOnly || prayer == null || prayer == Prayer.FAJR || prayer == Prayer.ASR
+
+    fun next(ctx: Context, prayer: Prayer? = null): Hadith {
         val prefs = ctx.getSharedPreferences("miqaat_hadith", Context.MODE_PRIVATE)
         val seen = prefs.getString("seen", "")!!.split(',').mapNotNull { it.toIntOrNull() }.toMutableList()
-        var pool = all.filter { it.id !in seen }
-        if (pool.isEmpty()) { seen.clear(); pool = all }
+        val allowed = all.filter { eligible(it, prayer) }
+        var pool = allowed.filter { it.id !in seen }
+        if (pool.isEmpty()) { seen.clear(); pool = allowed }
         val pick = pool.random()
         seen += pick.id
         prefs.edit().putString("seen", seen.joinToString(",")).putInt("last", pick.id).apply()

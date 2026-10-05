@@ -148,7 +148,7 @@ fun KiswahHome(
                         val suf = PrayerEngine.suffix(state.heroTime, settings.use24h)
                         if (suf.isNotEmpty()) Text(suf, fontFamily = Cinzel, fontSize = fs(2.8f), letterSpacing = fs(0.2f), color = Color(0xFFE3C36A), modifier = Modifier.padding(start = u * 0.8f, top = u * 2))
                     }
-                    val pill = if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inFor(settings, state.delta)
+                    val pill = if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inForState(settings, state)
                     Box(Modifier.padding(top = u * 0.8f)) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             GoldRule(u * 26, u)

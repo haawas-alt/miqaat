@@ -254,8 +254,10 @@ private fun QuietBody(p: Phase.Quiet, u: Dp, onStop: () -> Unit) {
         Modifier.fillMaxSize().background(Color(0xFF05090F)).clickable(onClick = onStop),
         horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
     ) {
-        val t = java.time.LocalTime.now()
-        Text("%d:%02d".format(if (t.hour % 12 == 0) 12 else t.hour % 12, t.minute), fontFamily = Cormorant, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 12f).sp, color = Palette.textMuted)
+        val st = com.usman.miqaat.MiqaatApp.instance.settings.value
+        val t = java.time.ZonedDateTime.ofInstant(java.time.Instant.ofEpochMilli(now), st.zone())
+        Text(com.usman.miqaat.data.PrayerEngine.clock(t, st.use24h), fontFamily = Cormorant, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 12f).sp, color = Palette.textMuted)
+        if (!st.use24h) Text(com.usman.miqaat.data.PrayerEngine.suffix(t, false), fontFamily = Nunito, fontSize = (u.value * 2.2f).sp, letterSpacing = (u.value * 0.2f).sp, color = Palette.textMuted)
         Text(p.prayer.arabic, fontFamily = Amiri, fontSize = (u.value * 3.4f).sp, color = Color(0xFFF6E7B8).copy(alpha = 0.5f))
         val left = ((p.endsAt - now).coerceAtLeast(0) / 60_000) + 1
         Text(Str.get(R.string.s_in_prayer_wake, left.toInt()), fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.08f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 2))
@@ -268,9 +270,10 @@ private fun HadithBody(p: Phase.HadithPhase, u: Dp) {
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Kicker(Str.get(R.string.s_hadith_after_prayer, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, p.prayer)) + " · " + p.hadith.source, u)
         val long = p.hadith.arabic.length > 110
-        Arabic("قَالَ رَسُولُ اللَّهِ ﷺ: " + p.hadith.arabic, u, size = if (long) 3.3f else 4f)
+        val narrative = p.hadith.id in com.usman.miqaat.data.HadithLibrary.narrativeFraming   // text already names the speaker ("a man said to the Prophet"), so no second "The Messenger said:"
+        Arabic((if (narrative) "" else "قَالَ رَسُولُ اللَّهِ ﷺ: ") + p.hadith.arabic, u, size = if (long) 3.3f else 4f)
         if (L10n.uiUrdu) Text(Str[R.string.s_english_translation], fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary)
-        Translation("The Messenger of Allah ﷺ said: “${p.hadith.english}”", u, size = if (p.hadith.english.length > 160) 2f else 2.35f)
+        Translation(if (narrative) p.hadith.english else "The Messenger of Allah ﷺ said: “${p.hadith.english}”", u, size = if (p.hadith.english.length > 160) 2f else 2.35f)
         Source(Str.get(R.string.s_narrated_by, p.hadith.narrator) + "  ·  " + p.hadith.source, u)
     }
 }

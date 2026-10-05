@@ -163,7 +163,7 @@ fun PortraitHome(
                         val suf = PrayerEngine.suffix(state.heroTime, settings.use24h)
                         if (suf.isNotEmpty()) Text(" $suf", fontFamily = numFont, fontSize = fd(6f), color = ivory, modifier = Modifier.padding(top = u * 3))
                     }
-                    val pill = if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inFor(settings, state.delta)
+                    val pill = if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inForState(settings, state)
                     Row(
                         Modifier.padding(top = u * 2).clip(RoundedCornerShape(50)).background(Color.Black.copy(alpha = 0.28f)).border(1.dp, Color.White.copy(alpha = 0.15f), RoundedCornerShape(50)).padding(horizontal = u * 4, vertical = u * 1.6f),
                         verticalAlignment = Alignment.CenterVertically

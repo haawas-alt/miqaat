@@ -615,6 +615,7 @@
     <string name="s_clock_24h">24-hour</string>
     <string name="s_iqamah_test_detail">The whole iqamah flow, starting with a %1$d-second countdown</string>
     <string name="s_quiet_test_detail">Shows the in-prayer screen for %1$d min; tap it to leave</string>
+    <string name="s_quiet_test_detail_off">Quiet screen is off in Settings; this test shows it for 1 min. Tap it to leave</string>
     <string name="s_log_last7">Last 7 days · %1$d played</string>
     <string name="s_log_late"> · %1$d late</string>
     <string name="s_log_missed"> · %1$d missed</string>

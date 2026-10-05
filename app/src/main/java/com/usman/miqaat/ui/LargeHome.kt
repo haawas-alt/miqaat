@@ -51,7 +51,7 @@ fun LargeHome(state: PrayerState, settings: AppSettings, onTap: () -> Unit) {
                 val suf = PrayerEngine.suffix(state.heroTime, settings.use24h)
                 if (suf.isNotEmpty()) Text(" $suf", fontFamily = if (kiswah) Cinzel else Cormorant, fontSize = fs(5f), color = tk.contentPrimary, modifier = Modifier.padding(top = u * 4))
             }
-            Text(if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inFor(settings, state.delta), fontFamily = if (urdu) Nastaliq else Nunito, fontSize = fs(3.6f), fontWeight = FontWeight.Bold, color = gold, textAlign = TextAlign.Center)
+            Text(if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inForState(settings, state), fontFamily = if (urdu) Nastaliq else Nunito, fontSize = fs(3.6f), fontWeight = FontWeight.Bold, color = gold, textAlign = TextAlign.Center)
             state.current?.let { cur ->
                 PrayerEngine.iqamah(settings, state.today, cur)?.takeIf { it.isAfter(state.now) }?.let { iq ->
                     Text(L10n.iqamahIn(settings, java.time.Duration.between(state.now, iq)), fontFamily = if (urdu) Nastaliq else Nunito, fontSize = fs(2.6f), color = tk.contentPrimary.copy(alpha = 0.85f), modifier = Modifier.padding(top = u * 1))

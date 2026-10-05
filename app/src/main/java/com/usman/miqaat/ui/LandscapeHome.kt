@@ -148,7 +148,7 @@ fun LandscapeHome(
                             if (!kiswah && settings.artTheme != com.usman.miqaat.data.ArtTheme.MINIMAL) MihrabArch(Modifier.fillMaxHeight(0.98f).aspectRatio(0.96f, matchHeightConstraintsFirst = true))
                             val heroWords = (if (state.justPassed) "${L10n.prayer(settings, state.hero)} was at " else "Next prayer ${L10n.prayer(settings, state.hero)} at ") +
                                 PrayerEngine.clock(state.heroTime, settings.use24h) + " " + PrayerEngine.suffix(state.heroTime, settings.use24h) + ", " +
-                                (if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inFor(settings, state.delta))
+                                (if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inForState(settings, state))
                             FitHeight(Modifier.fillMaxSize()) {
                                 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.semantics(mergeDescendants = true) { contentDescription = heroWords; heading() }) {
                                     Text(state.hero.arabic, fontFamily = arabicFont, fontSize = fd(if (kiswah) 11f else 14f), lineHeight = fd(15f), color = Color(0xFFF6E7B8))
@@ -162,7 +162,7 @@ fun LandscapeHome(
                                         val suf = PrayerEngine.suffix(state.heroTime, settings.use24h)
                                         if (suf.isNotEmpty()) Text(" $suf", fontFamily = numFont, fontSize = fd(6f), color = ivory, modifier = Modifier.padding(top = u * 3))
                                     }
-                                    val pill = if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inFor(settings, state.delta)
+                                    val pill = if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inForState(settings, state)
                                     Row(
                                         Modifier.padding(top = u * 1.2f).clip(RoundedCornerShape(50)).background(Color.Black.copy(alpha = if (kiswah) 0.35f else 0.28f)).border(1.dp, gold.copy(alpha = 0.35f), RoundedCornerShape(50)).padding(horizontal = u * 4, vertical = u * 1.3f),
                                         verticalAlignment = Alignment.CenterVertically

@@ -615,6 +615,7 @@
     <string name="s_clock_24h">24 گھنٹے</string>
     <string name="s_iqamah_test_detail">اقامت کا پورا عمل، %1$d سیکنڈ کی الٹی گنتی سے شروع</string>
     <string name="s_quiet_test_detail">%1$d منٹ کے لیے نماز کی خاموش سکرین دکھاتا ہے؛ نکلنے کے لیے چھوئیں</string>
+    <string name="s_quiet_test_detail_off">سکون سکرین ترتیبات میں بند ہے؛ یہ آزمائش اسے 1 منٹ دکھائے گی۔ چھوڑنے کے لیے اسے چھوئیں</string>
     <string name="s_log_last7">پچھلے 7 دن · %1$d چلیں</string>
     <string name="s_log_late"> · %1$d تاخیر سے</string>
     <string name="s_log_missed"> · %1$d رہ گئیں</string>

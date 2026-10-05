@@ -49,6 +49,12 @@ object L10n {
     fun iso(t: String): String = "\u2068" + t + "\u2069"
 
     fun inFor(s: AppSettings, d: Duration) = if (isUrdu(s)) "${duration(s, d)} باقی" else "in ${PrayerEngine.humanDuration(d)}"
+    /** Countdown to the hero prayer; says "tomorrow" when that prayer is on the next calendar day (after Isha), so a 5:01 hero beside a 5:03 list row is explained. */
+    fun inForState(s: AppSettings, st: PrayerState): String {
+        val base = inFor(s, st.delta)
+        val tomorrow = !st.justPassed && st.heroTime.toLocalDate() != st.now.toLocalDate()
+        return if (!tomorrow) base else if (isUrdu(s)) "کل · $base" else "$base · tomorrow"
+    }
     fun ago(s: AppSettings, d: Duration) = if (isUrdu(s)) "اذان ${duration(s, d)} پہلے" else "azaan was ${PrayerEngine.humanDuration(d)} ago"
     fun relative(s: AppSettings, t: ZonedDateTime, now: ZonedDateTime) =
         if (t.isAfter(now)) (if (isUrdu(s)) "${duration(s, Duration.between(now, t))} باقی" else "in " + PrayerEngine.humanDuration(Duration.between(now, t)))
