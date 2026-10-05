@@ -148,12 +148,12 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                                 Text(buildAnnotatedString {
                                     append(row.label)
                                     if (selected) withStyle(SpanStyle(color = if (gallery) tk.accent else tk.primary, fontWeight = FontWeight.Bold, fontSize = if (short) 12.sp else TextUnit.Unspecified)) {
-                                        append((if (short) "\n" else " · ") + L10n.word(settings, if (row.isNow) "NOW" else "NEXT"))
+                                        append((if (short && !urdu) "\n" else " · ") + L10n.word(settings, if (row.isNow) "NOW" else "NEXT"))
                                     }
                                 },
                                     Modifier.weight(1f).padding(horizontal = 8.dp).testTag("landscape-row-name-${prayer.name}"),
-                                    fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (urdu) 17.sp else if (short) 18.sp else 21.sp,
-                                    color = ink, maxLines = if (short && selected) 2 else 1, lineHeight = if (short && selected) 20.sp else TextUnit.Unspecified)
+                                    fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (urdu && short) 12.sp else if (urdu) 17.sp else if (short) 18.sp else 21.sp,
+                                    color = ink, maxLines = if (short && selected && !urdu) 2 else 1, lineHeight = if (short && selected && !urdu) 20.sp else TextUnit.Unspecified)
                                 Text(L10n.iso(if (settings.showRelative) row.relative else "${row.clock} ${row.suffix}".trim()),
                                     Modifier.width(if (urdu && settings.showRelative) 140.dp else if (urdu) 104.dp else if (settings.showRelative) 112.dp else 104.dp).testTag("landscape-row-time-${prayer.name}"), fontFamily = font,
                                     fontWeight = FontWeight.Medium, fontSize = if (urdu && settings.showRelative) 14.sp else if (urdu) 15.sp else if (settings.showRelative) 17.sp else 20.sp,
