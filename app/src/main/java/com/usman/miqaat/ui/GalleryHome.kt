@@ -106,7 +106,7 @@ private fun GalleryWide(state: PrayerState, s: AppSettings, a: HomeActions, tk: 
 
 @Composable
 private fun GalleryHeader(s: AppSettings, a: HomeActions, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, modifier: Modifier) {
-    fun fs(x: Float) = (u.value * x).sp
+    fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp
     // Phone: the three destinations become icon-only and the location takes the leftover width, so Settings is never pushed off screen.
     val narrow = androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp < 600
     Row(modifier, verticalAlignment = Alignment.CenterVertically) {
@@ -153,7 +153,7 @@ private fun GalleryNav(icon: ImageVector, label: String, description: String, tk
 
 @Composable
 private fun GalleryDate(state: PrayerState, s: AppSettings, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, modifier: Modifier) {
-    fun fs(x: Float) = (u.value * x).sp
+    fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp
     val hij = PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)
     Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(L10n.date(s, state.now), fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium, fontSize = fs(2.6f), color = tk.contentPrimary, maxLines = 1, textAlign = TextAlign.Center)
@@ -164,7 +164,7 @@ private fun GalleryDate(state: PrayerState, s: AppSettings, tk: ThemeTokens, u: 
 @Composable
 private fun GalleryHeroLeft(hero: HeroInfo, state: PrayerState, s: AppSettings, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, scale: Float = 1f) {
     val density = LocalDensity.current
-    fun fs(x: Float) = (u.value * x * scale).sp
+    fun fs(x: Float) = maxOf(u.value * x * scale, MIN_SP).sp
     fun fd(x: Float) = with(density) { (u * x * scale).toSp() }
     Column(Modifier.semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
         hero.special?.let { Text(it, fontFamily = Nunito, fontSize = fs(1.5f), fontWeight = FontWeight.Bold, color = tk.accent, modifier = Modifier.padding(bottom = u * 0.5f)) }
@@ -212,7 +212,7 @@ private fun GalleryHeroRight(hero: HeroInfo, tk: ThemeTokens, u: Dp, F: FontFami
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun GalleryCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, onToggle: () -> Unit, modifier: Modifier, onWhy: () -> Unit) {
-    fun fs(x: Float) = (u.value * x).sp
+    fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp
     val selected = r.isNow || r.isNext
     val ink = if (selected) tk.primary else tk.contentPrimary
     Box(

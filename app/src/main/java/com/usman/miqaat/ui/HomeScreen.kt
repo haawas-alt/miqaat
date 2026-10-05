@@ -99,7 +99,7 @@ fun HomeScreen(
         // Phone in landscape (≈410 dp tall): the tablet arrangement cannot fit, so the page scrolls, the hero gets a
         // fixed height, the arch and sun arc give way to the thin day thread, and the signature moves in-line.
         val short = maxHeight < 480.dp
-        fun fs(x: Float): TextUnit = (u.value * x).sp
+        fun fs(x: Float): TextUnit = maxOf(u.value * x, MIN_SP).sp
         val density = androidx.compose.ui.platform.LocalDensity.current
         fun fd(x: Float): TextUnit = with(density) { (u * x).toSp() }   // display sizes: screen-scaled, not font-scaled
         val sky = skyFor(state.period)
@@ -187,7 +187,7 @@ fun HomeScreen(
                         (if (state.justPassed) L10n.ago(settings, state.delta) else L10n.inForState(settings, state))
                     FitHeight(Modifier.fillMaxSize()) { Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.semantics(mergeDescendants = true) { contentDescription = heroWords; heading() }) {
                         val kicker = when {
-                            eidMorning -> "ʿĪd mubārak · اللهُ أكبر اللهُ أكبر لا إله إلا الله"
+                            eidMorning -> "ʿĪd mubārak · اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ، لاَ إِلَهَ إِلاَّ اللَّهُ"
                             oddNight -> "Ramaḍān ${hij.day} · an odd night · seek Laylat al-Qadr"
                             ramadan && state.current == null -> "Ramaḍān · Suhoor ends at Fajr"
                             ramadan && state.hero == Prayer.MAGHRIB && !state.justPassed -> "Ramaḍān · Iftar"

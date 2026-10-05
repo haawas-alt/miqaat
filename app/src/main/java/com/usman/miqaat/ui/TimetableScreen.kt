@@ -66,8 +66,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
 
     val hStart = PrayerEngine.hijri(ym.atDay(1), settings.hijriOffsetDays)
     val hEnd = PrayerEngine.hijri(ym.atEndOfMonth(), settings.hijriOffsetDays)
-    val hijriRange = if (hStart.month == hEnd.month) "${hStart.english.substringAfter(' ')}" else
-        "${hStart.english.substringAfter(' ').substringBeforeLast(' ')} – ${hEnd.english.substringAfter(' ')}"
+    val hijriRange = L10n.hijriRange(settings, hStart, hEnd)
 
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
     val fontScale = androidx.compose.ui.platform.LocalDensity.current.fontScale
@@ -82,7 +81,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
             IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
             Column(Modifier.weight(1f).padding(start = 4.dp)) {
                 Row(verticalAlignment = Alignment.Bottom) {
-                    Text(ym.format(DateTimeFormatter.ofPattern(if (compact) "MMM yyyy" else "MMMM yyyy", Locale.ENGLISH)), fontFamily = Cormorant, fontSize = if (compact) 26.sp else 38.sp, color = tk.contentPrimary, lineHeight = 40.sp)
+                    Text(L10n.monthYear(settings, ym, compact), fontFamily = Cormorant, fontSize = if (compact) 26.sp else 38.sp, color = tk.contentPrimary, lineHeight = 40.sp)
                     if (settings.showHijri && wide) Text("   $hijriRange", fontFamily = Amiri, fontSize = 22.sp, color = tk.accent, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false).padding(bottom = 6.dp))
                 }
                 Text(
@@ -96,7 +95,9 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
         Spacer(Modifier.padding(6.dp))
 
         val ramadanMonth = days.any { PrayerEngine.isRamadan(settings, it.date) }
-        val cols = if (ramadanMonth) listOf("Date", "Hijri", "Fajr · Suhoor", "Sunrise", "Dhuhr", "Asr", "Maghrib · Iftar", "Isha")
+        val ur = L10n.isUrdu(settings)
+        val cols = if (ur) listOf("تاریخ", "ہجری", if (ramadanMonth) "فجر · سحری" else "فجر", "طلوعِ آفتاب", "ظہر", "عصر", if (ramadanMonth) "مغرب · افطار" else "مغرب", "عشاء")
+                   else if (ramadanMonth) listOf("Date", "Hijri", "Fajr · Suhoor", "Sunrise", "Dhuhr", "Asr", "Maghrib · Iftar", "Isha")
                    else listOf("Date", "Hijri", "Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha")
         val weights = listOf(1.5f, 1.2f, 1f, 1f, 1f, 1f, 1f, 1f)
         val shape = RoundedCornerShape(14.dp)
@@ -133,8 +134,8 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                     ) {
                         cells { i, m ->
                             when (i) {
-                                0 -> Text(d.date.format(DateTimeFormatter.ofPattern("EEE d", Locale.ENGLISH)), m, fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal, color = color, maxLines = 1)
-                                1 -> Text(h.short + (if (h.isRamadan) " ☾" else ""), m, fontFamily = Nunito, fontSize = 14.sp, color = color, maxLines = 1)
+                                0 -> Text(L10n.dayCell(settings, d.date), m, fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal, color = color, maxLines = 1)
+                                1 -> Text(L10n.hijriShort(settings, h) + (if (h.isRamadan) " ☾" else ""), m, fontFamily = Nunito, fontSize = 14.sp, color = color, maxLines = 1)
                                 else -> { val p = Prayer.entries[i - 2]; Text(PrayerEngine.clock(d[p], settings.use24h), m, fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal, color = color, maxLines = 1) }
                             }
                         }

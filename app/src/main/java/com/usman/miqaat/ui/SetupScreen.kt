@@ -155,7 +155,9 @@ private fun PlaceStep(store: SettingsStore, s: AppSettings, onBack: () -> Unit, 
         }
     }
 
-    Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
+    // FlowRow: at large text sizes the caption drops under the button instead of being squeezed into a one-word-wide column.
+    @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+    androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         GoldButton(if (busy) Str[R.string.s_detecting] else Str[R.string.s_use_my_location], enabled = !busy) {
             if (LocationRepo.hasPermission(ctx)) runDetect() else permission.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
         }

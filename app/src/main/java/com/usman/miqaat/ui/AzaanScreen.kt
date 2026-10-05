@@ -271,9 +271,10 @@ private fun HadithBody(p: Phase.HadithPhase, u: Dp) {
         Kicker(Str.get(R.string.s_hadith_after_prayer, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, p.prayer)) + " · " + p.hadith.source, u)
         val long = p.hadith.arabic.length > 110
         val narrative = p.hadith.id in com.usman.miqaat.data.HadithLibrary.narrativeFraming   // text already names the speaker ("a man said to the Prophet"), so no second "The Messenger said:"
-        Arabic((if (narrative) "" else "قَالَ رَسُولُ اللَّهِ ﷺ: ") + p.hadith.arabic, u, size = if (long) 3.3f else 4f)
+        val qudsi = p.hadith.id in com.usman.miqaat.data.HadithLibrary.qudsiFraming
+        Arabic((if (narrative) "" else if (qudsi) "قَالَ رَسُولُ اللَّهِ ﷺ: يَقُولُ اللَّهُ تَعَالَى: " else "قَالَ رَسُولُ اللَّهِ ﷺ: ") + p.hadith.arabic, u, size = if (long) 3.3f else 4f)
         if (L10n.uiUrdu) Text(Str[R.string.s_english_translation], fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary)
-        Translation(if (narrative) p.hadith.english else "The Messenger of Allah ﷺ said: “${p.hadith.english}”", u, size = if (p.hadith.english.length > 160) 2f else 2.35f)
+        Translation(if (narrative) p.hadith.english else if (qudsi) "The Messenger of Allah ﷺ said: ${p.hadith.english}" else "The Messenger of Allah ﷺ said: “${p.hadith.english}”", u, size = if (p.hadith.english.length > 160) 2f else 2.35f)
         Source(Str.get(R.string.s_narrated_by, p.hadith.narrator) + "  ·  " + p.hadith.source, u)
     }
 }

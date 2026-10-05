@@ -129,7 +129,7 @@ internal fun kicker(state: PrayerState, s: AppSettings): String? {
     val oddNight = ramadan && hij.day >= 20 && hij.day % 2 == 1 && (state.current == Prayer.MAGHRIB || state.current == Prayer.ISHA)
     val isFri = state.now.dayOfWeek == java.time.DayOfWeek.FRIDAY && s.jumuahEnabled
     return when {
-        eidMorning -> "ʿĪd mubārak · اللهُ أكبر اللهُ أكبر لا إله إلا الله"
+        eidMorning -> "ʿĪd mubārak · اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ، لاَ إِلَهَ إِلاَّ اللَّهُ"
         oddNight -> "Ramaḍān ${hij.day} · an odd night · seek Laylat al-Qadr"
         ramadan && state.current == null -> "Ramaḍān · Suhoor ends at Fajr"
         ramadan && state.hero == Prayer.MAGHRIB && !state.justPassed -> "Ramaḍān · Iftar"
@@ -143,7 +143,7 @@ internal fun kicker(state: PrayerState, s: AppSettings): String? {
 
 @Composable
 private fun Header(state: PrayerState, s: AppSettings, a: HomeActions, u: Dp, gold: Color, ivory: Color, kiswah: Boolean, F: FontFamily, urdu: Boolean) {
-    fun fs(x: Float) = (u.value * x).sp
+    fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp
     val hij = PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Row(
@@ -189,7 +189,7 @@ private fun HdrIcon(icon: androidx.compose.ui.graphics.vector.ImageVector, u: Dp
 @Composable
 private fun Hero(state: PrayerState, s: AppSettings, u: Dp, kiswah: Boolean, arabicFont: FontFamily, numFont: FontFamily, F: FontFamily, urdu: Boolean, gold: Color, ivory: Color, scale: Float = 1f) {
     val density = androidx.compose.ui.platform.LocalDensity.current
-    fun fs(x: Float) = (u.value * x * scale).sp
+    fun fs(x: Float) = maxOf(u.value * x * scale, MIN_SP).sp
     fun fd(x: Float) = with(density) { (u * x * scale).toSp() }
     val isFri = state.now.dayOfWeek == java.time.DayOfWeek.FRIDAY && s.jumuahEnabled
     val ramadan = PrayerEngine.isRamadan(s, state.now.toLocalDate())
@@ -237,7 +237,7 @@ private fun TimeRow(
     p: Prayer, state: PrayerState, s: AppSettings, u: Dp, kiswah: Boolean, arabicFont: FontFamily, numFont: FontFamily, F: FontFamily, urdu: Boolean, gold: Color, ivory: Color,
     onToggle: () -> Unit, onWhy: () -> Unit, modifier: Modifier
 ) {
-    fun fs(x: Float) = (u.value * x).sp
+    fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp
     val t = state.today[p]
     val isFri = state.now.dayOfWeek == java.time.DayOfWeek.FRIDAY && s.jumuahEnabled
     val label = if (isFri && p == Prayer.DHUHR) L10n.word(s, "Jumuʿah") else L10n.prayer(s, p)
@@ -421,7 +421,7 @@ fun CourtyardHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
     why?.let { WhyDialog(settings, state.today, it) { why = null } }
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val u: Dp = minOf(maxWidth / 100, maxHeight / 60)
-        fun fs(x: Float) = (u.value * x).sp
+        fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp
         val F = uiFont(settings); val urdu = L10n.isUrdu(settings)
         val gold = Kiswah.threadSoft; val ivory = Kiswah.ivory
         val dim = settings.nightDim && state.period == Prayer.ISHA && !state.justPassed

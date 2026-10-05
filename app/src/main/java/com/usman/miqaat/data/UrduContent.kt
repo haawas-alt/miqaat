@@ -7,7 +7,7 @@ object UrduContent {
     val dhikrTitles = mapOf(
         "kursi" to "آیت الکرسی", "ikhlas" to "سورۃ الاخلاص", "falaq" to "سورۃ الفلق", "nas" to "سورۃ الناس",
         "asbahna" to "صبح کی دعا", "amsayna" to "شام کی دعا", "sayyid" to "سید الاستغفار",
-        "bika" to "صبح کی دعا", "bika_e" to "شام کی دعا", "bismillah" to "بسم اللہ الذی",
+        "bika" to "اللہم بک اصبحنا", "bika_e" to "اللہم بک امسینا", "bismillah" to "بسم اللہ الذی",
         "radeetu" to "رضیت باللہ", "afini" to "عافیت کی دعا", "audhu" to "اللہ کی پناہ",
         "tahlil" to "لا الٰہ الا اللہ", "tasbih" to "سبحان اللہ وبحمدہ", "salawat" to "درود و سلام",
         "pp_istighfar" to "استغفار", "pp_salam" to "اللہم انت السلام", "pp_tahlil" to "توحید کی دعا",

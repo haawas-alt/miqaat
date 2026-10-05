@@ -24,7 +24,7 @@
     <string name="s_search_a_suburb_or_city">علاقہ یا شہر تلاش کریں</string>
     <string name="s_times_shown_in_the_device_s">" · اوقات ڈیوائس کے ٹائم زون میں دکھائے گئے"</string>
     <string name="s_travelling">سفر</string>
-    <string name="s_set_home_to_here">یہاں گھر سیٹ کریں</string>
+    <string name="s_set_home_to_here">گھر کا مقام یہاں مقرر کریں</string>
     <string name="s_set_home">گھر مقرر کریں</string>
     <string name="s_traveller_mode">مسافر موڈ</string>
     <string name="s_when_you_are_80_km_or">جب آپ گھر سے 80 کلومیٹر یا زیادہ دور ہوں تو ہوم اسکرین پر سفر کا نشان دکھائی دیتا ہے۔ اوقات ہمیشہ موجودہ جگہ کے مطابق ہوتے ہیں۔ میقات آپ کے لیے نمازیں قصر یا جمع نہیں کرتا — قصر اور جمع کے احکام آپ کے سفر اور مسلک پر منحصر ہیں؛ اپنے امام سے پوچھیں۔</string>
@@ -55,7 +55,7 @@
     <string name="s_high_latitude_rule">بلند عرضِ بلد کا قاعدہ</string>
     <string name="s_only_matters_above_48_latitude">صرف 48° عرضِ بلد سے اوپر اہم ہے</string>
     <string name="s_show_end_times">اختتامی اوقات دکھائیں</string>
-    <string name="s_ends_5_57_under_each_prayer">ہر نماز کے نیچے \"ختم 5:57\"۔ عشاء کا اختتام نصف شبِ شرعی پر دکھایا جاتا ہے جو بہت سے علماء کے نزدیک مختار وقت ہے؛ دیگر کے نزدیک فجر تک باقی رہتا ہے — اپنے امام سے پوچھیں۔</string>
+    <string name="s_ends_5_57_under_each_prayer">ہر نماز کے نیچے \"اختتام 5:57\"۔ عشاء کا اختتام نصف شبِ شرعی پر دکھایا جاتا ہے جو بہت سے علماء کے نزدیک مختار وقت ہے؛ دیگر کے نزدیک فجر تک باقی رہتا ہے — اپنے امام سے پوچھیں۔</string>
     <string name="s_show_disliked_times_for_voluntary_prayer">نفل نماز کے مکروہ اوقات دکھائیں</string>
     <string name="s_a_thin_day_bar_marking_approximate">دن کی ایک باریک پٹی جو تخمینی اوقات دکھاتی ہے: طلوعِ آفتاب کے بعد تقریباً 15 منٹ، زوال کے قریب تقریباً 10 منٹ، اور عصر کے بعد۔ یہ محتاط تخمینے ہیں اور مسالک کی تفصیلات مختلف ہیں۔ کسی بھی نماز پر ⓘ دبائیں: \"یہ وقت کیوں؟\"</string>
     <string name="s_show_sunrise_on_the_home_screen">ہوم اسکرین پر طلوعِ آفتاب دکھائیں</string>
@@ -67,7 +67,7 @@
     <string name="s_use_a_jumu_ah_time_on">جمعے کے دن جمعہ کا وقت استعمال کریں</string>
     <string name="s_replaces_dhuhr_on_fridays_for_the">جمعے کے دن ڈسپلے اور اذان میں ظہر کی جگہ لیتا ہے</string>
     <string name="s_jumu_ah_azaan_time">جمعہ کی اذان کا وقت</string>
-    <string name="s_your_masjid_s_first_azaan_adjust">آپ کی مسجد کی پہلی اذان؛ 5 منٹ کے قدموں میں بدلیں</string>
+    <string name="s_your_masjid_s_first_azaan_adjust">آپ کی مسجد کی پہلی اذان؛ 5 منٹ کے وقفوں میں بدلیں</string>
     <string name="s_friday_reminders">جمعہ کی یاد دہانیاں</string>
     <string name="s_a_jumu_ah_chip_from_thursday">جمعرات کی مغرب سے جمعے کی مغرب تک جمعہ کا نشان جو جمعے کا معمول کھولتا ہے: سورۃ الکہف، درود، قبولیت کی گھڑی</string>
     <string name="s_hour_of_acceptance_reminder">قبولیت کی گھڑی کی یاد دہانی</string>
@@ -178,7 +178,7 @@
     <string name="s_github">گٹ ہب</string>
     <string name="s_delivered_by_google_play_miqaat_itself">گوگل پلے کے ذریعے فراہم۔ میقات خود اپ ڈیٹ کی کوئی درخواست نہیں کرتا۔</string>
     <string name="s_the_dua_and_hadith_recordings_are">دعا اور حدیث کی ریکارڈنگز ایپ کے اندر ہیں۔ ڈیوائس کی اپنی ٹیکسٹ ٹو اسپیچ صرف اس وقت استعمال ہوتی ہے جب ریکارڈنگ موجود نہ ہو۔</string>
-    <string name="s_health_log_adhk_r_counts_friday">لاگ، اذکار کی گنتی، جمعہ ٹریکر</string>
+    <string name="s_health_log_adhk_r_counts_friday">کارکردگی کا لاگ، اذکار کی گنتی، جمعہ ٹریکر</string>
     <string name="s_stored_in_the_app_s_private">اس ڈیوائس پر ایپ کے نجی اسٹوریج میں محفوظ۔ اَن انسٹال کرنے پر مٹ جاتا ہے۔</string>
     <string name="s_analytics_advertising_accounts_crash_reporting">تجزیات، اشتہارات، اکاؤنٹس، کریش رپورٹنگ</string>
     <string name="s_none_there_is_no_miqaat_server">کچھ نہیں۔ میقات کا کوئی سرور نہیں۔</string>
@@ -192,7 +192,7 @@
     <string name="s_off_your_settings_are_never_copied">بند۔ آپ کی ترتیبات کبھی کلاؤڈ بیک اپ میں نہیں جاتیں؛ اس کے بجائے قابلِ اعتماد اور بیک اپ میں ترتیبات کی فائل استعمال کریں۔</string>
     <string name="s_source_code">سورس کوڈ</string>
     <string name="s_github_com_haawas_alt_miqaat_builds">github.com/haawas-alt/miqaat · بلڈز گٹ ہب ایکشنز کے ذریعے عوامی سورس سے بنائے جاتے ہیں اور نجی کلید سے دستخط ہوتے ہیں۔</string>
-    <string name="s_open">کھلا</string>
+    <string name="s_open">کھولیں</string>
     <string name="s_dates_follow_the_umm_al_qura">تاریخیں امّ القریٰ کیلنڈر کے مطابق ہیں۔ اگر آپ کی مقامی کمیونٹی کی رؤیتِ ہلال مختلف ہو تو ایک دن آگے پیچھے کریں۔</string>
     <string name="s_show_hijri_date">ہجری تاریخ دکھائیں</string>
     <string name="s_on_the_home_screen_and_timetable">ہوم اسکرین اور ٹائم ٹیبل پر</string>
@@ -202,14 +202,14 @@
     <string name="s_moon_sighted_new_month_tomorrow">چاند نظر آ گیا · کل نیا مہینہ</string>
     <string name="s_not_sighted_complete_30_days">نظر نہیں آیا · 30 دن پورے کریں</string>
     <string name="s_this_shifts_the_hijri_date_by">یہ ہجری تاریخ کو ایک دن بدل دیتا ہے؛ رمضان موڈ اور جمعہ/عید کی خصوصیات اسی کے مطابق چلتی ہیں۔</string>
-    <string name="s_how_miqaat_looks_on_the_wall">میقات کیسا دکھتا ہے، دیوار پر یا آپ کے ہاتھ میں۔</string>
+    <string name="s_how_miqaat_looks_on_the_wall">میقات کیسا نظر آتا ہے، دیوار پر یا آپ کے ہاتھ میں۔</string>
     <string name="s_changes_the_home_screen_and_the">ہوم اسکرین اور اذان کی اسکرینیں فوراً بدل جاتی ہیں؛ دیکھنے کے لیے گھڑی پر واپس جائیں</string>
     <string name="s_language">زبان</string>
     <string name="s_home_screen_and_widget_urdu_is">پوری ایپ۔ جہاں فونٹ دستیاب ہو، اردو نستعلیق میں دکھائی جاتی ہے؛ پوری ترتیب دائیں سے بائیں ہو جاتی ہے۔</string>
-    <string name="s_large_type">بڑا خط</string>
-    <string name="s_one_prayer_one_time_one_line">ایک نماز، ایک وقت، ایک سطر، بڑے کمرے کے آر پار پڑھنے کے قابل۔ 25 سیکنڈ کے لیے سب کچھ دیکھنے کو اسکرین چھوئیں۔</string>
-    <string name="s_home_screen_widget">ہوم اسکرین وجٹ</string>
-    <string name="s_long_press_your_phone_s_home">فون کی ہوم اسکرین دیر تک دبائیں › وجٹس › میقات۔ اگلی نماز، الٹی گنتی اور اس کے بعد کی دو نمازیں دکھاتا ہے۔</string>
+    <string name="s_large_type">بڑے حروف</string>
+    <string name="s_one_prayer_one_time_one_line">ایک نماز، ایک وقت، ایک سطر، بڑے کمرے میں دور سے بھی پڑھنے کے قابل۔ 25 سیکنڈ کے لیے سب کچھ دیکھنے کو اسکرین چھوئیں۔</string>
+    <string name="s_home_screen_widget">ہوم اسکرین ویجٹ</string>
+    <string name="s_long_press_your_phone_s_home">فون کی ہوم اسکرین دیر تک دبائیں › ویجٹس › میقات۔ اگلی نماز، الٹی گنتی اور اس کے بعد کی دو نمازیں دکھاتا ہے۔</string>
     <string name="s_phone">فون</string>
     <string name="s_time_format">وقت کا انداز</string>
     <string name="s_keep_the_screen_on">اسکرین آن رکھیں</string>
@@ -228,7 +228,7 @@
     <string name="s_open_miqaat_when_the_device_starts">ڈیوائس آن ہونے پر میقات کھولیں</string>
     <string name="s_so_the_wall_tablet_comes_back">تاکہ بجلی جانے کے بعد دیوار والا ٹیبلٹ واپس آ جائے</string>
     <string name="s_about_miqaat">میقات کے بارے میں</string>
-    <string name="s_an_appointed_time">ميقات · مقررہ وقت</string>
+    <string name="s_an_appointed_time">میقات · مقررہ وقت</string>
     <string name="s_this_edition_is_updated_by_google">یہ ایڈیشن گوگل پلے کے ذریعے اپ ڈیٹ ہوتا ہے۔</string>
     <string name="s_downloads_from_github_and_opens_the">گٹ ہب سے ڈاؤن لوڈ کر کے انسٹالر کھولتا ہے۔ آپ کی ترتیبات محفوظ رہتی ہیں۔</string>
     <string name="s_first_allow_miqaat_to_install_updates">پہلے میقات کو اپ ڈیٹ انسٹال کرنے کی اجازت دیں (ایک بار کی اینڈرائیڈ اجازت)، پھر یہاں واپس آئیں۔</string>
@@ -297,7 +297,7 @@
     <string name="s_the_words">الفاظ</string>
     <string name="s_the_twelve_texts_of_the_prayer">نماز کے بارہ متون الگ سے، دہرانے اور آہستہ رفتار کے ساتھ</string>
     <string name="s_the_movements">حرکات</string>
-    <string name="s_six_positions_what_each_looks_like">آٹھ حالتیں، ہر ایک کیسی دکھتی ہے اور اس میں کیا کہا جاتا ہے</string>
+    <string name="s_six_positions_what_each_looks_like">آٹھ حالتیں، ہر ایک کیسی نظر آتی ہے اور اس میں کیا کہا جاتا ہے</string>
     <string name="s_audio_is_the_device_s_own">جب تک قاری کی ریکارڈنگ شامل نہ ہو، آواز ڈیوائس کی اپنی ٹیکسٹ ٹو اسپیچ ہے — یہ تصدیق شدہ تلاوت نہیں۔ الفاظ کسی استاد یا قابلِ اعتماد قاری سے سیکھیں۔ مواد کا جائزہ: زیرِ التوا۔</string>
     <string name="s_reset_progress">پیش رفت ری سیٹ کریں</string>
     <string name="s_finish_well_done">مکمل · شاباش</string>
@@ -310,7 +310,7 @@
     <string name="s_how_to_say_it">کیسے کہیں</string>
     <string name="s_meaning">مطلب</string>
     <string name="s_note_schools_and_source">نوٹ، مسالک اور ماخذ</string>
-    <string name="s_previous_step">پچھلا قدم</string>
+    <string name="s_previous_step">پچھلا مرحلہ</string>
     <string name="s_back_to_learn_salah">نماز سیکھیں پر واپس</string>
     <string name="s_takb_r_the_opening_al_f">تکبیر، ثنا، سورۃ الفاتحہ اور ایک سورت</string>
     <string name="s_sub_na_rabbiya_l_a_m">سبحان ربی العظیم ×3</string>
@@ -339,19 +339,19 @@
     <string name="s_rule">قاعدہ</string>
     <string name="s_true_dawn_al_fajr_a_diq">صبح صادق</string>
     <string name="s_upper_edge_of_the_sun_on">سورج کا اوپری کنارہ افق پر</string>
-    <string name="s_ends_fajr_not_a_prayer_time">فجر ختم ہوتی ہے؛ نماز کا وقت نہیں</string>
+    <string name="s_ends_fajr_not_a_prayer_time">فجر کا وقت ختم؛ یہ نماز کا وقت نہیں</string>
     <string name="s_sun_passes_the_meridian_zaw_l">سورج نصف النہار سے ڈھلتا ہے (زوال)، ایک منٹ بعد</string>
     <string name="s_friday_your_jumu_ah_time_is">جمعہ: آپ کا جمعے کا وقت استعمال ہوتا ہے</string>
     <string name="s_shadow_2_object_noon_shadow_hanafi">سایہ = 2 × چیز + زوال کا سایہ (حنفی)</string>
     <string name="s_shadow_object_noon_shadow_shafi_i">سایہ = چیز + زوال کا سایہ (شافعی، مالکی، حنبلی)</string>
-    <string name="s_sunset_the_sun_s_disc_fully">غروب: سورج کی ٹکیہ پوری افق کے نیچے</string>
+    <string name="s_sunset_the_sun_s_disc_fully">غروب: سورج کی ٹکیا پوری افق کے نیچے</string>
     <string name="s_disappearance_of_the_red_twilight">شفقِ احمر کا غائب ہونا</string>
     <string name="s_your_settings">آپ کی ترتیبات</string>
     <string name="s_your_adjustment">آپ کی ترمیم</string>
     <string name="s_settings_prayer_times_minute_adjustments">ترتیبات › اوقاتِ نماز › منٹوں کی ترمیم</string>
     <string name="s_islamic_guidance_scholarly_views_not_calculation">اسلامی رہنمائی · علمی آراء، حساب نہیں</string>
     <string name="s_ends">اختتام</string>
-    <string name="s_at_sunrise_agreed">طلوعِ آفتاب پر (متفق علیہ)</string>
+    <string name="s_at_sunrise_agreed">طلوعِ آفتاب پر (اس پر اتفاق ہے)</string>
     <string name="s_at_sunset_many_scholars_call_the">غروبِ آفتاب پر۔ بہت سے علماء سورج کے زرد ہونے کے بعد کے وقت کو وقتِ ضرورت کہتے ہیں؛ پڑھی جا چکی عصر پر اس کا اثر نہیں۔</string>
     <string name="s_when_asr_begins_which_itself_depends">جب عصر شروع ہو — جو خود اوپر منتخب عصر کے مسلک پر منحصر ہے</string>
     <string name="s_when_the_next_prayer_begins">جب اگلی نماز شروع ہو</string>
@@ -369,7 +369,7 @@
     <string name="s_the_best_day_on_which_the">\"بہترین دن جس پر سورج طلوع ہوا، جمعہ ہے۔\" · صحیح مسلم 854</string>
     <string name="s_s_rat_al_kahf">سورۃ الکہف</string>
     <string name="s_read_this_friday">اس جمعے پڑھ لی ✓</string>
-    <string name="s_mark_as_read">پڑھی ہوئی نشان لگائیں</string>
+    <string name="s_mark_as_read">پڑھی ہوئی کے طور پر نشان زد کریں</string>
     <string name="s_from_thursday_maghrib_to_friday_maghrib">جمعرات کی مغرب سے جمعے کی مغرب تک</string>
     <string name="s_tap_the_circle_for_each_one">ہر ایک کے لیے دائرہ چھوئیں · اس جمعے کی گنتی</string>
     <string name="s_hour_of_acceptance">قبولیت کی گھڑی</string>
@@ -545,8 +545,8 @@
     <string name="s_boost_6">+6 dB</string>
     <string name="s_boost_12">+12 dB</string>
     <string name="s_boost_18">+18 dB</string>
-    <string name="s_recordings_bundled">الفاظ کی تلاوت ایپ میں شامل انسانی ریکارڈنگز ہیں۔ ریکارڈنگ تلفظ میں مدد دیتی ہے؛ نماز خود کسی استاد یا اپنی مسجد سے سیکھیں۔</string>
-    <string name="s_learn_recitation">نمازِ سیکھیں کی تلاوت</string>
+    <string name="s_recordings_bundled">الفاظ کی تلاوت کی ریکارڈنگز ایپ میں شامل ہیں۔ ریکارڈنگ تلفظ میں مدد دیتی ہے؛ نماز خود کسی استاد یا اپنی مسجد سے سیکھیں۔</string>
+    <string name="s_learn_recitation">نماز سیکھیں: تلاوت</string>
     <string name="s_learn_recitation_detail">بارہ متون کی تلاوت عبد الرحمٰن عثمان ضیاء نے اس ایپ کے لیے ریکارڈ کی ہے۔</string>
     <string name="s_recited_by_named">تلاوت: عبد الرحمٰن عثمان ضیاء · شامل شدہ ریکارڈنگ</string>
     <string name="s_why_this_time">یہ وقت کیوں؟</string>
@@ -577,10 +577,10 @@
     <string name="s_group_experience">تجربہ</string>
     <string name="s_group_system">نظام</string>
     <string name="s_sub_azaan">%2$d میں سے %1$d اذانیں فعال</string>
-    <string name="s_sub_iqamah">الٹی گنتی، آواز اور خاموش سکرین</string>
+    <string name="s_sub_iqamah">الٹی گنتی، آواز اور خاموش اسکرین</string>
     <string name="s_sub_hijri">اسلامی تاریخ اور چاند کی رویت</string>
     <string name="s_sub_display">تھیم، زبان اور تحریر</string>
-    <string name="s_sub_try">اذان اور الرٹس کا معائنہ</string>
+    <string name="s_sub_try">اذان، الرٹس اور بہت کچھ کا پیش نظارہ</string>
     <string name="s_sub_health">الارم، لاگ اور بیک اپ</string>
     <string name="s_sub_privacy">آپ کا ڈیٹا، آپ کی مرضی</string>
     <string name="s_sub_about">ورژن %1$s اور اپ ڈیٹس</string>
@@ -602,7 +602,7 @@
     <string name="s_state_unrestricted">بلا پابندی</string>
     <string name="s_state_restricted">پابندی کے ساتھ</string>
     <string name="s_readiness_fix">درست کریں</string>
-    <string name="s_readiness_open">اعتماد اور بیک اپ کھولیں</string>
+    <string name="s_readiness_open">قابلِ اعتماد اور بیک اپ کھولیں</string>
     <string name="s_ok_word">ٹھیک</string>
     <string name="s_needs_attention_word">توجہ درکار</string>
     <string name="s_loading">لوڈ ہو رہا ہے…</string>
@@ -614,8 +614,8 @@
     <string name="s_clock_12h">12 گھنٹے</string>
     <string name="s_clock_24h">24 گھنٹے</string>
     <string name="s_iqamah_test_detail">اقامت کا پورا عمل، %1$d سیکنڈ کی الٹی گنتی سے شروع</string>
-    <string name="s_quiet_test_detail">%1$d منٹ کے لیے نماز کی خاموش سکرین دکھاتا ہے؛ نکلنے کے لیے چھوئیں</string>
-    <string name="s_quiet_test_detail_off">سکون سکرین ترتیبات میں بند ہے؛ یہ آزمائش اسے 1 منٹ دکھائے گی۔ چھوڑنے کے لیے اسے چھوئیں</string>
+    <string name="s_quiet_test_detail">%1$d منٹ کے لیے نماز کی خاموش اسکرین دکھاتا ہے؛ نکلنے کے لیے چھوئیں</string>
+    <string name="s_quiet_test_detail_off">خاموش اسکرین ترتیبات میں بند ہے؛ یہ آزمائش اسے 1 منٹ دکھائے گی۔ نکلنے کے لیے اسے چھوئیں</string>
     <string name="s_log_last7">پچھلے 7 دن · %1$d چلیں</string>
     <string name="s_log_late"> · %1$d تاخیر سے</string>
     <string name="s_log_missed"> · %1$d رہ گئیں</string>
@@ -625,12 +625,14 @@
     <string name="s_iq_short">اقامت</string>
     <string name="s_tarawih_line">تراویح %1$s  ·  رات کا آخری تہائی حصہ %2$s سے</string>
     <string name="s_duha_from">چاشت %1$s سے</string>
-    <string name="s_qibla_from_north">سمتِ شمال سے، %1$s میں</string>
+    <string name="s_qibla_from_north">حقیقی شمال سے، %1$s پر</string>
     <string name="s_seconds_caps">سیکنڈ</string>
-    <string name="s_in_prayer_wake">نماز جاری ہے · %1$d منٹ میں سکرین جاگے گی · ابھی جگانے کے لیے چھوئیں</string>
+    <string name="s_in_prayer_wake">نماز جاری ہے · %1$d منٹ میں اسکرین جاگے گی · ابھی جگانے کے لیے چھوئیں</string>
     <string name="s_rakah_n">رکعت %1$d</string>
     <string name="s_friday_masjid_azaan">آپ کی مسجد میں جمعہ: اذان %1$s</string>
     <string name="s_friday_masjid_iqamah"> · اقامت %1$s</string>
     <string name="s_debug_updates_disabled">اس ڈیبگ آزمائشی نسخے میں خودکار اپ ڈیٹس بند ہیں۔ دستخط شدہ آزمائشی نسخہ الگ نصب کریں۔</string>
     <string name="s_testing_build">آزمائشی نسخہ</string>
+    <string name="s_why_show_windows">نفل نماز کے مکروہ اوقات دکھائیں</string>
+    <string name="s_why_hide_windows">نفل نماز کے مکروہ اوقات چھپائیں</string>
 </resources>

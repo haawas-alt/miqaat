@@ -40,7 +40,7 @@ fun LargeHome(state: PrayerState, settings: AppSettings, onTap: () -> Unit) {
     BoxWithConstraints(Modifier.fillMaxSize().background(if (kiswah) Brush.verticalGradient(listOf(Color(0xFF0B0B0B), Kiswah.silk)) else if (fresh) tk.backgroundBrush else Brush.verticalGradient(listOf(sky.top, sky.bottom))).clickable(onClick = onTap)) {
         val portrait = maxHeight > maxWidth
         val u = if (portrait) minOf(maxWidth / 74, maxHeight / 120) else minOf(maxWidth / 100, maxHeight / 56)
-        fun fs(x: Float) = (u.value * x).sp
+        fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp
         if (kiswah) Weave(Modifier.fillMaxSize()) else if (fresh) CelestialBackdropIfDark(tk) else Stars(Modifier.fillMaxSize(), sky.stars)
         val gold = if (kiswah) Kiswah.threadSoft else tk.accent
         Column(Modifier.fillMaxSize().padding(u * 3), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {

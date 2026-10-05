@@ -30,6 +30,23 @@ object L10n {
         if (isUrdu(s)) "${urDays[t.dayOfWeek.name]}، ${t.dayOfMonth} ${urGreg[t.monthValue - 1]} ${t.year}"
         else t.format(DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.ENGLISH))
 
+    /** Weekday + day number for a timetable cell: "Mon 5" / "پیر 5". */
+    fun dayCell(s: AppSettings, d: java.time.LocalDate): String =
+        if (isUrdu(s)) "\u2067${urDays[d.dayOfWeek.name]} ${d.dayOfMonth}\u2069" else d.format(DateTimeFormatter.ofPattern("EEE d", Locale.ENGLISH))
+
+    /** Month and year as a title: "Oct 2026" / "اکتوبر 2026". */
+    fun monthYear(s: AppSettings, ym: java.time.YearMonth, compact: Boolean): String =
+        if (isUrdu(s)) "\u2067${urGreg[ym.monthValue - 1]} ${ym.year}\u2069" else ym.format(DateTimeFormatter.ofPattern(if (compact) "MMM yyyy" else "MMMM yyyy", Locale.ENGLISH))
+
+    /** Day and first word of the Hijri month: "23 Rabiʿ" / "23 ربیع". */
+    fun hijriShort(s: AppSettings, h: PrayerEngine.Hijri): String =
+        if (isUrdu(s)) "\u2067${h.day} ${urMonths[h.month - 1].substringBefore(' ')}\u2069" else h.short
+
+    /** Hijri month range for a Gregorian month: "Rabiʿ al-Thānī 1448" / "ربیع الثانی – جمادی الاول 1448". */
+    fun hijriRange(s: AppSettings, a: PrayerEngine.Hijri, b: PrayerEngine.Hijri): String =
+        if (isUrdu(s)) "\u2067" + (if (a.month == b.month) "${urMonths[a.month - 1]} ${a.year}" else "${urMonths[a.month - 1]} – ${urMonths[b.month - 1]} ${b.year}") + "\u2069"
+        else if (a.month == b.month) a.english.substringAfter(' ') else "${a.english.substringAfter(' ').substringBeforeLast(' ')} – ${b.english.substringAfter(' ')}"
+
     fun hijri(s: AppSettings, h: PrayerEngine.Hijri): String =
         // RLI…PDI: the string starts with a digit, so without a right-to-left isolate the day and year collapse together.
         if (isUrdu(s)) "\u2067${h.day} ${urMonths[h.month - 1]} ${h.year}\u2069" else h.english
@@ -42,7 +59,8 @@ object L10n {
         // Isolated right-to-left so "1 گھنٹے 53 منٹ" keeps its order when it starts with a digit (seen live as "گھنٹے 53 منٹ 1").
         if (d.abs().seconds < 60) return "\u2067${d.abs().seconds} سیکنڈ\u2069"
         val total = d.abs().toMinutes(); val h = total / 60; val m = total % 60
-        return "\u2067" + when { h == 0L -> "$m منٹ"; m == 0L -> "$h گھنٹے"; else -> "$h گھنٹے $m منٹ" } + "\u2069"
+        val hw = if (h == 1L) "گھنٹہ" else "گھنٹے"   // Urdu: 1 گھنٹہ, 2+ گھنٹے
+        return "\u2067" + when { h == 0L -> "$m منٹ"; m == 0L -> "$h $hw"; else -> "$h $hw $m منٹ" } + "\u2069"
     }
 
     /** Wraps a Latin/number run in Unicode first-strong isolates so it keeps its order inside Urdu text. */

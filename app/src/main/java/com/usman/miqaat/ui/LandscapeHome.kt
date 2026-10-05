@@ -96,7 +96,7 @@ fun LandscapeHome(
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val u: Dp = maxHeight / 100                       // 1 unit = 1 % of height
         val density = androidx.compose.ui.platform.LocalDensity.current
-        fun fs(x: Float) = (u.value * x).sp                 // text that follows the user's font size
+        fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp                 // text that follows the user's font size
         fun fd(x: Float) = with(density) { (u * x).toSp() } // display text: fixed to the screen, never overflows
         val sky = skyFor(state.period)
         val top by animateColorAsState(if (kiswah) Color(0xFF0B0B0B) else sky.top, tween(1500), label = "t")

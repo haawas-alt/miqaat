@@ -302,3 +302,6 @@ fun ThemedBackdrop(portrait: Boolean, modifier: Modifier = Modifier, scrim: Floa
         else -> {}
     }
 }
+
+/** Smallest text the home screens will draw, in sp. Audit F-06: secondary text (ends times, footers) was rendering near 9–10sp. */
+internal const val MIN_SP = 11f

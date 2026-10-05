@@ -82,8 +82,8 @@ object HadithLibrary {
         Hadith(18, "لاَ تَحْقِرَنَّ مِنَ الْمَعْرُوفِ شَيْئًا، وَلَوْ أَنْ تَلْقَى أَخَاكَ بِوَجْهٍ طَلْقٍ",
             "Do not belittle any good deed, even meeting your brother with a cheerful face.",
             "Abū Dharr", "Ṣaḥīḥ Muslim 2626"),
-        Hadith(19, "مَنْ أَحَقُّ النَّاسِ بِحُسْنِ صَحَابَتِي؟ قَالَ: أُمُّكَ، قَالَ: ثُمَّ مَنْ؟ قَالَ: أُمُّكَ، قَالَ: ثُمَّ مَنْ؟ قَالَ: أُمُّكَ، قَالَ: ثُمَّ مَنْ؟ قَالَ: أَبُوكَ",
-            "A man asked: \"Who among people most deserves my good companionship?\" He ﷺ said: \"Your mother.\" \"Then who?\" \"Your mother.\" \"Then who?\" \"Your mother.\" \"Then who?\" \"Your father.\"",
+        Hadith(19, "مَنْ أَحَقُّ النَّاسِ بِحُسْنِ صَحَابَتِي؟ قَالَ: أُمُّكَ، قَالَ: ثُمَّ مَنْ؟ قَالَ: أُمُّكَ، قَالَ: ثُمَّ مَنْ؟ قَالَ: أُمُّكَ، قَالَ: ثُمَّ مَنْ؟ قَالَ: ثُمَّ أَبُوكَ",
+            "A man asked: \"Who among people most deserves my good companionship?\" He ﷺ said: \"Your mother.\" \"Then who?\" \"Your mother.\" \"Then who?\" \"Your mother.\" \"Then who?\" \"Then your father.\"",
             "Abū Hurayrah", "Ṣaḥīḥ al-Bukhārī 5971 · Ṣaḥīḥ Muslim 2548"),
         Hadith(20, "مَثَلُ الَّذِي يَذْكُرُ رَبَّهُ وَالَّذِي لاَ يَذْكُرُ رَبَّهُ مَثَلُ الْحَيِّ وَالْمَيِّتِ",
             "The example of the one who remembers his Lord and the one who does not is like the living and the dead.",
@@ -142,6 +142,9 @@ object HadithLibrary {
     /** Narrations that are specifically about Fajr and ʿAṣr: they are only offered after those two prayers, so the "hadith after Dhuhr" heading is never contradicted by the text. */
     /** Entries whose own text is a narrative about the Prophet ﷺ (ids 7 and 19), not his direct words. */
     val narrativeFraming = setOf(7, 19)
+
+    /** Ḥadīth qudsī (id 28): the Prophet ﷺ reports the words of Allah, so the heading says so instead of presenting "أَنَا عِنْدَ ظَنِّ عَبْدِي" as his own speech. */
+    val qudsiFraming = setOf(28)
 
     private val fajrAsrOnly = setOf(33)
 

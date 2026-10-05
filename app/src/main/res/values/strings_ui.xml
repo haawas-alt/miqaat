@@ -633,4 +633,6 @@
     <string name="s_friday_masjid_iqamah"> · iqamah %1$s</string>
     <string name="s_debug_updates_disabled">Automatic updates are disabled in this debug testing build. Install the signed testing candidate separately.</string>
     <string name="s_testing_build">Testing build</string>
+    <string name="s_why_show_windows">Show times to avoid voluntary prayer</string>
+    <string name="s_why_hide_windows">Hide times to avoid voluntary prayer</string>
 </resources>

@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.usman.miqaat.data.AppSettings
@@ -88,9 +89,17 @@ fun WhyDialog(settings: AppSettings, day: DayTimes, p: Prayer, onDismiss: () -> 
                     else -> Str[R.string.s_when_the_next_prayer_begins]
                 })
                 Spacer(Modifier.height(8.dp))
-                Text(Str[R.string.s_disliked_for_voluntary_prayer_today_approximate], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = tk.accent)
-                PrayerEngine.dislikedWindows(day, settings).forEach { w -> Text("${c(w.start)} – ${c(w.end)}  ·  ${if (w.labelRes != 0) Str[w.labelRes] else w.label}", fontFamily = Nunito, fontSize = 13.sp, color = tk.contentPrimary, modifier = Modifier.padding(top = 4.dp)) }
-                Text(Str[R.string.s_these_windows_are_conservative_estimates_15], fontFamily = Nunito, fontSize = 12.sp, color = tk.contentMuted, lineHeight = 17.sp, modifier = Modifier.padding(top = 6.dp))
+                // Audit F-07: the long "times to avoid voluntary prayer" explainer repeated in every dialog; now one tap away.
+                var showWindows by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(p == Prayer.SUNRISE) }
+                TextButton(onClick = { showWindows = !showWindows }, modifier = Modifier.semantics { stateDescription = if (showWindows) "expanded" else "collapsed" }) {
+                    Text(Str[if (showWindows) R.string.s_why_hide_windows else R.string.s_why_show_windows], fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = tk.accent)
+                }
+                if (showWindows) {
+                    Text(Str[R.string.s_disliked_for_voluntary_prayer_today_approximate], fontFamily = Nunito, fontSize = 12.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = tk.accent)
+                    PrayerEngine.dislikedWindows(day, settings).forEach { w -> Text("${c(w.start)} – ${c(w.end)}  ·  ${if (w.labelRes != 0) Str[w.labelRes] else w.label}", fontFamily = Nunito, fontSize = 13.sp, color = tk.contentPrimary, modifier = Modifier.padding(top = 4.dp)) }
+                    Text(Str[R.string.s_these_windows_are_conservative_estimates_15], fontFamily = Nunito, fontSize = 12.sp, color = tk.contentMuted, lineHeight = 17.sp, modifier = Modifier.padding(top = 6.dp))
+
+                }
             }
         },
         confirmButton = { TextButton(onClick = onDismiss) { Text(Str[R.string.s_close], color = tk.accent) } }
@@ -168,7 +177,7 @@ fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier
             Prayer.entries.sortedBy { day[it] }.forEach { p -> val w = measurer.measure(names.getValue(p), labelStyle).size.width; val x = size.width * f(day[p]); if (x - w / 2f < lastEnd + 6.dp.toPx()) return true; lastEnd = x + w / 2f }
             return false
         }
-        val names = when { fullNames && !clash(fullMap) -> fullMap; fullNames && urdu -> fullMap; else -> initialMap }
+        val names = when { fullNames && !clash(fullMap) -> fullMap; fullNames && urdu -> fullMap; else -> if (urdu) fullMap else initialMap }
         var lastLabelEnd = -1e9f
         Prayer.entries.sortedBy { day[it] }.forEach { p ->
             val x = size.width * f(day[p]); val passed = !day[p].isAfter(now)

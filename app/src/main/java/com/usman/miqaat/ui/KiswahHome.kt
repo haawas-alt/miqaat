@@ -84,7 +84,7 @@ fun KiswahHome(
     BoxWithConstraints(Modifier.fillMaxSize().background(Kiswah.silk)) {
         val u: Dp = minOf(maxWidth / 100, maxHeight / 56)
         val short = maxHeight < 480.dp   // phone landscape: scroll, fixed-height hero, thread instead of arc
-        fun fs(x: Float) = (u.value * x).sp
+        fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp
         val ramadan = PrayerEngine.isRamadan(settings, state.now.toLocalDate())
         val isFri = state.now.dayOfWeek == java.time.DayOfWeek.FRIDAY && settings.jumuahEnabled
         val morningWindow = state.current == Prayer.FAJR

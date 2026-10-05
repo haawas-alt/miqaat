@@ -111,7 +111,7 @@ private fun CelestialWide(
 
 @Composable
 private fun CelestialTopBar(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, modifier: Modifier) {
-    fun fs(x: Float) = (u.value * x).sp
+    fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp
     val hij = PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)
     val narrow = androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp < 600
     val locationRow: @Composable (Modifier) -> Unit = { m ->
@@ -173,7 +173,7 @@ private fun NavButton(icon: ImageVector, label: String, description: String, tk:
 @Composable
 private fun CelestialHero(hero: HeroInfo, state: PrayerState, s: AppSettings, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, align: Alignment.Horizontal, scale: Float = 1f) {
     val density = LocalDensity.current
-    fun fs(x: Float) = (u.value * x * scale).sp
+    fun fs(x: Float) = maxOf(u.value * x * scale, MIN_SP).sp
     fun fd(x: Float) = with(density) { (u * x * scale).toSp() }
     Column(Modifier.semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }, horizontalAlignment = align) {
         hero.special?.let { Text(it, fontFamily = Nunito, fontSize = fs(1.5f), fontWeight = FontWeight.Bold, color = tk.primary, modifier = Modifier.padding(bottom = u * 0.6f)) }
@@ -218,7 +218,7 @@ private fun CelestialPanel(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun CelestialRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, onToggle: () -> Unit, onWhy: () -> Unit) {
-    fun fs(x: Float) = (u.value * x).sp
+    fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp
     val selected = r.isNow || r.isNext
     val ink = if (selected) tk.accent else tk.contentPrimary
     val shape = RoundedCornerShape(tk.cornerMedium)

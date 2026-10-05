@@ -85,7 +85,7 @@ fun PortraitHome(
         val fontScale = density.fontScale
         // Labels and the countdown follow the Android font-size setting; the huge display numerals and Arabic
         // are already sized to the screen, so they stay put — otherwise they push everything else off the page.
-        fun fs(x: Float) = (u.value * x).sp
+        fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp
         fun fd(x: Float) = with(density) { (u * x).toSp() }
         // Let the page scroll instead of clipping the hero when there is not enough height: large text,
         // Urdu (two-line prayer rows), or a short screen. Seen live: Urdu on a Pixel 8 hid the hero time.
