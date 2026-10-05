@@ -1,0 +1,40 @@
+10-05 16:58:21.650   505  2369 I ActivityManager: Background started FGS: Allowed [callingPackage: com.usman.miqaat; callingUid: 10141; uidState: RCVR; uidBFSL: n/a; intent: Intent { act=com.usman.miqaat.REMINDER cmp=com.usman.miqaat/.azaan.AzaanService (has extras) }; code:ACTIVITY_VISIBILITY_GRACE_PERIOD; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+10-05 16:58:35.671   505   566 W ActivityManager: Background started FGS: Disallowed [callingPackage: com.usman.miqaat; callingUid: 10141; uidState: RCVR; uidBFSL: n/a; intent: Intent { act=com.usman.miqaat.REMINDER cmp=com.usman.miqaat/.azaan.AzaanService (has extras) }; code:DENIED; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+10-05 16:58:35.671   505   566 W ActivityManager: startForegroundService() not allowed due to mAllowStartForeground false: service com.usman.miqaat/.azaan.AzaanService
+10-05 16:58:35.671  2257  2257 D AndroidRuntime: Shutting down VM
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: FATAL EXCEPTION: main
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: Process: com.usman.miqaat, PID: 2257
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: java.lang.RuntimeException: Unable to start receiver com.usman.miqaat.azaan.AzaanAlarmReceiver: android.app.ForegroundServiceStartNotAllowedException: startForegroundService() not allowed due to mAllowStartForeground false: service com.usman.miqaat/.azaan.AzaanService
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:4458)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.app.ActivityThread.-$$Nest$mhandleReceiver(Unknown Source:0)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2256)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:294)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:8177)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:552)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:971)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: Caused by: android.app.ForegroundServiceStartNotAllowedException: startForegroundService() not allowed due to mAllowStartForeground false: service com.usman.miqaat/.azaan.AzaanService
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.app.ForegroundServiceStartNotAllowedException$1.createFromParcel(ForegroundServiceStartNotAllowedException.java:54)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.app.ForegroundServiceStartNotAllowedException$1.createFromParcel(ForegroundServiceStartNotAllowedException.java:50)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.os.Parcel.readParcelableInternal(Parcel.java:4870)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.os.Parcel.readParcelable(Parcel.java:4852)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3052)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.os.Parcel.createException(Parcel.java:3041)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:3024)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:2966)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.app.IActivityManager$Stub$Proxy.startService(IActivityManager.java:5984)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.app.ContextImpl.startServiceCommon(ContextImpl.java:1931)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.app.ContextImpl.startForegroundService(ContextImpl.java:1906)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.content.ContextWrapper.startForegroundService(ContextWrapper.java:830)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.content.ContextWrapper.startForegroundService(ContextWrapper.java:830)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at com.usman.miqaat.azaan.AzaanAlarmReceiver.onReceive(Unknown Source:216)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:4449)
+10-05 16:58:35.671  2257  2257 E AndroidRuntime: 	... 9 more
+10-05 16:58:49.761   505  1739 W ActivityManager: startForegroundService() not allowed due to mAllowStartForeground false: service com.usman.miqaat/.azaan.AzaanService
+10-05 16:58:49.763  2467  2467 D AndroidRuntime: Shutting down VM
+10-05 16:58:49.763  2467  2467 E AndroidRuntime: FATAL EXCEPTION: main
+10-05 16:58:49.763  2467  2467 E AndroidRuntime: Process: com.usman.miqaat, PID: 2467
+10-05 16:58:49.763  2467  2467 E AndroidRuntime: java.lang.RuntimeException: Unable to start receiver com.usman.miqaat.azaan.AzaanAlarmReceiver: android.app.ForegroundServiceStartNotAllowedException: startForegroundService() not allowed due to mAllowStartForeground false: service com.usman.miqaat/.azaan.AzaanService
+10-05 16:58:49.763  2467  2467 E AndroidRuntime: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:4458)

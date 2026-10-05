@@ -1,0 +1,5 @@
+label=v1.89
+FGS_not_started_violations=2
+app_fatal_exceptions=2
+anr_mentions=0
+reminder_notification_present=3
