@@ -81,29 +81,32 @@ def launch():
     sh("shell", "monkey", "-p", PKG, "-c", "android.intent.category.LAUNCHER", "1"); time.sleep(3.5)
 
 PRAYERS = ("Fajr", "Dhuhr", "Asr", "Maghrib", "Isha")
+def in_setup(nodes): return any(re.match(r"Step \d+ of \d+", label(n)) for n in nodes)
 def is_home(nodes):
+    if in_setup(nodes): return False
     labs = " ".join(label(n) for n in nodes)
     return sum(p in labs for p in PRAYERS) >= 4 or "فجر" in labs and "مغرب" in labs
 
-SETUP_TAPS = ["use my location", "detect", "allow", "while using", "continue", "next", "get started", "start", "done", "skip", "finish", "ok", "got it"]
+SETUP_PRIORITY = ["begin", "use my location", "use this", "looks right", "continue", "next", "turn on", "allow", "done", "finish", "start", "got it", "skip"]
+UNDER = {"settings", "learn salah", "monthly timetable", "back", "ترتیبات"}
 def setup(tag):
-    """Walk the first-run gate, recording every screen. Returns True when Home is reached."""
-    for i in range(14):
+    """Walk the first-run gate, recording every screen. Home controls remain exposed under it (audited separately)."""
+    for i in range(16):
         nodes = dump()
         if not nodes: time.sleep(2); continue
         if is_home(nodes):
             log(ev="setup-done", step=i); return True
         f = shot(f"{tag}__setup{i}")
-        log(ev="setup-screen", step=i, shot=f, key=skey(nodes), labels=[label(n) for n in nodes if label(n)][:40])
-        cl = [n for n in nodes if n["click"] and n["enabled"] and label(n)]
+        log(ev="setup-screen", step=i, shot=f, key=skey(nodes), labels=[label(n) for n in nodes if label(n)][:60],
+            clickables=[label(n) for n in nodes if n["click"] and label(n)])
+        cl = [n for n in nodes if n["enabled"] and label(n) and label(n).lower() not in UNDER and n["pkg"] == PKG]
         pick = None
-        for want in SETUP_TAPS:
+        for want in SETUP_PRIORITY:
             for n in cl:
-                if want in label(n).lower(): pick = n; break
+                if label(n).lower().startswith(want) or label(n).lower() == want: pick = n; break
             if pick: break
-        if not pick and cl: pick = cl[-1]
         if pick: log(ev="setup-tap", label=label(pick)); tap(pick)
-        else: back()
+        else: log(ev="setup-stuck"); back()
         time.sleep(1.5)
     return False
 

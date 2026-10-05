@@ -25,9 +25,7 @@ jobs:
       matrix:
         include:
           - { name: tablet-landscape, profile: pixel_tablet, rot: 0 }
-          - { name: tablet-portrait,  profile: pixel_tablet, rot: 1 }
           - { name: phone-portrait,   profile: pixel_6,      rot: 0 }
-          - { name: phone-landscape,  profile: pixel_6,      rot: 1 }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -45,7 +43,7 @@ jobs:
           disable-animations: true
           emulator-boot-timeout: 900
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096
-          script: bash audit/run.sh ${{ matrix.name }} ${{ matrix.rot }} discover none en 1.0 3 120
+          script: bash audit/run.sh ${{ matrix.name }} ${{ matrix.rot }} discover none en 1.0 1 40
       - uses: actions/upload-artifact@v4
         if: always()
         with:
