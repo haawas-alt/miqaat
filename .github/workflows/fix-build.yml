@@ -1,0 +1,83 @@
+name: Audit-fix build
+on:
+  push:
+    branches: ['fix/audit-1.89-findings']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Restore signing key (same key as 1.89, so the APK installs over it)
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_BASE64"
+          mkdir -p keystore
+          printf '%s' "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
+          echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
+          echo "MIQAAT_VERSION_NAME=1.90-audit-fixes" >> "$GITHUB_ENV"
+          echo "MIQAAT_BUILD_TAG=audit-fix-${GITHUB_SHA:0:12}" >> "$GITHUB_ENV"
+      - name: Unit tests, lint, build
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon testGithubReleaseUnitTest lintGithubRelease assembleGithubRelease assemblePlayRelease bundlePlayRelease
+          python3 tools/check_forbidden_assets.py app/src/main app/build/outputs/apk/github/release/app-github-release.apk app/build/outputs/apk/play/release/app-play-release.apk app/build/outputs/bundle/playRelease/app-play-release.aab
+          mkdir -p candidate
+          cp app/build/outputs/apk/github/release/app-github-release.apk candidate/Miqaat-1.90-audit-fixes.apk
+          cp app/build/outputs/bundle/playRelease/app-play-release.aab candidate/Miqaat-1.90-play.aab
+          BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
+          "$BT/apksigner" verify --verbose --print-certs candidate/Miqaat-1.90-audit-fixes.apk > candidate/signature.txt
+          "$BT/aapt" dump permissions app/build/outputs/apk/play/release/app-play-release.apk > candidate/play-permissions.txt
+          ! grep -q REQUEST_INSTALL_PACKAGES candidate/play-permissions.txt
+          (cd candidate && sha256sum *.apk *.aab > SHA256SUMS.txt)
+          cp candidate/SHA256SUMS.txt candidate/Miqaat-1.90-audit-fixes.apk.sha256
+          cat candidate/SHA256SUMS.txt
+      - name: Test summary
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import glob,re
+          t=f=e=s=0
+          for p in glob.glob('app/build/test-results/**/*.xml',recursive=True):
+              x=open(p,errors='ignore').read(4000)
+              m=re.search(r'tests="(\d+)" skipped="(\d+)" failures="(\d+)" errors="(\d+)"',x)
+              if m: t+=int(m[1]);s+=int(m[2]);f+=int(m[3]);e+=int(m[4])
+          print(f"unit tests: {t} run, {f} failures, {e} errors, {s} skipped")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-fix-build-${{ github.run_id }}
+          path: |
+            candidate/
+            app/build/reports/
+            app/build/test-results/
+          if-no-files-found: warn
+      - name: Publish as a pre-release (never reaches the in-app updater)
+        if: success()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: audit-fix-1.90-${{ github.run_number }}
+          target_commitish: ${{ github.sha }}
+          name: 1.90 audit-fix candidate (build ${{ github.run_number }})
+          body: |
+            Testing candidate built from fix/audit-1.89-findings at ${{ github.sha }}.
+            NOT a store release. The in-app updater only reads the `latest` tag.
+            Signed with the same key as 1.89, so it installs over 1.89.
+          files: |
+            candidate/Miqaat-1.90-audit-fixes.apk
+            candidate/Miqaat-1.90-audit-fixes.apk.sha256
+          prerelease: true
+          make_latest: false
