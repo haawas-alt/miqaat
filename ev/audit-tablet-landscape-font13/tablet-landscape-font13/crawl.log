@@ -1,0 +1,84 @@
+{"ev": "env", "density": 2.0, "size": "Physical size: 2560x1600", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 2238, "t": 2.7}
+{"ev": "setup-screen", "step": 0, "shot": "tablet-landscape-font13__setup0.png", "key": "76f23d324e", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Fajr, 1:59 AM,
+{"ev": "setup-tap", "label": "Begin", "t": 8.0}
+{"ev": "setup-screen", "step": 1, "shot": "tablet-landscape-font13__setup1.png", "key": "0fa67d8132", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Fajr, 1:59 AM,
+{"ev": "detect-result", "shot": "tablet-landscape-font13__setup1_after-detect-20s.png", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Fajr, 1:59 AM, 14 h 59 min a
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 38.1}
+{"ev": "setup-screen", "step": 2, "shot": "tablet-landscape-font13__setup2.png", "key": "6e9bd77f97", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 6 October 2026", "25 Rabīʿ al-T
+{"ev": "setup-tap", "label": "Next", "t": 40.6}
+{"ev": "setup-screen", "step": 3, "shot": "tablet-landscape-font13__setup3.png", "key": "26d3ca669e", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 6 October 2026", "25 Rabīʿ al-T
+{"ev": "setup-stuck", "t": 45.7}
+{"ev": "setup-screen", "step": 4, "shot": "tablet-landscape-font13__setup4.png", "key": "b44a395edc", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 6 October 2026", "25 Rabīʿ al-T
+{"ev": "setup-tap", "label": "These look right", "t": 51.0}
+{"ev": "setup-screen", "step": 5, "shot": "tablet-landscape-font13__setup5.png", "key": "9d6144a88b", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 6 October 2026", "25 Rabīʿ al-T
+{"ev": "setup-tap", "label": "Finish", "t": 56.1}
+{"ev": "setup-done", "step": 6, "t": 60.9}
+{"ev": "setup-result", "ok": true, "t": 60.9}
+{"ev": "theme-set", "kw": "Miqaat", "t": 72.9}
+{"ev": "screen", "depth": 0, "path": [], "key": "6b579ff66f", "pos": 0, "shot": "tablet-landscape-font13-Miqaat-en-f1.3__001__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Le
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-landscape-font13-Miqaat-en-f1.3__002__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "Source",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f3660b8bf4", "pos": 0, "shot": "tablet-landscape-font13-Miqaat-en-f1.3__003__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7c84b702e0", "pos": 1, "shot": "tablet-landscape-font13-Miqaat-en-f1.3__004__d1__p1.png", "labels": ["Why 6:26? · Sunrise الشروق", "⁨-33.8700, 151.2100 · A
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a6bd09cbe", "pos": 0, "shot": "tablet-landscape-font13-Miqaat-en-f1.3__005__d1__p0.png", "labels": ["Why 12:44? · Dhuhr الظهر", "CALCULATED FROM", "Source
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e7916933c1", "pos": 0, "shot": "tablet-landscape-font13-Miqaat-en-f1.3__006__d1__p0.png", "labels": ["Why 4:17? · Asr العصر", "CALCULATED FROM", "Source", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9fa55e0631", "pos": 0, "shot": "tablet-landscape-font13-Miqaat-en-f1.3__007__d1__p0.png", "labels": ["Why 7:01? · Maghrib المغرب", "CALCULATED FROM", "Sour
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 163.0}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cb5a8dfb5b", "pos": 0, "shot": "tablet-landscape-font13-Miqaat-en-f1.3__008__d1__p0.png", "labels": ["Why 8:21? · Isha العشاء", "CALCULATED FROM", "Source"
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 183.7}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "c93dc66669", "pos": 0, "shot": "tablet-landscape-font13-Miqaat-en-f1.3__009__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 204.2}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-landscape-font13-Miqaat-en-f1.3__010__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true north
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 230.9}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "7622ec69dd", "pos": 0, "shot": "tablet-landscape-font13-Miqaat-en-f1.3__011__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 251.1}
+{"ev": "back-mismatch", "label": "Maghrib", "path": [], "t": 267.4}
+{"ev": "theme-done", "tag": "tablet-landscape-font13-Miqaat-en-f1.3", "actions": 10, "screens": 11, "t": 273.2}
+{"ev": "theme-set", "kw": "Kiswah", "t": 287.1}
+{"ev": "screen", "depth": 0, "path": [], "key": "c93dc66669", "pos": 0, "shot": "tablet-landscape-font13-Kiswah-en-f1.3__012__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Le
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-landscape-font13-Kiswah-en-f1.3__013__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "Source",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f3660b8bf4", "pos": 0, "shot": "tablet-landscape-font13-Kiswah-en-f1.3__014__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7c84b702e0", "pos": 1, "shot": "tablet-landscape-font13-Kiswah-en-f1.3__015__d1__p1.png", "labels": ["Why 6:26? · Sunrise الشروق", "⁨-33.8700, 151.2100 · A
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a6bd09cbe", "pos": 0, "shot": "tablet-landscape-font13-Kiswah-en-f1.3__016__d1__p0.png", "labels": ["Why 12:44? · Dhuhr الظهر", "CALCULATED FROM", "Source
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e7916933c1", "pos": 0, "shot": "tablet-landscape-font13-Kiswah-en-f1.3__017__d1__p0.png", "labels": ["Why 4:17? · Asr العصر", "CALCULATED FROM", "Source", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9fa55e0631", "pos": 0, "shot": "tablet-landscape-font13-Kiswah-en-f1.3__018__d1__p0.png", "labels": ["Why 7:01? · Maghrib المغرب", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cb5a8dfb5b", "pos": 0, "shot": "tablet-landscape-font13-Kiswah-en-f1.3__019__d1__p0.png", "labels": ["Why 8:21? · Isha العشاء", "CALCULATED FROM", "Source"
+{"ev": "no-change", "label": "Fajr", "shot": "tablet-landscape-font13-Kiswah-en-f1.3__020__same__Fajr.png", "path": [], "t": 397.1}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-landscape-font13-Kiswah-en-f1.3__021__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true north
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "7622ec69dd", "pos": 0, "shot": "tablet-landscape-font13-Kiswah-en-f1.3__022__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 431.4}
+{"ev": "no-change", "label": "Maghrib", "shot": "tablet-landscape-font13-Kiswah-en-f1.3__023__same__Maghrib.png", "path": [], "t": 442.8}
+{"ev": "theme-done", "tag": "tablet-landscape-font13-Kiswah-en-f1.3", "actions": 10, "screens": 23, "t": 442.8}
+{"ev": "theme-set", "kw": "Celestial", "t": 456.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "c93dc66669", "pos": 0, "shot": "tablet-landscape-font13-Celestial-en-f1.3__024__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-landscape-font13-Celestial-en-f1.3__025__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f3660b8bf4", "pos": 0, "shot": "tablet-landscape-font13-Celestial-en-f1.3__026__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7c84b702e0", "pos": 1, "shot": "tablet-landscape-font13-Celestial-en-f1.3__027__d1__p1.png", "labels": ["Why 6:26? · Sunrise الشروق", "⁨-33.8700, 151.2100 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a6bd09cbe", "pos": 0, "shot": "tablet-landscape-font13-Celestial-en-f1.3__028__d1__p0.png", "labels": ["Why 12:44? · Dhuhr الظهر", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e7916933c1", "pos": 0, "shot": "tablet-landscape-font13-Celestial-en-f1.3__029__d1__p0.png", "labels": ["Why 4:17? · Asr العصر", "CALCULATED FROM", "Source
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9fa55e0631", "pos": 0, "shot": "tablet-landscape-font13-Celestial-en-f1.3__030__d1__p0.png", "labels": ["Why 7:01? · Maghrib المغرب", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cb5a8dfb5b", "pos": 0, "shot": "tablet-landscape-font13-Celestial-en-f1.3__031__d1__p0.png", "labels": ["Why 8:21? · Isha العشاء", "CALCULATED FROM", "Sour
+{"ev": "no-change", "label": "Fajr", "shot": "tablet-landscape-font13-Celestial-en-f1.3__032__same__Fajr.png", "path": [], "t": 568.5}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-landscape-font13-Celestial-en-f1.3__033__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true no
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "7622ec69dd", "pos": 0, "shot": "tablet-landscape-font13-Celestial-en-f1.3__034__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, 
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 607.2}
+{"ev": "no-change", "label": "Maghrib", "shot": "tablet-landscape-font13-Celestial-en-f1.3__035__same__Maghrib.png", "path": [], "t": 619.2}
+{"ev": "theme-done", "tag": "tablet-landscape-font13-Celestial-en-f1.3", "actions": 10, "screens": 35, "t": 619.2}
+{"ev": "theme-set", "kw": "Gallery", "t": 633.1}
+{"ev": "screen", "depth": 0, "path": [], "key": "c93dc66669", "pos": 0, "shot": "tablet-landscape-font13-Gallery-en-f1.3__036__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "L
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-landscape-font13-Gallery-en-f1.3__037__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "Source"
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f3660b8bf4", "pos": 0, "shot": "tablet-landscape-font13-Gallery-en-f1.3__038__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7c84b702e0", "pos": 1, "shot": "tablet-landscape-font13-Gallery-en-f1.3__039__d1__p1.png", "labels": ["Why 6:26? · Sunrise الشروق", "⁨-33.8700, 151.2100 · 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a6bd09cbe", "pos": 0, "shot": "tablet-landscape-font13-Gallery-en-f1.3__040__d1__p0.png", "labels": ["Why 12:44? · Dhuhr الظهر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e7916933c1", "pos": 0, "shot": "tablet-landscape-font13-Gallery-en-f1.3__041__d1__p0.png", "labels": ["Why 4:17? · Asr العصر", "CALCULATED FROM", "Source",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9fa55e0631", "pos": 0, "shot": "tablet-landscape-font13-Gallery-en-f1.3__042__d1__p0.png", "labels": ["Why 7:01? · Maghrib المغرب", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cb5a8dfb5b", "pos": 0, "shot": "tablet-landscape-font13-Gallery-en-f1.3__043__d1__p0.png", "labels": ["Why 8:21? · Isha العشاء", "CALCULATED FROM", "Source
+{"ev": "no-change", "label": "Fajr", "shot": "tablet-landscape-font13-Gallery-en-f1.3__044__same__Fajr.png", "path": [], "t": 746.2}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-landscape-font13-Gallery-en-f1.3__045__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true nort
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "7622ec69dd", "pos": 0, "shot": "tablet-landscape-font13-Gallery-en-f1.3__046__d1__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NS
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 783.1}
+{"ev": "no-change", "label": "Maghrib", "shot": "tablet-landscape-font13-Gallery-en-f1.3__047__same__Maghrib.png", "path": [], "t": 795.6}
+{"ev": "theme-done", "tag": "tablet-landscape-font13-Gallery-en-f1.3", "actions": 10, "screens": 47, "t": 795.6}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 797.6}
+{"ev": "gfx", "lines": ["Total frames rendered: 10", "Janky frames: 10 (100.00%)", "Janky frames (legacy): 10 (100.00%)", "50th percentile: 200ms", "90th percentile: 1000ms", "95th percentile: 1000ms", "99th percentile: 
+{"ev": "mem", "lines": ["  Native Heap    21919    21828        0        0    25044    29932    24118     2099", "        TOTAL    40480    30144     3316        0   158768    40326    29315     7296", "           Java H
