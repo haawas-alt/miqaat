@@ -99,7 +99,7 @@ def setup(tag):
         f = shot(f"{tag}__setup{i}")
         log(ev="setup-screen", step=i, shot=f, key=skey(nodes), labels=[label(n) for n in nodes if label(n)][:60],
             clickables=[label(n) for n in nodes if n["click"] and label(n)])
-        cl = [n for n in nodes if n["enabled"] and label(n) and label(n).lower() not in UNDER and n["pkg"] == PKG]
+        cl = [n for n in nodes if n["enabled"] and label(n) and label(n).lower() not in UNDER]
         pick = None
         for want in SETUP_PRIORITY:
             for n in cl:

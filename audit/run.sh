@@ -12,6 +12,7 @@ adb install -r -g apk/Miqaat.apk 2>&1 | tee "$OUT/install.txt"
 for p in ACCESS_FINE_LOCATION ACCESS_COARSE_LOCATION POST_NOTIFICATIONS; do adb shell pm grant com.usman.miqaat android.permission.$p || true; done
 adb emu geo fix 150.80 -33.99 || true   # Gledswood Hills NSW
 adb shell settings put global window_animation_scale 0; adb shell settings put global transition_animation_scale 0; adb shell settings put global animator_duration_scale 0
+adb shell settings put secure immersive_mode_confirmations confirmed || true
 adb logcat -c
 python3 audit/crawl.py --out "$OUT" --tag "$NAME-$VAR" --themes "$THEMES" --lang "$LANG_" --font "$FONT" --depth "$DEPTH" --max-actions "$MAXA" --budget-min 95 2>&1 | tee "$OUT/crawl.log" | tail -5
 adb shell dumpsys package com.usman.miqaat | grep -E "versionName|versionCode|targetSdk" | tee -a "$OUT/device.txt"
