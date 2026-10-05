@@ -99,7 +99,7 @@ def is_home(nodes):
     labs = " ".join(label(n) for n in nodes)
     return sum(p in labs for p in PRAYERS) >= 4 or "فجر" in labs and "مغرب" in labs
 
-SETUP_PRIORITY = ["got it", "begin", "use my location", "use this", "these look right", "looks right", "turn on azaan", "enable", "start using", "open miqaat", "all set", "i'm done", "continue", "next", "turn on", "allow", "done", "finish", "start", "got it", "skip"]
+SETUP_PRIORITY = ["got it", "begin", "these look right", "next", "finish", "done", "continue", "wait"]
 UNDER = {"back", "settings", "learn salah", "monthly timetable", "back", "ترتیبات"}
 def setup(tag):
     """Walk the first-run gate, recording every screen. Home controls remain exposed under it (audited separately)."""
@@ -127,7 +127,7 @@ def setup(tag):
         pick = None
         for want in SETUP_PRIORITY:
             for n in cl:
-                if label(n).lower().startswith(want) or label(n).lower() == want: pick = n; break
+                if label(n).lower() == want: pick = n; break
             if pick: break
         if pick: log(ev="setup-tap", label=label(pick)); tap(pick)
         else:

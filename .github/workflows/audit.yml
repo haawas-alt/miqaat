@@ -43,7 +43,7 @@ jobs:
           disable-animations: true
           emulator-boot-timeout: 900
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096
-          script: bash audit/run.sh ${{ matrix.name }} ${{ matrix.rot }} discover none en 1.0 1 40
+          script: bash audit/run.sh ${{ matrix.name }} ${{ matrix.rot }} discover none en 1.0 3 70
       - uses: actions/upload-artifact@v4
         if: always()
         with:
