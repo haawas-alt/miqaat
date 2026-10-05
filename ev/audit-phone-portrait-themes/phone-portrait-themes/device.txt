@@ -1,0 +1,7 @@
+Physical size: 1080x2400
+Physical density: 420
+14
+    init=1080x2400 420dpi mMinSizeOfResizeableTaskDp=220 cur=1080x2400 app=1080x2274 rng=1080x1017-2274x2211
+      mCurrentRotation=ROTATION_0
+    versionCode=1791218665 minSdk=26 targetSdk=36
+    versionName=1.90-audit-fixes
