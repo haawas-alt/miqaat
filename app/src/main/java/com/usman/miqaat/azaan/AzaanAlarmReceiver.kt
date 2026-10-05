@@ -22,9 +22,29 @@ class AzaanAlarmReceiver : BroadcastReceiver() {
                 putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name)
                 putExtra(AzaanScheduler.EXTRA_NOTE, intent.getStringExtra(AzaanScheduler.EXTRA_NOTE))
             }
-            ContextCompat.startForegroundService(context, svc)
+            // Android 12+ can refuse a foreground-service start from the background (e.g. an alarm that is not treated as exact).
+            // That used to crash the receiver; now the user still gets a visible alert and the chain keeps going.
+            try { ContextCompat.startForegroundService(context, svc) }
+            catch (e: Exception) {
+                com.usman.miqaat.data.Health.log(context, com.usman.miqaat.data.Health.Kind.INFO, "${prayer.english} service start refused", "${e.javaClass.simpleName}: showing a notification instead")
+                fallbackNotice(context, prayer, iqamah, reminder)
+            }
         }
         // Arm the next one straight away so the chain never breaks.
         AzaanScheduler.reschedule(context)
+    }
+
+    private fun fallbackNotice(context: Context, prayer: Prayer, iqamah: Boolean, reminder: Boolean) {
+        runCatching {
+            val st = (context.applicationContext as com.usman.miqaat.MiqaatApp).settings.value
+            val ur = com.usman.miqaat.data.L10n.isUrdu(st)
+            val name = com.usman.miqaat.data.L10n.prayer(st, prayer)
+            val title = when { iqamah -> if (ur) "$name کی اقامت" else "${prayer.english} iqamah"; reminder -> if (ur) "$name میں چند منٹ باقی" else "${prayer.english} in a few minutes"; else -> if (ur) "$name کی اذان کا وقت" else "${prayer.english} azaan time" }
+            val open = android.app.PendingIntent.getActivity(context, 7, Intent(context, com.usman.miqaat.azaan.AzaanActivity::class.java).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name), android.app.PendingIntent.FLAG_UPDATE_CURRENT or android.app.PendingIntent.FLAG_IMMUTABLE)
+            val n = androidx.core.app.NotificationCompat.Builder(context, if (reminder) com.usman.miqaat.MiqaatApp.CHANNEL_SILENT else com.usman.miqaat.MiqaatApp.CHANNEL_AZAAN)
+                .setSmallIcon(com.usman.miqaat.R.drawable.ic_launcher_monochrome).setContentTitle(title).setContentIntent(open).setAutoCancel(true)
+                .setCategory(androidx.core.app.NotificationCompat.CATEGORY_ALARM).build()
+            context.getSystemService(android.app.NotificationManager::class.java).notify(43, n)
+        }
     }
 }
