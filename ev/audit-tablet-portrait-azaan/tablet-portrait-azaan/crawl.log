@@ -1,0 +1,81 @@
+{"ev": "env", "density": 2.0, "size": "Physical size: 2560x1600", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1503, "t": 1.8}
+{"ev": "setup-screen", "step": 0, "shot": "tablet-portrait-azaan__setup0.png", "key": "0d2d711142", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 20
+{"ev": "setup-tap", "label": "Begin", "t": 7.0}
+{"ev": "setup-screen", "step": 1, "shot": "tablet-portrait-azaan__setup1.png", "key": "1205850701", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 20
+{"ev": "detect-result", "shot": "tablet-portrait-azaan__setup1_after-detect-20s.png", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 2026", "24 Rabīʿ
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 36.9}
+{"ev": "setup-screen", "step": 2, "shot": "tablet-portrait-azaan__setup2.png", "key": "e1c361900e", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "Next", "t": 39.1}
+{"ev": "setup-screen", "step": 3, "shot": "tablet-portrait-azaan__setup3.png", "key": "115de92830", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "These look right", "t": 44.1}
+{"ev": "setup-screen", "step": 4, "shot": "tablet-portrait-azaan__setup4.png", "key": "5e100a9649", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "Finish", "t": 49.1}
+{"ev": "setup-done", "step": 5, "t": 53.9}
+{"ev": "setup-result", "ok": true, "t": 53.9}
+{"ev": "theme-set", "kw": "Miqaat", "t": 65.7}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "tablet-portrait-azaan-Miqaat__001__azaan-full-fajr-t4.png", "labels": [], "t": 138.5}
+{"ev": "shot", "name": "azaan-full-fajr-t78", "shot": "tablet-portrait-azaan-Miqaat__002__azaan-full-fajr-t78.png", "labels": [], "t": 212.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Miqaat__003__azaan-recording-t4", "dims": [2560, 1600], "t": 236.0}
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "tablet-portrait-azaan-Miqaat__003__azaan-recording-t4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer times", "Azaan & alerts", "Iqamah", 
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Miqaat__004__dua-hadith-t5", "dims": [2560, 1600], "t": 265.3}
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "tablet-portrait-azaan-Miqaat__004__dua-hadith-t5.png", "labels": ["Back", "Settings", "Hijri calendar", "Display & art", "Try it now", "Needs attention before the next pra
+{"ev": "shot", "name": "dua-hadith-t70", "shot": "tablet-portrait-azaan-Miqaat__005__dua-hadith-t70.png", "labels": ["Back", "Settings", "Hijri calendar", "Display & art", "Try it now", "Needs attention before the next p
+{"ev": "shot", "name": "dua-hadith-t142", "shot": "tablet-portrait-azaan-Miqaat__006__dua-hadith-t142.png", "labels": ["Back", "Settings", "Hijri calendar", "Display & art", "Try it now", "Needs attention before the next
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Miqaat__007__iqamah-short-t4", "dims": [2560, 1600], "t": 435.6}
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "tablet-portrait-azaan-Miqaat__007__iqamah-short-t4.png", "labels": [], "t": 488.2}
+{"ev": "shot", "name": "iqamah-short-t67", "shot": "tablet-portrait-azaan-Miqaat__008__iqamah-short-t67.png", "labels": [], "t": 547.2}
+{"ev": "shot", "name": "iqamah-short-t128", "shot": "tablet-portrait-azaan-Miqaat__009__iqamah-short-t128.png", "labels": [], "t": 608.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Miqaat__010__quiet-screen-t3", "dims": [2560, 1600], "t": 640.4}
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "tablet-portrait-azaan-Miqaat__010__quiet-screen-t3.png", "labels": ["2:19", "المغرب", "in prayer · screen wakes in 10 min · tap to wake now"], "t": 645.6}
+{"ev": "theme-set", "kw": "Kiswah", "t": 664.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Kiswah__011__azaan-full-fajr-t4", "dims": [2560, 1600], "t": 687.8}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "tablet-portrait-azaan-Kiswah__011__azaan-full-fajr-t4.png", "labels": [], "t": 739.9}
+{"ev": "shot", "name": "azaan-full-fajr-t81", "shot": "tablet-portrait-azaan-Kiswah__012__azaan-full-fajr-t81.png", "labels": [], "t": 814.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Kiswah__013__azaan-recording-t4", "dims": [2560, 1600], "t": 836.8}
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "tablet-portrait-azaan-Kiswah__013__azaan-recording-t4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer times", "Azaan & alerts", "Iqamah", 
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Kiswah__014__dua-hadith-t5", "dims": [2560, 1600], "t": 866.2}
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "tablet-portrait-azaan-Kiswah__014__dua-hadith-t5.png", "labels": ["Back", "Settings", "Hijri calendar", "Display & art", "Try it now", "Needs attention before the next pra
+{"ev": "shot", "name": "dua-hadith-t70", "shot": "tablet-portrait-azaan-Kiswah__015__dua-hadith-t70.png", "labels": ["Back", "Settings", "Hijri calendar", "Display & art", "Try it now", "Needs attention before the next p
+{"ev": "shot", "name": "dua-hadith-t142", "shot": "tablet-portrait-azaan-Kiswah__016__dua-hadith-t142.png", "labels": ["Back", "Settings", "Hijri calendar", "Display & art", "Try it now", "Needs attention before the next
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Kiswah__017__iqamah-short-t4", "dims": [2560, 1600], "t": 1035.4}
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "tablet-portrait-azaan-Kiswah__017__iqamah-short-t4.png", "labels": [], "t": 1087.6}
+{"ev": "shot", "name": "iqamah-short-t66", "shot": "tablet-portrait-azaan-Kiswah__018__iqamah-short-t66.png", "labels": [], "t": 1146.8}
+{"ev": "shot", "name": "iqamah-short-t127", "shot": "tablet-portrait-azaan-Kiswah__019__iqamah-short-t127.png", "labels": [], "t": 1207.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Kiswah__020__quiet-screen-t3", "dims": [2560, 1600], "t": 1239.3}
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "tablet-portrait-azaan-Kiswah__020__quiet-screen-t3.png", "labels": ["2:29", "المغرب", "in prayer · screen wakes in 10 min · tap to wake now"], "t": 1244.5}
+{"ev": "theme-set", "kw": "Celestial", "t": 1263.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Celestial__021__azaan-full-fajr-t4", "dims": [2560, 1600], "t": 1287.7}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "tablet-portrait-azaan-Celestial__021__azaan-full-fajr-t4.png", "labels": [], "t": 1340.0}
+{"ev": "shot", "name": "azaan-full-fajr-t82", "shot": "tablet-portrait-azaan-Celestial__022__azaan-full-fajr-t82.png", "labels": [], "t": 1414.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Celestial__023__azaan-recording-t4", "dims": [2560, 1600], "t": 1437.1}
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "tablet-portrait-azaan-Celestial__023__azaan-recording-t4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer times", "Azaan & alerts", "Iqamah
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Celestial__024__dua-hadith-t5", "dims": [2560, 1600], "t": 1467.2}
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "tablet-portrait-azaan-Celestial__024__dua-hadith-t5.png", "labels": ["Back", "Settings", "Hijri calendar", "Display & art", "Try it now", "Needs attention before the next 
+{"ev": "shot", "name": "dua-hadith-t71", "shot": "tablet-portrait-azaan-Celestial__025__dua-hadith-t71.png", "labels": ["Back", "Settings", "Hijri calendar", "Display & art", "Try it now", "Needs attention before the nex
+{"ev": "shot", "name": "dua-hadith-t144", "shot": "tablet-portrait-azaan-Celestial__026__dua-hadith-t144.png", "labels": ["Back", "Settings", "Hijri calendar", "Display & art", "Try it now", "Needs attention before the n
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Celestial__027__iqamah-short-t4", "dims": [2560, 1600], "t": 1638.3}
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "tablet-portrait-azaan-Celestial__027__iqamah-short-t4.png", "labels": [], "t": 1690.5}
+{"ev": "shot", "name": "iqamah-short-t67", "shot": "tablet-portrait-azaan-Celestial__028__iqamah-short-t67.png", "labels": [], "t": 1749.3}
+{"ev": "shot", "name": "iqamah-short-t128", "shot": "tablet-portrait-azaan-Celestial__029__iqamah-short-t128.png", "labels": [], "t": 1810.4}
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Celestial__030__quiet-screen-t3", "dims": [2560, 1600], "t": 1843.0}
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "tablet-portrait-azaan-Celestial__030__quiet-screen-t3.png", "labels": ["2:39", "المغرب", "in prayer · screen wakes in 10 min · tap to wake now"], "t": 1848.3}
+{"ev": "theme-set", "kw": "Gallery", "t": 1866.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Gallery__031__azaan-full-fajr-t4", "dims": [2560, 1600], "t": 1890.8}
+{"ev": "shot", "name": "azaan-full-fajr-t4", "shot": "tablet-portrait-azaan-Gallery__031__azaan-full-fajr-t4.png", "labels": [], "t": 1943.5}
+{"ev": "shot", "name": "azaan-full-fajr-t82", "shot": "tablet-portrait-azaan-Gallery__032__azaan-full-fajr-t82.png", "labels": [], "t": 2018.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Gallery__033__azaan-recording-t4", "dims": [2560, 1600], "t": 2041.1}
+{"ev": "shot", "name": "azaan-recording-t4", "shot": "tablet-portrait-azaan-Gallery__033__azaan-recording-t4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer times", "Azaan & alerts", "Iqamah",
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Gallery__034__dua-hadith-t5", "dims": [2560, 1600], "t": 2070.8}
+{"ev": "shot", "name": "dua-hadith-t5", "shot": "tablet-portrait-azaan-Gallery__034__dua-hadith-t5.png", "labels": ["Back", "Settings", "Hijri calendar", "Display & art", "Try it now", "Needs attention before the next pr
+{"ev": "shot", "name": "dua-hadith-t70", "shot": "tablet-portrait-azaan-Gallery__035__dua-hadith-t70.png", "labels": ["Back", "Settings", "Hijri calendar", "Display & art", "Try it now", "Needs attention before the next 
+{"ev": "shot", "name": "dua-hadith-t143", "shot": "tablet-portrait-azaan-Gallery__036__dua-hadith-t143.png", "labels": ["Back", "Settings", "Hijri calendar", "Display & art", "Try it now", "Needs attention before the nex
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Gallery__037__iqamah-short-t4", "dims": [2560, 1600], "t": 2240.7}
+{"ev": "shot", "name": "iqamah-short-t4", "shot": "tablet-portrait-azaan-Gallery__037__iqamah-short-t4.png", "labels": [], "t": 2293.1}
+{"ev": "shot", "name": "iqamah-short-t66", "shot": "tablet-portrait-azaan-Gallery__038__iqamah-short-t66.png", "labels": [], "t": 2352.2}
+{"ev": "shot", "name": "iqamah-short-t128", "shot": "tablet-portrait-azaan-Gallery__039__iqamah-short-t128.png", "labels": [], "t": 2413.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-azaan-Gallery__040__quiet-screen-t3", "dims": [2560, 1600], "t": 2441.8}
+{"ev": "shot", "name": "quiet-screen-t3", "shot": "tablet-portrait-azaan-Gallery__040__quiet-screen-t3.png", "labels": ["2:49", "المغرب", "in prayer · screen wakes in 10 min · tap to wake now"], "t": 2447.1}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 2453.8}
+{"ev": "gfx", "lines": ["Total frames rendered: 5", "Janky frames: 5 (100.00%)", "Janky frames (legacy): 5 (100.00%)", "50th percentile: 200ms", "90th percentile: 2050ms", "95th percentile: 2050ms", "99th percentile: 205
+{"ev": "mem", "lines": ["  Native Heap    22702    22600        0        0    25888    30072    25245     1087", "        TOTAL    42538    32084     3340        0   160720    40674    30546     6388", "           Java H
