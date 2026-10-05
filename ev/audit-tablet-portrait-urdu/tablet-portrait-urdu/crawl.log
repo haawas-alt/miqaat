@@ -1,0 +1,120 @@
+{"ev": "env", "density": 2.0, "size": "Physical size: 2560x1600", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 2106, "t": 2.5}
+{"ev": "setup-screen", "step": 0, "shot": "tablet-portrait-urdu__setup0.png", "key": "0d2d711142", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 202
+{"ev": "setup-tap", "label": "Begin", "t": 8.1}
+{"ev": "setup-screen", "step": 1, "shot": "tablet-portrait-urdu__setup1.png", "key": "1205850701", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 202
+{"ev": "detect-result", "shot": "tablet-portrait-urdu__setup1_after-detect-20s.png", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 2026", "24 Rabīʿ 
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 38.4}
+{"ev": "setup-screen", "step": 2, "shot": "tablet-portrait-urdu__setup2.png", "key": "e1c361900e", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Settin
+{"ev": "setup-tap", "label": "Next", "t": 44.1}
+{"ev": "setup-screen", "step": 3, "shot": "tablet-portrait-urdu__setup3.png", "key": "115de92830", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Settin
+{"ev": "setup-tap", "label": "These look right", "t": 49.3}
+{"ev": "setup-screen", "step": 4, "shot": "tablet-portrait-urdu__setup4.png", "key": "5e100a9649", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Settin
+{"ev": "setup-tap", "label": "Finish", "t": 54.5}
+{"ev": "setup-done", "step": 5, "t": 59.4}
+{"ev": "setup-result", "ok": true, "t": 59.4}
+{"ev": "lang-set", "t": 102.5}
+{"ev": "theme-set", "kw": "Miqaat", "t": 118.6}
+{"ev": "screen", "depth": 0, "path": [], "key": "941b295cf9", "pos": 0, "shot": "tablet-portrait-urdu-Miqaat-ur-f1.0__001__d0__p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, NSW", "Learn S
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c78ed148eb", "pos": 0, "shot": "tablet-portrait-urdu-Miqaat-ur-f1.0__002__d1__p0.png", "labels": ["واپس", "نماز سیکھیں", "الصَّلَاة", "نماز کا ایک عام طریقہ، 
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "d6372d8c85", "pos": 0, "shot": "tablet-portrait-urdu-Miqaat-ur-f1.0__003__d1__p0.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "no-change", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 صبح, Sunrise 6:22 صبح, Dhuhr 12:44 دوپہر, Asr 4:18 شام, Maghrib 7:04 رات, Isha 8:24 رات", "shot": "tablet-portrait-urdu-Miqaat-ur-f1.0__004__sam
+{"ev": "no-change", "label": "Friday 16 October, Friday, 5 Jumādā: Fajr 4:46 صبح, Sunrise 6:13 صبح, Dhuhr 12:42 دوپہر, Asr 4:19 شام, Maghrib 7:09 رات, Isha 8:31 رات", "shot": "tablet-portrait-urdu-Miqaat-ur-f1.0__005__sa
+{"ev": "no-change", "label": "Friday 23 October, Friday, 12 Jumādā: Fajr 4:36 صبح, Sunrise 6:05 صبح, Dhuhr 12:41 دوپہر, Asr 4:20 شام, Maghrib 7:15 رات, Isha 8:38 رات", "shot": "tablet-portrait-urdu-Miqaat-ur-f1.0__006__s
+{"ev": "no-change", "label": "Friday 30 October, Friday, 19 Jumādā: Fajr 4:27 صبح, Sunrise 5:57 صبح, Dhuhr 12:40 دوپہر, Asr 4:21 شام, Maghrib 7:21 رات, Isha 8:46 رات", "shot": "tablet-portrait-urdu-Miqaat-ur-f1.0__007__s
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "5034959345", "pos": 0, "shot": "tablet-portrait-urdu-Miqaat-ur-f1.0__008__d1__p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "9c8dd4dc62", "pos": 1, "shot": "tablet-portrait-urdu-Miqaat-ur-f1.0__009__d1__p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "73d905ea93", "pos": 2, "shot": "tablet-portrait-urdu-Miqaat-ur-f1.0__010__d1__p2.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "1d99659917", "pos": 3, "shot": "tablet-portrait-urdu-Miqaat-ur-f1.0__011__d1__p3.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", 
+{"ev": "no-change", "label": "ترتیبات تلاش کریں", "shot": "tablet-portrait-urdu-Miqaat-ur-f1.0__012__same___.png", "path": ["Settings"], "t": 220.2}
+{"ev": "tap-fail", "label": "ترتیبات تلاش کریں", "t": 225.6}
+{"ev": "tap-fail", "label": "ترتیبات تلاش کریں", "t": 234.4}
+{"ev": "tap-fail", "label": "ترتیبات تلاش کریں", "t": 246.6}
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 249.8}
+{"ev": "theme-done", "tag": "tablet-portrait-urdu-Miqaat-ur-f1.0", "actions": 11, "screens": 12, "t": 258.1}
+{"ev": "theme-set", "kw": "Kiswah", "t": 272.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-urdu-Kiswah-ur-f1.0__013__d0__p0", "dims": [2560, 1600], "t": 285.1}
+{"ev": "screen", "depth": 0, "path": [], "key": "a0b0d170f4", "pos": 0, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__013__d0__p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "SYDNEY, NSW", "⁧25 ربی
+{"ev": "screen", "depth": 0, "path": [], "key": "bb80387beb", "pos": 1, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__014__d0__p1.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, NSW", "منگل، 6
+{"ev": "screen", "depth": 1, "path": ["نماز سیکھیں"], "key": "63d2171d62", "pos": 0, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__015__d1__p0.png", "labels": ["واپس", "نماز سیکھیں", "الصَّلَاة", "نماز کا ایک عام طریقہ، 
+{"ev": "screen", "depth": 1, "path": ["نماز سیکھیں"], "key": "bf16a5871a", "pos": 1, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__016__d1__p1.png", "labels": ["واپس", "نماز سیکھیں", "پوری نماز سیکھیں", "فجر", "2 رکعت · 
+{"ev": "screen", "depth": 1, "path": ["نماز سیکھیں"], "key": "810e6dc7f6", "pos": 2, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__017__d1__p2.png", "labels": ["واپس", "نماز سیکھیں", "مغرب", "3 رکعت · غروب · 29 مراحل", "
+{"ev": "back-mismatch", "label": "نماز سیکھیں", "path": [], "t": 321.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-urdu-Kiswah-ur-f1.0__018__d1__p0", "dims": [2560, 1600], "t": 335.9}
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "da73500965", "pos": 0, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__018__d1__p0.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "24f4b8e472", "pos": 1, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__019__d1__p1.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "screen", "depth": 2, "path": ["ماہانہ ٹائم ٹیبل", "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 صبح, Sunrise 6:22 صبح, Dhuhr 12:44 دوپہر, Asr 4:18 شام, Maghrib 7:04 رات, Isha 8:24 رات"], "key": "3b144bd0d1", "po
+{"ev": "screen", "depth": 2, "path": ["ماہانہ ٹائم ٹیبل", "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 صبح, Sunrise 6:22 صبح, Dhuhr 12:44 دوپہر, Asr 4:18 شام, Maghrib 7:04 رات, Isha 8:24 رات"], "key": "31805e7932", "po
+{"ev": "screen", "depth": 2, "path": ["ماہانہ ٹائم ٹیبل", "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 صبح, Sunrise 6:22 صبح, Dhuhr 12:44 دوپہر, Asr 4:18 شام, Maghrib 7:04 رات, Isha 8:24 رات"], "key": "372a8ef59d", "po
+{"ev": "back-mismatch", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 صبح, Sunrise 6:22 صبح, Dhuhr 12:44 دوپہر, Asr 4:18 شام, Maghrib 7:04 رات, Isha 8:24 رات", "path": ["ماہانہ ٹائم ٹیبل"], "t": 372.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-urdu-Kiswah-ur-f1.0__023__same__Friday_16_October_Friday", "dims": [2560, 1600], "t": 388.7}
+{"ev": "no-change", "label": "Friday 16 October, Friday, 5 Jumādā: Fajr 4:46 صبح, Sunrise 6:13 صبح, Dhuhr 12:42 دوپہر, Asr 4:19 شام, Maghrib 7:09 رات, Isha 8:31 رات", "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__023__sa
+{"ev": "tap-fail", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 صبح, Sunrise 6:22 صبح, Dhuhr 12:44 دوپہر, Asr 4:18 شام, Maghrib 7:04 رات, Isha 8:24 رات", "t": 397.7}
+{"ev": "back-mismatch", "label": "ماہانہ ٹائم ٹیبل", "path": [], "t": 400.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-urdu-Kiswah-ur-f1.0__024__d1__p0", "dims": [2560, 1600], "t": 415.3}
+{"ev": "screen", "depth": 1, "path": ["ترتیبات"], "key": "2dd28a83ae", "pos": 0, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__024__d1__p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "
+{"ev": "screen", "depth": 1, "path": ["ترتیبات"], "key": "3fd1da894a", "pos": 1, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__025__d1__p1.png", "labels": ["اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر", "ڈسپلے ا
+{"ev": "screen", "depth": 2, "path": ["ترتیبات", "ترتیبات تلاش کریں"], "key": "c566dc54c3", "pos": 0, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__026__d2__p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مق
+{"ev": "screen", "depth": 2, "path": ["ترتیبات", "ترتیبات تلاش کریں"], "key": "42cf37bdc1", "pos": 1, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__027__d2__p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مق
+{"ev": "screen", "depth": 2, "path": ["ترتیبات", "ترتیبات تلاش کریں"], "key": "01874d4a13", "pos": 2, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__028__d2__p2.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مق
+{"ev": "screen", "depth": 2, "path": ["ترتیبات", "ترتیبات تلاش کریں"], "key": "0fdb88b4d5", "pos": 3, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__029__d2__p3.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مق
+{"ev": "screen", "depth": 2, "path": ["ترتیبات", "ترتیبات تلاش کریں"], "key": "d17c63e474", "pos": 4, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__030__d2__p4.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مق
+{"ev": "screen", "depth": 2, "path": ["ترتیبات", "ترتیبات تلاش کریں"], "key": "65dc5c6520", "pos": 5, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__031__d2__p5.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مق
+{"ev": "back-mismatch", "label": "ترتیبات تلاش کریں", "path": ["ترتیبات"], "t": 464.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-urdu-Kiswah-ur-f1.0__032__d1__p0", "dims": [2560, 1600], "t": 486.2}
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیوں؟"], "key": "3a6f79df9f", "pos": 0, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__032__d1__p0.png", "labels": ["5:01 کیوں؟ · فجر الفجر", "حساب کی بنیاد", "ماخذ", "اس ڈیوا
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیوں؟"], "key": "bb80387beb", "pos": 1, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__033__d1__p1.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, 
+{"ev": "back-mismatch", "label": "نماز سیکھیں", "path": ["یہ وقت کیوں؟"], "t": 512.0}
+{"ev": "tap-fail", "label": "ماہانہ ٹائم ٹیبل", "t": 527.5}
+{"ev": "tap-fail", "label": "ترتیبات", "t": 532.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-urdu-Kiswah-ur-f1.0__034__d1__p0", "dims": [2560, 1600], "t": 544.0}
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیوں؟"], "key": "77b2348aa4", "pos": 0, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__034__d1__p0.png", "labels": ["6:26 کیوں؟ · طلوعِ آفتاب الشروق", "حساب کی بنیاد", "ماخذ",
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیوں؟"], "key": "bb80387beb", "pos": 1, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__035__d1__p1.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, 
+{"ev": "back-mismatch", "label": "نماز سیکھیں", "path": ["یہ وقت کیوں؟"], "t": 569.7}
+{"ev": "tap-fail", "label": "ماہانہ ٹائم ٹیبل", "t": 585.7}
+{"ev": "tap-fail", "label": "ترتیبات", "t": 591.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-urdu-Kiswah-ur-f1.0__036__d1__p0", "dims": [2560, 1600], "t": 602.5}
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیوں؟"], "key": "95b3196ddd", "pos": 0, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__036__d1__p0.png", "labels": ["12:44 کیوں؟ · ظہر الظهر", "حساب کی بنیاد", "ماخذ", "اس ڈیو
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیوں؟"], "key": "bb80387beb", "pos": 1, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__037__d1__p1.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, 
+{"ev": "back-mismatch", "label": "نماز سیکھیں", "path": ["یہ وقت کیوں؟"], "t": 628.1}
+{"ev": "tap-fail", "label": "ماہانہ ٹائم ٹیبل", "t": 644.4}
+{"ev": "tap-fail", "label": "ترتیبات", "t": 649.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-urdu-Kiswah-ur-f1.0__038__d1__p0", "dims": [2560, 1600], "t": 660.9}
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیوں؟"], "key": "d53a194a4c", "pos": 0, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__038__d1__p0.png", "labels": ["4:17 کیوں؟ · عصر العصر", "حساب کی بنیاد", "ماخذ", "اس ڈیوا
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیوں؟"], "key": "bb80387beb", "pos": 1, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__039__d1__p1.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, 
+{"ev": "back-mismatch", "label": "نماز سیکھیں", "path": ["یہ وقت کیوں؟"], "t": 686.3}
+{"ev": "tap-fail", "label": "ماہانہ ٹائم ٹیبل", "t": 702.4}
+{"ev": "tap-fail", "label": "ترتیبات", "t": 707.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-urdu-Kiswah-ur-f1.0__040__d1__p0", "dims": [2560, 1600], "t": 718.9}
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیوں؟"], "key": "619a49988c", "pos": 0, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__040__d1__p0.png", "labels": ["7:01 کیوں؟ · مغرب المغرب", "حساب کی بنیاد", "ماخذ", "اس ڈی
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیوں؟"], "key": "bb80387beb", "pos": 1, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__041__d1__p1.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, 
+{"ev": "back-mismatch", "label": "نماز سیکھیں", "path": ["یہ وقت کیوں؟"], "t": 744.5}
+{"ev": "tap-fail", "label": "ماہانہ ٹائم ٹیبل", "t": 759.9}
+{"ev": "tap-fail", "label": "ترتیبات", "t": 765.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-urdu-Kiswah-ur-f1.0__042__d1__p0", "dims": [2560, 1600], "t": 776.4}
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیوں؟"], "key": "03163258a1", "pos": 0, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__042__d1__p0.png", "labels": ["8:21 کیوں؟ · عشاء العشاء", "حساب کی بنیاد", "ماخذ", "اس ڈی
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیوں؟"], "key": "bb80387beb", "pos": 1, "shot": "tablet-portrait-urdu-Kiswah-ur-f1.0__043__d1__p1.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, 
+{"ev": "back-mismatch", "label": "نماز سیکھیں", "path": ["یہ وقت کیوں؟"], "t": 802.0}
+{"ev": "tap-fail", "label": "ماہانہ ٹائم ٹیبل", "t": 818.4}
+{"ev": "tap-fail", "label": "ترتیبات", "t": 823.7}
+{"ev": "tap-fail", "label": "نماز سیکھیں", "t": 832.2}
+{"ev": "tap-fail", "label": "ماہانہ ٹائم ٹیبل", "t": 837.6}
+{"ev": "tap-fail", "label": "ترتیبات", "t": 842.9}
+{"ev": "theme-done", "tag": "tablet-portrait-urdu-Kiswah-ur-f1.0", "actions": 34, "screens": 43, "t": 842.9}
+{"ev": "theme-set", "kw": "Celestial", "t": 857.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-urdu-Celestial-ur-f1.0__044__d0__p0", "dims": [2560, 1600], "t": 869.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "fad41c6697", "pos": 0, "shot": "tablet-portrait-urdu-Celestial-ur-f1.0__044__d0__p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, NSW", "منگل
+{"ev": "screen", "depth": 0, "path": [], "key": "4db3a4cbd3", "pos": 1, "shot": "tablet-portrait-urdu-Celestial-ur-f1.0__045__d0__p1.png", "labels": ["Sydney, NSW", "منگل، 6 اکتوبر", "نماز سیکھیں", "ماہانہ ٹائم ٹیبل", "ت
+{"ev": "tap-fail", "label": "یہ وقت کیوں؟", "t": 884.0}
+{"ev": "tap-fail", "label": "یہ وقت کیوں؟", "t": 886.1}
+{"ev": "tap-fail", "label": "یہ وقت کیوں؟", "t": 888.1}
+{"ev": "tap-fail", "label": "یہ وقت کیوں؟", "t": 890.1}
+{"ev": "tap-fail", "label": "یہ وقت کیوں؟", "t": 892.1}
+{"ev": "tap-fail", "label": "یہ وقت کیوں؟", "t": 894.2}
+{"ev": "theme-done", "tag": "tablet-portrait-urdu-Celestial-ur-f1.0", "actions": 6, "screens": 45, "t": 894.2}
+{"ev": "theme-set", "kw": "Gallery", "t": 945.2}
+{"ev": "screen", "depth": 0, "path": [], "key": "ea278b163c", "pos": 0, "shot": "tablet-portrait-urdu-Gallery-ur-f1.0__046__d0__p0.png", "labels": ["Sydney, NSW", "منگل، 6 اکتوبر", "نماز سیکھیں", "ماہانہ ٹائم ٹیبل", "ترت
+{"ev": "theme-done", "tag": "tablet-portrait-urdu-Gallery-ur-f1.0", "actions": 0, "screens": 46, "t": 960.8}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 962.9}
+{"ev": "gfx", "lines": ["Total frames rendered: 162", "Janky frames: 141 (87.04%)", "Janky frames (legacy): 161 (99.38%)", "50th percentile: 81ms", "90th percentile: 200ms", "95th percentile: 350ms", "99th percentile: 24
+{"ev": "mem", "lines": ["  Native Heap    58588    58496        0        0    61692    67060    61127     2326", "        TOTAL    89580    77348     3640        0   212584    84649    69922    11120", "           Java H

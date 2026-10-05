@@ -1,0 +1,105 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1880, "t": 2.3}
+{"ev": "setup-screen", "step": 0, "shot": "phone-landscape-urdu__setup0.png", "key": "157ea85223", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Learn Salah", "Mo
+{"ev": "setup-stuck", "t": 7.6}
+{"ev": "setup-screen", "step": 1, "shot": "phone-landscape-urdu__setup1.png", "key": "b12e890af2", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Learn Salah", "Mo
+{"ev": "setup-tap", "label": "Begin", "t": 12.8}
+{"ev": "setup-screen", "step": 2, "shot": "phone-landscape-urdu__setup2.png", "key": "b40bb9cca8", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Learn Salah", "Mo
+{"ev": "detect-result", "shot": "phone-landscape-urdu__setup2_after-detect-20s.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī 
+{"ev": "setup-screen", "step": 3, "shot": "phone-landscape-urdu__setup3.png", "key": "8713576468", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 R
+{"ev": "setup-tap", "label": "Next", "t": 43.5}
+{"ev": "setup-screen", "step": 4, "shot": "phone-landscape-urdu__setup4.png", "key": "8b5b10b7e4", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 R
+{"ev": "setup-stuck", "t": 48.5}
+{"ev": "setup-screen", "step": 5, "shot": "phone-landscape-urdu__setup5.png", "key": "0db7b6fad7", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 R
+{"ev": "setup-stuck", "t": 53.7}
+{"ev": "setup-screen", "step": 6, "shot": "phone-landscape-urdu__setup6.png", "key": "51e5c67958", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 R
+{"ev": "setup-stuck", "t": 58.9}
+{"ev": "setup-screen", "step": 7, "shot": "phone-landscape-urdu__setup7.png", "key": "109ae6489c", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 R
+{"ev": "setup-tap", "label": "These look right", "t": 64.4}
+{"ev": "setup-screen", "step": 8, "shot": "phone-landscape-urdu__setup8.png", "key": "d33de47449", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 R
+{"ev": "setup-stuck", "t": 69.4}
+{"ev": "setup-screen", "step": 9, "shot": "phone-landscape-urdu__setup9.png", "key": "ba3d8615bd", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 R
+{"ev": "setup-stuck", "t": 74.6}
+{"ev": "setup-screen", "step": 10, "shot": "phone-landscape-urdu__setup10.png", "key": "9127925e37", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25
+{"ev": "setup-tap", "label": "Finish", "t": 79.8}
+{"ev": "setup-done", "step": 11, "t": 84.6}
+{"ev": "setup-result", "ok": true, "t": 84.6}
+{"ev": "lang-set", "t": 163.2}
+{"ev": "theme-set", "kw": "Miqaat", "t": 212.3}
+{"ev": "screen", "depth": 0, "path": [], "key": "a7caaf36b2", "pos": 0, "shot": "phone-landscape-urdu-Miqaat-ur-f1.0__001__d0__p0.png", "labels": ["مقام: ⁨33.99°S, 150.80°E⁩۔ مقام کی ترتیبات کھولتا ہے", "33.99°S, 150.80°
+{"ev": "screen", "depth": 1, "path": ["نماز سیکھیں"], "key": "20712c7e84", "pos": 0, "shot": "phone-landscape-urdu-Miqaat-ur-f1.0__002__d1__p0.png", "labels": ["واپس", "نماز سیکھیں", "الصَّلَاة", "نماز کا ایک عام طریقہ، 
+{"ev": "screen", "depth": 1, "path": ["نماز سیکھیں"], "key": "8d09d30ea2", "pos": 1, "shot": "phone-landscape-urdu-Miqaat-ur-f1.0__003__d1__p1.png", "labels": ["واپس", "نماز سیکھیں", "نماز کا ایک عام طریقہ، ایک وقت میں ا
+{"ev": "screen", "depth": 1, "path": ["نماز سیکھیں"], "key": "3b9e3e8f59", "pos": 2, "shot": "phone-landscape-urdu-Miqaat-ur-f1.0__004__d1__p2.png", "labels": ["واپس", "نماز سیکھیں", "فجر", "2 رکعت · صبح · 21 مراحل", "›"
+{"ev": "screen", "depth": 1, "path": ["نماز سیکھیں"], "key": "2995a042cf", "pos": 3, "shot": "phone-landscape-urdu-Miqaat-ur-f1.0__005__d1__p3.png", "labels": ["واپس", "نماز سیکھیں", "ظہر · عصر · عشاء", "4 رکعت · 36 مراح
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "620a63e5dc", "pos": 0, "shot": "phone-landscape-urdu-Miqaat-ur-f1.0__006__d1__p0.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "27068c6a6a", "pos": 1, "shot": "phone-landscape-urdu-Miqaat-ur-f1.0__007__d1__p1.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "ac008c0b5b", "pos": 2, "shot": "phone-landscape-urdu-Miqaat-ur-f1.0__008__d1__p2.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "005bdd50ee", "pos": 3, "shot": "phone-landscape-urdu-Miqaat-ur-f1.0__009__d1__p3.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "tap-fail", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:58 صبح, Sunrise 6:24 صبح, Dhuhr 12:45 دوپہر, Asr 4:19 شام, Maghrib 7:05 رات, Isha 8:26 رات", "t": 289.0}
+{"ev": "tap-fail", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:58 صبح, Sunrise 6:24 صبح, Dhuhr 12:45 دوپہر, Asr 4:19 شام, Maghrib 7:05 رات, Isha 8:26 رات", "t": 294.4}
+{"ev": "tap-fail", "label": "Friday 16 October, Friday, 5 Jumādā: Fajr 4:48 صبح, Sunrise 6:15 صبح, Dhuhr 12:43 دوپہر, Asr 4:20 شام, Maghrib 7:11 رات, Isha 8:33 رات", "t": 303.1}
+{"ev": "tap-fail", "label": "Friday 23 October, Friday, 12 Jumādā: Fajr 4:38 صبح, Sunrise 6:06 صبح, Dhuhr 12:42 دوپہر, Asr 4:21 شام, Maghrib 7:17 رات, Isha 8:40 رات", "t": 315.1}
+{"ev": "back-mismatch", "label": "ماہانہ ٹائم ٹیبل", "path": [], "t": 318.2}
+{"ev": "replay-fail", "path": [], "t": 350.8}
+{"ev": "theme-done", "tag": "phone-landscape-urdu-Miqaat-ur-f1.0", "actions": 6, "screens": 9, "t": 350.8}
+{"ev": "home-fail", "tag": "phone-landscape-urdu-Kiswah-ur-f1.0", "t": 434.3}
+{"ev": "rotation-lost", "name": "phone-landscape-urdu-Kiswah-ur-f1.0__010__d0__p0", "dims": [1080, 2400], "t": 436.9}
+{"ev": "screen", "depth": 0, "path": [], "key": "aa0a4ebd7e", "pos": 0, "shot": "phone-landscape-urdu-Kiswah-ur-f1.0__010__d0__p0.png", "labels": ["مقام: ⁨33.99°S, 150.80°E⁩۔ مقام کی ترتیبات کھولتا ہے", "33.99°S, 150.80°
+{"ev": "screen", "depth": 0, "path": [], "key": "78c2ec4ad8", "pos": 1, "shot": "phone-landscape-urdu-Kiswah-ur-f1.0__011__d0__p1.png", "labels": ["مقام: ⁨33.99°S, 150.80°E⁩۔ مقام کی ترتیبات کھولتا ہے", "33.99°S, 150.80°
+{"ev": "tap-fail", "label": "Learn Salah", "t": 451.8}
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "620a63e5dc", "pos": 0, "shot": "phone-landscape-urdu-Kiswah-ur-f1.0__012__d1__p0.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "4bd64eb1cc", "pos": 1, "shot": "phone-landscape-urdu-Kiswah-ur-f1.0__013__d1__p1.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "005bdd50ee", "pos": 2, "shot": "phone-landscape-urdu-Kiswah-ur-f1.0__014__d1__p2.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "d6d52c33a3", "pos": 3, "shot": "phone-landscape-urdu-Kiswah-ur-f1.0__015__d1__p3.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "005bdd50ee", "pos": 4, "shot": "phone-landscape-urdu-Kiswah-ur-f1.0__016__d1__p4.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "5fc76fb60d", "pos": 5, "shot": "phone-landscape-urdu-Kiswah-ur-f1.0__017__d1__p5.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "tap-fail", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:58 صبح, Sunrise 6:24 صبح, Dhuhr 12:45 دوپہر, Asr 4:19 شام, Maghrib 7:05 رات, Isha 8:26 رات", "t": 485.4}
+{"ev": "tap-fail", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:58 صبح, Sunrise 6:24 صبح, Dhuhr 12:45 دوپہر, Asr 4:19 شام, Maghrib 7:05 رات, Isha 8:26 رات", "t": 490.8}
+{"ev": "tap-fail", "label": "Friday 16 October, Friday, 5 Jumādā: Fajr 4:48 صبح, Sunrise 6:15 صبح, Dhuhr 12:43 دوپہر, Asr 4:20 شام, Maghrib 7:11 رات, Isha 8:33 رات", "t": 499.4}
+{"ev": "tap-fail", "label": "Friday 23 October, Friday, 12 Jumādā: Fajr 4:38 صبح, Sunrise 6:06 صبح, Dhuhr 12:42 دوپہر, Asr 4:21 شام, Maghrib 7:17 رات, Isha 8:40 رات", "t": 511.4}
+{"ev": "tap-fail", "label": "Friday 23 October, Friday, 12 Jumādā: Fajr 4:38 صبح, Sunrise 6:06 صبح, Dhuhr 12:42 دوپہر, Asr 4:21 شام, Maghrib 7:17 رات, Isha 8:40 رات", "t": 526.7}
+{"ev": "screen", "depth": 2, "path": ["ماہانہ ٹائم ٹیبل", "Friday 30 October, Friday, 19 Jumādā: Fajr 4:28 صبح, Sunrise 5:59 صبح, Dhuhr 12:41 دوپہر, Asr 4:22 شام, Maghrib 7:23 رات, Isha 8:48 رات"], "key": "5fc76fb60d", "
+{"ev": "back-mismatch", "label": "Friday 30 October, Friday, 19 Jumādā: Fajr 4:28 صبح, Sunrise 5:59 صبح, Dhuhr 12:41 دوپہر, Asr 4:22 شام, Maghrib 7:23 رات, Isha 8:48 رات", "path": ["ماہانہ ٹائم ٹیبل"], "t": 557.6}
+{"ev": "replay-fail", "path": ["ماہانہ ٹائم ٹیبل"], "t": 590.3}
+{"ev": "back-mismatch", "label": "ماہانہ ٹائم ٹیبل", "path": [], "t": 593.4}
+{"ev": "replay-fail", "path": [], "t": 625.2}
+{"ev": "theme-done", "tag": "phone-landscape-urdu-Kiswah-ur-f1.0", "actions": 8, "screens": 18, "t": 625.2}
+{"ev": "home-fail", "tag": "phone-landscape-urdu-Celestial-ur-f1.0", "t": 709.1}
+{"ev": "rotation-lost", "name": "phone-landscape-urdu-Celestial-ur-f1.0__019__d0__p0", "dims": [1080, 2400], "t": 711.7}
+{"ev": "screen", "depth": 0, "path": [], "key": "aa0a4ebd7e", "pos": 0, "shot": "phone-landscape-urdu-Celestial-ur-f1.0__019__d0__p0.png", "labels": ["مقام: ⁨33.99°S, 150.80°E⁩۔ مقام کی ترتیبات کھولتا ہے", "33.99°S, 150.
+{"ev": "screen", "depth": 0, "path": [], "key": "78c2ec4ad8", "pos": 1, "shot": "phone-landscape-urdu-Celestial-ur-f1.0__020__d0__p1.png", "labels": ["مقام: ⁨33.99°S, 150.80°E⁩۔ مقام کی ترتیبات کھولتا ہے", "33.99°S, 150.
+{"ev": "tap-fail", "label": "Learn Salah", "t": 726.5}
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "620a63e5dc", "pos": 0, "shot": "phone-landscape-urdu-Celestial-ur-f1.0__021__d1__p0.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "27068c6a6a", "pos": 1, "shot": "phone-landscape-urdu-Celestial-ur-f1.0__022__d1__p1.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "ac008c0b5b", "pos": 2, "shot": "phone-landscape-urdu-Celestial-ur-f1.0__023__d1__p2.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "005bdd50ee", "pos": 3, "shot": "phone-landscape-urdu-Celestial-ur-f1.0__024__d1__p3.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "71ec402c8c", "pos": 4, "shot": "phone-landscape-urdu-Celestial-ur-f1.0__025__d1__p4.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "5fc76fb60d", "pos": 5, "shot": "phone-landscape-urdu-Celestial-ur-f1.0__026__d1__p5.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول
+{"ev": "tap-fail", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:58 صبح, Sunrise 6:24 صبح, Dhuhr 12:45 دوپہر, Asr 4:19 شام, Maghrib 7:05 رات, Isha 8:26 رات", "t": 759.9}
+{"ev": "tap-fail", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:58 صبح, Sunrise 6:24 صبح, Dhuhr 12:45 دوپہر, Asr 4:19 شام, Maghrib 7:05 رات, Isha 8:26 رات", "t": 765.2}
+{"ev": "tap-fail", "label": "Friday 16 October, Friday, 5 Jumādā: Fajr 4:48 صبح, Sunrise 6:15 صبح, Dhuhr 12:43 دوپہر, Asr 4:20 شام, Maghrib 7:11 رات, Isha 8:33 رات", "t": 773.7}
+{"ev": "tap-fail", "label": "Friday 23 October, Friday, 12 Jumādā: Fajr 4:38 صبح, Sunrise 6:06 صبح, Dhuhr 12:42 دوپہر, Asr 4:21 شام, Maghrib 7:17 رات, Isha 8:40 رات", "t": 785.6}
+{"ev": "tap-fail", "label": "Friday 23 October, Friday, 12 Jumādā: Fajr 4:38 صبح, Sunrise 6:06 صبح, Dhuhr 12:42 دوپہر, Asr 4:21 شام, Maghrib 7:17 رات, Isha 8:40 رات", "t": 801.1}
+{"ev": "screen", "depth": 2, "path": ["ماہانہ ٹائم ٹیبل", "Friday 30 October, Friday, 19 Jumādā: Fajr 4:28 صبح, Sunrise 5:59 صبح, Dhuhr 12:41 دوپہر, Asr 4:22 شام, Maghrib 7:23 رات, Isha 8:48 رات"], "key": "5fc76fb60d", "
+{"ev": "back-mismatch", "label": "Friday 30 October, Friday, 19 Jumādā: Fajr 4:28 صبح, Sunrise 5:59 صبح, Dhuhr 12:41 دوپہر, Asr 4:22 شام, Maghrib 7:23 رات, Isha 8:48 رات", "path": ["ماہانہ ٹائم ٹیبل"], "t": 831.7}
+{"ev": "replay-fail", "path": ["ماہانہ ٹائم ٹیبل"], "t": 864.1}
+{"ev": "back-mismatch", "label": "ماہانہ ٹائم ٹیبل", "path": [], "t": 867.2}
+{"ev": "replay-fail", "path": [], "t": 899.1}
+{"ev": "theme-done", "tag": "phone-landscape-urdu-Celestial-ur-f1.0", "actions": 8, "screens": 27, "t": 899.1}
+{"ev": "home-fail", "tag": "phone-landscape-urdu-Gallery-ur-f1.0", "t": 982.5}
+{"ev": "rotation-lost", "name": "phone-landscape-urdu-Gallery-ur-f1.0__028__d0__p0", "dims": [1080, 2400], "t": 985.1}
+{"ev": "screen", "depth": 0, "path": [], "key": "aa0a4ebd7e", "pos": 0, "shot": "phone-landscape-urdu-Gallery-ur-f1.0__028__d0__p0.png", "labels": ["مقام: ⁨33.99°S, 150.80°E⁩۔ مقام کی ترتیبات کھولتا ہے", "33.99°S, 150.80
+{"ev": "screen", "depth": 0, "path": [], "key": "78c2ec4ad8", "pos": 1, "shot": "phone-landscape-urdu-Gallery-ur-f1.0__029__d0__p1.png", "labels": ["مقام: ⁨33.99°S, 150.80°E⁩۔ مقام کی ترتیبات کھولتا ہے", "33.99°S, 150.80
+{"ev": "tap-fail", "label": "Learn Salah", "t": 1000.1}
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "620a63e5dc", "pos": 0, "shot": "phone-landscape-urdu-Gallery-ur-f1.0__030__d1__p0.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 1
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "27068c6a6a", "pos": 1, "shot": "phone-landscape-urdu-Gallery-ur-f1.0__031__d1__p1.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 1
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "005bdd50ee", "pos": 2, "shot": "phone-landscape-urdu-Gallery-ur-f1.0__032__d1__p2.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 1
+{"ev": "tap-fail", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:58 صبح, Sunrise 6:24 صبح, Dhuhr 12:45 دوپہر, Asr 4:19 شام, Maghrib 7:05 رات, Isha 8:26 رات", "t": 1022.6}
+{"ev": "tap-fail", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:58 صبح, Sunrise 6:24 صبح, Dhuhr 12:45 دوپہر, Asr 4:19 شام, Maghrib 7:05 رات, Isha 8:26 رات", "t": 1027.8}
+{"ev": "tap-fail", "label": "Friday 16 October, Friday, 5 Jumādā: Fajr 4:48 صبح, Sunrise 6:15 صبح, Dhuhr 12:43 دوپہر, Asr 4:20 شام, Maghrib 7:11 رات, Isha 8:33 رات", "t": 1036.4}
+{"ev": "back-mismatch", "label": "ماہانہ ٹائم ٹیبل", "path": [], "t": 1039.5}
+{"ev": "replay-fail", "path": [], "t": 1072.0}
+{"ev": "theme-done", "tag": "phone-landscape-urdu-Gallery-ur-f1.0", "actions": 5, "screens": 32, "t": 1072.0}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 1099.8}
+{"ev": "gfx", "lines": ["Total frames rendered: 37", "Janky frames: 37 (100.00%)", "Janky frames (legacy): 37 (100.00%)", "50th percentile: 500ms", "90th percentile: 2100ms", "95th percentile: 2150ms", "99th percentile: 
+{"ev": "mem", "lines": ["  Native Heap    26229    26136        0        0    29328    34248    26324     3709", "        TOTAL    51248    39772     3428        0   171348    47727    33064    10448", "           Java H
