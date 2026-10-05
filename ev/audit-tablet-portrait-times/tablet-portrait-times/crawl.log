@@ -1,0 +1,557 @@
+{"ev": "env", "density": 2.0, "size": "Physical size: 2560x1600", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 2020, "t": 2.4}
+{"ev": "setup-screen", "step": 0, "shot": "tablet-portrait-times__setup0.png", "key": "0d2d711142", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 20
+{"ev": "setup-tap", "label": "Begin", "t": 7.9}
+{"ev": "setup-screen", "step": 1, "shot": "tablet-portrait-times__setup1.png", "key": "1205850701", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 20
+{"ev": "detect-result", "shot": "tablet-portrait-times__setup1_after-detect-20s.png", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 2026", "24 Rabīʿ
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 38.1}
+{"ev": "setup-screen", "step": 2, "shot": "tablet-portrait-times__setup2.png", "key": "e1c361900e", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "Next", "t": 41.3}
+{"ev": "setup-screen", "step": 3, "shot": "tablet-portrait-times__setup3.png", "key": "115de92830", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "These look right", "t": 46.5}
+{"ev": "setup-screen", "step": 4, "shot": "tablet-portrait-times__setup4.png", "key": "5e100a9649", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "Finish", "t": 51.7}
+{"ev": "setup-done", "step": 5, "t": 56.5}
+{"ev": "setup-result", "ok": true, "t": 56.5}
+{"ev": "adb-root", "out": "", "t": 57.8}
+{"ev": "theme-set", "kw": "Miqaat", "t": 72.9}
+{"ev": "set-time", "sc": "predawn-0430", "out": "Mon Oct  5 17:30:00 UTC 2026", "t": 80.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-predawn-0430__001__d0__p0", "dims": [2560, 1600], "t": 93.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "3b01b5a9fc", "pos": 0, "shot": "tablet-portrait-times-Miqaat-predawn-0430__001__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", 
+{"ev": "screen", "depth": 0, "path": [], "key": "ddc6970ebd", "pos": 1, "shot": "tablet-portrait-times-Miqaat-predawn-0430__002__d0__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "cde87b0ef9", "pos": 0, "shot": "tablet-portrait-times-Miqaat-predawn-0430__003__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "81b45da5b0", "pos": 1, "shot": "tablet-portrait-times-Miqaat-predawn-0430__004__d1__p1.png", "labels": ["Back", "Learn Salah", "Learn a complete prayer", "Faj
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a02b0f2235", "pos": 2, "shot": "tablet-portrait-times-Miqaat-predawn-0430__005__d1__p2.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset 
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 130.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-predawn-0430__006__d1__p0", "dims": [2560, 1600], "t": 149.1}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "4d2923ea84", "pos": 0, "shot": "tablet-portrait-times-Miqaat-predawn-0430__006__d1__p0.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "3ccb9b9be4", "pos": 1, "shot": "tablet-portrait-times-Miqaat-predawn-0430__007__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 164.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-predawn-0430__008__d1__p0", "dims": [2560, 1600], "t": 180.1}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "d6b5acbb6f", "pos": 0, "shot": "tablet-portrait-times-Miqaat-predawn-0430__008__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "a814601302", "pos": 1, "shot": "tablet-portrait-times-Miqaat-predawn-0430__009__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "8638a299cc", "pos": 2, "shot": "tablet-portrait-times-Miqaat-predawn-0430__010__d1__p2.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "a3a4b65671", "pos": 3, "shot": "tablet-portrait-times-Miqaat-predawn-0430__011__d1__p3.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "4a6563addb", "pos": 4, "shot": "tablet-portrait-times-Miqaat-predawn-0430__012__d1__p4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "b4cfbb36c0", "pos": 5, "shot": "tablet-portrait-times-Miqaat-predawn-0430__013__d1__p5.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 211.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-predawn-0430__014__d1__p0", "dims": [2560, 1600], "t": 228.3}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-portrait-times-Miqaat-predawn-0430__014__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "ddc6970ebd", "pos": 1, "shot": "tablet-portrait-times-Miqaat-predawn-0430__015__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 244.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-predawn-0430__016__d1__p0", "dims": [2560, 1600], "t": 260.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f1796e5123", "pos": 0, "shot": "tablet-portrait-times-Miqaat-predawn-0430__016__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "ddc6970ebd", "pos": 1, "shot": "tablet-portrait-times-Miqaat-predawn-0430__017__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 276.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-predawn-0430__018__d1__p0", "dims": [2560, 1600], "t": 291.7}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a6bd09cbe", "pos": 0, "shot": "tablet-portrait-times-Miqaat-predawn-0430__018__d1__p0.png", "labels": ["Why 12:44? · Dhuhr الظهر", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "ddc6970ebd", "pos": 1, "shot": "tablet-portrait-times-Miqaat-predawn-0430__019__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 307.6}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-predawn-0430__020__d1__p0", "dims": [2560, 1600], "t": 323.5}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e7916933c1", "pos": 0, "shot": "tablet-portrait-times-Miqaat-predawn-0430__020__d1__p0.png", "labels": ["Why 4:17? · Asr العصر", "CALCULATED FROM", "Source
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "ddc6970ebd", "pos": 1, "shot": "tablet-portrait-times-Miqaat-predawn-0430__021__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 339.4}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-predawn-0430__022__d1__p0", "dims": [2560, 1600], "t": 355.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9fa55e0631", "pos": 0, "shot": "tablet-portrait-times-Miqaat-predawn-0430__022__d1__p0.png", "labels": ["Why 7:01? · Maghrib المغرب", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "ddc6970ebd", "pos": 1, "shot": "tablet-portrait-times-Miqaat-predawn-0430__023__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 371.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-predawn-0430__024__d1__p0", "dims": [2560, 1600], "t": 387.2}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cb5a8dfb5b", "pos": 0, "shot": "tablet-portrait-times-Miqaat-predawn-0430__024__d1__p0.png", "labels": ["Why 8:21? · Isha العشاء", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "ddc6970ebd", "pos": 1, "shot": "tablet-portrait-times-Miqaat-predawn-0430__025__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 403.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-predawn-0430__026__d1__p0", "dims": [2560, 1600], "t": 425.7}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-times-Miqaat-predawn-0430__026__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true no
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-times-Miqaat-predawn-0430__027__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true no
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 446.8}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 460.0}
+{"ev": "tap-fail", "label": "Monthly timetable", "t": 465.3}
+{"ev": "set-time", "sc": "morning-0545", "out": "Mon Oct  5 18:45:00 UTC 2026", "t": 467.4}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-morning-0545__028__d0__p0", "dims": [2560, 1600], "t": 481.3}
+{"ev": "screen", "depth": 0, "path": [], "key": "44e369e1db", "pos": 0, "shot": "tablet-portrait-times-Miqaat-morning-0545__028__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", 
+{"ev": "screen", "depth": 0, "path": [], "key": "e972fd1e67", "pos": 1, "shot": "tablet-portrait-times-Miqaat-morning-0545__029__d0__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "cde87b0ef9", "pos": 0, "shot": "tablet-portrait-times-Miqaat-morning-0545__030__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "81b45da5b0", "pos": 1, "shot": "tablet-portrait-times-Miqaat-morning-0545__031__d1__p1.png", "labels": ["Back", "Learn Salah", "Learn a complete prayer", "Faj
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a02b0f2235", "pos": 2, "shot": "tablet-portrait-times-Miqaat-morning-0545__032__d1__p2.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset 
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 518.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-morning-0545__033__d1__p0", "dims": [2560, 1600], "t": 534.7}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "4d2923ea84", "pos": 0, "shot": "tablet-portrait-times-Miqaat-morning-0545__033__d1__p0.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "3ccb9b9be4", "pos": 1, "shot": "tablet-portrait-times-Miqaat-morning-0545__034__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 549.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-morning-0545__035__d1__p0", "dims": [2560, 1600], "t": 565.8}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "d82f8364d7", "pos": 0, "shot": "tablet-portrait-times-Miqaat-morning-0545__035__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "a814601302", "pos": 1, "shot": "tablet-portrait-times-Miqaat-morning-0545__036__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "f9035dabac", "pos": 2, "shot": "tablet-portrait-times-Miqaat-morning-0545__037__d1__p2.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "2fa23d057b", "pos": 3, "shot": "tablet-portrait-times-Miqaat-morning-0545__038__d1__p3.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "bfc94d2666", "pos": 4, "shot": "tablet-portrait-times-Miqaat-morning-0545__039__d1__p4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "2a8c31f534", "pos": 5, "shot": "tablet-portrait-times-Miqaat-morning-0545__040__d1__p5.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 597.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-morning-0545__041__d1__p0", "dims": [2560, 1600], "t": 614.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-portrait-times-Miqaat-morning-0545__041__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "86e96144a4", "pos": 1, "shot": "tablet-portrait-times-Miqaat-morning-0545__042__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 630.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-morning-0545__043__d1__p0", "dims": [2560, 1600], "t": 646.6}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f1796e5123", "pos": 0, "shot": "tablet-portrait-times-Miqaat-morning-0545__043__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "86e96144a4", "pos": 1, "shot": "tablet-portrait-times-Miqaat-morning-0545__044__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 662.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-morning-0545__045__d1__p0", "dims": [2560, 1600], "t": 680.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a6bd09cbe", "pos": 0, "shot": "tablet-portrait-times-Miqaat-morning-0545__045__d1__p0.png", "labels": ["Why 12:44? · Dhuhr الظهر", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "86e96144a4", "pos": 1, "shot": "tablet-portrait-times-Miqaat-morning-0545__046__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 696.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-morning-0545__047__d1__p0", "dims": [2560, 1600], "t": 713.0}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e7916933c1", "pos": 0, "shot": "tablet-portrait-times-Miqaat-morning-0545__047__d1__p0.png", "labels": ["Why 4:17? · Asr العصر", "CALCULATED FROM", "Source
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "86e96144a4", "pos": 1, "shot": "tablet-portrait-times-Miqaat-morning-0545__048__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 729.4}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-morning-0545__049__d1__p0", "dims": [2560, 1600], "t": 745.9}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9fa55e0631", "pos": 0, "shot": "tablet-portrait-times-Miqaat-morning-0545__049__d1__p0.png", "labels": ["Why 7:01? · Maghrib المغرب", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "86e96144a4", "pos": 1, "shot": "tablet-portrait-times-Miqaat-morning-0545__050__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 762.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-morning-0545__051__d1__p0", "dims": [2560, 1600], "t": 779.8}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cb5a8dfb5b", "pos": 0, "shot": "tablet-portrait-times-Miqaat-morning-0545__051__d1__p0.png", "labels": ["Why 8:21? · Isha العشاء", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "86e96144a4", "pos": 1, "shot": "tablet-portrait-times-Miqaat-morning-0545__052__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 795.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-morning-0545__053__d1__p0", "dims": [2560, 1600], "t": 815.1}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-times-Miqaat-morning-0545__053__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true no
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-times-Miqaat-morning-0545__054__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true no
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 835.6}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-morning-0545__055__d1__p0", "dims": [2560, 1600], "t": 851.8}
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "559eb149ac", "pos": 0, "shot": "tablet-portrait-times-Miqaat-morning-0545__055__d1__p0.png", "labels": ["Back", "Morning adhkār", "أذكار الصباح", "0 of 13 
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "4046082586", "pos": 1, "shot": "tablet-portrait-times-Miqaat-morning-0545__056__d1__p1.png", "labels": ["Back", "Morning adhkār", "أذكار الصباح", "1 of 13 
+{"ev": "back-mismatch", "label": "Morning adhkār", "path": [], "t": 867.0}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 880.6}
+{"ev": "set-time", "sc": "forenoon-0930", "out": "Mon Oct  5 22:30:00 UTC 2026", "t": 882.6}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-forenoon-0930__057__d0__p0", "dims": [2560, 1600], "t": 896.4}
+{"ev": "screen", "depth": 0, "path": [], "key": "9f4c03f951", "pos": 0, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__057__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW",
+{"ev": "screen", "depth": 0, "path": [], "key": "5e3d8f506c", "pos": 1, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__058__d0__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW",
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "cde87b0ef9", "pos": 0, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__059__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "81b45da5b0", "pos": 1, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__060__d1__p1.png", "labels": ["Back", "Learn Salah", "Learn a complete prayer", "Fa
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a02b0f2235", "pos": 2, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__061__d1__p2.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 933.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-forenoon-0930__062__d1__p0", "dims": [2560, 1600], "t": 949.7}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "4d2923ea84", "pos": 0, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__062__d1__p0.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumād
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "3ccb9b9be4", "pos": 1, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__063__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumād
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 964.6}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-forenoon-0930__064__d1__p0", "dims": [2560, 1600], "t": 980.5}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "d82f8364d7", "pos": 0, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__064__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Location", "Pray
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "a814601302", "pos": 1, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__065__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Location", "Pray
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "798e10b6be", "pos": 2, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__066__d1__p2.png", "labels": ["Back", "Settings", "Search settings", "Location", "Pray
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "bfc94d2666", "pos": 3, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__067__d1__p3.png", "labels": ["Back", "Settings", "Search settings", "Location", "Pray
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "a3a4b65671", "pos": 4, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__068__d1__p4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Pray
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "4a6563addb", "pos": 5, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__069__d1__p5.png", "labels": ["Back", "Settings", "Search settings", "Location", "Pray
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 1011.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-forenoon-0930__070__d1__p0", "dims": [2560, 1600], "t": 1028.8}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__070__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5e3d8f506c", "pos": 1, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__071__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings"
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1044.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-forenoon-0930__072__d1__p0", "dims": [2560, 1600], "t": 1063.1}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f1796e5123", "pos": 0, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__072__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5e3d8f506c", "pos": 1, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__073__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings"
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1079.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-forenoon-0930__074__d1__p0", "dims": [2560, 1600], "t": 1097.0}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a6bd09cbe", "pos": 0, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__074__d1__p0.png", "labels": ["Why 12:44? · Dhuhr الظهر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5e3d8f506c", "pos": 1, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__075__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings"
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1113.4}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-forenoon-0930__076__d1__p0", "dims": [2560, 1600], "t": 1130.0}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e7916933c1", "pos": 0, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__076__d1__p0.png", "labels": ["Why 4:17? · Asr العصر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5e3d8f506c", "pos": 1, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__077__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings"
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1146.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-forenoon-0930__078__d1__p0", "dims": [2560, 1600], "t": 1162.0}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9fa55e0631", "pos": 0, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__078__d1__p0.png", "labels": ["Why 7:01? · Maghrib المغرب", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5e3d8f506c", "pos": 1, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__079__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings"
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1178.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-forenoon-0930__080__d1__p0", "dims": [2560, 1600], "t": 1194.5}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cb5a8dfb5b", "pos": 0, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__080__d1__p0.png", "labels": ["Why 8:21? · Isha العشاء", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5e3d8f506c", "pos": 1, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__081__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings"
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1210.4}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-forenoon-0930__082__d1__p0", "dims": [2560, 1600], "t": 1233.5}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__082__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true n
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__083__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true n
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 1254.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-forenoon-0930__084__d1__p0", "dims": [2560, 1600], "t": 1270.1}
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "559eb149ac", "pos": 0, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__084__d1__p0.png", "labels": ["Back", "Morning adhkār", "أذكار الصباح", "0 of 13
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "4046082586", "pos": 1, "shot": "tablet-portrait-times-Miqaat-forenoon-0930__085__d1__p1.png", "labels": ["Back", "Morning adhkār", "أذكار الصباح", "1 of 13
+{"ev": "back-mismatch", "label": "Morning adhkār", "path": [], "t": 1285.3}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 1299.0}
+{"ev": "set-time", "sc": "friday-1250", "out": "Fri Oct  9 01:50:00 UTC 2026", "t": 1301.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-friday-1250__086__d0__p0", "dims": [2560, 1600], "t": 1315.1}
+{"ev": "screen", "depth": 0, "path": [], "key": "f2077628ec", "pos": 0, "shot": "tablet-portrait-times-Miqaat-friday-1250__086__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "
+{"ev": "screen", "depth": 0, "path": [], "key": "4a69e5f52b", "pos": 1, "shot": "tablet-portrait-times-Miqaat-friday-1250__087__d0__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "cde87b0ef9", "pos": 0, "shot": "tablet-portrait-times-Miqaat-friday-1250__088__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form of
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c9d8a4a3a2", "pos": 1, "shot": "tablet-portrait-times-Miqaat-friday-1250__089__d1__p1.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form of
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "2dcabbca49", "pos": 2, "shot": "tablet-portrait-times-Miqaat-friday-1250__090__d1__p2.png", "labels": ["Back", "Learn Salah", "Fajr", "2 rakʿahs · dawn · 21 s
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a02b0f2235", "pos": 3, "shot": "tablet-portrait-times-Miqaat-friday-1250__091__d1__p3.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset ·
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 1357.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-friday-1250__092__d1__p0", "dims": [2560, 1600], "t": 1375.5}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "09545df3ad", "pos": 0, "shot": "tablet-portrait-times-Miqaat-friday-1250__092__d1__p0.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "d9f3949c6f", "pos": 1, "shot": "tablet-portrait-times-Miqaat-friday-1250__093__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 1390.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-friday-1250__094__d1__p0", "dims": [2560, 1600], "t": 1406.4}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "ac1777d613", "pos": 0, "shot": "tablet-portrait-times-Miqaat-friday-1250__094__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "f9035dabac", "pos": 1, "shot": "tablet-portrait-times-Miqaat-friday-1250__095__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "8638a299cc", "pos": 2, "shot": "tablet-portrait-times-Miqaat-friday-1250__096__d1__p2.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "bfc94d2666", "pos": 3, "shot": "tablet-portrait-times-Miqaat-friday-1250__097__d1__p3.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "a3a4b65671", "pos": 4, "shot": "tablet-portrait-times-Miqaat-friday-1250__098__d1__p4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "4a6563addb", "pos": 5, "shot": "tablet-portrait-times-Miqaat-friday-1250__099__d1__p5.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 1437.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-friday-1250__100__d1__p0", "dims": [2560, 1600], "t": 1455.2}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-portrait-times-Miqaat-friday-1250__100__d1__p0.png", "labels": ["Why 4:57? · Fajr الفجر", "CALCULATED FROM", "Source
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4a69e5f52b", "pos": 1, "shot": "tablet-portrait-times-Miqaat-friday-1250__101__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1471.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-friday-1250__102__d1__p0", "dims": [2560, 1600], "t": 1487.3}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f1796e5123", "pos": 0, "shot": "tablet-portrait-times-Miqaat-friday-1250__102__d1__p0.png", "labels": ["Why 6:22? · Sunrise الشروق", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4a69e5f52b", "pos": 1, "shot": "tablet-portrait-times-Miqaat-friday-1250__103__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1503.4}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-friday-1250__104__d1__p0", "dims": [2560, 1600], "t": 1519.5}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a6bd09cbe", "pos": 0, "shot": "tablet-portrait-times-Miqaat-friday-1250__104__d1__p0.png", "labels": ["Why 12:44? · Dhuhr الظهر", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4a69e5f52b", "pos": 1, "shot": "tablet-portrait-times-Miqaat-friday-1250__105__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1535.6}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-friday-1250__106__d1__p0", "dims": [2560, 1600], "t": 1551.9}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e7916933c1", "pos": 0, "shot": "tablet-portrait-times-Miqaat-friday-1250__106__d1__p0.png", "labels": ["Why 4:18? · Asr العصر", "CALCULATED FROM", "Source"
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4a69e5f52b", "pos": 1, "shot": "tablet-portrait-times-Miqaat-friday-1250__107__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1568.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-friday-1250__108__d1__p0", "dims": [2560, 1600], "t": 1585.6}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9fa55e0631", "pos": 0, "shot": "tablet-portrait-times-Miqaat-friday-1250__108__d1__p0.png", "labels": ["Why 7:04? · Maghrib المغرب", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4a69e5f52b", "pos": 1, "shot": "tablet-portrait-times-Miqaat-friday-1250__109__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1601.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-friday-1250__110__d1__p0", "dims": [2560, 1600], "t": 1618.2}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "6f83cefbeb", "pos": 0, "shot": "tablet-portrait-times-Miqaat-friday-1250__110__d1__p0.png", "labels": ["Why 8:24? · Isha العشاء", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4a69e5f52b", "pos": 1, "shot": "tablet-portrait-times-Miqaat-friday-1250__111__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1634.4}
+{"ev": "tap-fail", "label": "Friday 9 October 2026  ·  12:50 PM", "t": 1644.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-friday-1250__112__d1__p0", "dims": [2560, 1600], "t": 1656.3}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-times-Miqaat-friday-1250__112__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true nor
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-times-Miqaat-friday-1250__113__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true nor
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 1676.2}
+{"ev": "set-time", "sc": "afternoon-1630", "out": "Wed Oct  7 05:30:00 UTC 2026", "t": 1695.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-afternoon-1630__114__d0__p0", "dims": [2560, 1600], "t": 1709.6}
+{"ev": "screen", "depth": 0, "path": [], "key": "2bebbc38f4", "pos": 0, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__114__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW"
+{"ev": "screen", "depth": 0, "path": [], "key": "a4024053dc", "pos": 1, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__115__d0__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW"
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "cde87b0ef9", "pos": 0, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__116__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "81b45da5b0", "pos": 1, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__117__d1__p1.png", "labels": ["Back", "Learn Salah", "Learn a complete prayer", "F
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a02b0f2235", "pos": 2, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__118__d1__p2.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunse
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 1747.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-afternoon-1630__119__d1__p0", "dims": [2560, 1600], "t": 1762.9}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "bb1ec75c88", "pos": 0, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__119__d1__p0.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumā
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2dc390b11a", "pos": 1, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__120__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumā
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 1777.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-afternoon-1630__121__d1__p0", "dims": [2560, 1600], "t": 1793.9}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "4facd12f31", "pos": 0, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__121__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Location", "Pra
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "42740a4dad", "pos": 1, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__122__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Location", "Pra
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "2fa23d057b", "pos": 2, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__123__d1__p2.png", "labels": ["Back", "Settings", "Search settings", "Location", "Pra
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "4a5ecdbe14", "pos": 3, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__124__d1__p3.png", "labels": ["Back", "Settings", "Search settings", "Location", "Pra
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "ebfadaf38b", "pos": 4, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__125__d1__p4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Pra
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "59a0a143fe", "pos": 5, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__126__d1__p5.png", "labels": ["Back", "Settings", "Search settings", "Location", "Pra
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 1825.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-afternoon-1630__127__d1__p0", "dims": [2560, 1600], "t": 1842.5}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__127__d1__p0.png", "labels": ["Why 5:00? · Fajr الفجر", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a4024053dc", "pos": 1, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__128__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1858.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-afternoon-1630__129__d1__p0", "dims": [2560, 1600], "t": 1875.5}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f1796e5123", "pos": 0, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__129__d1__p0.png", "labels": ["Why 6:25? · Sunrise الشروق", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a4024053dc", "pos": 1, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__130__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1891.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-afternoon-1630__131__d1__p0", "dims": [2560, 1600], "t": 1908.0}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a6bd09cbe", "pos": 0, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__131__d1__p0.png", "labels": ["Why 12:44? · Dhuhr الظهر", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a4024053dc", "pos": 1, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__132__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1924.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-afternoon-1630__133__d1__p0", "dims": [2560, 1600], "t": 1940.9}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e7916933c1", "pos": 0, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__133__d1__p0.png", "labels": ["Why 4:17? · Asr العصر", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a4024053dc", "pos": 1, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__134__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1957.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-afternoon-1630__135__d1__p0", "dims": [2560, 1600], "t": 1975.0}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9fa55e0631", "pos": 0, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__135__d1__p0.png", "labels": ["Why 7:02? · Maghrib المغرب", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a4024053dc", "pos": 1, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__136__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1991.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-afternoon-1630__137__d1__p0", "dims": [2560, 1600], "t": 2007.7}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cb5a8dfb5b", "pos": 0, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__137__d1__p0.png", "labels": ["Why 8:22? · Isha العشاء", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "a4024053dc", "pos": 1, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__138__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2023.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-afternoon-1630__139__d1__p0", "dims": [2560, 1600], "t": 2056.7}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__139__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true 
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__140__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true 
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 2076.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-afternoon-1630__141__d1__p0", "dims": [2560, 1600], "t": 2095.6}
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "da917ac395", "pos": 0, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__141__d1__p0.png", "labels": ["Back", "Evening adhkār", "أذكار المساء", "0 of 1
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "4cc6b5a5d9", "pos": 1, "shot": "tablet-portrait-times-Miqaat-afternoon-1630__142__d1__p1.png", "labels": ["Back", "Evening adhkār", "أذكار المساء", "1 of 1
+{"ev": "back-mismatch", "label": "Evening adhkār", "path": [], "t": 2110.9}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 2124.1}
+{"ev": "set-time", "sc": "maghrib-1915", "out": "Wed Oct  7 08:15:00 UTC 2026", "t": 2126.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-maghrib-1915__143__d0__p0", "dims": [2560, 1600], "t": 2140.7}
+{"ev": "screen", "depth": 0, "path": [], "key": "8ad6c164c5", "pos": 0, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__143__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", 
+{"ev": "screen", "depth": 0, "path": [], "key": "5d12aafdbb", "pos": 1, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__144__d0__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "cde87b0ef9", "pos": 0, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__145__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "1bf1206303", "pos": 1, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__146__d1__p1.png", "labels": ["Back", "Learn Salah", "One common form of the prayer,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "2dcabbca49", "pos": 2, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__147__d1__p2.png", "labels": ["Back", "Learn Salah", "Fajr", "2 rakʿahs · dawn · 21 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a02b0f2235", "pos": 3, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__148__d1__p3.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset 
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 2183.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-maghrib-1915__149__d1__p0", "dims": [2560, 1600], "t": 2199.6}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "bb1ec75c88", "pos": 0, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__149__d1__p0.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2dc390b11a", "pos": 1, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__150__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 2214.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-maghrib-1915__151__d1__p0", "dims": [2560, 1600], "t": 2230.5}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "6069cd2347", "pos": 0, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__151__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "a814601302", "pos": 1, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__152__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "798e10b6be", "pos": 2, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__153__d1__p2.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "8638a299cc", "pos": 3, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__154__d1__p3.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "a3a4b65671", "pos": 4, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__155__d1__p4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "4a6563addb", "pos": 5, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__156__d1__p5.png", "labels": ["Back", "Settings", "Search settings", "Location", "Praye
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 2262.2}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-maghrib-1915__157__d1__p0", "dims": [2560, 1600], "t": 2279.2}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__157__d1__p0.png", "labels": ["Why 5:00? · Fajr الفجر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "da7f8f9754", "pos": 1, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__158__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2295.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-maghrib-1915__159__d1__p0", "dims": [2560, 1600], "t": 2311.7}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f1796e5123", "pos": 0, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__159__d1__p0.png", "labels": ["Why 6:25? · Sunrise الشروق", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "da7f8f9754", "pos": 1, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__160__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2327.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-maghrib-1915__161__d1__p0", "dims": [2560, 1600], "t": 2344.1}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a6bd09cbe", "pos": 0, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__161__d1__p0.png", "labels": ["Why 12:44? · Dhuhr الظهر", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5d12aafdbb", "pos": 1, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__162__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2360.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-maghrib-1915__163__d1__p0", "dims": [2560, 1600], "t": 2376.8}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e7916933c1", "pos": 0, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__163__d1__p0.png", "labels": ["Why 4:17? · Asr العصر", "CALCULATED FROM", "Source
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5d12aafdbb", "pos": 1, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__164__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2393.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-maghrib-1915__165__d1__p0", "dims": [2560, 1600], "t": 2410.2}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9fa55e0631", "pos": 0, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__165__d1__p0.png", "labels": ["Why 7:02? · Maghrib المغرب", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5d12aafdbb", "pos": 1, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__166__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2426.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-maghrib-1915__167__d1__p0", "dims": [2560, 1600], "t": 2445.0}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cb5a8dfb5b", "pos": 0, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__167__d1__p0.png", "labels": ["Why 8:22? · Isha العشاء", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5d12aafdbb", "pos": 1, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__168__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2461.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-maghrib-1915__169__d1__p0", "dims": [2560, 1600], "t": 2486.7}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__169__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true no
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__170__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true no
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 2506.6}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-maghrib-1915__171__d1__p0", "dims": [2560, 1600], "t": 2523.1}
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "da917ac395", "pos": 0, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__171__d1__p0.png", "labels": ["Back", "Evening adhkār", "أذكار المساء", "0 of 14 
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "4cc6b5a5d9", "pos": 1, "shot": "tablet-portrait-times-Miqaat-maghrib-1915__172__d1__p1.png", "labels": ["Back", "Evening adhkār", "أذكار المساء", "1 of 14 
+{"ev": "back-mismatch", "label": "Evening adhkār", "path": [], "t": 2538.6}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 2552.3}
+{"ev": "set-time", "sc": "night-2230", "out": "Wed Oct  7 11:30:00 UTC 2026", "t": 2554.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-night-2230__173__d0__p0", "dims": [2560, 1600], "t": 2568.7}
+{"ev": "screen", "depth": 0, "path": [], "key": "1ab5896446", "pos": 0, "shot": "tablet-portrait-times-Miqaat-night-2230__173__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "W
+{"ev": "screen", "depth": 0, "path": [], "key": "4dda722317", "pos": 1, "shot": "tablet-portrait-times-Miqaat-night-2230__174__d0__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "W
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "cde87b0ef9", "pos": 0, "shot": "tablet-portrait-times-Miqaat-night-2230__175__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form of 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "81b45da5b0", "pos": 1, "shot": "tablet-portrait-times-Miqaat-night-2230__176__d1__p1.png", "labels": ["Back", "Learn Salah", "Learn a complete prayer", "Fajr"
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a02b0f2235", "pos": 2, "shot": "tablet-portrait-times-Miqaat-night-2230__177__d1__p2.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset · 
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 2605.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-night-2230__178__d1__p0", "dims": [2560, 1600], "t": 2622.7}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "bb1ec75c88", "pos": 0, "shot": "tablet-portrait-times-Miqaat-night-2230__178__d1__p0.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "2dc390b11a", "pos": 1, "shot": "tablet-portrait-times-Miqaat-night-2230__179__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 2637.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-night-2230__180__d1__p0", "dims": [2560, 1600], "t": 2653.3}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "9fabed1753", "pos": 0, "shot": "tablet-portrait-times-Miqaat-night-2230__180__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "42740a4dad", "pos": 1, "shot": "tablet-portrait-times-Miqaat-night-2230__181__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "5b79290c71", "pos": 2, "shot": "tablet-portrait-times-Miqaat-night-2230__182__d1__p2.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "c2afe0c66b", "pos": 3, "shot": "tablet-portrait-times-Miqaat-night-2230__183__d1__p3.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "db8b285338", "pos": 4, "shot": "tablet-portrait-times-Miqaat-night-2230__184__d1__p4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "ebfadaf38b", "pos": 5, "shot": "tablet-portrait-times-Miqaat-night-2230__185__d1__p5.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer 
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 2685.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-night-2230__186__d1__p0", "dims": [2560, 1600], "t": 2702.1}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-portrait-times-Miqaat-night-2230__186__d1__p0.png", "labels": ["Why 5:00? · Fajr الفجر", "CALCULATED FROM", "Source"
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4dda722317", "pos": 1, "shot": "tablet-portrait-times-Miqaat-night-2230__187__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2717.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-night-2230__188__d1__p0", "dims": [2560, 1600], "t": 2733.9}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "f1796e5123", "pos": 0, "shot": "tablet-portrait-times-Miqaat-night-2230__188__d1__p0.png", "labels": ["Why 6:25? · Sunrise الشروق", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4dda722317", "pos": 1, "shot": "tablet-portrait-times-Miqaat-night-2230__189__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2749.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-night-2230__190__d1__p0", "dims": [2560, 1600], "t": 2765.9}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7a6bd09cbe", "pos": 0, "shot": "tablet-portrait-times-Miqaat-night-2230__190__d1__p0.png", "labels": ["Why 12:44? · Dhuhr الظهر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4dda722317", "pos": 1, "shot": "tablet-portrait-times-Miqaat-night-2230__191__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2781.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-night-2230__192__d1__p0", "dims": [2560, 1600], "t": 2798.3}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e7916933c1", "pos": 0, "shot": "tablet-portrait-times-Miqaat-night-2230__192__d1__p0.png", "labels": ["Why 4:17? · Asr العصر", "CALCULATED FROM", "Source",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4dda722317", "pos": 1, "shot": "tablet-portrait-times-Miqaat-night-2230__193__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2814.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-night-2230__194__d1__p0", "dims": [2560, 1600], "t": 2830.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9fa55e0631", "pos": 0, "shot": "tablet-portrait-times-Miqaat-night-2230__194__d1__p0.png", "labels": ["Why 7:02? · Maghrib المغرب", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4dda722317", "pos": 1, "shot": "tablet-portrait-times-Miqaat-night-2230__195__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2846.4}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-night-2230__196__d1__p0", "dims": [2560, 1600], "t": 2862.5}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cb5a8dfb5b", "pos": 0, "shot": "tablet-portrait-times-Miqaat-night-2230__196__d1__p0.png", "labels": ["Why 8:22? · Isha العشاء", "CALCULATED FROM", "Source
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "4dda722317", "pos": 1, "shot": "tablet-portrait-times-Miqaat-night-2230__197__d1__p1.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2878.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Miqaat-night-2230__198__d1__p0", "dims": [2560, 1600], "t": 2898.4}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-times-Miqaat-night-2230__198__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true nort
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-times-Miqaat-night-2230__199__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true nort
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 2917.6}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 2933.0}
+{"ev": "tap-fail", "label": "Monthly timetable", "t": 2938.3}
+{"ev": "theme-set", "kw": "Gallery", "t": 2952.4}
+{"ev": "set-time", "sc": "predawn-0430", "out": "Mon Oct  5 17:30:00 UTC 2026", "t": 2960.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-predawn-0430__200__d0__p0", "dims": [2560, 1600], "t": 2974.2}
+{"ev": "screen", "depth": 0, "path": [], "key": "7f2c144078", "pos": 0, "shot": "tablet-portrait-times-Gallery-predawn-0430__200__d0__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settings", "Syd
+{"ev": "screen", "depth": 0, "path": [], "key": "78eb44bd9b", "pos": 1, "shot": "tablet-portrait-times-Gallery-predawn-0430__201__d0__p1.png", "labels": ["Sydney, NSW", "Tue 6 Oct", "Learn Salah", "Monthly timetable", "S
+{"ev": "tap-fail", "label": "Why this time?", "t": 2988.4}
+{"ev": "tap-fail", "label": "Why this time?", "t": 2990.4}
+{"ev": "tap-fail", "label": "Why this time?", "t": 2992.4}
+{"ev": "tap-fail", "label": "Why this time?", "t": 2994.4}
+{"ev": "tap-fail", "label": "Why this time?", "t": 2996.5}
+{"ev": "tap-fail", "label": "Why this time?", "t": 2998.5}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "78eb44bd9b", "pos": 0, "shot": "tablet-portrait-times-Gallery-predawn-0430__202__d1__p0.png", "labels": ["Sydney, NSW", "Tue 6 Oct", "Learn Salah", "Monthly timetabl
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3012.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-predawn-0430__203__d1__p0", "dims": [2560, 1600], "t": 3028.1}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "f44839bc93", "pos": 0, "shot": "tablet-portrait-times-Gallery-predawn-0430__203__d1__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settings"
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "6f2ece8990", "pos": 1, "shot": "tablet-portrait-times-Gallery-predawn-0430__204__d1__p1.png", "labels": ["Sydney, NSW", "Tue 6 Oct", "Learn Salah", "Monthly timetabl
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3043.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-predawn-0430__205__same__Maghrib", "dims": [2560, 1600], "t": 3056.7}
+{"ev": "no-change", "label": "Maghrib", "shot": "tablet-portrait-times-Gallery-predawn-0430__205__same__Maghrib.png", "path": [], "t": 3060.3}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 3062.3}
+{"ev": "tap-fail", "label": "Fajr", "t": 3067.6}
+{"ev": "tap-fail", "label": "Fajr", "t": 3072.9}
+{"ev": "set-time", "sc": "morning-0545", "out": "Mon Oct  5 18:45:00 UTC 2026", "t": 3075.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-morning-0545__206__d0__p0", "dims": [2560, 1600], "t": 3088.6}
+{"ev": "screen", "depth": 0, "path": [], "key": "99f3b1a1ba", "pos": 0, "shot": "tablet-portrait-times-Gallery-morning-0545__206__d0__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settings", "Syd
+{"ev": "screen", "depth": 0, "path": [], "key": "1a1403c221", "pos": 1, "shot": "tablet-portrait-times-Gallery-morning-0545__207__d0__p1.png", "labels": ["Sydney, NSW", "Tue 6 Oct", "Learn Salah", "Monthly timetable", "S
+{"ev": "tap-fail", "label": "Why this time?", "t": 3102.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3104.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3106.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3108.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3110.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3112.7}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "1a1403c221", "pos": 0, "shot": "tablet-portrait-times-Gallery-morning-0545__208__d1__p0.png", "labels": ["Sydney, NSW", "Tue 6 Oct", "Learn Salah", "Monthly timetabl
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3127.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-morning-0545__209__d1__p0", "dims": [2560, 1600], "t": 3142.3}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "92df7ef8e4", "pos": 0, "shot": "tablet-portrait-times-Gallery-morning-0545__209__d1__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settings"
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "095ccf6c68", "pos": 1, "shot": "tablet-portrait-times-Gallery-morning-0545__210__d1__p1.png", "labels": ["Sydney, NSW", "Tue 6 Oct", "Learn Salah", "Monthly timetabl
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3157.4}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-morning-0545__211__d1__p0", "dims": [2560, 1600], "t": 3172.8}
+{"ev": "screen", "depth": 1, "path": ["Maghrib"], "key": "32340d893c", "pos": 0, "shot": "tablet-portrait-times-Gallery-morning-0545__211__d1__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settin
+{"ev": "screen", "depth": 1, "path": ["Maghrib"], "key": "505769649c", "pos": 1, "shot": "tablet-portrait-times-Gallery-morning-0545__212__d1__p1.png", "labels": ["Sydney, NSW", "Tue 6 Oct", "Learn Salah", "Monthly timet
+{"ev": "back-mismatch", "label": "Maghrib", "path": [], "t": 3188.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-morning-0545__213__d1__p0", "dims": [2560, 1600], "t": 3207.3}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-times-Gallery-morning-0545__213__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true n
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-times-Gallery-morning-0545__214__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true n
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 3228.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-morning-0545__215__d1__p0", "dims": [2560, 1600], "t": 3243.3}
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "559eb149ac", "pos": 0, "shot": "tablet-portrait-times-Gallery-morning-0545__215__d1__p0.png", "labels": ["Back", "Morning adhkār", "أذكار الصباح", "0 of 13
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "4046082586", "pos": 1, "shot": "tablet-portrait-times-Gallery-morning-0545__216__d1__p1.png", "labels": ["Back", "Morning adhkār", "أذكار الصباح", "1 of 13
+{"ev": "back-mismatch", "label": "Morning adhkār", "path": [], "t": 3258.5}
+{"ev": "tap-fail", "label": "Fajr", "t": 3270.9}
+{"ev": "set-time", "sc": "forenoon-0930", "out": "Mon Oct  5 22:30:00 UTC 2026", "t": 3273.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-forenoon-0930__217__d0__p0", "dims": [2560, 1600], "t": 3287.3}
+{"ev": "screen", "depth": 0, "path": [], "key": "311e00f38a", "pos": 0, "shot": "tablet-portrait-times-Gallery-forenoon-0930__217__d0__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settings", "Sy
+{"ev": "screen", "depth": 0, "path": [], "key": "aa9f633ae8", "pos": 1, "shot": "tablet-portrait-times-Gallery-forenoon-0930__218__d0__p1.png", "labels": ["Sydney, NSW", "Tue 6 Oct", "Learn Salah", "Monthly timetable", "
+{"ev": "tap-fail", "label": "Why this time?", "t": 3301.5}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3303.5}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3305.5}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3307.5}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3309.5}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3311.5}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "aa9f633ae8", "pos": 0, "shot": "tablet-portrait-times-Gallery-forenoon-0930__219__d1__p0.png", "labels": ["Sydney, NSW", "Tue 6 Oct", "Learn Salah", "Monthly timetab
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3325.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-forenoon-0930__220__d1__p0", "dims": [2560, 1600], "t": 3341.4}
+{"ev": "screen", "depth": 1, "path": ["Maghrib"], "key": "47db128f2d", "pos": 0, "shot": "tablet-portrait-times-Gallery-forenoon-0930__220__d1__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location setti
+{"ev": "screen", "depth": 1, "path": ["Maghrib"], "key": "2ec2767149", "pos": 1, "shot": "tablet-portrait-times-Gallery-forenoon-0930__221__d1__p1.png", "labels": ["Sydney, NSW", "Tue 6 Oct", "Learn Salah", "Monthly time
+{"ev": "back-mismatch", "label": "Maghrib", "path": [], "t": 3356.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-forenoon-0930__222__d1__p0", "dims": [2560, 1600], "t": 3375.4}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-times-Gallery-forenoon-0930__222__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true 
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-times-Gallery-forenoon-0930__223__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true 
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 3395.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-forenoon-0930__224__d1__p0", "dims": [2560, 1600], "t": 3411.0}
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "559eb149ac", "pos": 0, "shot": "tablet-portrait-times-Gallery-forenoon-0930__224__d1__p0.png", "labels": ["Back", "Morning adhkār", "أذكار الصباح", "0 of 1
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "4046082586", "pos": 1, "shot": "tablet-portrait-times-Gallery-forenoon-0930__225__d1__p1.png", "labels": ["Back", "Morning adhkār", "أذكار الصباح", "1 of 1
+{"ev": "back-mismatch", "label": "Morning adhkār", "path": [], "t": 3426.2}
+{"ev": "tap-fail", "label": "Fajr", "t": 3438.9}
+{"ev": "tap-fail", "label": "Maghrib", "t": 3444.2}
+{"ev": "set-time", "sc": "friday-1250", "out": "Fri Oct  9 01:50:00 UTC 2026", "t": 3446.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-friday-1250__226__d0__p0", "dims": [2560, 1600], "t": 3460.7}
+{"ev": "screen", "depth": 0, "path": [], "key": "ec0a42ebad", "pos": 0, "shot": "tablet-portrait-times-Gallery-friday-1250__226__d0__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydn
+{"ev": "screen", "depth": 0, "path": [], "key": "c0d7450334", "pos": 1, "shot": "tablet-portrait-times-Gallery-friday-1250__227__d0__p1.png", "labels": ["Sydney, NSW", "Fri 9 Oct", "Learn Salah", "Monthly timetable", "Se
+{"ev": "tap-fail", "label": "Why this time?", "t": 3474.8}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3476.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3478.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3480.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3482.9}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3484.9}
+{"ev": "tap-fail", "label": "Friday 9 October 2026", "t": 3486.9}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "c0d7450334", "pos": 0, "shot": "tablet-portrait-times-Gallery-friday-1250__228__d1__p0.png", "labels": ["Sydney, NSW", "Fri 9 Oct", "Learn Salah", "Monthly timetable
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3501.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-friday-1250__229__d1__p0", "dims": [2560, 1600], "t": 3516.7}
+{"ev": "screen", "depth": 1, "path": ["Maghrib"], "key": "ac7d179ef4", "pos": 0, "shot": "tablet-portrait-times-Gallery-friday-1250__229__d1__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location setting
+{"ev": "screen", "depth": 1, "path": ["Maghrib"], "key": "2182d3d560", "pos": 1, "shot": "tablet-portrait-times-Gallery-friday-1250__230__d1__p1.png", "labels": ["Sydney, NSW", "Fri 9 Oct", "Learn Salah", "Monthly timeta
+{"ev": "back-mismatch", "label": "Maghrib", "path": [], "t": 3532.1}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-friday-1250__231__d1__p0", "dims": [2560, 1600], "t": 3550.9}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-times-Gallery-friday-1250__231__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true no
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-times-Gallery-friday-1250__232__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true no
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 3571.5}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-friday-1250__233__d1__p0", "dims": [2560, 1600], "t": 3586.9}
+{"ev": "screen", "depth": 1, "path": ["Jumuʿah · al-Kahf · ṣalawāt"], "key": "57830d3e4b", "pos": 0, "shot": "tablet-portrait-times-Gallery-friday-1250__233__d1__p0.png", "labels": ["Back", "Jumuʿah", "يوم الجمعة  ·  9 O
+{"ev": "screen", "depth": 1, "path": ["Jumuʿah · al-Kahf · ṣalawāt"], "key": "8734dce3b0", "pos": 1, "shot": "tablet-portrait-times-Gallery-friday-1250__234__d1__p1.png", "labels": ["\"Whoever reads Sūrat al-Kahf on Frid
+{"ev": "screen", "depth": 1, "path": ["Jumuʿah · al-Kahf · ṣalawāt"], "key": "79ba743160", "pos": 2, "shot": "tablet-portrait-times-Gallery-friday-1250__235__d1__p2.png", "labels": ["0", "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى
+{"ev": "screen", "depth": 1, "path": ["Jumuʿah · al-Kahf · ṣalawāt"], "key": "30cda04b55", "pos": 3, "shot": "tablet-portrait-times-Gallery-friday-1250__236__d1__p3.png", "labels": ["HOUR OF ACCEPTANCE", "ساعة الإجابة", 
+{"ev": "back-mismatch", "label": "Jumuʿah · al-Kahf · ṣalawāt", "path": [], "t": 3612.1}
+{"ev": "tap-fail", "label": "Fajr", "t": 3624.3}
+{"ev": "set-time", "sc": "afternoon-1630", "out": "Wed Oct  7 05:30:00 UTC 2026", "t": 3626.4}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-afternoon-1630__237__d0__p0", "dims": [2560, 1600], "t": 3640.9}
+{"ev": "screen", "depth": 0, "path": [], "key": "01d1f9403d", "pos": 0, "shot": "tablet-portrait-times-Gallery-afternoon-1630__237__d0__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settings", "S
+{"ev": "screen", "depth": 0, "path": [], "key": "e073cfdf4d", "pos": 1, "shot": "tablet-portrait-times-Gallery-afternoon-1630__238__d0__p1.png", "labels": ["Sydney, NSW", "Wed 7 Oct", "Learn Salah", "Monthly timetable", 
+{"ev": "tap-fail", "label": "Why this time?", "t": 3655.0}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3657.0}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3659.1}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3661.1}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3663.1}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3665.1}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "e073cfdf4d", "pos": 0, "shot": "tablet-portrait-times-Gallery-afternoon-1630__239__d1__p0.png", "labels": ["Sydney, NSW", "Wed 7 Oct", "Learn Salah", "Monthly timeta
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3679.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-afternoon-1630__240__d1__p0", "dims": [2560, 1600], "t": 3694.6}
+{"ev": "screen", "depth": 1, "path": ["Maghrib"], "key": "964d3255c9", "pos": 0, "shot": "tablet-portrait-times-Gallery-afternoon-1630__240__d1__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location sett
+{"ev": "screen", "depth": 1, "path": ["Maghrib"], "key": "04ab9685a9", "pos": 1, "shot": "tablet-portrait-times-Gallery-afternoon-1630__241__d1__p1.png", "labels": ["Sydney, NSW", "Wed 7 Oct", "Learn Salah", "Monthly tim
+{"ev": "back-mismatch", "label": "Maghrib", "path": [], "t": 3709.7}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-afternoon-1630__242__d1__p0", "dims": [2560, 1600], "t": 3728.4}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "35f4f1cb86", "pos": 0, "shot": "tablet-portrait-times-Gallery-afternoon-1630__242__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "ba31b84818", "pos": 1, "shot": "tablet-portrait-times-Gallery-afternoon-1630__243__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 3748.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-afternoon-1630__244__d1__p0", "dims": [2560, 1600], "t": 3763.4}
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "da917ac395", "pos": 0, "shot": "tablet-portrait-times-Gallery-afternoon-1630__244__d1__p0.png", "labels": ["Back", "Evening adhkār", "أذكار المساء", "0 of 
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "4cc6b5a5d9", "pos": 1, "shot": "tablet-portrait-times-Gallery-afternoon-1630__245__d1__p1.png", "labels": ["Back", "Evening adhkār", "أذكار المساء", "1 of 
+{"ev": "back-mismatch", "label": "Evening adhkār", "path": [], "t": 3778.5}
+{"ev": "tap-fail", "label": "Fajr", "t": 3790.9}
+{"ev": "tap-fail", "label": "Maghrib", "t": 3796.2}
+{"ev": "set-time", "sc": "maghrib-1915", "out": "Wed Oct  7 08:15:00 UTC 2026", "t": 3798.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-maghrib-1915__246__d0__p0", "dims": [2560, 1600], "t": 3812.5}
+{"ev": "screen", "depth": 0, "path": [], "key": "c7192f17f1", "pos": 0, "shot": "tablet-portrait-times-Gallery-maghrib-1915__246__d0__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settings", "Syd
+{"ev": "screen", "depth": 0, "path": [], "key": "ef1c7649fd", "pos": 1, "shot": "tablet-portrait-times-Gallery-maghrib-1915__247__d0__p1.png", "labels": ["Sydney, NSW", "Wed 7 Oct", "Learn Salah", "Monthly timetable", "S
+{"ev": "tap-fail", "label": "Why this time?", "t": 3826.6}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3828.6}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3830.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3832.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3834.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3836.7}
+{"ev": "screen", "depth": 1, "path": ["Maghrib"], "key": "ef1c7649fd", "pos": 0, "shot": "tablet-portrait-times-Gallery-maghrib-1915__248__d1__p0.png", "labels": ["Sydney, NSW", "Wed 7 Oct", "Learn Salah", "Monthly timet
+{"ev": "back-mismatch", "label": "Maghrib", "path": [], "t": 3850.9}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-maghrib-1915__249__d1__p0", "dims": [2560, 1600], "t": 3866.4}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "a2254d4dd1", "pos": 0, "shot": "tablet-portrait-times-Gallery-maghrib-1915__249__d1__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settings"
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "cfaf2a090a", "pos": 1, "shot": "tablet-portrait-times-Gallery-maghrib-1915__250__d1__p1.png", "labels": ["Sydney, NSW", "Wed 7 Oct", "Learn Salah", "Monthly timetabl
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3881.6}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-maghrib-1915__251__same__Maghrib", "dims": [2560, 1600], "t": 3894.8}
+{"ev": "no-change", "label": "Maghrib", "shot": "tablet-portrait-times-Gallery-maghrib-1915__251__same__Maghrib.png", "path": [], "t": 3898.4}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 3900.5}
+{"ev": "tap-fail", "label": "Evening adhkār", "t": 3902.5}
+{"ev": "tap-fail", "label": "Maghrib", "t": 3907.8}
+{"ev": "set-time", "sc": "night-2230", "out": "Wed Oct  7 11:30:00 UTC 2026", "t": 3909.8}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-night-2230__252__d0__p0", "dims": [2560, 1600], "t": 3923.6}
+{"ev": "screen", "depth": 0, "path": [], "key": "432ea8f790", "pos": 0, "shot": "tablet-portrait-times-Gallery-night-2230__252__d0__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydne
+{"ev": "screen", "depth": 0, "path": [], "key": "85692d245e", "pos": 1, "shot": "tablet-portrait-times-Gallery-night-2230__253__d0__p1.png", "labels": ["Sydney, NSW", "Wed 7 Oct", "Learn Salah", "Monthly timetable", "Set
+{"ev": "tap-fail", "label": "Why this time?", "t": 3937.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3939.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3941.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3943.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3945.7}
+{"ev": "tap-fail", "label": "Why this time?", "t": 3947.7}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "85692d245e", "pos": 0, "shot": "tablet-portrait-times-Gallery-night-2230__254__d1__p0.png", "labels": ["Sydney, NSW", "Wed 7 Oct", "Learn Salah", "Monthly timetable"
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3962.0}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-night-2230__255__d1__p0", "dims": [2560, 1600], "t": 3977.2}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "8fd2ca53f4", "pos": 0, "shot": "tablet-portrait-times-Gallery-night-2230__255__d1__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settings", 
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "5c7a39b5d2", "pos": 1, "shot": "tablet-portrait-times-Gallery-night-2230__256__d1__p1.png", "labels": ["Sydney, NSW", "Wed 7 Oct", "Learn Salah", "Monthly timetable"
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3992.3}
+{"ev": "rotation-lost", "name": "tablet-portrait-times-Gallery-night-2230__257__same__Maghrib", "dims": [2560, 1600], "t": 4005.7}
+{"ev": "no-change", "label": "Maghrib", "shot": "tablet-portrait-times-Gallery-night-2230__257__same__Maghrib.png", "path": [], "t": 4009.4}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 4011.5}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "5c7a39b5d2", "pos": 0, "shot": "tablet-portrait-times-Gallery-night-2230__258__d1__p0.png", "labels": ["Sydney, NSW", "Wed 7 Oct", "Learn Salah", "Monthly timetable"
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 4029.0}
+{"ev": "tap-fail", "label": "Fajr", "t": 4040.7}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 4042.8}
+{"ev": "gfx", "lines": ["Total frames rendered: 11", "Janky frames: 11 (100.00%)", "Janky frames (legacy): 11 (100.00%)", "50th percentile: 150ms", "90th percentile: 1900ms", "95th percentile: 2550ms", "99th percentile: 
+{"ev": "mem", "lines": ["  Native Heap    22459    22364        0        0    25568    30316    24628     2106", "        TOTAL    41193    30788     3248        0   159372    40955    29948     7425", "           Java H

@@ -1,0 +1,1860 @@
+--------- beginning of system
+10-07 11:34:40.542   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.542   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.542   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.542   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.542   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.542   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.542   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.542   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.543   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.544   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.545   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.546   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.547   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.548   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.549   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.550   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.551   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.552   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.553   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.554   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.555   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.556   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.557   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.558   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.559   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.560   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.561   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.562   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.563   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.564   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.565   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.566   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.567   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.568   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.568   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.568   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.568   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.568   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.568   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.569   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.570   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.570   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.570   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.570   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.570   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.570   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.571   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.572   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.572   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.572   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.572   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.572   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.572   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.572   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.572   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.572   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.572   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.573   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.574   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.575   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.576   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.577   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.578   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.578   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.578   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.578   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.579   507   785 W InputManager: Input event injection from pid 5556 failed.
+10-07 11:34:40.580   507   785 W InputManager: Input event injection from pid 5556 failed.
+--------- beginning of main
+10-07 11:34:41.603  5561  5561 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:34:41.603  5561  5561 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:34:41.605  5561  5561 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:34:41.605  5561  5561 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:34:41.617  5561  5561 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:34:41.624   507   785 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:41.624   507   507 E IPCThreadState: Binder transaction failure: 1138867/29201/-28
+10-07 11:34:41.624   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:41.625   507   507 E IPCThreadState: Binder transaction failure: 1138877/29201/-28
+10-07 11:34:41.625   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:41.626   507   507 E IPCThreadState: Binder transaction failure: 1138940/29201/-28
+10-07 11:34:41.626   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:41.627   507   867 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:41.627   507   507 E IPCThreadState: Binder transaction failure: 1138973/29201/-28
+10-07 11:34:41.627   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:41.627   507   507 E IPCThreadState: Binder transaction failure: 1138983/29201/-28
+10-07 11:34:41.627   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:42.638  5561  5561 W AccessibilityNodeInfoDumper: Fetch time: 8ms
+10-07 11:34:42.639   507   785 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:42.639   507   507 E IPCThreadState: Binder transaction failure: 1139157/29201/-28
+10-07 11:34:42.639   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:42.639   507   507 E IPCThreadState: Binder transaction failure: 1139168/29201/-28
+10-07 11:34:42.639   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:42.641   507   507 E IPCThreadState: Binder transaction failure: 1139212/29201/-28
+10-07 11:34:42.641   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:44.767  5376  5384 W om.usman.miqaat: Cleared Reference was only reachable from finalizer (only reported once)
+10-07 11:34:44.981   507  4640 W ActivityTaskManager: Current config: {1.0 310mcc260mnc [en_US] ldltr sw411dp w818dp h387dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 2400, 1080) mAppBounds=Rect(128, 0 - 2274, 1080) mMaxBounds=Rect(0, 0 - 2400, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.3 s.6458 fontWeightAdjustment=0} unchanged for IME proc com.android.inputmethod.latin
+10-07 11:34:44.992   800   835 W Looper  : Slow dispatch took 80ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.RemoteTransitionHandler$1$$ExternalSyntheticLambda0@660b323 m=0
+10-07 11:34:44.995   800   835 W Looper  : Slow delivery took 65ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.Transitions$TransitionPlayerImpl$$ExternalSyntheticLambda1@f6e9dd9 m=0
+10-07 11:34:44.996   800   835 W Looper  : Drained
+10-07 11:34:45.086   800   872 E OpenGLRenderer: Unable to match the desired swap behavior.
+10-07 11:34:45.097   800   835 W Looper  : Slow delivery took 46ms wmshell.main h=android.view.Choreographer$FrameHandler c=android.view.Choreographer$FrameDisplayEventReceiver@c031cd9 m=0
+10-07 11:34:45.097   800   835 W Looper  : Drained
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: No service published for: ethernet
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:166)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$139.createService(SystemServiceRegistry.java:1872)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:1971)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1645)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2212)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.content.ContextWrapper.getSystemService(ContextWrapper.java:934)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.isEthernetSupported(Tethering.java:1582)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.makeSupportedDownstreams(Tethering.java:2550)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateSupportedDownstreams(Tethering.java:2524)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateConfiguration(Tethering.java:546)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.-$$Nest$mupdateConfiguration(Tethering.java:0)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering$StateReceiver.onReceive(Tethering.java:1184)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0(LoadedApk.java:1802)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.$r8$lambda$gDuJqgxY6Zb-ifyeubKeivTLAwk(Unknown Source:0)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0.run(Unknown Source:2)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.os.Looper.loop(Looper.java:294)
+10-07 11:34:45.153   954  1006 E SystemServiceRegistry: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-07 11:34:45.173  5376  5376 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@1e97bf6
+10-07 11:34:45.224   507  3839 W InputManager-JNI: Input channel object 'bca9c8 com.usman.miqaat/com.usman.miqaat.MainActivity (client)' was disposed without first being removed with the input manager!
+10-07 11:34:46.340  5591  5591 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:34:46.340  5591  5591 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:34:46.340  5591  5591 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:34:46.341  5591  5591 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:34:46.350  5591  5591 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+--------- beginning of kernel
+10-07 11:34:46.542     0     0 W binder_debug: 22 callbacks suppressed
+10-07 11:34:46.352   507  3413 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:46.357   507   507 E IPCThreadState: Binder transaction failure: 1141046/29201/-28
+10-07 11:34:46.357   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:46.360   507   507 E IPCThreadState: Binder transaction failure: 1141061/29201/-28
+10-07 11:34:46.361   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:46.362   507   785 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:46.367   507   507 E IPCThreadState: Binder transaction failure: 1141135/29201/-28
+10-07 11:34:46.368   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:46.372   507   507 E IPCThreadState: Binder transaction failure: 1141149/29201/-28
+10-07 11:34:46.372   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:46.375   507   507 E IPCThreadState: Binder transaction failure: 1141169/29201/-28
+10-07 11:34:46.375   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:47.368  5591  5591 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-07 11:34:47.369   507  3413 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:47.369   507   507 E IPCThreadState: Binder transaction failure: 1141241/29201/-28
+10-07 11:34:47.369   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:47.370   507   507 E IPCThreadState: Binder transaction failure: 1141252/29201/-28
+10-07 11:34:47.370   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:47.370   507   507 E IPCThreadState: Binder transaction failure: 1141263/29201/-28
+10-07 11:34:47.370   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:48.222   507   527 W ActivityManager: setHasOverlayUi called on unknown pid: 5376
+10-07 11:34:48.235   507  1772 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-07 11:34:48.366  5629  5629 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:34:48.366  5629  5629 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:34:48.377  5629  5629 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-07 11:34:48.377  5629  5629 W Monkey  :  arg: "-p"
+10-07 11:34:48.377  5629  5629 W Monkey  :  arg: "com.usman.miqaat"
+10-07 11:34:48.377  5629  5629 W Monkey  :  arg: "-c"
+10-07 11:34:48.377  5629  5629 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-07 11:34:48.377  5629  5629 W Monkey  :  arg: "1"
+10-07 11:34:48.378  5629  5629 W Monkey  : data="com.usman.miqaat"
+10-07 11:34:48.378  5629  5629 W Monkey  : data="android.intent.category.LAUNCHER"
+10-07 11:34:48.383   507  3413 W ActivityManager: registerReceiverWithFeature: no app for null
+10-07 11:34:48.384  5629  5629 W System  : No Compatibility callbacks set! Querying change 263076149
+10-07 11:34:48.384  5629  5629 W System  : No Compatibility callbacks set! Querying change 263076149
+10-07 11:34:48.384  5629  5629 W System  : No Compatibility callbacks set! Querying change 263076149
+10-07 11:34:48.431  5644  5644 W om.usman.miqaat: Unexpected CPU variant for x86: x86_64.
+10-07 11:34:48.431  5644  5644 W om.usman.miqaat: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:34:48.446  5644  5644 E om.usman.miqaat: Not starting debugger since process cannot load the jdwp agent.
+10-07 11:34:48.543   800   835 W Looper  : Slow dispatch took 44ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.DefaultTransitionHandler$$ExternalSyntheticLambda7@21af7cb m=0
+10-07 11:34:48.761  5644  5644 W OpenGLRenderer: Unknown dataspace 0
+10-07 11:34:48.763   507  3413 W WindowManager: Failed looking up window session=Session{3044c22 5644:u0a10141} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:6034 com.android.server.wm.Session.updateRequestedVisibleTypes:690 android.view.IWindowSession$Stub.onTransact:1034 
+10-07 11:34:49.033  5644  5667 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-07 11:34:50.067  5644  5670 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#0) as ready
+10-07 11:34:50.071  5644  5670 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#1) as ready
+10-07 11:34:50.140   800   853 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@d7031f4
+10-07 11:34:50.143   507  3413 W InputManager-JNI: Input channel object '5d9f855 Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-07 11:34:51.893   507  1772 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-07 11:34:52.039  5681  5681 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:34:52.039  5681  5681 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:34:52.041  5681  5681 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:34:52.041  5681  5681 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:34:52.059  5681  5681 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:34:52.061   507   867 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:52.252     0     0 W binder_debug: 6 callbacks suppressed
+10-07 11:34:52.070   507   507 E IPCThreadState: Binder transaction failure: 1143280/29201/-28
+10-07 11:34:52.070   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:52.073   507   507 E IPCThreadState: Binder transaction failure: 1143299/29201/-28
+10-07 11:34:52.073   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:52.080   507   520 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:52.081   507   507 E IPCThreadState: Binder transaction failure: 1143352/29201/-28
+10-07 11:34:52.081   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:52.084   507   507 E IPCThreadState: Binder transaction failure: 1143392/29201/-28
+10-07 11:34:52.084   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:52.088   507   507 E IPCThreadState: Binder transaction failure: 1143406/29201/-28
+10-07 11:34:52.088   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:53.144  5681  5681 W AccessibilityNodeInfoDumper: Fetch time: 60ms
+10-07 11:34:53.147   507  3413 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:53.147   507   507 E IPCThreadState: Binder transaction failure: 1143651/29201/-28
+10-07 11:34:53.147   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:53.147   507   507 E IPCThreadState: Binder transaction failure: 1143661/29201/-28
+10-07 11:34:53.147   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:53.150   507   507 E IPCThreadState: Binder transaction failure: 1143710/29201/-28
+10-07 11:34:53.151   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:54.097  5701  5701 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:34:54.097  5701  5701 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:34:54.098  5701  5701 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:34:54.099  5701  5701 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:34:54.110  5701  5701 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:34:54.111   507   785 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:54.112   507   507 E IPCThreadState: Binder transaction failure: 1143842/29201/-28
+10-07 11:34:54.112   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:54.112   507   507 E IPCThreadState: Binder transaction failure: 1143852/29201/-28
+10-07 11:34:54.112   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:54.112   507   507 E IPCThreadState: Binder transaction failure: 1143862/29201/-28
+10-07 11:34:54.112   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:54.114   507   785 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:54.115   507   507 E IPCThreadState: Binder transaction failure: 1143948/29201/-28
+10-07 11:34:54.115   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:54.115   507   507 E IPCThreadState: Binder transaction failure: 1143958/29201/-28
+10-07 11:34:54.115   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:55.136  5701  5701 W AccessibilityNodeInfoDumper: Fetch time: 21ms
+10-07 11:34:55.137   507  3413 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:55.137   507   507 E IPCThreadState: Binder transaction failure: 1144275/29201/-28
+10-07 11:34:55.137   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:55.137   507   507 E IPCThreadState: Binder transaction failure: 1144286/29201/-28
+10-07 11:34:55.137   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:55.137   507   507 E IPCThreadState: Binder transaction failure: 1144296/29201/-28
+10-07 11:34:55.137   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:57.380  5727  5727 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:34:57.380  5727  5727 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:34:57.381  5727  5727 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:34:57.381  5727  5727 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:34:57.391  5727  5727 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:34:57.393   507  3413 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:57.583     0     0 W binder_debug: 22 callbacks suppressed
+10-07 11:34:57.396   507   507 E IPCThreadState: Binder transaction failure: 1144497/29201/-28
+10-07 11:34:57.396   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:57.397   507  3413 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:57.399   507   507 E IPCThreadState: Binder transaction failure: 1144510/29201/-28
+10-07 11:34:57.399   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:57.407   507   507 E IPCThreadState: Binder transaction failure: 1144561/29201/-28
+10-07 11:34:57.407   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:57.410   507   507 E IPCThreadState: Binder transaction failure: 1144615/29201/-28
+10-07 11:34:57.410   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:57.413   507   507 E IPCThreadState: Binder transaction failure: 1144625/29201/-28
+10-07 11:34:57.413   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:58.419  5727  5727 W AccessibilityNodeInfoDumper: Fetch time: 18ms
+10-07 11:34:58.423   507  3413 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:34:58.423   507   507 E IPCThreadState: Binder transaction failure: 1144943/29201/-28
+10-07 11:34:58.424   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:58.424   507   507 E IPCThreadState: Binder transaction failure: 1144955/29201/-28
+10-07 11:34:58.424   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:34:58.425   507   507 E IPCThreadState: Binder transaction failure: 1144992/29201/-28
+10-07 11:34:58.425   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:34:59.307  5750  5750 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-07 11:34:59.307  5750  5750 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-07 11:34:59.634   507   867 W ActivityTaskManager: Current config: {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h818dp 420dpi nrml long port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 128 - 1080, 2274) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.6486 fontWeightAdjustment=0} unchanged for IME proc com.android.inputmethod.latin
+10-07 11:34:59.644   507   867 W ImageReader_JNI: Unable to acquire a buffer item, very likely client tried to acquire more than maxImages buffers
+10-07 11:34:59.705   800   835 W Looper  : Slow dispatch took 74ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.Transitions$TransitionPlayerImpl$$ExternalSyntheticLambda1@31dc140 m=0
+10-07 11:34:59.705   800   835 W Looper  : Slow delivery took 73ms wmshell.main h=android.os.Handler c=null m=20
+10-07 11:34:59.705   800   835 W Looper  : Drained
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: No service published for: ethernet
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:166)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$139.createService(SystemServiceRegistry.java:1872)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:1971)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1645)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2212)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.content.ContextWrapper.getSystemService(ContextWrapper.java:934)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.isEthernetSupported(Tethering.java:1582)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.makeSupportedDownstreams(Tethering.java:2550)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateSupportedDownstreams(Tethering.java:2524)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateConfiguration(Tethering.java:546)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.-$$Nest$mupdateConfiguration(Tethering.java:0)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering$StateReceiver.onReceive(Tethering.java:1184)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0(LoadedApk.java:1802)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.$r8$lambda$gDuJqgxY6Zb-ifyeubKeivTLAwk(Unknown Source:0)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0.run(Unknown Source:2)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.os.Looper.loop(Looper.java:294)
+10-07 11:34:59.715   954  1006 E SystemServiceRegistry: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-07 11:35:02.829  5770  5770 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-07 11:35:02.829  5770  5770 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-07 11:35:03.209  5774  5774 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:03.209  5774  5774 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:03.210  5774  5774 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:03.211  5774  5774 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:03.221  5774  5774 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:03.222   507   867 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:03.413     0     0 W binder_debug: 6 callbacks suppressed
+10-07 11:35:03.225   507   507 E IPCThreadState: Binder transaction failure: 1146193/29201/-28
+10-07 11:35:03.226   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:03.228   507   507 E IPCThreadState: Binder transaction failure: 1146207/29201/-28
+10-07 11:35:03.228   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:03.228   507   520 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:03.232   507   507 E IPCThreadState: Binder transaction failure: 1146298/29201/-28
+10-07 11:35:03.232   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:03.234   507   507 E IPCThreadState: Binder transaction failure: 1146317/29201/-28
+10-07 11:35:03.234   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:03.237   507   507 E IPCThreadState: Binder transaction failure: 1146327/29201/-28
+10-07 11:35:03.237   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:04.245  5774  5774 W AccessibilityNodeInfoDumper: Fetch time: 14ms
+10-07 11:35:04.246   507   520 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:04.247   507   507 E IPCThreadState: Binder transaction failure: 1146578/29201/-28
+10-07 11:35:04.247   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:04.247   507   507 E IPCThreadState: Binder transaction failure: 1146589/29201/-28
+10-07 11:35:04.247   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:04.247   507   507 E IPCThreadState: Binder transaction failure: 1146601/29201/-28
+10-07 11:35:04.247   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:06.479  5799  5799 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:06.479  5799  5799 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:06.479  5799  5799 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:06.480  5799  5799 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:06.489  5799  5799 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:06.490   507   867 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:06.490   507   507 E IPCThreadState: Binder transaction failure: 1146757/29201/-28
+10-07 11:35:06.490   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:06.490   507   507 E IPCThreadState: Binder transaction failure: 1146767/29201/-28
+10-07 11:35:06.490   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:06.491   507   507 E IPCThreadState: Binder transaction failure: 1146808/29201/-28
+10-07 11:35:06.491   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:06.492   507  2316 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:06.492   507   507 E IPCThreadState: Binder transaction failure: 1146861/29201/-28
+10-07 11:35:06.492   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:06.493   507   507 E IPCThreadState: Binder transaction failure: 1146871/29201/-28
+10-07 11:35:06.493   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:07.503  5799  5799 W AccessibilityNodeInfoDumper: Fetch time: 8ms
+10-07 11:35:07.504   507  2316 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:07.505   507   507 E IPCThreadState: Binder transaction failure: 1147066/29201/-28
+10-07 11:35:07.505   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:07.505   507   507 E IPCThreadState: Binder transaction failure: 1147078/29201/-28
+10-07 11:35:07.505   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:07.506   507   507 E IPCThreadState: Binder transaction failure: 1147094/29201/-28
+10-07 11:35:07.506   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:08.527   507  2316 W ActivityTaskManager: Current config: {1.0 310mcc260mnc [en_US] ldltr sw411dp w818dp h387dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 2400, 1080) mAppBounds=Rect(128, 0 - 2274, 1080) mMaxBounds=Rect(0, 0 - 2400, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.3 s.6516 fontWeightAdjustment=0} unchanged for IME proc com.android.inputmethod.latin
+10-07 11:35:08.551   800   835 W Looper  : Slow dispatch took 61ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.RemoteTransitionHandler$1$$ExternalSyntheticLambda0@3f45108 m=0
+10-07 11:35:08.571   800   872 E OpenGLRenderer: Unable to match the desired swap behavior.
+10-07 11:35:08.640   800   835 W Looper  : Slow dispatch took 89ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.Transitions$TransitionPlayerImpl$$ExternalSyntheticLambda1@f180698 m=0
+10-07 11:35:08.640   800   835 W Looper  : Slow delivery took 111ms wmshell.main h=android.os.Handler c=com.android.wm.shell.common.DisplayController$DisplayWindowListenerImpl$$ExternalSyntheticLambda2@cd4ef1 m=0
+10-07 11:35:08.641   800   835 W Looper  : Drained
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: No service published for: ethernet
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:166)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$139.createService(SystemServiceRegistry.java:1872)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:1971)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1645)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2212)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.content.ContextWrapper.getSystemService(ContextWrapper.java:934)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.isEthernetSupported(Tethering.java:1582)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.makeSupportedDownstreams(Tethering.java:2550)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateSupportedDownstreams(Tethering.java:2524)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateConfiguration(Tethering.java:546)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.-$$Nest$mupdateConfiguration(Tethering.java:0)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering$StateReceiver.onReceive(Tethering.java:1184)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0(LoadedApk.java:1802)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.$r8$lambda$gDuJqgxY6Zb-ifyeubKeivTLAwk(Unknown Source:0)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0.run(Unknown Source:2)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.os.Looper.loop(Looper.java:294)
+10-07 11:35:08.670   954  1006 E SystemServiceRegistry: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-07 11:35:08.800  5644  5644 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@b266091
+10-07 11:35:08.808   507   566 W InputManager-JNI: Input channel object 'd90f3e9 com.usman.miqaat/com.usman.miqaat.MainActivity (client)' was disposed without first being removed with the input manager!
+10-07 11:35:09.741  5828  5828 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:09.741  5828  5828 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:09.742  5828  5828 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:09.743  5828  5828 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:09.754  5828  5828 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:09.757   507   566 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:09.947     0     0 W binder_debug: 22 callbacks suppressed
+10-07 11:35:09.761   507   507 E IPCThreadState: Binder transaction failure: 1148827/29201/-28
+10-07 11:35:09.761   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:09.764   507   566 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:09.764   507   507 E IPCThreadState: Binder transaction failure: 1148842/29201/-28
+10-07 11:35:09.764   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:09.768   507   507 E IPCThreadState: Binder transaction failure: 1148858/29201/-28
+10-07 11:35:09.768   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:09.773   507   507 E IPCThreadState: Binder transaction failure: 1148885/29201/-28
+10-07 11:35:09.773   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:09.777   507   507 E IPCThreadState: Binder transaction failure: 1148943/29201/-28
+10-07 11:35:09.777   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:10.773  5828  5828 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-07 11:35:10.774   507  1852 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:10.774   507   507 E IPCThreadState: Binder transaction failure: 1149007/29201/-28
+10-07 11:35:10.774   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:10.775   507   507 E IPCThreadState: Binder transaction failure: 1149017/29201/-28
+10-07 11:35:10.775   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:10.777   507   507 E IPCThreadState: Binder transaction failure: 1149058/29201/-28
+10-07 11:35:10.777   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:11.620   507   527 W ActivityManager: setHasOverlayUi called on unknown pid: 5644
+10-07 11:35:11.738  5865  5865 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:11.738  5865  5865 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:11.747  5865  5865 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-07 11:35:11.747  5865  5865 W Monkey  :  arg: "-p"
+10-07 11:35:11.747  5865  5865 W Monkey  :  arg: "com.usman.miqaat"
+10-07 11:35:11.747  5865  5865 W Monkey  :  arg: "-c"
+10-07 11:35:11.747  5865  5865 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-07 11:35:11.747  5865  5865 W Monkey  :  arg: "1"
+10-07 11:35:11.747  5865  5865 W Monkey  : data="com.usman.miqaat"
+10-07 11:35:11.747  5865  5865 W Monkey  : data="android.intent.category.LAUNCHER"
+10-07 11:35:11.752   507  1604 W ActivityManager: registerReceiverWithFeature: no app for null
+10-07 11:35:11.753  5865  5865 W System  : No Compatibility callbacks set! Querying change 263076149
+10-07 11:35:11.753  5865  5865 W System  : No Compatibility callbacks set! Querying change 263076149
+10-07 11:35:11.753  5865  5865 W System  : No Compatibility callbacks set! Querying change 263076149
+10-07 11:35:11.801  5878  5878 W om.usman.miqaat: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:11.801  5878  5878 W om.usman.miqaat: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:11.863  5878  5878 E om.usman.miqaat: Not starting debugger since process cannot load the jdwp agent.
+10-07 11:35:12.031  5878  5878 W OpenGLRenderer: Unknown dataspace 0
+10-07 11:35:12.032   507  4370 W WindowManager: Failed looking up window session=Session{23ceced 5878:u0a10141} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:6034 com.android.server.wm.Session.updateRequestedVisibleTypes:690 android.view.IWindowSession$Stub.onTransact:1034 
+10-07 11:35:12.283  5878  5903 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-07 11:35:12.819   507  1772 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-07 11:35:13.293  5878  5907 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#0) as ready
+10-07 11:35:13.296  5878  5907 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#1) as ready
+10-07 11:35:13.342   800   853 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@233d0d5
+10-07 11:35:13.344   507  5885 W InputManager-JNI: Input channel object 'c35f937 Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-07 11:35:15.411  5918  5918 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:15.411  5918  5918 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:15.412  5918  5918 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:15.412  5918  5918 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:15.422  5918  5918 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:15.424   507  4370 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:15.614     0     0 W binder_debug: 6 callbacks suppressed
+10-07 11:35:15.427   507   507 E IPCThreadState: Binder transaction failure: 1150951/29201/-28
+10-07 11:35:15.427   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:15.429   507  4370 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:15.430   507   507 E IPCThreadState: Binder transaction failure: 1150964/29201/-28
+10-07 11:35:15.430   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:15.434   507   507 E IPCThreadState: Binder transaction failure: 1151048/29201/-28
+10-07 11:35:15.434   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:15.440   507   507 E IPCThreadState: Binder transaction failure: 1151058/29201/-28
+10-07 11:35:15.440   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:15.444   507   507 E IPCThreadState: Binder transaction failure: 1151082/29201/-28
+10-07 11:35:15.444   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:16.475  5918  5918 W AccessibilityNodeInfoDumper: Fetch time: 42ms
+10-07 11:35:16.476   507  2316 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:16.476   507   507 E IPCThreadState: Binder transaction failure: 1151324/29201/-28
+10-07 11:35:16.476   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:16.477   507   507 E IPCThreadState: Binder transaction failure: 1151334/29201/-28
+10-07 11:35:16.477   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:16.481   507   507 E IPCThreadState: Binder transaction failure: 1151376/29201/-28
+10-07 11:35:16.481   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:17.400  5939  5939 W app_process: Unexpected CPU variant for x86: x86_64.
+10-07 11:35:17.400  5939  5939 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-07 11:35:17.402  5939  5939 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-07 11:35:17.402  5939  5939 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-07 11:35:17.412  5939  5939 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-07 11:35:17.414   507  5885 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:17.414   507   507 E IPCThreadState: Binder transaction failure: 1151538/29201/-28
+10-07 11:35:17.414   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:17.414   507   507 E IPCThreadState: Binder transaction failure: 1151549/29201/-28
+10-07 11:35:17.414   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:17.416   507   507 E IPCThreadState: Binder transaction failure: 1151615/29201/-28
+10-07 11:35:17.416   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:17.418   507   566 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:17.418   507   507 E IPCThreadState: Binder transaction failure: 1151643/29201/-28
+10-07 11:35:17.418   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:17.418   507   507 E IPCThreadState: Binder transaction failure: 1151653/29201/-28
+10-07 11:35:17.418   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)
+10-07 11:35:18.434  5939  5939 W AccessibilityNodeInfoDumper: Fetch time: 17ms
+10-07 11:35:18.435   507   566 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-07 11:35:18.435   507   507 E IPCThreadState: Binder transaction failure: 1151897/29201/-28
+10-07 11:35:18.435   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:18.436   507   507 E IPCThreadState: Binder transaction failure: 1151908/29201/-28
+10-07 11:35:18.436   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 132)
+10-07 11:35:18.436   507   507 E IPCThreadState: Binder transaction failure: 1151919/29201/-28
+10-07 11:35:18.436   507   507 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 136)

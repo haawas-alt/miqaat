@@ -1,0 +1,552 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 2103, "t": 2.5}
+{"ev": "setup-screen", "step": 0, "shot": "phone-landscape-times__setup0.png", "key": "00a88b5a65", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Learn Salah", "M
+{"ev": "setup-stuck", "t": 7.7}
+{"ev": "setup-screen", "step": 1, "shot": "phone-landscape-times__setup1.png", "key": "f53ada7876", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Learn Salah", "M
+{"ev": "setup-tap", "label": "Begin", "t": 12.8}
+{"ev": "setup-screen", "step": 2, "shot": "phone-landscape-times__setup2.png", "key": "551491ef05", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026", "24 Rabīʿ al-Thānī 1448", "Learn Salah", "M
+{"ev": "detect-result", "shot": "phone-landscape-times__setup2_after-detect-20s.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 Rabīʿ al-Thānī
+{"ev": "setup-screen", "step": 3, "shot": "phone-landscape-times__setup3.png", "key": "8713576468", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-tap", "label": "Next", "t": 43.3}
+{"ev": "setup-screen", "step": 4, "shot": "phone-landscape-times__setup4.png", "key": "8b5b10b7e4", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-stuck", "t": 48.3}
+{"ev": "setup-screen", "step": 5, "shot": "phone-landscape-times__setup5.png", "key": "fe24ae6ff5", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-stuck", "t": 53.3}
+{"ev": "setup-screen", "step": 6, "shot": "phone-landscape-times__setup6.png", "key": "8ef2055b98", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-stuck", "t": 58.6}
+{"ev": "setup-screen", "step": 7, "shot": "phone-landscape-times__setup7.png", "key": "109ae6489c", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-tap", "label": "These look right", "t": 63.8}
+{"ev": "setup-screen", "step": 8, "shot": "phone-landscape-times__setup8.png", "key": "d33de47449", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-stuck", "t": 68.8}
+{"ev": "setup-screen", "step": 9, "shot": "phone-landscape-times__setup9.png", "key": "3d688e83a5", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "25 
+{"ev": "setup-stuck", "t": 73.8}
+{"ev": "setup-screen", "step": 10, "shot": "phone-landscape-times__setup10.png", "key": "5ffa0df5f8", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "2
+{"ev": "setup-stuck", "t": 79.1}
+{"ev": "setup-screen", "step": 11, "shot": "phone-landscape-times__setup11.png", "key": "9127925e37", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Tuesday 6 October 2026", "2
+{"ev": "setup-tap", "label": "Finish", "t": 84.1}
+{"ev": "setup-done", "step": 12, "t": 88.9}
+{"ev": "setup-result", "ok": true, "t": 88.9}
+{"ev": "adb-root", "out": "restarting adbd as root", "t": 90.2}
+{"ev": "theme-set", "kw": "Miqaat", "t": 141.0}
+{"ev": "set-time", "sc": "predawn-0430", "out": "Mon Oct  5 17:30:00 UTC 2026", "t": 152.6}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-predawn-0430__001__d0__p0", "dims": [1080, 2400], "t": 164.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "3fb2ecce40", "pos": 0, "shot": "phone-landscape-times-Miqaat-predawn-0430__001__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S,
+{"ev": "screen", "depth": 0, "path": [], "key": "72afa486ff", "pos": 1, "shot": "phone-landscape-times-Miqaat-predawn-0430__002__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Miqaat-predawn-0430__003__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "3f68f030e1", "pos": 1, "shot": "phone-landscape-times-Miqaat-predawn-0430__004__d1__p1.png", "labels": ["Back", "Learn Salah", "One common form of the prayer,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "152afcb197", "pos": 2, "shot": "phone-landscape-times-Miqaat-predawn-0430__005__d1__p2.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 3, "shot": "phone-landscape-times-Miqaat-predawn-0430__006__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rakʿa
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 206.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-predawn-0430__007__d1__p0", "dims": [1080, 2400], "t": 220.1}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Miqaat-predawn-0430__007__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "cd7a100772", "pos": 1, "shot": "phone-landscape-times-Miqaat-predawn-0430__008__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 234.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-predawn-0430__009__d1__p0", "dims": [1080, 2400], "t": 248.2}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "da5ba18838", "pos": 0, "shot": "phone-landscape-times-Miqaat-predawn-0430__009__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "091a4549e2", "pos": 1, "shot": "phone-landscape-times-Miqaat-predawn-0430__010__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 262.5}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-predawn-0430__011__d1__p0", "dims": [1080, 2400], "t": 283.0}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-predawn-0430__011__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "2d192a46d0", "pos": 1, "shot": "phone-landscape-times-Miqaat-predawn-0430__012__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true no
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 301.5}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 313.2}
+{"ev": "tap-fail", "label": "Monthly timetable", "t": 318.5}
+{"ev": "tap-fail", "label": "Settings", "t": 323.9}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 329.2}
+{"ev": "set-time", "sc": "morning-0545", "out": "Mon Oct  5 18:45:00 UTC 2026", "t": 331.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-morning-0545__013__d0__p0", "dims": [1080, 2400], "t": 342.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "0accfe45c7", "pos": 0, "shot": "phone-landscape-times-Miqaat-morning-0545__013__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S,
+{"ev": "screen", "depth": 0, "path": [], "key": "7d7127c859", "pos": 1, "shot": "phone-landscape-times-Miqaat-morning-0545__014__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Miqaat-morning-0545__015__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "3f68f030e1", "pos": 1, "shot": "phone-landscape-times-Miqaat-morning-0545__016__d1__p1.png", "labels": ["Back", "Learn Salah", "One common form of the prayer,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "0fb992b7c0", "pos": 2, "shot": "phone-landscape-times-Miqaat-morning-0545__017__d1__p2.png", "labels": ["Back", "Learn Salah", "2 rakʿahs · dawn · 21 steps", 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 3, "shot": "phone-landscape-times-Miqaat-morning-0545__018__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rakʿa
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 383.4}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-morning-0545__019__d1__p0", "dims": [1080, 2400], "t": 397.4}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Miqaat-morning-0545__019__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "cd7a100772", "pos": 1, "shot": "phone-landscape-times-Miqaat-morning-0545__020__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 411.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-morning-0545__021__d1__p0", "dims": [1080, 2400], "t": 426.2}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "698251fed0", "pos": 0, "shot": "phone-landscape-times-Miqaat-morning-0545__021__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "2268fd5281", "pos": 1, "shot": "phone-landscape-times-Miqaat-morning-0545__022__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 440.5}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-morning-0545__023__d1__p0", "dims": [1080, 2400], "t": 457.8}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-morning-0545__023__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "2d192a46d0", "pos": 1, "shot": "phone-landscape-times-Miqaat-morning-0545__024__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true no
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 477.1}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-morning-0545__025__d1__p0", "dims": [1080, 2400], "t": 491.2}
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "7003770a1d", "pos": 0, "shot": "phone-landscape-times-Miqaat-morning-0545__025__d1__p0.png", "labels": ["Back", "Morning adhkār  ·  1 of 13", "ĀYAT AL-KURS
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "96eb47cc1f", "pos": 1, "shot": "phone-landscape-times-Miqaat-morning-0545__026__d1__p1.png", "labels": ["Back", "Morning adhkār", "أذكار الصباح", "0 of 13 
+{"ev": "back-mismatch", "label": "Morning adhkār", "path": [], "t": 505.9}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 517.6}
+{"ev": "tap-fail", "label": "Monthly timetable", "t": 523.0}
+{"ev": "tap-fail", "label": "Settings", "t": 528.3}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 533.6}
+{"ev": "tap-fail", "label": "Morning adhkār", "t": 539.1}
+{"ev": "set-time", "sc": "forenoon-0930", "out": "Mon Oct  5 22:30:00 UTC 2026", "t": 541.1}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-forenoon-0930__027__d0__p0", "dims": [1080, 2400], "t": 552.7}
+{"ev": "screen", "depth": 0, "path": [], "key": "69bf228f01", "pos": 0, "shot": "phone-landscape-times-Miqaat-forenoon-0930__027__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S
+{"ev": "screen", "depth": 0, "path": [], "key": "b2d6a47f9a", "pos": 1, "shot": "phone-landscape-times-Miqaat-forenoon-0930__028__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Miqaat-forenoon-0930__029__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c9d8a4a3a2", "pos": 1, "shot": "phone-landscape-times-Miqaat-forenoon-0930__030__d1__p1.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "b8af3b2b41", "pos": 2, "shot": "phone-landscape-times-Miqaat-forenoon-0930__031__d1__p2.png", "labels": ["Back", "Learn Salah", "Fajr", "2 rakʿahs · dawn · 21
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "6d8a8f9690", "pos": 3, "shot": "phone-landscape-times-Miqaat-forenoon-0930__032__d1__p3.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 4, "shot": "phone-landscape-times-Miqaat-forenoon-0930__033__d1__p4.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rakʿ
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 598.6}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-forenoon-0930__034__d1__p0", "dims": [1080, 2400], "t": 612.5}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Miqaat-forenoon-0930__034__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "cd7a100772", "pos": 1, "shot": "phone-landscape-times-Miqaat-forenoon-0930__035__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumād
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 626.8}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-forenoon-0930__036__d1__p0", "dims": [1080, 2400], "t": 640.7}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "698251fed0", "pos": 0, "shot": "phone-landscape-times-Miqaat-forenoon-0930__036__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "2268fd5281", "pos": 1, "shot": "phone-landscape-times-Miqaat-forenoon-0930__037__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 654.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-forenoon-0930__038__d1__p0", "dims": [1080, 2400], "t": 671.5}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-forenoon-0930__038__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees t
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "2d192a46d0", "pos": 1, "shot": "phone-landscape-times-Miqaat-forenoon-0930__039__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true n
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 690.7}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-forenoon-0930__040__d1__p0", "dims": [1080, 2400], "t": 704.7}
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "7003770a1d", "pos": 0, "shot": "phone-landscape-times-Miqaat-forenoon-0930__040__d1__p0.png", "labels": ["Back", "Morning adhkār  ·  1 of 13", "ĀYAT AL-KUR
+{"ev": "screen", "depth": 1, "path": ["Morning adhkār"], "key": "96eb47cc1f", "pos": 1, "shot": "phone-landscape-times-Miqaat-forenoon-0930__041__d1__p1.png", "labels": ["Back", "Morning adhkār", "أذكار الصباح", "0 of 13
+{"ev": "back-mismatch", "label": "Morning adhkār", "path": [], "t": 719.3}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 730.9}
+{"ev": "tap-fail", "label": "Monthly timetable", "t": 736.2}
+{"ev": "tap-fail", "label": "Settings", "t": 741.5}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 746.9}
+{"ev": "tap-fail", "label": "Morning adhkār", "t": 752.2}
+{"ev": "set-time", "sc": "friday-1250", "out": "Fri Oct  9 01:50:00 UTC 2026", "t": 754.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-friday-1250__042__d0__p0", "dims": [1080, 2400], "t": 765.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "e2cb0b14c7", "pos": 0, "shot": "phone-landscape-times-Miqaat-friday-1250__042__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 
+{"ev": "screen", "depth": 0, "path": [], "key": "2dbd03fc23", "pos": 1, "shot": "phone-landscape-times-Miqaat-friday-1250__043__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Miqaat-friday-1250__044__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form of
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "3f68f030e1", "pos": 1, "shot": "phone-landscape-times-Miqaat-friday-1250__045__d1__p1.png", "labels": ["Back", "Learn Salah", "One common form of the prayer, 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "646c654d01", "pos": 2, "shot": "phone-landscape-times-Miqaat-friday-1250__046__d1__p2.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset ·
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 3, "shot": "phone-landscape-times-Miqaat-friday-1250__047__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rakʿah
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 806.4}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-friday-1250__048__d1__p0", "dims": [1080, 2400], "t": 820.6}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "400861cded", "pos": 0, "shot": "phone-landscape-times-Miqaat-friday-1250__048__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ū
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "dc22abde14", "pos": 1, "shot": "phone-landscape-times-Miqaat-friday-1250__049__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 834.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-friday-1250__050__d1__p0", "dims": [1080, 2400], "t": 849.0}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "55c31b62a7", "pos": 0, "shot": "phone-landscape-times-Miqaat-friday-1250__050__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention be
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "94903fda2d", "pos": 1, "shot": "phone-landscape-times-Miqaat-friday-1250__051__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention be
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 863.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-friday-1250__052__same__Friday_9_October_2026", "dims": [1080, 2400], "t": 875.5}
+{"ev": "no-change", "label": "Friday 9 October 2026", "shot": "phone-landscape-times-Miqaat-friday-1250__052__same__Friday_9_October_2026.png", "path": [], "t": 879.5}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "2d192a46d0", "pos": 0, "shot": "phone-landscape-times-Miqaat-friday-1250__053__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true nor
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 896.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-friday-1250__054__d1__p0", "dims": [1080, 2400], "t": 911.0}
+{"ev": "screen", "depth": 1, "path": ["Jumuʿah"], "key": "699e2c51cf", "pos": 0, "shot": "phone-landscape-times-Miqaat-friday-1250__054__d1__p0.png", "labels": ["Back", "Jumuʿah", "يوم الجمعة  ·  9 October", "\"The best 
+{"ev": "screen", "depth": 1, "path": ["Jumuʿah"], "key": "50bc33a9f3", "pos": 1, "shot": "phone-landscape-times-Miqaat-friday-1250__055__d1__p1.png", "labels": ["Back", "Jumuʿah", "يوم الجمعة  ·  9 October", "\"The best 
+{"ev": "back-mismatch", "label": "Jumuʿah", "path": [], "t": 925.7}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 937.7}
+{"ev": "tap-fail", "label": "Monthly timetable", "t": 943.1}
+{"ev": "tap-fail", "label": "Settings", "t": 948.4}
+{"ev": "tap-fail", "label": "Friday 9 October 2026", "t": 953.8}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 959.3}
+{"ev": "set-time", "sc": "afternoon-1630", "out": "Wed Oct  7 05:30:00 UTC 2026", "t": 961.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-afternoon-1630__056__d0__p0", "dims": [1080, 2400], "t": 972.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "2348238605", "pos": 0, "shot": "phone-landscape-times-Miqaat-afternoon-1630__056__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°
+{"ev": "screen", "depth": 0, "path": [], "key": "adae1b44be", "pos": 1, "shot": "phone-landscape-times-Miqaat-afternoon-1630__057__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Miqaat-afternoon-1630__058__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "3f68f030e1", "pos": 1, "shot": "phone-landscape-times-Miqaat-afternoon-1630__059__d1__p1.png", "labels": ["Back", "Learn Salah", "One common form of the praye
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "0fb992b7c0", "pos": 2, "shot": "phone-landscape-times-Miqaat-afternoon-1630__060__d1__p2.png", "labels": ["Back", "Learn Salah", "2 rakʿahs · dawn · 21 steps"
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 3, "shot": "phone-landscape-times-Miqaat-afternoon-1630__061__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rak
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 1014.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-afternoon-1630__062__d1__p0", "dims": [1080, 2400], "t": 1027.9}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Miqaat-afternoon-1630__062__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "d5842f4179", "pos": 1, "shot": "phone-landscape-times-Miqaat-afternoon-1630__063__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumā
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 1042.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-afternoon-1630__064__d1__p0", "dims": [1080, 2400], "t": 1056.2}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "d186c5d2dd", "pos": 0, "shot": "phone-landscape-times-Miqaat-afternoon-1630__064__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "09a074712a", "pos": 1, "shot": "phone-landscape-times-Miqaat-afternoon-1630__065__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 1070.5}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-afternoon-1630__066__d1__p0", "dims": [1080, 2400], "t": 1089.7}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-afternoon-1630__066__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees 
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "2d192a46d0", "pos": 1, "shot": "phone-landscape-times-Miqaat-afternoon-1630__067__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true 
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 1107.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-afternoon-1630__068__d1__p0", "dims": [1080, 2400], "t": 1121.8}
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "63dc002422", "pos": 0, "shot": "phone-landscape-times-Miqaat-afternoon-1630__068__d1__p0.png", "labels": ["Back", "Evening adhkār  ·  1 of 14", "ĀYAT AL-KU
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "5232da0fb4", "pos": 1, "shot": "phone-landscape-times-Miqaat-afternoon-1630__069__d1__p1.png", "labels": ["Back", "Evening adhkār", "أذكار المساء", "0 of 1
+{"ev": "back-mismatch", "label": "Evening adhkār", "path": [], "t": 1136.4}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 1148.1}
+{"ev": "tap-fail", "label": "Monthly timetable", "t": 1153.4}
+{"ev": "tap-fail", "label": "Settings", "t": 1158.7}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 1164.1}
+{"ev": "tap-fail", "label": "Evening adhkār", "t": 1169.4}
+{"ev": "set-time", "sc": "maghrib-1915", "out": "Wed Oct  7 08:15:00 UTC 2026", "t": 1171.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-maghrib-1915__070__d0__p0", "dims": [1080, 2400], "t": 1182.9}
+{"ev": "screen", "depth": 0, "path": [], "key": "041e6bd0d0", "pos": 0, "shot": "phone-landscape-times-Miqaat-maghrib-1915__070__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S,
+{"ev": "screen", "depth": 0, "path": [], "key": "b3d84ce24c", "pos": 1, "shot": "phone-landscape-times-Miqaat-maghrib-1915__071__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Miqaat-maghrib-1915__072__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a8085a8b39", "pos": 1, "shot": "phone-landscape-times-Miqaat-maghrib-1915__073__d1__p1.png", "labels": ["Back", "Learn Salah", "One common form of the prayer,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "3f5289accd", "pos": 2, "shot": "phone-landscape-times-Miqaat-maghrib-1915__074__d1__p2.png", "labels": ["Back", "Learn Salah", "Fajr", "2 rakʿahs · dawn · 21 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "e71daf2fd4", "pos": 3, "shot": "phone-landscape-times-Miqaat-maghrib-1915__075__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rakʿa
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 4, "shot": "phone-landscape-times-Miqaat-maghrib-1915__076__d1__p4.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rakʿa
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 1228.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-maghrib-1915__077__d1__p0", "dims": [1080, 2400], "t": 1242.6}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Miqaat-maghrib-1915__077__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "d5842f4179", "pos": 1, "shot": "phone-landscape-times-Miqaat-maghrib-1915__078__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 1256.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-maghrib-1915__079__d1__p0", "dims": [1080, 2400], "t": 1270.9}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "f232d730dd", "pos": 0, "shot": "phone-landscape-times-Miqaat-maghrib-1915__079__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "f9718b750a", "pos": 1, "shot": "phone-landscape-times-Miqaat-maghrib-1915__080__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 1285.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-maghrib-1915__081__d1__p0", "dims": [1080, 2400], "t": 1302.3}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-maghrib-1915__081__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "2d192a46d0", "pos": 1, "shot": "phone-landscape-times-Miqaat-maghrib-1915__082__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true no
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 1321.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-maghrib-1915__083__d1__p0", "dims": [1080, 2400], "t": 1335.1}
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "63dc002422", "pos": 0, "shot": "phone-landscape-times-Miqaat-maghrib-1915__083__d1__p0.png", "labels": ["Back", "Evening adhkār  ·  1 of 14", "ĀYAT AL-KURS
+{"ev": "screen", "depth": 1, "path": ["Evening adhkār"], "key": "5232da0fb4", "pos": 1, "shot": "phone-landscape-times-Miqaat-maghrib-1915__084__d1__p1.png", "labels": ["Back", "Evening adhkār", "أذكار المساء", "0 of 14 
+{"ev": "back-mismatch", "label": "Evening adhkār", "path": [], "t": 1349.8}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 1361.6}
+{"ev": "tap-fail", "label": "Monthly timetable", "t": 1367.2}
+{"ev": "tap-fail", "label": "Settings", "t": 1372.5}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 1377.8}
+{"ev": "tap-fail", "label": "Evening adhkār", "t": 1382.9}
+{"ev": "set-time", "sc": "night-2230", "out": "Wed Oct  7 11:30:00 UTC 2026", "t": 1384.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-night-2230__085__d0__p0", "dims": [1080, 2400], "t": 1396.4}
+{"ev": "screen", "depth": 0, "path": [], "key": "b882855c26", "pos": 0, "shot": "phone-landscape-times-Miqaat-night-2230__085__d0__p0.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 1
+{"ev": "screen", "depth": 0, "path": [], "key": "af11cc74fe", "pos": 1, "shot": "phone-landscape-times-Miqaat-night-2230__086__d0__p1.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 1
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Miqaat-night-2230__087__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form of 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "3f68f030e1", "pos": 1, "shot": "phone-landscape-times-Miqaat-night-2230__088__d1__p1.png", "labels": ["Back", "Learn Salah", "One common form of the prayer, o
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "152afcb197", "pos": 2, "shot": "phone-landscape-times-Miqaat-night-2230__089__d1__p2.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset · 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 3, "shot": "phone-landscape-times-Miqaat-night-2230__090__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rakʿahs
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 1437.6}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-night-2230__091__d1__p0", "dims": [1080, 2400], "t": 1451.6}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Miqaat-night-2230__091__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ūl
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "d5842f4179", "pos": 1, "shot": "phone-landscape-times-Miqaat-night-2230__092__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 1465.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-night-2230__093__d1__p0", "dims": [1080, 2400], "t": 1479.7}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "491295f05e", "pos": 0, "shot": "phone-landscape-times-Miqaat-night-2230__093__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention bef
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "01ec035e91", "pos": 1, "shot": "phone-landscape-times-Miqaat-night-2230__094__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention bef
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 1493.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Miqaat-night-2230__095__d1__p0", "dims": [1080, 2400], "t": 1510.7}
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "1cb82248db", "pos": 0, "shot": "phone-landscape-times-Miqaat-night-2230__095__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to f
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "2d192a46d0", "pos": 1, "shot": "phone-landscape-times-Miqaat-night-2230__096__d1__p1.png", "labels": ["Back", "Qibla", "القبلة", "277°  W", "from true nort
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 1528.8}
+{"ev": "tap-fail", "label": "Learn Salah", "t": 1540.7}
+{"ev": "tap-fail", "label": "Monthly timetable", "t": 1546.0}
+{"ev": "tap-fail", "label": "Settings", "t": 1551.3}
+{"ev": "tap-fail", "label": "Qibla ⁨277° W⁩", "t": 1556.6}
+{"ev": "theme-set", "kw": "Gallery", "t": 1570.3}
+{"ev": "set-time", "sc": "predawn-0430", "out": "Mon Oct  5 17:30:00 UTC 2026", "t": 1582.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-predawn-0430__097__d0__p0", "dims": [1080, 2400], "t": 1593.3}
+{"ev": "screen", "depth": 0, "path": [], "key": "a5081799a1", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__097__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location settings"
+{"ev": "screen", "depth": 0, "path": [], "key": "65debf783c", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__098__d0__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "Monthly timetabl
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__099__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "3f68f030e1", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__100__d1__p1.png", "labels": ["Back", "Learn Salah", "One common form of the prayer
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "646c654d01", "pos": 2, "shot": "phone-landscape-times-Gallery-predawn-0430__101__d1__p2.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 3, "shot": "phone-landscape-times-Gallery-predawn-0430__102__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rakʿ
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 1633.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-predawn-0430__103__d1__p0", "dims": [1080, 2400], "t": 1647.0}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__103__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "cd7a100772", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__104__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumād
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 1661.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-predawn-0430__105__d1__p0", "dims": [1080, 2400], "t": 1675.5}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "da5ba18838", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__105__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "091a4549e2", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__106__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 1689.7}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-predawn-0430__107__d1__p0", "dims": [1080, 2400], "t": 1703.6}
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "89f7d52bdb", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__107__d1__p0.png", "labels": ["Why 5:03? · Fajr الفجر", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "65debf783c", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__108__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Sala
+{"ev": "back-mismatch", "label": "View prayer details", "path": [], "t": 1718.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-predawn-0430__109__d1__p0", "dims": [1080, 2400], "t": 1741.8}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "6ed1ec91ba", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__109__d1__p0.png", "labels": ["Why 6:28? · Sunrise الشروق", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "65debf783c", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__110__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1756.4}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-predawn-0430__111__d1__p0", "dims": [1080, 2400], "t": 1769.5}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "addc80c636", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__111__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "65debf783c", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__112__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1784.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-predawn-0430__113__d1__p0", "dims": [1080, 2400], "t": 1797.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "1ea9ac0e19", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__113__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "65debf783c", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__114__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1812.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-predawn-0430__115__d1__p0", "dims": [1080, 2400], "t": 1825.3}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9d7773a95d", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__115__d1__p0.png", "labels": ["Why 7:03? · Maghrib المغرب", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "65debf783c", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__116__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1840.1}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-predawn-0430__117__d1__p0", "dims": [1080, 2400], "t": 1853.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d1d0285d43", "pos": 0, "shot": "phone-landscape-times-Gallery-predawn-0430__117__d1__p0.png", "labels": ["Why 8:23? · Isha العشاء", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "65debf783c", "pos": 1, "shot": "phone-landscape-times-Gallery-predawn-0430__118__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 1868.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-predawn-0430__119__same__Fajr", "dims": [1080, 2400], "t": 1879.5}
+{"ev": "no-change", "label": "Fajr", "shot": "phone-landscape-times-Gallery-predawn-0430__119__same__Fajr.png", "path": [], "t": 1882.9}
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 1891.4}
+{"ev": "set-time", "sc": "morning-0545", "out": "Mon Oct  5 18:45:00 UTC 2026", "t": 1899.1}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-morning-0545__120__d0__p0", "dims": [1080, 2400], "t": 1910.5}
+{"ev": "screen", "depth": 0, "path": [], "key": "cdc8eca3e6", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__120__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location settings"
+{"ev": "screen", "depth": 0, "path": [], "key": "65dfac62f4", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__121__d0__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "Monthly timetabl
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__122__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "0243f9b49b", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__123__d1__p1.png", "labels": ["Back", "Learn Salah", "Learn a complete prayer", "Fa
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "6d8a8f9690", "pos": 2, "shot": "phone-landscape-times-Gallery-morning-0545__124__d1__p2.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 3, "shot": "phone-landscape-times-Gallery-morning-0545__125__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rakʿ
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 1951.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-morning-0545__126__d1__p0", "dims": [1080, 2400], "t": 1965.0}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__126__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "cd7a100772", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__127__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumād
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 1979.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-morning-0545__128__d1__p0", "dims": [1080, 2400], "t": 1993.1}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "698251fed0", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__128__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "2268fd5281", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__129__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 2007.5}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-morning-0545__130__d1__p0", "dims": [1080, 2400], "t": 2021.7}
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "89f7d52bdb", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__130__d1__p0.png", "labels": ["Why 5:03? · Fajr الفجر", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "921f8b1063", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__131__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Sala
+{"ev": "back-mismatch", "label": "View prayer details", "path": [], "t": 2036.6}
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2052.6}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-morning-0545__132__d1__p0", "dims": [1080, 2400], "t": 2066.3}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "6ed1ec91ba", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__132__d1__p0.png", "labels": ["Why 6:28? · Sunrise الشروق", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "921f8b1063", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__133__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2081.1}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-morning-0545__134__d1__p0", "dims": [1080, 2400], "t": 2094.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "addc80c636", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__134__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "fcc00cb236", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__135__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2109.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-morning-0545__136__d1__p0", "dims": [1080, 2400], "t": 2122.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "1ea9ac0e19", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__136__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "fcc00cb236", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__137__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2137.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-morning-0545__138__d1__p0", "dims": [1080, 2400], "t": 2150.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9d7773a95d", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__138__d1__p0.png", "labels": ["Why 7:03? · Maghrib المغرب", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "fcc00cb236", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__139__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2165.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-morning-0545__140__d1__p0", "dims": [1080, 2400], "t": 2178.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d1d0285d43", "pos": 0, "shot": "phone-landscape-times-Gallery-morning-0545__140__d1__p0.png", "labels": ["Why 8:23? · Isha العشاء", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "fcc00cb236", "pos": 1, "shot": "phone-landscape-times-Gallery-morning-0545__141__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2193.2}
+{"ev": "tap-fail", "label": "More actions", "t": 2200.8}
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 2209.1}
+{"ev": "set-time", "sc": "forenoon-0930", "out": "Mon Oct  5 22:30:00 UTC 2026", "t": 2216.8}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-forenoon-0930__142__d0__p0", "dims": [1080, 2400], "t": 2228.2}
+{"ev": "screen", "depth": 0, "path": [], "key": "ee3851b121", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__142__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location settings
+{"ev": "screen", "depth": 0, "path": [], "key": "cf5aac1719", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__143__d0__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "Monthly timetab
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__144__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c9d8a4a3a2", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__145__d1__p1.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "0fb992b7c0", "pos": 2, "shot": "phone-landscape-times-Gallery-forenoon-0930__146__d1__p2.png", "labels": ["Back", "Learn Salah", "2 rakʿahs · dawn · 21 steps"
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "e71daf2fd4", "pos": 3, "shot": "phone-landscape-times-Gallery-forenoon-0930__147__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rak
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 4, "shot": "phone-landscape-times-Gallery-forenoon-0930__148__d1__p4.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rak
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 2272.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-forenoon-0930__149__d1__p0", "dims": [1080, 2400], "t": 2286.6}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "1fcf844d2a", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__149__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā a
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "cd7a100772", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__150__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumā
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 2300.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-forenoon-0930__151__d1__p0", "dims": [1080, 2400], "t": 2314.6}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "698251fed0", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__151__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "2268fd5281", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__152__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 2328.8}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-forenoon-0930__153__d1__p0", "dims": [1080, 2400], "t": 2342.8}
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "addc80c636", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__153__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "cf5aac1719", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__154__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Sal
+{"ev": "back-mismatch", "label": "View prayer details", "path": [], "t": 2357.5}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-forenoon-0930__155__d1__p0", "dims": [1080, 2400], "t": 2370.7}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "89f7d52bdb", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__155__d1__p0.png", "labels": ["Why 5:03? · Fajr الفجر", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cf5aac1719", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__156__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2385.4}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-forenoon-0930__157__d1__p0", "dims": [1080, 2400], "t": 2398.5}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "6ed1ec91ba", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__157__d1__p0.png", "labels": ["Why 6:28? · Sunrise الشروق", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cf5aac1719", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__158__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2413.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-forenoon-0930__159__d1__p0", "dims": [1080, 2400], "t": 2436.7}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "1ea9ac0e19", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__159__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cf5aac1719", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__160__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2451.4}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-forenoon-0930__161__d1__p0", "dims": [1080, 2400], "t": 2464.8}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9d7773a95d", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__161__d1__p0.png", "labels": ["Why 7:03? · Maghrib المغرب", "CALCULATED FROM", 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cf5aac1719", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__162__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2479.6}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-forenoon-0930__163__d1__p0", "dims": [1080, 2400], "t": 2493.0}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d1d0285d43", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__163__d1__p0.png", "labels": ["Why 8:23? · Isha العشاء", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "cf5aac1719", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__164__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", 
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2508.1}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-forenoon-0930__165__d1__p0", "dims": [1080, 2400], "t": 2521.6}
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "def5ad6e62", "pos": 0, "shot": "phone-landscape-times-Gallery-forenoon-0930__165__d1__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location se
+{"ev": "screen", "depth": 1, "path": ["Fajr"], "key": "e283668de4", "pos": 1, "shot": "phone-landscape-times-Gallery-forenoon-0930__166__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Tue 6 Oct", "Learn Salah", "Monthly t
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 2536.4}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-forenoon-0930__167__same__Maghrib", "dims": [1080, 2400], "t": 2547.7}
+{"ev": "no-change", "label": "Maghrib", "shot": "phone-landscape-times-Gallery-forenoon-0930__167__same__Maghrib.png", "path": [], "t": 2551.1}
+{"ev": "set-time", "sc": "friday-1250", "out": "Fri Oct  9 01:50:00 UTC 2026", "t": 2553.1}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-friday-1250__168__d0__p0", "dims": [1080, 2400], "t": 2564.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "673db8e0cb", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__168__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location settings",
+{"ev": "screen", "depth": 0, "path": [], "key": "5ae103b2a7", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__169__d0__p1.png", "labels": ["33.99°S, 150.80°E", "Fri 9 Oct", "Learn Salah", "Monthly timetable
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__170__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form o
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "3f68f030e1", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__171__d1__p1.png", "labels": ["Back", "Learn Salah", "One common form of the prayer,
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "0fb992b7c0", "pos": 2, "shot": "phone-landscape-times-Gallery-friday-1250__172__d1__p2.png", "labels": ["Back", "Learn Salah", "2 rakʿahs · dawn · 21 steps", 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 3, "shot": "phone-landscape-times-Gallery-friday-1250__173__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rakʿa
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 2605.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-friday-1250__174__d1__p0", "dims": [1080, 2400], "t": 2618.7}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "400861cded", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__174__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "dc22abde14", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__175__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 2633.1}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-friday-1250__176__d1__p0", "dims": [1080, 2400], "t": 2647.0}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "55c31b62a7", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__176__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "94903fda2d", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__177__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention b
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 2661.4}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-friday-1250__178__d1__p0", "dims": [1080, 2400], "t": 2675.4}
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "addc80c636", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__178__d1__p0.png", "labels": ["Why 12:45? · Dhuhr الظهر", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "5ae103b2a7", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__179__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Fri 9 Oct", "Learn Salah
+{"ev": "back-mismatch", "label": "View prayer details", "path": [], "t": 2690.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-friday-1250__180__d1__p0", "dims": [1080, 2400], "t": 2703.3}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "89f7d52bdb", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__180__d1__p0.png", "labels": ["Why 4:58? · Fajr الفجر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5ae103b2a7", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__181__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Fri 9 Oct", "Learn Salah", "M
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2717.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-friday-1250__182__d1__p0", "dims": [1080, 2400], "t": 2731.1}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "6ed1ec91ba", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__182__d1__p0.png", "labels": ["Why 6:24? · Sunrise الشروق", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5ae103b2a7", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__183__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Fri 9 Oct", "Learn Salah", "M
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2745.7}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-friday-1250__184__d1__p0", "dims": [1080, 2400], "t": 2769.3}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "1ea9ac0e19", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__184__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Source
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5ae103b2a7", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__185__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Fri 9 Oct", "Learn Salah", "M
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2784.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-friday-1250__186__d1__p0", "dims": [1080, 2400], "t": 2797.3}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9d7773a95d", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__186__d1__p0.png", "labels": ["Why 7:05? · Maghrib المغرب", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5ae103b2a7", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__187__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Fri 9 Oct", "Learn Salah", "M
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2812.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-friday-1250__188__d1__p0", "dims": [1080, 2400], "t": 2825.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d1d0285d43", "pos": 0, "shot": "phone-landscape-times-Gallery-friday-1250__188__d1__p0.png", "labels": ["Why 8:26? · Isha العشاء", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "5ae103b2a7", "pos": 1, "shot": "phone-landscape-times-Gallery-friday-1250__189__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Fri 9 Oct", "Learn Salah", "M
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 2840.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-friday-1250__190__external", "dims": [1080, 2400], "t": 2851.6}
+{"ev": "external", "label": "More actions", "fg": "Pop-Up", "shot": "phone-landscape-times-Gallery-friday-1250__190__external.png", "path": [], "t": 2855.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-friday-1250__191__same__Friday_9_October_2026", "dims": [1080, 2400], "t": 2872.2}
+{"ev": "no-change", "label": "Friday 9 October 2026", "shot": "phone-landscape-times-Gallery-friday-1250__191__same__Friday_9_October_2026.png", "path": [], "t": 2875.6}
+{"ev": "set-time", "sc": "afternoon-1630", "out": "Wed Oct  7 05:30:00 UTC 2026", "t": 2877.6}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-afternoon-1630__192__d0__p0", "dims": [1080, 2400], "t": 2889.2}
+{"ev": "screen", "depth": 0, "path": [], "key": "4fdec97859", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__192__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location setting
+{"ev": "screen", "depth": 0, "path": [], "key": "c784821c49", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__193__d0__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "Monthly timeta
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__194__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common for
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "3f68f030e1", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__195__d1__p1.png", "labels": ["Back", "Learn Salah", "One common form of the pray
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "0fb992b7c0", "pos": 2, "shot": "phone-landscape-times-Gallery-afternoon-1630__196__d1__p2.png", "labels": ["Back", "Learn Salah", "2 rakʿahs · dawn · 21 steps
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "e71daf2fd4", "pos": 3, "shot": "phone-landscape-times-Gallery-afternoon-1630__197__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 ra
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 4, "shot": "phone-landscape-times-Gallery-afternoon-1630__198__d1__p4.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 ra
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 2934.5}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-afternoon-1630__199__d1__p0", "dims": [1080, 2400], "t": 2948.3}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__199__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "d5842f4179", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__200__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jum
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 2962.6}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-afternoon-1630__201__d1__p0", "dims": [1080, 2400], "t": 2976.5}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "d186c5d2dd", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__201__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attentio
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "09a074712a", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__202__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attentio
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 2990.8}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-afternoon-1630__203__d1__p0", "dims": [1080, 2400], "t": 3004.6}
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "1ea9ac0e19", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__203__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "c784821c49", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__204__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Sa
+{"ev": "back-mismatch", "label": "View prayer details", "path": [], "t": 3019.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-afternoon-1630__205__d1__p0", "dims": [1080, 2400], "t": 3032.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "89f7d52bdb", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__205__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c784821c49", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__206__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3047.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-afternoon-1630__207__d1__p0", "dims": [1080, 2400], "t": 3060.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "6ed1ec91ba", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__207__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c784821c49", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__208__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3075.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-afternoon-1630__209__d1__p0", "dims": [1080, 2400], "t": 3088.4}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "addc80c636", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__209__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c784821c49", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__210__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3103.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-afternoon-1630__211__d1__p0", "dims": [1080, 2400], "t": 3126.8}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9d7773a95d", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__211__d1__p0.png", "labels": ["Why 7:04? · Maghrib المغرب", "CALCULATED FROM",
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c784821c49", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__212__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3141.5}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-afternoon-1630__213__d1__p0", "dims": [1080, 2400], "t": 3154.8}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d1d0285d43", "pos": 0, "shot": "phone-landscape-times-Gallery-afternoon-1630__213__d1__p0.png", "labels": ["Why 8:24? · Isha العشاء", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "c784821c49", "pos": 1, "shot": "phone-landscape-times-Gallery-afternoon-1630__214__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah",
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3169.6}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-afternoon-1630__215__external", "dims": [1080, 2400], "t": 3181.1}
+{"ev": "external", "label": "More actions", "fg": "Pop-Up", "shot": "phone-landscape-times-Gallery-afternoon-1630__215__external.png", "path": [], "t": 3184.5}
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3204.7}
+{"ev": "set-time", "sc": "maghrib-1915", "out": "Wed Oct  7 08:15:00 UTC 2026", "t": 3212.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-maghrib-1915__216__d0__p0", "dims": [1080, 2400], "t": 3223.7}
+{"ev": "screen", "depth": 0, "path": [], "key": "14508c049b", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__216__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location settings"
+{"ev": "screen", "depth": 0, "path": [], "key": "e5916203b1", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__217__d0__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "Monthly timetabl
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__218__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "3f68f030e1", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__219__d1__p1.png", "labels": ["Back", "Learn Salah", "One common form of the prayer
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "152afcb197", "pos": 2, "shot": "phone-landscape-times-Gallery-maghrib-1915__220__d1__p2.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 3, "shot": "phone-landscape-times-Gallery-maghrib-1915__221__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rakʿ
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 3263.8}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-maghrib-1915__222__d1__p0", "dims": [1080, 2400], "t": 3277.7}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__222__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "d5842f4179", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__223__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumād
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 3292.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-maghrib-1915__224__d1__p0", "dims": [1080, 2400], "t": 3305.8}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "f232d730dd", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__224__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "f9718b750a", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__225__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention 
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 3320.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-maghrib-1915__226__d1__p0", "dims": [1080, 2400], "t": 3334.2}
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "9d7773a95d", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__226__d1__p0.png", "labels": ["Why 7:04? · Maghrib المغرب", "CALCULATED FRO
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "e5916203b1", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__227__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Sala
+{"ev": "back-mismatch", "label": "View prayer details", "path": [], "t": 3349.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-maghrib-1915__228__d1__p0", "dims": [1080, 2400], "t": 3362.2}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "89f7d52bdb", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__228__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e5916203b1", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__229__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3377.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-maghrib-1915__230__d1__p0", "dims": [1080, 2400], "t": 3390.6}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "6ed1ec91ba", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__230__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e5916203b1", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__231__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3405.4}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-maghrib-1915__232__d1__p0", "dims": [1080, 2400], "t": 3418.7}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "addc80c636", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__232__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e5916203b1", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__233__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3433.4}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-maghrib-1915__234__d1__p0", "dims": [1080, 2400], "t": 3446.6}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "1ea9ac0e19", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__234__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e5916203b1", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__235__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3461.3}
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3477.4}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-maghrib-1915__236__d1__p0", "dims": [1080, 2400], "t": 3490.8}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d1d0285d43", "pos": 0, "shot": "phone-landscape-times-Gallery-maghrib-1915__236__d1__p0.png", "labels": ["Why 8:24? · Isha العشاء", "CALCULATED FROM", "Sou
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "abe44632c9", "pos": 1, "shot": "phone-landscape-times-Gallery-maghrib-1915__237__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3505.5}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-maghrib-1915__238__external", "dims": [1080, 2400], "t": 3516.8}
+{"ev": "external", "label": "More actions", "fg": "Pop-Up", "shot": "phone-landscape-times-Gallery-maghrib-1915__238__external.png", "path": [], "t": 3520.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-maghrib-1915__239__same__Maghrib", "dims": [1080, 2400], "t": 3537.7}
+{"ev": "no-change", "label": "Maghrib", "shot": "phone-landscape-times-Gallery-maghrib-1915__239__same__Maghrib.png", "path": [], "t": 3541.1}
+{"ev": "set-time", "sc": "night-2230", "out": "Wed Oct  7 11:30:00 UTC 2026", "t": 3543.1}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-night-2230__240__d0__p0", "dims": [1080, 2400], "t": 3554.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "8aeabb0591", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__240__d0__p0.png", "labels": ["Miqaat", "Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", 
+{"ev": "screen", "depth": 0, "path": [], "key": "e052d27290", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__241__d0__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "Monthly timetable"
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c5e1607db1", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__242__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form of
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "3f68f030e1", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__243__d1__p1.png", "labels": ["Back", "Learn Salah", "One common form of the prayer, 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "152afcb197", "pos": 2, "shot": "phone-landscape-times-Gallery-night-2230__244__d1__p2.png", "labels": ["Back", "Learn Salah", "Maghrib", "3 rakʿahs · sunset ·
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "06462803ae", "pos": 3, "shot": "phone-landscape-times-Gallery-night-2230__245__d1__p3.png", "labels": ["Back", "Learn Salah", "Dhuhr · ʿAsr · Isha", "4 rakʿah
+{"ev": "back-mismatch", "label": "Learn Salah", "path": [], "t": 3595.0}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-night-2230__246__d1__p0", "dims": [1080, 2400], "t": 3609.0}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "c4ef6756d4", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__246__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ū
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "d5842f4179", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__247__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 3623.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-night-2230__248__d1__p0", "dims": [1080, 2400], "t": 3637.0}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "491295f05e", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__248__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention be
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "01ec035e91", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__249__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Needs attention be
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 3651.3}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-night-2230__250__d1__p0", "dims": [1080, 2400], "t": 3665.4}
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "89f7d52bdb", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__250__d1__p0.png", "labels": ["Why 5:01? · Fajr الفجر", "CALCULATED FROM", "S
+{"ev": "screen", "depth": 1, "path": ["View prayer details"], "key": "e052d27290", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__251__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah"
+{"ev": "back-mismatch", "label": "View prayer details", "path": [], "t": 3680.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-night-2230__252__d1__p0", "dims": [1080, 2400], "t": 3703.7}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "6ed1ec91ba", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__252__d1__p0.png", "labels": ["Why 6:26? · Sunrise الشروق", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e052d27290", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__253__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "Mo
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3718.7}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-night-2230__254__d1__p0", "dims": [1080, 2400], "t": 3731.9}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "addc80c636", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__254__d1__p0.png", "labels": ["Why 12:46? · Dhuhr الظهر", "CALCULATED FROM", "Sour
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e052d27290", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__255__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "Mo
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3746.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-night-2230__256__d1__p0", "dims": [1080, 2400], "t": 3760.1}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "1ea9ac0e19", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__256__d1__p0.png", "labels": ["Why 4:19? · Asr العصر", "CALCULATED FROM", "Source"
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e052d27290", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__257__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "Mo
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3774.8}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-night-2230__258__d1__p0", "dims": [1080, 2400], "t": 3788.1}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "9d7773a95d", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__258__d1__p0.png", "labels": ["Why 7:04? · Maghrib المغرب", "CALCULATED FROM", "So
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e052d27290", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__259__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "Mo
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3802.9}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-night-2230__260__d1__p0", "dims": [1080, 2400], "t": 3816.2}
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "d1d0285d43", "pos": 0, "shot": "phone-landscape-times-Gallery-night-2230__260__d1__p0.png", "labels": ["Why 8:24? · Isha العشاء", "CALCULATED FROM", "Sourc
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "e052d27290", "pos": 1, "shot": "phone-landscape-times-Gallery-night-2230__261__d1__p1.png", "labels": ["33.99°S, 150.80°E", "Wed 7 Oct", "Learn Salah", "Mo
+{"ev": "back-mismatch", "label": "Why this time?", "path": [], "t": 3831.2}
+{"ev": "rotation-lost", "name": "phone-landscape-times-Gallery-night-2230__262__same__Fajr", "dims": [1080, 2400], "t": 3842.7}
+{"ev": "no-change", "label": "Fajr", "shot": "phone-landscape-times-Gallery-night-2230__262__same__Fajr.png", "path": [], "t": 3846.2}
+{"ev": "back-mismatch", "label": "Fajr", "path": [], "t": 3854.7}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 3862.3}
+{"ev": "gfx", "lines": ["Total frames rendered: 12", "Janky frames: 12 (100.00%)", "Janky frames (legacy): 12 (100.00%)", "50th percentile: 48ms", "90th percentile: 1450ms", "95th percentile: 1450ms", "99th percentile: 1
+{"ev": "mem", "lines": ["  Native Heap    21741    21640        0        0    24896    30060    24914     1169", "        TOTAL    42573    31456     3448        0   161540    40534    30151     6406", "           Java H
