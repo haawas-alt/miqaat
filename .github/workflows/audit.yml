@@ -52,3 +52,23 @@ jobs:
           name: audit-${{ matrix.name }}-discover
           path: out/
           if-no-files-found: ignore
+  publish:
+    needs: crawl
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: audit-*
+          path: /tmp/ev
+      - name: Publish evidence to audit-evidence branch
+        run: |
+          git config user.name audit-ci; git config user.email audit-ci@users.noreply.github.com
+          git checkout --orphan audit-evidence
+          git rm -rq --cached . || true
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          mkdir -p ev && cp -r /tmp/ev/. ev/
+          echo "run ${{ github.run_number }} commit ${{ github.sha }}" > ev/RUN.txt
+          git add -A ev && git commit -qm "audit evidence run ${{ github.run_number }}"
+          git push -f origin audit-evidence
