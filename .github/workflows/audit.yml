@@ -23,13 +23,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        device: [tablet-landscape, tablet-portrait, phone-portrait, phone-landscape]
-        variant: [themes, urdu, font13, font20, lessons, azaan, times]
         include:
-          - { device: tablet-landscape, profile: pixel_tablet, rot: 0 }
-          - { device: tablet-portrait,  profile: pixel_tablet, rot: 1 }
-          - { device: phone-portrait,   profile: pixel_6,      rot: 0 }
-          - { device: phone-landscape,  profile: pixel_6,      rot: 1 }
+          - { device: tablet-portrait, profile: pixel_tablet, rot: 1, variant: themes }
+          - { device: tablet-portrait, profile: pixel_tablet, rot: 1, variant: urdu }
+          - { device: tablet-portrait, profile: pixel_tablet, rot: 1, variant: font13 }
+          - { device: tablet-portrait, profile: pixel_tablet, rot: 1, variant: font20 }
+          - { device: tablet-portrait, profile: pixel_tablet, rot: 1, variant: azaan }
+          - { device: tablet-portrait, profile: pixel_tablet, rot: 1, variant: times }
+          - { device: phone-landscape, profile: pixel_6, rot: 1, variant: themes }
+          - { device: phone-landscape, profile: pixel_6, rot: 1, variant: urdu }
+          - { device: phone-landscape, profile: pixel_6, rot: 1, variant: font13 }
+          - { device: phone-landscape, profile: pixel_6, rot: 1, variant: font20 }
+          - { device: phone-landscape, profile: pixel_6, rot: 1, variant: azaan }
+          - { device: phone-landscape, profile: pixel_6, rot: 1, variant: times }
+          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: lessons }
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: urdu }
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: font13 }
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: font20 }
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: lessons }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -81,10 +92,10 @@ jobs:
           for v in themes urdu font13 font20 lessons azaan times; do
             rm -rf /tmp/pub && mkdir -p /tmp/pub/ev
             for d in /tmp/ev/audit-*-$v; do [ -d "$d" ] && cp -r "$d" /tmp/pub/ev/; done
-            git checkout -q --orphan "audit-ev-$v"
+            git checkout -q --orphan "audit-ev2-$v"
             git rm -rq --cached . 2>/dev/null || true
             find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
             cp -r /tmp/pub/ev ./ev
             echo "run ${{ github.run_number }} commit ${{ github.sha }} variant $v" > ev/RUN.txt
-            git add -A ev && git commit -qm "audit evidence $v run ${{ github.run_number }}" && git push -q -f origin "audit-ev-$v" || echo "push failed $v"
+            git add -A ev && git commit -qm "audit evidence $v run ${{ github.run_number }}" && git push -q -f origin "audit-ev2-$v" || echo "push failed $v"
           done

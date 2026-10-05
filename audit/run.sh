@@ -10,8 +10,9 @@ case "$VAR" in
   font20)  MODE=crawl;   THEMES=$ALL; LANG_=en; FONT=2.0; DEPTH=1; MAXA=14; BUD=60;;
   lessons) MODE=lessons; THEMES=$ALL; LANG_=en; FONT=1.0; DEPTH=1; MAXA=1;  BUD=110;;
   azaan)   MODE=azaan;   THEMES=$ALL; LANG_=en; FONT=1.0; DEPTH=1; MAXA=1;  BUD=110;;
-  times)   MODE=times;   THEMES=$ALL; LANG_=en; FONT=1.0; DEPTH=1; MAXA=1;  BUD=110;;
+  times)   MODE=times;   THEMES="Miqaat,Gallery"; LANG_=en; FONT=1.0; DEPTH=1; MAXA=1;  BUD=110;;
 esac
+case "$NAME" in *landscape*) EXPECT=landscape;; *) EXPECT=portrait;; esac
 OUT="out/$NAME-$VAR"; mkdir -p "$OUT"
 adb shell settings put system accelerometer_rotation 0
 adb shell settings put system user_rotation "$ROT"
@@ -24,6 +25,6 @@ adb emu geo fix 150.80 -33.99 || true   # Gledswood Hills NSW
 adb shell settings put global window_animation_scale 0; adb shell settings put global transition_animation_scale 0; adb shell settings put global animator_duration_scale 0
 adb shell settings put secure immersive_mode_confirmations confirmed || true
 adb logcat -c
-python3 audit/crawl.py --out "$OUT" --tag "$NAME-$VAR" --themes "$THEMES" --lang "$LANG_" --font "$FONT" --depth "$DEPTH" --max-actions "$MAXA" --budget-min "$BUD" --mode "$MODE" 2>&1 | tee "$OUT/crawl.log" | tail -5
+python3 audit/crawl.py --out "$OUT" --tag "$NAME-$VAR" --themes "$THEMES" --lang "$LANG_" --font "$FONT" --depth "$DEPTH" --max-actions "$MAXA" --budget-min "$BUD" --mode "$MODE" --rot "$ROT" --expect "$EXPECT" 2>&1 | tee "$OUT/crawl.log" | tail -5
 adb shell dumpsys package com.usman.miqaat | grep -E "versionName|versionCode|targetSdk" | tee -a "$OUT/device.txt"
 ls "$OUT" | wc -l

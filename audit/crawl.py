@@ -14,7 +14,9 @@ ap.add_argument("--font", default="1.0")
 ap.add_argument("--depth", type=int, default=3)
 ap.add_argument("--max-actions", type=int, default=160)
 ap.add_argument("--budget-min", type=int, default=100)
-ap.add_argument("--mode", default="crawl")   # crawl | lessons | azaan | times
+ap.add_argument("--mode", default="crawl")
+ap.add_argument("--rot", default="0")
+ap.add_argument("--expect", default="portrait")   # crawl | lessons | azaan | times
 A = ap.parse_args()
 os.makedirs(A.out, exist_ok=True)
 T0 = time.time()
@@ -80,9 +82,24 @@ def actionable(n, W=None, H=None):
 def screen_size(nodes):
     return max(n["b"][2] for n in nodes), max(n["b"][3] for n in nodes)
 
+def setrot():
+    sh("shell", "settings", "put", "system", "accelerometer_rotation", "0")
+    sh("shell", "settings", "put", "system", "user_rotation", A.rot)
+    sh("shell", "wm", "user-rotation", "lock", A.rot)
+
+def png_dims(d):
+    try: return int.from_bytes(d[16:20], "big"), int.from_bytes(d[20:24], "big")
+    except Exception: return 0, 0
+
+ROTFIX = [0]
 def shot(name):
     p = os.path.join(A.out, name + ".png")
-    d = sh("exec-out", "screencap", "-p", raw=True)
+    for attempt in range(3):
+        d = sh("exec-out", "screencap", "-p", raw=True)
+        w, h = png_dims(d)
+        is_land = w > h
+        if (A.expect == "landscape") == is_land or w == 0: break
+        ROTFIX[0] += 1; log(ev="rotation-lost", name=name, dims=[w, h]); setrot(); time.sleep(3)
     open(p, "wb").write(d); return os.path.basename(p)
 
 def tap(n):
@@ -96,6 +113,7 @@ def fg():
     m = re.search(r"mCurrentFocus=.*?\{[^ ]+ [^ ]+ ([^/ }]+)", o)
     return m.group(1) if m else "?"
 def launch():
+    setrot()
     sh("shell", "monkey", "-p", PKG, "-c", "android.intent.category.LAUNCHER", "1"); time.sleep(3.5)
 
 PRAYERS = ("Fajr", "Dhuhr", "Asr", "Maghrib", "Isha")
@@ -298,16 +316,26 @@ def L(en, ur): return ur if A.lang == "ur" else en
 
 def tap_text(text, exact=True, maxs=8, startswith=False):
     """Scroll until a node with this label is visible and tap it (works for non-clickable labels: the click propagates)."""
-    for i in range(maxs + 1):
+    texts = text if isinstance(text, (list, tuple)) else [text]
+    def scan():
         nodes = dump()
-        if nodes:
-            w, h = screen_size(nodes)
-            for n in nodes:
-                l = label(n)
-                ok = (l == text) if exact else (l.startswith(text) if startswith else text in l)
+        if not nodes: return None, (1080, 2400)
+        w, h = screen_size(nodes)
+        for n in nodes:
+            l = label(n)
+            for t in texts:
+                ok = (l == t) if exact else (l.startswith(t) if startswith else t in l)
                 if ok and n["pkg"] == PKG and 0 <= n["b"][1] and n["b"][3] <= h and n["b"][2] > n["b"][0]:
-                    tap(n); return True
-            if i < maxs: swipe(w, h)
+                    return n, (w, h)
+        return None, (w, h)
+    n, (w, h) = scan()
+    if n: tap(n); return True
+    for _ in range(maxs):            # scroll back up first (we may be scrolled down)
+        swipe(w, h, up=False); n, (w, h) = scan()
+        if n: tap(n); return True
+    for _ in range(maxs):            # then down
+        swipe(w, h); n, (w, h) = scan()
+        if n: tap(n); return True
     return False
 
 def to_top():
@@ -320,8 +348,8 @@ def pick_theme2(kw):
     if kw == "none": return True
     want = (THEME_LABEL_UR if A.lang == "ur" else THEME_LABEL_EN).get(kw, kw)
     if not go_home(): return False
-    if not tap_text(L("Settings", "ترتیبات")): log(ev="nav-fail", what="Settings"); return False
-    if not tap_text(L("Display & art", "ڈسپلے اور آرٹ")): log(ev="nav-fail", what="Display & art"); return False
+    if not tap_text(["Settings", "ترتیبات"]): log(ev="nav-fail", what="Settings"); return False
+    if not tap_text(["Display & art", "ڈسپلے اور آرٹ"]): log(ev="nav-fail", what="Display & art"); return False
     if not tap_text(want, exact=False, startswith=True): log(ev="theme-not-found", kw=kw); return False
     log(ev="theme-set", kw=kw); time.sleep(1.5)
     return go_home()
@@ -350,6 +378,7 @@ def set_lang_urdu():
 DENS = 2.0
 def main():
     global DENS
+    setrot()
     d = sh("shell", "wm", "density"); m = re.search(r"(\d+)\s*$", d.strip().splitlines()[-1] if d.strip() else "")
     DENS = (int(m.group(1)) / 160.0) if m else 2.0
     log(ev="env", density=DENS, size=sh("shell", "wm", "size").strip(), rot=sh("shell", "dumpsys", "window", "displays")[:0])
@@ -361,7 +390,7 @@ def main():
     log(ev="setup-result", ok=ok)
     if A.lang == "ur":
         go_home()
-        if tap_text("Settings") and tap_text("Display & art"):
+        if tap_text(["Settings", "ترتیبات"]) and tap_text("Display & art"):
             if tap_text("اردو", exact=False): log(ev="lang-set"); time.sleep(2)
             else: log(ev="lang-not-found")
         go_home()
