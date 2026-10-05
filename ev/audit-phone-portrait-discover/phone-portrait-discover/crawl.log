@@ -1,0 +1,97 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1666, "t": 2.2}
+{"ev": "setup-screen", "step": 0, "shot": "phone-portrait-discover__setup0.png", "key": "964113c261", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 
+{"ev": "setup-tap", "label": "Begin", "t": 7.6}
+{"ev": "setup-screen", "step": 1, "shot": "phone-portrait-discover__setup1.png", "key": "e0d67aafeb", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 
+{"ev": "detect-result", "shot": "phone-portrait-discover__setup1_after-detect-20s.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 37.7}
+{"ev": "setup-screen", "step": 2, "shot": "phone-portrait-discover__setup2.png", "key": "9576e1e985", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Set
+{"ev": "setup-tap", "label": "Next", "t": 40.5}
+{"ev": "setup-screen", "step": 3, "shot": "phone-portrait-discover__setup3.png", "key": "9253241de3", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Set
+{"ev": "setup-stuck", "t": 45.6}
+{"ev": "setup-screen", "step": 4, "shot": "phone-portrait-discover__setup4.png", "key": "5209fa6e42", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Set
+{"ev": "setup-stuck", "t": 50.7}
+{"ev": "setup-screen", "step": 5, "shot": "phone-portrait-discover__setup5.png", "key": "78732a2647", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Set
+{"ev": "setup-tap", "label": "These look right", "t": 55.9}
+{"ev": "setup-screen", "step": 6, "shot": "phone-portrait-discover__setup6.png", "key": "9938b881fc", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Set
+{"ev": "setup-tap", "label": "Finish", "t": 61.0}
+{"ev": "setup-done", "step": 7, "t": 65.9}
+{"ev": "setup-result", "ok": true, "t": 65.9}
+{"ev": "screen", "depth": 0, "path": [], "key": "860f1effa6", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__001__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Lear
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__002__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form of the
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "Fajr"], "key": "9c7543f2bf", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__003__d2__p0.png", "labels": ["Back", "Fajr", "Step 1 of 21", "Fajr · rakʿah 1 of
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "Fajr"], "key": "773257f70a", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__004__d2__p1.png", "labels": ["Back", "Fajr", "Step 1 of 21", "Fajr · rakʿah 1 of
+{"ev": "back-mismatch", "label": "Fajr", "path": ["Learn Salah"], "t": 104.6}
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "Maghrib"], "key": "bf890c572e", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__005__d2__p0.png", "labels": ["Back", "Maghrib", "Step 1 of 29", "Maghrib · ra
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "Maghrib"], "key": "984f28d467", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__006__d2__p1.png", "labels": ["Back", "Maghrib", "Step 1 of 29", "Maghrib · ra
+{"ev": "back-mismatch", "label": "Maghrib", "path": ["Learn Salah"], "t": 134.3}
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "Dhuhr · ʿAsr · Isha"], "key": "77e2182e13", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__007__d2__p0.png", "labels": ["Back", "Dhuhr · ʿAsr · Isha", "Step
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "Dhuhr · ʿAsr · Isha"], "key": "b1c3aea26a", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__008__d2__p1.png", "labels": ["Back", "Dhuhr · ʿAsr · Isha", "Step
+{"ev": "back-mismatch", "label": "Dhuhr · ʿAsr · Isha", "path": ["Learn Salah"], "t": 163.7}
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "The words"], "key": "d99be6efe0", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__009__d2__p0.png", "labels": ["Back", "The words", "1 / 12", "Standing · sta
+{"ev": "back-mismatch", "label": "The words", "path": ["Learn Salah"], "t": 187.6}
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "The movements"], "key": "79c2970648", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__010__d2__p0.png", "labels": ["Back", "The movements", "Standing upright
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "The movements"], "key": "d9ddbe9b94", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__011__d2__p1.png", "labels": ["Back", "The movements", "Standing upright
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "The movements"], "key": "2d60c2937e", "pos": 2, "shot": "phone-portrait-discover-none-en-f1.0__012__d2__p2.png", "labels": ["Back", "The movements", "Bent forward fro
+{"ev": "back-mismatch", "label": "The movements", "path": ["Learn Salah"], "t": 222.3}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "e8e730c3ff", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__013__d1__p0.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ūlā 1
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "d868fae481", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__014__d1__p1.png", "labels": ["Back", "Oct 2026", "Rabīʿ al-Thānī – Jumādā al-Ūlā 1
+{"ev": "screen", "depth": 2, "path": ["Monthly timetable", "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 AM, Sunrise 6:22 AM, Dhuhr 12:44 PM, Asr 4:18 PM, Maghrib 7:04 PM, Isha 8:24 PM"], "key": "cb1176e743", "pos": 0, 
+{"ev": "screen", "depth": 2, "path": ["Monthly timetable", "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 AM, Sunrise 6:22 AM, Dhuhr 12:44 PM, Asr 4:18 PM, Maghrib 7:04 PM, Isha 8:24 PM"], "key": "d868fae481", "pos": 1, 
+{"ev": "back-mismatch", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 AM, Sunrise 6:22 AM, Dhuhr 12:44 PM, Asr 4:18 PM, Maghrib 7:04 PM, Isha 8:24 PM", "path": ["Monthly timetable"], "t": 270.9}
+{"ev": "no-change", "label": "Friday 16 October, Friday, 5 Jumādā: Fajr 4:46 AM, Sunrise 6:13 AM, Dhuhr 12:42 PM, Asr 4:19 PM, Maghrib 7:09 PM, Isha 8:31 PM", "shot": "phone-portrait-discover-none-en-f1.0__017__same__Fri
+{"ev": "tap-fail", "label": "Friday 16 October, Friday, 5 Jumādā: Fajr 4:46 AM, Sunrise 6:13 AM, Dhuhr 12:42 PM, Asr 4:19 PM, Maghrib 7:09 PM, Isha 8:31 PM", "t": 291.9}
+{"ev": "screen", "depth": 2, "path": ["Monthly timetable", "Friday 23 October, Friday, 12 Jumādā: Fajr 4:36 AM, Sunrise 6:05 AM, Dhuhr 12:41 PM, Asr 4:20 PM, Maghrib 7:15 PM, Isha 8:38 PM"], "key": "d868fae481", "pos": 0
+{"ev": "back-mismatch", "label": "Friday 23 October, Friday, 12 Jumādā: Fajr 4:36 AM, Sunrise 6:05 AM, Dhuhr 12:41 PM, Asr 4:20 PM, Maghrib 7:15 PM, Isha 8:38 PM", "path": ["Monthly timetable"], "t": 309.7}
+{"ev": "tap-fail", "label": "Friday 30 October, Friday, 19 Jumādā: Fajr 4:27 AM, Sunrise 5:57 AM, Dhuhr 12:40 PM, Asr 4:21 PM, Maghrib 7:21 PM, Isha 8:46 PM", "t": 324.7}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "2f8cdd3900", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__019__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Needs attention before
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "73240dc732", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__020__d1__p1.png", "labels": ["Back", "Settings", "PRAYER SETUP", "Location", "Sydney, NSW",
+{"ev": "no-change", "label": "Search settings", "shot": "phone-portrait-discover-none-en-f1.0__021__same__Search_settings.png", "path": ["Settings"], "t": 349.4}
+{"ev": "screen", "depth": 2, "path": ["Settings", "Location"], "key": "1404ba6a33", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__022__d2__p0.png", "labels": ["Back", "Location", "Prayer times are calculated f
+{"ev": "screen", "depth": 2, "path": ["Settings", "Location"], "key": "ee5a9fa663", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__023__d2__p1.png", "labels": ["Back", "Location", "Use the device's location", "
+{"ev": "screen", "depth": 2, "path": ["Settings", "Location"], "key": "b3e4363ceb", "pos": 2, "shot": "phone-portrait-discover-none-en-f1.0__024__d2__p2.png", "labels": ["Back", "Location", "Melbourne, VIC", "-37.81, 144
+{"ev": "screen", "depth": 2, "path": ["Settings", "Location"], "key": "1b8acea96f", "pos": 3, "shot": "phone-portrait-discover-none-en-f1.0__025__d2__p3.png", "labels": ["Back", "Location", "Wellington, NZ", "-41.29, 174
+{"ev": "screen", "depth": 2, "path": ["Settings", "Prayer times"], "key": "d39527f76f", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__026__d2__p0.png", "labels": ["Back", "Prayer times", "Match your local masj
+{"ev": "screen", "depth": 2, "path": ["Settings", "Prayer times"], "key": "122405b27f", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__027__d2__p1.png", "labels": ["Back", "Prayer times", "Only matters above 48
+{"ev": "screen", "depth": 2, "path": ["Settings", "Prayer times"], "key": "f678beadb4", "pos": 2, "shot": "phone-portrait-discover-none-en-f1.0__028__d2__p2.png", "labels": ["Back", "Prayer times", "Show Sunrise on the h
+{"ev": "screen", "depth": 2, "path": ["Settings", "Prayer times"], "key": "6682ecc820", "pos": 3, "shot": "phone-portrait-discover-none-en-f1.0__029__d2__p3.png", "labels": ["Back", "Prayer times", "Friday reminders", "A
+{"ev": "screen", "depth": 2, "path": ["Settings", "Prayer times"], "key": "0251aa5f3f", "pos": 4, "shot": "phone-portrait-discover-none-en-f1.0__030__d2__p4.png", "labels": ["Back", "Prayer times", "Suhoor and Iftar labe
+{"ev": "screen", "depth": 2, "path": ["Settings", "Prayer times"], "key": "18089dcb72", "pos": 5, "shot": "phone-portrait-discover-none-en-f1.0__031__d2__p5.png", "labels": ["Back", "Prayer times", "Decrease", "Increase"
+{"ev": "screen", "depth": 2, "path": ["Settings", "Azaan & alerts"], "key": "4185d05fd4", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__032__d2__p0.png", "labels": ["Back", "Azaan & alerts", "The azaan plays t
+{"ev": "screen", "depth": 2, "path": ["Settings", "Azaan & alerts"], "key": "8b7101c77c", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__033__d2__p1.png", "labels": ["Back", "Azaan & alerts", "Play", "Maghrib  
+{"ev": "screen", "depth": 2, "path": ["Settings", "Azaan & alerts"], "key": "6c2754662a", "pos": 2, "shot": "phone-portrait-discover-none-en-f1.0__034__d2__p2.png", "labels": ["Back", "Azaan & alerts", "Speaker boost", "
+{"ev": "screen", "depth": 2, "path": ["Settings", "Azaan & alerts"], "key": "d8413a5042", "pos": 3, "shot": "phone-portrait-discover-none-en-f1.0__035__d2__p3.png", "labels": ["Back", "Azaan & alerts", "Narration", "Stud
+{"ev": "screen", "depth": 2, "path": ["Settings", "Azaan & alerts"], "key": "12b6193cef", "pos": 4, "shot": "phone-portrait-discover-none-en-f1.0__036__d2__p4.png", "labels": ["Back", "Azaan & alerts", "Decrease", "Incre
+{"ev": "screen", "depth": 2, "path": ["Settings", "Azaan & alerts"], "key": "01695e6d9a", "pos": 5, "shot": "phone-portrait-discover-none-en-f1.0__037__d2__p5.png", "labels": ["Back", "Azaan & alerts", "Azaan recording",
+{"ev": "screen", "depth": 2, "path": ["Settings", "Iqamah"], "key": "f2af2e8fc8", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__038__d2__p0.png", "labels": ["Back", "Iqamah", "For praying in congregation at ho
+{"ev": "screen", "depth": 2, "path": ["Settings", "Hijri calendar"], "key": "ce7eca8eec", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__039__d2__p0.png", "labels": ["Back", "Hijri calendar", "Dates follow the 
+{"ev": "screen", "depth": 2, "path": ["Settings", "Display & art"], "key": "bd87d6872e", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__040__d2__p0.png", "labels": ["Back", "Display & art", "How Miqaat looks, o
+{"ev": "screen", "depth": 2, "path": ["Settings", "Display & art"], "key": "a8b8ed72b9", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__041__d2__p1.png", "labels": ["Back", "Display & art", "Kiswah · black & go
+{"ev": "screen", "depth": 2, "path": ["Settings", "Display & art"], "key": "d9288069c4", "pos": 2, "shot": "phone-portrait-discover-none-en-f1.0__042__d2__p2.png", "labels": ["Back", "Display & art", "Prayer Gallery, War
+{"ev": "screen", "depth": 2, "path": ["Settings", "Display & art"], "key": "d7cfe52cd7", "pos": 3, "shot": "phone-portrait-discover-none-en-f1.0__043__d2__p3.png", "labels": ["Back", "Display & art", "Home-screen widget"
+{"ev": "screen", "depth": 2, "path": ["Settings", "Display & art"], "key": "ea4ca16762", "pos": 4, "shot": "phone-portrait-discover-none-en-f1.0__044__d2__p4.png", "labels": ["Back", "Display & art", "Dim after Isha", "S
+{"ev": "screen", "depth": 2, "path": ["Settings", "Display & art"], "key": "950a0bb72e", "pos": 5, "shot": "phone-portrait-discover-none-en-f1.0__045__d2__p5.png", "labels": ["Back", "Display & art", "Tap it for the comp
+{"ev": "screen", "depth": 2, "path": ["Settings", "Try it now"], "key": "b6398deb56", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__046__d2__p0.png", "labels": ["Back", "Try it now", "Run any part of the exper
+{"ev": "screen", "depth": 2, "path": ["Settings", "Try it now"], "key": "0f73e1fbdf", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__047__d2__p1.png", "labels": ["Back", "Try it now", "Azaan → dua → hadith → ba
+{"ev": "screen", "depth": 2, "path": ["Settings", "Try it now"], "key": "e26d5899f8", "pos": 2, "shot": "phone-portrait-discover-none-en-f1.0__048__d2__p2.png", "labels": ["Back", "Try it now", "Choose a number (1–36) to
+{"ev": "screen", "depth": 2, "path": ["Settings", "Try it now"], "key": "e000bd034e", "pos": 3, "shot": "phone-portrait-discover-none-en-f1.0__049__d2__p3.png", "labels": ["Back", "Try it now", "The whole iqamah flow, st
+{"ev": "tap-fail", "label": "Location", "t": 548.1}
+{"ev": "tap-fail", "label": "Prayer times", "t": 553.4}
+{"ev": "tap-fail", "label": "Azaan & alerts", "t": 558.7}
+{"ev": "tap-fail", "label": "Iqamah", "t": 564.1}
+{"ev": "tap-fail", "label": "Hijri calendar", "t": 569.4}
+{"ev": "tap-fail", "label": "Display & art", "t": 574.8}
+{"ev": "tap-fail", "label": "Try it now", "t": 580.1}
+{"ev": "screen", "depth": 2, "path": ["Settings", "Reliability & backup"], "key": "02343149d0", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__050__d2__p0.png", "labels": ["Back", "Reliability & backup", "Did i
+{"ev": "screen", "depth": 2, "path": ["Settings", "Reliability & backup"], "key": "41e07fcfc5", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__051__d2__p1.png", "labels": ["Back", "Reliability & backup", "Last 
+{"ev": "screen", "depth": 2, "path": ["Settings", "Privacy"], "key": "e4e6ec8918", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__052__d2__p0.png", "labels": ["Back", "Privacy", "What Miqaat does with your data
+{"ev": "screen", "depth": 2, "path": ["Settings", "Privacy"], "key": "e133a8321b", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__053__d2__p1.png", "labels": ["Back", "Privacy", "GitHub", "Narration", "The dua 
+{"ev": "screen", "depth": 2, "path": ["Settings", "Privacy"], "key": "34cc1cad7f", "pos": 2, "shot": "phone-portrait-discover-none-en-f1.0__054__d2__p2.png", "labels": ["Back", "Privacy", "Narration", "The dua and hadith
+{"ev": "screen", "depth": 2, "path": ["Settings", "About"], "key": "65eb422445", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__055__d2__p0.png", "labels": ["Back", "About", "ميقات · an appointed time", "Versio
+{"ev": "screen", "depth": 2, "path": ["Settings", "About"], "key": "cb724a4887", "pos": 1, "shot": "phone-portrait-discover-none-en-f1.0__056__d2__p1.png", "labels": ["Back", "About", "Built from commit cfc5b57b5cb0 · re
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "55b17f8022", "pos": 0, "shot": "phone-portrait-discover-none-en-f1.0__057__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn left 95 degrees to face
+{"ev": "no-change", "label": "Qibla", "shot": "phone-portrait-discover-none-en-f1.0__058__same__Qibla.png", "path": ["Qibla ⁨277° W⁩"], "t": 685.3}
+{"ev": "theme-done", "tag": "phone-portrait-discover-none-en-f1.0", "actions": 33, "screens": 58, "t": 688.8}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 690.9}
+{"ev": "gfx", "lines": ["Total frames rendered: 811", "Janky frames: 770 (94.94%)", "Janky frames (legacy): 811 (100.00%)", "50th percentile: 85ms", "90th percentile: 600ms", "95th percentile: 650ms", "99th percentile: 7
+{"ev": "mem", "lines": ["  Native Heap    43478    43420        0        0    46600    46476    31066    11139", "        TOTAL    68174    56072     3596        0   195020    60447    38052    18124", "           Java H

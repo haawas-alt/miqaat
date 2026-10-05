@@ -1,0 +1,125 @@
+{"ev": "env", "density": 2.0, "size": "Physical size: 2560x1600", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 2067, "t": 2.4}
+{"ev": "setup-screen", "step": 0, "shot": "tablet-landscape-discover__setup0.png", "key": "2dc8c26a39", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026  ·  11:39 AM", "·", "⁨٢٤ ربيع الآخر ١٤٤٨⁩
+{"ev": "setup-tap", "label": "Begin", "t": 7.8}
+{"ev": "setup-screen", "step": 1, "shot": "tablet-landscape-discover__setup1.png", "key": "c694841442", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026  ·  11:40 AM", "·", "⁨٢٤ ربيع الآخر ١٤٤٨⁩
+{"ev": "detect-result", "shot": "tablet-landscape-discover__setup1_after-detect-20s.png", "labels": ["Location: ⁨⁩. Opens location settings", "Monday 5 October 2026  ·  11:40 AM", "·", "⁨٢٤ ربيع الآخر ١٤٤٨⁩", "Learn Sala
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 38.2}
+{"ev": "setup-screen", "step": 2, "shot": "tablet-landscape-discover__setup2.png", "key": "a02a196d6c", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Monday 5 October 2026  ·  10:40 PM", 
+{"ev": "setup-tap", "label": "Next", "t": 43.9}
+{"ev": "setup-screen", "step": 3, "shot": "tablet-landscape-discover__setup3.png", "key": "69451af314", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Monday 5 October 2026  ·  10:40 PM", 
+{"ev": "setup-tap", "label": "These look right", "t": 49.1}
+{"ev": "setup-screen", "step": 4, "shot": "tablet-landscape-discover__setup4.png", "key": "2b922f071c", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Monday 5 October 2026  ·  10:40 PM", 
+{"ev": "setup-tap", "label": "Finish", "t": 54.3}
+{"ev": "setup-done", "step": 5, "t": 59.2}
+{"ev": "setup-result", "ok": true, "t": 59.2}
+{"ev": "screen", "depth": 0, "path": [], "key": "5a4cc7554f", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__001__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Mo
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "9079ff52e9", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__002__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form of t
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "Fajr"], "key": "773257f70a", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__003__d2__p0.png", "labels": ["Back", "Fajr", "Step 1 of 21", "Fajr · rakʿah 1 
+{"ev": "back-mismatch", "label": "Fajr", "path": ["Learn Salah"], "t": 93.5}
+{"ev": "tap-fail", "label": "Fajr", "t": 106.8}
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "Maghrib"], "key": "984f28d467", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__004__d2__p0.png", "labels": ["Back", "Maghrib", "Step 1 of 29", "Maghrib · 
+{"ev": "back-mismatch", "label": "Maghrib", "path": ["Learn Salah"], "t": 121.2}
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "Dhuhr · ʿAsr · Isha"], "key": "b1c3aea26a", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__005__d2__p0.png", "labels": ["Back", "Dhuhr · ʿAsr · Isha", "St
+{"ev": "back-mismatch", "label": "Dhuhr · ʿAsr · Isha", "path": ["Learn Salah"], "t": 146.9}
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "The words"], "key": "d99be6efe0", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__006__d2__p0.png", "labels": ["Back", "The words", "1 / 12", "Standing · s
+{"ev": "back-mismatch", "label": "The words", "path": ["Learn Salah"], "t": 171.8}
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "The movements"], "key": "79c2970648", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__007__d2__p0.png", "labels": ["Back", "The movements", "Standing uprig
+{"ev": "screen", "depth": 2, "path": ["Learn Salah", "The movements"], "key": "2d60c2937e", "pos": 1, "shot": "tablet-landscape-discover-none-en-f1.0__008__d2__p1.png", "labels": ["Back", "The movements", "Bent forward f
+{"ev": "back-mismatch", "label": "The movements", "path": ["Learn Salah"], "t": 203.4}
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "26fc5f192a", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__009__d1__p0.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "0837af1f3e", "pos": 1, "shot": "tablet-landscape-discover-none-en-f1.0__010__d1__p1.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "874850e240", "pos": 2, "shot": "tablet-landscape-discover-none-en-f1.0__011__d1__p2.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā al
+{"ev": "screen", "depth": 2, "path": ["Monthly timetable", "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 AM, Sunrise 6:22 AM, Dhuhr 12:44 PM, Asr 4:18 PM, Maghrib 7:04 PM, Isha 8:24 PM"], "key": "7c1c366a1f", "pos": 0, 
+{"ev": "screen", "depth": 2, "path": ["Monthly timetable", "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 AM, Sunrise 6:22 AM, Dhuhr 12:44 PM, Asr 4:18 PM, Maghrib 7:04 PM, Isha 8:24 PM"], "key": "b99b01b795", "pos": 1, 
+{"ev": "screen", "depth": 2, "path": ["Monthly timetable", "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 AM, Sunrise 6:22 AM, Dhuhr 12:44 PM, Asr 4:18 PM, Maghrib 7:04 PM, Isha 8:24 PM"], "key": "874850e240", "pos": 2, 
+{"ev": "back-mismatch", "label": "Friday 9 October, Friday, 28 Rabīʿ: Fajr 4:57 AM, Sunrise 6:22 AM, Dhuhr 12:44 PM, Asr 4:18 PM, Maghrib 7:04 PM, Isha 8:24 PM", "path": ["Monthly timetable"], "t": 264.4}
+{"ev": "no-change", "label": "Friday 16 October, Friday, 5 Jumādā: Fajr 4:46 AM, Sunrise 6:13 AM, Dhuhr 12:42 PM, Asr 4:19 PM, Maghrib 7:09 PM, Isha 8:31 PM", "shot": "tablet-landscape-discover-none-en-f1.0__015__same__F
+{"ev": "no-change", "label": "Fridays in green · Jumuʿah at your masjid may differ from Dhuhr · ☾ marks Ramaḍān", "shot": "tablet-landscape-discover-none-en-f1.0__016__same__Fridays_in_green_Jumu_ah.png", "path": ["Month
+{"ev": "tap-fail", "label": "Friday 16 October, Friday, 5 Jumādā: Fajr 4:46 AM, Sunrise 6:13 AM, Dhuhr 12:42 PM, Asr 4:19 PM, Maghrib 7:09 PM, Isha 8:31 PM", "t": 293.4}
+{"ev": "screen", "depth": 2, "path": ["Monthly timetable", "Friday 23 October, Friday, 12 Jumādā: Fajr 4:36 AM, Sunrise 6:05 AM, Dhuhr 12:41 PM, Asr 4:20 PM, Maghrib 7:15 PM, Isha 8:38 PM"], "key": "874850e240", "pos": 0
+{"ev": "back-mismatch", "label": "Friday 23 October, Friday, 12 Jumādā: Fajr 4:36 AM, Sunrise 6:05 AM, Dhuhr 12:41 PM, Asr 4:20 PM, Maghrib 7:15 PM, Isha 8:38 PM", "path": ["Monthly timetable"], "t": 311.7}
+{"ev": "tap-fail", "label": "Fridays in green · Jumuʿah at your masjid may differ from Dhuhr · ☾ marks Ramaḍān", "t": 328.2}
+{"ev": "tap-fail", "label": "Friday 16 October, Friday, 5 Jumādā: Fajr 4:46 AM, Sunrise 6:13 AM, Dhuhr 12:42 PM, Asr 4:19 PM, Maghrib 7:09 PM, Isha 8:31 PM", "t": 337.2}
+{"ev": "tap-fail", "label": "Friday 23 October, Friday, 12 Jumādā: Fajr 4:36 AM, Sunrise 6:05 AM, Dhuhr 12:41 PM, Asr 4:20 PM, Maghrib 7:15 PM, Isha 8:38 PM", "t": 346.4}
+{"ev": "back-mismatch", "label": "Friday 30 October, Friday, 19 Jumādā: Fajr 4:27 AM, Sunrise 5:57 AM, Dhuhr 12:40 PM, Asr 4:21 PM, Maghrib 7:21 PM, Isha 8:46 PM", "path": ["Monthly timetable"], "t": 364.2}
+{"ev": "tap-fail", "label": "Fridays in green · Jumuʿah at your masjid may differ from Dhuhr · ☾ marks Ramaḍān", "t": 384.4}
+{"ev": "back-mismatch", "label": "Monthly timetable", "path": [], "t": 387.6}
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "9fabed1753", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__018__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer t
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "875d00f81c", "pos": 1, "shot": "tablet-landscape-discover-none-en-f1.0__019__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer t
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "cd0238ad67", "pos": 2, "shot": "tablet-landscape-discover-none-en-f1.0__020__d1__p2.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer t
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "793a84a1e9", "pos": 3, "shot": "tablet-landscape-discover-none-en-f1.0__021__d1__p3.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer t
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "512a4f6bc3", "pos": 4, "shot": "tablet-landscape-discover-none-en-f1.0__022__d1__p4.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer t
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "4d1063f93f", "pos": 5, "shot": "tablet-landscape-discover-none-en-f1.0__023__d1__p5.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer t
+{"ev": "no-change", "label": "Search settings", "shot": "tablet-landscape-discover-none-en-f1.0__024__same__Search_settings.png", "path": ["Settings"], "t": 435.2}
+{"ev": "no-change", "label": "Location", "shot": "tablet-landscape-discover-none-en-f1.0__025__same__Location.png", "path": ["Settings"], "t": 441.0}
+{"ev": "screen", "depth": 2, "path": ["Settings", "Prayer times"], "key": "55e86f5498", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__026__d2__p0.png", "labels": ["Back", "Settings", "Search settings", "Loca
+{"ev": "back-mismatch", "label": "Prayer times", "path": ["Settings"], "t": 455.7}
+{"ev": "screen", "depth": 2, "path": ["Settings", "Azaan & alerts"], "key": "f9a7deee86", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__027__d2__p0.png", "labels": ["Back", "Settings", "Search settings", "Lo
+{"ev": "screen", "depth": 2, "path": ["Settings", "Azaan & alerts"], "key": "255ada7cfa", "pos": 1, "shot": "tablet-landscape-discover-none-en-f1.0__028__d2__p1.png", "labels": ["Back", "Settings", "Search settings", "Lo
+{"ev": "screen", "depth": 2, "path": ["Settings", "Azaan & alerts"], "key": "8164d8f3a2", "pos": 2, "shot": "tablet-landscape-discover-none-en-f1.0__029__d2__p2.png", "labels": ["Back", "Settings", "Search settings", "Lo
+{"ev": "screen", "depth": 2, "path": ["Settings", "Azaan & alerts"], "key": "1cf9775e39", "pos": 3, "shot": "tablet-landscape-discover-none-en-f1.0__030__d2__p3.png", "labels": ["Back", "Settings", "Search settings", "Lo
+{"ev": "screen", "depth": 2, "path": ["Settings", "Azaan & alerts"], "key": "b8132888f9", "pos": 4, "shot": "tablet-landscape-discover-none-en-f1.0__031__d2__p4.png", "labels": ["Back", "Settings", "Search settings", "Lo
+{"ev": "screen", "depth": 2, "path": ["Settings", "Azaan & alerts"], "key": "f5f9377699", "pos": 5, "shot": "tablet-landscape-discover-none-en-f1.0__032__d2__p5.png", "labels": ["Back", "Settings", "Search settings", "Lo
+{"ev": "back-mismatch", "label": "Azaan & alerts", "path": ["Settings"], "t": 503.4}
+{"ev": "screen", "depth": 2, "path": ["Settings", "Iqamah"], "key": "4754a24111", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__033__d2__p0.png", "labels": ["Back", "Settings", "Search settings", "Location",
+{"ev": "back-mismatch", "label": "Iqamah", "path": ["Settings"], "t": 530.9}
+{"ev": "screen", "depth": 2, "path": ["Settings", "Hijri calendar"], "key": "d82478aa17", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__034__d2__p0.png", "labels": ["Back", "Settings", "Search settings", "Lo
+{"ev": "back-mismatch", "label": "Hijri calendar", "path": ["Settings"], "t": 557.0}
+{"ev": "screen", "depth": 2, "path": ["Settings", "Display & art"], "key": "25d944fae5", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__035__d2__p0.png", "labels": ["Back", "Settings", "Search settings", "Loc
+{"ev": "screen", "depth": 2, "path": ["Settings", "Display & art"], "key": "20dd25c939", "pos": 1, "shot": "tablet-landscape-discover-none-en-f1.0__036__d2__p1.png", "labels": ["Back", "Settings", "Search settings", "Loc
+{"ev": "screen", "depth": 2, "path": ["Settings", "Display & art"], "key": "3bf2ceaef0", "pos": 2, "shot": "tablet-landscape-discover-none-en-f1.0__037__d2__p2.png", "labels": ["Back", "Settings", "Search settings", "Loc
+{"ev": "screen", "depth": 2, "path": ["Settings", "Display & art"], "key": "b95915b71e", "pos": 3, "shot": "tablet-landscape-discover-none-en-f1.0__038__d2__p3.png", "labels": ["Back", "Settings", "Search settings", "Loc
+{"ev": "screen", "depth": 2, "path": ["Settings", "Display & art"], "key": "de2b77410d", "pos": 4, "shot": "tablet-landscape-discover-none-en-f1.0__039__d2__p4.png", "labels": ["Back", "Settings", "Search settings", "Loc
+{"ev": "screen", "depth": 2, "path": ["Settings", "Display & art"], "key": "6490baad2d", "pos": 5, "shot": "tablet-landscape-discover-none-en-f1.0__040__d2__p5.png", "labels": ["Back", "Settings", "Search settings", "Loc
+{"ev": "back-mismatch", "label": "Display & art", "path": ["Settings"], "t": 607.6}
+{"ev": "screen", "depth": 2, "path": ["Settings", "Try it now"], "key": "5b296e7300", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__041__d2__p0.png", "labels": ["Back", "Settings", "Search settings", "Locati
+{"ev": "screen", "depth": 2, "path": ["Settings", "Try it now"], "key": "5ea1a1b412", "pos": 1, "shot": "tablet-landscape-discover-none-en-f1.0__042__d2__p1.png", "labels": ["Back", "Settings", "Search settings", "Locati
+{"ev": "screen", "depth": 2, "path": ["Settings", "Try it now"], "key": "e7fa140a69", "pos": 2, "shot": "tablet-landscape-discover-none-en-f1.0__043__d2__p2.png", "labels": ["Back", "Settings", "Search settings", "Locati
+{"ev": "screen", "depth": 2, "path": ["Settings", "Try it now"], "key": "40f76fd138", "pos": 3, "shot": "tablet-landscape-discover-none-en-f1.0__044__d2__p3.png", "labels": ["Back", "Settings", "Search settings", "Locati
+{"ev": "screen", "depth": 2, "path": ["Settings", "Try it now"], "key": "71b41c6f31", "pos": 4, "shot": "tablet-landscape-discover-none-en-f1.0__045__d2__p4.png", "labels": ["Back", "Settings", "Search settings", "Locati
+{"ev": "back-mismatch", "label": "Try it now", "path": ["Settings"], "t": 652.9}
+{"ev": "screen", "depth": 2, "path": ["Settings", "Reliability & backup"], "key": "bb4deef949", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__046__d2__p0.png", "labels": ["Back", "Settings", "Search settings
+{"ev": "screen", "depth": 2, "path": ["Settings", "Reliability & backup"], "key": "eeaec82a86", "pos": 1, "shot": "tablet-landscape-discover-none-en-f1.0__047__d2__p1.png", "labels": ["Back", "Settings", "Search settings
+{"ev": "back-mismatch", "label": "Reliability & backup", "path": ["Settings"], "t": 683.7}
+{"ev": "screen", "depth": 2, "path": ["Settings", "Privacy"], "key": "b54ccedce0", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__048__d2__p0.png", "labels": ["Back", "Settings", "Search settings", "Location"
+{"ev": "screen", "depth": 2, "path": ["Settings", "Privacy"], "key": "f9a1c6aa10", "pos": 1, "shot": "tablet-landscape-discover-none-en-f1.0__049__d2__p1.png", "labels": ["Back", "Settings", "Search settings", "Location"
+{"ev": "screen", "depth": 2, "path": ["Settings", "Privacy"], "key": "1b379a83b9", "pos": 2, "shot": "tablet-landscape-discover-none-en-f1.0__050__d2__p2.png", "labels": ["Back", "Settings", "Search settings", "Location"
+{"ev": "back-mismatch", "label": "Privacy", "path": ["Settings"], "t": 719.5}
+{"ev": "screen", "depth": 2, "path": ["Settings", "About"], "key": "192dd15d19", "pos": 0, "shot": "tablet-landscape-discover-none-en-f1.0__051__d2__p0.png", "labels": ["Back", "Settings", "Search settings", "Location", 
+{"ev": "screen", "depth": 2, "path": ["Settings", "About"], "key": "be9039df25", "pos": 1, "shot": "tablet-landscape-discover-none-en-f1.0__052__d2__p1.png", "labels": ["Back", "Settings", "Search settings", "Location", 
+{"ev": "back-mismatch", "label": "About", "path": ["Settings"], "t": 750.3}
+{"ev": "no-change", "label": "Location", "shot": "tablet-landscape-discover-none-en-f1.0__053__same__Location.png", "path": ["Settings"], "t": 767.5}
+{"ev": "tap-fail", "label": "Search settings", "t": 773.0}
+{"ev": "tap-fail", "label": "Location", "t": 778.4}
+{"ev": "tap-fail", "label": "Prayer times", "t": 783.8}
+{"ev": "tap-fail", "label": "Azaan & alerts", "t": 789.3}
+{"ev": "tap-fail", "label": "Iqamah", "t": 794.7}
+{"ev": "tap-fail", "label": "Hijri calendar", "t": 800.0}
+{"ev": "tap-fail", "label": "Display & art", "t": 805.4}
+{"ev": "tap-fail", "label": "Try it now", "t": 810.8}
+{"ev": "tap-fail", "label": "Reliability & backup", "t": 816.2}
+{"ev": "tap-fail", "label": "Privacy", "t": 821.6}
+{"ev": "tap-fail", "label": "About", "t": 827.1}
+{"ev": "tap-fail", "label": "Search settings", "t": 835.9}
+{"ev": "tap-fail", "label": "Location", "t": 844.8}
+{"ev": "tap-fail", "label": "Prayer times", "t": 853.7}
+{"ev": "tap-fail", "label": "Azaan & alerts", "t": 862.5}
+{"ev": "tap-fail", "label": "Iqamah", "t": 871.3}
+{"ev": "tap-fail", "label": "Hijri calendar", "t": 880.1}
+{"ev": "tap-fail", "label": "Display & art", "t": 888.8}
+{"ev": "tap-fail", "label": "Try it now", "t": 897.6}
+{"ev": "tap-fail", "label": "Reliability & backup", "t": 906.4}
+{"ev": "tap-fail", "label": "Privacy", "t": 915.2}
+{"ev": "tap-fail", "label": "About", "t": 924.0}
+{"ev": "tap-fail", "label": "Search settings", "t": 936.2}
+{"ev": "tap-fail", "label": "Location", "t": 948.4}
+{"ev": "tap-fail", "label": "Prayer times", "t": 960.6}
+{"ev": "tap-fail", "label": "Azaan & alerts", "t": 972.9}
+{"ev": "tap-fail", "label": "Iqamah", "t": 985.1}
+{"ev": "tap-fail", "label": "Hijri calendar", "t": 997.3}
+{"ev": "tap-fail", "label": "Display & art", "t": 1009.6}
+{"ev": "theme-done", "tag": "tablet-landscape-discover-none-en-f1.0", "actions": 60, "screens": 53, "t": 1012.7}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 1014.8}
+{"ev": "gfx", "lines": ["Total frames rendered: 408", "Janky frames: 408 (100.00%)", "Janky frames (legacy): 408 (100.00%)", "50th percentile: 125ms", "90th percentile: 150ms", "95th percentile: 200ms", "99th percentile:
+{"ev": "mem", "lines": ["  Native Heap    23301    23204        0        0    26424    29152    21906     3406", "        TOTAL    48640    36980     3388        0   169756    41872    28282     9750", "           Java H
