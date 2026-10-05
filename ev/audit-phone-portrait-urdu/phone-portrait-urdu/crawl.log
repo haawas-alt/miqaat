@@ -1,0 +1,33 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.2}
+{"ev": "cold-start-ms", "ms": 1712, "t": 2.5}
+{"ev": "setup-screen", "step": 0, "shot": "phone-portrait-urdu__setup0.png", "key": "964113c261", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 2026
+{"ev": "setup-tap", "label": "Begin", "t": 8.0}
+{"ev": "setup-screen", "step": 1, "shot": "phone-portrait-urdu__setup1.png", "key": "e0d67aafeb", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Monday 5 October 2026
+{"ev": "detect-result", "shot": "phone-portrait-urdu__setup1_after-detect-20s.png", "labels": ["Location: ⁨33.99°S, 150.80°E⁩. Opens location settings", "33.99°S, 150.80°E", "Learn Salah", "Monthly timetable", "Settings"
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 38.1}
+{"ev": "setup-screen", "step": 2, "shot": "phone-portrait-urdu__setup2.png", "key": "5f08f0cbe2", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setting
+{"ev": "setup-tap", "label": "Next", "t": 40.9}
+{"ev": "setup-screen", "step": 3, "shot": "phone-portrait-urdu__setup3.png", "key": "ae1b0e47bc", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setting
+{"ev": "setup-stuck", "t": 46.0}
+{"ev": "setup-screen", "step": 4, "shot": "phone-portrait-urdu__setup4.png", "key": "7835f0e93a", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setting
+{"ev": "setup-tap", "label": "These look right", "t": 51.4}
+{"ev": "setup-screen", "step": 5, "shot": "phone-portrait-urdu__setup5.png", "key": "6965a2bf03", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setting
+{"ev": "setup-tap", "label": "Finish", "t": 56.5}
+{"ev": "setup-done", "step": 6, "t": 61.4}
+{"ev": "setup-result", "ok": true, "t": 61.4}
+{"ev": "lang-set", "t": 76.7}
+{"ev": "nav-fail", "what": "Settings", "t": 113.0}
+{"ev": "screen", "depth": 0, "path": [], "key": "3ff25dda52", "pos": 0, "shot": "phone-portrait-urdu-Miqaat-ur-f1.0__001__d0__p0.png", "labels": ["الفجر", "فجر", "5:01", "صبح", "⁧5 گھنٹے 58 منٹ⁩ باقی", "دن کی لکیر: avoid
+{"ev": "theme-done", "tag": "phone-portrait-urdu-Miqaat-ur-f1.0", "actions": 0, "screens": 1, "t": 121.4}
+{"ev": "nav-fail", "what": "Settings", "t": 155.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "3ff25dda52", "pos": 0, "shot": "phone-portrait-urdu-Kiswah-ur-f1.0__002__d0__p0.png", "labels": ["الفجر", "فجر", "5:01", "صبح", "⁧5 گھنٹے 58 منٹ⁩ باقی", "دن کی لکیر: avoid
+{"ev": "theme-done", "tag": "phone-portrait-urdu-Kiswah-ur-f1.0", "actions": 0, "screens": 2, "t": 164.0}
+{"ev": "nav-fail", "what": "Settings", "t": 198.7}
+{"ev": "screen", "depth": 0, "path": [], "key": "3ff25dda52", "pos": 0, "shot": "phone-portrait-urdu-Celestial-ur-f1.0__003__d0__p0.png", "labels": ["الفجر", "فجر", "5:01", "صبح", "⁧5 گھنٹے 57 منٹ⁩ باقی", "دن کی لکیر: av
+{"ev": "theme-done", "tag": "phone-portrait-urdu-Celestial-ur-f1.0", "actions": 0, "screens": 3, "t": 207.1}
+{"ev": "nav-fail", "what": "Settings", "t": 242.0}
+{"ev": "screen", "depth": 0, "path": [], "key": "3ff25dda52", "pos": 0, "shot": "phone-portrait-urdu-Gallery-ur-f1.0__004__d0__p0.png", "labels": ["الفجر", "فجر", "5:01", "صبح", "⁧5 گھنٹے 56 منٹ⁩ باقی", "دن کی لکیر: avoi
+{"ev": "theme-done", "tag": "phone-portrait-urdu-Gallery-ur-f1.0", "actions": 0, "screens": 4, "t": 250.2}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 252.2}
+{"ev": "gfx", "lines": ["Total frames rendered: 205", "Janky frames: 205 (100.00%)", "Janky frames (legacy): 205 (100.00%)", "50th percentile: 400ms", "90th percentile: 500ms", "95th percentile: 550ms", "99th percentile:
+{"ev": "mem", "lines": ["  Native Heap    40966    40908        0        0    44104    51036    38955     7253", "        TOTAL    69644    57392     3748        0   195932    67409    47142    15439", "           Java H
