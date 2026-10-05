@@ -1,0 +1,7 @@
+label=v1.90
+FGS_not_started_violations=0
+foreground_phase_fatal=0
+background_phase_fatal=0
+background_phase_fallback_logged=0
+anr_mentions=0
+reminder_notification_present=4

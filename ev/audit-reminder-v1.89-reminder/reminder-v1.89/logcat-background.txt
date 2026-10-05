@@ -1,0 +1,35 @@
+--------- beginning of system
+10-05 18:55:00.720   506   525 D AutofillManagerService: Close system dialogs
+--------- beginning of main
+10-05 18:55:00.721   804   804 I vol.VolumeDialogImpl: mDialog.dismiss() reason: volume_controller from: com.android.systemui.volume.VolumeDialogImpl$7.onDismissRequested:3
+10-05 18:55:00.724  1050  1050 D TaplTarget: Launcher.onNewIntent: Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.android.launcher3/.uioverrides.QuickstepLauncher (has extras) }
+10-05 18:55:00.725   804  1100 D KeyguardService: setOccluded(false)
+10-05 18:55:00.725   804  1100 D KeyguardViewMediator: setOccluded(false)
+10-05 18:55:00.726   804   804 D KeyguardViewMediator: handleSetOccluded(false)
+10-05 18:55:00.726   506   526 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.android.launcher3/.uioverrides.QuickstepLauncher (has extras)} with LAUNCH_SINGLE_TASK from uid 0 (BAL_ALLOW_ALLOWLISTED_UID) result code=3
+10-05 18:55:00.727   804   833 D WindowManagerShell: onActivityRestartAttempt: ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher}
+10-05 18:55:00.728   506   525 D AutofillManagerService: Close system dialogs
+10-05 18:55:00.728   506   528 D OomAdjuster: Not killing cached processes
+10-05 18:55:00.729   804   804 I vol.VolumeDialogImpl: mDialog.dismiss() reason: volume_controller from: com.android.systemui.volume.VolumeDialogImpl$7.onDismissRequested:3
+10-05 18:55:00.729   804   804 D vol.VolumeDialogImpl: dismissH: skipping dismiss because isAnimatingDismiss is true and showingStateInconsistent is false
+10-05 18:55:03.745   506  2460 I ActivityManager: Broadcasting: Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }
+10-05 18:55:03.746   506  2460 I ActivityManager: Enqueued broadcast Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }: 0
+10-05 18:55:03.746   506   525 I ActivityManager: Broadcast completed: result=0
+10-05 18:55:06.987   804   864 D EGL_emulation: app_time_stats: avg=6980.50ms min=6980.50ms max=6980.50ms count=1
+10-05 18:55:06.987   804   804 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-05 18:55:10.749   506   590 D ActivityManager: freezing 1374 android.process.acore
+10-05 18:55:10.749   506   590 D ActivityManager: freezing 1663 android.process.media
+10-05 18:55:11.436   506   787 D ActivityManager: sync unfroze 817 com.android.permissioncontroller for 6
+10-05 18:55:11.437   506   787 D OomAdjuster: Not killing cached processes
+10-05 18:55:11.439   817   830 I PermissionControllerServiceImpl: Updating user sensitive for user 0
+10-05 18:55:16.985   804   804 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-05 18:55:17.766   506  2474 I ActivityManager: Broadcasting: Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }
+10-05 18:55:17.766   506   525 I ActivityManager: Broadcast completed: result=0
+10-05 18:55:17.766   506  2474 I ActivityManager: Enqueued broadcast Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }: 0
+10-05 18:55:17.900   506  2474 W BatteryExternalStatsWorker: error reading Bluetooth stats: 11
+10-05 18:55:21.474   506   787 D OomAdjuster: Not killing cached processes
+10-05 18:55:24.695   804   804 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:26.985   804   804 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-05 18:55:27.699   804   804 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:30.703   804   804 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:31.518   506   590 D ActivityManager: freezing 817 com.android.permissioncontroller

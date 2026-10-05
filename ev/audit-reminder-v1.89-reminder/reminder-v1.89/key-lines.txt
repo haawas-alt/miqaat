@@ -1,0 +1,40 @@
+10-05 18:54:32.554   506   520 I ActivityManager: Background started FGS: Allowed [callingPackage: com.usman.miqaat; callingUid: 10141; uidState: TOP ; uidBFSL: [BFSL]; intent: Intent { act=com.usman.miqaat.REMINDER cmp=com.usman.miqaat/.azaan.AzaanService (has extras) }; code:PROC_STATE_TOP; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+10-05 18:54:32.567  2386  2386 D AndroidRuntime: Shutting down VM
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: FATAL EXCEPTION: main
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: Process: com.usman.miqaat, PID: 2386
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: android.app.RemoteServiceException$ForegroundServiceDidNotStartInTimeException: Context.startForegroundService() did not then call Service.startForeground(): ServiceRecord{d0e68ed u0 com.usman.miqaat/.azaan.AzaanService}
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread.generateForegroundServiceDidNotStartInTimeException(ActivityThread.java:2104)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread.throwRemoteServiceException(ActivityThread.java:2075)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread.-$$Nest$mthrowRemoteServiceException(Unknown Source:0)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2369)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:294)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:8177)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:552)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:971)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: Caused by: android.app.StackTrace: Last startServiceCommon() call for this service was made here
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ContextImpl.startServiceCommon(ContextImpl.java:1952)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ContextImpl.startForegroundService(ContextImpl.java:1906)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.content.ContextWrapper.startForegroundService(ContextWrapper.java:830)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.content.ContextWrapper.startForegroundService(ContextWrapper.java:830)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at com.usman.miqaat.azaan.AzaanAlarmReceiver.onReceive(Unknown Source:216)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:4449)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread.-$$Nest$mhandleReceiver(Unknown Source:0)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2256)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	... 7 more
+10-05 18:54:46.668   506   720 W ActivityManager: Background started FGS: Disallowed [callingPackage: com.usman.miqaat; callingUid: 10141; uidState: RCVR; uidBFSL: n/a; intent: Intent { act=com.usman.miqaat.REMINDER cmp=com.usman.miqaat/.azaan.AzaanService (has extras) }; code:DENIED; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+10-05 18:54:46.668   506   720 W ActivityManager: startForegroundService() not allowed due to mAllowStartForeground false: service com.usman.miqaat/.azaan.AzaanService
+10-05 18:54:46.670  2483  2483 D AndroidRuntime: Shutting down VM
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: FATAL EXCEPTION: main
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: Process: com.usman.miqaat, PID: 2483
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: java.lang.RuntimeException: Unable to start receiver com.usman.miqaat.azaan.AzaanAlarmReceiver: android.app.ForegroundServiceStartNotAllowedException: startForegroundService() not allowed due to mAllowStartForeground false: service com.usman.miqaat/.azaan.AzaanService
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:4458)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ActivityThread.-$$Nest$mhandleReceiver(Unknown Source:0)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2256)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:294)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:8177)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)

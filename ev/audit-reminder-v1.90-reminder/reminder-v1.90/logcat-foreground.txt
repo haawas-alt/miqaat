@@ -1,0 +1,183 @@
+--------- beginning of main
+10-05 18:54:53.555   507   521 I ActivityManager: Broadcasting: Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }
+--------- beginning of system
+10-05 18:54:53.557   507  1160 I ActivityManager: Background started FGS: Allowed [callingPackage: com.usman.miqaat; callingUid: 10141; uidState: TOP ; uidBFSL: [BFSL]; intent: Intent { act=com.usman.miqaat.REMINDER cmp=com.usman.miqaat/.azaan.AzaanService (has extras) }; code:PROC_STATE_TOP; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+10-05 18:54:53.557   507   521 I ActivityManager: Enqueued broadcast Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }: 0
+10-05 18:54:53.558  2361  2361 I AzaanScheduler: No azaan enabled; nothing scheduled
+10-05 18:54:53.560   507   524 I ActivityManager: Broadcast completed: result=0
+10-05 18:54:53.561   507  2063 D CompatibilityChangeReporter: Compat change id reported: 170668199; UID 10141; state: ENABLED
+10-05 18:54:53.567  2361  2361 W TextToSpeech: stop failed: not bound to TTS engine
+10-05 18:54:53.567  2361  2361 W TextToSpeech: stop failed: not bound to TTS engine
+10-05 18:54:53.567  2361  2361 W TextToSpeech: shutdown failed: not bound to TTS engine
+10-05 18:54:53.765   507   507 W NotificationHistory: Attempted to add notif for locked/gone/disabled user 0
+10-05 18:54:53.786   805   884 D EGL_emulation: app_time_stats: avg=1284.39ms min=6.89ms max=2561.89ms count=2
+10-05 18:54:53.807   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:54:53.814   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:54:53.932  2361  2442 D ProfileInstaller: Installing profile for com.usman.miqaat
+10-05 18:54:53.974  1448  1448 I ProvidersCache: Updating roots due to change on user 0at content://com.android.externalstorage.documents
+10-05 18:54:53.977  1448  1448 I ProvidersCache: Updating roots due to change on user 0at content://com.android.externalstorage.documents
+10-05 18:54:54.007   507   526 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+10-05 18:54:54.227   507   591 D ActivityManager: freezing 1782 com.android.quicksearchbox
+10-05 18:54:54.246   507   604 I InputReader: Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+10-05 18:54:54.253  1000  1000 D CarrierSvcBindHelper: onPackageModified: com.android.statementservice
+10-05 18:54:54.255  1000  1000 D CarrierSvcBindHelper: No carrier app for: 0
+10-05 18:54:54.255   807  1002 I PermissionControllerServiceImpl: Updating user sensitive for uid 10057
+10-05 18:54:54.255   807  1002 I PermissionControllerServiceImpl: Updating user sensitive for uid 10135
+10-05 18:54:54.256   805   885 D StylusManager: Stylus InputDevice changed: 14 virtio_input_multi_touch_11
+10-05 18:54:54.257   975   975 V MediaPlayerList: mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+10-05 18:54:54.259   975   975 V MediaPlayerList: mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+10-05 18:54:54.259   975   975 V MediaPlayerList: mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+10-05 18:54:54.259   975   975 V MediaPlayerList: mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+10-05 18:54:54.259   975   975 V MediaPlayerList: mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+10-05 18:54:54.259   975   975 V MediaPlayerList: mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+10-05 18:54:54.260   507   604 I InputReader: Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+10-05 18:54:54.262   805   805 D ControlsListingControllerImpl: ServiceConfig reloaded, count: 0
+10-05 18:54:54.263   805   805 D ControlsListingControllerImpl: ServiceConfig reloaded, count: 0
+10-05 18:54:54.266   805   805 D ControlsListingControllerImpl: ServiceConfig reloaded, count: 0
+10-05 18:54:54.267   507  1321 W OverlayManager: service 'idmap' died
+10-05 18:54:54.267   807  2299 I PermissionControllerServiceImpl: Updating user sensitive for uid 10083
+--------- beginning of kernel
+10-05 18:54:54.465     0     0 I init    : Sending signal 9 to service 'idmap2d' (pid 440) process group...
+10-05 18:54:54.268   507   533 W VoiceInteractionManager: no available voice recognition services found for user 0
+10-05 18:54:54.269   507   533 W VoiceInteractionManager: no available voice recognition services found for user 0
+10-05 18:54:54.270   507   533 W VoiceInteractionManager: no available voice recognition services found for user 0
+10-05 18:54:54.270   507   604 I InputReader: Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+10-05 18:54:54.274   507   591 D ActivityManager: freezing 2106 com.android.carrierdefaultapp
+10-05 18:54:54.472     0     0 I libprocessgroup: Successfully killed process cgroup uid 1000 pid 440 in 5ms
+10-05 18:54:54.473     0     0 I init    : Control message: Processed ctl.stop for 'idmap2d' from pid: 507 (system_server)
+10-05 18:54:54.476     0     0 I init    : Service 'idmap2d' (pid 440) received signal 9
+10-05 18:54:54.279  1000  1000 D CarrierSvcBindHelper: onPackageModified: com.android.rkpdapp
+10-05 18:54:54.279  1000  1286 D ImsResolver: maybeAddedImsService, packageName: com.android.statementservice
+10-05 18:54:54.280  1000  1000 D CarrierSvcBindHelper: No carrier app for: 0
+10-05 18:54:54.284  1000  1000 D CarrierSvcBindHelper: onPackageModified: com.android.carrierdefaultapp
+10-05 18:54:54.284  1000  1286 D ImsResolver: maybeAddedImsService, packageName: com.android.rkpdapp
+10-05 18:54:54.285  1000  1000 D CarrierSvcBindHelper: No carrier app for: 0
+10-05 18:54:54.286   805   885 D StylusManager: Stylus InputDevice changed: 12 virtio_input_multi_touch_9
+10-05 18:54:54.293   805   885 D StylusManager: Stylus InputDevice changed: 9 virtio_input_multi_touch_6
+10-05 18:54:54.294   805   885 D StylusManager: Stylus InputDevice changed: 10 virtio_input_multi_touch_7
+10-05 18:54:54.294   805   885 D StylusManager: Stylus InputDevice changed: 8 virtio_input_multi_touch_5
+10-05 18:54:54.294  1000  1286 D ImsResolver: maybeAddedImsService, packageName: com.android.carrierdefaultapp
+10-05 18:54:54.297   805   885 D StylusManager: Stylus InputDevice changed: 7 virtio_input_multi_touch_4
+10-05 18:54:54.298   805   885 D StylusManager: Stylus InputDevice changed: 11 virtio_input_multi_touch_8
+10-05 18:54:54.298   805   885 D StylusManager: Stylus InputDevice changed: 13 virtio_input_multi_touch_10
+10-05 18:54:54.298   805   885 D StylusManager: Stylus InputDevice changed: 6 virtio_input_multi_touch_3
+10-05 18:54:54.298   805   885 D StylusManager: Stylus InputDevice changed: 4 virtio_input_multi_touch_1
+10-05 18:54:54.298   805   885 D StylusManager: Stylus InputDevice changed: 5 virtio_input_multi_touch_2
+10-05 18:54:54.299   805   885 D StylusManager: Stylus InputDevice changed: 14 virtio_input_multi_touch_11
+10-05 18:54:54.541   507   591 D ActivityManager: freezing 1601 com.android.printspooler
+10-05 18:54:54.759   507   591 D ActivityManager: freezing 1269 com.android.cellbroadcastreceiver
+10-05 18:54:55.944  1015  1025 W ndroid.settings: Cleared Reference was only reachable from finalizer (only reported once)
+10-05 18:54:56.466   507   591 D ActivityManager: freezing 1828 com.android.externalstorage
+10-05 18:54:57.357  1361  1397 W putmethod.latin: Cleared Reference was only reachable from finalizer (only reported once)
+10-05 18:54:57.540   507   584 D OomAdjuster: Not killing cached processes
+10-05 18:54:57.652   507   520 D WifiNl80211Manager: Scan result ready event
+10-05 18:54:57.652   507   520 D WifiNative: Scan result ready event
+10-05 18:54:57.840   156   908 I keystore2: system/security/keystore2/src/watchdog.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+10-05 18:54:58.077   507   776 I SdkSandboxManager: Reconciling sdk data package directories for 0
+10-05 18:54:58.270   805   805 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-05 18:54:58.548  1567  1576 D StrictMode: StrictMode policy violation: android.os.strictmode.SqliteObjectLeakedViolation: Finalizing a Cursor that has not been deactivated or closed. database = /data/user/0/com.android.providers.contacts/databases/contacts2.db, table = raw_contacts, query = SELECT contacts_view._id AS _id, contacts_view.display_name AS display_name, contacts_view.photo_thumb_uri AS photo_thumb_uri, data1 AS number, data2 AS type, data3 AS label, contacts_view.lookup AS lookup FROM raw_contacts JOIN view_contacts as contacts_view ON (contacts_view._id = raw_contacts.contact_id) JOIN (SELECT data_id,normalized_number FROM phone_lookup WHERE (phone_lookup.min_match = '7654321')) AS lookup ON lookup.data_id=data._id JOIN data ON data.raw_contact_id=raw_contacts._id WHERE (PHONE_NUMBERS_EQUAL(data.data1, '+15551234567', 0, 7)) ORDER BY  length(lookup.normalized_number) DESC
+10-05 18:54:58.548  1567  1576 D StrictMode: 	at android.os.StrictMode.onSqliteObjectLeaked(StrictMode.java:2222)
+10-05 18:54:58.548  1567  1576 D StrictMode: 	at android.database.sqlite.SQLiteCursor.finalize(SQLiteCursor.java:282)
+10-05 18:54:58.548  1567  1576 D StrictMode: 	at java.lang.Daemons$FinalizerDaemon.doFinalize(Daemons.java:339)
+10-05 18:54:58.548  1567  1576 D StrictMode: 	at java.lang.Daemons$FinalizerDaemon.processReference(Daemons.java:324)
+10-05 18:54:58.548  1567  1576 D StrictMode: 	at java.lang.Daemons$FinalizerDaemon.runInternal(Daemons.java:300)
+10-05 18:54:58.548  1567  1576 D StrictMode: 	at java.lang.Daemons$Daemon.run(Daemons.java:145)
+10-05 18:54:58.548  1567  1576 D StrictMode: 	at java.lang.Thread.run(Thread.java:1012)
+10-05 18:54:58.549  1567  1576 D StrictMode: StrictMode policy violation: android.os.strictmode.LeakedClosableViolation: A resource was acquired at attached stack trace but never released. See java.io.Closeable for information on avoiding resource leaks.
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.os.StrictMode$AndroidCloseGuardReporter.report(StrictMode.java:1994)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at dalvik.system.CloseGuard.warnIfOpen(CloseGuard.java:336)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.database.AbstractCursor.finalize(AbstractCursor.java:531)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.database.sqlite.SQLiteCursor.finalize(SQLiteCursor.java:291)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at java.lang.Daemons$FinalizerDaemon.doFinalize(Daemons.java:339)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at java.lang.Daemons$FinalizerDaemon.processReference(Daemons.java:324)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at java.lang.Daemons$FinalizerDaemon.runInternal(Daemons.java:300)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at java.lang.Daemons$Daemon.run(Daemons.java:145)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at java.lang.Thread.run(Thread.java:1012)
+10-05 18:54:58.549  1567  1576 D StrictMode: Caused by: java.lang.Throwable: Explicit termination method 'AbstractCursor.close' not called
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at dalvik.system.CloseGuard.openWithCallSite(CloseGuard.java:288)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at dalvik.system.CloseGuard.open(CloseGuard.java:257)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.database.AbstractCursor.<init>(AbstractCursor.java:227)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.database.AbstractWindowedCursor.<init>(AbstractWindowedCursor.java:39)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.database.sqlite.SQLiteCursor.<init>(SQLiteCursor.java:98)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.database.sqlite.SQLiteDirectCursorDriver.query(SQLiteDirectCursorDriver.java:52)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.database.sqlite.SQLiteDatabase.rawQueryWithFactory(SQLiteDatabase.java:1714)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.database.sqlite.SQLiteQueryBuilder.query(SQLiteQueryBuilder.java:592)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.doQuery(ContactsProvider2.java:7543)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryLocal(ContactsProvider2.java:7249)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryCorpLookupIfNecessary(ContactsProvider2.java:7728)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryLookupEnterprise(ContactsProvider2.java:7867)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryPhoneLookupEnterprise(ContactsProvider2.java:7838)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryLocal(ContactsProvider2.java:7172)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryDirectoryIfNecessary(ContactsProvider2.java:5883)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryInternal(ContactsProvider2.java:5728)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.query(ContactsProvider2.java:5673)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.content.ContentProvider.query(ContentProvider.java:1692)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.content.ContentProvider$Transport.query(ContentProvider.java:292)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.content.ContentProviderNative.onTransact(ContentProviderNative.java:107)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.os.Binder.execTransactInternal(Binder.java:1344)
+10-05 18:54:58.549  1567  1576 D StrictMode: 	at android.os.Binder.execTransact(Binder.java:1275)
+10-05 18:54:58.666  1448  1448 I ProvidersCache: Updating roots due to change on user 0at content://com.android.providers.media.documents/root
+10-05 18:55:00.026   805   884 D EGL_emulation: app_time_stats: avg=2079.94ms min=18.16ms max=6167.80ms count=3
+10-05 18:55:00.372  2361  2390 D EGL_emulation: app_time_stats: avg=2395.96ms min=358.46ms max=7849.08ms count=4
+10-05 18:55:00.859   805   805 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:02.839   507   592 D OomAdjuster: Not killing cached processes
+10-05 18:55:06.868   805   805 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:07.589   507   568 I ActivityManager: Broadcasting: Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }
+10-05 18:55:07.589   507   568 I ActivityManager: Enqueued broadcast Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }: 0
+10-05 18:55:07.590   507  1038 I ActivityManager: Background started FGS: Allowed [callingPackage: com.usman.miqaat; callingUid: 10141; uidState: TOP ; uidBFSL: [BFSL]; intent: Intent { act=com.usman.miqaat.REMINDER cmp=com.usman.miqaat/.azaan.AzaanService (has extras) }; code:PROC_STATE_TOP; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+10-05 18:55:07.591  2361  2361 I AzaanScheduler: No azaan enabled; nothing scheduled
+10-05 18:55:07.593   507   524 I ActivityManager: Broadcast completed: result=0
+10-05 18:55:07.594  2361  2361 W TextToSpeech: stop failed: not bound to TTS engine
+10-05 18:55:07.594  2361  2361 W TextToSpeech: stop failed: not bound to TTS engine
+10-05 18:55:07.594  2361  2361 W TextToSpeech: shutdown failed: not bound to TTS engine
+10-05 18:55:07.618   805   884 D EGL_emulation: app_time_stats: avg=7592.04ms min=7592.04ms max=7592.04ms count=1
+10-05 18:55:07.634   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:07.637   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:07.829   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:07.830   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:08.269   805   805 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-05 18:55:08.444   507   591 D ActivityManager: freezing 1448 com.android.documentsui
+10-05 18:55:09.872   805   805 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:09.874   507   534 D OomAdjuster: Not killing cached processes
+10-05 18:55:09.874  1015  1015 D BatteryUsageBroadcastReceiver: onReceive:android.intent.action.BATTERY_LEVEL_CHANGED
+10-05 18:55:09.875  1015  1015 D BatteryUsageBroadcastReceiver: fetch data because of event: ACTION_BATTERY_LEVEL_CHANGED
+10-05 18:55:09.875  1015  1015 D BatteryUsageBroadcastReceiver: cancel sendBroadcastToFetchUsageData when broadcastDelay is 2339997ms.
+10-05 18:55:10.936   507   591 D ActivityManager: freezing 1877 com.android.traceur
+10-05 18:55:11.038   507   591 D ActivityManager: freezing 1223 com.android.cellbroadcastreceiver.module
+10-05 18:55:11.074   507   591 D ActivityManager: freezing 1529 com.android.imsserviceentitlement
+10-05 18:55:11.114   507   591 D ActivityManager: freezing 1654 com.android.messaging
+10-05 18:55:11.455   507   591 D ActivityManager: freezing 1936 com.android.camera2
+10-05 18:55:11.856   507   591 D ActivityManager: freezing 1699 com.android.providers.calendar
+10-05 18:55:11.856   507   591 D ActivityManager: freezing 1904 com.android.calendar
+10-05 18:55:12.876   805   805 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:13.732   507   591 D ActivityManager: freezing 1966 com.android.contacts
+10-05 18:55:14.251   507   591 D ActivityManager: freezing 2163 com.android.dynsystem:dynsystem
+10-05 18:55:14.252   507   591 D ActivityManager: freezing 2136 com.android.dynsystem
+10-05 18:55:14.252   507   591 D ActivityManager: freezing 1929 com.android.localtransport
+10-05 18:55:14.252   507   591 D ActivityManager: freezing 1732 com.android.keychain
+10-05 18:55:14.890   507   591 D ActivityManager: freezing 2234 com.android.rkpdapp
+10-05 18:55:15.244   507   591 D ActivityManager: freezing 2269 com.android.statementservice
+10-05 18:55:15.881   805   805 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:17.652   507  1038 D WifiNl80211Manager: Scan result ready event
+10-05 18:55:17.652   507  1038 D WifiNative: Scan result ready event
+10-05 18:55:18.270   805   805 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-05 18:55:18.884   805   805 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:19.896   507   591 D ActivityManager: freezing 1015 com.android.settings
+10-05 18:55:20.135   507   591 D ActivityManager: freezing 807 com.android.permissioncontroller
+10-05 18:55:20.484     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-05 18:55:21.202   507   729 E WifiHealthMonitor:  Hit PackageManager exception
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: android.content.pm.PackageManager$NameNotFoundException: No module info for package: com.android.wifi
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at android.app.ApplicationPackageManager.getModuleInfo(ApplicationPackageManager.java:1190)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.getWifiStackVersion(WifiHealthMonitor.java:367)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.extractCurrentSoftwareBuildInfo(WifiHealthMonitor.java:588)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.postBootSwBuildCheck(WifiHealthMonitor.java:523)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.postBootDetectionHandler(WifiHealthMonitor.java:514)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.-$$Nest$mpostBootDetectionHandler(WifiHealthMonitor.java:0)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor$2.onAlarm(WifiHealthMonitor.java:190)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at android.app.AlarmManager$ListenerWrapper.run(AlarmManager.java:375)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at com.android.server.wifi.RunnerHandler.dispatchMessage(RunnerHandler.java:122)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at android.os.Looper.loop(Looper.java:294)
+10-05 18:55:21.202   507   729 E WifiHealthMonitor: 	at android.os.HandlerThread.run(HandlerThread.java:67)

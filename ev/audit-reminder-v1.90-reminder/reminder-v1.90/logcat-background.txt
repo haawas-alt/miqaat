@@ -1,0 +1,91 @@
+--------- beginning of system
+10-05 18:55:21.648   507   524 D AutofillManagerService: Close system dialogs
+--------- beginning of main
+10-05 18:55:21.652   805   805 I vol.VolumeDialogImpl: mDialog.dismiss() reason: volume_controller from: com.android.systemui.volume.VolumeDialogImpl$7.onDismissRequested:3
+10-05 18:55:21.655   507   525 D CompatibilityChangeReporter: Compat change id reported: 197654537; UID 10141; state: ENABLED
+10-05 18:55:21.656   805   838 V WindowManagerShell: Transition requested: android.os.BinderProxy@2194ab4 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=7 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.android.launcher3/.uioverrides.QuickstepLauncher } baseActivity=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher} topActivity=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher} origActivity=null realActivity=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher} numActivities=1 lastActiveTime=71781 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@4bfd6dd} topActivityType=2 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=null topActivityInfo=ActivityInfo{5140252 com.android.launcher3.uioverrides.QuickstepLauncher} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=false isVisibleRequested=true isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+10-05 18:55:21.656   507   525 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.android.launcher3/.uioverrides.QuickstepLauncher (has extras)} with LAUNCH_SINGLE_TASK from uid 0 (BAL_ALLOW_ALLOWLISTED_UID) result code=2
+10-05 18:55:21.656  1050  1050 D TaplTarget: Launcher.onNewIntent: Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10400100 cmp=com.android.launcher3/.uioverrides.QuickstepLauncher (has extras) }
+10-05 18:55:21.658   507   524 D AutofillManagerService: Close system dialogs
+10-05 18:55:21.659   507   527 D OomAdjuster: Not killing cached processes
+10-05 18:55:21.659   805   838 D WindowManagerShell: onActivityRestartAttempt: ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher}
+10-05 18:55:21.662   389   389 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+10-05 18:55:21.675   805   805 I vol.VolumeDialogImpl: mDialog.dismiss() reason: volume_controller from: com.android.systemui.volume.VolumeDialogImpl$7.onDismissRequested:3
+10-05 18:55:21.676   805   805 D vol.VolumeDialogImpl: dismissH: skipping dismiss because isAnimatingDismiss is true and showingStateInconsistent is false
+10-05 18:55:21.691  1050  1473 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-05 18:55:21.886   805   805 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:22.193   507   524 V WindowManager: Sent Transition #9 createdAt=10-05 18:55:21.652 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=7 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.android.launcher3/.uioverrides.QuickstepLauncher } baseActivity=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher} topActivity=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher} origActivity=null realActivity=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher} numActivities=1 lastActiveTime=71781 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{cfcbbc7 Task{570e884 #7 type=home I=com.android.launcher3/.uioverrides.QuickstepLauncher}}} topActivityType=2 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=null topActivityInfo=ActivityInfo{12a109e com.android.launcher3.uioverrides.QuickstepLauncher} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=false isVisibleRequested=true isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+10-05 18:55:22.193   507   524 V WindowManager:     startWCT=WindowContainerTransaction { changes = {} hops = [] errorCallbackToken=null taskFragmentOrganizer=null }
+10-05 18:55:22.193   507   524 V WindowManager:     info={id=9 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{2fef5e3 Task{ae26910 #1 type=home}}} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP leash=Surface(name=Task=1)/@0x89c2d7 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{b31259d Task{14c94ab #8 type=standard A=10141:com.usman.miqaat}}} m=TO_BACK f=NONE leash=Surface(name=Task=8)/@0xdfadc47 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{18189aa token=android.os.Binder@5cc0495})/@0xbab69e2 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+10-05 18:55:22.194   805   838 V WindowManagerShell: onTransitionReady android.os.BinderProxy@2194ab4: {id=9 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@fa8347f} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP leash=Surface(name=Task=1)/@0xfa62923 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{android.window.IWindowContainerToken$Stub$Proxy@3d73c4c} m=TO_BACK f=NONE leash=Surface(name=Task=8)/@0xe5a5e20 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{18189aa token=android.os.Binder@5cc0495})/@0x1e803d9 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+10-05 18:55:22.194   805   838 V WindowManagerShell: Playing animation for (#9)android.os.BinderProxy@2194ab4@0
+10-05 18:55:22.194   805   838 V WindowManagerShell:  try handler com.android.wm.shell.transition.DefaultMixedHandler@f2a7f8c
+10-05 18:55:22.194   805   838 V WindowManagerShell:  try handler com.android.wm.shell.keyguard.KeyguardTransitionHandler@a3d26d5
+10-05 18:55:22.194   805   838 V WindowManagerShell:  try handler com.android.wm.shell.activityembedding.ActivityEmbeddingController@b9c9eea
+10-05 18:55:22.194   805   838 V WindowManagerShell:  try handler com.android.wm.shell.recents.RecentsTransitionHandler@d1725db
+10-05 18:55:22.194   805   838 V ShellRecents: RecentsTransitionHandler.startAnimation: no controller found
+10-05 18:55:22.195   805   838 V WindowManagerShell:  try handler com.android.wm.shell.pip.PipTransition@2c60878
+10-05 18:55:22.195   805   838 V WindowManagerShell:  try handler com.android.wm.shell.splitscreen.StageCoordinator@9b65b51
+10-05 18:55:22.195   805   838 V WindowManagerShell:  try handler com.android.wm.shell.transition.RemoteTransitionHandler@41dbfb6
+10-05 18:55:22.198   805   838 V WindowManagerShell: Transition doesn't have explicit remote, search filters for match for {id=9 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@fa8347f} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP leash=Surface(name=Task=1)/@0xfa62923 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{android.window.IWindowContainerToken$Stub$Proxy@3d73c4c} m=TO_BACK f=NONE leash=Surface(name=Task=8)/@0xe5a5e20 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{18189aa token=android.os.Binder@5cc0495})/@0x1e803d9 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+10-05 18:55:22.198   805   838 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher}},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@8fdaa4d, appThread = android.app.IApplicationThread$Stub$Proxy@2732902, debugName = QuickstepLaunchHome }}
+10-05 18:55:22.198   805   838 D RemoteTransitionHandler: Found filterPair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher}},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@8fdaa4d, appThread = android.app.IApplicationThread$Stub$Proxy@2732902, debugName = QuickstepLaunchHome }}
+10-05 18:55:22.198   805   838 V WindowManagerShell:  Delegate animation for #9 to RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@8fdaa4d, appThread = android.app.IApplicationThread$Stub$Proxy@2732902, debugName = QuickstepLaunchHome }
+10-05 18:55:22.202   805   838 V WindowManagerShell:  animated by com.android.wm.shell.transition.RemoteTransitionHandler@41dbfb6
+10-05 18:55:22.207   507   525 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@4b78105
+10-05 18:55:22.220   507   525 D CoreBackPreview: Window{c1c104c u0 ImmersiveModeConfirmation}: Setting back callback null
+10-05 18:55:22.221   507   525 W InputManager-JNI: Input channel object 'c1c104c ImmersiveModeConfirmation (client)' was disposed without first being removed with the input manager!
+10-05 18:55:22.244   805   838 V WindowManagerShell: Transition animation finished (aborted=false), notifying core (#9)android.os.BinderProxy@2194ab4@0
+10-05 18:55:22.361   507   527 V WindowManager: Unknown focus tokens, dropping reportFocusChanged
+10-05 18:55:22.368   507   524 V WindowManager: Finish Transition #9: created at 10-05 18:55:21.652 collect-started=0.027ms request-sent=2.864ms started=5.244ms ready=5.233ms sent=537.498ms finished=692.145ms
+10-05 18:55:22.377   805   816 I ndroid.systemui: NativeAlloc concurrent copying GC freed 304210(14MB) AllocSpace objects, 12(304KB) LOS objects, 49% free, 13MB/27MB, paused 41us,34us total 170.546ms
+10-05 18:55:22.378   805   838 V WindowManagerShell: Track 0 became idle
+10-05 18:55:22.378   805   838 V WindowManagerShell: All active transition animations finished
+10-05 18:55:22.378   805   838 W Looper  : Slow dispatch took 134ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.RemoteTransitionHandler$1$$ExternalSyntheticLambda0@18189aa m=0
+10-05 18:55:22.384   507  1767 I ImeTracker: com.android.launcher3:6d9af7da: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-05 18:55:22.385   507  1767 I ImeTracker: com.android.launcher3:6d9af7da: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-05 18:55:22.408   507   584 D CompatibilityChangeReporter: Compat change id reported: 265195908; UID 10141; state: ENABLED
+10-05 18:55:24.675   507  2077 I ActivityManager: Broadcasting: Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }
+10-05 18:55:24.676   507  2077 I ActivityManager: Enqueued broadcast Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }: 0
+10-05 18:55:24.677   507  2471 I ActivityManager: Background started FGS: Allowed [callingPackage: com.usman.miqaat; callingUid: 10141; uidState: RCVR; uidBFSL: n/a; intent: Intent { act=com.usman.miqaat.REMINDER cmp=com.usman.miqaat/.azaan.AzaanService (has extras) }; code:ACTIVITY_VISIBILITY_GRACE_PERIOD; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+10-05 18:55:24.678  2361  2361 I AzaanScheduler: No azaan enabled; nothing scheduled
+10-05 18:55:24.680   507  1855 W ActivityManager: Foreground service started from background can not have location/camera/microphone access: service com.usman.miqaat/.azaan.AzaanService
+10-05 18:55:24.683  2361  2361 W TextToSpeech: stop failed: not bound to TTS engine
+10-05 18:55:24.683  2361  2361 W TextToSpeech: stop failed: not bound to TTS engine
+10-05 18:55:24.683  2361  2361 W TextToSpeech: shutdown failed: not bound to TTS engine
+10-05 18:55:24.684   507   524 I ActivityManager: Broadcast completed: result=0
+10-05 18:55:24.702   805   884 D EGL_emulation: app_time_stats: avg=4270.99ms min=49.75ms max=16834.09ms count=4
+10-05 18:55:24.712   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:24.714   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:24.888   805   805 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:24.916   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:24.917   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:28.270   805   805 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-05 18:55:28.280   805   884 D EGL_emulation: app_time_stats: avg=894.49ms min=44.42ms max=3333.22ms count=4
+10-05 18:55:31.676   507   591 D ActivityManager: freezing 1567 android.process.acore
+10-05 18:55:31.676   507   591 D ActivityManager: freezing 1736 android.process.media
+10-05 18:55:32.088   507   786 D ActivityManager: sync unfroze 807 com.android.permissioncontroller for 6
+10-05 18:55:32.088   507   786 D OomAdjuster: Not killing cached processes
+10-05 18:55:32.106   807  2490 I PermissionControllerServiceImpl: Updating user sensitive for user 0
+10-05 18:55:38.270   805   805 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-05 18:55:38.707   507  2471 I ActivityManager: Broadcasting: Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }
+10-05 18:55:38.707   507  2471 I ActivityManager: Enqueued broadcast Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }: 0
+10-05 18:55:38.708   507   534 D OomAdjuster: Not killing cached processes
+10-05 18:55:38.709   507  1038 W ActivityManager: Background started FGS: Disallowed [callingPackage: com.usman.miqaat; callingUid: 10141; uidState: RCVR; uidBFSL: n/a; intent: Intent { act=com.usman.miqaat.REMINDER cmp=com.usman.miqaat/.azaan.AzaanService (has extras) }; code:DENIED; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+10-05 18:55:38.709   507  1038 W ActivityManager: startForegroundService() not allowed due to mAllowStartForeground false: service com.usman.miqaat/.azaan.AzaanService
+10-05 18:55:38.710   507  1038 D CompatibilityChangeReporter: Compat change id reported: 174041399; UID 10141; state: ENABLED
+10-05 18:55:38.712  2361  2361 I AzaanScheduler: No azaan enabled; nothing scheduled
+10-05 18:55:38.713   507   524 I ActivityManager: Broadcast completed: result=0
+10-05 18:55:38.790   507  1038 W BatteryExternalStatsWorker: error reading Bluetooth stats: 11
+10-05 18:55:38.913   507   507 W NotificationHistory: Attempted to add notif for locked/gone/disabled user 0
+10-05 18:55:38.935   805   884 D EGL_emulation: app_time_stats: avg=10654.63ms min=10654.63ms max=10654.63ms count=1
+10-05 18:55:38.937   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:38.940   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:39.363   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:39.370   805   885 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:39.386   805   805 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:55:45.918   805   805 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:48.270   805   805 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-05 18:55:48.923   805   805 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:51.925   805   805 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:55:52.188   507   591 D ActivityManager: freezing 807 com.android.permissioncontroller

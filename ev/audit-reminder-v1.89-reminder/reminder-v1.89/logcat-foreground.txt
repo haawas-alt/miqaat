@@ -1,0 +1,334 @@
+--------- beginning of main
+10-05 18:54:32.515  1008  1008 D CarrierSvcBindHelper: No carrier app for: 0
+10-05 18:54:32.519  1008  1008 D CarrierSvcBindHelper: onPackageModified: com.android.rkpdapp
+10-05 18:54:32.519  1008  1008 D CarrierSvcBindHelper: No carrier app for: 0
+10-05 18:54:32.521  1008  1292 D ImsResolver: maybeAddedImsService, packageName: com.android.statementservice
+10-05 18:54:32.523   804   862 D StylusManager: Stylus InputDevice changed: 9 virtio_input_multi_touch_6
+10-05 18:54:32.524   804   862 D StylusManager: Stylus InputDevice changed: 10 virtio_input_multi_touch_7
+10-05 18:54:32.528  1008  1292 D ImsResolver: maybeAddedImsService, packageName: com.android.rkpdapp
+10-05 18:54:32.531   804   862 D StylusManager: Stylus InputDevice changed: 12 virtio_input_multi_touch_9
+10-05 18:54:32.534   804   862 D StylusManager: Stylus InputDevice changed: 8 virtio_input_multi_touch_5
+10-05 18:54:32.535   804   862 D StylusManager: Stylus InputDevice changed: 7 virtio_input_multi_touch_4
+10-05 18:54:32.536   804   862 D StylusManager: Stylus InputDevice changed: 5 virtio_input_multi_touch_2
+10-05 18:54:32.536   804   862 D StylusManager: Stylus InputDevice changed: 14 virtio_input_multi_touch_11
+10-05 18:54:32.536   804   862 D StylusManager: Stylus InputDevice changed: 4 virtio_input_multi_touch_1
+10-05 18:54:32.537   804   862 D StylusManager: Stylus InputDevice changed: 6 virtio_input_multi_touch_3
+--------- beginning of system
+10-05 18:54:32.537   506   534 W VoiceInteractionManager: no available voice recognition services found for user 0
+10-05 18:54:32.538   506   534 W VoiceInteractionManager: no available voice recognition services found for user 0
+10-05 18:54:32.539   506   534 W VoiceInteractionManager: no available voice recognition services found for user 0
+10-05 18:54:32.551   506  2021 I ActivityManager: Broadcasting: Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }
+10-05 18:54:32.551   506  2021 I ActivityManager: Enqueued broadcast Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }: 0
+10-05 18:54:32.554   506   520 I ActivityManager: Background started FGS: Allowed [callingPackage: com.usman.miqaat; callingUid: 10141; uidState: TOP ; uidBFSL: [BFSL]; intent: Intent { act=com.usman.miqaat.REMINDER cmp=com.usman.miqaat/.azaan.AzaanService (has extras) }; code:PROC_STATE_TOP; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+10-05 18:54:32.556  2386  2386 I AzaanScheduler: No azaan enabled; nothing scheduled
+10-05 18:54:32.558   506   525 I ActivityManager: Broadcast completed: result=0
+10-05 18:54:32.561   506   520 W ActivityManager: Bringing down service while still waiting for start foreground: ServiceRecord{d0e68ed u0 com.usman.miqaat/.azaan.AzaanService}
+10-05 18:54:32.566  2386  2386 W TextToSpeech: stop failed: not bound to TTS engine
+10-05 18:54:32.566  2386  2386 W TextToSpeech: stop failed: not bound to TTS engine
+10-05 18:54:32.566  2386  2386 W TextToSpeech: shutdown failed: not bound to TTS engine
+10-05 18:54:32.567  2386  2386 D AndroidRuntime: Shutting down VM
+--------- beginning of crash
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: FATAL EXCEPTION: main
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: Process: com.usman.miqaat, PID: 2386
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: android.app.RemoteServiceException$ForegroundServiceDidNotStartInTimeException: Context.startForegroundService() did not then call Service.startForeground(): ServiceRecord{d0e68ed u0 com.usman.miqaat/.azaan.AzaanService}
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread.generateForegroundServiceDidNotStartInTimeException(ActivityThread.java:2104)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread.throwRemoteServiceException(ActivityThread.java:2075)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread.-$$Nest$mthrowRemoteServiceException(Unknown Source:0)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2369)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:294)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:8177)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:552)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:971)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: Caused by: android.app.StackTrace: Last startServiceCommon() call for this service was made here
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ContextImpl.startServiceCommon(ContextImpl.java:1952)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ContextImpl.startForegroundService(ContextImpl.java:1906)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.content.ContextWrapper.startForegroundService(ContextWrapper.java:830)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.content.ContextWrapper.startForegroundService(ContextWrapper.java:830)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at com.usman.miqaat.azaan.AzaanAlarmReceiver.onReceive(Unknown Source:216)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:4449)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread.-$$Nest$mhandleReceiver(Unknown Source:0)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2256)
+10-05 18:54:32.568  2386  2386 E AndroidRuntime: 	... 7 more
+10-05 18:54:32.572   506  1048 W ActivityTaskManager:   Force finishing activity com.usman.miqaat/.MainActivity
+10-05 18:54:32.573   804   833 V WindowManagerShell: Transition requested: android.os.BinderProxy@8eef0c0 TransitionRequestInfo { type = CLOSE, triggerTask = null, remoteTransition = null, displayChange = null }
+10-05 18:54:32.576  2386  2386 I Process : Sending signal. PID: 2386 SIG: 9
+10-05 18:54:32.584   506  2459 I DropBoxManagerService: add tag=data_app_crash isTagEnabled=true flags=0x2
+10-05 18:54:32.586   506   720 I ActivityManager: Process com.usman.miqaat (pid 2386) has died: prcp TOP 
+10-05 18:54:32.587   506  1048 I WindowManager: WIN DEATH: Window{ce49601 u0 com.usman.miqaat/com.usman.miqaat.MainActivity}
+10-05 18:54:32.587   506  1048 W InputManager-JNI: Input channel object 'ce49601 com.usman.miqaat/com.usman.miqaat.MainActivity (client)' was disposed without first being removed with the input manager!
+10-05 18:54:32.588   327   327 I Zygote  : Process 2386 exited due to signal 9 (Killed)
+10-05 18:54:32.588   506   526 D DisplayManagerService: Drop pending events for gone uid 10141
+10-05 18:54:32.592   506   537 I libprocessgroup: Successfully killed process cgroup uid 10141 pid 2386 in 5ms
+10-05 18:54:32.602   389   389 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+10-05 18:54:32.629  1050  1528 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-05 18:54:32.764   506   506 W NotificationHistory: Attempted to add notif for locked/gone/disabled user 0
+10-05 18:54:32.791   804   864 D EGL_emulation: app_time_stats: avg=1475.70ms min=5.64ms max=2945.75ms count=2
+10-05 18:54:32.853   804   862 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:54:32.865   804   862 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-05 18:54:33.192   506   528 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{2574744 u0 com.usman.miqaat/.MainActivity t8 f} isExiting}
+10-05 18:54:33.231  1050  1050 I Choreographer: Skipped 36 frames!  The application may be doing too much work on its main thread.
+10-05 18:54:33.250   506   525 V WindowManager: Sent Transition #9 createdAt=10-05 18:54:32.572 via request=TransitionRequestInfo { type = CLOSE, triggerTask = null, remoteTransition = null, displayChange = null }
+10-05 18:54:33.251   804   833 V WindowManagerShell: onTransitionReady android.os.BinderProxy@8eef0c0: {id=9 t=CLOSE f=0x10 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@1407807} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP leash=Surface(name=Task=1)/@0x4cbc42b sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{android.window.IWindowContainerToken$Stub$Proxy@96f6d34} m=CLOSE f=NONE leash=Surface(name=Task=8)/@0x4c9d088 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{45e52bb token=android.os.Binder@ec2f34a})/@0x8a76a21 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+10-05 18:54:33.252   804   833 V WindowManagerShell: Playing animation for (#9)android.os.BinderProxy@8eef0c0@0
+10-05 18:54:33.253   506   525 V WindowManager:     startWCT=WindowContainerTransaction { changes = {} hops = [] errorCallbackToken=null taskFragmentOrganizer=null }
+10-05 18:54:33.253   804   833 V WindowManagerShell:  try handler com.android.wm.shell.transition.DefaultMixedHandler@716d1d1
+10-05 18:54:33.254   804   833 V WindowManagerShell:  try handler com.android.wm.shell.keyguard.KeyguardTransitionHandler@14b3436
+10-05 18:54:33.254   506   525 V WindowManager:     info={id=9 t=CLOSE f=0x10 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{8efe52b Task{d27d336 #1 type=home}}} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP leash=Surface(name=Task=1)/@0x689d4c4 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{210e1a5 Task{b8f3962 #8 type=standard A=10141:com.usman.miqaat}}} m=CLOSE f=NONE leash=Surface(name=Task=8)/@0xd71e70f sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{45e52bb token=android.os.Binder@ec2f34a})/@0xc09fa1c sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+10-05 18:54:33.254   804   833 V WindowManagerShell:  try handler com.android.wm.shell.activityembedding.ActivityEmbeddingController@eb1df37
+10-05 18:54:33.254   804   833 V WindowManagerShell:  try handler com.android.wm.shell.recents.RecentsTransitionHandler@f48fca4
+10-05 18:54:33.254   804   833 V ShellRecents: RecentsTransitionHandler.startAnimation: no controller found
+10-05 18:54:33.254   804   833 V WindowManagerShell:  try handler com.android.wm.shell.pip.PipTransition@9e5ba0d
+10-05 18:54:33.255   804   833 V WindowManagerShell:  try handler com.android.wm.shell.splitscreen.StageCoordinator@88e5dc2
+10-05 18:54:33.255   804   833 V WindowManagerShell:  try handler com.android.wm.shell.transition.RemoteTransitionHandler@b3b37d3
+10-05 18:54:33.255   804   833 V WindowManagerShell: Transition doesn't have explicit remote, search filters for match for {id=9 t=CLOSE f=0x10 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@1407807} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP leash=Surface(name=Task=1)/@0x4cbc42b sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{android.window.IWindowContainerToken$Stub$Proxy@96f6d34} m=CLOSE f=NONE leash=Surface(name=Task=8)/@0x4c9d088 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{45e52bb token=android.os.Binder@ec2f34a})/@0x8a76a21 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+10-05 18:54:33.255   804   833 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher}},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@9fafdb7, appThread = android.app.IApplicationThread$Stub$Proxy@bb5f924, debugName = QuickstepLaunchHome }}
+10-05 18:54:33.255   506   529 W WindowManager: Failed to deliver inset control state change to w=Window{ce49601 u0 com.usman.miqaat/com.usman.miqaat.MainActivity EXITING}
+10-05 18:54:33.255   506   529 W WindowManager: android.os.DeadObjectException
+10-05 18:54:33.255   506   529 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+10-05 18:54:33.255   506   529 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+10-05 18:54:33.255   506   529 W WindowManager: 	at android.view.IWindow$Stub$Proxy.insetsControlChanged(IWindow.java:479)
+10-05 18:54:33.255   506   529 W WindowManager: 	at com.android.server.wm.WindowState.notifyInsetsControlChanged(WindowState.java:3802)
+10-05 18:54:33.255   506   529 W WindowManager: 	at com.android.server.wm.InsetsStateController.lambda$notifyPendingInsetsControlChanged$3(InsetsStateController.java:343)
+10-05 18:54:33.255   506   529 W WindowManager: 	at com.android.server.wm.InsetsStateController.$r8$lambda$8yykPRG1GyNq_J17QvL9d5xANMc(InsetsStateController.java:0)
+10-05 18:54:33.255   506   529 W WindowManager: 	at com.android.server.wm.InsetsStateController$$ExternalSyntheticLambda2.run(R8$$SyntheticClass:0)
+10-05 18:54:33.255   506   529 W WindowManager: 	at com.android.server.wm.WindowAnimator.executeAfterPrepareSurfacesRunnables(WindowAnimator.java:294)
+10-05 18:54:33.255   506   529 W WindowManager: 	at com.android.server.wm.RootWindowContainer.performSurfacePlacementNoTrace(RootWindowContainer.java:811)
+10-05 18:54:33.255   506   529 W WindowManager: 	at com.android.server.wm.RootWindowContainer.performSurfacePlacement(RootWindowContainer.java:756)
+10-05 18:54:33.255   506   529 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer.performSurfacePlacementLoop(WindowSurfacePlacer.java:177)
+10-05 18:54:33.255   506   529 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer.performSurfacePlacement(WindowSurfacePlacer.java:126)
+10-05 18:54:33.255   506   529 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer.performSurfacePlacement(WindowSurfacePlacer.java:115)
+10-05 18:54:33.255   506   529 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer$Traverser.run(WindowSurfacePlacer.java:57)
+10-05 18:54:33.255   506   529 W WindowManager: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-05 18:54:33.255   506   529 W WindowManager: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-05 18:54:33.255   506   529 W WindowManager: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-05 18:54:33.255   506   529 W WindowManager: 	at android.os.Looper.loop(Looper.java:294)
+10-05 18:54:33.255   506   529 W WindowManager: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-05 18:54:33.255   506   529 W WindowManager: 	at com.android.server.ServiceThread.run(ServiceThread.java:46)
+10-05 18:54:33.258   804   833 D RemoteTransitionHandler: Found filterPair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher}},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@9fafdb7, appThread = android.app.IApplicationThread$Stub$Proxy@bb5f924, debugName = QuickstepLaunchHome }}
+10-05 18:54:33.259   804   833 V WindowManagerShell:  Delegate animation for #9 to RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@9fafdb7, appThread = android.app.IApplicationThread$Stub$Proxy@bb5f924, debugName = QuickstepLaunchHome }
+--------- beginning of kernel
+10-05 18:54:33.467     0     0 I init    : Sending signal 9 to service 'idmap2d' (pid 446) process group...
+10-05 18:54:33.273   804   833 V WindowManagerShell:  animated by com.android.wm.shell.transition.RemoteTransitionHandler@b3b37d3
+10-05 18:54:33.289   506  2460 W OverlayManager: service 'idmap' died
+10-05 18:54:33.490     0     0 I libprocessgroup: Successfully killed process cgroup uid 1000 pid 446 in 20ms
+10-05 18:54:33.493     0     0 I init    : Control message: Processed ctl.stop for 'idmap2d' from pid: 506 (system_server)
+10-05 18:54:33.496     0     0 I init    : Service 'idmap2d' (pid 446) received signal 9
+10-05 18:54:33.319   506   527 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+10-05 18:54:33.354   506   526 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@7bfccaf
+10-05 18:54:33.368   506   526 D CoreBackPreview: Window{4c8efde u0 ImmersiveModeConfirmation}: Setting back callback null
+10-05 18:54:33.369   506   526 W InputManager-JNI: Input channel object '4c8efde ImmersiveModeConfirmation (client)' was disposed without first being removed with the input manager!
+10-05 18:54:33.381   804   833 V WindowManagerShell: Transition animation finished (aborted=false), notifying core (#9)android.os.BinderProxy@8eef0c0@0
+10-05 18:54:33.418   506   525 V WindowManager: Finish Transition #9: created at 10-05 18:54:32.572 collect-started=0.026ms request-sent=0.185ms started=2.703ms ready=18.94ms sent=676.388ms finished=846.068ms
+10-05 18:54:33.419   506   858 W WindowManager: Exception thrown during dispatchAppVisibility Window{ce49601 u0 com.usman.miqaat/com.usman.miqaat.MainActivity EXITING}
+10-05 18:54:33.419   506   858 W WindowManager: android.os.DeadObjectException
+10-05 18:54:33.419   506   858 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+10-05 18:54:33.419   506   858 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+10-05 18:54:33.419   506   858 W WindowManager: 	at android.view.IWindow$Stub$Proxy.dispatchAppVisibility(IWindow.java:546)
+10-05 18:54:33.419   506   858 W WindowManager: 	at com.android.server.wm.WindowState.sendAppVisibilityToClients(WindowState.java:3271)
+10-05 18:54:33.419   506   858 W WindowManager: 	at com.android.server.wm.WindowContainer.sendAppVisibilityToClients(WindowContainer.java:1221)
+10-05 18:54:33.419   506   858 W WindowManager: 	at com.android.server.wm.WindowToken.setClientVisible(WindowToken.java:409)
+10-05 18:54:33.419   506   858 W WindowManager: 	at com.android.server.wm.ActivityRecord.setClientVisible(ActivityRecord.java:6946)
+10-05 18:54:33.419   506   858 W WindowManager: 	at com.android.server.wm.ActivityRecord.postApplyAnimation(ActivityRecord.java:5637)
+10-05 18:54:33.419   506   858 W WindowManager: 	at com.android.server.wm.ActivityRecord.commitVisibility(ActivityRecord.java:5580)
+10-05 18:54:33.419   506   858 W WindowManager: 	at com.android.server.wm.Transition.finishTransition(Transition.java:1151)
+10-05 18:54:33.419   506   858 W WindowManager: 	at com.android.server.wm.TransitionController.finishTransition(TransitionController.java:868)
+10-05 18:54:33.419   506   858 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.finishTransition(WindowOrganizerController.java:396)
+10-05 18:54:33.419   506   858 W WindowManager: 	at android.window.IWindowOrganizerController$Stub.onTransact(IWindowOrganizerController.java:286)
+10-05 18:54:33.419   506   858 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.onTransact(WindowOrganizerController.java:181)
+10-05 18:54:33.419   506   858 W WindowManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+10-05 18:54:33.419   506   858 W WindowManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+10-05 18:54:33.424   506   858 I Process : Sending signal. PID: 2386 SIG: 9
+10-05 18:54:33.430   506   528 W ActivityManager: setHasOverlayUi called on unknown pid: 2386
+10-05 18:54:33.435   804   833 V WindowManagerShell: Track 0 became idle
+10-05 18:54:33.435   804   833 V WindowManagerShell: All active transition animations finished
+10-05 18:54:33.435   804   833 W Looper  : Slow dispatch took 55ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.RemoteTransitionHandler$1$$ExternalSyntheticLambda0@d2928d2 m=0
+10-05 18:54:33.518   389   389 E BpTransactionCompletedListener: Failed to transact (-32)
+10-05 18:54:33.523   506   528 V WindowManager: Unknown focus tokens, dropping reportFocusChanged
+10-05 18:54:33.528  1050  1632 I OpenGLRenderer: Davey! duration=898ms; Flags=0, FrameTimelineVsyncId=3976, IntendedVsync=43669758709, Vsync=44269758685, InputEventId=0, HandleInputStart=44289549569, AnimationStart=44289550571, PerformTraversalsStart=44289550891, DrawStart=44289665254, FrameDeadline=44303092017, FrameInterval=44282165844, FrameStartTime=16666666, SyncQueued=44289750063, SyncStart=44289785999, IssueDrawCommandsStart=44299140144, SwapBuffers=44400997169, FrameCompleted=44568705678, DequeueBufferDuration=3357, QueueBufferDuration=481458, GpuCompleted=44568705678, SwapBuffersCompleted=44530114513, DisplayPresentTime=72057628414509170, CommandSubmissionCompleted=44400997169, 
+10-05 18:54:33.533   506   590 D ActivityManager: freezing 1737 com.android.quicksearchbox
+10-05 18:54:33.546   506  2460 I ImeTracker: com.android.launcher3:90bdfa7d: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-05 18:54:33.546   506  2460 I ImeTracker: com.android.launcher3:90bdfa7d: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-05 18:54:33.620   804   811 W ndroid.systemui: Cleared Reference was only reachable from finalizer (only reported once)
+10-05 18:54:33.634   804   811 I ndroid.systemui: NativeAlloc concurrent copying GC freed 260642(13MB) AllocSpace objects, 6(120KB) LOS objects, 49% free, 14MB/28MB, paused 35us,35us total 344.291ms
+10-05 18:54:33.783  1050  1061 I droid.launcher3: NativeAlloc concurrent copying GC freed 59885(2573KB) AllocSpace objects, 28(2052KB) LOS objects, 49% free, 5392KB/10MB, paused 22us,11us total 472.793ms
+10-05 18:54:33.791   506   527 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+10-05 18:54:33.945   506   590 D ActivityManager: freezing 1658 com.android.printspooler
+10-05 18:54:34.018   506   590 D ActivityManager: freezing 1267 com.android.cellbroadcastreceiver
+10-05 18:54:34.535   506   590 D ActivityManager: freezing 1835 com.android.carrierdefaultapp
+10-05 18:54:35.096  1012  1022 W ndroid.settings: Cleared Reference was only reachable from finalizer (only reported once)
+10-05 18:54:36.398  1408  1437 W putmethod.latin: Cleared Reference was only reachable from finalizer (only reported once)
+10-05 18:54:36.431   506  1850 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-05 18:54:36.611   506   581 D OomAdjuster: Not killing cached processes
+10-05 18:54:36.645   506   590 D ActivityManager: freezing 1815 com.android.externalstorage
+10-05 18:54:36.718   157   913 I keystore2: system/security/keystore2/src/watchdog.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+10-05 18:54:36.784   506   858 D WifiNl80211Manager: Scan result ready event
+10-05 18:54:36.784   506   858 D WifiNative: Scan result ready event
+10-05 18:54:36.984   804   804 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-05 18:54:37.318   506   774 I SdkSandboxManager: Reconciling sdk data package directories for 0
+10-05 18:54:37.642  1514  1514 I ProvidersCache: Updating roots due to change on user 0at content://com.android.providers.media.documents/root
+10-05 18:54:39.640   804   804 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:54:42.258   506   581 D OomAdjuster: Not killing cached processes
+10-05 18:54:42.643   804   804 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:54:45.647   804   804 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:54:46.582   506  2460 I ActivityManager: Broadcasting: Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }
+10-05 18:54:46.582   506  2460 I ActivityManager: Enqueued broadcast Intent { flg=0x400000 cmp=com.usman.miqaat/.azaan.AzaanAlarmReceiver (has extras) }: 0
+10-05 18:54:46.583   506   535 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10141; state: DISABLED
+10-05 18:54:46.583   506   536 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10141; state: ENABLED
+10-05 18:54:46.588   327   327 D Zygote  : Forked child process 2483
+10-05 18:54:46.588   506   536 I ActivityManager: Start proc 2483:com.usman.miqaat/u0a141 for broadcast {com.usman.miqaat/com.usman.miqaat.azaan.AzaanAlarmReceiver}
+10-05 18:54:46.606  2483  2483 I om.usman.miqaat: Using CollectorTypeCC GC.
+10-05 18:54:46.606  2483  2483 W om.usman.miqaat: Unexpected CPU variant for x86: x86_64.
+10-05 18:54:46.606  2483  2483 W om.usman.miqaat: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-05 18:54:46.608  2483  2483 E om.usman.miqaat: Not starting debugger since process cannot load the jdwp agent.
+10-05 18:54:46.611   506   720 D CompatibilityChangeReporter: Compat change id reported: 168419799; UID 10141; state: DISABLED
+10-05 18:54:46.612   506   720 D CompatibilityChangeReporter: Compat change id reported: 273564678; UID 10141; state: DISABLED
+10-05 18:54:46.614  2483  2483 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10141; state: ENABLED
+10-05 18:54:46.614  2483  2483 D CompatibilityChangeReporter: Compat change id reported: 242716250; UID 10141; state: ENABLED
+10-05 18:54:46.615   506   581 D CompatibilityChangeReporter: Compat change id reported: 265195908; UID 10141; state: ENABLED
+10-05 18:54:46.615   506   720 D CompatibilityChangeReporter: Compat change id reported: 170503758; UID 10141; state: ENABLED
+10-05 18:54:46.618  2483  2483 D nativeloader: Configuring clns-6 for other apk /data/app/~~1B-M9eHpyeoMeloAPo5sNQ==/com.usman.miqaat-3ru0WoUPvtPXm7cHJQjPEA==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~1B-M9eHpyeoMeloAPo5sNQ==/com.usman.miqaat-3ru0WoUPvtPXm7cHJQjPEA==/lib/x86_64:/data/app/~~1B-M9eHpyeoMeloAPo5sNQ==/com.usman.miqaat-3ru0WoUPvtPXm7cHJQjPEA==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.usman.miqaat
+10-05 18:54:46.634  2483  2483 V GraphicsEnvironment: Currently set values for:
+10-05 18:54:46.634  2483  2483 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+10-05 18:54:46.634  2483  2483 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+10-05 18:54:46.635  2483  2483 V GraphicsEnvironment: ANGLE GameManagerService for com.usman.miqaat: false
+10-05 18:54:46.635  2483  2483 V GraphicsEnvironment: com.usman.miqaat is not listed in per-application setting
+10-05 18:54:46.635  2483  2483 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+10-05 18:54:46.665  2483  2483 D CompatibilityChangeReporter: Compat change id reported: 160794467; UID 10141; state: ENABLED
+10-05 18:54:46.667  2483  2483 I AzaanScheduler: No azaan enabled; nothing scheduled
+10-05 18:54:46.667   506   720 I ActivityManager: Flag disabled. Ignoring finishAttachApplication from uid: 10141. pid: 2483
+10-05 18:54:46.668   506   720 W ActivityManager: Background started FGS: Disallowed [callingPackage: com.usman.miqaat; callingUid: 10141; uidState: RCVR; uidBFSL: n/a; intent: Intent { act=com.usman.miqaat.REMINDER cmp=com.usman.miqaat/.azaan.AzaanService (has extras) }; code:DENIED; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+10-05 18:54:46.668   506   720 D CompatibilityChangeReporter: Compat change id reported: 170668199; UID 10141; state: ENABLED
+10-05 18:54:46.668   506   720 W ActivityManager: startForegroundService() not allowed due to mAllowStartForeground false: service com.usman.miqaat/.azaan.AzaanService
+10-05 18:54:46.668   506   720 D CompatibilityChangeReporter: Compat change id reported: 174041399; UID 10141; state: ENABLED
+10-05 18:54:46.669   506   525 I ActivityManager: Broadcast completed: result=0
+10-05 18:54:46.670  2483  2483 D AndroidRuntime: Shutting down VM
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: FATAL EXCEPTION: main
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: Process: com.usman.miqaat, PID: 2483
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: java.lang.RuntimeException: Unable to start receiver com.usman.miqaat.azaan.AzaanAlarmReceiver: android.app.ForegroundServiceStartNotAllowedException: startForegroundService() not allowed due to mAllowStartForeground false: service com.usman.miqaat/.azaan.AzaanService
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:4458)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ActivityThread.-$$Nest$mhandleReceiver(Unknown Source:0)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2256)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:294)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:8177)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:552)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:971)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: Caused by: android.app.ForegroundServiceStartNotAllowedException: startForegroundService() not allowed due to mAllowStartForeground false: service com.usman.miqaat/.azaan.AzaanService
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ForegroundServiceStartNotAllowedException$1.createFromParcel(ForegroundServiceStartNotAllowedException.java:54)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ForegroundServiceStartNotAllowedException$1.createFromParcel(ForegroundServiceStartNotAllowedException.java:50)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.os.Parcel.readParcelableInternal(Parcel.java:4870)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.os.Parcel.readParcelable(Parcel.java:4852)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3052)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.os.Parcel.createException(Parcel.java:3041)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:3024)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:2966)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.IActivityManager$Stub$Proxy.startService(IActivityManager.java:5984)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ContextImpl.startServiceCommon(ContextImpl.java:1931)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ContextImpl.startForegroundService(ContextImpl.java:1906)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.content.ContextWrapper.startForegroundService(ContextWrapper.java:830)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.content.ContextWrapper.startForegroundService(ContextWrapper.java:830)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at com.usman.miqaat.azaan.AzaanAlarmReceiver.onReceive(Unknown Source:216)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:4449)
+10-05 18:54:46.670  2483  2483 E AndroidRuntime: 	... 9 more
+10-05 18:54:46.672   506   720 W ActivityManager: Process com.usman.miqaat has crashed too many times, killing! Reason: crashed quickly
+10-05 18:54:46.672   506   720 I ActivityManager: Killing 2483:com.usman.miqaat/u0a141 (adj 905): crash
+10-05 18:54:46.673   506   526 D DisplayManagerService: Drop pending events for gone uid 10141
+10-05 18:54:46.673   506  2504 I DropBoxManagerService: add tag=data_app_crash isTagEnabled=true flags=0x2
+10-05 18:54:46.677   506   537 I libprocessgroup: Successfully killed process cgroup uid 10141 pid 2483 in 5ms
+10-05 18:54:46.678   327   327 I Zygote  : Process 2483 exited due to signal 9 (Killed)
+10-05 18:54:46.678   506  2460 V ActivityManager: Got obituary of 2483:com.usman.miqaat
+10-05 18:54:46.876     0     0 I binder  : undelivered TRANSACTION_COMPLETE
+10-05 18:54:46.877     0     0 I binder  : undelivered transaction 118593, process died.
+10-05 18:54:46.984   804   804 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-05 18:54:47.835   506   590 D ActivityManager: freezing 1514 com.android.documentsui
+10-05 18:54:48.950   506   535 D OomAdjuster: Not killing cached processes
+10-05 18:54:48.951  1012  1012 D BatteryUsageBroadcastReceiver: onReceive:android.intent.action.BATTERY_LEVEL_CHANGED
+10-05 18:54:48.951  1012  1012 D BatteryUsageBroadcastReceiver: fetch data because of event: ACTION_BATTERY_LEVEL_CHANGED
+10-05 18:54:48.952  1012  1012 D BatteryUsageBroadcastReceiver: cancel sendBroadcastToFetchUsageData when broadcastDelay is 2339997ms.
+10-05 18:54:50.456   506   590 D ActivityManager: freezing 1857 com.android.traceur
+10-05 18:54:50.636   506   590 D ActivityManager: freezing 1205 com.android.cellbroadcastreceiver.module
+10-05 18:54:50.852   506   590 D ActivityManager: freezing 1878 com.android.imsserviceentitlement
+10-05 18:54:51.653   804   804 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:54:52.260   506   590 D ActivityManager: freezing 1898 com.android.calendar
+10-05 18:54:52.351   506   590 D ActivityManager: freezing 1983 com.android.camera2
+10-05 18:54:52.633   506   590 D ActivityManager: freezing 1722 com.android.providers.calendar
+10-05 18:54:52.712   506   590 D ActivityManager: freezing 2067 com.android.contacts
+10-05 18:54:53.294   506   590 D ActivityManager: freezing 2133 com.android.dynsystem:dynsystem
+10-05 18:54:53.294   506   590 D ActivityManager: freezing 2095 com.android.dynsystem
+10-05 18:54:53.295   506   590 D ActivityManager: freezing 1889 com.android.localtransport
+10-05 18:54:53.295   506   590 D ActivityManager: freezing 1743 com.android.keychain
+10-05 18:54:53.399  1374  1387 D StrictMode: StrictMode policy violation: android.os.strictmode.SqliteObjectLeakedViolation: Finalizing a Cursor that has not been deactivated or closed. database = /data/user/0/com.android.providers.contacts/databases/contacts2.db, table = raw_contacts, query = SELECT contacts_view._id AS _id, contacts_view.display_name AS display_name, contacts_view.photo_thumb_uri AS photo_thumb_uri, data1 AS number, data2 AS type, data3 AS label, contacts_view.lookup AS lookup FROM raw_contacts JOIN view_contacts as contacts_view ON (contacts_view._id = raw_contacts.contact_id) JOIN (SELECT data_id,normalized_number FROM phone_lookup WHERE (phone_lookup.min_match = '7654321')) AS lookup ON lookup.data_id=data._id JOIN data ON data.raw_contact_id=raw_contacts._id WHERE (PHONE_NUMBERS_EQUAL(data.data1, '+15551234567', 0, 7)) ORDER BY  length(lookup.normalized_number) DESC
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.os.StrictMode.onSqliteObjectLeaked(StrictMode.java:2222)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.database.sqlite.SQLiteCursor.finalize(SQLiteCursor.java:282)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at java.lang.Daemons$FinalizerDaemon.doFinalize(Daemons.java:339)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at java.lang.Daemons$FinalizerDaemon.processReference(Daemons.java:324)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at java.lang.Daemons$FinalizerDaemon.runInternal(Daemons.java:300)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at java.lang.Daemons$Daemon.run(Daemons.java:145)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at java.lang.Thread.run(Thread.java:1012)
+10-05 18:54:53.399  1374  1387 D StrictMode: StrictMode policy violation: android.os.strictmode.LeakedClosableViolation: A resource was acquired at attached stack trace but never released. See java.io.Closeable for information on avoiding resource leaks.
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.os.StrictMode$AndroidCloseGuardReporter.report(StrictMode.java:1994)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at dalvik.system.CloseGuard.warnIfOpen(CloseGuard.java:336)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.database.AbstractCursor.finalize(AbstractCursor.java:531)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.database.sqlite.SQLiteCursor.finalize(SQLiteCursor.java:291)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at java.lang.Daemons$FinalizerDaemon.doFinalize(Daemons.java:339)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at java.lang.Daemons$FinalizerDaemon.processReference(Daemons.java:324)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at java.lang.Daemons$FinalizerDaemon.runInternal(Daemons.java:300)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at java.lang.Daemons$Daemon.run(Daemons.java:145)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at java.lang.Thread.run(Thread.java:1012)
+10-05 18:54:53.399  1374  1387 D StrictMode: Caused by: java.lang.Throwable: Explicit termination method 'AbstractCursor.close' not called
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at dalvik.system.CloseGuard.openWithCallSite(CloseGuard.java:288)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at dalvik.system.CloseGuard.open(CloseGuard.java:257)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.database.AbstractCursor.<init>(AbstractCursor.java:227)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.database.AbstractWindowedCursor.<init>(AbstractWindowedCursor.java:39)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.database.sqlite.SQLiteCursor.<init>(SQLiteCursor.java:98)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.database.sqlite.SQLiteDirectCursorDriver.query(SQLiteDirectCursorDriver.java:52)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.database.sqlite.SQLiteDatabase.rawQueryWithFactory(SQLiteDatabase.java:1714)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.database.sqlite.SQLiteQueryBuilder.query(SQLiteQueryBuilder.java:592)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.doQuery(ContactsProvider2.java:7543)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryLocal(ContactsProvider2.java:7249)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryCorpLookupIfNecessary(ContactsProvider2.java:7728)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryLookupEnterprise(ContactsProvider2.java:7867)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryPhoneLookupEnterprise(ContactsProvider2.java:7838)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryLocal(ContactsProvider2.java:7172)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryDirectoryIfNecessary(ContactsProvider2.java:5883)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.queryInternal(ContactsProvider2.java:5728)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at com.android.providers.contacts.ContactsProvider2.query(ContactsProvider2.java:5673)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.content.ContentProvider.query(ContentProvider.java:1692)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.content.ContentProvider$Transport.query(ContentProvider.java:292)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.content.ContentProviderNative.onTransact(ContentProviderNative.java:107)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.os.Binder.execTransactInternal(Binder.java:1344)
+10-05 18:54:53.399  1374  1387 D StrictMode: 	at android.os.Binder.execTransact(Binder.java:1275)
+10-05 18:54:53.739   506   590 D ActivityManager: freezing 2171 com.android.messaging
+10-05 18:54:54.102   506   590 D ActivityManager: freezing 2239 com.android.rkpdapp
+10-05 18:54:54.366   506   590 D ActivityManager: freezing 2275 com.android.statementservice
+10-05 18:54:54.658   804   804 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:54:56.792   506  2460 D WifiNl80211Manager: Scan result ready event
+10-05 18:54:56.792   506  2460 D WifiNative: Scan result ready event
+10-05 18:54:56.985   804   804 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-05 18:54:57.660   804   804 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-05 18:54:58.966   506   590 D ActivityManager: freezing 1012 com.android.settings
+10-05 18:54:59.006   506   590 D ActivityManager: freezing 817 com.android.permissioncontroller
+10-05 18:54:59.212     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-05 18:55:00.006   804   864 D EGL_emulation: app_time_stats: avg=9006.01ms min=4.53ms max=26781.33ms count=3
+10-05 18:55:00.354   506   726 E WifiHealthMonitor:  Hit PackageManager exception
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: android.content.pm.PackageManager$NameNotFoundException: No module info for package: com.android.wifi
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at android.app.ApplicationPackageManager.getModuleInfo(ApplicationPackageManager.java:1190)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.getWifiStackVersion(WifiHealthMonitor.java:367)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.extractCurrentSoftwareBuildInfo(WifiHealthMonitor.java:588)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.postBootSwBuildCheck(WifiHealthMonitor.java:523)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.postBootDetectionHandler(WifiHealthMonitor.java:514)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.-$$Nest$mpostBootDetectionHandler(WifiHealthMonitor.java:0)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor$2.onAlarm(WifiHealthMonitor.java:190)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at android.app.AlarmManager$ListenerWrapper.run(AlarmManager.java:375)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at com.android.server.wifi.RunnerHandler.dispatchMessage(RunnerHandler.java:122)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at android.os.Looper.loop(Looper.java:294)
+10-05 18:55:00.354   506   726 E WifiHealthMonitor: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-05 18:55:00.662   804   804 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
