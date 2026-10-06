@@ -76,7 +76,7 @@ object UrduContent {
         "آپ پر سلامتی اور اللہ کی رحمت ہو۔"
     )
     const val afterAzaan = "اے اللہ، اس کامل دعوت اور قائم ہونے والی نماز کے رب، محمد ﷺ کو وسیلہ اور فضیلت عطا فرمائیے، اور انہیں اس مقامِ محمود پر فائز فرمائیے جس کا آپ نے ان سے وعدہ فرمایا ہے۔"
-    const val afterAzaanNote = "جو شخص اذان کے بعد یہ دعا پڑھے، اس کے لیے میری شفاعت واجب ہو جاتی ہے۔"
+    const val afterAzaanNote = "جو شخص اذان کے بعد یہ دعا پڑھے، اس کے لیے میری شفاعت واجب ہو جائے گی۔"
 
 
     /** Learn Salah notes, one per Adhkar.salah step (reviewer-approved wording, Urdu audit of 6 Oct 2026). */

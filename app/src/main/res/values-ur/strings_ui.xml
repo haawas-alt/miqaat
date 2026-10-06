@@ -178,7 +178,7 @@
     <string name="s_github">گٹ ہب</string>
     <string name="s_delivered_by_google_play_miqaat_itself">گوگل پلے کے ذریعے فراہم۔ میقات خود اپ ڈیٹ کی کوئی درخواست نہیں کرتا۔</string>
     <string name="s_the_dua_and_hadith_recordings_are">دعا اور حدیث کی ریکارڈنگز ایپ کے اندر ہیں۔ ڈیوائس کی اپنی ٹیکسٹ ٹو اسپیچ صرف اس وقت استعمال ہوتی ہے جب ریکارڈنگ موجود نہ ہو۔</string>
-    <string name="s_health_log_adhk_r_counts_friday">صحت کا لاگ: اذکار کی گنتی - جمعہ ٹریکر</string>
+    <string name="s_health_log_adhk_r_counts_friday">کارکردگی کا لاگ: اذکار کی گنتی - جمعہ ٹریکر</string>
     <string name="s_stored_in_the_app_s_private">اس ڈیوائس پر ایپ کے نجی اسٹوریج میں محفوظ۔ اَن انسٹال کرنے پر مٹ جاتا ہے۔</string>
     <string name="s_analytics_advertising_accounts_crash_reporting">تجزیات، اشتہارات، اکاؤنٹس، کریش رپورٹنگ</string>
     <string name="s_none_there_is_no_miqaat_server">کچھ نہیں۔ میقات کا کوئی سرور نہیں۔</string>
@@ -602,7 +602,7 @@
     <string name="s_state_unrestricted">بلا پابندی</string>
     <string name="s_state_restricted">پابندی کے ساتھ</string>
     <string name="s_readiness_fix">درست کریں</string>
-    <string name="s_readiness_open">اعتماد اور بیک اپ کی ترتیبات کھولیں</string>
+    <string name="s_readiness_open">قابلِ اعتماد اور بیک اپ کھولیں</string>
     <string name="s_ok_word">ٹھیک</string>
     <string name="s_needs_attention_word">توجہ درکار</string>
     <string name="s_loading">لوڈ ہو رہا ہے…</string>
