@@ -122,12 +122,12 @@ private fun GalleryHeader(s: AppSettings, a: HomeActions, tk: ThemeTokens, u: Dp
         }
         Row(
             (if (narrow) Modifier.weight(1f) else Modifier).clip(RoundedCornerShape(50)).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation, role = Role.Button).padding(end = u * 1.2f)
-                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(s.locationName)) },
+                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(L10n.place(s.locationName))) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.4f), tint = tk.contentPrimary)
             Spacer(Modifier.width(u * 0.7f))
-            Text(s.locationName, fontFamily = F, fontSize = fs(2.0f), color = tk.contentPrimary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+            Text(L10n.place(s.locationName), fontFamily = F, fontSize = fs(2.0f), color = tk.contentPrimary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
         }
         if (!narrow) Spacer(Modifier.weight(1f))
         if (s.kidsMode) GalleryNav(Icons.Outlined.MenuBook, Str[R.string.s_theme_home_nav_learn], Str[R.string.s_learn_salah], tk, u, F, a.onOpenLearn, showLabel = !narrow)

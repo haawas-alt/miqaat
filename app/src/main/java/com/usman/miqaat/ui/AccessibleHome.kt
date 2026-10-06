@@ -66,12 +66,12 @@ fun AccessibleHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Row(
                     Modifier.weight(1f).clip(RoundedCornerShape(50)).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation, role = Role.Button)
-                        .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(settings.locationName)) },
+                        .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(L10n.place(settings.locationName))) },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(Icons.Outlined.LocationOn, null, Modifier.size(24.dp), tint = tk.primary)
                     Spacer(Modifier.width(8.dp))
-                    Text(settings.locationName, fontFamily = F, fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
+                    Text(L10n.place(settings.locationName), fontFamily = F, fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
                 }
             }
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {

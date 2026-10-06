@@ -117,12 +117,12 @@ private fun CelestialTopBar(state: PrayerState, s: AppSettings, a: HomeActions, 
     val locationRow: @Composable (Modifier) -> Unit = { m ->
         Row(
             m.clip(RoundedCornerShape(50)).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation, role = Role.Button)
-                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(s.locationName)) },
+                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(L10n.place(s.locationName))) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.6f), tint = tk.primary)
             Spacer(Modifier.width(u * 1f))
-            Text(s.locationName, fontFamily = F, fontSize = fs(2.2f), fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+            Text(L10n.place(s.locationName), fontFamily = F, fontSize = fs(2.2f), fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
         }
     }
     val dateColumn: @Composable (Modifier) -> Unit = { m ->

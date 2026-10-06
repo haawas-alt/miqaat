@@ -121,12 +121,12 @@ fun LandscapeHome(
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Row(
                         Modifier.clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocation, role = Role.Button).padding(top = u * 1, bottom = u * 1, end = u * 2)
-                            .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(settings.locationName)) },
+                            .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(L10n.place(settings.locationName))) },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 4.2f), tint = gold)
                         Spacer(Modifier.width(u * 1.2f))
-                        Text(settings.locationName, fontFamily = F, fontSize = fs(3.6f), fontWeight = FontWeight.SemiBold, color = ivory, maxLines = 1)
+                        Text(L10n.place(settings.locationName), fontFamily = F, fontSize = fs(3.6f), fontWeight = FontWeight.SemiBold, color = ivory, maxLines = 1)
                     }
                     Spacer(Modifier.weight(1f))
                     Column(horizontalAlignment = Alignment.End) {

@@ -123,7 +123,7 @@ private fun FlowHeader(phase: Phase, u: Dp, stacked: Boolean) {
     }
     val placeClock: @Composable (Modifier) -> Unit = { m ->
         Column(m.testTag("flow-clock"), horizontalAlignment = if (stacked) Alignment.Start else Alignment.End) {
-            if (st.locationName.isNotBlank()) Text(L10n.iso(st.locationName), fontFamily = Nunito,
+            if (st.locationName.isNotBlank()) Text(L10n.iso(L10n.place(st.locationName)), fontFamily = Nunito,
                 fontSize = maxOf(13f, u.value * 1.4f).sp, color = tk.contentSecondary)
             Text(L10n.iso(com.usman.miqaat.data.PrayerEngine.clock(tm, st.use24h) + " " + com.usman.miqaat.data.PrayerEngine.suffix(tm, st.use24h)),
                 fontFamily = Cormorant, fontSize = maxOf(20f, u.value * 3.2f).sp, color = tk.contentPrimary)

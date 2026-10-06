@@ -1,5 +1,6 @@
 package com.usman.miqaat.ui
 
+import com.usman.miqaat.data.L10n
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -59,7 +60,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                 Row(Modifier.weight(1f).fillMaxHeight().clickable(role = Role.Button, onClick = actions.onOpenLocation),
                     verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.Outlined.LocationOn, null, Modifier.size(24.dp), tint = if (gallery) ink else tk.primary)
-                    Text(settings.locationName, Modifier.weight(1f).padding(start = 6.dp).testTag("landscape-location"),
+                    Text(L10n.place(settings.locationName), Modifier.weight(1f).padding(start = 6.dp).testTag("landscape-location"),
                         fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = 20.sp, maxLines = 1, color = ink)
                 }
                 Text(L10n.dateShort(settings, state.now), Modifier.width(if (urdu) 120.dp else 96.dp).padding(horizontal = 8.dp).testTag("landscape-date"),

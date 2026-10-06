@@ -100,7 +100,7 @@ fun KiswahHome(
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
                 androidx.compose.foundation.layout.FlowRow(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(u * 2), verticalArrangement = Arrangement.spacedBy(u * 0.5f)) {
-                    Caps(settings.locationName, fs(1.3f), Modifier.clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).semantics { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(settings.locationName)) }, alpha = 1f)
+                    Caps(L10n.place(settings.locationName), fs(1.3f), Modifier.clickable(onClick = onOpenLocation, role = androidx.compose.ui.semantics.Role.Button).semantics { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(L10n.place(settings.locationName))) }, alpha = 1f)
                     if (settings.showQibla) { val q = PrayerEngine.qibla(settings); Caps("· " + L10n.word(settings, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), fs(1.1f), Modifier.clickable(onClick = onOpenQibla, role = androidx.compose.ui.semantics.Role.Button), alpha = 0.85f) }
                     if (AdhkarMode.MORNING in adhkarModes(state, settings)) Caps("· " + L10n.word(settings, "Morning adhkār"), fs(1.1f), Modifier.clickable { onOpenAdhkar(AdhkarMode.MORNING) }, bright = true)
                     if (short) Caps(if (urdu) "· ڈیزائن: UZR · میرے لیے دعا کیجیے" else "· DESIGNED BY UZR · MAKE DUʿĀ FOR ME", fs(0.95f), Modifier.alpha(0.8f))

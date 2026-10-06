@@ -148,13 +148,13 @@ private fun Header(state: PrayerState, s: AppSettings, a: HomeActions, u: Dp, go
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Row(
             Modifier.clip(RoundedCornerShape(50)).clickable(onClick = a.onOpenLocation, role = Role.Button).heightIn(min = 48.dp).padding(end = u * 1.5f)
-                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(s.locationName)) },
+                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(L10n.place(s.locationName))) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.2f), tint = gold)
             Spacer(Modifier.width(u * 0.8f))
-            if (kiswah) Text(s.locationName.uppercase(), fontFamily = Cinzel, fontSize = fs(1.3f), letterSpacing = fs(0.3f), color = gold, maxLines = 1)
-            else Text(s.locationName, fontFamily = F, fontSize = fs(1.9f), fontWeight = FontWeight.SemiBold, color = ivory, maxLines = 1)
+            if (kiswah) Text(L10n.place(s.locationName).uppercase(), fontFamily = Cinzel, fontSize = fs(1.3f), letterSpacing = fs(0.3f), color = gold, maxLines = 1)
+            else Text(L10n.place(s.locationName), fontFamily = F, fontSize = fs(1.9f), fontWeight = FontWeight.SemiBold, color = ivory, maxLines = 1)
         }
         Spacer(Modifier.weight(1f))
         Column(horizontalAlignment = Alignment.End) {

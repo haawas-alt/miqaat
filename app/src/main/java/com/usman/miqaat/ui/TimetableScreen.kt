@@ -85,13 +85,13 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                     if (settings.showHijri && wide) Text("   $hijriRange", fontFamily = Amiri, fontSize = 22.sp, color = tk.accent, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false).padding(bottom = 6.dp))
                 }
                 Text(
-                    (if (settings.showHijri && !wide) "$hijriRange · " else "") + "${L10n.iso(settings.locationName)} · ${settings.method.text} · Asr: ${settings.asrMethod.text.substringBefore('،').substringBefore(',')}",
+                    (if (settings.showHijri && !wide) "$hijriRange · " else "") + "${L10n.iso(L10n.place(settings.locationName))} · ${settings.method.text} · ${if (L10n.isUrdu(settings)) "عصر" else "Asr"}: ${settings.asrMethod.text.substringBefore('،').substringBefore(',')}",
                     fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary, maxLines = if (fontScale > 1.3f) 4 else 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                 )
             }
-            if (!compact) MonthNav(ym, today, listState, scope) { ym = it }
+            if (!compact) MonthNav(settings, ym, today, listState, scope) { ym = it }
         }
-        if (compact) Row(Modifier.fillMaxWidth().padding(top = 6.dp), horizontalArrangement = Arrangement.End) { MonthNav(ym, today, listState, scope) { ym = it } }
+        if (compact) Row(Modifier.fillMaxWidth().padding(top = 6.dp), horizontalArrangement = Arrangement.End) { MonthNav(settings, ym, today, listState, scope) { ym = it } }
         Spacer(Modifier.padding(6.dp))
 
         val ramadanMonth = days.any { PrayerEngine.isRamadan(settings, it.date) }
@@ -117,7 +117,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                 Row(Modifier.fillMaxWidth().background(tk.surfaceRaised).padding(vertical = 10.dp, horizontal = 14.dp)) {
                     cells { i, m -> Text(cols[i].uppercase(), m, fontFamily = Nunito, fontSize = 11.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold, color = tk.contentPrimary.copy(alpha = 0.9f), maxLines = 1, softWrap = false) }
                 }
-                if (canScrollMore) Text("›", Modifier.align(Alignment.CenterEnd).padding(end = 6.dp).semantics { contentDescription = "More columns to the right" }, fontSize = 20.sp, color = tk.accent)
+                if (canScrollMore) Text("›", Modifier.align(Alignment.CenterEnd).padding(end = 6.dp).semantics { contentDescription = if (L10n.isUrdu(settings)) "مزید کالم" else "More columns to the right" }, fontSize = 20.sp, color = tk.accent)
             }
             LazyColumn(state = listState) {
                 items(days, key = { it.date.toEpochDay() }) { d ->
@@ -125,8 +125,7 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                     val fri = d.date.dayOfWeek == DayOfWeek.FRIDAY
                     val color = when { isToday -> tk.todayText; fri -> tk.fridayText; else -> tk.contentPrimary }
                     val h = PrayerEngine.hijri(d.date, settings.hijriOffsetDays)
-                    val spoken = d.date.format(DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.ENGLISH)) + (if (isToday) ", today" else "") + (if (fri) ", Friday" else "") + ", " + h.short + ": " +
-                        Prayer.entries.joinToString(", ") { "${it.english} ${PrayerEngine.clock(d[it], settings.use24h)} ${PrayerEngine.suffix(d[it], settings.use24h)}" }
+                    val spoken = L10n.spokenDay(settings, d.date, isToday, fri, h, Prayer.entries.map { it to d[it] })
                     Row(
                         Modifier.fillMaxWidth().background(tk.surface).background(when { isToday -> tk.primary.copy(alpha = 0.16f); fri -> tk.fridayText.copy(alpha = 0.07f); else -> Color.Transparent })
                             .padding(vertical = 8.dp, horizontal = 14.dp).semantics(mergeDescendants = true) { contentDescription = spoken },
@@ -153,11 +152,11 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
 }
 
 @Composable
-private fun MonthNav(ym: YearMonth, today: LocalDate, listState: androidx.compose.foundation.lazy.LazyListState, scope: kotlinx.coroutines.CoroutineScope, set: (YearMonth) -> Unit) {
+private fun MonthNav(settings: com.usman.miqaat.data.AppSettings, ym: YearMonth, today: LocalDate, listState: androidx.compose.foundation.lazy.LazyListState, scope: kotlinx.coroutines.CoroutineScope, set: (YearMonth) -> Unit) {
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        NavChip("‹ " + ym.minusMonths(1).format(DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH)), label = "Previous month") { set(ym.minusMonths(1)) }
+        NavChip("‹ " + L10n.monthShort(settings, ym.minusMonths(1)), label = if (L10n.isUrdu(settings)) "پچھلا مہینہ" else "Previous month") { set(ym.minusMonths(1)) }
         NavChip(Str[R.string.s_today], current = ym == YearMonth.now(), label = Str[R.string.s_go_to_today]) { scope.launch { set(YearMonth.now()); listState.animateScrollToItem((today.dayOfMonth - 3).coerceAtLeast(0)) } }
-        NavChip(ym.plusMonths(1).format(DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH)) + " ›", label = "Next month") { set(ym.plusMonths(1)) }
+        NavChip(L10n.monthShort(settings, ym.plusMonths(1)) + " ›", label = if (L10n.isUrdu(settings)) "اگلا مہینہ" else "Next month") { set(ym.plusMonths(1)) }
     }
 }
 
