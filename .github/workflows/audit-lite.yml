@@ -1,0 +1,83 @@
+name: Lite audit of build 1.90-6 (Urdu)
+on:
+  push:
+    branches: [audit/v1.89-emulator-lite]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download and verify the exact APK under audit
+        run: |
+          mkdir -p apk && cd apk
+          curl -sSL -o Miqaat.apk https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-6/Miqaat-1.90-audit-fixes.apk
+          curl -sSL -o Miqaat.apk.sha256 https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-6/Miqaat-1.90-audit-fixes.apk.sha256
+          cat Miqaat.apk.sha256; sha256sum Miqaat.apk
+          grep -q "$(sha256sum Miqaat.apk | cut -d' ' -f1)  Miqaat-1.90-audit-fixes.apk" Miqaat.apk.sha256
+      - uses: actions/upload-artifact@v4
+        with: { name: apk, path: apk/ }
+  crawl:
+    needs: fetch
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: urdu }
+          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: urdu }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: apk, path: apk }
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: default
+          arch: x86_64
+          profile: ${{ matrix.profile }}
+          disable-animations: true
+          emulator-boot-timeout: 900
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096
+          script: bash audit/run.sh ${{ matrix.device }} ${{ matrix.rot }} ${{ matrix.variant }}
+      - name: Compress screenshots (JPEG q62, long edge 1280) to keep evidence small
+        if: always()
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          import glob, os
+          from PIL import Image
+          for p in glob.glob('out/**/*.png', recursive=True):
+              im = Image.open(p).convert('RGB'); im.thumbnail((1280, 1280)); im.save(p[:-4] + '.jpg', quality=62, optimize=True); os.remove(p)
+          PY
+          du -sh out || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-${{ matrix.device }}-${{ matrix.variant }}
+          path: out/
+          if-no-files-found: ignore
+  publish:
+    needs: [crawl]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: audit-*
+          path: /tmp/ev
+      - name: Publish evidence
+        run: |
+          git config user.name audit-ci; git config user.email audit-ci@users.noreply.github.com
+          rm -rf /tmp/pub && mkdir -p /tmp/pub/ev && cp -r /tmp/ev/audit-* /tmp/pub/ev/
+          git checkout -q --orphan audit-ev5-urdu
+          git rm -rfq . >/dev/null 2>&1 || true
+          cp -r /tmp/pub/ev ./ev
+          git add ev && git commit -qm "evidence urdu build 6"
+          git push -q -f origin audit-ev5-urdu
