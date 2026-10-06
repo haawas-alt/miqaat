@@ -517,8 +517,8 @@ private fun WordsCard(c: LearnColors, step: Adhkar.Step, audio: Speaker, modifie
         }
         AnimatedVisibility(showNote) {
             Column {
-                if (L10n.uiUrdu) Text(Str[R.string.s_english_text], fontFamily = Nunito, fontSize = 12.sp, color = c.textSecondary)
-                Text(step.note, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 19.sp, color = c.textSecondary)
+                if (L10n.uiUrdu) Text(UrduContent.note(step), fontFamily = Nastaliq, fontSize = 15.sp, lineHeight = 28.sp, color = c.textSecondary, modifier = Modifier.fillMaxWidth())
+                else Text(step.note, fontFamily = Nunito, fontSize = 13.sp, lineHeight = 19.sp, color = c.textSecondary)
             }
         }
     }
@@ -575,9 +575,9 @@ private fun LessonWords(c: LearnColors, step: Adhkar.Step, audio: Speaker, modif
         Text(if (L10n.uiUrdu) UrduContent.stepMeanings[index] else step.meaning, fontFamily = if (L10n.uiUrdu) Nastaliq else Cormorant, fontSize = 22.sp, lineHeight = 32.sp, color = c.text,
             modifier = Modifier.fillMaxWidth().testTag("lesson-meaning"))
         Text(Str[R.string.learn_notes], fontFamily = lessonUiFont(), fontSize = 11.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp, color = c.textSecondary)
-        // This source copy is unchanged; Urdu UI explicitly discloses that the detailed note is still English.
-        if (L10n.uiUrdu) Text(Str[R.string.s_english_text], fontFamily = lessonUiFont(), fontSize = 11.sp, color = c.textSecondary)
-        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        if (L10n.uiUrdu) Text(UrduContent.note(step), fontFamily = Nastaliq, fontSize = 19.sp, lineHeight = 34.sp, color = c.textSecondary,
+            modifier = Modifier.fillMaxWidth().testTag("lesson-note"))
+        else CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
             Text(step.note, fontFamily = Cormorant, fontSize = 17.sp, lineHeight = 24.sp, color = c.textSecondary,
                 modifier = Modifier.fillMaxWidth().testTag("lesson-note"))
         }

@@ -178,7 +178,7 @@
     <string name="s_github">گٹ ہب</string>
     <string name="s_delivered_by_google_play_miqaat_itself">گوگل پلے کے ذریعے فراہم۔ میقات خود اپ ڈیٹ کی کوئی درخواست نہیں کرتا۔</string>
     <string name="s_the_dua_and_hadith_recordings_are">دعا اور حدیث کی ریکارڈنگز ایپ کے اندر ہیں۔ ڈیوائس کی اپنی ٹیکسٹ ٹو اسپیچ صرف اس وقت استعمال ہوتی ہے جب ریکارڈنگ موجود نہ ہو۔</string>
-    <string name="s_health_log_adhk_r_counts_friday">کارکردگی کا لاگ، اذکار کی گنتی، جمعہ ٹریکر</string>
+    <string name="s_health_log_adhk_r_counts_friday">صحت کا لاگ: اذکار کی گنتی - جمعہ ٹریکر</string>
     <string name="s_stored_in_the_app_s_private">اس ڈیوائس پر ایپ کے نجی اسٹوریج میں محفوظ۔ اَن انسٹال کرنے پر مٹ جاتا ہے۔</string>
     <string name="s_analytics_advertising_accounts_crash_reporting">تجزیات، اشتہارات، اکاؤنٹس، کریش رپورٹنگ</string>
     <string name="s_none_there_is_no_miqaat_server">کچھ نہیں۔ میقات کا کوئی سرور نہیں۔</string>
@@ -209,7 +209,7 @@
     <string name="s_large_type">بڑے حروف</string>
     <string name="s_one_prayer_one_time_one_line">ایک نماز، ایک وقت، ایک سطر، بڑے کمرے میں دور سے بھی پڑھنے کے قابل۔ 25 سیکنڈ کے لیے سب کچھ دیکھنے کو اسکرین چھوئیں۔</string>
     <string name="s_home_screen_widget">ہوم اسکرین ویجٹ</string>
-    <string name="s_long_press_your_phone_s_home">فون کی ہوم اسکرین دیر تک دبائیں › ویجٹس › میقات۔ اگلی نماز، الٹی گنتی اور اس کے بعد کی دو نمازیں دکھاتا ہے۔</string>
+    <string name="s_long_press_your_phone_s_home">فون کی ہوم اسکرین پر دیر تک دبائیں › ویجٹس › میقات: یہ اگلی نماز، الٹی گنتی اور اس کے بعد کی دو نمازیں دکھاتا ہے۔</string>
     <string name="s_phone">فون</string>
     <string name="s_time_format">وقت کا انداز</string>
     <string name="s_keep_the_screen_on">اسکرین آن رکھیں</string>
@@ -344,7 +344,7 @@
     <string name="s_friday_your_jumu_ah_time_is">جمعہ: آپ کا جمعے کا وقت استعمال ہوتا ہے</string>
     <string name="s_shadow_2_object_noon_shadow_hanafi">سایہ = 2 × چیز + زوال کا سایہ (حنفی)</string>
     <string name="s_shadow_object_noon_shadow_shafi_i">سایہ = چیز + زوال کا سایہ (شافعی، مالکی، حنبلی)</string>
-    <string name="s_sunset_the_sun_s_disc_fully">غروب: سورج کی ٹکیا پوری افق کے نیچے</string>
+    <string name="s_sunset_the_sun_s_disc_fully">غروب: سورج کی ٹکیا پوری طرح افق کے نیچے</string>
     <string name="s_disappearance_of_the_red_twilight">شفقِ احمر کا غائب ہونا</string>
     <string name="s_your_settings">آپ کی ترتیبات</string>
     <string name="s_your_adjustment">آپ کی ترمیم</string>
@@ -546,7 +546,7 @@
     <string name="s_boost_12">+12 dB</string>
     <string name="s_boost_18">+18 dB</string>
     <string name="s_recordings_bundled">الفاظ کی تلاوت کی ریکارڈنگز ایپ میں شامل ہیں۔ ریکارڈنگ تلفظ میں مدد دیتی ہے؛ نماز خود کسی استاد یا اپنی مسجد سے سیکھیں۔</string>
-    <string name="s_learn_recitation">نماز سیکھیں: تلاوت</string>
+    <string name="s_learn_recitation">نماز کی تلاوت سیکھیں</string>
     <string name="s_learn_recitation_detail">بارہ متون کی تلاوت عبد الرحمٰن عثمان ضیاء نے اس ایپ کے لیے ریکارڈ کی ہے۔</string>
     <string name="s_recited_by_named">تلاوت: عبد الرحمٰن عثمان ضیاء · شامل شدہ ریکارڈنگ</string>
     <string name="s_why_this_time">یہ وقت کیوں؟</string>
@@ -602,7 +602,7 @@
     <string name="s_state_unrestricted">بلا پابندی</string>
     <string name="s_state_restricted">پابندی کے ساتھ</string>
     <string name="s_readiness_fix">درست کریں</string>
-    <string name="s_readiness_open">قابلِ اعتماد اور بیک اپ کھولیں</string>
+    <string name="s_readiness_open">اعتماد اور بیک اپ کی ترتیبات کھولیں</string>
     <string name="s_ok_word">ٹھیک</string>
     <string name="s_needs_attention_word">توجہ درکار</string>
     <string name="s_loading">لوڈ ہو رہا ہے…</string>
@@ -627,7 +627,7 @@
     <string name="s_duha_from">چاشت %1$s سے</string>
     <string name="s_qibla_from_north">حقیقی شمال سے، %1$s پر</string>
     <string name="s_seconds_caps">سیکنڈ</string>
-    <string name="s_in_prayer_wake">نماز جاری ہے · %1$d منٹ میں اسکرین جاگے گی · ابھی جگانے کے لیے چھوئیں</string>
+    <string name="s_in_prayer_wake">نماز جاری ہے - %1$d منٹ میں اسکرین آن ہوگی۔ ابھی اسکرین آن کرنے کے لیے چھوئیں</string>
     <string name="s_rakah_n">رکعت %1$d</string>
     <string name="s_friday_masjid_azaan">آپ کی مسجد میں جمعہ: اذان %1$s</string>
     <string name="s_friday_masjid_iqamah"> · اقامت %1$s</string>

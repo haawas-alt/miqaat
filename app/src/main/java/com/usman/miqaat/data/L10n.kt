@@ -73,7 +73,7 @@ object L10n {
         val tomorrow = !st.justPassed && st.heroTime.toLocalDate() != st.now.toLocalDate()
         return if (!tomorrow) base else if (isUrdu(s)) "کل · $base" else "$base · tomorrow"
     }
-    fun ago(s: AppSettings, d: Duration) = if (isUrdu(s)) "اذان ${duration(s, d)} پہلے" else "azaan was ${PrayerEngine.humanDuration(d)} ago"
+    fun ago(s: AppSettings, d: Duration) = if (isUrdu(s)) "اذان ${duration(s, d)} پہلے ہوئی" else "azaan was ${PrayerEngine.humanDuration(d)} ago"
     fun relative(s: AppSettings, t: ZonedDateTime, now: ZonedDateTime) =
         if (t.isAfter(now)) (if (isUrdu(s)) "${duration(s, Duration.between(now, t))} باقی" else "in " + PrayerEngine.humanDuration(Duration.between(now, t)))
         else (if (isUrdu(s)) "${duration(s, Duration.between(t, now))} پہلے" else PrayerEngine.humanDuration(Duration.between(t, now)) + " ago")
