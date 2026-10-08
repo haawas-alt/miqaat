@@ -1,0 +1,71 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1591, "t": 2.0}
+{"ev": "setup-screen", "step": 0, "shot": "phone-portrait-urdu__setup0.png", "key": "1104b5f137", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Thursday 8 October 20
+{"ev": "setup-tap", "label": "Begin", "t": 7.5}
+{"ev": "setup-screen", "step": 1, "shot": "phone-portrait-urdu__setup1.png", "key": "92d32d725c", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Thursday 8 October 20
+{"ev": "detect-result", "shot": "phone-portrait-urdu__setup1_after-detect-20s.png", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Learn Salah", "Monthly timetable", "Settings", 
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 37.6}
+{"ev": "setup-screen", "step": 2, "shot": "phone-portrait-urdu__setup2.png", "key": "9cdc215c2b", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setting
+{"ev": "setup-tap", "label": "Next", "t": 40.4}
+{"ev": "setup-screen", "step": 3, "shot": "phone-portrait-urdu__setup3.png", "key": "688996b914", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setting
+{"ev": "setup-stuck", "t": 45.6}
+{"ev": "setup-screen", "step": 4, "shot": "phone-portrait-urdu__setup4.png", "key": "9b36de2202", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setting
+{"ev": "setup-stuck", "t": 50.9}
+{"ev": "setup-screen", "step": 5, "shot": "phone-portrait-urdu__setup5.png", "key": "8d145ba906", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setting
+{"ev": "setup-tap", "label": "These look right", "t": 56.0}
+{"ev": "setup-screen", "step": 6, "shot": "phone-portrait-urdu__setup6.png", "key": "3c05658c49", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setting
+{"ev": "setup-tap", "label": "Finish", "t": 61.1}
+{"ev": "setup-done", "step": 7, "t": 66.0}
+{"ev": "setup-result", "ok": true, "t": 66.0}
+{"ev": "lang-set", "t": 108.5}
+{"ev": "home-fail", "tag": "phone-portrait-urdu-Miqaat-ur-f1.0", "t": 194.0}
+{"ev": "screen", "depth": 0, "path": [], "key": "99f1944e5f", "pos": 0, "shot": "phone-portrait-urdu-Miqaat-ur-f1.0__001__d0__p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, NSW", "Learn Sa
+{"ev": "screen", "depth": 0, "path": [], "key": "f75129ea41", "pos": 1, "shot": "phone-portrait-urdu-Miqaat-ur-f1.0__002__d0__p1.png", "labels": ["الظهر", "ظہر", "12:44", "دوپہر", "⁧6 گھنٹے 20 منٹ⁩ باقی", "دن کی لکیر: av
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c78ed148eb", "pos": 0, "shot": "phone-portrait-urdu-Miqaat-ur-f1.0__003__d1__p0.png", "labels": ["واپس", "نماز سیکھیں", "الصَّلَاة", "نماز کا ایک عام طریقہ، ا
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "3952db9246", "pos": 0, "shot": "phone-portrait-urdu-Miqaat-ur-f1.0__004__d1__p0.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 144
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "614a48ac49", "pos": 1, "shot": "phone-portrait-urdu-Miqaat-ur-f1.0__005__d1__p1.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 144
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "6c4315989a", "pos": 0, "shot": "phone-portrait-urdu-Miqaat-ur-f1.0__006__d1__p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "اگلی نماز سے پہلے توجہ 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "4e1e9a5cf2", "pos": 1, "shot": "phone-portrait-urdu-Miqaat-ur-f1.0__007__d1__p1.png", "labels": ["واپس", "ترتیبات", "مقام", "Sydney, NSW", "اوقاتِ نماز", "مسلم و
+{"ev": "no-change", "label": "ترتیبات تلاش کریں", "shot": "phone-portrait-urdu-Miqaat-ur-f1.0__008__same___.png", "path": ["Settings"], "t": 261.6}
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 264.8}
+{"ev": "replay-fail", "path": [], "t": 297.0}
+{"ev": "theme-done", "tag": "phone-portrait-urdu-Miqaat-ur-f1.0", "actions": 4, "screens": 8, "t": 297.0}
+{"ev": "home-fail", "tag": "phone-portrait-urdu-Kiswah-ur-f1.0", "t": 381.0}
+{"ev": "screen", "depth": 0, "path": [], "key": "99f1944e5f", "pos": 0, "shot": "phone-portrait-urdu-Kiswah-ur-f1.0__009__d0__p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, NSW", "Learn Sa
+{"ev": "screen", "depth": 0, "path": [], "key": "ffc014b670", "pos": 1, "shot": "phone-portrait-urdu-Kiswah-ur-f1.0__010__d0__p1.png", "labels": ["الظهر", "ظہر", "12:44", "دوپہر", "⁧6 گھنٹے 17 منٹ⁩ باقی", "دن کی لکیر: av
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c78ed148eb", "pos": 0, "shot": "phone-portrait-urdu-Kiswah-ur-f1.0__011__d1__p0.png", "labels": ["واپس", "نماز سیکھیں", "الصَّلَاة", "نماز کا ایک عام طریقہ، ا
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "3952db9246", "pos": 0, "shot": "phone-portrait-urdu-Kiswah-ur-f1.0__012__d1__p0.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 144
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "614a48ac49", "pos": 1, "shot": "phone-portrait-urdu-Kiswah-ur-f1.0__013__d1__p1.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 144
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "6c4315989a", "pos": 0, "shot": "phone-portrait-urdu-Kiswah-ur-f1.0__014__d1__p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "اگلی نماز سے پہلے توجہ 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "4e1e9a5cf2", "pos": 1, "shot": "phone-portrait-urdu-Kiswah-ur-f1.0__015__d1__p1.png", "labels": ["واپس", "ترتیبات", "مقام", "Sydney, NSW", "اوقاتِ نماز", "مسلم و
+{"ev": "no-change", "label": "ترتیبات تلاش کریں", "shot": "phone-portrait-urdu-Kiswah-ur-f1.0__016__same___.png", "path": ["Settings"], "t": 448.8}
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 451.9}
+{"ev": "replay-fail", "path": [], "t": 484.6}
+{"ev": "theme-done", "tag": "phone-portrait-urdu-Kiswah-ur-f1.0", "actions": 4, "screens": 16, "t": 484.6}
+{"ev": "home-fail", "tag": "phone-portrait-urdu-Celestial-ur-f1.0", "t": 568.4}
+{"ev": "screen", "depth": 0, "path": [], "key": "99f1944e5f", "pos": 0, "shot": "phone-portrait-urdu-Celestial-ur-f1.0__017__d0__p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, NSW", "Learn
+{"ev": "screen", "depth": 0, "path": [], "key": "ffc014b670", "pos": 1, "shot": "phone-portrait-urdu-Celestial-ur-f1.0__018__d0__p1.png", "labels": ["الظهر", "ظہر", "12:44", "دوپہر", "⁧6 گھنٹے 14 منٹ⁩ باقی", "دن کی لکیر:
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c78ed148eb", "pos": 0, "shot": "phone-portrait-urdu-Celestial-ur-f1.0__019__d1__p0.png", "labels": ["واپس", "نماز سیکھیں", "الصَّلَاة", "نماز کا ایک عام طریقہ
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "3952db9246", "pos": 0, "shot": "phone-portrait-urdu-Celestial-ur-f1.0__020__d1__p0.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "614a48ac49", "pos": 1, "shot": "phone-portrait-urdu-Celestial-ur-f1.0__021__d1__p1.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "6c4315989a", "pos": 0, "shot": "phone-portrait-urdu-Celestial-ur-f1.0__022__d1__p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "اگلی نماز سے پہلے تو
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "4e1e9a5cf2", "pos": 1, "shot": "phone-portrait-urdu-Celestial-ur-f1.0__023__d1__p1.png", "labels": ["واپس", "ترتیبات", "مقام", "Sydney, NSW", "اوقاتِ نماز", "مسل
+{"ev": "no-change", "label": "ترتیبات تلاش کریں", "shot": "phone-portrait-urdu-Celestial-ur-f1.0__024__same___.png", "path": ["Settings"], "t": 635.6}
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 638.7}
+{"ev": "replay-fail", "path": [], "t": 671.0}
+{"ev": "theme-done", "tag": "phone-portrait-urdu-Celestial-ur-f1.0", "actions": 4, "screens": 24, "t": 671.0}
+{"ev": "home-fail", "tag": "phone-portrait-urdu-Gallery-ur-f1.0", "t": 754.8}
+{"ev": "screen", "depth": 0, "path": [], "key": "99f1944e5f", "pos": 0, "shot": "phone-portrait-urdu-Gallery-ur-f1.0__025__d0__p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, NSW", "Learn S
+{"ev": "screen", "depth": 0, "path": [], "key": "ffc014b670", "pos": 1, "shot": "phone-portrait-urdu-Gallery-ur-f1.0__026__d0__p1.png", "labels": ["الظهر", "ظہر", "12:44", "دوپہر", "⁧6 گھنٹے 11 منٹ⁩ باقی", "دن کی لکیر: a
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c78ed148eb", "pos": 0, "shot": "phone-portrait-urdu-Gallery-ur-f1.0__027__d1__p0.png", "labels": ["واپس", "نماز سیکھیں", "الصَّلَاة", "نماز کا ایک عام طریقہ، 
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "3952db9246", "pos": 0, "shot": "phone-portrait-urdu-Gallery-ur-f1.0__028__d1__p0.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "614a48ac49", "pos": 1, "shot": "phone-portrait-urdu-Gallery-ur-f1.0__029__d1__p1.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاول 14
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "6c4315989a", "pos": 0, "shot": "phone-portrait-urdu-Gallery-ur-f1.0__030__d1__p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "اگلی نماز سے پہلے توجہ
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "4e1e9a5cf2", "pos": 1, "shot": "phone-portrait-urdu-Gallery-ur-f1.0__031__d1__p1.png", "labels": ["واپس", "ترتیبات", "مقام", "Sydney, NSW", "اوقاتِ نماز", "مسلم 
+{"ev": "no-change", "label": "ترتیبات تلاش کریں", "shot": "phone-portrait-urdu-Gallery-ur-f1.0__032__same___.png", "path": ["Settings"], "t": 821.9}
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 825.1}
+{"ev": "replay-fail", "path": [], "t": 856.9}
+{"ev": "theme-done", "tag": "phone-portrait-urdu-Gallery-ur-f1.0", "actions": 4, "screens": 32, "t": 856.9}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 884.8}
+{"ev": "gfx", "lines": ["Total frames rendered: 30", "Janky frames: 30 (100.00%)", "Janky frames (legacy): 30 (100.00%)", "50th percentile: 700ms", "90th percentile: 3000ms", "95th percentile: 3050ms", "99th percentile: 
+{"ev": "mem", "lines": ["  Native Heap    23845    23752        0        0    26944    31920    22992     4605", "        TOTAL    46111    35028     3368        0   166068    45169    29617    11229", "           Java H
