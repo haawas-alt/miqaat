@@ -26,9 +26,9 @@ jobs:
       matrix:
         include:
           - { device: phone-portrait, profile: pixel_6, rot: 0, variant: urdu }
-          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: themes }
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: font13 }
           - { device: phone-portrait, profile: pixel_6, rot: 0, variant: font20 }
-          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: themes }
+          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: urdu }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
