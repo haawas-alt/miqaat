@@ -1,0 +1,526 @@
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AlarmVolume.kt:19: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+        if (!prefs.contains(KEY)) prefs.edit().putInt(KEY, am.getStreamVolume(AudioManager.STREAM_ALARM)).putLong(KEY_AT, System.currentTimeMillis()).commit()
+                                                                                                                                                      ~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AlarmVolume.kt:28: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+        prefs.edit().remove(KEY).remove(KEY_AT).commit()
+                                                ~~~~~~~~
+
+   Explanation for issues of type "ApplySharedPref":
+   Consider using apply() instead of commit on shared preferences. Whereas
+   commit blocks and writes its data to persistent storage immediately, apply
+   will handle it in the background.
+
+/home/runner/work/miqaat/miqaat/app/src/main/res/xml/widget_info.xml:4: Warning: Attribute targetCellHeight is only used in API level 31 and higher (current min is 26) [UnusedAttribute]
+    android:targetCellWidth="4" android:targetCellHeight="2"
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/xml/widget_info.xml:4: Warning: Attribute targetCellWidth is only used in API level 31 and higher (current min is 26) [UnusedAttribute]
+    android:targetCellWidth="4" android:targetCellHeight="2"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "UnusedAttribute":
+   This check finds attributes set in XML files that were introduced in a
+   version newer than the oldest version targeted by your application (with
+   the minSdkVersion attribute).
+
+   This is not an error; the application will simply ignore the attribute.
+   However, if the attribute is important to the appearance or functionality
+   of your application, you should consider finding an alternative way to
+   achieve the same result with only available attributes, and then you can
+   optionally create a copy of the layout in a layout-vNN folder which will be
+   used on API NN or higher where you can take advantage of the newer
+   attribute.
+
+   Note: This check does not only apply to attributes. For example, some tags
+   can be unused too, such as the new <tag> element in layouts introduced in
+   API 21.
+
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_bowing.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+                                                                                  ~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_prostrating.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+                                                                                  ~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_rising.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+                                                                                  ~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_salam.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+                                                                                  ~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_salam_left.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+                                                                                  ~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_sitting.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+                                                                                  ~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_standing.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+                                                                                  ~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_takbir.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+                                                                                  ~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_tashahhud.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+                                                                                  ~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_scene_celestial.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="600dp" android:height="620dp" android:viewportWidth="600" android:viewportHeight="620">
+                                                                                  ~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_scene_gallery.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="600dp" android:height="620dp" android:viewportWidth="600" android:viewportHeight="620">
+                                                                                  ~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_scene_kiswah.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="600dp" android:height="620dp" android:viewportWidth="600" android:viewportHeight="620">
+                                                                                  ~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_scene_miqaat.xml:1: Warning: Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more [VectorRaster]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="600dp" android:height="620dp" android:viewportWidth="600" android:viewportHeight="620">
+                                                                                  ~~~~~
+
+   Explanation for issues of type "VectorRaster":
+   Vector icons require API 21 or API 24 depending on used features, but when
+   minSdkVersion is less than 21 or 24 and Android Gradle plugin 1.4 or higher
+   is used, a vector drawable placed in the drawable folder is automatically
+   moved to drawable-anydpi-v21 or drawable-anydpi-v24 and bitmap images are
+   generated for different screen resolutions for backwards compatibility.
+
+   However, there are some limitations to this raster image generation, and
+   this lint check flags elements and attributes that are not fully supported.
+   You should manually check whether the generated output is acceptable for
+   those older devices.
+
+/home/runner/work/miqaat/miqaat/app/src/test/java/com/usman/miqaat/ui/ScreenshotTest.kt:58: Warning: Composable functions that return Unit should start with an uppercase letter [ComposableNaming from androidx.compose.runtime]
+    @Composable private fun settingsUi(s: AppSettings, initial: Section?) {
+                            ~~~~~~~~~~
+
+   Explanation for issues of type "ComposableNaming":
+   @Composable functions without a return type should use similar naming to
+   classes, starting with an uppercase letter and ending with a noun.
+   @Composable functions with a return type should be treated as normal Kotlin
+   functions, starting with a lowercase letter.
+
+   Vendor: Jetpack Compose
+   Identifier: androidx.compose.runtime
+   Feedback: https://issuetracker.google.com/issues/new?component=612128
+
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/FridayScreen.kt:146: Warning: Modifier parameter should be named modifier [ModifierParameter from androidx.compose.ui]
+private fun Card(m: Modifier, title: String, arabic: String, source: String, content: @Composable () -> Unit) {
+                 ~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/Theme.kt:72: Warning: Optional Modifier parameter should have a default value of Modifier [ModifierParameter from androidx.compose.ui]
+fun DaySkyScrim(period: Prayer, modifier: Modifier = Modifier.fillMaxSize()) {
+                                ~~~~~~~~
+
+   Explanation for issues of type "ModifierParameter":
+   The first (or only) Modifier parameter in a Composable function should
+   follow the following rules:
+   - Be named modifier
+   - Have a type of Modifier
+   - Either have no default value, or have a default value of Modifier
+   - If optional, be the first optional parameter in the parameter list
+
+   Vendor: Jetpack Compose
+   Identifier: androidx.compose.ui
+   Feedback: https://issuetracker.google.com/issues/new?component=612128
+
+/home/runner/work/miqaat/miqaat/app/src/main/AndroidManifest.xml:39: Warning: Should not restrict activity to fixed orientation. This may not be suitable for different form factors, causing the app to be letterboxed. [DiscouragedApi]
+            android:screenOrientation="fullUser"
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/AndroidManifest.xml:51: Warning: Should not restrict activity to fixed orientation. This may not be suitable for different form factors, causing the app to be letterboxed. [DiscouragedApi]
+            android:screenOrientation="fullUser"
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:210: Warning: Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. R.foo.bar) than by name (e.g. getIdentifier("bar", "foo", null)). [DiscouragedApi]
+                if (mode == Narration.BOTH) resources.getIdentifier("${key}_ar", "raw", packageName).takeIf { it != 0 }?.let { add(it) }
+                                                      ~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:211: Warning: Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. R.foo.bar) than by name (e.g. getIdentifier("bar", "foo", null)). [DiscouragedApi]
+                resources.getIdentifier("${key}_en", "raw", packageName).takeIf { it != 0 }?.let { add(it) }
+                          ~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:274: Warning: Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. R.foo.bar) than by name (e.g. getIdentifier("bar", "foo", null)). [DiscouragedApi]
+                val id = resources.getIdentifier("iqamah", "raw", packageName)
+                                   ~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:326: Warning: Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. R.foo.bar) than by name (e.g. getIdentifier("bar", "foo", null)). [DiscouragedApi]
+        val id = resources.getIdentifier(raw, "raw", packageName)
+                           ~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:353: Warning: Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. R.foo.bar) than by name (e.g. getIdentifier("bar", "foo", null)). [DiscouragedApi]
+        val id = resources.getIdentifier(rawName, "raw", packageName).takeIf { it != 0 }
+                           ~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:354: Warning: Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. R.foo.bar) than by name (e.g. getIdentifier("bar", "foo", null)). [DiscouragedApi]
+            ?: resources.getIdentifier("azaan", "raw", packageName)
+                         ~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/LearnScreen.kt:215: Warning: Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. R.foo.bar) than by name (e.g. getIdentifier("bar", "foo", null)). [DiscouragedApi]
+            val allRecorded = remember { (1..12).all { ctx.resources.getIdentifier("learn_%02d".format(it), "raw", ctx.packageName) != 0 } }
+                                                                     ~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/LearnScreen.kt:435: Warning: Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. R.foo.bar) than by name (e.g. getIdentifier("bar", "foo", null)). [DiscouragedApi]
+        val slowId = if (slow) ctx.resources.getIdentifier(base + "_slow", "raw", ctx.packageName) else 0
+                                             ~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/LearnScreen.kt:436: Warning: Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. R.foo.bar) than by name (e.g. getIdentifier("bar", "foo", null)). [DiscouragedApi]
+        return if (slowId != 0) slowId else ctx.resources.getIdentifier(base, "raw", ctx.packageName)
+                                                          ~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/LearnScreen.kt:449: Warning: Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. R.foo.bar) than by name (e.g. getIdentifier("bar", "foo", null)). [DiscouragedApi]
+                if (slow && ctx.resources.getIdentifier("learn_%02d_slow".format(index + 1), "raw", ctx.packageName) == 0)
+                                          ~~~~~~~~~~~~~
+
+   Explanation for issues of type "DiscouragedApi":
+   Discouraged APIs are allowed and are not deprecated, but they may be unfit
+   for common use (e.g. due to slow performance or subtle behavior).
+
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings.xml:16: Warning: Formatting %d followed by words ("complete"): This should probably be a plural rather than a string [PluralsCandidate]
+    <string name="s_count_complete">%1$d of %2$d complete</string>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings.xml:17: Warning: Formatting %d followed by words ("remaining"): This should probably be a plural rather than a string [PluralsCandidate]
+    <string name="s_count_remaining">%1$d remaining of %2$d</string>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings_ui.xml:507: Warning: Formatting %d followed by words ("steps"): This should probably be a plural rather than a string [PluralsCandidate]
+    <string name="s_n_steps">%1$d steps</string>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings_ui.xml:579: Warning: Formatting %d followed by words ("azaans"): This should probably be a plural rather than a string [PluralsCandidate]
+    <string name="s_sub_azaan">%1$d of %2$d azaans on</string>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings_ui.xml:619: Warning: Formatting %d followed by words ("played"): This should probably be a plural rather than a string [PluralsCandidate]
+    <string name="s_log_last7">Last 7 days · %1$d played</string>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings_ui.xml:620: Warning: Formatting %d followed by words ("late"): This should probably be a plural rather than a string [PluralsCandidate]
+    <string name="s_log_late"> · %1$d late</string>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings_ui.xml:621: Warning: Formatting %d followed by words ("missed"): This should probably be a plural rather than a string [PluralsCandidate]
+    <string name="s_log_missed"> · %1$d missed</string>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "PluralsCandidate":
+   This lint check looks for potential errors in internationalization where
+   you have translated a message which involves a quantity and it looks like
+   other parts of the string may need grammatical changes.
+
+   For example, rather than something like this:
+     <string name="try_again">Try again in %d seconds.</string>
+   you should be using a plural:
+      <plurals name="try_again">
+           <item quantity="one">Try again in %d second</item>
+           <item quantity="other">Try again in %d seconds</item>
+       </plurals>
+   This will ensure that in other languages the right set of translations are
+   provided for the different quantity classes.
+
+   (This check depends on some heuristics, so it may not accurately determine
+   whether a string really should be a quantity. You can use tools:ignore to
+   filter out false positives.
+
+   https://developer.android.com/guide/topics/resources/string-resource.html#Plurals
+
+/home/runner/work/miqaat/miqaat/app/src/main/res/mipmap-anydpi-v26: Warning: This folder configuration (v26) is unnecessary; minSdkVersion is 26. Merge all the resources in this folder into mipmap-anydpi. [ObsoleteSdkInt]
+
+   Explanation for issues of type "ObsoleteSdkInt":
+   This check flags version checks that are not necessary, because the
+   minSdkVersion (or surrounding known API level) is already at least as high
+   as the version checked for.
+
+   Similarly, it also looks for resources in -vNN folders, such as values-v14
+   where the version qualifier is less than or equal to the minSdkVersion,
+   where the contents should be merged into the best folder.
+
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/QiblaScreen.kt:75: Hint: Prefer mutableIntStateOf instead of mutableStateOf [AutoboxingStateCreation from androidx.compose.runtime]
+    var accuracy by remember { mutableStateOf(SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM) }
+                               ~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/SettingsScreen.kt:598: Hint: Prefer mutableIntStateOf instead of mutableStateOf [AutoboxingStateCreation from androidx.compose.runtime]
+    var tick by remember { mutableStateOf(0) }
+                           ~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/SettingsScreen.kt:687: Hint: Prefer mutableIntStateOf instead of mutableStateOf [AutoboxingStateCreation from androidx.compose.runtime]
+    var hadithNo by remember { mutableStateOf(1) }
+                               ~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/SettingsScreen.kt:713: Hint: Prefer mutableIntStateOf instead of mutableStateOf [AutoboxingStateCreation from androidx.compose.runtime]
+    var tick by remember { mutableStateOf(0) }
+                           ~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/SettingsScreen.kt:846: Hint: Prefer mutableIntStateOf instead of mutableStateOf [AutoboxingStateCreation from androidx.compose.runtime]
+    var tick by remember { mutableStateOf(0) }
+                           ~~~~~~~~~~~~~~
+
+   Explanation for issues of type "AutoboxingStateCreation":
+   Calling mutableStateOf<T>() when T is either backed by a primitive type on
+   the JVM or is a value class results in a state implementation that requires
+   all state values to be boxed. This usually causes an additional allocation
+   for each state write, and adds some additional work to auto-unbox values
+   when reading the value of the state. Instead, prefer to use a specialized
+   primitive state implementation for Int, Long, Float, and Double when the
+   state does not need to track null values and does not override the default
+   SnapshotMutationPolicy. See mutableIntStateOf(), mutableLongStateOf(),
+   mutableFloatStateOf(), and mutableDoubleStateOf() for more information.
+
+   Vendor: Jetpack Compose
+   Identifier: androidx.compose.runtime
+   Feedback: https://issuetracker.google.com/issues/new?component=612128
+
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_bowing.xml:1: Warning: The resource R.drawable.learn_pose_bowing appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+^
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_prostrating.xml:1: Warning: The resource R.drawable.learn_pose_prostrating appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+^
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_rising.xml:1: Warning: The resource R.drawable.learn_pose_rising appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+^
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_salam.xml:1: Warning: The resource R.drawable.learn_pose_salam appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+^
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_salam_left.xml:1: Warning: The resource R.drawable.learn_pose_salam_left appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+^
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_sitting.xml:1: Warning: The resource R.drawable.learn_pose_sitting appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+^
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_standing.xml:1: Warning: The resource R.drawable.learn_pose_standing appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+^
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_takbir.xml:1: Warning: The resource R.drawable.learn_pose_takbir appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+^
+/home/runner/work/miqaat/miqaat/app/src/main/res/drawable/learn_pose_tashahhud.xml:1: Warning: The resource R.drawable.learn_pose_tashahhud appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="460dp" android:viewportWidth="320" android:viewportHeight="460">
+^
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings.xml:20: Warning: The resource R.string.s_salam_right appears to be unused [UnusedResources]
+    <string name="s_salam_right">1 · Turn right</string>
+            ~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings.xml:21: Warning: The resource R.string.s_salam_left appears to be unused [UnusedResources]
+    <string name="s_salam_left">2 · Turn left</string>
+            ~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings.xml:24: Warning: The resource R.string.s_english_text appears to be unused [UnusedResources]
+    <string name="s_english_text">English text</string>
+            ~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings_ui.xml:251: Warning: The resource R.string.s_unsigned appears to be unused [UnusedResources]
+    <string name="s_unsigned">Unsigned</string>
+            ~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings_ui.xml:365: Warning: The resource R.string.s_fajr_suhoor appears to be unused [UnusedResources]
+    <string name="s_fajr_suhoor">Fajr · Suhoor</string>
+            ~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings_ui.xml:366: Warning: The resource R.string.s_maghrib_iftar appears to be unused [UnusedResources]
+    <string name="s_maghrib_iftar">Maghrib · Iftar</string>
+            ~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings_ui.xml:425: Warning: The resource R.string.s_recited_by_a_human_reciter appears to be unused [UnusedResources]
+    <string name="s_recited_by_a_human_reciter">Recited by a human reciter · bundled recording</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings_ui.xml:606: Warning: The resource R.string.s_ok_word appears to be unused [UnusedResources]
+    <string name="s_ok_word">OK</string>
+            ~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings_ui.xml:609: Warning: The resource R.string.s_nothing_here_yet appears to be unused [UnusedResources]
+    <string name="s_nothing_here_yet">Nothing here yet</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/res/values/strings_ui.xml:610: Warning: The resource R.string.s_something_went_wrong appears to be unused [UnusedResources]
+    <string name="s_something_went_wrong">Something went wrong</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "UnusedResources":
+   Unused resources make applications larger and slow down builds.
+
+
+   The unused resource check can ignore tests. If you want to include
+   resources that are only referenced from tests, consider packaging them in a
+   test source set instead.
+
+   You can include test sources in the unused resource check by setting the
+   system property lint.unused-resources.include-tests =true, and to exclude
+   them (usually for performance reasons), use
+   lint.unused-resources.exclude-tests =true.
+   ,
+
+   Available options:
+
+   **skip-libraries** (default is true):
+   Whether the unused resource check should skip reporting unused resources in libraries.
+
+   Many libraries will declare resources that are part of the library surface; other modules depending on the library will also reference the resources. To avoid reporting all these resources as unused (in the context of a library), the unused resource check normally skips reporting unused resources in libraries. Instead, run the unused resource check on the consuming app module (along with `checkDependencies=true`).
+
+   However, there are cases where you want to check that all the resources declared in a library are used; in that case, you can disable the skip option.
+
+   To configure this option, use a `lint.xml` file with an <option> like this:
+
+   ```xml
+   <lint>
+       <issue id="UnusedResources">
+           <option name="skip-libraries" value="true" />
+       </issue>
+   </lint>
+   ```
+
+/home/runner/work/miqaat/miqaat/app/src/main/res/mipmap-hdpi/ic_launcher.png: Warning: Launcher icon used as round icon did not have a circular shape [IconLauncherShape]
+/home/runner/work/miqaat/miqaat/app/src/main/res/mipmap-mdpi/ic_launcher.png: Warning: Launcher icon used as round icon did not have a circular shape [IconLauncherShape]
+/home/runner/work/miqaat/miqaat/app/src/main/res/mipmap-xhdpi/ic_launcher.png: Warning: Launcher icon used as round icon did not have a circular shape [IconLauncherShape]
+/home/runner/work/miqaat/miqaat/app/src/main/res/mipmap-xxhdpi/ic_launcher.png: Warning: Launcher icon used as round icon did not have a circular shape [IconLauncherShape]
+/home/runner/work/miqaat/miqaat/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png: Warning: Launcher icon used as round icon did not have a circular shape [IconLauncherShape]
+
+   Explanation for issues of type "IconLauncherShape":
+   According to the Android Design Guide
+   (https://d.android.com/r/studio-ui/designer/material/iconography) your
+   launcher icons should "use a distinct silhouette", a "three-dimensional,
+   front view, with a slight perspective as if viewed from above, so that
+   users perceive some depth."
+
+   The unique silhouette implies that your launcher icon should not be a
+   filled square.
+
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AlarmVolume.kt:19: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        if (!prefs.contains(KEY)) prefs.edit().putInt(KEY, am.getStreamVolume(AudioManager.STREAM_ALARM)).putLong(KEY_AT, System.currentTimeMillis()).commit()
+                                  ~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AlarmVolume.kt:28: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        prefs.edit().remove(KEY).remove(KEY_AT).commit()
+        ~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:279: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+                        setDataSource(this@AzaanService, Uri.parse("android.resource://$packageName/$id"))
+                                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:313: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+                runCatching { setDataSource(this@AzaanService, Uri.parse("android.resource://$packageName/${ids[i]}")); prepare() }
+                                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:331: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+            setDataSource(this@AzaanService, Uri.parse("android.resource://$packageName/$id"))
+                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:350: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+        if (prayer == Prayer.FAJR && customFajr != null) return Uri.parse(customFajr)
+                                                                ~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:351: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+        if (custom != null) return Uri.parse(custom)
+                                   ~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt:355: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+        if (id != 0) return Uri.parse("android.resource://$packageName/$id")
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/DailyDhikrProgress.kt:16: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        prefs.edit().putString("day", day.toString()).putInt("count", next).apply()
+        ~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/FridayScreen.kt:88: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+                        Pill(if (kahf) Str[R.string.s_read_this_friday] else Str[R.string.s_mark_as_read], kahf) { kahf = !kahf; prefs.edit().putBoolean("kahf_$weekKey", kahf).apply() }
+                                                                                                                                 ~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/FridayScreen.kt:94: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+                        Box(Modifier.size(64.dp).clip(CircleShape).background(tk.primary).clickable { salawat++; prefs.edit().putInt("salawat_$weekKey", salawat).apply() }, contentAlignment = Alignment.Center) {
+                                                                                                                 ~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Hadith.kt:161: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        prefs.edit().putString("seen", seen.joinToString(",")).putInt("last", pick.id).apply()
+        ~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Health.kt:27: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        p.edit().putString("log", list.joinToString("\n") { listOf(it.at, it.kind.name, esc(it.title), esc(it.detail), it.plannedAt).joinToString("\t") }).apply()
+        ~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Health.kt:39: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+    fun clear(ctx: Context) = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE).edit().remove("log").apply()
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Health.kt:43: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE).edit().putLong("plannedAt", whenMs).putString("plannedLabel", label).apply()
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Health.kt:50: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+            p.edit().putLong("plannedAt", 0L).apply()
+            ~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Health.kt:54: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+    fun markFired(ctx: Context) = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE).edit().putLong("firedAt", System.currentTimeMillis()).apply()
+                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Learn.kt:72: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putString("lesson", lesson.name).putInt("index", index).apply()
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Learn.kt:76: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        p.edit().putStringSet("done", p.getStringSet("done", emptySet()).orEmpty() + lesson.name).remove("lesson").remove("index").apply()
+        ~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Learn.kt:78: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+    fun clear(ctx: Context) { ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().clear().apply() }
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/LearnScreen.kt:447: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+                runCatching { setDataSource(ctx, android.net.Uri.parse("android.resource://${ctx.packageName}/$id")); prepare() }
+                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/MiqaatApp.kt:25: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+            prefs.edit().putBoolean("defaultsApplied", true).apply()
+            ~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Reliability.kt:39: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+        if (Build.VERSION.SDK_INT >= 31) runCatching { ctx.startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:${ctx.packageName}"))) }
+                                                                                                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Reliability.kt:44: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+            .onFailure { runCatching { ctx.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:${ctx.packageName}")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } }
+                                                                                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Reliability.kt:47: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+        if (Build.VERSION.SDK_INT >= 34) runCatching { ctx.startActivity(Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT, Uri.parse("package:${ctx.packageName}"))) }
+                                                                                                                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Settings.kt:279: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        prefs.edit().apply {
+        ~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/SettingsScreen.kt:446: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        ctx.getSharedPreferences("miqaat_meta", Context.MODE_PRIVATE).edit().putLong("lastDetect", System.currentTimeMillis()).apply()
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/SettingsScreen.kt:576: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+    SettingRow(Str[R.string.s_azaan_file], s.azaanUri?.let { Uri.parse(it).lastPathSegment } ?: Str[R.string.s_built_in], onClick = { pickFile.launch(arrayOf("audio/*")) }) {
+                                                             ~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/SettingsScreen.kt:582: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+    SettingRow(Str[R.string.s_fajr_azaan_file], s.fajrAzaanUri?.let { Uri.parse(it).lastPathSegment } ?: Str[R.string.s_same_as_above], onClick = { pickFajr.launch(arrayOf("audio/*")) }) {
+                                                                      ~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/ui/SettingsScreen.kt:870: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+    SettingRow(Str[R.string.s_report_a_content_correction], Str[R.string.s_found_an_error_report], onClick = { runCatching { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/${com.usman.miqaat.BuildConfig.REPO}/issues/new?title=Content%20correction"))) } }) { Value("GitHub" + Str.chev) }
+                                                                                                                                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Updater.kt:76: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        prefs.edit().putLong("lastCheck", System.currentTimeMillis()).apply()
+        ~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Updater.kt:91: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+        runCatching { ctx.startActivity(Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${ctx.packageName}")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
+                                                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/miqaat/miqaat/app/src/main/java/com/usman/miqaat/data/Updater.kt:101: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+        val req = DownloadManager.Request(Uri.parse(info.apkUrl))
+                                          ~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "UseKtx":
+   The Android KTX libraries decorates the Android platform SDK as well as
+   various libraries with more convenient extension functions available from
+   Kotlin, allowing you to use default parameters, named parameters, and
+   more.
+
+   Available options:
+
+   **remove-defaults** (default is true):
+   Whether to skip arguments that match the defaults provided by the extension.
+
+   Extensions often provide default values for some of the parameters. For example:
+   ```kotlin
+   fun Path.readLines(charset: Charset = Charsets.UTF_8): List<String> { return Files.readAllLines(this, charset) }
+   ```
+   This lint check will by default automatically omit parameters that match the default, so if your code was calling
+
+   ```kotlin
+   Files.readAllLines(file, Charset.UTF_8)
+   ```
+   lint would replace this with
+   ```kotlin
+   file.readLines()
+   ```
+   rather than
+
+   ```kotlin
+   file.readLines(Charset.UTF_8
+   ```
+   You can turn this behavior off using this option.
+
+   To configure this option, use a `lint.xml` file with an <option> like this:
+
+   ```xml
+   <lint>
+       <issue id="UseKtx">
+           <option name="remove-defaults" value="true" />
+       </issue>
+   </lint>
+   ```
+
+   **require-present** (default is true):
+   Whether to only offer extensions already available.
+
+   This option lets you only have lint suggest extension replacements if those extensions are already available on the class path (in other words, you're already depending on the library containing the extension method.)
+
+   To configure this option, use a `lint.xml` file with an <option> like this:
+
+   ```xml
+   <lint>
+       <issue id="UseKtx">
+           <option name="require-present" value="true" />
+       </issue>
+   </lint>
+   ```
+
+/home/runner/work/miqaat/miqaat/app/build.gradle.kts:114: Hint: Add suffix -ktx to enable the Kotlin extensions for this library [KtxExtensionAvailable]
+    implementation("androidx.collection:collection:1.5.0")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "KtxExtensionAvailable":
+   Android KTX extensions augment some libraries with support for modern
+   Kotlin language features like extension functions, extension properties,
+   lambdas, named parameters, coroutines, and more.
+
+   In Kotlin projects, use the KTX version of a library by replacing the
+   dependency in your build.gradle file. For example, you can replace
+   androidx.fragment:fragment with androidx.fragment:fragment-ktx.
+
+   https://developer.android.com/kotlin/ktx
+
+0 errors, 97 warnings, 6 hints
