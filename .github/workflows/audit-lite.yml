@@ -11,8 +11,8 @@ jobs:
       - name: Download and verify the exact APK under audit
         run: |
           mkdir -p apk && cd apk
-          curl -sSL -o Miqaat.apk https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-6/Miqaat-1.90-audit-fixes.apk
-          curl -sSL -o Miqaat.apk.sha256 https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-6/Miqaat-1.90-audit-fixes.apk.sha256
+          curl -sSL -o Miqaat.apk https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-8/Miqaat-1.90-audit-fixes.apk
+          curl -sSL -o Miqaat.apk.sha256 https://github.com/haawas-alt/miqaat/releases/download/audit-fix-1.90-8/Miqaat-1.90-audit-fixes.apk.sha256
           cat Miqaat.apk.sha256; sha256sum Miqaat.apk
           grep -q "$(sha256sum Miqaat.apk | cut -d' ' -f1)  Miqaat-1.90-audit-fixes.apk" Miqaat.apk.sha256
       - uses: actions/upload-artifact@v4
@@ -26,7 +26,9 @@ jobs:
       matrix:
         include:
           - { device: phone-portrait, profile: pixel_6, rot: 0, variant: urdu }
-          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: urdu }
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: themes }
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: font20 }
+          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: themes }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -76,8 +78,8 @@ jobs:
         run: |
           git config user.name audit-ci; git config user.email audit-ci@users.noreply.github.com
           rm -rf /tmp/pub && mkdir -p /tmp/pub/ev && cp -r /tmp/ev/audit-* /tmp/pub/ev/
-          git checkout -q --orphan audit-ev5-urdu
+          git checkout -q --orphan audit-ev6-hijri
           git rm -rfq . >/dev/null 2>&1 || true
           cp -r /tmp/pub/ev ./ev
-          git add ev && git commit -qm "evidence urdu build 6"
-          git push -q -f origin audit-ev5-urdu
+          git add ev && git commit -qm "evidence urdu build 8"
+          git push -q -f origin audit-ev6-hijri
