@@ -255,6 +255,8 @@ object PrayerEngine {
         val english get() = "$day ${hijriMonthsEn[month - 1]} $year"
         val arabic get() = "${toArabicDigits(day)} ${hijriMonthsAr[month - 1]} ${toArabicDigits(year)}"
         val short get() = "$day ${hijriMonthsEn[month - 1].substringBefore(' ')}"
+        /** Full month name, e.g. "Rabīʿ al-Thānī" (short drops everything after the first word, which makes two months look alike). */
+        val monthName get() = hijriMonthsEn[month - 1]
         val isRamadan get() = month == 9
     }
 

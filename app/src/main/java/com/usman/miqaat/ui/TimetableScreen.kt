@@ -99,11 +99,11 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
         val cols = if (ur) listOf("تاریخ", "ہجری", if (ramadanMonth) "فجر · سحری" else "فجر", "طلوعِ آفتاب", "ظہر", "عصر", if (ramadanMonth) "مغرب · افطار" else "مغرب", "عشاء")
                    else if (ramadanMonth) listOf("Date", "Hijri", "Fajr · Suhoor", "Sunrise", "Dhuhr", "Asr", "Maghrib · Iftar", "Isha")
                    else listOf("Date", "Hijri", "Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha")
-        val weights = listOf(1.5f, 1.2f, 1f, 1f, 1f, 1f, 1f, 1f)
+        val weights = listOf(1.5f, 1.6f, 1f, 1f, 1f, 1f, 1f, 1f)
         val shape = RoundedCornerShape(14.dp)
         // Compact: the Date column is frozen; the rest scrolls sideways (width grows with the font setting).
         val dateW = if (compact) (74.dp * fontScale) else 0.dp
-        val restW = if (compact) (560.dp * fontScale) else 0.dp
+        val restW = if (compact) (590.dp * fontScale) else 0.dp
         val canScrollMore = compact && hScroll.value < hScroll.maxValue
         Column(Modifier.fillMaxWidth().weight(1f).clip(shape).border(1.dp, tk.divider, shape)) {
             @Composable fun cells(content: @Composable (Int, Modifier) -> Unit) {
@@ -134,7 +134,11 @@ fun TimetableScreen(settings: AppSettings, onBack: () -> Unit) {
                         cells { i, m ->
                             when (i) {
                                 0 -> Text(L10n.dayCell(settings, d.date), m, fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal, color = color, maxLines = 1)
-                                1 -> Text(L10n.hijriShort(settings, h) + (if (h.isRamadan) " ☾" else ""), m, fontFamily = Nunito, fontSize = 14.sp, color = color, maxLines = 1)
+                                1 -> Column(m, verticalArrangement = Arrangement.Center) {
+                                    // Day number, then the full month underneath (the short form made Rabīʿ al-Awwal / al-Thānī and the two Jumādās look identical).
+                                    Text("${h.day}" + (if (h.isRamadan) " ☾" else ""), fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal, color = color, maxLines = 1)
+                                    Text(L10n.hijriMonth(settings, h), fontFamily = Nunito, fontSize = 11.sp, lineHeight = 13.sp, color = color.copy(alpha = 0.78f), maxLines = 2)
+                                }
                                 else -> { val p = Prayer.entries[i - 2]; Text(PrayerEngine.clock(d[p], settings.use24h), m, fontFamily = Nunito, fontSize = 15.sp, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal, color = color, maxLines = 1) }
                             }
                         }

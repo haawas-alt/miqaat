@@ -26,7 +26,7 @@ object L10n {
     fun spokenDay(s: AppSettings, d: java.time.LocalDate, isToday: Boolean, fri: Boolean, h: PrayerEngine.Hijri, times: List<Pair<Prayer, ZonedDateTime>>): String {
         val urdu = isUrdu(s)
         val day = if (urdu) "${urDays[d.dayOfWeek.name]} ${d.dayOfMonth} ${urGreg[d.monthValue - 1]}" else d.format(DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.ENGLISH))
-        val head = day + (if (isToday) (if (urdu) "، آج" else ", today") else "") + (if (fri && !urdu) ", Friday" else "") + ", " + hijriShort(s, h) + ": "
+        val head = day + (if (isToday) (if (urdu) "، آج" else ", today") else "") + (if (fri && !urdu) ", Friday" else "") + ", " + hijriFull(s, h) + ": "
         return head + times.joinToString(if (urdu) "، " else ", ") { (p, t) ->
             "${prayer(s, p)} ${PrayerEngine.clock(t, s.use24h)} ${PrayerEngine.suffix(t, s.use24h)}".trim()
         }
@@ -57,6 +57,13 @@ object L10n {
         if (isUrdu(s)) "\u2067${urGreg[ym.monthValue - 1]} ${ym.year}\u2069" else ym.format(DateTimeFormatter.ofPattern(if (compact) "MMM yyyy" else "MMMM yyyy", Locale.ENGLISH))
 
     /** Day and first word of the Hijri month: "23 Rabiʿ" / "23 ربیع". */
+    /** Full Hijri month name: "Rabīʿ al-Thānī" / "ربیع الثانی". */
+    fun hijriMonth(s: AppSettings, h: PrayerEngine.Hijri): String =
+        if (isUrdu(s)) "\u2067${urMonths[h.month - 1]}\u2069" else h.monthName
+
+    /** Day plus full month, for spoken text. */
+    fun hijriFull(s: AppSettings, h: PrayerEngine.Hijri): String = "${h.day} ${hijriMonth(s, h)}"
+
     fun hijriShort(s: AppSettings, h: PrayerEngine.Hijri): String =
         if (isUrdu(s)) "\u2067${h.day} ${urMonths[h.month - 1].substringBefore(' ')}\u2069" else h.short
 
