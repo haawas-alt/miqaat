@@ -569,8 +569,34 @@ def mode_review():
     if tap_text("Settings"): time.sleep(1.2); snap_pages(tag, "s-index")
     for i, sec in enumerate(SET_T): visit2([["Settings"], [sec]], tag, f"s{i:02d}-{_safe(sec)}")
 
+ADHKAR_SC = [  # Sydney AEDT local -> UTC stamp MMDDhhmmYYYY
+  ("morning-0630", "100519302026", ["صبح کے اذکار", "Morning adhkār"]),
+  ("after-dhuhr-1250", "100601502026", ["نماز کے بعد اذکار", "نماز کے بعد کے اذکار", "After-prayer adhkār"]),
+  ("evening-1730", "100606302026", ["شام کے اذکار", "Evening adhkār"]),
+  ("friday-1250", "100901502026", ["جمعہ", "Jumuʿah"]),
+]
+def mode_adhkar():
+    r = sh("root"); log(ev="adb-root", out=r.strip()[:80]); time.sleep(3)
+    sh("shell", "settings", "put", "global", "auto_time", "0"); sh("shell", "settings", "put", "global", "auto_time_zone", "0")
+    tag = f"{A.tag}-{A.lang}"
+    for sc, stamp, targets in ADHKAR_SC:
+        o = sh("shell", "date", "-u", stamp + ".00"); log(ev="set-time", sc=sc, out=o.strip()[:60])
+        sh("shell", "am", "force-stop", PKG); launch(); time.sleep(3); go_home()
+        snap_pages(tag, f"{sc}-home", maxp=3)
+        to_top()
+        ok = tap_text(targets, exact=True) or tap_text(targets, exact=False, startswith=True)
+        if not ok: log(ev="nav-fail", what=sc); continue
+        time.sleep(1.5)
+        snap_pages(tag, f"{sc}-open", maxp=10)
+        # adhkar screens step with a Next control or a counter; take a few more pages if there is a Next button
+        for k in range(30):
+            nodes = dump() or []
+            nxt = [n for n in nodes if label(n) in ("آگے", "Next", "اگلا ›", "Next ›") and n["pkg"] == PKG]
+            if not nxt: break
+            tap(nxt[0]); time.sleep(0.8); snap(tag, f"{sc}-item{k+1:02d}")
+
 def run_mode():
-    {"lessons": mode_lessons, "azaan": mode_azaan, "times": mode_times, "review": mode_review}[A.mode]()
+    {"lessons": mode_lessons, "azaan": mode_azaan, "times": mode_times, "review": mode_review, "adhkar": mode_adhkar}[A.mode]()
     metrics(A.tag)
 
 main()
