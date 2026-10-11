@@ -1,0 +1,28 @@
+name: Item 9 - tags and 1.89 release notes
+on:
+  push:
+    branches: [ops/item9-tags-and-notes]
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Create annotated tags (skip any that already exist)
+        run: |
+          git config user.name "haawas-alt"; git config user.email "haawas-alt@users.noreply.github.com"
+          git fetch origin main
+          t(){ if git ls-remote --exit-code --tags origin "refs/tags/$1" >/dev/null; then echo "exists: $1"; else git tag -a "$1" "$2" -m "$3" && git push origin "refs/tags/$1"; fi; }
+          t v1.89-mockup-fit cfc5b57b5cb0899ea51ef513ff097f4242bb3ff4 "Miqaat 1.89-mockup-fit: exact source of the APK published under release audit-fixes-3895c823 (APK SHA-256 734e121b...ddc4ebb)."
+          t backup-1.89-audited-2d93744 2d93744786b95da8937ab86e1822c90f8977a8a8 "Backup: repository state audited on 5 Oct 2026 (1.89), before any audit fixes."
+          t backup-main-pre-audit-fixes-20261005 1156c685bb45fc1dd18ea01d99f746cd80a61a6b "Backup: main branch before the 1.90 audit fixes (5 Oct 2026)."
+          git ls-remote --tags origin | grep -E "v1.89-mockup-fit|backup-"
+      - name: Rewrite the 1.89 release title and notes (tag and assets unchanged)
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          gh release view audit-fixes-3895c823 --json body -q .body > old-notes.md
+          echo "--- previous notes ---"; cat old-notes.md
+          gh release edit audit-fixes-3895c823 --title "Miqaat 1.89-mockup-fit (testing, superseded)" --notes-file ops/notes-1.89.md
+          gh release view audit-fixes-3895c823 --json name,tagName,isPrerelease,assets -q '{name,tagName,isPrerelease,assets:[.assets[].name]}'
