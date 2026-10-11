@@ -51,20 +51,25 @@ object Reliability {
     }
 
     /** Everything that can stop or delay the azaan, worst first. */
-    fun checks(ctx: Context): List<Check> = listOf(
-        Check("Exact alarms", exactAlarmsGranted(ctx),
-            if (exactAlarmsGranted(ctx)) "Granted — the azaan is scheduled to the second" else "Not granted — Android will only allow an approximate alarm, which can be minutes late",
-            if (Build.VERSION.SDK_INT >= 31) ::openExactAlarmSettings else null),
-        Check("Notifications", notificationsGranted(ctx),
-            if (notificationsGranted(ctx)) "Allowed" else "Blocked — the azaan cannot wake the screen or show its Stop button",
-            ::openNotificationSettings),
-        Check("Battery optimisation", batteryExempt(ctx),
-            if (batteryExempt(ctx)) "Miqaat is exempt" else "Not exempt — some phones delay or kill background apps; exempt Miqaat if an azaan is ever late",
-            ::openBatterySettings),
-        Check("Full-screen azaan", fullScreenAllowed(ctx),
-            if (fullScreenAllowed(ctx)) "Allowed" else "Not allowed — the azaan will show as a notification when the screen is locked",
-            if (Build.VERSION.SDK_INT >= 34) ::openFullScreenSettings else null)
-    )
+    fun checks(ctx: Context): List<Check> {
+        val ur = L10n.uiUrdu
+        fun t(en: String, urdu: String) = if (ur) urdu else en
+        return listOf(
+            Check(t("Exact alarms", "درست الارم"), exactAlarmsGranted(ctx),
+                if (exactAlarmsGranted(ctx)) t("Granted — the azaan is scheduled to the second", "اجازت ہے — اذان کا وقت سیکنڈ کی درستگی کے ساتھ مقرر ہے")
+                else t("Not granted — Android will only allow an approximate alarm, which can be minutes late", "اجازت نہیں — اینڈرائیڈ صرف تخمینی الارم کی اجازت دے گا، جو چند منٹ دیر سے بج سکتا ہے"),
+                if (Build.VERSION.SDK_INT >= 31) ::openExactAlarmSettings else null),
+            Check(t("Notifications", "اطلاعات"), notificationsGranted(ctx),
+                if (notificationsGranted(ctx)) t("Allowed", "اجازت ہے") else t("Blocked — the azaan cannot wake the screen or show its Stop button", "بلاک — اذان اسکرین کو نہیں جگا سکتی اور نہ روکنے کا بٹن دکھا سکتی ہے"),
+                ::openNotificationSettings),
+            Check(t("Battery optimisation", "بیٹری کی بچت"), batteryExempt(ctx),
+                if (batteryExempt(ctx)) t("Miqaat is exempt", "میقات مستثنیٰ ہے") else t("Not exempt — some phones delay or kill background apps; exempt Miqaat if an azaan is ever late", "مستثنیٰ نہیں — کچھ فون پس منظر کی ایپس کو روک یا بند کر دیتے ہیں؛ اگر کبھی اذان دیر سے ہو تو میقات کو مستثنیٰ کریں"),
+                ::openBatterySettings),
+            Check(t("Full-screen azaan", "فل اسکرین اذان"), fullScreenAllowed(ctx),
+                if (fullScreenAllowed(ctx)) t("Allowed", "اجازت ہے") else t("Not allowed — the azaan will show as a notification when the screen is locked", "اجازت نہیں — اسکرین لاک ہونے پر اذان صرف اطلاع کے طور پر دکھائی دے گی"),
+                if (Build.VERSION.SDK_INT >= 34) ::openFullScreenSettings else null)
+        )
+    }
 
     fun allGood(ctx: Context) = exactAlarmsGranted(ctx) && notificationsGranted(ctx)
 }

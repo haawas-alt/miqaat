@@ -116,7 +116,7 @@ internal fun doors(state: PrayerState, s: AppSettings, a: HomeActions): List<Doo
     if (a.updateAvailable) out += Door(L10n.word(s, "Update available"), onClick = a.onOpenAbout)
     if (!alarmsOk) out += Door(Str[R.string.s_azaan_may_be_late_fix], warn = true, onClick = a.onOpenSettings)
     if (s.zoneNeedsReview) out += Door(Str[R.string.s_time_zone_needs_checking], warn = true, onClick = a.onOpenLocation)
-    if (s.travellerMode && PrayerEngine.isTravelling(s)) out += Door("Travelling · %.0f km from home".format(PrayerEngine.distanceKm(s.homeLat!!, s.homeLng!!, s.latitude, s.longitude)), onClick = a.onOpenLocation)
+    if (s.travellerMode && PrayerEngine.isTravelling(s)) out += Door((if (L10n.uiUrdu) "سفر میں · گھر سے %.0f کلومیٹر" else "Travelling · %.0f km from home").format(PrayerEngine.distanceKm(s.homeLat!!, s.homeLng!!, s.latitude, s.longitude)), onClick = a.onOpenLocation)
     if (state.today.fromMasjid) out += Door(s.masjidName.ifBlank { Str[R.string.s_masjid_timetable] }, onClick = a.onOpenLocation)
     return out
 }

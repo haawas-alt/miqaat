@@ -154,7 +154,7 @@ fun HomeScreen(
                             if (updateAvailable) Chip(Icons.Outlined.SystemUpdateAlt, L10n.word(settings, "Update available"), u, gold = true, font = F, onClick = onOpenAbout)
                             if (!alarmsOk) Chip(Icons.Outlined.Info, Str[R.string.s_azaan_may_be_late_fix], u, gold = true, font = F, onClick = onOpenSettings)
                             if (settings.zoneNeedsReview) Chip(Icons.Outlined.Info, Str[R.string.s_time_zone_needs_checking], u, gold = true, font = F, onClick = onOpenLocation)
-                            if (settings.travellerMode && PrayerEngine.isTravelling(settings)) Chip(Icons.Outlined.Flight, "Travelling · %.0f km from home".format(PrayerEngine.distanceKm(settings.homeLat!!, settings.homeLng!!, settings.latitude, settings.longitude)), u, gold = true, font = F, onClick = onOpenLocation)
+                            if (settings.travellerMode && PrayerEngine.isTravelling(settings)) Chip(Icons.Outlined.Flight, (if (L10n.uiUrdu) "سفر میں · گھر سے %.0f کلومیٹر" else "Travelling · %.0f km from home").format(PrayerEngine.distanceKm(settings.homeLat!!, settings.homeLng!!, settings.latitude, settings.longitude)), u, gold = true, font = F, onClick = onOpenLocation)
                             if (state.today.fromMasjid) Chip(Icons.Outlined.LocationOn, settings.masjidName.ifBlank { Str[R.string.s_masjid_timetable] }, u, font = F, onClick = onOpenLocation)
                         }
                         Text(if (urdu) "ڈیزائن: UZR · میرے لیے دعا کیجیے" else "Designed by UZR  ·  Make duʿā for me", fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.35f), letterSpacing = fs(0.08f), color = Palette.goldSoft.copy(alpha = 0.75f), modifier = Modifier.padding(start = u * 0.6f, top = u * 0.6f))

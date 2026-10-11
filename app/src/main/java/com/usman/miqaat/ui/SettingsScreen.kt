@@ -361,7 +361,7 @@ private fun LocationSection(store: SettingsStore, s: AppSettings) {
     Text(Str[R.string.s_travelling], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     val homeSet = s.homeLat != null && s.homeLng != null
     val dist = if (homeSet) PrayerEngine.distanceKm(s.homeLat!!, s.homeLng!!, s.latitude, s.longitude) else 0.0
-    SettingRow("Home", if (homeSet) "%.0f km from the current location".format(dist) else "Not set. Detect your location at home once, or set it now.") {
+    SettingRow(if (L10n.uiUrdu) "گھر کا مقام" else "Home", if (homeSet) (if (L10n.uiUrdu) "موجودہ مقام سے %.0f کلومیٹر" else "%.0f km from the current location").format(dist) else (if (L10n.uiUrdu) "مقرر نہیں۔ گھر پر ہوتے ہوئے ایک بار اپنا مقام معلوم کریں، یا ابھی مقرر کریں۔" else "Not set. Detect your location at home once, or set it now.")) {
         TextButton(onClick = { store.update { it.copy(homeLat = it.latitude, homeLng = it.longitude) } }) { Text(if (homeSet) Str[R.string.s_set_home_to_here] else Str[R.string.s_set_home], color = tk.accent) }
     }
     SettingRow(Str[R.string.s_traveller_mode], Str[R.string.s_when_you_are_80_km_or]) { Toggle(s.travellerMode) { on -> store.update { it.copy(travellerMode = on) } } }
@@ -564,7 +564,7 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
     SettingRow(Str[R.string.s_hadith_stays_on_screen_for], Str[R.string.s_counted_from_when_the_hadith_appears]) {
         Stepper(s.hadithMinutes, 1, 10, 1, Str[R.string.s_min]) { v -> store.update { it.copy(hadithMinutes = v) } }
     }
-    SettingRow(Str[R.string.s_hadith_source], "${HadithLibrary.all.size} narrations from Ṣaḥīḥ al-Bukhārī and Ṣaḥīḥ Muslim, each cited with its number. One per azaan, no repeats until all have been shown.") {
+    SettingRow(Str[R.string.s_hadith_source], (if (L10n.uiUrdu) "صحیح بخاری اور صحیح مسلم سے ${HadithLibrary.all.size} روایات، ہر ایک کا حوالہ نمبر درج ہے۔ ہر اذان پر ایک؛ جب تک سب نہ دکھائی جا چکیں، کوئی روایت دہرائی نہیں جاتی۔" else "${HadithLibrary.all.size} narrations from Ṣaḥīḥ al-Bukhārī and Ṣaḥīḥ Muslim, each cited with its number. One per azaan, no repeats until all have been shown.")) {
         TextButton(onClick = { AzaanService.previewAfter(ctx, Prayer.DHUHR) }) { Text(Str[R.string.s_preview], color = tk.accent) }
     }
     Spacer(Modifier.height(18.dp))

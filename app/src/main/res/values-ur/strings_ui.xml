@@ -92,7 +92,7 @@
     <string name="s_dua_and_hadith_after_each_azaan">ہر اذان کے بعد دعا اور حدیث</string>
     <string name="s_for_all_five_prayers">پانچوں نمازوں کے لیے</string>
     <string name="s_narration">قرأت</string>
-    <string name="s_studio_recordings_are_built_in_for">دعا اور ہر حدیث کی اسٹوڈیو ریکارڈنگ، عربی اور انگریزی میں، ایپ میں شامل ہیں۔ ڈیوائس کی آواز صرف اس وقت استعمال ہوتی ہے جب ریکارڈنگ موجود نہ ہو۔</string>
+    <string name="s_studio_recordings_are_built_in_for">دعا اور ہر حدیث کی اسٹوڈیو ریکارڈنگز، عربی اور انگریزی میں، ایپ میں شامل ہیں۔ ڈیوائس کی آواز صرف اس وقت استعمال ہوتی ہے جب ریکارڈنگ موجود نہ ہو۔</string>
     <string name="s_hadith_stays_on_screen_for">حدیث اسکرین پر رہتی ہے</string>
     <string name="s_counted_from_when_the_hadith_appears">حدیث ظاہر ہونے کے وقت سے شمار</string>
     <string name="s_hadith_source">حدیث کا ماخذ</string>
@@ -146,7 +146,7 @@
     <string name="s_stop_anything_that_is_playing">جو کچھ چل رہا ہے روک دیں</string>
     <string name="s_stop">روکیں</string>
     <string name="s_did_it_fire_every_azaan_iqamah">کیا یہ بجی؟ ہر اذان، اقامت اور یاد دہانی اس ڈیوائس پر اس وقت کے ساتھ درج ہوتی ہے جب وہ واقعی ہوئی۔</string>
-    <string name="s_none_missed">" · کوئی چھوٹی نہیں"</string>
+    <string name="s_none_missed">" · کچھ نہیں چھوٹا"</string>
     <string name="s_next_alarm_armed">اگلا الارم تیار</string>
     <string name="s_nothing_scheduled_turn_on_an_azaan">کچھ طے نہیں: کوئی اذان یا اقامت آن کریں</string>
     <string name="s_battery_optimisation">بیٹری کی بچت</string>
@@ -158,7 +158,7 @@
     <string name="s_time_change_self_check">وقت کی تبدیلی پر خود جانچ</string>
     <string name="s_runs_automatically_after_any_clock_or">گھڑی یا ٹائم زون کی کسی بھی تبدیلی اور ڈے لائٹ سیونگ کی راتوں کو خودکار چلتی ہے؛ نتیجہ لاگ میں آتا ہے</string>
     <string name="s_log">لاگ</string>
-    <string name="s_nothing_yet_entries_appear_after_the">ابھی کچھ نہیں۔ پہلی اذان کے بعد اندراج ظاہر ہوں گے۔</string>
+    <string name="s_nothing_yet_entries_appear_after_the">ابھی کچھ نہیں۔ پہلی اذان کے بعد اندراجات ظاہر ہوں گے۔</string>
     <string name="s_clear_log">لاگ صاف کریں</string>
     <string name="s_backup_restore">بیک اپ اور بحالی</string>
     <string name="s_settings_saved">ترتیبات محفوظ ہو گئیں</string>
@@ -167,7 +167,7 @@
     <string name="s_everything_in_settings_as_one_small">ترتیبات کی ہر چیز، ایک چھوٹی پڑھی جا سکنے والی ٹیکسٹ فائل میں — بشمول آپ کے کوآرڈینیٹس، جگہ کا نام اور نماز کی ترجیحات۔ اسے کسی نجی جگہ رکھیں۔</string>
     <string name="s_save">محفوظ کریں</string>
     <string name="s_restore">بحال کریں</string>
-    <string name="s_what_miqaat_does_with_your_data">میقات آپ کے ڈیٹا کے ساتھ کیا کرتا ہے، ایک اسکرین پر، اور یہ سچ ہے۔</string>
+    <string name="s_what_miqaat_does_with_your_data">میقات آپ کے ڈیٹا کے ساتھ کیا کرتا ہے: تمام تفصیلات ایک ہی اسکرین پر، بغیر کسی چھپاؤ کے۔</string>
     <string name="s_calculated_on_this_device_from_your">اس ڈیوائس پر آپ کے کوآرڈینیٹس سے اذان لائبریری کے ذریعے حساب کیا جاتا ہے۔ کبھی اپ لوڈ نہیں ہوتا۔</string>
     <string name="s_on_device">ڈیوائس پر</string>
     <string name="s_place_name_search">جگہ کا نام اور تلاش</string>
@@ -205,9 +205,9 @@
     <string name="s_how_miqaat_looks_on_the_wall">میقات کیسا نظر آتا ہے، دیوار پر یا آپ کے ہاتھ میں۔</string>
     <string name="s_changes_the_home_screen_and_the">ہوم اسکرین اور اذان کی اسکرینیں فوراً بدل جاتی ہیں؛ دیکھنے کے لیے گھڑی پر واپس جائیں</string>
     <string name="s_language">زبان</string>
-    <string name="s_home_screen_and_widget_urdu_is">پوری ایپ۔ جہاں فونٹ دستیاب ہو، اردو نستعلیق میں دکھائی جاتی ہے؛ پوری ترتیب دائیں سے بائیں ہو جاتی ہے۔</string>
+    <string name="s_home_screen_and_widget_urdu_is">پوری ایپ۔ جہاں فونٹ دستیاب ہو، اردو نستعلیق میں دکھائی جاتی ہے؛ پورا لے آؤٹ دائیں سے بائیں ہو جاتا ہے۔</string>
     <string name="s_large_type">بڑے حروف</string>
-    <string name="s_one_prayer_one_time_one_line">ایک نماز، ایک وقت، ایک سطر، بڑے کمرے میں دور سے بھی پڑھنے کے قابل۔ 25 سیکنڈ کے لیے سب کچھ دیکھنے کو اسکرین چھوئیں۔</string>
+    <string name="s_one_prayer_one_time_one_line">ایک نماز، ایک وقت، ایک سطر، بڑے کمرے میں دور سے بھی پڑھنے کے قابل۔ 25 سیکنڈ کے لیے سب کچھ دیکھنے کے لیے اسکرین کو چھوئیں۔</string>
     <string name="s_home_screen_widget">ہوم اسکرین ویجٹ</string>
     <string name="s_long_press_your_phone_s_home">فون کی ہوم اسکرین پر دیر تک دبائیں › ویجٹس › میقات: یہ اگلی نماز، الٹی گنتی اور اس کے بعد کی دو نمازیں دکھاتا ہے۔</string>
     <string name="s_phone">فون</string>
@@ -300,7 +300,7 @@
     <string name="s_six_positions_what_each_looks_like">آٹھ حالتیں، ہر ایک کیسی نظر آتی ہے اور اس میں کیا کہا جاتا ہے</string>
     <string name="s_audio_is_the_device_s_own">جب تک قاری کی ریکارڈنگ شامل نہ ہو، آواز ڈیوائس کی اپنی ٹیکسٹ ٹو اسپیچ ہے — یہ تصدیق شدہ تلاوت نہیں۔ الفاظ کسی استاد یا قابلِ اعتماد قاری سے سیکھیں۔ مواد کا جائزہ: زیرِ التوا۔</string>
     <string name="s_reset_progress">پیش رفت ری سیٹ کریں</string>
-    <string name="s_finish_well_done">مکمل · شاباش</string>
+    <string name="s_finish_well_done">مکمل · شاباش!</string>
     <string name="s_device_text_to_speech_arabic_voice">ڈیوائس کی ٹیکسٹ ٹو اسپیچ، عربی آواز · مدد کے طور پر، تصدیق شدہ تلاوت نہیں</string>
     <string name="s_device_text_to_speech_no_arabic">ڈیوائس کی ٹیکسٹ ٹو اسپیچ (عربی آواز انسٹال نہیں): تلفظ پڑھتی ہے</string>
     <string name="s_hear_it">سنیں</string>
@@ -404,7 +404,7 @@
     <string name="s_hayya_ala_al_h_come_to">حي على الصلاة · نماز کی طرف آؤ</string>
     <string name="s_dua_after_the_azaan">اذان کے بعد کی دعا</string>
     <string name="s_rama_n_dua_at_iftar">رمضان · افطار کی دعا</string>
-    <string name="s_straighten_your_rows">سَوُّوا صُفُوفَكُمْ  ·  اپنی صفیں سیدھی کرو</string>
+    <string name="s_straighten_your_rows">سَوُّوا صُفُوفَكُمْ  ·  اپنی صفیں سیدھی کریں</string>
     <string name="s_a_al_bukh_r_723">صحیح بخاری 723</string>
     <string name="s_the_prayer_has_begun">نماز شروع ہو گئی</string>
     <string name="s_azaan_playing">اذان چل رہی ہے</string>
@@ -616,16 +616,16 @@
     <string name="s_iqamah_test_detail">اقامت کا پورا عمل، %1$d سیکنڈ کی الٹی گنتی سے شروع</string>
     <string name="s_quiet_test_detail">%1$d منٹ کے لیے نماز کی خاموش اسکرین دکھاتا ہے؛ نکلنے کے لیے چھوئیں</string>
     <string name="s_quiet_test_detail_off">خاموش اسکرین ترتیبات میں بند ہے؛ یہ آزمائش اسے 1 منٹ دکھائے گی۔ نکلنے کے لیے اسے چھوئیں</string>
-    <string name="s_log_last7">پچھلے 7 دن · %1$d چلیں</string>
+    <string name="s_log_last7">پچھلے 7 دن · %1$d بار بجا</string>
     <string name="s_log_late"> · %1$d تاخیر سے</string>
-    <string name="s_log_missed"> · %1$d رہ گئیں</string>
+    <string name="s_log_missed"> · %1$d بار رہ گیا</string>
     <string name="s_ramadan_heading">رمضان</string>
     <string name="s_today_fmt">آج · %1$s</string>
     <string name="s_iftar_in">افطار میں %1$s</string>
     <string name="s_iq_short">اقامت</string>
     <string name="s_tarawih_line">تراویح %1$s  ·  رات کا آخری تہائی حصہ %2$s سے</string>
     <string name="s_duha_from">چاشت %1$s سے</string>
-    <string name="s_qibla_from_north">حقیقی شمال سے، %1$s پر</string>
+    <string name="s_qibla_from_north">%1$s میں حقیقی شمال سے</string>
     <string name="s_seconds_caps">سیکنڈ</string>
     <string name="s_in_prayer_wake">نماز جاری ہے - %1$d منٹ میں اسکرین آن ہوگی۔ ابھی اسکرین آن کرنے کے لیے چھوئیں</string>
     <string name="s_rakah_n">رکعت %1$d</string>
