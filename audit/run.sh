@@ -11,6 +11,7 @@ case "$VAR" in
   lessons) MODE=lessons; THEMES=$ALL; LANG_=en; FONT=1.0; DEPTH=1; MAXA=1;  BUD=110;;
   azaan)   MODE=azaan;   THEMES=$ALL; LANG_=en; FONT=1.0; DEPTH=1; MAXA=1;  BUD=110;;
   urdu_deep)    MODE=crawl;   THEMES=Miqaat; LANG_=ur; FONT=1.0; DEPTH=3; MAXA=170; BUD=150;;
+  urdu_review)  MODE=review;  THEMES=Miqaat; LANG_=ur; FONT=1.0; DEPTH=1; MAXA=1;  BUD=150;;
   urdu_home)    MODE=crawl;   THEMES=$ALL; LANG_=ur; FONT=1.0; DEPTH=1; MAXA=12; BUD=80;;
   urdu_lessons) MODE=lessons; THEMES=Miqaat; LANG_=ur; FONT=1.0; DEPTH=1; MAXA=1;  BUD=110;;
   urdu_azaan)   MODE=azaan;   THEMES=Miqaat; LANG_=ur; FONT=1.0; DEPTH=1; MAXA=1;  BUD=110;;

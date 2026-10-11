@@ -521,8 +521,50 @@ def mode_times():
             explore(f"{A.tag}-{kw}-{sc}", [], 0)
             go_home()
 
+def _safe(l): return re.sub(r"[^\w]+", "_", l)[:28]
+def _sig(nodes): return "|".join(sorted(label(n) for n in nodes if label(n)))[:4000]
+def collect_actionable(max_swipes=8):
+    seen_l = []; last = None
+    for _ in range(max_swipes):
+        nodes = dump() or []
+        if not nodes: break
+        for n in nodes:
+            l = label(n)
+            if actionable(n) and n["pkg"] == PKG and l and l not in seen_l: seen_l.append(l)
+        sg = _sig(nodes)
+        if sg == last: break
+        last = sg; swipe(*screen_size(nodes))
+    to_top(); return seen_l
+def snap_pages(tag, name, maxp=8):
+    last = None
+    for k in range(maxp):
+        nodes = dump() or []
+        sg = _sig(nodes)
+        if sg == last: break
+        snap(tag, f"{name}-p{k}", nodes); last = sg
+        if nodes: swipe(*screen_size(nodes))
+def visit(path, tag, name):
+    reset_app_to_home(); time.sleep(1)
+    for lab in path:
+        if not tap_text(lab, exact=True): log(ev="nav-fail", what=" > ".join(path)); return False
+        time.sleep(1.3)
+    snap_pages(tag, name); return True
+def unsafe(l): return bool(SKIP.search(l) or l in SKIP_UR or "English" in l or "انگریزی" in l)
+def mode_review():
+    tag = f"{A.tag}-{A.lang}"
+    reset_app_to_home(); snap_pages(tag, "home")
+    home = [l for l in collect_actionable() if not unsafe(l)]
+    log(ev="home-items", items=home)
+    for i, l in enumerate(home[:30]): visit([l], tag, f"h{i:02d}-{_safe(l)}")
+    reset_app_to_home()
+    if not tap_text("Settings"): log(ev="nav-fail", what="Settings"); return
+    time.sleep(1.2)
+    secs = [l for l in collect_actionable(10) if not unsafe(l)]
+    log(ev="settings-items", items=secs)
+    for i, l in enumerate(secs[:40]): visit(["Settings", l], tag, f"s{i:02d}-{_safe(l)}")
+
 def run_mode():
-    {"lessons": mode_lessons, "azaan": mode_azaan, "times": mode_times}[A.mode]()
+    {"lessons": mode_lessons, "azaan": mode_azaan, "times": mode_times, "review": mode_review}[A.mode]()
     metrics(A.tag)
 
 main()
