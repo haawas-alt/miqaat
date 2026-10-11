@@ -14,6 +14,16 @@ object L10n {
 
     fun isUrdu(s: AppSettings) = s.language == Language.UR
 
+    /** English or Urdu for one-off text (screen-reader labels, small composed lines) that has no string resource. */
+    fun t(en: String, ur: String): String = if (uiUrdu) ur else en
+    /** What kind of alert: azaan / iqamah / reminder. */
+    fun alertKind(iqamah: Boolean, reminder: Boolean): String =
+        if (iqamah) t("iqamah", "اقامت") else if (reminder) t("reminder", "یاد دہانی") else t("azaan", "اذان")
+    /** Hadith book names in the app language ("Ṣaḥīḥ Muslim 2564" -> "صحیح مسلم 2564"). */
+    fun source(src: String): String = if (!uiUrdu) src else src
+        .replace("Ṣaḥīḥ al-Bukhārī", "صحیح بخاری").replace("Ṣaḥīḥ Muslim", "صحیح مسلم")
+        .replace("Sunan Abī Dāwūd", "سنن ابی داؤد").replace("Abū Dāwūd", "ابو داؤد").replace("Jāmiʿ at-Tirmidhī", "جامع ترمذی").replace("at-Tirmidhī", "ترمذی")
+
     /** Short Gregorian month name for the timetable month buttons: "Sep" / "ستمبر". */
     fun monthShort(s: AppSettings, ym: java.time.YearMonth): String =
         if (isUrdu(s)) urGreg[ym.monthValue - 1] else ym.format(DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH))
@@ -106,7 +116,7 @@ object L10n {
     fun iqamahIn(s: AppSettings, d: Duration) = if (isUrdu(s)) "اقامت ${duration(s, d)} میں" else "Iqamah in ${PrayerEngine.humanDuration(d)}"
     fun word(s: AppSettings, en: String): String = if (!isUrdu(s)) en else when (en) {
         "NOW" -> "اب"; "NEXT" -> "اگلی"; "Iqamah" -> "اقامت"; "IQAMAH" -> "اقامت"; "ends" -> "اختتام"; "Jumuʿah" -> "جمعہ"
-        "Qibla" -> "قبلہ"; "Morning adhkār" -> "صبح کے اذکار"; "Evening adhkār" -> "شام کے اذکار"; "After-prayer adhkār" -> "نماز کے بعد اذکار"
+        "Qibla" -> "قبلہ"; "Morning adhkār" -> "صبح کے اذکار"; "Evening adhkār" -> "شام کے اذکار"; "After-prayer adhkār" -> "نماز کے بعد کے اذکار"
         "Update available" -> "اپ ڈیٹ دستیاب"; "Suhoor" -> "سحری"; "Iftar" -> "افطار"; "Fajr · Suhoor" -> "فجر · سحری"; "Maghrib · Iftar" -> "مغرب · افطار"
         "Designed by UZR · Make duʿā for me" -> "ڈیزائن: UZR · میرے لیے دعا کیجیے"
         else -> en

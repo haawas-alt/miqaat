@@ -226,7 +226,7 @@ private fun CelestialRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: 
     Row(
         Modifier.fillMaxWidth().padding(horizontal = u * 0.6f, vertical = u * 0.25f).clip(shape)
             .then(if (selected) Modifier.background(tk.selectedSurface).border(1.dp, tk.accent.copy(alpha = 0.5f), shape) else Modifier)
-            .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = "Switch between clock time and time until", onLongClickLabel = "Why this time?", role = Role.Button)
+            .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = L10n.t("Switch between clock time and time until", "گھڑی کا وقت اور باقی وقت بدلیں"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیوں؟"), role = Role.Button)
             .semantics(mergeDescendants = true) { contentDescription = r.spoken },
         verticalAlignment = Alignment.CenterVertically
     ) {

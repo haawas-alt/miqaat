@@ -170,9 +170,9 @@ fun HomeScreen(
                             }
                         }
                         Row(Modifier.padding(top = u * 1f), horizontalArrangement = Arrangement.spacedBy(u * 1.1f)) {
-                            if (settings.kidsMode) IconChip(Icons.Outlined.MenuBook, u, onOpenLearn, label = "Learn Salah")
+                            if (settings.kidsMode) IconChip(Icons.Outlined.MenuBook, u, onOpenLearn, label = L10n.t("Learn Salah", "نماز سیکھیں"))
                             IconChip(Icons.Outlined.CalendarMonth, u, onOpenTimetable, label = "Monthly timetable")
-                            IconChip(Icons.Outlined.Settings, u, onOpenSettings, label = "Settings")
+                            IconChip(Icons.Outlined.Settings, u, onOpenSettings, label = L10n.t("Settings", "ترتیبات"))
                         }
                     }
                 }
@@ -264,13 +264,13 @@ fun HomeScreen(
                                         append(label); append(", ")
                                         append(PrayerEngine.clock(t, settings.use24h)); append(' '); append(PrayerEngine.suffix(t, settings.use24h))
                                         append(", "); append(L10n.relative(settings, t, state.now))
-                                        when { isNow -> append(", now"); isNext -> append(", next prayer"); done -> append(", passed") }
+                                        when { isNow -> append(L10n.t(", now", "، ابھی")); isNext -> append(L10n.t(", next prayer", "، اگلی نماز")); done -> append(L10n.t(", passed", "، گزر گئی")) }
                                         if (iq != null) { append(", iqamah "); append(PrayerEngine.clock(iq, settings.use24h)) }
-                                        if (endT != null) { append(", ends "); append(PrayerEngine.clock(endT, settings.use24h)) }
+                                        if (endT != null) { append(L10n.t(", ends ", "، اختتام ")); append(PrayerEngine.clock(endT, settings.use24h)) }
                                         if (settings.azaanEnabled[p] != true && p.isPrayer) append(", azaan off")
                                     }
                                     stateDescription = if (settings.showRelative) "Showing time until or since" else "Showing clock times"
-                                    onClick(label = "Switch between clock time and time until") { onToggleRelative(); true }
+                                    onClick(label = L10n.t("Switch between clock time and time until", "گھڑی کا وقت اور باقی وقت بدلیں")) { onToggleRelative(); true }
                                 })
                     }
                 }
@@ -361,7 +361,7 @@ fun PrayerCard(
                 done && p.isPrayer -> Icon(Icons.Outlined.Check, null, Modifier.size(u * 1.6f), tint = Palette.mint)
                 p.isPrayer -> Icon(if (azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(u * 1.6f), tint = Palette.ivory.copy(alpha = 0.7f))
             }
-            if (onWhy != null) Box(Modifier.size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = androidx.compose.ui.semantics.Role.Button), contentAlignment = Alignment.Center) { Icon(Icons.Outlined.Info, "Why this time?", Modifier.size(u * 1.6f), tint = Palette.textSecondary) }
+            if (onWhy != null) Box(Modifier.size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = androidx.compose.ui.semantics.Role.Button), contentAlignment = Alignment.Center) { Icon(Icons.Outlined.Info, L10n.t("Why this time?", "یہ وقت کیوں؟"), Modifier.size(u * 1.6f), tint = Palette.textSecondary) }
         }
         Text(p.arabic, fontFamily = Amiri, fontSize = (u.value * 2.1f).sp, lineHeight = (u.value * 2.3f).sp, color = Palette.goldSoft)
         Row(verticalAlignment = Alignment.Bottom) {

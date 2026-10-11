@@ -254,14 +254,14 @@ private fun TimeRow(
     ).joinToString("  ·  ")
     val spoken = buildString {
         append(label); append(", "); append(PrayerEngine.clock(t, s.use24h)); append(' '); append(PrayerEngine.suffix(t, s.use24h)); append(", "); append(L10n.relative(s, t, state.now))
-        when { isNow -> append(", now"); isNext -> append(", next prayer"); done -> append(", passed") }
+        when { isNow -> append(L10n.t(", now", "، ابھی")); isNext -> append(L10n.t(", next prayer", "، اگلی نماز")); done -> append(L10n.t(", passed", "، گزر گئی")) }
         if (iq != null) { append(", iqamah "); append(PrayerEngine.clock(iq, s.use24h)) }
-        if (endT != null) { append(", ends "); append(PrayerEngine.clock(endT, s.use24h)) }
+        if (endT != null) { append(L10n.t(", ends ", "، اختتام ")); append(PrayerEngine.clock(endT, s.use24h)) }
         if (s.azaanEnabled[p] != true && p.isPrayer) append(", azaan off")
     }
     Row(
         modifier.fillMaxWidth()
-            .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = "Switch between clock time and time until", onLongClickLabel = "Why this time?", role = Role.Button)
+            .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = L10n.t("Switch between clock time and time until", "گھڑی کا وقت اور باقی وقت بدلیں"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیوں؟"), role = Role.Button)
             .semantics(mergeDescendants = true) { contentDescription = spoken },
         verticalAlignment = Alignment.CenterVertically
     ) {

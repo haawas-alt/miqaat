@@ -210,7 +210,7 @@ fun LandscapeHome(
                             Row(
                                 Modifier.weight(1f).fillMaxWidth().clip(RoundedCornerShape(u * 2))
                                     .background(if (isHero) gold.copy(alpha = if (kiswah) 0.10f else 0.14f) else Color.Transparent)
-                                    .combinedClickable(onClick = onToggleRelative, onLongClick = { why = p }, onClickLabel = "Switch between clock time and time until", onLongClickLabel = "Why this time?", role = Role.Button)
+                                    .combinedClickable(onClick = onToggleRelative, onLongClick = { why = p }, onClickLabel = L10n.t("Switch between clock time and time until", "گھڑی کا وقت اور باقی وقت بدلیں"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیوں؟"), role = Role.Button)
                                     .padding(horizontal = u * 2.5f)
                                     .semantics(mergeDescendants = true) {
                                         contentDescription = "$label, ${PrayerEngine.clock(t, settings.use24h)} ${PrayerEngine.suffix(t, settings.use24h)}, ${L10n.relative(settings, t, state.now)}" +

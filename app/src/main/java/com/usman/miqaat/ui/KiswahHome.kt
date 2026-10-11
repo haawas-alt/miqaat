@@ -112,9 +112,9 @@ fun KiswahHome(
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.6f)) {
                     val h = PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)
                     Caps((if (settings.showHijri) h.english + "  ·  " else "") + state.now.format(DateTimeFormatter.ofPattern("EEE d MMM", Locale.ENGLISH)), fs(1.3f))
-                    if (settings.kidsMode) Icon(androidx.compose.material.icons.Icons.Outlined.MenuBook, "Learn Salah", Modifier.size(maxOf(u * 2.6f, 48.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenLearn, role = androidx.compose.ui.semantics.Role.Button).padding(maxOf(u * 0.5f, 10.dp)), tint = Kiswah.threadSoft)
+                    if (settings.kidsMode) Icon(androidx.compose.material.icons.Icons.Outlined.MenuBook, L10n.t("Learn Salah", "نماز سیکھیں"), Modifier.size(maxOf(u * 2.6f, 48.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenLearn, role = androidx.compose.ui.semantics.Role.Button).padding(maxOf(u * 0.5f, 10.dp)), tint = Kiswah.threadSoft)
                     Icon(Icons.Outlined.CalendarMonth, "Monthly timetable", Modifier.size(maxOf(u * 2.6f, 48.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenTimetable, role = androidx.compose.ui.semantics.Role.Button).padding(maxOf(u * 0.5f, 10.dp)), tint = Kiswah.threadSoft)
-                    Icon(Icons.Outlined.Settings, "Settings", Modifier.size(maxOf(u * 2.6f, 48.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenSettings, role = androidx.compose.ui.semantics.Role.Button).padding(maxOf(u * 0.5f, 10.dp)), tint = Kiswah.threadSoft)
+                    Icon(Icons.Outlined.Settings, L10n.t("Settings", "ترتیبات"), Modifier.size(maxOf(u * 2.6f, 48.dp)).clip(androidx.compose.foundation.shape.CircleShape).clickable(onClick = onOpenSettings, role = androidx.compose.ui.semantics.Role.Button).padding(maxOf(u * 0.5f, 10.dp)), tint = Kiswah.threadSoft)
                 }
             }
 
@@ -179,11 +179,11 @@ fun KiswahHome(
                     val iq = PrayerEngine.iqamah(settings, state.today, p)
                     val words = buildString {
                         append(label); append(", "); append(PrayerEngine.clock(t, settings.use24h)); append(' '); append(PrayerEngine.suffix(t, settings.use24h))
-                        append(", "); append(L10n.relative(settings, t, state.now)); if (next) append(", next prayer") else if (done) append(", passed")
+                        append(", "); append(L10n.relative(settings, t, state.now)); if (next) append(L10n.t(", next prayer", "، اگلی نماز")) else if (done) append(L10n.t(", passed", "، گزر گئی"))
                         if (iq != null) { append(", iqamah "); append(PrayerEngine.clock(iq, settings.use24h)) }
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.alpha(if (done) 0.6f else 1f)
-                        .combinedClickable(onClick = onToggleRelative, onLongClick = { why = p }, onClickLabel = "Switch between clock time and time until", onLongClickLabel = "Why this time?", role = androidx.compose.ui.semantics.Role.Button)
+                        .combinedClickable(onClick = onToggleRelative, onLongClick = { why = p }, onClickLabel = L10n.t("Switch between clock time and time until", "گھڑی کا وقت اور باقی وقت بدلیں"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیوں؟"), role = androidx.compose.ui.semantics.Role.Button)
                         .semantics(mergeDescendants = true) { contentDescription = words }) {
                         Text(if (urdu) label else label.uppercase(), fontFamily = F, fontSize = fs(if (urdu) 1.6f else 1.15f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.75f))
                         if (settings.showRelative) Text(L10n.relative(settings, t, state.now).let { if (urdu) it else it.uppercase() }, fontFamily = F, fontSize = fs(1.5f), letterSpacing = fs(0.1f), color = if (next) Kiswah.highlight else Kiswah.ivory)

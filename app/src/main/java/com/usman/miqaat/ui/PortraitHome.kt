@@ -119,9 +119,9 @@ fun PortraitHome(
                         Text(L10n.place(settings.locationName), fontSize = fs(3.6f), fontWeight = FontWeight.SemiBold, color = ivory, fontFamily = Nunito)
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(u * 2)) {
-                        if (settings.kidsMode) RoundIcon(Icons.Outlined.MenuBook, u, ivory, onOpenLearn, "Learn Salah")
+                        if (settings.kidsMode) RoundIcon(Icons.Outlined.MenuBook, u, ivory, onOpenLearn, L10n.t("Learn Salah", "نماز سیکھیں"))
                         RoundIcon(Icons.Outlined.CalendarMonth, u, ivory, onOpenTimetable, Str[R.string.s_monthly_timetable])
-                        RoundIcon(Icons.Outlined.Settings, u, ivory, onOpenSettings, "Settings")
+                        RoundIcon(Icons.Outlined.Settings, u, ivory, onOpenSettings, L10n.t("Settings", "ترتیبات"))
                     }
                 }
                 Text(L10n.date(settings, state.now), fontSize = fs(if (urdu) 3.8f else 3.2f), color = ivory.copy(alpha = 0.85f), fontFamily = F, modifier = Modifier.padding(top = u * 2))
@@ -195,13 +195,13 @@ fun PortraitHome(
                         val words = buildString {
                             append(label); append(", "); append(PrayerEngine.clock(t, settings.use24h)); append(' '); append(PrayerEngine.suffix(t, settings.use24h))
                             append(", "); append(L10n.relative(settings, t, state.now))
-                            when { isNow -> append(", now"); isNext -> append(", next prayer"); done -> append(", passed") }
+                            when { isNow -> append(L10n.t(", now", "، ابھی")); isNext -> append(L10n.t(", next prayer", "، اگلی نماز")); done -> append(L10n.t(", passed", "، گزر گئی")) }
                             if (iq != null) { append(", iqamah "); append(PrayerEngine.clock(iq, settings.use24h)) }
-                            if (endT0 != null) { append(", ends "); append(PrayerEngine.clock(endT0, settings.use24h)) }
+                            if (endT0 != null) { append(L10n.t(", ends ", "، اختتام ")); append(PrayerEngine.clock(endT0, settings.use24h)) }
                         }
                         Row(
                             Modifier.fillMaxWidth().background(if (isNow || isNext) Palette.gold.copy(alpha = 0.14f) else Color.Transparent).alpha(if (done) 0.65f else 1f)
-                                .clickable(onClickLabel = "Switch between clock time and time until", role = androidx.compose.ui.semantics.Role.Button) { onToggleRelative() }.padding(horizontal = u * 4, vertical = u * 1.9f),
+                                .clickable(onClickLabel = L10n.t("Switch between clock time and time until", "گھڑی کا وقت اور باقی وقت بدلیں"), role = androidx.compose.ui.semantics.Role.Button) { onToggleRelative() }.padding(horizontal = u * 4, vertical = u * 1.9f),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Column(Modifier.weight(1f).semantics(mergeDescendants = true) { contentDescription = words }) {
@@ -227,7 +227,7 @@ fun PortraitHome(
                                     if (iq != null) Text("${L10n.word(settings, "Iqamah")} ${PrayerEngine.clock(iq, settings.use24h)}", fontFamily = F, fontSize = fs(2.6f), fontWeight = FontWeight.Bold, color = gold.copy(alpha = 0.8f))
                                 }
                             }
-                            Box(Modifier.size(48.dp).clip(CircleShape).clickable(role = androidx.compose.ui.semantics.Role.Button) { why = p }, contentAlignment = Alignment.Center) { Icon(Icons.Outlined.Info, "Why this time?", Modifier.size(u * 4.2f), tint = Palette.textSecondary) }
+                            Box(Modifier.size(48.dp).clip(CircleShape).clickable(role = androidx.compose.ui.semantics.Role.Button) { why = p }, contentAlignment = Alignment.Center) { Icon(Icons.Outlined.Info, L10n.t("Why this time?", "یہ وقت کیوں؟"), Modifier.size(u * 4.2f), tint = Palette.textSecondary) }
                         }
                         if (i < shown.lastIndex) Box(Modifier.fillMaxWidth().padding(horizontal = u * 4).height(1.dp).background(Color.White.copy(alpha = 0.08f)))
                     }

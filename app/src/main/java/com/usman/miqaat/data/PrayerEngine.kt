@@ -318,6 +318,16 @@ object PrayerEngine {
 
     /** Plain-language direction for screen readers and the sensor-less fallback. */
     fun qiblaWords(bearing: Double, heading: Double?): String {
+        if (L10n.uiUrdu) {
+            val bu = "حقیقی شمال سے %.0f درجے".format(bearing)
+            if (heading == null) return "قبلہ $bu پر ہے۔"
+            val tu = turnTo(bearing, heading)
+            return when {
+                kotlin.math.abs(tu) <= 3 -> "آپ قبلہ رخ ہیں ($bu)۔"
+                tu > 0 -> "قبلہ رخ ہونے کے لیے %.0f درجے دائیں مڑیں ($bu)۔".format(tu)
+                else -> "قبلہ رخ ہونے کے لیے %.0f درجے بائیں مڑیں ($bu)۔".format(-tu)
+            }
+        }
         val b = "%.0f degrees, %s, from true north".format(bearing, compass(bearing))
         if (heading == null) return "Qibla is at $b."
         val t = turnTo(bearing, heading)
