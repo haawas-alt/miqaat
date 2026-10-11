@@ -75,8 +75,8 @@ jobs:
         run: |
           git config user.name audit-ci; git config user.email audit-ci@users.noreply.github.com
           rm -rf /tmp/pub && mkdir -p /tmp/pub/ev && cp -r /tmp/ev/audit-* /tmp/pub/ev/
-          git checkout -q --orphan audit-ev8-urdu-review
+          git checkout -q --orphan audit-ev9-urdu-review
           git rm -rfq . >/dev/null 2>&1 || true
           cp -r /tmp/pub/ev ./ev
           git add ev && git commit -qm "urdu review evidence build 8"
-          git push -q -f origin audit-ev8-urdu-review
+          git push -q -f origin audit-ev9-urdu-review

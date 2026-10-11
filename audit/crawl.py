@@ -550,18 +550,24 @@ def visit(path, tag, name):
         time.sleep(1.3)
     snap_pages(tag, name); return True
 def unsafe(l): return bool(SKIP.search(l) or l in SKIP_UR or "English" in l or "انگریزی" in l)
+def visit2(path, tag, name):
+    reset_app_to_home(); time.sleep(1)
+    for spec in path:
+        ok = tap_text(spec, exact=True) or tap_text(spec, exact=False, startswith=True)
+        if not ok: log(ev="nav-fail", what=str(path)); return False
+        time.sleep(1.4)
+    snap_pages(tag, name); return True
+HOME_T = [("qibla", ["Qibla", "قبلہ"]), ("location", ["Location:", "مقام:"]), ("morning-adhkar", ["Morning adhkār", "صبح کے اذکار", "Morning and evening adhkār", "صبح و شام کے اذکار"]),
+          ("evening-adhkar", ["Evening adhkār", "شام کے اذکار"]), ("after-prayer", ["After prayer", "نماز کے بعد"]), ("friday", ["Friday's sunnahs", "جمعے کی سنتیں", "Jumuʿah", "جمعہ"]),
+          ("why", ["Why this time?", "یہ وقت کیوں؟"])]
+SET_T = ["Location", "Prayer times", "Azaan & alerts", "Iqamah", "Hijri calendar", "Display & art", "Try it now", "Reliability & backup", "Privacy", "About"]
 def mode_review():
     tag = f"{A.tag}-{A.lang}"
     reset_app_to_home(); snap_pages(tag, "home")
-    home = [l for l in collect_actionable() if not unsafe(l)]
-    log(ev="home-items", items=home)
-    for i, l in enumerate(home[:30]): visit([l], tag, f"h{i:02d}-{_safe(l)}")
+    for nm, spec in HOME_T: visit2([spec], tag, f"h-{nm}")
     reset_app_to_home()
-    if not tap_text("Settings"): log(ev="nav-fail", what="Settings"); return
-    time.sleep(1.2)
-    secs = [l for l in collect_actionable(10) if not unsafe(l)]
-    log(ev="settings-items", items=secs)
-    for i, l in enumerate(secs[:40]): visit(["Settings", l], tag, f"s{i:02d}-{_safe(l)}")
+    if tap_text("Settings"): time.sleep(1.2); snap_pages(tag, "s-index")
+    for i, sec in enumerate(SET_T): visit2([["Settings"], [sec]], tag, f"s{i:02d}-{_safe(sec)}")
 
 def run_mode():
     {"lessons": mode_lessons, "azaan": mode_azaan, "times": mode_times, "review": mode_review}[A.mode]()
