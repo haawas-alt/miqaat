@@ -1,0 +1,1243 @@
+--------- beginning of main
+10-05 19:32:09.699  4338  4338 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-05 19:32:09.712  4338  4338 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+--------- beginning of system
+10-05 19:32:09.715   506  1543 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:09.720   506  1543 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:10.728  4338  4338 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-05 19:32:10.729   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:11.706  4357  4357 W app_process: Unexpected CPU variant for x86: x86_64.
+10-05 19:32:11.706  4357  4357 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-05 19:32:11.707  4357  4357 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-05 19:32:11.708  4357  4357 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-05 19:32:11.720  4357  4357 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-05 19:32:11.722   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:11.725   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:12.729  4357  4357 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-05 19:32:12.729   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+--------- beginning of kernel
+10-05 19:32:15.861     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-05 19:32:15.748  4381  4381 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-05 19:32:15.748  4381  4381 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-05 19:32:16.195  4385  4385 W app_process: Unexpected CPU variant for x86: x86_64.
+10-05 19:32:16.195  4385  4385 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-05 19:32:16.196  4385  4385 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-05 19:32:16.197  4385  4385 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-05 19:32:16.209  4385  4385 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-05 19:32:16.211   506  1543 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:16.215   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:17.218  4385  4385 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-05 19:32:17.219   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:18.190  4405  4405 W app_process: Unexpected CPU variant for x86: x86_64.
+10-05 19:32:18.190  4405  4405 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-05 19:32:18.191  4405  4405 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-05 19:32:18.192  4405  4405 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-05 19:32:18.204  4405  4405 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-05 19:32:18.206   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:18.208   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:19.215  4405  4405 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-05 19:32:19.216   506   519 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:22.233  4429  4429 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-05 19:32:22.233  4429  4429 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-05 19:32:22.688  4433  4433 W app_process: Unexpected CPU variant for x86: x86_64.
+10-05 19:32:22.688  4433  4433 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-05 19:32:22.689  4433  4433 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-05 19:32:22.689  4433  4433 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-05 19:32:22.702  4433  4433 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-05 19:32:22.704   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:22.707   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:23.711  4433  4433 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-05 19:32:23.711   506   519 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:24.687  4452  4452 W app_process: Unexpected CPU variant for x86: x86_64.
+10-05 19:32:24.687  4452  4452 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-05 19:32:24.688  4452  4452 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-05 19:32:24.688  4452  4452 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-05 19:32:24.701  4452  4452 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-05 19:32:24.702   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:24.706   506  1543 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-05 19:32:25.708  4452  4452 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-05 19:32:25.709   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:00.000   506   593 E LazyAlarmStore: Removed TIME_TICK alarm
+10-06 01:50:00.051   506  1041 W ActivityTaskManager: Force removing ActivityRecord{e7aef33 u0 com.usman.miqaat/.MainActivity t13 f}}: app died, no saved state
+10-06 01:50:00.073   506  2603 W InputManager-JNI: Input channel object 'ac7b5d9 com.usman.miqaat/com.usman.miqaat.MainActivity (client)' was disposed without first being removed with the input manager!
+10-06 01:50:00.075   506  2603 W WindowManager: Failed to deliver inset control state change to w=Window{ac7b5d9 u0 com.usman.miqaat/com.usman.miqaat.MainActivity EXITING}
+10-06 01:50:00.075   506  2603 W WindowManager: android.os.DeadObjectException
+10-06 01:50:00.075   506  2603 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at android.view.IWindow$Stub$Proxy.insetsControlChanged(IWindow.java:479)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.WindowState.notifyInsetsControlChanged(WindowState.java:3802)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.InsetsStateController.lambda$notifyPendingInsetsControlChanged$3(InsetsStateController.java:343)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.InsetsStateController.$r8$lambda$8yykPRG1GyNq_J17QvL9d5xANMc(InsetsStateController.java:0)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.InsetsStateController$$ExternalSyntheticLambda2.run(R8$$SyntheticClass:0)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.WindowAnimator.executeAfterPrepareSurfacesRunnables(WindowAnimator.java:294)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.RootWindowContainer.performSurfacePlacementNoTrace(RootWindowContainer.java:811)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.RootWindowContainer.performSurfacePlacement(RootWindowContainer.java:756)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer.performSurfacePlacementLoop(WindowSurfacePlacer.java:177)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer.performSurfacePlacement(WindowSurfacePlacer.java:126)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer.performSurfacePlacement(WindowSurfacePlacer.java:115)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.WindowState.setupWindowForRemoveOnExit(WindowState.java:2538)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.WindowState.removeIfPossible(WindowState.java:2498)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at com.android.server.wm.WindowState$DeathRecipient.binderDied(WindowState.java:2929)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at android.os.IBinder$DeathRecipient.binderDied(IBinder.java:319)
+10-06 01:50:00.075   506  2603 W WindowManager: 	at android.os.BinderProxy.sendDeathNotice(BinderProxy.java:704)
+10-06 01:50:00.178   506  1041 W WindowManager: Exception thrown during dispatchAppVisibility Window{ac7b5d9 u0 com.usman.miqaat/com.usman.miqaat.MainActivity EXITING}
+10-06 01:50:00.178   506  1041 W WindowManager: android.os.DeadObjectException
+10-06 01:50:00.178   506  1041 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at android.view.IWindow$Stub$Proxy.dispatchAppVisibility(IWindow.java:546)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at com.android.server.wm.WindowState.sendAppVisibilityToClients(WindowState.java:3271)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at com.android.server.wm.WindowContainer.sendAppVisibilityToClients(WindowContainer.java:1221)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at com.android.server.wm.WindowToken.setClientVisible(WindowToken.java:409)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at com.android.server.wm.ActivityRecord.setClientVisible(ActivityRecord.java:6946)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at com.android.server.wm.ActivityRecord.postApplyAnimation(ActivityRecord.java:5637)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at com.android.server.wm.ActivityRecord.commitVisibility(ActivityRecord.java:5580)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at com.android.server.wm.Transition.finishTransition(Transition.java:1151)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at com.android.server.wm.TransitionController.finishTransition(TransitionController.java:868)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.finishTransition(WindowOrganizerController.java:396)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at android.window.IWindowOrganizerController$Stub.onTransact(IWindowOrganizerController.java:286)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.onTransact(WindowOrganizerController.java:181)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+10-06 01:50:00.178   506  1041 W WindowManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+10-06 01:50:00.181   506   526 W ActivityManager: setHasOverlayUi called on unknown pid: 3398
+10-06 01:50:00.208   388   388 E BpTransactionCompletedListener: Failed to transact (-32)
+10-06 01:50:00.497  4502  4502 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:00.497  4502  4502 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:00.510  4502  4502 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-06 01:50:00.510  4502  4502 W Monkey  :  arg: "-p"
+10-06 01:50:00.510  4502  4502 W Monkey  :  arg: "com.usman.miqaat"
+10-06 01:50:00.511  4502  4502 W Monkey  :  arg: "-c"
+10-06 01:50:00.511  4502  4502 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-06 01:50:00.511  4502  4502 W Monkey  :  arg: "1"
+10-06 01:50:00.511  4502  4502 W Monkey  : data="com.usman.miqaat"
+10-06 01:50:00.511  4502  4502 W Monkey  : data="android.intent.category.LAUNCHER"
+10-06 01:50:00.518   506  1543 W ActivityManager: registerReceiverWithFeature: no app for null
+10-06 01:50:00.519  4502  4502 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 01:50:00.519  4502  4502 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 01:50:00.519  4502  4502 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 01:50:00.654  4516  4516 W om.usman.miqaat: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:00.654  4516  4516 W om.usman.miqaat: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:00.668  4516  4516 E om.usman.miqaat: Not starting debugger since process cannot load the jdwp agent.
+10-06 01:50:00.902  4516  4516 W OpenGLRenderer: Unknown dataspace 0
+10-06 01:50:00.903   506  1041 W WindowManager: Failed looking up window session=Session{d6d0a9 4516:u0a10141} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:6034 com.android.server.wm.Session.updateRequestedVisibleTypes:690 android.view.IWindowSession$Stub.onTransact:1034 
+10-06 01:50:01.049  4516  4540 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-06 01:50:02.046  4516  4543 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#0) as ready
+10-06 01:50:02.048  4516  4543 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#1) as ready
+10-06 01:50:02.060   800   842 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@cb58ee4
+10-06 01:50:02.061   506  1543 W InputManager-JNI: Input channel object '2a00dcd Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-06 01:50:04.197   506  1864 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-06 01:50:07.207  4557  4557 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:07.207  4557  4557 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:07.208  4557  4557 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:50:07.209  4557  4557 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:50:07.223  4557  4557 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:50:07.225   506  1543 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:07.229   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:08.283  4557  4557 W AccessibilityNodeInfoDumper: Fetch time: 48ms
+10-06 01:50:08.284   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:08.851   506  4573 E GnssPsdsDownloader: No Long-Term PSDS servers were specified in the GnssConfiguration
+10-06 01:50:09.628   800   833 W Looper  : Slow delivery took 73ms wmshell.main h=android.os.Handler c=android.window.TaskOrganizer$1$$ExternalSyntheticLambda3@5c3e766 m=0
+10-06 01:50:09.628   800   833 W Looper  : Drained
+10-06 01:50:09.768  4516  4516 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@408d3f7
+10-06 01:50:09.819   506  1543 W InputManager-JNI: Input channel object '2a6cb5c com.usman.miqaat/com.usman.miqaat.MainActivity (client)' was disposed without first being removed with the input manager!
+10-06 01:50:11.561  4587  4587 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:11.561  4587  4587 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:11.562  4587  4587 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:50:11.563  4587  4587 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:50:11.577  4587  4587 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:50:11.580   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:11.584   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:12.590  4587  4587 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 01:50:12.592   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:12.835   506  1864 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-06 01:50:13.629  4623  4623 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:13.629  4623  4623 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:13.642  4623  4623 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-06 01:50:13.642  4623  4623 W Monkey  :  arg: "-p"
+10-06 01:50:13.643  4623  4623 W Monkey  :  arg: "com.usman.miqaat"
+10-06 01:50:13.643  4623  4623 W Monkey  :  arg: "-c"
+10-06 01:50:13.643  4623  4623 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-06 01:50:13.643  4623  4623 W Monkey  :  arg: "1"
+10-06 01:50:13.644  4623  4623 W Monkey  : data="com.usman.miqaat"
+10-06 01:50:13.644  4623  4623 W Monkey  : data="android.intent.category.LAUNCHER"
+10-06 01:50:13.651   506   576 W ActivityManager: registerReceiverWithFeature: no app for null
+10-06 01:50:13.652  4623  4623 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 01:50:13.652  4623  4623 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 01:50:13.652  4623  4623 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 01:50:13.692  4516  4524 W om.usman.miqaat: Cleared Reference was only reachable from finalizer (only reported once)
+10-06 01:50:13.722   506   576 W WindowManager: Failed looking up window session=Session{d6d0a9 4516:u0a10141} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:6034 com.android.server.wm.Session.updateRequestedVisibleTypes:690 android.view.IWindowSession$Stub.onTransact:1034 
+10-06 01:50:13.797   800   833 W Looper  : Slow delivery took 61ms wmshell.main h=android.os.Handler c=null m=19
+10-06 01:50:13.906   800   833 W Looper  : Slow dispatch took 109ms wmshell.main h=android.os.Handler c=com.android.wm.shell.common.ShellExecutor$$ExternalSyntheticLambda0@3d43ab1 m=0
+10-06 01:50:13.919   506  1041 W ActivityTaskManager: takeTaskSnapshot: taskId=15 not found or not visible
+10-06 01:50:13.950   800   833 W Looper  : Slow dispatch took 38ms wmshell.main h=android.os.Handler c=com.android.wm.shell.common.DisplayInsetsController$PerDisplay$DisplayWindowInsetsControllerImpl$$ExternalSyntheticLambda1@1251b96 m=0
+10-06 01:50:14.018   800   833 W Looper  : Drained
+10-06 01:50:14.064   800   840 W Looper  : Slow delivery took 40ms wmshell.anim h=android.view.Choreographer$FrameHandler c=android.view.Choreographer$FrameDisplayEventReceiver@be7640 m=0
+10-06 01:50:14.504   800   842 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@fec5e3b
+10-06 01:50:14.504   506  2603 W InputManager-JNI: Input channel object '2f6666e Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-06 01:50:14.833   506   726 E WifiStaIfaceAidlImpl: installApfPacketFilter failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+10-06 01:50:17.170   506  1864 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-06 01:50:18.363  4643  4643 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:18.363  4643  4643 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:18.364  4643  4643 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:50:18.365  4643  4643 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:50:18.378  4643  4643 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:50:18.379   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:18.382   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:19.430  4643  4643 W AccessibilityNodeInfoDumper: Fetch time: 45ms
+10-06 01:50:19.431   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:20.601  4516  4516 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@bcc863b
+10-06 01:50:20.606   506   881 W InputManager-JNI: Input channel object '267b7a com.usman.miqaat/com.usman.miqaat.MainActivity (client)' was disposed without first being removed with the input manager!
+10-06 01:50:22.552  4672  4672 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:22.552  4672  4672 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:22.553  4672  4672 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:50:22.554  4672  4672 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:50:22.567  4672  4672 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:50:22.569   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:22.571   506  1543 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:23.577  4672  4672 W AccessibilityNodeInfoDumper: Fetch time: 4ms
+10-06 01:50:23.578   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:23.614   506  1864 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-06 01:50:24.624  4707  4707 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:24.624  4707  4707 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:24.636  4707  4707 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-06 01:50:24.637  4707  4707 W Monkey  :  arg: "-p"
+10-06 01:50:24.637  4707  4707 W Monkey  :  arg: "com.usman.miqaat"
+10-06 01:50:24.637  4707  4707 W Monkey  :  arg: "-c"
+10-06 01:50:24.638  4707  4707 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-06 01:50:24.638  4707  4707 W Monkey  :  arg: "1"
+10-06 01:50:24.638  4707  4707 W Monkey  : data="com.usman.miqaat"
+10-06 01:50:24.638  4707  4707 W Monkey  : data="android.intent.category.LAUNCHER"
+10-06 01:50:24.645   506  1543 W ActivityManager: registerReceiverWithFeature: no app for null
+10-06 01:50:24.646  4707  4707 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 01:50:24.646  4707  4707 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 01:50:24.646  4707  4707 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 01:50:24.705   506   881 W WindowManager: Failed looking up window session=Session{d6d0a9 4516:u0a10141} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:6034 com.android.server.wm.Session.updateRequestedVisibleTypes:690 android.view.IWindowSession$Stub.onTransact:1034 
+10-06 01:50:24.932   800   833 W Looper  : Slow dispatch took 110ms wmshell.main h=android.os.Handler c=com.android.wm.shell.common.ShellExecutor$$ExternalSyntheticLambda0@cc7a11d m=0
+10-06 01:50:24.933   800   833 W Looper  : Slow delivery took 75ms wmshell.main h=android.os.Handler c=com.android.wm.shell.bubbles.BubbleController$BubblesImpl$$ExternalSyntheticLambda1@d849f92 m=0
+10-06 01:50:24.943   800   840 W Looper  : Drained
+10-06 01:50:24.943   800   833 W Looper  : Drained
+10-06 01:50:25.061   800   833 W Looper  : Slow delivery took 45ms wmshell.main h=android.os.Handler c=com.android.wm.shell.bubbles.BubbleController$BubblesImpl$$ExternalSyntheticLambda1@1637878 m=0
+10-06 01:50:25.061   800   833 W Looper  : Drained
+10-06 01:50:25.092  4516  4540 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-06 01:50:25.178   800   858 E OpenGLRenderer: Unable to match the desired swap behavior.
+10-06 01:50:26.090  4516  4543 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#8) as ready
+10-06 01:50:26.093  4516  4543 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#9) as ready
+10-06 01:50:26.112   800   842 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@a458830
+10-06 01:50:26.112   506   881 W InputManager-JNI: Input channel object '17c3166 Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-06 01:50:26.140   800   833 W Looper  : Slow delivery took 31ms wmshell.main h=android.os.Handler c=com.android.wm.shell.bubbles.BubbleController$BubblesImpl$$ExternalSyntheticLambda1@d026bcb m=0
+10-06 01:50:28.158   506  1864 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-06 01:50:29.373  4740  4740 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:29.373  4740  4740 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:29.386  4740  4740 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-06 01:50:29.387  4740  4740 W Monkey  :  arg: "-p"
+10-06 01:50:29.387  4740  4740 W Monkey  :  arg: "com.usman.miqaat"
+10-06 01:50:29.387  4740  4740 W Monkey  :  arg: "-c"
+10-06 01:50:29.388  4740  4740 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-06 01:50:29.388  4740  4740 W Monkey  :  arg: "1"
+10-06 01:50:29.388  4740  4740 W Monkey  : data="com.usman.miqaat"
+10-06 01:50:29.388  4740  4740 W Monkey  : data="android.intent.category.LAUNCHER"
+10-06 01:50:29.395   506   881 W ActivityManager: registerReceiverWithFeature: no app for null
+10-06 01:50:29.397  4740  4740 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 01:50:29.397  4740  4740 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 01:50:29.397  4740  4740 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 01:50:29.401   800   833 W Looper  : Drained
+10-06 01:50:33.057  4756  4756 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:33.057  4756  4756 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:33.058  4756  4756 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:50:33.058  4756  4756 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:50:33.071  4756  4756 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:50:33.073   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:33.079   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:34.118  4756  4756 W AccessibilityNodeInfoDumper: Fetch time: 33ms
+10-06 01:50:34.119   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:35.181  4776  4776 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:35.181  4776  4776 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:35.182  4776  4776 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:50:35.183  4776  4776 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:50:35.196  4776  4776 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:50:35.198   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:35.204   506  1543 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:36.213  4776  4776 W AccessibilityNodeInfoDumper: Fetch time: 12ms
+10-06 01:50:36.214   506  1543 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:37.110  4797  4797 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 01:50:37.110  4797  4797 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 01:50:39.420  4806  4806 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:39.420  4806  4806 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:39.421  4806  4806 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:50:39.421  4806  4806 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:50:39.435  4806  4806 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:50:39.437   506  1543 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:39.439   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:40.462  4806  4806 W AccessibilityNodeInfoDumper: Fetch time: 19ms
+10-06 01:50:40.463   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:41.358  4826  4826 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 01:50:41.358  4826  4826 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 01:50:43.857  4835  4835 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:43.857  4835  4835 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:43.859  4835  4835 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:50:43.859  4835  4835 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:50:43.873  4835  4835 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:50:43.874   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:43.886   506  1543 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:44.906  4835  4835 W AccessibilityNodeInfoDumper: Fetch time: 14ms
+10-06 01:50:44.907   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:45.886  4855  4855 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:45.886  4855  4855 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:45.887  4855  4855 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:50:45.888  4855  4855 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:50:45.902  4855  4855 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:50:45.904   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:45.908   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:46.921  4855  4855 W AccessibilityNodeInfoDumper: Fetch time: 12ms
+10-06 01:50:46.923   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:49.303     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-06 01:50:49.520  4880  4880 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:49.520  4880  4880 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:49.521  4880  4880 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:50:49.522  4880  4880 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:50:49.535  4880  4880 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:50:49.538   506  1543 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:49.540   506  1046 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:50.560  4880  4880 W AccessibilityNodeInfoDumper: Fetch time: 17ms
+10-06 01:50:50.561   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:53.182  4905  4905 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:53.182  4905  4905 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:53.183  4905  4905 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:50:53.184  4905  4905 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:50:53.197  4905  4905 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:50:53.199   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:53.202   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:54.218  4905  4905 W AccessibilityNodeInfoDumper: Fetch time: 15ms
+10-06 01:50:54.219   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:56.586  4930  4930 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:50:56.586  4930  4930 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:50:56.588  4930  4930 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:50:56.588  4930  4930 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:50:56.602  4930  4930 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:50:56.605   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:56.607   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:57.620  4930  4930 W AccessibilityNodeInfoDumper: Fetch time: 9ms
+10-06 01:50:57.621   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:50:58.495  4516  4516 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-06 01:50:58.495  4516  4516 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-06 01:51:01.436  4956  4956 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:01.436  4956  4956 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:01.438  4956  4956 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:01.438  4956  4956 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:01.452  4956  4956 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:01.454   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:01.456   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:02.462  4956  4956 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 01:51:02.463   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:03.362  4975  4975 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 01:51:03.363  4975  4975 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 01:51:05.283  4984  4984 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:05.283  4984  4984 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:05.284  4984  4984 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:05.285  4984  4984 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:05.299  4984  4984 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:05.302   506  1046 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:05.306   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:06.311  4984  4984 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 01:51:06.312   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:07.291  5003  5003 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:07.291  5003  5003 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:07.292  5003  5003 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:07.292  5003  5003 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:07.306  5003  5003 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:07.307   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:07.318   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:08.319  5003  5003 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 01:51:08.320   506  1046 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:11.346  5027  5027 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 01:51:11.347  5027  5027 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 01:51:11.808  5031  5031 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:11.808  5031  5031 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:11.809  5031  5031 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:11.809  5031  5031 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:11.823  5031  5031 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:11.825   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:11.829   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:12.832  5031  5031 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 01:51:12.832   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:13.816  5050  5050 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:13.816  5050  5050 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:13.817  5050  5050 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:13.818  5050  5050 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:13.831  5050  5050 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:13.834   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:13.838   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:14.841  5050  5050 W AccessibilityNodeInfoDumper: Fetch time: 1ms
+10-06 01:51:14.842   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:17.856  5074  5074 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 01:51:17.857  5074  5074 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 01:51:18.340  5078  5078 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:18.340  5078  5078 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:18.341  5078  5078 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:18.342  5078  5078 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:18.356  5078  5078 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:18.359   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:18.362   506  1046 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:19.369  5078  5078 W AccessibilityNodeInfoDumper: Fetch time: 4ms
+10-06 01:51:19.370   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:20.353  5097  5097 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:20.353  5097  5097 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:20.354  5097  5097 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:20.355  5097  5097 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:20.368  5097  5097 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:20.370   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:20.375   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:21.378  5097  5097 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 01:51:21.379   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:24.398  5121  5121 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 01:51:24.398  5121  5121 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 01:51:24.858  5125  5125 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:24.858  5125  5125 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:24.860  5125  5125 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:24.861  5125  5125 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:24.877  5125  5125 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:24.880   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:24.884   506  1046 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:25.889  5125  5125 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 01:51:25.890   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:26.868  5144  5144 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:26.868  5144  5144 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:26.869  5144  5144 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:26.870  5144  5144 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:26.883  5144  5144 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:26.885   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:26.888   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:27.891  5144  5144 W AccessibilityNodeInfoDumper: Fetch time: 1ms
+10-06 01:51:27.892   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:30.910  5168  5168 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 01:51:30.910  5168  5168 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 01:51:31.365  5172  5172 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:31.365  5172  5172 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:31.366  5172  5172 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:31.366  5172  5172 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:31.380  5172  5172 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:31.382   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:31.384   506  1543 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:32.390  5172  5172 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 01:51:32.391   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:33.370  5191  5191 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:33.370  5191  5191 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:33.371  5191  5191 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:33.372  5191  5191 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:33.386  5191  5191 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:33.387   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:33.390   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:34.395  5191  5191 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 01:51:34.396   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:37.414  5215  5215 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 01:51:37.414  5215  5215 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 01:51:37.872  5219  5219 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:37.872  5219  5219 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:37.873  5219  5219 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:37.874  5219  5219 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:37.888  5219  5219 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:37.890   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:37.905   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:38.905  5219  5219 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 01:51:38.906   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:39.882  5238  5238 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:39.882  5238  5238 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:39.883  5238  5238 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:39.884  5238  5238 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:39.898  5238  5238 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:39.900   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:39.904   506  1046 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:40.907  5238  5238 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 01:51:40.908   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:43.927  5262  5262 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 01:51:43.928  5262  5262 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 01:51:44.418  5266  5266 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:44.418  5266  5266 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:44.419  5266  5266 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:44.420  5266  5266 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:44.434  5266  5266 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:44.436   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:44.440   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:45.443  5266  5266 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 01:51:45.444   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:46.423  5285  5285 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:46.423  5285  5285 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:46.424  5285  5285 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:46.425  5285  5285 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:46.438  5285  5285 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:46.440   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:46.452   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:47.447  5285  5285 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 01:51:47.448   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:49.303     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-06 01:51:50.464  5309  5309 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 01:51:50.464  5309  5309 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 01:51:50.957  5313  5313 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:50.957  5313  5313 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:50.958  5313  5313 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:50.959  5313  5313 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:50.972  5313  5313 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:50.980   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:50.993   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:51.993  5313  5313 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 01:51:51.993   506  1046 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:52.974  5332  5332 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 01:51:52.974  5332  5332 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 01:51:52.975  5332  5332 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 01:51:52.975  5332  5332 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 01:51:52.989  5332  5332 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 01:51:52.990   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:52.997   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 01:51:54.007  5332  5332 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 01:51:54.008   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:00.000   506   593 E LazyAlarmStore: Removed TIME_TICK alarm
+10-06 06:30:00.069   506  3366 W ActivityTaskManager: Force removing ActivityRecord{44dca45 u0 com.usman.miqaat/.MainActivity t16 f}}: app died, no saved state
+10-06 06:30:00.080   506  4484 W InputManager-JNI: Input channel object '12a299f com.usman.miqaat/com.usman.miqaat.MainActivity (client)' was disposed without first being removed with the input manager!
+10-06 06:30:00.099   506   527 W WindowManager: Failed to deliver inset control state change to w=Window{12a299f u0 com.usman.miqaat/com.usman.miqaat.MainActivity EXITING}
+10-06 06:30:00.099   506   527 W WindowManager: android.os.DeadObjectException
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.view.IWindow$Stub$Proxy.insetsControlChanged(IWindow.java:479)
+10-06 06:30:00.099   506   527 W WindowManager: 	at com.android.server.wm.WindowState.notifyInsetsControlChanged(WindowState.java:3802)
+10-06 06:30:00.099   506   527 W WindowManager: 	at com.android.server.wm.InsetsStateController.lambda$notifyPendingInsetsControlChanged$3(InsetsStateController.java:343)
+10-06 06:30:00.099   506   527 W WindowManager: 	at com.android.server.wm.InsetsStateController.$r8$lambda$8yykPRG1GyNq_J17QvL9d5xANMc(InsetsStateController.java:0)
+10-06 06:30:00.099   506   527 W WindowManager: 	at com.android.server.wm.InsetsStateController$$ExternalSyntheticLambda2.run(R8$$SyntheticClass:0)
+10-06 06:30:00.099   506   527 W WindowManager: 	at com.android.server.wm.WindowAnimator.executeAfterPrepareSurfacesRunnables(WindowAnimator.java:294)
+10-06 06:30:00.099   506   527 W WindowManager: 	at com.android.server.wm.WindowAnimator.animate(WindowAnimator.java:202)
+10-06 06:30:00.099   506   527 W WindowManager: 	at com.android.server.wm.WindowAnimator.lambda$new$1(WindowAnimator.java:99)
+10-06 06:30:00.099   506   527 W WindowManager: 	at com.android.server.wm.WindowAnimator.$r8$lambda$aHNu1uhcqxihX5NZc4McDDQPAyw(WindowAnimator.java:0)
+10-06 06:30:00.099   506   527 W WindowManager: 	at com.android.server.wm.WindowAnimator$$ExternalSyntheticLambda1.doFrame(R8$$SyntheticClass:0)
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1337)
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1348)
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.view.Choreographer.doCallbacks(Choreographer.java:952)
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.view.Choreographer.doFrame(Choreographer.java:878)
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.view.Choreographer$FrameDisplayEventReceiver.run(Choreographer.java:1322)
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.os.Looper.loop(Looper.java:294)
+10-06 06:30:00.099   506   527 W WindowManager: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-06 06:30:00.099   506   527 W WindowManager: 	at com.android.server.ServiceThread.run(ServiceThread.java:46)
+10-06 06:30:00.179   506   568 W WindowManager: Exception thrown during dispatchAppVisibility Window{12a299f u0 com.usman.miqaat/com.usman.miqaat.MainActivity EXITING}
+10-06 06:30:00.179   506   568 W WindowManager: android.os.DeadObjectException
+10-06 06:30:00.179   506   568 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+10-06 06:30:00.179   506   568 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+10-06 06:30:00.179   506   568 W WindowManager: 	at android.view.IWindow$Stub$Proxy.dispatchAppVisibility(IWindow.java:546)
+10-06 06:30:00.179   506   568 W WindowManager: 	at com.android.server.wm.WindowState.sendAppVisibilityToClients(WindowState.java:3271)
+10-06 06:30:00.179   506   568 W WindowManager: 	at com.android.server.wm.WindowContainer.sendAppVisibilityToClients(WindowContainer.java:1221)
+10-06 06:30:00.179   506   568 W WindowManager: 	at com.android.server.wm.WindowToken.setClientVisible(WindowToken.java:409)
+10-06 06:30:00.179   506   568 W WindowManager: 	at com.android.server.wm.ActivityRecord.setClientVisible(ActivityRecord.java:6946)
+10-06 06:30:00.179   506   568 W WindowManager: 	at com.android.server.wm.ActivityRecord.postApplyAnimation(ActivityRecord.java:5637)
+10-06 06:30:00.179   506   568 W WindowManager: 	at com.android.server.wm.ActivityRecord.commitVisibility(ActivityRecord.java:5580)
+10-06 06:30:00.179   506   568 W WindowManager: 	at com.android.server.wm.Transition.finishTransition(Transition.java:1151)
+10-06 06:30:00.179   506   568 W WindowManager: 	at com.android.server.wm.TransitionController.finishTransition(TransitionController.java:868)
+10-06 06:30:00.179   506   568 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.finishTransition(WindowOrganizerController.java:396)
+10-06 06:30:00.179   506   568 W WindowManager: 	at android.window.IWindowOrganizerController$Stub.onTransact(IWindowOrganizerController.java:286)
+10-06 06:30:00.179   506   568 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.onTransact(WindowOrganizerController.java:181)
+10-06 06:30:00.179   506   568 W WindowManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+10-06 06:30:00.179   506   568 W WindowManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+10-06 06:30:00.240   506   526 W ActivityManager: setHasOverlayUi called on unknown pid: 4516
+10-06 06:30:00.246   800   833 W Looper  : Slow dispatch took 69ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.DefaultTransitionHandler$$ExternalSyntheticLambda7@13e654a m=0
+10-06 06:30:00.246   800   833 W Looper  : Slow delivery took 49ms wmshell.main h=android.os.Handler c=android.window.TaskOrganizer$1$$ExternalSyntheticLambda3@ba9dcbb m=0
+10-06 06:30:00.246   800   833 W Looper  : Drained
+10-06 06:30:00.284   388   388 E BpTransactionCompletedListener: Failed to transact (-32)
+10-06 06:30:00.612  5382  5382 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:00.612  5382  5382 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:00.625  5382  5382 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-06 06:30:00.625  5382  5382 W Monkey  :  arg: "-p"
+10-06 06:30:00.625  5382  5382 W Monkey  :  arg: "com.usman.miqaat"
+10-06 06:30:00.626  5382  5382 W Monkey  :  arg: "-c"
+10-06 06:30:00.626  5382  5382 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-06 06:30:00.626  5382  5382 W Monkey  :  arg: "1"
+10-06 06:30:00.626  5382  5382 W Monkey  : data="com.usman.miqaat"
+10-06 06:30:00.626  5382  5382 W Monkey  : data="android.intent.category.LAUNCHER"
+10-06 06:30:00.633   506  1041 W ActivityManager: registerReceiverWithFeature: no app for null
+10-06 06:30:00.634  5382  5382 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 06:30:00.634  5382  5382 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 06:30:00.634  5382  5382 W System  : No Compatibility callbacks set! Querying change 263076149
+10-06 06:30:00.734  5396  5396 W om.usman.miqaat: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:00.734  5396  5396 W om.usman.miqaat: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:00.814  5396  5396 E om.usman.miqaat: Not starting debugger since process cannot load the jdwp agent.
+10-06 06:30:00.896   800   833 W Looper  : Slow delivery took 48ms wmshell.main h=android.os.Handler c=com.android.wm.shell.pip.phone.PipController$$ExternalSyntheticLambda1@619f77 m=0
+10-06 06:30:00.909   800   833 W Looper  : Drained
+10-06 06:30:00.985  5396  5396 W OpenGLRenderer: Unknown dataspace 0
+10-06 06:30:00.987   506   568 W WindowManager: Failed looking up window session=Session{30f4109 5396:u0a10141} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:6034 com.android.server.wm.Session.updateRequestedVisibleTypes:690 android.view.IWindowSession$Stub.onTransact:1034 
+10-06 06:30:01.142  5396  5418 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-06 06:30:02.166  5396  5422 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#0) as ready
+10-06 06:30:02.169  5396  5422 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#1) as ready
+10-06 06:30:02.245   800   842 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@6b48b25
+10-06 06:30:02.252   506  1041 W InputManager-JNI: Input channel object 'e03882d Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-06 06:30:04.259   506  1864 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-06 06:30:07.330  5435  5435 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:07.330  5435  5435 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:07.331  5435  5435 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:07.332  5435  5435 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:07.346  5435  5435 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:07.352   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:07.358   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:08.405  5435  5435 W AccessibilityNodeInfoDumper: Fetch time: 41ms
+10-06 06:30:08.408   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:09.606  5456  5456 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:09.606  5456  5456 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:09.607  5456  5456 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:09.608  5456  5456 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:09.622  5456  5456 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:09.623   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:09.627   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:10.643  5456  5456 W AccessibilityNodeInfoDumper: Fetch time: 12ms
+10-06 06:30:10.644   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:11.555  5476  5476 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:30:11.555  5476  5476 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:30:13.855  5485  5485 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:13.855  5485  5485 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:13.856  5485  5485 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:13.857  5485  5485 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:13.870  5485  5485 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:13.872   506  4484 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:13.875   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:14.911  5485  5485 W AccessibilityNodeInfoDumper: Fetch time: 35ms
+10-06 06:30:14.914   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:15.814  5505  5505 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:30:15.814  5505  5505 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:30:18.090  5514  5514 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:18.090  5514  5514 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:18.091  5514  5514 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:18.092  5514  5514 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:18.106  5514  5514 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:18.109   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:18.111   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:19.130  5514  5514 W AccessibilityNodeInfoDumper: Fetch time: 17ms
+10-06 06:30:19.132   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:20.112  5534  5534 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:20.112  5534  5534 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:20.113  5534  5534 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:20.113  5534  5534 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:20.126  5534  5534 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:20.128   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:20.130   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:21.146  5534  5534 W AccessibilityNodeInfoDumper: Fetch time: 14ms
+10-06 06:30:21.147   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:23.556  5559  5559 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:23.556  5559  5559 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:23.558  5559  5559 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:23.558  5559  5559 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:23.573  5559  5559 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:23.575   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:23.579   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:24.607  5559  5559 W AccessibilityNodeInfoDumper: Fetch time: 24ms
+10-06 06:30:24.607   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:27.258  5584  5584 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:27.258  5584  5584 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:27.259  5584  5584 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:27.260  5584  5584 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:27.273  5584  5584 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:27.274   506  4484 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:27.278   506  4484 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:28.290  5584  5584 W AccessibilityNodeInfoDumper: Fetch time: 11ms
+10-06 06:30:28.291   506  4484 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:30.909  5609  5609 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:30.909  5609  5609 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:30.910  5609  5609 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:30.911  5609  5609 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:30.923  5609  5609 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:30.925   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:30.926   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:31.939  5609  5609 W AccessibilityNodeInfoDumper: Fetch time: 9ms
+10-06 06:30:31.940   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:32.802  5396  5396 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-06 06:30:32.802  5396  5396 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-06 06:30:35.731  5634  5634 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:35.731  5634  5634 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:35.732  5634  5634 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:35.732  5634  5634 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:35.745  5634  5634 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:35.747   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:35.755   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:36.758  5634  5634 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:30:36.759   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:37.656  5653  5653 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:30:37.657  5653  5653 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:30:39.570  5662  5662 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:39.570  5662  5662 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:39.571  5662  5662 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:39.572  5662  5662 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:39.585  5662  5662 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:39.587   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:39.590   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:40.595  5662  5662 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:30:40.596   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:41.581  5681  5681 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:41.581  5681  5681 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:41.582  5681  5681 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:41.582  5681  5681 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:41.595  5681  5681 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:41.598   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:41.606   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:42.611  5681  5681 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:30:42.614   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:45.631  5705  5705 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:30:45.631  5705  5705 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:30:46.096  5709  5709 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:46.096  5709  5709 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:46.097  5709  5709 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:46.098  5709  5709 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:46.112  5709  5709 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:46.114   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:46.121   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:47.132  5709  5709 W AccessibilityNodeInfoDumper: Fetch time: 4ms
+10-06 06:30:47.133   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:48.114  5729  5729 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:48.114  5729  5729 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:48.115  5729  5729 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:48.116  5729  5729 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:48.131  5729  5729 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:48.133   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:48.134   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:49.141  5729  5729 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:30:49.142   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:52.158  5753  5753 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:30:52.159  5753  5753 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:30:52.648  5757  5757 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:52.648  5757  5757 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:52.649  5757  5757 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:52.650  5757  5757 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:52.662  5757  5757 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:52.664   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:52.674   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:53.686  5757  5757 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:30:53.686   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:54.443     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-06 06:30:54.667  5776  5776 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:54.667  5776  5776 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:54.668  5776  5776 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:54.668  5776  5776 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:54.682  5776  5776 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:54.683   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:54.684   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:55.690  5776  5776 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:30:55.691   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:58.707  5801  5801 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:30:58.707  5801  5801 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:30:59.188  5805  5805 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:30:59.188  5805  5805 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:30:59.189  5805  5805 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:30:59.189  5805  5805 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:30:59.202  5805  5805 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:30:59.204   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:30:59.208   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:00.213  5805  5805 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:31:00.214   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:01.192  5824  5824 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:01.192  5824  5824 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:01.193  5824  5824 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:01.194  5824  5824 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:01.207  5824  5824 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:01.209   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:01.212   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:02.215  5824  5824 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:31:02.215   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:05.233  5848  5848 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:31:05.234  5848  5848 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:31:05.717  5852  5852 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:05.717  5852  5852 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:05.718  5852  5852 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:05.719  5852  5852 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:05.733  5852  5852 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:05.736   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:05.737   506  4484 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:06.743  5852  5852 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:31:06.744   506  4484 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:07.720  5871  5871 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:07.720  5871  5871 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:07.722  5871  5871 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:07.722  5871  5871 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:07.736  5871  5871 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:07.738   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:07.739   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:08.748  5871  5871 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:31:08.749   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:11.765  5895  5895 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:31:11.765  5895  5895 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:31:12.244  5899  5899 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:12.244  5899  5899 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:12.245  5899  5899 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:12.245  5899  5899 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:12.259  5899  5899 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:12.261   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:12.263   506  4484 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:13.269  5899  5899 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:31:13.270   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:14.248  5918  5918 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:14.248  5918  5918 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:14.249  5918  5918 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:14.250  5918  5918 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:14.263  5918  5918 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:14.265   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:14.268   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:15.271  5918  5918 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:31:15.272   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:18.291  5942  5942 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:31:18.291  5942  5942 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:31:18.762  5946  5946 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:18.762  5946  5946 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:18.763  5946  5946 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:18.764  5946  5946 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:18.778  5946  5946 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:18.780   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:18.785   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:19.788  5946  5946 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:31:19.789   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:20.769  5965  5965 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:20.769  5965  5965 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:20.770  5965  5965 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:20.771  5965  5965 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:20.785  5965  5965 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:20.787   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:20.791   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:21.794  5965  5965 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:31:21.795   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:24.828  5990  5990 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:31:24.828  5990  5990 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:31:25.301  5994  5994 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:25.301  5994  5994 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:25.302  5994  5994 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:25.303  5994  5994 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:25.316  5994  5994 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:25.319   506  4484 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:25.321   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:26.328  5994  5994 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:31:26.329   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:27.311  6013  6013 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:27.311  6013  6013 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:27.312  6013  6013 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:27.313  6013  6013 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:27.327  6013  6013 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:27.328   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:27.330   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:28.337  6013  6013 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:31:28.339   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:31.356  6038  6038 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:31:31.356  6038  6038 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:31:31.837  6042  6042 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:31.837  6042  6042 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:31.838  6042  6042 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:31.839  6042  6042 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:31.854  6042  6042 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:31.857   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:31.861   506  2004 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:32.865  6042  6042 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:31:32.867   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:33.845  6061  6061 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:33.845  6061  6061 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:33.846  6061  6061 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:33.847  6061  6061 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:33.861  6061  6061 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:33.864   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:33.866   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:34.874  6061  6061 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:31:34.875   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:37.899  6086  6086 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:31:37.899  6086  6086 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:31:38.379  6090  6090 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:38.379  6090  6090 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:38.381  6090  6090 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:38.381  6090  6090 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:38.397  6090  6090 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:38.399   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:38.402   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:39.409  6090  6090 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:31:39.410   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:40.397  6109  6109 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:40.397  6109  6109 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:40.398  6109  6109 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:40.399  6109  6109 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:40.412  6109  6109 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:40.414   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:40.418   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:41.427  6109  6109 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:31:41.428   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:44.464  6134  6134 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:31:44.465  6134  6134 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:31:44.930  6138  6138 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:44.930  6138  6138 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:44.931  6138  6138 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:44.932  6138  6138 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:44.947  6138  6138 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:44.949   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:44.951   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:45.960  6138  6138 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:31:45.961   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:46.943  6157  6157 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:46.943  6157  6157 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:46.944  6157  6157 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:46.944  6157  6157 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:46.957  6157  6157 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:46.959   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:46.962   506   576 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:47.966  6157  6157 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:31:47.967   506   881 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:50.985  6181  6181 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:31:50.985  6181  6181 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:31:51.450  6185  6185 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:51.450  6185  6185 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:51.451  6185  6185 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:51.452  6185  6185 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:51.465  6185  6185 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:51.467   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:51.470   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:52.477  6185  6185 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:31:52.478   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:53.465  6204  6204 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:53.465  6204  6204 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:53.466  6204  6204 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:53.467  6204  6204 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:53.480  6204  6204 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:53.482   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:53.495   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:54.443     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-06 06:31:54.501  6204  6204 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:31:54.502   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:57.519  6228  6228 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:31:57.519  6228  6228 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:31:57.974  6232  6232 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:57.974  6232  6232 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:57.975  6232  6232 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:57.976  6232  6232 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:31:57.989  6232  6232 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:31:57.991   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:57.993   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:58.999  6232  6232 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:31:59.000   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:31:59.989  6251  6251 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:31:59.989  6251  6251 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:31:59.990  6251  6251 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:31:59.991  6251  6251 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:32:00.007  6251  6251 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:32:00.009   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:32:00.012   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:32:01.016  6251  6251 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:32:01.017   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:32:04.033  6275  6275 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-06 06:32:04.033  6275  6275 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-06 06:32:04.496  6279  6279 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:32:04.496  6279  6279 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:32:04.497  6279  6279 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:32:04.497  6279  6279 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:32:04.510  6279  6279 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:32:04.512   506  3366 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:32:04.519   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:32:05.519  6279  6279 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-06 06:32:05.520   506  4484 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:32:06.493  6298  6298 W app_process: Unexpected CPU variant for x86: x86_64.
+10-06 06:32:06.493  6298  6298 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-06 06:32:06.494  6298  6298 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-06 06:32:06.495  6298  6298 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-06 06:32:06.507  6298  6298 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-06 06:32:06.509   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:32:06.512   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-06 06:32:07.516  6298  6298 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-06 06:32:07.517   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:00.000   506   593 E LazyAlarmStore: Removed TIME_TICK alarm
+10-09 01:50:00.049   506   881 W ActivityTaskManager: Force removing ActivityRecord{31dfdf1 u0 com.usman.miqaat/.MainActivity t17 f}}: app died, no saved state
+10-09 01:50:00.100   506   527 E IPCThreadState: Binder transaction failure: 203194/29189/-3
+10-09 01:50:00.100   506   527 W WindowManager: Failed to deliver inset control state change to w=Window{5f4bf3c u0 com.usman.miqaat/com.usman.miqaat.MainActivity}
+10-09 01:50:00.100   506   527 W WindowManager: android.os.DeadObjectException
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.view.IWindow$Stub$Proxy.insetsControlChanged(IWindow.java:479)
+10-09 01:50:00.100   506   527 W WindowManager: 	at com.android.server.wm.WindowState.notifyInsetsControlChanged(WindowState.java:3802)
+10-09 01:50:00.100   506   527 W WindowManager: 	at com.android.server.wm.InsetsStateController.lambda$notifyPendingInsetsControlChanged$3(InsetsStateController.java:343)
+10-09 01:50:00.100   506   527 W WindowManager: 	at com.android.server.wm.InsetsStateController.$r8$lambda$8yykPRG1GyNq_J17QvL9d5xANMc(InsetsStateController.java:0)
+10-09 01:50:00.100   506   527 W WindowManager: 	at com.android.server.wm.InsetsStateController$$ExternalSyntheticLambda2.run(R8$$SyntheticClass:0)
+10-09 01:50:00.100   506   527 W WindowManager: 	at com.android.server.wm.WindowAnimator.executeAfterPrepareSurfacesRunnables(WindowAnimator.java:294)
+10-09 01:50:00.100   506   527 W WindowManager: 	at com.android.server.wm.WindowAnimator.animate(WindowAnimator.java:202)
+10-09 01:50:00.100   506   527 W WindowManager: 	at com.android.server.wm.WindowAnimator.lambda$new$1(WindowAnimator.java:99)
+10-09 01:50:00.100   506   527 W WindowManager: 	at com.android.server.wm.WindowAnimator.$r8$lambda$aHNu1uhcqxihX5NZc4McDDQPAyw(WindowAnimator.java:0)
+10-09 01:50:00.100   506   527 W WindowManager: 	at com.android.server.wm.WindowAnimator$$ExternalSyntheticLambda1.doFrame(R8$$SyntheticClass:0)
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1337)
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1348)
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.view.Choreographer.doCallbacks(Choreographer.java:952)
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.view.Choreographer.doFrame(Choreographer.java:878)
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.view.Choreographer$FrameDisplayEventReceiver.run(Choreographer.java:1322)
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.os.Looper.loop(Looper.java:294)
+10-09 01:50:00.100   506   527 W WindowManager: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-09 01:50:00.100   506   527 W WindowManager: 	at com.android.server.ServiceThread.run(ServiceThread.java:46)
+10-09 01:50:00.100   506   568 W InputManager-JNI: Input channel object '5f4bf3c com.usman.miqaat/com.usman.miqaat.MainActivity (client)' was disposed without first being removed with the input manager!
+10-09 01:50:00.205   506  1045 W WindowManager: Exception thrown during dispatchAppVisibility Window{5f4bf3c u0 com.usman.miqaat/com.usman.miqaat.MainActivity EXITING}
+10-09 01:50:00.205   506  1045 W WindowManager: android.os.DeadObjectException
+10-09 01:50:00.205   506  1045 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at android.view.IWindow$Stub$Proxy.dispatchAppVisibility(IWindow.java:546)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at com.android.server.wm.WindowState.sendAppVisibilityToClients(WindowState.java:3271)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at com.android.server.wm.WindowContainer.sendAppVisibilityToClients(WindowContainer.java:1221)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at com.android.server.wm.WindowToken.setClientVisible(WindowToken.java:409)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at com.android.server.wm.ActivityRecord.setClientVisible(ActivityRecord.java:6946)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at com.android.server.wm.ActivityRecord.postApplyAnimation(ActivityRecord.java:5637)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at com.android.server.wm.ActivityRecord.commitVisibility(ActivityRecord.java:5580)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at com.android.server.wm.Transition.finishTransition(Transition.java:1151)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at com.android.server.wm.TransitionController.finishTransition(TransitionController.java:868)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.finishTransition(WindowOrganizerController.java:396)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at android.window.IWindowOrganizerController$Stub.onTransact(IWindowOrganizerController.java:286)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.onTransact(WindowOrganizerController.java:181)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+10-09 01:50:00.205   506  1045 W WindowManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+10-09 01:50:00.217   506   526 W ActivityManager: setHasOverlayUi called on unknown pid: 5396
+10-09 01:50:00.234   388   388 E BpTransactionCompletedListener: Failed to transact (-32)
+10-09 01:50:00.516  6346  6346 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:00.516  6346  6346 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:00.528  6346  6346 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-09 01:50:00.528  6346  6346 W Monkey  :  arg: "-p"
+10-09 01:50:00.528  6346  6346 W Monkey  :  arg: "com.usman.miqaat"
+10-09 01:50:00.528  6346  6346 W Monkey  :  arg: "-c"
+10-09 01:50:00.529  6346  6346 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-09 01:50:00.529  6346  6346 W Monkey  :  arg: "1"
+10-09 01:50:00.529  6346  6346 W Monkey  : data="com.usman.miqaat"
+10-09 01:50:00.529  6346  6346 W Monkey  : data="android.intent.category.LAUNCHER"
+10-09 01:50:00.536   506  1032 W ActivityManager: registerReceiverWithFeature: no app for null
+10-09 01:50:00.537  6346  6346 W System  : No Compatibility callbacks set! Querying change 263076149
+10-09 01:50:00.537  6346  6346 W System  : No Compatibility callbacks set! Querying change 263076149
+10-09 01:50:00.537  6346  6346 W System  : No Compatibility callbacks set! Querying change 263076149
+10-09 01:50:00.611   506   534 W ActivityManager: Slow operation: 52ms so far, now at startProcess: returned from zygote!
+10-09 01:50:00.611   506   534 W ActivityManager: Slow operation: 52ms so far, now at startProcess: done updating battery stats
+10-09 01:50:00.611   506   534 W ActivityManager: Slow operation: 52ms so far, now at startProcess: building log message
+10-09 01:50:00.611   506   534 W ActivityManager: Slow operation: 52ms so far, now at startProcess: starting to update pids map
+10-09 01:50:00.612   506   534 W ActivityManager: Slow operation: 53ms so far, now at startProcess: done updating pids map
+10-09 01:50:00.647  6359  6359 W om.usman.miqaat: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:00.647  6359  6359 W om.usman.miqaat: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:00.648  6359  6359 E om.usman.miqaat: Not starting debugger since process cannot load the jdwp agent.
+10-09 01:50:00.693   800   840 W Looper  : Slow delivery took 38ms wmshell.anim h=android.view.Choreographer$FrameHandler c=android.view.Choreographer$FrameDisplayEventReceiver@be7640 m=0
+10-09 01:50:00.810   800   833 W Looper  : Slow delivery took 43ms wmshell.main h=android.os.Handler c=com.android.wm.shell.pip.phone.PipController$$ExternalSyntheticLambda1@619f77 m=0
+10-09 01:50:00.836   800   833 W Looper  : Drained
+10-09 01:50:00.914  6359  6359 W OpenGLRenderer: Unknown dataspace 0
+10-09 01:50:00.917   506   519 W WindowManager: Failed looking up window session=Session{edde468 6359:u0a10141} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:6034 com.android.server.wm.Session.updateRequestedVisibleTypes:690 android.view.IWindowSession$Stub.onTransact:1034 
+10-09 01:50:01.047  6359  6381 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-09 01:50:02.052  6359  6385 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#0) as ready
+10-09 01:50:02.054  6359  6385 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#1) as ready
+10-09 01:50:02.127   800   842 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@7efcba4
+10-09 01:50:02.138   506   519 W InputManager-JNI: Input channel object '1bf6b4 Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-09 01:50:02.172   800   833 W Looper  : Slow delivery took 32ms wmshell.main h=android.os.Handler c=com.android.wm.shell.bubbles.BubbleController$BubblesImpl$$ExternalSyntheticLambda1@c763f65 m=0
+10-09 01:50:04.247   506  1864 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-09 01:50:07.160   800   833 W Looper  : Drained
+10-09 01:50:07.268  6400  6400 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:07.268  6400  6400 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:07.269  6400  6400 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:50:07.270  6400  6400 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:50:07.282  6400  6400 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:50:07.284   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:07.287   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:08.346  6400  6400 W AccessibilityNodeInfoDumper: Fetch time: 55ms
+10-09 01:50:08.347   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:09.611   800   833 W Looper  : Slow dispatch took 39ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.RemoteTransitionHandler$1$$ExternalSyntheticLambda0@b7d5051 m=0
+10-09 01:50:09.705  6359  6359 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@408d3f7
+10-09 01:50:09.748   506  1045 W InputManager-JNI: Input channel object '46b0567 com.usman.miqaat/com.usman.miqaat.MainActivity (client)' was disposed without first being removed with the input manager!
+10-09 01:50:11.674  6429  6429 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:11.674  6429  6429 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:11.675  6429  6429 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:50:11.676  6429  6429 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:50:11.690  6429  6429 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:50:11.692   506  4484 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:11.695   506  4484 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:12.700  6429  6429 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-09 01:50:12.701   506  4484 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:12.755   506  1864 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-09 01:50:13.731  6464  6464 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:13.731  6464  6464 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:13.743  6464  6464 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-09 01:50:13.743  6464  6464 W Monkey  :  arg: "-p"
+10-09 01:50:13.744  6464  6464 W Monkey  :  arg: "com.usman.miqaat"
+10-09 01:50:13.744  6464  6464 W Monkey  :  arg: "-c"
+10-09 01:50:13.744  6464  6464 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-09 01:50:13.744  6464  6464 W Monkey  :  arg: "1"
+10-09 01:50:13.745  6464  6464 W Monkey  : data="com.usman.miqaat"
+10-09 01:50:13.745  6464  6464 W Monkey  : data="android.intent.category.LAUNCHER"
+10-09 01:50:13.752   506  1041 W ActivityManager: registerReceiverWithFeature: no app for null
+10-09 01:50:13.753  6464  6464 W System  : No Compatibility callbacks set! Querying change 263076149
+10-09 01:50:13.753  6464  6464 W System  : No Compatibility callbacks set! Querying change 263076149
+10-09 01:50:13.753  6464  6464 W System  : No Compatibility callbacks set! Querying change 263076149
+10-09 01:50:13.794  6359  6367 W om.usman.miqaat: Cleared Reference was only reachable from finalizer (only reported once)
+10-09 01:50:13.942   800   833 W Looper  : Slow delivery took 51ms wmshell.main h=android.os.Handler c=null m=1
+10-09 01:50:13.977   800   833 W Looper  : Drained
+10-09 01:50:13.977   800   840 W Looper  : Drained
+10-09 01:50:14.066   800   833 W Looper  : Slow dispatch took 30ms wmshell.main h=android.os.Handler c=com.android.wm.shell.common.ShellExecutor$$ExternalSyntheticLambda0@3eba8a9 m=0
+10-09 01:50:14.519   800   842 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@38dd5b3
+10-09 01:50:14.526   506   568 W InputManager-JNI: Input channel object 'ef72c85 Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-09 01:50:17.267   506  1864 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-09 01:50:18.460  6484  6484 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:18.460  6484  6484 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:18.461  6484  6484 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:50:18.461  6484  6484 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:50:18.475  6484  6484 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:50:18.477   506   519 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:18.480   506   519 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:19.526  6484  6484 W AccessibilityNodeInfoDumper: Fetch time: 41ms
+10-09 01:50:19.528   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:20.854  6359  6359 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@e91d69c
+10-09 01:50:20.857   506   568 W InputManager-JNI: Input channel object 'f062083 com.usman.miqaat/com.usman.miqaat.MainActivity (client)' was disposed without first being removed with the input manager!
+10-09 01:50:20.917   800   833 W Looper  : Slow delivery took 58ms wmshell.main h=android.os.Handler c=com.android.wm.shell.pip.PinnedStackListenerForwarder$PinnedTaskListenerImpl$$ExternalSyntheticLambda1@d9c7c95 m=0
+10-09 01:50:22.846  6514  6514 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:22.846  6514  6514 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:22.847  6514  6514 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:50:22.847  6514  6514 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:50:22.860  6514  6514 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:50:22.862   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:22.864   800   833 W Looper  : Drained
+10-09 01:50:22.864   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:23.860   506  1864 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-09 01:50:23.871  6514  6514 W AccessibilityNodeInfoDumper: Fetch time: 5ms
+10-09 01:50:23.872   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:24.905  6550  6550 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:24.905  6550  6550 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:24.917  6550  6550 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-09 01:50:24.918  6550  6550 W Monkey  :  arg: "-p"
+10-09 01:50:24.918  6550  6550 W Monkey  :  arg: "com.usman.miqaat"
+10-09 01:50:24.918  6550  6550 W Monkey  :  arg: "-c"
+10-09 01:50:24.918  6550  6550 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-09 01:50:24.918  6550  6550 W Monkey  :  arg: "1"
+10-09 01:50:24.919  6550  6550 W Monkey  : data="com.usman.miqaat"
+10-09 01:50:24.919  6550  6550 W Monkey  : data="android.intent.category.LAUNCHER"
+10-09 01:50:24.924   506  2603 W ActivityManager: registerReceiverWithFeature: no app for null
+10-09 01:50:24.925  6550  6550 W System  : No Compatibility callbacks set! Querying change 263076149
+10-09 01:50:24.925  6550  6550 W System  : No Compatibility callbacks set! Querying change 263076149
+10-09 01:50:24.925  6550  6550 W System  : No Compatibility callbacks set! Querying change 263076149
+10-09 01:50:24.964   506  1032 W WindowManager: Failed looking up window session=Session{edde468 6359:u0a10141} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:6034 com.android.server.wm.Session.updateRequestedVisibleTypes:690 android.view.IWindowSession$Stub.onTransact:1034 
+10-09 01:50:25.278  6359  6381 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-09 01:50:26.280  6359  6385 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#8) as ready
+10-09 01:50:26.282  6359  6385 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#9) as ready
+10-09 01:50:26.337   800   842 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@468f36f
+10-09 01:50:26.338   506  1041 W InputManager-JNI: Input channel object '8b62d76 Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-09 01:50:28.440   506  1864 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-09 01:50:29.639  6583  6583 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:29.639  6583  6583 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:29.653  6583  6583 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-09 01:50:29.653  6583  6583 W Monkey  :  arg: "-p"
+10-09 01:50:29.654  6583  6583 W Monkey  :  arg: "com.usman.miqaat"
+10-09 01:50:29.654  6583  6583 W Monkey  :  arg: "-c"
+10-09 01:50:29.654  6583  6583 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-09 01:50:29.654  6583  6583 W Monkey  :  arg: "1"
+10-09 01:50:29.655  6583  6583 W Monkey  : data="com.usman.miqaat"
+10-09 01:50:29.655  6583  6583 W Monkey  : data="android.intent.category.LAUNCHER"
+10-09 01:50:29.661   506  1032 W ActivityManager: registerReceiverWithFeature: no app for null
+10-09 01:50:29.662  6583  6583 W System  : No Compatibility callbacks set! Querying change 263076149
+10-09 01:50:29.662  6583  6583 W System  : No Compatibility callbacks set! Querying change 263076149
+10-09 01:50:29.662  6583  6583 W System  : No Compatibility callbacks set! Querying change 263076149
+10-09 01:50:33.316  6599  6599 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:33.316  6599  6599 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:33.317  6599  6599 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:50:33.318  6599  6599 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:50:33.331  6599  6599 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:50:33.333   506  2080 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:33.339   506   787 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:34.386  6599  6599 W AccessibilityNodeInfoDumper: Fetch time: 43ms
+10-09 01:50:34.387   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:35.366  6619  6619 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:35.366  6619  6619 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:35.367  6619  6619 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:50:35.368  6619  6619 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:50:35.381  6619  6619 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:50:35.382   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:35.386   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:36.400  6619  6619 W AccessibilityNodeInfoDumper: Fetch time: 11ms
+10-09 01:50:36.401   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:37.295  6639  6639 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-09 01:50:37.295  6639  6639 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-09 01:50:39.610  6648  6648 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:39.610  6648  6648 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:39.612  6648  6648 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:50:39.612  6648  6648 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:50:39.625  6648  6648 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:50:39.627   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:39.629   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:40.649  6648  6648 W AccessibilityNodeInfoDumper: Fetch time: 17ms
+10-09 01:50:40.651   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:41.550  6668  6668 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-09 01:50:41.550  6668  6668 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-09 01:50:43.779  6677  6677 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:43.779  6677  6677 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:43.780  6677  6677 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:50:43.781  6677  6677 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:50:43.795  6677  6677 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:50:43.797   506   519 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:43.802   506   519 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:44.819  6677  6677 W AccessibilityNodeInfoDumper: Fetch time: 17ms
+10-09 01:50:44.820   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:45.799  6696  6696 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:45.799  6696  6696 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:45.801  6696  6696 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:50:45.801  6696  6696 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:50:45.815  6696  6696 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:50:45.817   506   519 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:45.825   506   519 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:46.079     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-09 01:50:46.847  6696  6696 W AccessibilityNodeInfoDumper: Fetch time: 14ms
+10-09 01:50:46.848   506   519 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:49.252  6721  6721 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:49.252  6721  6721 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:49.254  6721  6721 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:50:49.254  6721  6721 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:50:49.268  6721  6721 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:50:49.269   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:49.272   506  1041 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:50.290  6721  6721 W AccessibilityNodeInfoDumper: Fetch time: 14ms
+10-09 01:50:50.292   506   519 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:52.913  6746  6746 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:52.913  6746  6746 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:52.915  6746  6746 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:50:52.916  6746  6746 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:50:52.930  6746  6746 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:50:52.932   506   568 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:52.935   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:53.946  6746  6746 W AccessibilityNodeInfoDumper: Fetch time: 10ms
+10-09 01:50:53.947   506  2080 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:56.567  6771  6771 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:50:56.567  6771  6771 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:50:56.568  6771  6771 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:50:56.569  6771  6771 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:50:56.582  6771  6771 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:50:56.584   506  2080 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:56.588   506  2080 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:57.602  6771  6771 W AccessibilityNodeInfoDumper: Fetch time: 13ms
+10-09 01:50:57.604   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:50:58.470  6359  6359 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-09 01:50:58.470  6359  6359 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-09 01:51:01.399  6797  6797 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:51:01.399  6797  6797 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:51:01.400  6797  6797 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:51:01.401  6797  6797 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:51:01.414  6797  6797 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:51:01.416   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:51:01.421   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:51:02.449  6797  6797 W AccessibilityNodeInfoDumper: Fetch time: 19ms
+10-09 01:51:02.451   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:51:03.344  6816  6816 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-09 01:51:03.344  6816  6816 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-09 01:51:05.252  6825  6825 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:51:05.252  6825  6825 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:51:05.253  6825  6825 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:51:05.254  6825  6825 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:51:05.269  6825  6825 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:51:05.271   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:51:05.275   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:51:06.278  6825  6825 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-09 01:51:06.279   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:51:07.174  6844  6844 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-09 01:51:07.174  6844  6844 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-09 01:51:09.201  6853  6853 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:51:09.201  6853  6853 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:51:09.202  6853  6853 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:51:09.202  6853  6853 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:51:09.215  6853  6853 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:51:09.217   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:51:09.228   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:51:10.230  6853  6853 W AccessibilityNodeInfoDumper: Fetch time: 2ms
+10-09 01:51:10.231   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:51:11.214  6872  6872 W app_process: Unexpected CPU variant for x86: x86_64.
+10-09 01:51:11.214  6872  6872 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-09 01:51:11.215  6872  6872 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-09 01:51:11.216  6872  6872 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-09 01:51:11.229  6872  6872 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-09 01:51:11.231   506  1032 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:51:11.233   506  2603 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-09 01:51:12.239  6872  6872 W AccessibilityNodeInfoDumper: Fetch time: 3ms
+10-09 01:51:12.240   506  1045 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
