@@ -1,7 +1,7 @@
-name: Lite audit of build 1.90-6 (Urdu)
+name: Urdu review screenshots (build 1.90-8)
 on:
   push:
-    branches: [audit/v1.89-emulator-lite]
+    branches: [audit/urdu-review]
 permissions:
   contents: write
 jobs:
@@ -25,10 +25,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: urdu }
-          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: font13 }
-          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: font20 }
-          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: urdu }
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: urdu_deep }
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: urdu_lessons }
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: urdu_azaan }
+          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: urdu_home }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -78,8 +78,8 @@ jobs:
         run: |
           git config user.name audit-ci; git config user.email audit-ci@users.noreply.github.com
           rm -rf /tmp/pub && mkdir -p /tmp/pub/ev && cp -r /tmp/ev/audit-* /tmp/pub/ev/
-          git checkout -q --orphan audit-ev6-hijri
+          git checkout -q --orphan audit-ev7-urdu-review
           git rm -rfq . >/dev/null 2>&1 || true
           cp -r /tmp/pub/ev ./ev
-          git add ev && git commit -qm "evidence urdu build 8"
-          git push -q -f origin audit-ev6-hijri
+          git add ev && git commit -qm "urdu review evidence build 8"
+          git push -q -f origin audit-ev7-urdu-review

@@ -18,10 +18,17 @@ ap.add_argument("--mode", default="crawl")
 ap.add_argument("--rot", default="0")
 ap.add_argument("--expect", default="portrait")   # crawl | lessons | azaan | times
 A = ap.parse_args()
+import json as _json, os as _os
+try:
+    UR = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "ur_map.json"), encoding="utf8")) if A.lang == "ur" else {}
+except Exception:
+    UR = {}
+def _ur(texts): return list(texts) + [UR[t] for t in texts if t in UR]
 os.makedirs(A.out, exist_ok=True)
 T0 = time.time()
 TRACE = open(os.path.join(A.out, "trace.jsonl"), "a")
 SKIP = re.compile(r"(delete|erase|reset|clear all|uninstall|restore|import|check for update|download|install|share|send|rate|open in)", re.I)
+SKIP_UR = {u for e, u in UR.items() if SKIP.search(e)}
 
 def sh(*a, timeout=40, raw=False):
     try:
@@ -272,7 +279,7 @@ def explore(tag, path, depth):
     if depth >= A.depth: return
     for (pos, lab, nth) in cands:
         if over_budget() or actions[0] >= A.max_actions: return
-        if SKIP.search(lab):
+        if SKIP.search(lab) or lab in SKIP_UR or (A.lang == "ur" and ("English" in lab or "انگریزی" in lab)):
             log(ev="skipped", label=lab, reason="destructive-or-external", path=[p[0] for p in path]); continue
         actions[0] += 1
         if not tap_label(lab, nth, pos):
@@ -316,7 +323,7 @@ def L(en, ur): return ur if A.lang == "ur" else en
 
 def tap_text(text, exact=True, maxs=8, startswith=False):
     """Scroll until a node with this label is visible and tap it (works for non-clickable labels: the click propagates)."""
-    texts = text if isinstance(text, (list, tuple)) else [text]
+    texts = _ur(text if isinstance(text, (list, tuple)) else [text])
     def scan():
         nodes = dump()
         if not nodes: return None, (1080, 2400)
@@ -420,7 +427,7 @@ def step_through(tag, prefix, maxsteps=45, scroll_every=6):
         snap(tag, f"{prefix}-step{i+1:02d}", nodes)
         if i % scroll_every == 0:
             w, h = screen_size(nodes); swipe(w, h); snap(tag, f"{prefix}-step{i+1:02d}-scrolled"); swipe(w, h, up=False)
-        nxt = [n for n in nodes if label(n).startswith(("Continue", "Next", "Finish", "Done")) and n["pkg"] == PKG and n["b"][1] > screen_size(nodes)[1] * 0.5]
+        nxt = [n for n in nodes if label(n).startswith(("Continue", "Next", "Finish", "Done", "جاری رکھیں", "آگے", "اگلا", "مکمل")) and n["pkg"] == PKG and n["b"][1] > screen_size(nodes)[1] * 0.5]
         if not nxt: log(ev="lesson-end", prefix=prefix, steps=i + 1, last=[label(x) for x in nodes if label(x)][-8:]); break
         tap(nxt[0]); time.sleep(0.6)
 
@@ -463,10 +470,10 @@ def tap_after(anchor, button, maxs=6):
         nodes = dump() or []
         if not nodes: continue
         w, h = screen_size(nodes)
-        a = [n for n in nodes if label(n) == anchor and n["pkg"] == PKG]
+        a = [n for n in nodes if label(n) in (anchor, UR.get(anchor)) and n["pkg"] == PKG]
         if a:
             ay = a[0]["b"][1]
-            b = sorted([n for n in nodes if label(n) == button and n["b"][1] >= ay and n["b"][3] <= h], key=lambda n: n["b"][1])
+            b = sorted([n for n in nodes if label(n) in (button, UR.get(button)) and n["b"][1] >= ay and n["b"][3] <= h], key=lambda n: n["b"][1])
             if b: tap(b[0]); return True
         swipe(w, h)
     return False
