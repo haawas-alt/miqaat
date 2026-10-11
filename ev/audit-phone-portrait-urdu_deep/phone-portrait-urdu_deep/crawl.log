@@ -1,0 +1,33 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1362, "t": 1.7}
+{"ev": "setup-screen", "step": 0, "shot": "phone-portrait-urdu_deep__setup0.png", "key": "083fbce7dc", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Sunday 11 Octobe
+{"ev": "setup-tap", "label": "Begin", "t": 7.0}
+{"ev": "setup-screen", "step": 1, "shot": "phone-portrait-urdu_deep__setup1.png", "key": "00f675ce98", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Sunday 11 Octobe
+{"ev": "detect-result", "shot": "phone-portrait-urdu_deep__setup1_after-detect-20s.png", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Learn Salah", "Monthly timetable", "Settin
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 36.7}
+{"ev": "setup-screen", "step": 2, "shot": "phone-portrait-urdu_deep__setup2.png", "key": "9894f2e3ca", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Se
+{"ev": "setup-tap", "label": "Next", "t": 38.9}
+{"ev": "setup-screen", "step": 3, "shot": "phone-portrait-urdu_deep__setup3.png", "key": "b3a079b118", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Se
+{"ev": "setup-stuck", "t": 43.9}
+{"ev": "setup-screen", "step": 4, "shot": "phone-portrait-urdu_deep__setup4.png", "key": "cb71483602", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Se
+{"ev": "setup-tap", "label": "These look right", "t": 49.3}
+{"ev": "setup-screen", "step": 5, "shot": "phone-portrait-urdu_deep__setup5.png", "key": "ad962ad6dd", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Se
+{"ev": "setup-tap", "label": "Finish", "t": 54.3}
+{"ev": "setup-done", "step": 6, "t": 59.1}
+{"ev": "setup-result", "ok": true, "t": 59.1}
+{"ev": "lang-set", "t": 100.3}
+{"ev": "home-fail", "tag": "phone-portrait-urdu_deep-Miqaat-ur-f1.0", "t": 183.7}
+{"ev": "screen", "depth": 0, "path": [], "key": "8eb983a744", "pos": 0, "shot": "phone-portrait-urdu_deep-Miqaat-ur-f1.0__001__d0__p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, NSW", "Lea
+{"ev": "screen", "depth": 0, "path": [], "key": "e6c1f6f798", "pos": 1, "shot": "phone-portrait-urdu_deep-Miqaat-ur-f1.0__002__d0__p1.png", "labels": ["الفجر", "فجر", "4:52", "صبح", "⁧1 گھنٹہ 15 منٹ⁩ باقی", "دن کی لکیر: 
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "c78ed148eb", "pos": 0, "shot": "phone-portrait-urdu_deep-Miqaat-ur-f1.0__003__d1__p0.png", "labels": ["واپس", "نماز سیکھیں", "الصَّلَاة", "نماز کا ایک عام طری
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "bd0a9427d8", "pos": 0, "shot": "phone-portrait-urdu_deep-Miqaat-ur-f1.0__004__d1__p0.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاو
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "614a48ac49", "pos": 1, "shot": "phone-portrait-urdu_deep-Miqaat-ur-f1.0__005__d1__p1.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی الاو
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "348219541b", "pos": 0, "shot": "phone-portrait-urdu_deep-Miqaat-ur-f1.0__006__d1__p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "اگلی نماز سے پہلے 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "4e1e9a5cf2", "pos": 1, "shot": "phone-portrait-urdu_deep-Miqaat-ur-f1.0__007__d1__p1.png", "labels": ["واپس", "ترتیبات", "مقام", "Sydney, NSW", "اوقاتِ نماز", "م
+{"ev": "no-change", "label": "ترتیبات تلاش کریں", "shot": "phone-portrait-urdu_deep-Miqaat-ur-f1.0__008__same___.png", "path": ["Settings"], "t": 248.1}
+{"ev": "back-mismatch", "label": "Settings", "path": [], "t": 251.2}
+{"ev": "replay-fail", "path": [], "t": 282.4}
+{"ev": "theme-done", "tag": "phone-portrait-urdu_deep-Miqaat-ur-f1.0", "actions": 4, "screens": 8, "t": 282.4}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 309.4}
+{"ev": "gfx", "lines": ["Total frames rendered: 31", "Janky frames: 31 (100.00%)", "Janky frames (legacy): 31 (100.00%)", "50th percentile: 400ms", "90th percentile: 1350ms", "95th percentile: 1450ms", "99th percentile: 
+{"ev": "mem", "lines": ["  Native Heap    22504    22448        0        0    25652    31408    22683     4290", "        TOTAL    43239    33376     3380        0   163984    44428    29193    10800", "           Java H
