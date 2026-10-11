@@ -1,0 +1,26 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1487, "t": 2.2}
+{"ev": "setup-screen", "step": 0, "shot": "phone-portrait-urdu_review__setup0.png", "key": "083fbce7dc", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Sunday 11 Octo
+{"ev": "setup-tap", "label": "Begin", "t": 7.4}
+{"ev": "setup-screen", "step": 1, "shot": "phone-portrait-urdu_review__setup1.png", "key": "00f675ce98", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Sunday 11 Octo
+{"ev": "detect-result", "shot": "phone-portrait-urdu_review__setup1_after-detect-20s.png", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Learn Salah", "Monthly timetable", "Sett
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 37.0}
+{"ev": "setup-screen", "step": 2, "shot": "phone-portrait-urdu_review__setup2.png", "key": "fb1bd317a6", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "
+{"ev": "setup-tap", "label": "Next", "t": 39.2}
+{"ev": "setup-screen", "step": 3, "shot": "phone-portrait-urdu_review__setup3.png", "key": "08b62e88ba", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "
+{"ev": "setup-stuck", "t": 44.1}
+{"ev": "setup-screen", "step": 4, "shot": "phone-portrait-urdu_review__setup4.png", "key": "cc2b87f011", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "
+{"ev": "setup-tap", "label": "These look right", "t": 49.1}
+{"ev": "setup-screen", "step": 5, "shot": "phone-portrait-urdu_review__setup5.png", "key": "f03f5778ea", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "
+{"ev": "setup-tap", "label": "Finish", "t": 54.1}
+{"ev": "setup-done", "step": 6, "t": 58.9}
+{"ev": "setup-result", "ok": true, "t": 58.9}
+{"ev": "lang-set", "t": 100.1}
+{"ev": "shot", "name": "home-p0", "shot": "phone-portrait-urdu_review-ur__001__home-p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولتا ہے", "Sydney, NSW", "Learn Salah", "ماہانہ ٹائم ٹیبل", "Settings", "پیر
+{"ev": "shot", "name": "home-p1", "shot": "phone-portrait-urdu_review-ur__002__home-p1.png", "labels": ["الفجر", "فجر", "4:52", "صبح", "⁧58 منٹ⁩ باقی", "دن کی لکیر: avoid voluntary prayer 4:52 to 6:18; avoid voluntary pr
+{"ev": "home-items", "items": [], "t": 185.8}
+{"ev": "settings-items", "items": ["ترتیبات تلاش کریں"], "t": 239.5}
+{"ev": "shot", "name": "s00-ترتیبات_تلاش_کریں-p0", "shot": "phone-portrait-urdu_review-ur__003__s00-ترتیبات_تلاش_کریں-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "اگلی نماز سے پہلے توجہ درکار, فجر · 4:52 
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 286.2}
+{"ev": "gfx", "lines": ["Total frames rendered: 41", "Janky frames: 40 (97.56%)", "Janky frames (legacy): 41 (100.00%)", "50th percentile: 133ms", "90th percentile: 1150ms", "95th percentile: 1250ms", "99th percentile: 1
+{"ev": "mem", "lines": ["  Native Heap    24961    24904        0        0    28116    32096    24773     3289", "        TOTAL    50099    39864     3508        0   172472    45963    31707    10222", "           Java H
