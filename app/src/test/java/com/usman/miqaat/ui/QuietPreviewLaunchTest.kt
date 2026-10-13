@@ -28,8 +28,7 @@ class QuietPreviewLaunchTest : ComposeSupport() {
             try {
                 show(dev) { SettingsScreen(app.settings, s, initial = Section.TEST) {} }
                 rule.onNodeWithText(Str[R.string.s_show]).performScrollTo().performClick()
-                val launched = shadowOf(app).nextStartedService
-                assertNotNull("Show must request the quiet service", launched)
+                val launched = requireNotNull(shadowOf(app).nextStartedService) { "Show must request the quiet service" }
                 assertEquals(AzaanService::class.java.name, launched.component?.className)
                 assertEquals(AzaanService.ACTION_QUIET, launched.action)
                 assertEquals(Prayer.MAGHRIB.name, launched.getStringExtra(AzaanScheduler.EXTRA_PRAYER))
@@ -55,8 +54,7 @@ class QuietPreviewLaunchTest : ComposeSupport() {
                 val expected = (if (minutes == 0) 1 else minutes) * 60_000L
                 assertTrue(phase.endsAt >= before + expected)
                 assertTrue(phase.endsAt <= System.currentTimeMillis() + expected)
-                val screen = shadowOf(app).nextStartedActivity
-                assertNotNull("Quiet preview must actually open its screen", screen)
+                val screen = requireNotNull(shadowOf(app).nextStartedActivity) { "Quiet preview must actually open its screen" }
                 assertEquals(AzaanActivity::class.java.name, screen.component?.className)
                 assertEquals(Prayer.MAGHRIB.name, screen.getStringExtra(AzaanScheduler.EXTRA_PRAYER))
                 assertTrue(screen.flags and Intent.FLAG_ACTIVITY_NEW_TASK != 0)
