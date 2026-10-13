@@ -109,7 +109,7 @@ internal fun doors(state: PrayerState, s: AppSettings, a: HomeActions): List<Doo
     if (s.showQibla) { val q = PrayerEngine.qibla(s); out += Door(L10n.word(s, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), onClick = a.onOpenQibla) }
     if (AdhkarMode.MORNING in adhkarModes(state, s)) out += Door(L10n.word(s, "Morning adhkār")) { a.onOpenAdhkar(AdhkarMode.MORNING) }
     if (AdhkarMode.EVENING in adhkarModes(state, s)) out += Door(L10n.word(s, "Evening adhkār")) { a.onOpenAdhkar(AdhkarMode.EVENING) }
-    if (s.fridayReminders && PrayerEngine.isJumuahWindow(s, state.now)) out += Door("Jumuʿah · al-Kahf · ṣalawāt", onClick = a.onOpenFriday)
+    if (s.fridayReminders && PrayerEngine.isJumuahWindow(s, state.now)) out += Door(L10n.word(s, "Jumuʿah · al-Kahf · ṣalawāt"), onClick = a.onOpenFriday)
     if (AdhkarMode.POST in adhkarModes(state, s))
         out += Door(L10n.word(s, "After-prayer adhkār")) { a.onOpenAdhkar(AdhkarMode.POST) }
     if (ramadan && hij.day >= 27) out += Door("Zakāt al-Fiṭr before Eid prayer")
@@ -252,16 +252,10 @@ private fun TimeRow(
         iq?.let { "${if (urdu) L10n.word(s, "Iqamah") else "iq"} ${PrayerEngine.clock(it, s.use24h)}" },
         if (p == Prayer.SUNRISE) Str.get(R.string.s_duha_from, PrayerEngine.clock(t.plusMinutes(15), s.use24h)) else null
     ).joinToString("  ·  ")
-    val spoken = buildString {
-        append(label); append(", "); append(PrayerEngine.clock(t, s.use24h)); append(' '); append(PrayerEngine.suffix(t, s.use24h)); append(", "); append(L10n.relative(s, t, state.now))
-        when { isNow -> append(L10n.t(", now", "، ابھی")); isNext -> append(L10n.t(", next prayer", "، اگلی نماز")); done -> append(L10n.t(", passed", "، گزر گئی")) }
-        if (iq != null) { append(", iqamah "); append(PrayerEngine.clock(iq, s.use24h)) }
-        if (endT != null) { append(L10n.t(", ends ", "، اختتام ")); append(PrayerEngine.clock(endT, s.use24h)) }
-        if (s.azaanEnabled[p] != true && p.isPrayer) append(", azaan off")
-    }
+    val spoken = L10n.spokenRow(s, label, p, t, state.now, isNow, isNext, done, iq, endT, s.azaanEnabled[p] != true && p.isPrayer)
     Row(
         modifier.fillMaxWidth()
-            .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = L10n.t("Switch between clock time and time until", "گھڑی کا وقت اور باقی وقت بدلیں"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیوں؟"), role = Role.Button)
+            .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = L10n.t("Switch between clock time and time until", "نماز کا وقت یا باقی وقت دکھانے کے لیے چھوئیں۔"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیسے طے ہوتا ہے؟"), role = Role.Button)
             .semantics(mergeDescendants = true) { contentDescription = spoken },
         verticalAlignment = Alignment.CenterVertically
     ) {

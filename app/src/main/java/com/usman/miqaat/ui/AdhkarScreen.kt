@@ -132,7 +132,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                         Row(
                             Modifier.fillMaxWidth().heightIn(min = 48.dp).background(if (isCur) tk.primary.copy(alpha = 0.14f) else Color.Transparent)
                                 .selectable(selected = isCur, role = androidx.compose.ui.semantics.Role.Tab) { index = i }.padding(horizontal = u * 2.2f, vertical = u * 1.1f)
-                                .semantics(mergeDescendants = true) { stateDescription = if (c >= d.count) Str[R.string.s_complete] else if (d.count > 1) Str.get(R.string.s_count_of, c, d.count) else Str[R.string.s_not_yet_read] },
+                                .semantics(mergeDescendants = true) { stateDescription = if (c >= d.count) Str[R.string.s_complete] else if (d.count > 1) Str.get(R.string.s_count_read_of, c, d.count) else Str[R.string.s_not_yet_read] },
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Box(Modifier.size(u * 2.4f).clip(CircleShape).background(if (c >= d.count) tk.success else tk.softFill).border(1.dp, if (isCur) tk.primary else tk.neutralStroke, CircleShape), contentAlignment = Alignment.Center) {
@@ -171,7 +171,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                     if (cur.id == "asbahna" || cur.id == "amsayna") Text(Str[R.string.learn_excerpt], fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary)
                     if (cur.id == "tahlil") Text(Str[R.string.learn_daily_tahlil], fontFamily = Nunito, fontSize = 12.sp, color = tk.contentSecondary, textAlign = TextAlign.Center)
                     Text(if (L10n.uiUrdu) UrduContent.dhikrMeanings.getValue(cur.id) else cur.english, fontFamily = Cormorant, fontSize = (u.value * (if (longText) 1.8f else 2.1f)).sp, lineHeight = (u.value * 2.9f).sp, color = tk.contentPrimary, textAlign = TextAlign.Center)
-                    Text(cur.source, fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, color = tk.contentSecondary, textAlign = TextAlign.Center, modifier = Modifier.padding(top = u * 1.2f))
+                    Text(L10n.adhkarSource(cur.source), fontFamily = Nunito, fontSize = (u.value * 1.25f).sp, color = tk.contentSecondary, textAlign = TextAlign.Center, modifier = Modifier.padding(top = u * 1.2f))
                 }
                 // counter
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.6f), modifier = Modifier.padding(top = u * 1)) {
@@ -187,7 +187,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                     }
                     Column {
                         Text(if (done) Str[R.string.s_complete] else if (cur.count == 1) Str[R.string.s_tap_when_read] else Str[R.string.s_tap_for_each_recitation], fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
-                        Text(if (cur.count > 1) Str.get(R.string.s_count_of, c, cur.count) else "", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary)
+                        Text(if (cur.count > 1) Str.get(R.string.s_count_read_of, c, cur.count) else "", fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary)
                     }
                     Spacer(Modifier.weight(1f))
                     if (!compact) {

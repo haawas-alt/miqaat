@@ -80,7 +80,7 @@
     <string name="s_shown_on_the_home_screen_in">رمضان میں ہوم اسکرین پر عشاء کے بعد منٹوں میں دکھایا جاتا ہے</string>
     <string name="s_minute_adjustments">منٹوں کی ترمیم</string>
     <string name="s_nudge_each_time_by_a_few">اپنی مسجد کے چھپے ہوئے ٹائم ٹیبل سے ملانے کے لیے ہر وقت کو چند منٹ آگے پیچھے کریں۔</string>
-    <string name="s_today_with_these_settings">"ان ترتیبات کے ساتھ آج:  "</string>
+    <string name="s_today_with_these_settings">"ان ترتیبات کے مطابق آج کے اوقات: "</string>
     <string name="s_the_azaan_plays_through_the_alarm">اذان الارم چینل سے بجتی ہے، اس لیے ڈیوائس خاموش ہونے پر بھی سنائی دیتی ہے۔</string>
     <string name="s_play">چلائیں</string>
     <string name="s_volume">آواز</string>
@@ -289,7 +289,7 @@
     <string name="s_will_the_azaan_reach_you">کیا اذان آپ تک پہنچے گی؟</string>
     <string name="s_the_azaan_plays_on_the_alarm">اذان الارم چینل پر بجتی ہے اس لیے خاموش موڈ میں بھی سنائی دیتی ہے۔ یہ اجازتیں طے کرتی ہیں کہ اینڈرائیڈ اسے وقت پر بجنے اور اسکرین جگانے دیتا ہے یا نہیں۔ ہر ایک پر اجازت ہے یا اجازت نہیں لکھا ہے — کچھ چھپا نہیں۔</string>
     <string name="s_play_a_test_azaan">آزمائشی اذان چلائیں</string>
-    <string name="s_finish">مکمل</string>
+    <string name="s_finish">مکمل کریں</string>
     <string name="s_you_can_finish_now_the_reliability">آپ ابھی مکمل کر سکتے ہیں؛ قابلِ اعتماد کی فہرست ترتیبات › اذان اور الرٹ میں اور ہوم اسکرین پر اس وقت تک رہے گی جب تک سب اجازتیں مل نہ جائیں۔</string>
     <string name="s_as_salah_the_prayer">الصلاۃ، نماز</string>
     <string name="s_one_common_form_of_the_prayer">نماز کا ایک عام طریقہ، ایک وقت میں ایک عمل، عربی الفاظ کے ساتھ، انہیں کیسے کہنا ہے اور ان کا مطلب کیا ہے۔ جہاں مسالک مختلف ہیں، نوٹ بتا دیتا ہے۔ بچوں اور نئے سیکھنے والے بڑوں، دونوں کے لیے۔</string>
@@ -357,7 +357,7 @@
     <string name="s_when_the_next_prayer_begins">جب اگلی نماز شروع ہو</string>
     <string name="s_disliked_for_voluntary_prayer_today_approximate">آج نفل نماز کے مکروہ اوقات · تخمینی</string>
     <string name="s_these_windows_are_conservative_estimates_15">یہ اوقات محتاط تخمینے ہیں (فجر کے بعد طلوع تک، طلوعِ آفتاب کے بعد ≈15 منٹ، زوال کے قریب ≈10 منٹ، عصر کے بعد غروب تک)؛ نصوص واقعات بیان کرتی ہیں، منٹوں کی گنتی نہیں، اور تفصیلات میں مسالک مختلف ہیں۔ تین شمسی اوقات: صحیح مسلم 831؛ فجر اور عصر کے بعد: صحیح بخاری 586۔ فرض نمازیں ان سے مقید نہیں؛ قضا نماز یاد آتے ہی پڑھی جاتی ہے (صحیح مسلم 684)، اگرچہ ان اوقات میں پڑھنے پر مسالک مختلف ہیں۔</string>
-    <string name="s_day_line">"دن کی لکیر: "</string>
+    <string name="s_day_line">"دن کے اوقات: "</string>
     <string name="s_prayer_may_be_offered">" نماز پڑھی جا سکتی ہے"</string>
     <string name="s_disliked_for_naw_fil_after_sunrise">" نوافل کے لیے مکروہ: فجر کے بعد · طلوعِ آفتاب کے بعد · زوال · عصر کے بعد"</string>
     <string name="s_today">آج</string>
@@ -369,13 +369,13 @@
     <string name="s_the_best_day_on_which_the">\"بہترین دن جس پر سورج طلوع ہوا، جمعہ ہے۔\" · صحیح مسلم 854</string>
     <string name="s_s_rat_al_kahf">سورۃ الکہف</string>
     <string name="s_read_this_friday">اس جمعے پڑھ لی ✓</string>
-    <string name="s_mark_as_read">پڑھی ہوئی کے طور پر نشان زد کریں</string>
+    <string name="s_mark_as_read">تلاوت مکمل ہونے کی نشان دہی کریں</string>
     <string name="s_from_thursday_maghrib_to_friday_maghrib">جمعرات کی مغرب سے جمعے کی مغرب تک</string>
     <string name="s_tap_the_circle_for_each_one">ہر ایک کے لیے دائرہ چھوئیں · اس جمعے کی گنتی</string>
-    <string name="s_hour_of_acceptance">قبولیت کی گھڑی</string>
+    <string name="s_hour_of_acceptance">دعا کی قبولیت کا وقت</string>
     <string name="s_an_hour_on_friday_when_du">جمعے کی ایک گھڑی جس میں دعا قبول ہوتی ہے (بخاری 935)۔ یہاں مغرب سے پہلے کی آخری گھڑی دکھائی گئی ہے — ابو داؤد 1048 اور نسائی 1389 کی بنا پر بہت سے علماء کی رائے؛ ایک اور معروف رائے اسے امام کے بیٹھنے سے نماز کے ختم ہونے تک قرار دیتی ہے۔</string>
     <string name="s_this_friday">اس جمعے</string>
-    <string name="s_a_quiet_reminder_will_show">" · ایک خاموش یاد دہانی آئے گی"</string>
+    <string name="s_a_quiet_reminder_will_show">" بغیر آواز کے یاد دہانی موصول ہوگی۔"</string>
     <string name="s_now_make_du">ابھی · دعا کریں</string>
     <string name="s_passed_for_this_week">اس ہفتے کے لیے گزر گئی</string>
     <string name="s_friday_s_sunnahs">جمعے کی سنتیں</string>
@@ -394,8 +394,8 @@
     <string name="s_not_yet_read">ابھی نہیں پڑھا</string>
     <string name="s_count_one_recitation">ایک بار شمار کریں</string>
     <string name="s_complete">مکمل</string>
-    <string name="s_tap_when_read">پڑھ لیں تو چھوئیں</string>
-    <string name="s_tap_for_each_recitation">ہر بار پڑھنے پر چھوئیں</string>
+    <string name="s_tap_when_read">پڑھنے کے بعد چھوئیں</string>
+    <string name="s_tap_for_each_recitation">ہر بار پڑھنے کے بعد چھوئیں</string>
     <string name="s_previous">‹ پچھلا</string>
     <string name="s_next_2">اگلا ›</string>
     <string name="s_iqamah_countdown">اقامت کی الٹی گنتی</string>
@@ -549,7 +549,7 @@
     <string name="s_learn_recitation">نماز کی تلاوت سیکھیں</string>
     <string name="s_learn_recitation_detail">بارہ متون کی تلاوت عبد الرحمٰن عثمان ضیاء نے اس ایپ کے لیے ریکارڈ کی ہے۔</string>
     <string name="s_recited_by_named">تلاوت: عبد الرحمٰن عثمان ضیاء · شامل شدہ ریکارڈنگ</string>
-    <string name="s_why_this_time">یہ وقت کیوں؟</string>
+    <string name="s_why_this_time">یہ وقت کیسے طے ہوتا ہے؟</string>
     <string name="s_play_one_hadith">ایک حدیث چلائیں</string>
     <string name="s_play_one_hadith_detail">نمبر (1–36) منتخب کریں تاکہ اس کی عربی اور انگریزی ریکارڈنگ سنیں؛ روزانہ کی ترتیب متاثر نہیں ہوتی</string>
     <string name="e_theme_celestial">سماوی نصف النہار</string>
@@ -608,8 +608,8 @@
     <string name="s_loading">لوڈ ہو رہا ہے…</string>
     <string name="s_nothing_here_yet">ابھی یہاں کچھ نہیں</string>
     <string name="s_something_went_wrong">کچھ غلط ہو گیا</string>
-    <string name="s_switch_clock_time_until">گھڑی کے وقت اور باقی وقت کے درمیان تبدیل کریں</string>
-    <string name="s_a11y_location">مقام: %1$s۔ مقام کی ترتیبات کھولتا ہے</string>
+    <string name="s_switch_clock_time_until">نماز کا وقت یا باقی وقت دکھانے کے لیے چھوئیں۔</string>
+    <string name="s_a11y_location">مقام: %1$s۔ مقام کی ترتیبات کھولیں۔</string>
     <string name="s_start">شروع کریں</string>
     <string name="s_clock_12h">12 گھنٹے</string>
     <string name="s_clock_24h">24 گھنٹے</string>

@@ -177,13 +177,9 @@ fun KiswahHome(
                     val next = p == state.hero && state.nextTime.toLocalDate() == state.now.toLocalDate()
                     val label = when { p == Prayer.DHUHR && isFri -> L10n.word(settings, "Jumuʿah"); ramadan && p == Prayer.FAJR -> L10n.word(settings, "Suhoor"); ramadan && p == Prayer.MAGHRIB -> L10n.word(settings, "Iftar"); else -> L10n.prayer(settings, p) }
                     val iq = PrayerEngine.iqamah(settings, state.today, p)
-                    val words = buildString {
-                        append(label); append(", "); append(PrayerEngine.clock(t, settings.use24h)); append(' '); append(PrayerEngine.suffix(t, settings.use24h))
-                        append(", "); append(L10n.relative(settings, t, state.now)); if (next) append(L10n.t(", next prayer", "، اگلی نماز")) else if (done) append(L10n.t(", passed", "، گزر گئی"))
-                        if (iq != null) { append(", iqamah "); append(PrayerEngine.clock(iq, settings.use24h)) }
-                    }
+                    val words = L10n.spokenRow(settings, label, p, t, state.now, false, next, done && !next, iq, null, false)
                     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.alpha(if (done) 0.6f else 1f)
-                        .combinedClickable(onClick = onToggleRelative, onLongClick = { why = p }, onClickLabel = L10n.t("Switch between clock time and time until", "گھڑی کا وقت اور باقی وقت بدلیں"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیوں؟"), role = androidx.compose.ui.semantics.Role.Button)
+                        .combinedClickable(onClick = onToggleRelative, onLongClick = { why = p }, onClickLabel = L10n.t("Switch between clock time and time until", "نماز کا وقت یا باقی وقت دکھانے کے لیے چھوئیں۔"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیسے طے ہوتا ہے؟"), role = androidx.compose.ui.semantics.Role.Button)
                         .semantics(mergeDescendants = true) { contentDescription = words }) {
                         Text(if (urdu) label else label.uppercase(), fontFamily = F, fontSize = fs(if (urdu) 1.6f else 1.15f), letterSpacing = fs(0.3f), color = Kiswah.threadSoft.copy(alpha = 0.75f))
                         if (settings.showRelative) Text(L10n.relative(settings, t, state.now).let { if (urdu) it else it.uppercase() }, fontFamily = F, fontSize = fs(1.5f), letterSpacing = fs(0.1f), color = if (next) Kiswah.highlight else Kiswah.ivory)

@@ -12,6 +12,7 @@
     <string name="s_iqamah_in_title">%1$s؛ اقامت میں باقی وقت</string>
     <string name="s_expanded">کھلا ہوا</string>
     <string name="s_collapsed">بند</string>
+    <string name="s_count_read_of">%2$d میں سے %1$d بار پڑھا</string>
     <string name="s_count_of">%2$d میں سے %1$d</string>
     <string name="s_count_complete">%2$d میں سے %1$d مکمل</string>
     <string name="s_count_remaining">%2$d میں سے %1$d باقی</string>

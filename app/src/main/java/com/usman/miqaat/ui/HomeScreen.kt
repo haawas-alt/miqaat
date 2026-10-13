@@ -147,7 +147,7 @@ fun HomeScreen(
                             }
                             if (AdhkarMode.MORNING in adhkarModes(state, settings)) Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "Morning adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.MORNING) }
                             if (AdhkarMode.EVENING in adhkarModes(state, settings)) Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "Evening adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.EVENING) }
-                            if (friday) Chip(Icons.Outlined.MenuBook, "Jumuʿah · al-Kahf · ṣalawāt", u, font = F, onClick = onOpenFriday)
+                            if (friday) Chip(Icons.Outlined.MenuBook, L10n.word(settings, "Jumuʿah · al-Kahf · ṣalawāt"), u, font = F, onClick = onOpenFriday)
                             if (AdhkarMode.POST in adhkarModes(state, settings))
                                 Chip(Icons.Outlined.WbTwilight, L10n.word(settings, "After-prayer adhkār"), u, gold = true, font = F) { onOpenAdhkar(AdhkarMode.POST) }
                             if (ramadan && hij.day >= 27) Chip(Icons.Outlined.Info, "Zakāt al-Fiṭr before Eid prayer", u, font = F)
@@ -260,17 +260,9 @@ fun HomeScreen(
                                 .clickable(onClick = onToggleRelative, role = androidx.compose.ui.semantics.Role.Button)
                                 .semantics(mergeDescendants = true) {
                                     // One sentence per card for TalkBack; state is spoken, not only coloured.
-                                    contentDescription = buildString {
-                                        append(label); append(", ")
-                                        append(PrayerEngine.clock(t, settings.use24h)); append(' '); append(PrayerEngine.suffix(t, settings.use24h))
-                                        append(", "); append(L10n.relative(settings, t, state.now))
-                                        when { isNow -> append(L10n.t(", now", "، ابھی")); isNext -> append(L10n.t(", next prayer", "، اگلی نماز")); done -> append(L10n.t(", passed", "، گزر گئی")) }
-                                        if (iq != null) { append(", iqamah "); append(PrayerEngine.clock(iq, settings.use24h)) }
-                                        if (endT != null) { append(L10n.t(", ends ", "، اختتام ")); append(PrayerEngine.clock(endT, settings.use24h)) }
-                                        if (settings.azaanEnabled[p] != true && p.isPrayer) append(", azaan off")
-                                    }
+                                    contentDescription = L10n.spokenRow(settings, label, p, t, state.now, isNow, isNext, done, iq, endT, settings.azaanEnabled[p] != true && p.isPrayer)
                                     stateDescription = if (settings.showRelative) "Showing time until or since" else "Showing clock times"
-                                    onClick(label = L10n.t("Switch between clock time and time until", "گھڑی کا وقت اور باقی وقت بدلیں")) { onToggleRelative(); true }
+                                    onClick(label = L10n.t("Switch between clock time and time until", "نماز کا وقت یا باقی وقت دکھانے کے لیے چھوئیں۔")) { onToggleRelative(); true }
                                 })
                     }
                 }
@@ -361,7 +353,7 @@ fun PrayerCard(
                 done && p.isPrayer -> Icon(Icons.Outlined.Check, null, Modifier.size(u * 1.6f), tint = Palette.mint)
                 p.isPrayer -> Icon(if (azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(u * 1.6f), tint = Palette.ivory.copy(alpha = 0.7f))
             }
-            if (onWhy != null) Box(Modifier.size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = androidx.compose.ui.semantics.Role.Button), contentAlignment = Alignment.Center) { Icon(Icons.Outlined.Info, L10n.t("Why this time?", "یہ وقت کیوں؟"), Modifier.size(u * 1.6f), tint = Palette.textSecondary) }
+            if (onWhy != null) Box(Modifier.size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = androidx.compose.ui.semantics.Role.Button), contentAlignment = Alignment.Center) { Icon(Icons.Outlined.Info, L10n.t("Why this time?", "یہ وقت کیسے طے ہوتا ہے؟"), Modifier.size(u * 1.6f), tint = Palette.textSecondary) }
         }
         Text(p.arabic, fontFamily = Amiri, fontSize = (u.value * 2.1f).sp, lineHeight = (u.value * 2.3f).sp, color = Palette.goldSoft)
         Row(verticalAlignment = Alignment.Bottom) {

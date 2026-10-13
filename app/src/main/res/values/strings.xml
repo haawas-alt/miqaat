@@ -12,6 +12,7 @@
     <string name="s_iqamah_in_title">%1$s · iqamah in</string>
     <string name="s_expanded">Expanded</string>
     <string name="s_collapsed">Collapsed</string>
+    <string name="s_count_read_of">%1$d of %2$d</string>
     <string name="s_count_of">%1$d of %2$d</string>
     <string name="s_count_complete">%1$d of %2$d complete</string>
     <string name="s_count_remaining">%1$d remaining of %2$d</string>

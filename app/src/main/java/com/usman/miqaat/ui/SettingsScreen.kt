@@ -505,7 +505,7 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
     val today = remember(s) { PrayerEngine.times(s, LocalDate.now(s.zone())) }
     Spacer(Modifier.height(14.dp))
     Text(
-        Str[R.string.s_today_with_these_settings] + Prayer.entries.joinToString("   ") { "${L10n.prayer(s, it)} ${PrayerEngine.clock(today[it], s.use24h)}" },
+        Str[R.string.s_today_with_these_settings] + (if (L10n.uiUrdu) Prayer.entries.joinToString("، ") { "${L10n.prayer(s, it)} ${L10n.at(today[it], s.use24h)}" } + "۔" else Prayer.entries.joinToString("   ") { "${it.english} ${PrayerEngine.clock(today[it], s.use24h)}" }),
         fontFamily = Nunito, fontSize = 13.sp, color = tk.accent
     )
 
@@ -533,18 +533,18 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
 
     Heading(Str[R.string.s_azaan_alerts], Str[R.string.s_the_azaan_plays_through_the_alarm])
     if (next != null) Text(
-        (if (L10n.uiUrdu) "اگلا: ${L10n.prayer(s, next.prayer)} کی ${L10n.alertKind(false, next.reminder)} ${PrayerEngine.clock(next.at, s.use24h)} ${PrayerEngine.suffix(next.at, s.use24h)}" else "Next: ${next.prayer.english} ${if (next.reminder) "reminder" else "azaan"} at ${PrayerEngine.clock(next.at, s.use24h)} ${PrayerEngine.suffix(next.at, s.use24h)}"),
+        (if (L10n.uiUrdu) "اگلی ${L10n.alertKind(false, next.reminder)}: ${L10n.prayer(s, next.prayer)}، ${L10n.at(next.at, s.use24h)}۔" else "Next: ${next.prayer.english} ${if (next.reminder) "reminder" else "azaan"} at ${PrayerEngine.clock(next.at, s.use24h)} ${PrayerEngine.suffix(next.at, s.use24h)}"),
         fontFamily = Nunito, fontSize = 14.sp, color = tk.accent, modifier = Modifier.padding(bottom = 10.dp)
     )
     Prayer.prayersOnly.forEach { p ->
-        SettingRow("${L10n.prayer(s, p)}  ${p.arabic}", null) {
+        SettingRow("${L10n.prayer(s, p)}  ${p.arabic}", null, spokenTitle = L10n.prayer(s, p)) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 TextButton(onClick = { AzaanService.preview(ctx, p) }) { Text(Str[R.string.s_play], color = tk.accent) }
                 Toggle(s.azaanEnabled[p] == true) { on -> store.update { it.copy(azaanEnabled = it.azaanEnabled + (p to on)) } }
             }
         }
     }
-    SettingRow(Str[R.string.s_volume], (if (L10n.uiUrdu) "الارم والیوم کا ${s.azaanVolume}%" else "${s.azaanVolume}% of the alarm volume")) {
+    SettingRow(Str[R.string.s_volume], (if (L10n.uiUrdu) "الارم کی آواز کی سطح کا ${s.azaanVolume} فیصد" else "${s.azaanVolume}% of the alarm volume")) {
         Slider(value = s.azaanVolume / 100f, onValueChange = { v -> store.update { it.copy(azaanVolume = (v * 100).toInt()) } }, modifier = Modifier.width(220.dp).semantics { contentDescription = Str[R.string.s_azaan_volume]; stateDescription = "${s.azaanVolume} percent" })
     }
     SettingRow(Str[R.string.s_speaker_boost], Str[R.string.s_speaker_boost_detail]) {
@@ -627,7 +627,7 @@ private fun IqamahSection(store: SettingsStore, s: AppSettings) {
             val off = s.iqamahOffsets[p] ?: 0
             val at = s.iqamahFixed[p] ?: 12 * 60
             val iq = PrayerEngine.iqamah(s, today, p)
-            SettingRow("${L10n.prayer(s, p)}  ${p.arabic}", if (iq != null) (if (L10n.uiUrdu) "آج: اذان ${PrayerEngine.clock(today[p], s.use24h)} ${PrayerEngine.suffix(today[p], s.use24h)} · اقامت ${PrayerEngine.clock(iq, s.use24h)} ${PrayerEngine.suffix(iq, s.use24h)}" else "Today: azaan ${PrayerEngine.clock(today[p], s.use24h)} ${PrayerEngine.suffix(today[p], s.use24h)} → iqamah ${PrayerEngine.clock(iq, s.use24h)} ${PrayerEngine.suffix(iq, s.use24h)}") else Str[R.string.s_off_for_this_prayer]) {
+            SettingRow("${L10n.prayer(s, p)}  ${p.arabic}", spokenTitle = L10n.prayer(s, p), subtitle = if (iq != null) (if (L10n.uiUrdu) "آج: اذان ${L10n.at(today[p], s.use24h)}، اقامت ${L10n.at(iq, s.use24h)}۔" else "Today: azaan ${PrayerEngine.clock(today[p], s.use24h)} ${PrayerEngine.suffix(today[p], s.use24h)} → iqamah ${PrayerEngine.clock(iq, s.use24h)} ${PrayerEngine.suffix(iq, s.use24h)}") else Str[R.string.s_off_for_this_prayer]) {
                 Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Chips(listOf(Str[R.string.s_after_azaan], Str[R.string.s_fixed_time]), if (fixed) 1 else 0) { i -> store.update { it.copy(iqamahIsFixed = it.iqamahIsFixed + (p to (i == 1))) } }
                     if (fixed) TimeStepper(at, s.use24h) { v -> store.update { it.copy(iqamahFixed = it.iqamahFixed + (p to v)) } }
@@ -722,7 +722,7 @@ private fun HealthSection(store: SettingsStore, s: AppSettings) {
     Heading(Str[R.string.s_reliability_backup], Str[R.string.s_did_it_fire_every_azaan_iqamah])
     Text(Str.get(R.string.s_log_last7, fired) + (if (late > 0) Str.get(R.string.s_log_late, late) else "") + (if (missed > 0) Str.get(R.string.s_log_missed, missed) else Str[R.string.s_none_missed]), fontFamily = Cormorant, fontSize = 26.sp, color = if (missed > 0) (if (tk.dark) Color(0xFFF08C8C) else tk.warning) else if (late > 0) (if (tk.dark) Color(0xFFF0A050) else tk.warning) else tk.success)
     Spacer(Modifier.height(6.dp))
-    SettingRow(Str[R.string.s_next_alarm_armed], next?.let { "${L10n.prayer(s, it.prayer)} ${L10n.alertKind(it.iqamah, it.reminder)} · ${PrayerEngine.clock(it.at, s.use24h)} ${PrayerEngine.suffix(it.at, s.use24h)}" } ?: Str[R.string.s_nothing_scheduled_turn_on_an_azaan]) { Value(if (next != null) "✓" else "!") }
+    SettingRow(Str[R.string.s_next_alarm_armed], next?.let { if (L10n.uiUrdu) "${L10n.prayer(s, it.prayer)} کی ${L10n.alertKind(it.iqamah, it.reminder)} — ${L10n.at(it.at, s.use24h)}" else "${it.prayer.english} ${L10n.alertKind(it.iqamah, it.reminder)} · ${PrayerEngine.clock(it.at, s.use24h)} ${PrayerEngine.suffix(it.at, s.use24h)}" } ?: Str[R.string.s_nothing_scheduled_turn_on_an_azaan]) { Value(if (next != null) "✓" else "!") }
     SettingRow(Str[R.string.s_battery_optimisation], if (pm.isIgnoringBatteryOptimizations(ctx.packageName)) Str[R.string.s_miqaat_is_exempt] else Str[R.string.s_not_exempt_android_may_delay_alarms]) { Value(if (pm.isIgnoringBatteryOptimizations(ctx.packageName)) "✓" else "!") }
     SettingRow(Str[R.string.s_launch_on_boot], if (s.launchOnBoot) Str[R.string.s_on] else Str[R.string.s_off_recommended_for_the_wall_tablet]) { Toggle(s.launchOnBoot) { on -> store.update { it.copy(launchOnBoot = on) } } }
     SettingRow(Str[R.string.s_time_change_self_check], Str[R.string.s_runs_automatically_after_any_clock_or]) { Value("✓") }
@@ -892,7 +892,7 @@ internal fun Heading(title: String, desc: String) {
 
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
-internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)? = null, stacked: Boolean = false, trailing: @Composable () -> Unit) {
+internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)? = null, stacked: Boolean = false, spokenTitle: String? = null, trailing: @Composable () -> Unit) {
     val tk = screenTokens()
     val focusTitle = LocalSettingsFocus.current
     val focused = focusTitle != null && focusTitle == title
@@ -906,7 +906,7 @@ internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)?
             // Phone: label on top, control underneath, so neither squeezes the other.
             Column(rowMod) {
                 Column(Modifier.semantics(mergeDescendants = true) {}) {
-                    Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
+                    Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary, modifier = if (spokenTitle != null) Modifier.semantics { contentDescription = spokenTitle } else Modifier)
                     if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary, lineHeight = 19.sp)
                 }
                 Box(Modifier.padding(top = 10.dp).fillMaxWidth(), contentAlignment = Alignment.CenterStart) { trailing() }
@@ -914,7 +914,7 @@ internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)?
         } else {
             Row(rowMod, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
                 Column(Modifier.weight(1f).widthIn(min = 160.dp).padding(end = 20.dp).semantics(mergeDescendants = true) {}) {
-                    Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)
+                    Text(title, fontFamily = Nunito, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary, modifier = if (spokenTitle != null) Modifier.semantics { contentDescription = spokenTitle } else Modifier)
                     if (subtitle != null) Text(subtitle, fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary, lineHeight = 19.sp)
                 }
                 trailing()

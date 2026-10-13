@@ -154,7 +154,7 @@ fun DayThread(settings: AppSettings, day: DayTimes, now: ZonedDateTime, modifier
         else mapOf(Prayer.FAJR to "Fajr", Prayer.SUNRISE to "Sunrise", Prayer.DHUHR to "Dhuhr", Prayer.ASR to "ʿAsr", Prayer.MAGHRIB to "Maghrib", Prayer.ISHA to "Isha")
     val initialMap = mapOf(Prayer.FAJR to "F", Prayer.SUNRISE to "☼", Prayer.DHUHR to "D", Prayer.ASR to "A", Prayer.MAGHRIB to "M", Prayer.ISHA to "I")
     val ember = Color(0xFFF0873A)
-    val words = Str[R.string.s_day_line] + windows.joinToString("; ") { w -> com.usman.miqaat.data.L10n.t("avoid voluntary prayer ${PrayerEngine.clock(w.start, settings.use24h)} to ${PrayerEngine.clock(w.end, settings.use24h)}", "${PrayerEngine.clock(w.start, settings.use24h)} سے ${PrayerEngine.clock(w.end, settings.use24h)} تک نفل نماز مکروہ") }
+    val words = Str[R.string.s_day_line] + windows.joinToString(com.usman.miqaat.data.L10n.t("; ", "؛ ")) { w -> com.usman.miqaat.data.L10n.avoidWindow(w.start, w.end, settings.use24h) }
     Canvas(modifier.height(with(androidx.compose.ui.platform.LocalDensity.current) { labelSize.toDp() } * 3.4f).semantics { contentDescription = words }) {
         val y = size.height * 0.36f
         val xNow = size.width * f(now)
@@ -220,7 +220,7 @@ fun SunArc(settings: AppSettings, day: DayTimes, now: ZonedDateTime, height: Dp,
     val night = if (kiswah) Color(0xFF2B3F8C) else Color(0xFF7F95E0)
     val ruby = Color(0xFFC9646F)
     val labelStyle = androidx.compose.ui.text.TextStyle(fontFamily = if (kiswah) Cinzel else Nunito, fontSize = labelSize, letterSpacing = if (kiswah) 1.5.sp else 1.sp, fontWeight = FontWeight.SemiBold)
-    val words = com.usman.miqaat.data.L10n.t("Sun arc: sunrise ${PrayerEngine.clock(rise, settings.use24h)}, sunset ${PrayerEngine.clock(set, settings.use24h)}. ", "سورج کا راستہ: طلوع ${PrayerEngine.clock(rise, settings.use24h)}، غروب ${PrayerEngine.clock(set, settings.use24h)}۔ ") + windows.joinToString("; ") { w -> com.usman.miqaat.data.L10n.t("avoid voluntary prayer ${PrayerEngine.clock(w.start, settings.use24h)} to ${PrayerEngine.clock(w.end, settings.use24h)}", "${PrayerEngine.clock(w.start, settings.use24h)} سے ${PrayerEngine.clock(w.end, settings.use24h)} تک نفل نماز مکروہ") }
+    val words = com.usman.miqaat.data.L10n.t("Sun arc: sunrise ${PrayerEngine.clock(rise, settings.use24h)}, sunset ${PrayerEngine.clock(set, settings.use24h)}. ", "سورج کا یومیہ راستہ: طلوعِ آفتاب ${com.usman.miqaat.data.L10n.at(rise, settings.use24h)}، غروبِ آفتاب ${com.usman.miqaat.data.L10n.at(set, settings.use24h)}۔ ") + windows.joinToString(com.usman.miqaat.data.L10n.t("; ", "؛ ")) { w -> com.usman.miqaat.data.L10n.avoidWindow(w.start, w.end, settings.use24h) }
     Canvas(modifier.height(height).semantics { contentDescription = words }) {
         val hair = 1.dp.toPx()
         val labelH = labelSize.toPx() * 1.5f

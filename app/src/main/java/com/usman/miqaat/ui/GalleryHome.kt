@@ -217,7 +217,7 @@ private fun GalleryCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: F
     val ink = if (selected) tk.primary else tk.contentPrimary
     Box(
         modifier.background(if (selected) tk.surface.copy(alpha = 0.55f) else Color.Transparent)
-            .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = L10n.t("Switch between clock time and time until", "گھڑی کا وقت اور باقی وقت بدلیں"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیوں؟"), role = Role.Button)
+            .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = L10n.t("Switch between clock time and time until", "نماز کا وقت یا باقی وقت دکھانے کے لیے چھوئیں۔"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیسے طے ہوتا ہے؟"), role = Role.Button)
             .semantics(mergeDescendants = true) { contentDescription = r.spoken }
     ) {
         Column(Modifier.fillMaxSize()) {
@@ -291,7 +291,7 @@ private fun GalleryStackedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
     val ink = if (selected) tk.primary else tk.contentPrimary
     Row(
         Modifier.fillMaxWidth().heightIn(min = (80 * k).dp).background(if (selected) tk.surface else Color.Transparent)
-            .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = L10n.t("Switch between clock time and time until", "گھڑی کا وقت اور باقی وقت بدلیں"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیوں؟"), role = Role.Button)
+            .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = L10n.t("Switch between clock time and time until", "نماز کا وقت یا باقی وقت دکھانے کے لیے چھوئیں۔"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیسے طے ہوتا ہے؟"), role = Role.Button)
             .semantics(mergeDescendants = true) { contentDescription = r.spoken },
         verticalAlignment = Alignment.CenterVertically
     ) {

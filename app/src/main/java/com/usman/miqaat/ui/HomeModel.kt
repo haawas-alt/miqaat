@@ -37,13 +37,7 @@ internal fun rowInfo(p: Prayer, state: PrayerState, s: AppSettings): RowInfo {
         if (p == Prayer.SUNRISE) Str.get(R.string.s_duha_from, PrayerEngine.clock(t.plusMinutes(15), s.use24h)) else null
     ).joinToString("  ·  ")
     val azaanOn = s.azaanEnabled[p] == true
-    val spoken = buildString {
-        append(label); append(", "); append(clock); append(' '); append(suffix); append(", "); append(rel)
-        when { isNow -> append(L10n.t(", now", "، ابھی")); isNext -> append(L10n.t(", next prayer", "، اگلی نماز")); done -> append(L10n.t(", passed", "، گزر گئی")) }
-        if (iq != null) { append(", iqamah "); append(PrayerEngine.clock(iq, s.use24h)) }
-        if (endT != null) { append(L10n.t(", ends ", "، اختتام ")); append(PrayerEngine.clock(endT, s.use24h)) }
-        if (!azaanOn && p.isPrayer) append(", azaan off")
-    }
+    val spoken = L10n.spokenRow(s, label, p, t, state.now, isNow, isNext, done, iq, endT, !azaanOn && p.isPrayer)
     return RowInfo(p, label, p.arabic, clock, suffix, rel, small, isNow, isNext, done, azaanOn, spoken)
 }
 

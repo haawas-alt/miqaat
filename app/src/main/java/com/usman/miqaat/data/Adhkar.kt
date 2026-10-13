@@ -125,5 +125,11 @@ object Ramadan {
     const val KAHF_SRC = "al-Ḥākim · al-Bayhaqī (ṣaḥīḥ, al-Albānī)"
     const val SALAWAT_NOTE = "Increase your ṣalawāt upon me on Friday"
     const val SALAWAT_SRC = "Abū Dāwūd 1047 (ṣaḥīḥ)"
+    /** Urdu shown in Urdu mode, exactly as published (review rows R-04/E01 and R-05/E02; sources S3 and S4 in the 13 Oct 2026 review).
+     *  R-04 is an excerpt and is shown on its own, marked as an excerpt; it is not merged into any other translation. */
+    const val SALAWAT_NOTE_UR = "اس لیے تم لوگ اس دن مجھ پر کثرت سے درود بھیجا کرو"
+    const val SALAWAT_SRC_UR = "سنن ابی داود، حدیث 1047"
+    const val KAHF_NOTE_UR = "جس نے جمعہ کے دن سورہ کہف پڑھی اس کے لیے دونوں جمعوں کے درمیان نور روشن کر دیا جاتا ہے۔"
+    const val KAHF_SRC_UR = "صحیح الجامع، حدیث 6470 (البانی: صحیح)"
 }
 

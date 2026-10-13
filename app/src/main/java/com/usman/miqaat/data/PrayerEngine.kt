@@ -319,13 +319,15 @@ object PrayerEngine {
     /** Plain-language direction for screen readers and the sensor-less fallback. */
     fun qiblaWords(bearing: Double, heading: Double?): String {
         if (L10n.uiUrdu) {
-            val bu = "حقیقی شمال سے %.0f درجے".format(bearing)
-            if (heading == null) return "قبلہ $bu پر ہے۔"
+            // Review row P1-07: turn instruction, then the bearing as its own sentence with the direction in words.
+            val dir = mapOf("N" to "شمال", "NE" to "شمال مشرق", "E" to "مشرق", "SE" to "جنوب مشرق", "S" to "جنوب", "SW" to "جنوب مغرب", "W" to "مغرب", "NW" to "شمال مغرب").getValue(compass8(bearing))
+            val where = "قبلے کی سمت حقیقی شمال سے %.0f درجے، %s کی جانب ہے۔".format(bearing, dir)
+            if (heading == null) return where
             val tu = turnTo(bearing, heading)
             return when {
-                kotlin.math.abs(tu) <= 3 -> "آپ قبلہ رخ ہیں ($bu)۔"
-                tu > 0 -> "قبلہ رخ ہونے کے لیے %.0f درجے دائیں مڑیں ($bu)۔".format(tu)
-                else -> "قبلہ رخ ہونے کے لیے %.0f درجے بائیں مڑیں ($bu)۔".format(-tu)
+                kotlin.math.abs(tu) <= 3 -> "آپ قبلہ رخ ہیں۔ $where"
+                tu > 0 -> "قبلہ رخ ہونے کے لیے %.0f درجے دائیں مڑیں۔ %s".format(tu, where)
+                else -> "قبلہ رخ ہونے کے لیے %.0f درجے بائیں مڑیں۔ %s".format(-tu, where)
             }
         }
         val b = "%.0f degrees, %s, from true north".format(bearing, compass(bearing))
@@ -336,6 +338,12 @@ object PrayerEngine {
             t > 0 -> "Turn right %.0f degrees to face the Qibla ($b).".format(t)
             else -> "Turn left %.0f degrees to face the Qibla ($b).".format(-t)
         }
+    }
+
+    /** Eight-point compass (N, NE … NW), used for the Urdu wording. */
+    fun compass8(deg: Double): String {
+        val dirs = listOf("N", "NE", "E", "SE", "S", "SW", "W", "NW")
+        return dirs[((deg % 360 + 360) % 360 / 45 + 0.5).toInt() % 8]
     }
 
     fun compass(deg: Double): String {

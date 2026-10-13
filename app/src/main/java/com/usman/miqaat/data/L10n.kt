@@ -14,15 +14,68 @@ object L10n {
 
     fun isUrdu(s: AppSettings) = s.language == Language.UR
 
+    /** Friday page date (UI-14): "جمعہ، 9 اکتوبر". */
+    fun fridayDate(d: java.time.LocalDate): String = "جمعہ، ${d.dayOfMonth} ${urGreg[d.monthValue - 1]}"
+
+    /** A clock time for speech/sentences: Urdu "صبح 4:52 بجے"; English "4:52 AM". */
+    fun at(t: ZonedDateTime, use24h: Boolean): String =
+        if (uiUrdu) listOf(PrayerEngine.suffix(t, use24h), PrayerEngine.clock(t, use24h), "بجے").filter { it.isNotBlank() }.joinToString(" ")
+        else (PrayerEngine.clock(t, use24h) + " " + PrayerEngine.suffix(t, use24h)).trim()
+
+    /** One spoken sentence for a prayer row (TalkBack). English wording unchanged; Urdu per review rows P1-04 and E21-E32. */
+    fun spokenRow(s: AppSettings, label: String, p: Prayer, t: ZonedDateTime, now: ZonedDateTime, isNow: Boolean, isNext: Boolean, done: Boolean,
+                  iq: ZonedDateTime?, endT: ZonedDateTime?, azaanOff: Boolean): String = buildString {
+        if (!isUrdu(s)) {
+            append(label); append(", "); append(PrayerEngine.clock(t, s.use24h)); append(' '); append(PrayerEngine.suffix(t, s.use24h)); append(", "); append(relative(s, t, now))
+            when { isNow -> append(", now"); isNext -> append(", next prayer"); done -> append(", passed") }
+            if (iq != null) { append(", iqamah "); append(PrayerEngine.clock(iq, s.use24h)) }
+            if (endT != null) { append(", ends "); append(PrayerEngine.clock(endT, s.use24h)) }
+            if (azaanOff) append(", azaan off")
+        } else {
+            append(label); append("، "); append(at(t, s.use24h))
+            val rel = relative(s, t, now)
+            when {
+                done && !isNow -> { append("، "); append(if (p == Prayer.SUNRISE) "طلوعِ آفتاب ہو چکا ہے" else "آغاز کا وقت گزر چکا ہے"); append("، "); append(rel) }
+                isNow -> { append("، "); append(rel); append("، اس وقت") }
+                isNext -> { append("، "); append(rel); append("، اگلی نماز") }
+                else -> { append("، "); append(rel) }
+            }
+            if (iq != null) { append("، اقامت "); append(at(iq, s.use24h)) }
+            if (endT != null) { append("، وقت کا اختتام: "); append(at(endT, s.use24h)) }
+            if (azaanOff) append("، اذان بند")
+        }
+    }
+
+    /** One window on the day line (P1-05 / E20). */
+    fun avoidWindow(start: ZonedDateTime, end: ZonedDateTime, use24h: Boolean): String =
+        if (uiUrdu) "${listOf(PrayerEngine.suffix(start, use24h), PrayerEngine.clock(start, use24h)).filter { it.isNotBlank() }.joinToString(" ")} سے ${at(end, use24h)} تک نفل نماز پڑھنے سے گریز کریں"
+        else "avoid voluntary prayer ${PrayerEngine.clock(start, use24h)} to ${PrayerEngine.clock(end, use24h)}"
+
+    /** Urdu citations for the adhkār sources approved in review rows E03-E05, E36, E38, E39, E41, E42 only.
+     *  Every other source (rows marked "pending source check") stays exactly as written. Gradings are kept, translated term for term. */
+    val adhkarSourceUr = mapOf(
+        "Abū Dāwūd 5068 (ṣaḥīḥ) · at-Tirmidhī 3391" to "سنن ابی داود، حدیث 5068 (صحیح) · جامع ترمذی، حدیث 3391",
+        "Abū Dāwūd 5088, at-Tirmidhī 3388 (ṣaḥīḥ)" to "سنن ابی داود، حدیث 5088 · جامع ترمذی، حدیث 3388 (صحیح)",
+        "Abū Dāwūd 5090 (ḥasan)" to "سنن ابی داود، حدیث 5090 (حسن)",
+        "Ṣaḥīḥ Muslim 2692" to "صحیح مسلم، حدیث 2692",
+        "Ṣaḥīḥ Muslim 596" to "صحیح مسلم، حدیث 596",
+        "Ṣaḥīḥ Muslim 591" to "صحیح مسلم، حدیث 591",
+        "Ṣaḥīḥ Muslim 2723b · excerpt; final petitions are not displayed" to "صحیح مسلم، حدیث 2723b · دعا کا اقتباس؛ آخری دعائیہ جملے شامل نہیں ہیں۔",
+        "Ṣaḥīḥ Muslim 596 (33 · 33 · 34)" to "صحیح مسلم، حدیث 596 (33 · 33 · 34)",
+        "Ṣaḥīḥ al-Bukhārī 6306" to "صحیح بخاری، حدیث 6306",
+        "Ṣaḥīḥ al-Bukhārī 844 · Ṣaḥīḥ Muslim 593" to "صحیح بخاری، حدیث 844 · صحیح مسلم، حدیث 593",
+    )
+    fun adhkarSource(src: String): String = if (uiUrdu) adhkarSourceUr[src] ?: src else src
+
     /** English or Urdu for one-off text (screen-reader labels, small composed lines) that has no string resource. */
     fun t(en: String, ur: String): String = if (uiUrdu) ur else en
     /** What kind of alert: azaan / iqamah / reminder. */
     fun alertKind(iqamah: Boolean, reminder: Boolean): String =
         if (iqamah) t("iqamah", "اقامت") else if (reminder) t("reminder", "یاد دہانی") else t("azaan", "اذان")
     /** Hadith book names in the app language ("Ṣaḥīḥ Muslim 2564" -> "صحیح مسلم 2564"). */
+    /** Hadith citations on the azaan screens (P1-14): "Ṣaḥīḥ Muslim 2564" -> "صحیح مسلم، حدیث 2564". */
     fun source(src: String): String = if (!uiUrdu) src else src
-        .replace("Ṣaḥīḥ al-Bukhārī", "صحیح بخاری").replace("Ṣaḥīḥ Muslim", "صحیح مسلم")
-        .replace("Sunan Abī Dāwūd", "سنن ابی داؤد").replace("Abū Dāwūd", "ابو داؤد").replace("Jāmiʿ at-Tirmidhī", "جامع ترمذی").replace("at-Tirmidhī", "ترمذی")
+        .replace(Regex("Ṣaḥīḥ al-Bukhārī (\\d+\\w?)"), "صحیح بخاری، حدیث $1").replace(Regex("Ṣaḥīḥ Muslim (\\d+\\w?)"), "صحیح مسلم، حدیث $1")
 
     /** Short Gregorian month name for the timetable month buttons: "Sep" / "ستمبر". */
     fun monthShort(s: AppSettings, ym: java.time.YearMonth): String =
@@ -116,7 +169,7 @@ object L10n {
     fun iqamahIn(s: AppSettings, d: Duration) = if (isUrdu(s)) "اقامت ${duration(s, d)} میں" else "Iqamah in ${PrayerEngine.humanDuration(d)}"
     fun word(s: AppSettings, en: String): String = if (!isUrdu(s)) en else when (en) {
         "NOW" -> "اب"; "NEXT" -> "اگلی"; "Iqamah" -> "اقامت"; "IQAMAH" -> "اقامت"; "ends" -> "اختتام"; "Jumuʿah" -> "جمعہ"
-        "Qibla" -> "قبلہ"; "Morning adhkār" -> "صبح کے اذکار"; "Evening adhkār" -> "شام کے اذکار"; "After-prayer adhkār" -> "نماز کے بعد کے اذکار"
+        "Qibla" -> "قبلہ"; "Morning adhkār" -> "صبح کے اذکار"; "Evening adhkār" -> "شام کے اذکار"; "After-prayer adhkār" -> "نماز کے بعد کے اذکار"; "Jumuʿah · al-Kahf · ṣalawāt" -> "جمعہ · سورۃ الکہف · درود شریف"
         "Update available" -> "اپ ڈیٹ دستیاب"; "Suhoor" -> "سحری"; "Iftar" -> "افطار"; "Fajr · Suhoor" -> "فجر · سحری"; "Maghrib · Iftar" -> "مغرب · افطار"
         "Designed by UZR · Make duʿā for me" -> "ڈیزائن: UZR · میرے لیے دعا کیجیے"
         else -> en
