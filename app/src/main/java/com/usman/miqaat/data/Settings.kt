@@ -116,7 +116,7 @@ data class AppSettings(
     val azaanUri: String? = null,
     val fajrAzaanUri: String? = null,
     val preReminderMinutes: Int = 0,
-    val afterWindowMinutes: Int = 45,
+    val afterWindowMinutes: Int = 15,
     val afterAzaanEnabled: Boolean = true,
     val narration: Narration = Narration.BOTH,
     val hadithMinutes: Int = 3,
