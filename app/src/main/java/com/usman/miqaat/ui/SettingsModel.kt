@@ -109,8 +109,9 @@ data class ReadinessState(val eventTitle: String?, val location: String?, val ch
     val allOk: Boolean get() = eventTitle != null && checks.all { it.ok }
     /** One spoken sentence for TalkBack. */
     fun spoken(header: String): String = buildString {
-        append(header); if (eventTitle != null) append(", ").append(eventTitle); if (location != null) append(", ").append(location)
-        checks.forEach { append(". ").append(it.label).append(": ").append(it.stateText).append(if (it.ok) "" else ", " + Str[R.string.s_needs_attention_word]) }
+        val comma = L10n.t(", ", "، "); val stop = L10n.t(". ", "۔ ")
+        append(header); if (eventTitle != null) append(comma).append(eventTitle); if (location != null) append(comma).append(location)
+        checks.forEach { append(stop).append(it.label).append(": ").append(it.stateText).append(if (it.ok) "" else comma + Str[R.string.s_needs_attention_word]) }
     }
 }
 

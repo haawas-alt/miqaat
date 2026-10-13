@@ -772,7 +772,7 @@ private fun HealthSection(store: SettingsStore, s: AppSettings) {
 
 @Composable
 private fun PrivacySection() {
-    Heading("Privacy", Str[R.string.s_what_miqaat_does_with_your_data])
+    Heading(Str[R.string.s_privacy], Str[R.string.s_what_miqaat_does_with_your_data])
     SettingRow(Str[R.string.s_prayer_times], Str[R.string.s_calculated_on_this_device_from_your]) { Value(Str[R.string.s_on_device]) }
     SettingRow(Str[R.string.s_place_name_search], Str[R.string.s_android_s_geocoder_sends_your_coordinates]) { GoldValue(Str[R.string.s_google]) }
     if (Updater.enabled) SettingRow(Str[R.string.s_updates], Str[R.string.s_miqaat_asks_github_com_whether_a]) { GoldValue(Str[R.string.s_github]) }
