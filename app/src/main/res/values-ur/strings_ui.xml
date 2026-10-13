@@ -57,7 +57,7 @@
     <string name="s_show_end_times">اختتامی اوقات دکھائیں</string>
     <string name="s_ends_5_57_under_each_prayer">ہر نماز کے نیچے \"اختتام 5:57\"۔ عشاء کا اختتام نصف شبِ شرعی پر دکھایا جاتا ہے جو بہت سے علماء کے نزدیک مختار وقت ہے؛ دیگر کے نزدیک فجر تک باقی رہتا ہے — اپنے امام سے پوچھیں۔</string>
     <string name="s_show_disliked_times_for_voluntary_prayer">نفل نماز کے مکروہ اوقات دکھائیں</string>
-    <string name="s_a_thin_day_bar_marking_approximate">دن کی ایک باریک پٹی جو تخمینی اوقات دکھاتی ہے: طلوعِ آفتاب کے بعد تقریباً 15 منٹ، زوال کے قریب تقریباً 10 منٹ، اور عصر کے بعد۔ یہ محتاط تخمینے ہیں اور مسالک کی تفصیلات مختلف ہیں۔ کسی بھی نماز پر ⓘ دبائیں: \"یہ وقت کیوں؟\"</string>
+    <string name="s_a_thin_day_bar_marking_approximate">دن کی ایک باریک پٹی جو تخمینی اوقات دکھاتی ہے: طلوعِ آفتاب کے بعد تقریباً 15 منٹ، زوال کے قریب تقریباً 10 منٹ، اور عصر کے بعد۔ یہ محتاط تخمینے ہیں اور مسالک کی تفصیلات مختلف ہیں۔ کسی بھی نماز پر ⓘ دبائیں: \"یہ وقت کیسے طے ہوتا ہے؟\"</string>
     <string name="s_show_sunrise_on_the_home_screen">ہوم اسکرین پر طلوعِ آفتاب دکھائیں</string>
     <string name="s_marks_the_end_of_fajr_time">فجر کے وقت کا اختتام ظاہر کرتا ہے</string>
     <string name="s_show_azaan_was_ago_after_each">ہر نماز کے بعد \"اذان … پہلے ہوئی\" دکھائیں</string>
