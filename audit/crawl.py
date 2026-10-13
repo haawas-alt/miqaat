@@ -573,7 +573,7 @@ ADHKAR_SC = [  # Sydney AEDT local -> UTC stamp MMDDhhmmYYYY
   ("morning-0630", "100519302026", ["صبح کے اذکار", "Morning adhkār"]),
   ("after-dhuhr-1250", "100601502026", ["نماز کے بعد اذکار", "نماز کے بعد کے اذکار", "After-prayer adhkār"]),
   ("evening-1730", "100606302026", ["شام کے اذکار", "Evening adhkār"]),
-  ("friday-1250", "100901502026", ["جمعہ", "Jumuʿah"]),
+  ("friday-1250", "100901502026", ["جمعہ · سورۃ الکہف · درود شریف", "Jumuʿah · al-Kahf · ṣalawāt", "جمعہ", "Jumuʿah"]),
 ]
 def mode_adhkar():
     r = sh("root"); log(ev="adb-root", out=r.strip()[:80]); time.sleep(3)
@@ -584,7 +584,10 @@ def mode_adhkar():
         sh("shell", "am", "force-stop", PKG); launch(); time.sleep(3); go_home()
         snap_pages(tag, f"{sc}-home", maxp=3)
         to_top()
-        ok = tap_text(targets, exact=True) or tap_text(targets, exact=False, startswith=True)
+        ok = False
+        for tg in targets:   # one at a time, most specific first (on Friday the Dhuhr row is also labelled "جمعہ")
+            if tap_text([tg], exact=True): ok = True; break
+        if not ok: ok = tap_text(targets, exact=False, startswith=True)
         if not ok: log(ev="nav-fail", what=sc); continue
         time.sleep(1.5)
         snap_pages(tag, f"{sc}-open", maxp=10)
@@ -594,6 +597,11 @@ def mode_adhkar():
             nxt = [n for n in nodes if label(n) in ("آگے", "Next", "اگلا ›", "Next ›") and n["pkg"] == PKG]
             if not nxt: break
             tap(nxt[0]); time.sleep(0.8); snap(tag, f"{sc}-item{k+1:02d}")
+    # "Why this time?" dialog (P1-02 title), opened from the first info button on Home
+    sh("shell", "am", "force-stop", PKG); launch(); time.sleep(3); go_home()
+    if tap_text(["یہ وقت کیسے طے ہوتا ہے؟", "Why this time?"], exact=True):
+        time.sleep(1.5); snap_pages(tag, "why-open", maxp=6)
+    else: log(ev="nav-fail", what="why")
 
 def run_mode():
     {"lessons": mode_lessons, "azaan": mode_azaan, "times": mode_times, "review": mode_review, "adhkar": mode_adhkar}[A.mode]()
