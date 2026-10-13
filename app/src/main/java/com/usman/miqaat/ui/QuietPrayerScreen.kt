@@ -1,6 +1,9 @@
 package com.usman.miqaat.ui
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -74,30 +77,22 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
         val large = maxWidth >= 600.dp && !short
         val accessible = fontScale > 1.35f || (short && fontScale > 1.15f)
         val wide = maxWidth > maxHeight && !accessible
-        Canvas(Modifier.matchParentSize()) {
-            val w = size.width * 0.94f; val h = size.height * 0.90f
-            val left = (size.width - w) / 2; val top = (size.height - h) / 2
-            val arch = Path().apply {
-                moveTo(left, top + h); lineTo(left, top + h * 0.35f)
-                cubicTo(left, top + h * 0.15f, left + w * 0.30f, top + h * 0.18f, left + w * 0.50f, top)
-                cubicTo(left + w * 0.70f, top + h * 0.18f, left + w, top + h * 0.15f, left + w, top + h * 0.35f)
-                lineTo(left + w, top + h)
-            }
-            drawPath(arch, QuietGold.copy(alpha = 0.13f), style = Stroke(1.dp.toPx()))
-        }
+        if (!wide) QuietBackdrop(Modifier.matchParentSize())
         val header: @Composable () -> Unit = {
-            Row(Modifier.fillMaxWidth().padding(bottom = if (short) 6.dp else 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f)) {
-                    Text("Miqaat", fontFamily = Cormorant, fontSize = 26.sp, color = QuietGold)
+            Box(Modifier.fillMaxWidth().padding(bottom = if (short) 6.dp else 16.dp)) {
+                Column(Modifier.align(Alignment.TopCenter), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text("Miqaat", fontFamily = Cormorant, fontSize = 26.sp, fontWeight = FontWeight.Bold, color = QuietGold)
                     Text(Str[R.string.s_quiet_mode_title], fontFamily = if (urdu) Nastaliq else Nunito,
                         fontSize = if (urdu) 12.sp else 13.sp, color = QuietSecondary)
                 }
-                Text(L10n.iso(L10n.at(now, s.use24h)), fontFamily = displayFont, fontWeight = FontWeight.Bold, fontSize = if (urdu) 15.sp else 20.sp,
-                    color = QuietSecondary, textAlign = TextAlign.End, modifier = Modifier.testTag("quiet-live-clock"))
+                Text(L10n.iso(L10n.at(now, s.use24h)), fontFamily = displayFont, fontSize = if (urdu) 15.sp else 18.sp,
+                    color = QuietSecondary, textAlign = TextAlign.End, modifier = Modifier.align(Alignment.TopEnd).testTag("quiet-live-clock"))
             }
         }
         val hero: @Composable (Modifier) -> Unit = { modifier ->
-            Column(modifier.testTag("quiet-current-panel").padding(horizontal = 8.dp, vertical = if (short) 4.dp else 20.dp),
+            Box(modifier.testTag("quiet-current-panel")) {
+                if (wide) QuietBackdrop(Modifier.matchParentSize())
+            Column(Modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = if (short) 4.dp else 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 QuietLabel(Str[R.string.s_quiet_prayer_progress], urdu, Modifier.testTag("quiet-progress"))
                 Spacer(Modifier.height(if (short) 6.dp else 16.dp))
@@ -120,29 +115,35 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                     color = QuietSecondary, textAlign = TextAlign.Center)
             }
         }
+            }
         val next: @Composable (Modifier) -> Unit = { modifier ->
-            Column(modifier.testTag("quiet-next-panel").border(1.dp, QuietGold.copy(alpha = 0.30f), RoundedCornerShape(16.dp))
-                .background(Color(0xCC0B1B14), RoundedCornerShape(16.dp)).padding(horizontal = 16.dp, vertical = if (short) 10.dp else 20.dp),
+            Box(modifier.testTag("quiet-next-panel")
+                .border(1.dp, if (wide) Color.Transparent else QuietGold.copy(alpha = 0.30f), RoundedCornerShape(16.dp))
+                .background(if (wide) Color.Transparent else Color(0xDD0B1B14), RoundedCornerShape(16.dp))) {
+                if (wide) QuietBackdrop(Modifier.matchParentSize())
+            Column(Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = if (short) 10.dp else 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 QuietLabel(Str[R.string.s_quiet_next_azaan], urdu, Modifier.testTag("quiet-next-label"))
                 Text(L10n.prayer(s, times.next), Modifier.fillMaxWidth().testTag("quiet-next-name"),
-                    fontFamily = displayFont, fontSize = (if (urdu) { if (short) 22 else if (large) 40 else 28 } else { if (large) 64 else 30 }).sp,
-                    lineHeight = (if (urdu) { if (short) 42 else if (large) 80 else 54 } else { if (large) 70 else 36 }).sp,
+                    fontFamily = displayFont, fontSize = (if (urdu) { if (short) 22 else if (large) 40 else 28 } else { if (short) 40 else if (large) 64 else 30 }).sp,
+                    lineHeight = (if (urdu) { if (short) 42 else if (large) 80 else 54 } else { if (short) 46 else if (large) 70 else 36 }).sp,
                     color = QuietGold, textAlign = TextAlign.Center)
                 Text(L10n.iso(L10n.at(times.nextTime, s.use24h)), Modifier.fillMaxWidth().testTag("quiet-next-time"),
-                    fontFamily = displayFont, fontSize = (if (urdu) { if (short) 20 else if (large) 38 else 26 } else { if (large) 48 else 32 }).sp,
-                    lineHeight = (if (urdu) { if (short) 38 else if (large) 76 else 50 } else { if (large) 54 else 38 }).sp,
+                    fontFamily = displayFont, fontSize = (if (urdu) { if (short) 20 else if (large) 38 else 26 } else { if (short) 34 else if (large) 48 else 32 }).sp,
+                    lineHeight = (if (urdu) { if (short) 38 else if (large) 76 else 50 } else { if (short) 40 else if (large) 54 else 38 }).sp,
                     color = QuietIvory, textAlign = TextAlign.Center)
                 if (times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
                     Text(Str[R.string.s_quiet_tomorrow], fontFamily = if (urdu) Nastaliq else Nunito,
                         fontSize = (if (urdu) 12 else 14).sp, color = QuietSecondary, modifier = Modifier.testTag("quiet-tomorrow"))
             }
         }
+            }
         val footer: @Composable () -> Unit = {
             Column(Modifier.fillMaxWidth().padding(top = if (short) 4.dp else 12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(Str.get(R.string.s_quiet_ends_hint, remaining.toInt()), fontFamily = if (urdu) Nastaliq else Nunito,
                     fontSize = (if (urdu) 11 else 12).sp, lineHeight = (if (urdu) 26 else 17).sp, color = QuietSecondary, textAlign = TextAlign.Center)
                 Box(Modifier.heightIn(min = 48.dp).widthIn(min = 160.dp)
+                    .border(1.dp, QuietGold.copy(alpha = 0.30f), RoundedCornerShape(24.dp))
                     .testTag("quiet-return").clickable(role = Role.Button, onClick = onStop).padding(horizontal = 20.dp, vertical = 8.dp),
                     contentAlignment = Alignment.Center) {
                     Text(Str[R.string.s_quiet_exit], Modifier.testTag("quiet-exit-label"), fontFamily = if (urdu) Nastaliq else Nunito, fontSize = (if (urdu) 13 else 14).sp,
@@ -174,4 +175,13 @@ private fun QuietLabel(text: String, urdu: Boolean, modifier: Modifier = Modifie
     Text(text, modifier.fillMaxWidth(), fontFamily = if (urdu) Nastaliq else Nunito, fontWeight = FontWeight.SemiBold,
         fontSize = (if (urdu) 12 else 12).sp, lineHeight = (if (urdu) 26 else 17).sp,
         letterSpacing = (if (urdu) 0 else 1).sp, textAlign = TextAlign.Center, color = QuietIvory)
+}
+
+@Composable
+private fun QuietBackdrop(modifier: Modifier) {
+    Box(modifier) {
+        Image(painterResource(R.drawable.quiet_option2_mihrab), null, Modifier.matchParentSize(),
+            contentScale = ContentScale.FillBounds, alpha = 0.72f)
+        Box(Modifier.matchParentSize().background(Color.Black.copy(alpha = 0.12f)))
+    }
 }
