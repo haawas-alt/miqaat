@@ -91,6 +91,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
             val clock: @Composable (Modifier) -> Unit = { m ->
                 Text(L10n.iso(L10n.at(now, s.use24h)), m.widthIn(min = 200.dp, max = 280.dp).testTag("quiet-live-clock"),
                     fontFamily = displayFont, fontSize = if (urdu) 11.sp else 14.sp,
+                    lineHeight = (if (urdu) 26 else 22).sp, maxLines = 1,
                     color = QuietSecondary, textAlign = TextAlign.End)
             }
             if (maxWidth < 600.dp) Column(Modifier.fillMaxWidth().padding(bottom = if (short) 6.dp else 16.dp)) {
@@ -160,7 +161,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                 }
                 if (times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
                     Text(Str[R.string.s_quiet_tomorrow], Modifier.fillMaxWidth().testTag("quiet-tomorrow"), textAlign = TextAlign.Center, fontFamily = if (urdu) Nastaliq else Nunito,
-                        fontSize = (if (urdu) 12 else 14).sp, color = QuietSecondary)
+                        fontSize = (if (urdu) 12 else 14).sp, lineHeight = (if (urdu) 30 else 20).sp, color = QuietSecondary)
             }
         }
             }
@@ -173,6 +174,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                     .testTag("quiet-return").clickable(role = Role.Button, onClick = onStop).padding(horizontal = 20.dp, vertical = 8.dp),
                     contentAlignment = Alignment.Center) {
                     Text(Str[R.string.s_quiet_exit], Modifier.fillMaxWidth().testTag("quiet-exit-label"), fontFamily = if (urdu) Nastaliq else Nunito, fontSize = (if (urdu) 13 else 14).sp,
+                        lineHeight = (if (urdu) 32 else 20).sp,
                         color = QuietIvory, textAlign = TextAlign.Center)
                 }
             }
