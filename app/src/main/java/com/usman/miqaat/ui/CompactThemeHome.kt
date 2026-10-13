@@ -281,7 +281,7 @@ private fun ApprovedLandscapeTimeline(state: PrayerState, s: AppSettings, tk: Th
 internal fun landscapeCountdownFraction(state: PrayerState): Float {
     if (state.justPassed) return 1f
     val previous = Prayer.entries.flatMap { p -> listOf(state.today[p], state.today[p].minusDays(1)) }
-        .filter { it.isBefore(state.heroTime) }.maxOrNull() ?: return 1f
+        .filter { it.isBefore(state.heroTime) && !it.isAfter(state.now) }.maxOrNull() ?: return 1f   // the last event before now (e.g. Fajr, not a sunrise still to come)
     val total = Duration.between(previous, state.heroTime).seconds.coerceAtLeast(1)
     return (state.delta.seconds.toFloat() / total).coerceIn(0f, 1f)
 }
