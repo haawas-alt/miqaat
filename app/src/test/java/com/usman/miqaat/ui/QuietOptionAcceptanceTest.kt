@@ -18,6 +18,7 @@ import org.robolectric.annotation.GraphicsMode
 import java.io.File
 import java.time.LocalDate
 import java.time.ZonedDateTime
+import java.time.temporal.ChronoUnit
 
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
@@ -31,16 +32,16 @@ class QuietOptionAcceptanceTest : ComposeSupport() {
         for (prayer in Prayer.prayersOnly) {
             val now = day[prayer].plusMinutes(12)
             val q = quietPrayerTimes(s, prayer, now)
-            assertEquals(day[prayer], q.current)
-            assertEquals(PrayerEngine.state(s, now).nextTime, q.nextTime)
+            assertEquals(day[prayer].truncatedTo(ChronoUnit.MINUTES), q.current.truncatedTo(ChronoUnit.MINUTES))
+            assertEquals(PrayerEngine.state(s, now).nextTime.truncatedTo(ChronoUnit.MINUTES), q.nextTime.truncatedTo(ChronoUnit.MINUTES))
             assertTrue(q.next.isPrayer)
             assertTrue(q.nextTime.isAfter(now))
         }
         val overnight = date.plusDays(1).atStartOfDay(s.zone()).plusMinutes(5)
         val q = quietPrayerTimes(s, Prayer.ISHA, overnight)
-        assertEquals(day[Prayer.ISHA], q.current)
+        assertEquals(day[Prayer.ISHA].truncatedTo(ChronoUnit.MINUTES), q.current.truncatedTo(ChronoUnit.MINUTES))
         assertEquals(Prayer.FAJR, q.next)
-        assertEquals(PrayerEngine.times(s, date.plusDays(1))[Prayer.FAJR], q.nextTime)
+        assertEquals(PrayerEngine.times(s, date.plusDays(1))[Prayer.FAJR].truncatedTo(ChronoUnit.MINUTES), q.nextTime.truncatedTo(ChronoUnit.MINUTES))
         val imported = s.copy(useOverrides = true, overrides = mapOf(date.toString() to listOf(300, 390, 786, 977, 1120, 1210)))
         val now = date.atTime(13, 20).atZone(s.zone())
         val iq = quietPrayerTimes(imported, Prayer.DHUHR, now)

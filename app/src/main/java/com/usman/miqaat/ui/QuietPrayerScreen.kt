@@ -81,7 +81,8 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
         val header: @Composable () -> Unit = {
             val brand: @Composable (Modifier) -> Unit = { m ->
                 Column(m, horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text("Miqaat", Modifier.testTag("quiet-brand"), fontFamily = Cormorant, fontSize = 26.sp, fontWeight = FontWeight.Bold, color = QuietGold)
+                    Text("Miqaat", Modifier.fillMaxWidth().testTag("quiet-brand"), fontFamily = Cormorant, fontSize = 26.sp, lineHeight = 34.sp,
+                        textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, color = QuietGold)
                     Text(Str[R.string.s_quiet_mode_title], fontFamily = if (urdu) Nastaliq else Nunito,
                         fontSize = if (urdu) 12.sp else 13.sp, color = QuietSecondary)
                 }
