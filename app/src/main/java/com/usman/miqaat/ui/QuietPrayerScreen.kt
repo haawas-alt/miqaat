@@ -79,14 +79,22 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
         val wide = maxWidth > maxHeight && !accessible
         if (!wide) QuietBackdrop(Modifier.matchParentSize())
         val header: @Composable () -> Unit = {
-            Box(Modifier.fillMaxWidth().padding(bottom = if (short) 6.dp else 16.dp)) {
-                Column(Modifier.align(Alignment.TopCenter), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text("Miqaat", fontFamily = Cormorant, fontSize = 26.sp, fontWeight = FontWeight.Bold, color = QuietGold)
+            val brand: @Composable (Modifier) -> Unit = { m ->
+                Column(m, horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text("Miqaat", Modifier.testTag("quiet-brand"), fontFamily = Cormorant, fontSize = 26.sp, fontWeight = FontWeight.Bold, color = QuietGold)
                     Text(Str[R.string.s_quiet_mode_title], fontFamily = if (urdu) Nastaliq else Nunito,
                         fontSize = if (urdu) 12.sp else 13.sp, color = QuietSecondary)
                 }
-                Text(L10n.iso(L10n.at(now, s.use24h)), fontFamily = displayFont, fontSize = if (urdu) 15.sp else 18.sp,
-                    color = QuietSecondary, textAlign = TextAlign.End, modifier = Modifier.align(Alignment.TopEnd).testTag("quiet-live-clock"))
+            }
+            val clock: @Composable (Modifier) -> Unit = { m ->
+                Text(L10n.iso(L10n.at(now, s.use24h)), m.testTag("quiet-live-clock"),
+                    fontFamily = displayFont, fontSize = if (urdu) 11.sp else 14.sp,
+                    color = QuietSecondary, textAlign = TextAlign.End)
+            }
+            if (maxWidth < 600.dp) Column(Modifier.fillMaxWidth().padding(bottom = if (short) 6.dp else 16.dp)) {
+                clock(Modifier.fillMaxWidth()); brand(Modifier.fillMaxWidth())
+            } else Box(Modifier.fillMaxWidth().padding(bottom = if (short) 6.dp else 16.dp)) {
+                brand(Modifier.align(Alignment.TopCenter)); clock(Modifier.align(Alignment.TopEnd))
             }
         }
         val hero: @Composable (Modifier) -> Unit = { modifier ->
@@ -121,7 +129,8 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                 .border(1.dp, if (wide) Color.Transparent else QuietGold.copy(alpha = 0.30f), RoundedCornerShape(16.dp))
                 .background(if (wide) Color.Transparent else Color(0xDD0B1B14), RoundedCornerShape(16.dp))) {
                 if (wide) QuietBackdrop(Modifier.matchParentSize())
-            Column(Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = if (short) 10.dp else 20.dp),
+            Column(Modifier.fillMaxWidth().then(if (wide) Modifier.fillMaxHeight() else Modifier)
+                .padding(horizontal = 16.dp, vertical = if (short) 10.dp else 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 QuietLabel(Str[R.string.s_quiet_next_azaan], urdu, Modifier.testTag("quiet-next-label"))
                 Text(L10n.prayer(s, times.next), Modifier.fillMaxWidth().testTag("quiet-next-name"),

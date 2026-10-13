@@ -69,7 +69,7 @@ class QuietOptionAcceptanceTest : ComposeSupport() {
                     rule.onNodeWithTag("quiet-next-time", true).assertTextEquals(L10n.iso(L10n.at(expected.nextTime, clock24)))
                     val accessible = scale > 1.35f || (dev == Dev.PHONE_LANDSCAPE && scale > 1.15f)
                     val board = rule.onNodeWithTag("quiet-board", true).getUnclippedBoundsInRoot()
-                    for (tag in listOf("quiet-progress", "quiet-current-name", "quiet-current-label", "quiet-current-time", "quiet-iqamah-complete", "quiet-next-label", "quiet-next-name", "quiet-next-time")) {
+                    for (tag in listOf("quiet-live-clock", "quiet-brand", "quiet-progress", "quiet-current-name", "quiet-current-label", "quiet-current-time", "quiet-iqamah-complete", "quiet-next-label", "quiet-next-name", "quiet-next-time")) {
                         val node = rule.onNodeWithTag(tag, true)
                         if (accessible) node.performScrollTo()
                         node.assertIsDisplayed()
