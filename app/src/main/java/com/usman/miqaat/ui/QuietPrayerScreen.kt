@@ -83,12 +83,13 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                 Column(m, horizontalAlignment = Alignment.CenterHorizontally) {
                     Text("Miqaat", Modifier.fillMaxWidth().testTag("quiet-brand"), fontFamily = Cormorant, fontSize = 26.sp, lineHeight = 34.sp,
                         textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, color = QuietGold)
-                    Text(Str[R.string.s_quiet_mode_title], fontFamily = if (urdu) Nastaliq else Nunito,
+                    Text(Str[R.string.s_quiet_mode_title], Modifier.fillMaxWidth(), textAlign = TextAlign.Center,
+                        lineHeight = (if (urdu) 30 else 18).sp, fontFamily = if (urdu) Nastaliq else Nunito,
                         fontSize = if (urdu) 12.sp else 13.sp, color = QuietSecondary)
                 }
             }
             val clock: @Composable (Modifier) -> Unit = { m ->
-                Text(L10n.iso(L10n.at(now, s.use24h)), m.testTag("quiet-live-clock"),
+                Text(L10n.iso(L10n.at(now, s.use24h)), m.widthIn(min = 200.dp, max = 280.dp).testTag("quiet-live-clock"),
                     fontFamily = displayFont, fontSize = if (urdu) 11.sp else 14.sp,
                     color = QuietSecondary, textAlign = TextAlign.End)
             }
@@ -118,7 +119,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                     textAlign = TextAlign.Center, color = QuietIvory)
                 Spacer(Modifier.height(if (short) 6.dp else 18.dp))
                 Box(Modifier.width(32.dp).height(1.dp).background(QuietGold.copy(alpha = 0.65f)))
-                Text(Str[R.string.s_quiet_iqamah_complete], Modifier.testTag("quiet-iqamah-complete").padding(top = if (short) 4.dp else 12.dp),
+                Text(Str[R.string.s_quiet_iqamah_complete], Modifier.fillMaxWidth().testTag("quiet-iqamah-complete").padding(top = if (short) 4.dp else 12.dp),
                     fontFamily = if (urdu) Nastaliq else Nunito, fontSize = (if (urdu && short) 10 else if (urdu) 12 else 14).sp,
                     lineHeight = (if (urdu && short) 24 else if (urdu) 30 else 20).sp,
                     color = QuietSecondary, textAlign = TextAlign.Center)
@@ -143,20 +144,20 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                     lineHeight = (if (urdu) { if (short) 38 else if (large) 76 else 50 } else { if (short) 40 else if (large) 54 else 38 }).sp,
                     color = QuietIvory, textAlign = TextAlign.Center)
                 if (times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
-                    Text(Str[R.string.s_quiet_tomorrow], fontFamily = if (urdu) Nastaliq else Nunito,
-                        fontSize = (if (urdu) 12 else 14).sp, color = QuietSecondary, modifier = Modifier.testTag("quiet-tomorrow"))
+                    Text(Str[R.string.s_quiet_tomorrow], Modifier.fillMaxWidth().testTag("quiet-tomorrow"), textAlign = TextAlign.Center, fontFamily = if (urdu) Nastaliq else Nunito,
+                        fontSize = (if (urdu) 12 else 14).sp, color = QuietSecondary)
             }
         }
             }
         val footer: @Composable () -> Unit = {
             Column(Modifier.fillMaxWidth().padding(top = if (short) 4.dp else 12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(Str.get(R.string.s_quiet_ends_hint, remaining.toInt()), fontFamily = if (urdu) Nastaliq else Nunito,
+                Text(Str.get(R.string.s_quiet_ends_hint, remaining.toInt()), Modifier.fillMaxWidth().testTag("quiet-expiry-hint"), fontFamily = if (urdu) Nastaliq else Nunito,
                     fontSize = (if (urdu) 11 else 12).sp, lineHeight = (if (urdu) 26 else 17).sp, color = QuietSecondary, textAlign = TextAlign.Center)
                 Box(Modifier.heightIn(min = 48.dp).widthIn(min = 160.dp)
                     .border(1.dp, QuietGold.copy(alpha = 0.30f), RoundedCornerShape(24.dp))
                     .testTag("quiet-return").clickable(role = Role.Button, onClick = onStop).padding(horizontal = 20.dp, vertical = 8.dp),
                     contentAlignment = Alignment.Center) {
-                    Text(Str[R.string.s_quiet_exit], Modifier.testTag("quiet-exit-label"), fontFamily = if (urdu) Nastaliq else Nunito, fontSize = (if (urdu) 13 else 14).sp,
+                    Text(Str[R.string.s_quiet_exit], Modifier.fillMaxWidth().testTag("quiet-exit-label"), fontFamily = if (urdu) Nastaliq else Nunito, fontSize = (if (urdu) 13 else 14).sp,
                         color = QuietIvory, textAlign = TextAlign.Center)
                 }
             }
