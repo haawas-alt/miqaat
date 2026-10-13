@@ -64,6 +64,15 @@ class QuietOptionAcceptanceTest : ComposeSupport() {
                     show(dev, AppTheme.MIQAAT, fontScale = scale, rtl = urdu) {
                         QuietPrayerContent(phase, s, now) { stopped = true }
                     }
+                    scenario.onActivity { act ->
+                        val view = act.findViewById<View>(android.R.id.content)
+                        val b = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+                        view.draw(Canvas(b))
+                        val file = File("build/audit-screens/quiet-option2/quiet__${dev.label}__${if (urdu) "ur" else "en"}__${(scale * 100).toInt()}__${if (clock24) "24h" else "12h"}.png")
+                        file.parentFile!!.mkdirs()
+                        file.outputStream().use { b.compress(Bitmap.CompressFormat.PNG, 100, it) }
+                        b.recycle()
+                    }
                     val expected = quietPrayerTimes(s, phase.prayer, now)
                     rule.onNodeWithTag("quiet-current-time", true).assertTextEquals(L10n.iso(L10n.at(expected.current, clock24)))
                     rule.onNodeWithTag("quiet-next-name", true).assertTextEquals(L10n.prayer(s, expected.next))
@@ -79,7 +88,7 @@ class QuietOptionAcceptanceTest : ComposeSupport() {
                         val layouts = mutableListOf<TextLayoutResult>()
                         node.fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
                         assertTrue(layouts.isNotEmpty())
-                        for (l in layouts) assertFalse("$dev urdu=$urdu scale=$scale $tag clipped ${l.size}", l.didOverflowHeight || l.didOverflowWidth)
+                        for (l in layouts) assertFalse("$dev urdu=$urdu scale=$scale $tag clipped ${l.size} width=${l.didOverflowWidth} height=${l.didOverflowHeight} lines=${l.lineCount} text=${l.layoutInput.text} constraints=${l.layoutInput.constraints} style=${l.layoutInput.style}", l.didOverflowHeight || l.didOverflowWidth)
                     }
                     if (!accessible) {
                         val scroll = SemanticsMatcher("scroll") { it.config.getOrNull(SemanticsActions.ScrollBy) != null }
