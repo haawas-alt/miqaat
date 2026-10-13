@@ -2,6 +2,7 @@ name: Quiet Option 2 signed candidate
 on:
   push:
     branches: ['fix/quiet-option2-1.90']
+    paths: ['app/**', 'tools/**', '.github/workflows/quiet-option2.yml']
   workflow_dispatch:
 permissions:
   contents: write

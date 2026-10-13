@@ -69,7 +69,7 @@ class QuietOptionAcceptanceTest : ComposeSupport() {
                     rule.onNodeWithTag("quiet-next-time", true).assertTextEquals(L10n.iso(L10n.at(expected.nextTime, clock24)))
                     val accessible = scale > 1.35f || (dev == Dev.PHONE_LANDSCAPE && scale > 1.15f)
                     val board = rule.onNodeWithTag("quiet-board", true).getUnclippedBoundsInRoot()
-                    for (tag in listOf("quiet-current-name", "quiet-current-time", "quiet-next-name", "quiet-next-time")) {
+                    for (tag in listOf("quiet-progress", "quiet-current-name", "quiet-current-label", "quiet-current-time", "quiet-iqamah-complete", "quiet-next-label", "quiet-next-name", "quiet-next-time")) {
                         val node = rule.onNodeWithTag(tag, true)
                         if (accessible) node.performScrollTo()
                         node.assertIsDisplayed()
@@ -86,7 +86,7 @@ class QuietOptionAcceptanceTest : ComposeSupport() {
                         val current = rule.onNodeWithTag("quiet-current-panel", true).getUnclippedBoundsInRoot()
                         val next = rule.onNodeWithTag("quiet-next-panel", true).getUnclippedBoundsInRoot()
                         assertTrue("Panels overlap", current.bottom <= next.top || current.right <= next.left || next.right <= current.left)
-                        for (tag in listOf("quiet-current-name", "quiet-current-time")) {
+                        for (tag in listOf("quiet-progress", "quiet-current-name", "quiet-current-label", "quiet-current-time", "quiet-iqamah-complete")) {
                             val r = rule.onNodeWithTag(tag, true).getUnclippedBoundsInRoot()
                             assertTrue("$tag exceeds current panel", r.top >= current.top && r.bottom <= current.bottom)
                         }

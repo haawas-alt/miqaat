@@ -29,4 +29,6 @@
     <string name="s_quiet_next_azaan">اگلی اذان</string>
     <string name="s_quiet_iqamah_complete">اقامت مکمل ہو گئی</string>
     <string name="s_quiet_tomorrow">کل</string>
+    <string name="s_quiet_exit">خاموش موڈ سے باہر آئیں</string>
+    <string name="s_quiet_ends_hint">خاموش موڈ %1$d منٹ میں ختم ہوگا۔ واپس جانے کے لیے چھوئیں۔</string>
 </resources>
