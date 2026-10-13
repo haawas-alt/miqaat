@@ -89,7 +89,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                 }
             }
             val clock: @Composable (Modifier) -> Unit = { m ->
-                Text(L10n.iso(L10n.at(now, s.use24h)), m.widthIn(min = 200.dp, max = 280.dp)
+                Text(L10n.iso(L10n.at(now, s.use24h)), m.width(minOf(maxWidth * 0.28f, (240f * fontScale).dp))
                     .heightIn(min = ((if (urdu) 26 else 22) * fontScale + 4).dp).testTag("quiet-live-clock"),
                     fontFamily = displayFont, fontSize = if (urdu) 11.sp else 14.sp,
                     lineHeight = (if (urdu) 26 else 22).sp, maxLines = 1,
