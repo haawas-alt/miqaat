@@ -1,0 +1,64 @@
+{"ev": "env", "density": 2.0, "size": "Physical size: 2560x1600", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1747, "t": 2.1}
+{"ev": "setup-screen", "step": 0, "shot": "tablet-landscape-urdu_adhkar__setup0.png", "key": "772976b918", "labels": ["Location: ⁨⁩. Opens location settings", "Tuesday 13 October 2026  ·  4:31 AM", "·", "⁨٢ جمادى الأولى 
+{"ev": "setup-tap", "label": "Begin", "t": 7.3}
+{"ev": "setup-screen", "step": 1, "shot": "tablet-landscape-urdu_adhkar__setup1.png", "key": "22ab46fe77", "labels": ["Location: ⁨⁩. Opens location settings", "Tuesday 13 October 2026  ·  4:31 AM", "·", "⁨٢ جمادى الأولى 
+{"ev": "detect-result", "shot": "tablet-landscape-urdu_adhkar__setup1_after-detect-20s.png", "labels": ["Location: ⁨⁩. Opens location settings", "Tuesday 13 October 2026  ·  4:32 AM", "·", "⁨٢ جمادى الأولى ١٤٤٨⁩", "Learn
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 37.2}
+{"ev": "setup-screen", "step": 2, "shot": "tablet-landscape-urdu_adhkar__setup2.png", "key": "4a4cbd14ec", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 13 October 2026  ·  3:32 P
+{"ev": "setup-tap", "label": "Next", "t": 39.9}
+{"ev": "setup-screen", "step": 3, "shot": "tablet-landscape-urdu_adhkar__setup3.png", "key": "06e198900d", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 13 October 2026  ·  3:32 P
+{"ev": "setup-tap", "label": "These look right", "t": 45.0}
+{"ev": "setup-screen", "step": 4, "shot": "tablet-landscape-urdu_adhkar__setup4.png", "key": "40e4525ca1", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 13 October 2026  ·  3:32 P
+{"ev": "setup-tap", "label": "Finish", "t": 50.0}
+{"ev": "setup-done", "step": 5, "t": 54.8}
+{"ev": "setup-result", "ok": true, "t": 54.8}
+{"ev": "lang-set", "t": 96.7}
+{"ev": "adb-root", "out": "", "t": 101.9}
+{"ev": "set-time", "sc": "morning-0630", "out": "Mon Oct  5 19:30:00 UTC 2026", "t": 105.0}
+{"ev": "shot", "name": "morning-0630-home-p0", "shot": "tablet-landscape-urdu_adhkar-ur__001__morning-0630-home-p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولیں۔", "Sydney, NSW", "منگل، 6 اکتوبر 2026  ·  
+{"ev": "shot", "name": "morning-0630-open-p0", "shot": "tablet-landscape-urdu_adhkar-ur__002__morning-0630-open-p0.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہی
+{"ev": "shot", "name": "morning-0630-item01", "shot": "tablet-landscape-urdu_adhkar-ur__003__morning-0630-item01.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "morning-0630-item02", "shot": "tablet-landscape-urdu_adhkar-ur__004__morning-0630-item02.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "morning-0630-item03", "shot": "tablet-landscape-urdu_adhkar-ur__005__morning-0630-item03.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "morning-0630-item04", "shot": "tablet-landscape-urdu_adhkar-ur__006__morning-0630-item04.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "morning-0630-item05", "shot": "tablet-landscape-urdu_adhkar-ur__007__morning-0630-item05.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "morning-0630-item06", "shot": "tablet-landscape-urdu_adhkar-ur__008__morning-0630-item06.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "morning-0630-item07", "shot": "tablet-landscape-urdu_adhkar-ur__009__morning-0630-item07.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "morning-0630-item08", "shot": "tablet-landscape-urdu_adhkar-ur__010__morning-0630-item08.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "morning-0630-item09", "shot": "tablet-landscape-urdu_adhkar-ur__011__morning-0630-item09.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "morning-0630-item10", "shot": "tablet-landscape-urdu_adhkar-ur__012__morning-0630-item10.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "morning-0630-item11", "shot": "tablet-landscape-urdu_adhkar-ur__013__morning-0630-item11.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "morning-0630-item12", "shot": "tablet-landscape-urdu_adhkar-ur__014__morning-0630-item12.png", "labels": ["واپس", "صبح کے اذکار", "أذكار الصباح", "13 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "set-time", "sc": "after-dhuhr-1250", "out": "Tue Oct  6 01:50:00 UTC 2026", "t": 219.6}
+{"ev": "shot", "name": "after-dhuhr-1250-home-p0", "shot": "tablet-landscape-urdu_adhkar-ur__015__after-dhuhr-1250-home-p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولیں۔", "Sydney, NSW", "منگل، 6 اکتوبر 2
+{"ev": "shot", "name": "after-dhuhr-1250-open-p0", "shot": "tablet-landscape-urdu_adhkar-ur__016__after-dhuhr-1250-open-p0.png", "labels": ["واپس", "نماز کے بعد", "أذكار بعد الصلاة", "8 میں سے 0 مکمل", "1", "استغفار", "⁦
+{"ev": "shot", "name": "after-dhuhr-1250-item01", "shot": "tablet-landscape-urdu_adhkar-ur__017__after-dhuhr-1250-item01.png", "labels": ["واپس", "نماز کے بعد", "أذكار بعد الصلاة", "8 میں سے 0 مکمل", "1", "استغفار", "⁦0 
+{"ev": "shot", "name": "after-dhuhr-1250-item02", "shot": "tablet-landscape-urdu_adhkar-ur__018__after-dhuhr-1250-item02.png", "labels": ["واپس", "نماز کے بعد", "أذكار بعد الصلاة", "8 میں سے 0 مکمل", "1", "استغفار", "⁦0 
+{"ev": "shot", "name": "after-dhuhr-1250-item03", "shot": "tablet-landscape-urdu_adhkar-ur__019__after-dhuhr-1250-item03.png", "labels": ["واپس", "نماز کے بعد", "أذكار بعد الصلاة", "8 میں سے 0 مکمل", "1", "استغفار", "⁦0 
+{"ev": "shot", "name": "after-dhuhr-1250-item04", "shot": "tablet-landscape-urdu_adhkar-ur__020__after-dhuhr-1250-item04.png", "labels": ["واپس", "نماز کے بعد", "أذكار بعد الصلاة", "8 میں سے 0 مکمل", "1", "استغفار", "⁦0 
+{"ev": "shot", "name": "after-dhuhr-1250-item05", "shot": "tablet-landscape-urdu_adhkar-ur__021__after-dhuhr-1250-item05.png", "labels": ["واپس", "نماز کے بعد", "أذكار بعد الصلاة", "8 میں سے 0 مکمل", "1", "استغفار", "⁦0 
+{"ev": "shot", "name": "after-dhuhr-1250-item06", "shot": "tablet-landscape-urdu_adhkar-ur__022__after-dhuhr-1250-item06.png", "labels": ["واپس", "نماز کے بعد", "أذكار بعد الصلاة", "8 میں سے 0 مکمل", "1", "استغفار", "⁦0 
+{"ev": "shot", "name": "after-dhuhr-1250-item07", "shot": "tablet-landscape-urdu_adhkar-ur__023__after-dhuhr-1250-item07.png", "labels": ["واپس", "نماز کے بعد", "أذكار بعد الصلاة", "8 میں سے 0 مکمل", "1", "استغفار", "⁦0 
+{"ev": "set-time", "sc": "evening-1730", "out": "Tue Oct  6 06:30:00 UTC 2026", "t": 301.9}
+{"ev": "shot", "name": "evening-1730-home-p0", "shot": "tablet-landscape-urdu_adhkar-ur__024__evening-1730-home-p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولیں۔", "Sydney, NSW", "منگل، 6 اکتوبر 2026  ·  
+{"ev": "shot", "name": "evening-1730-open-p0", "shot": "tablet-landscape-urdu_adhkar-ur__025__evening-1730-open-p0.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہی
+{"ev": "shot", "name": "evening-1730-item01", "shot": "tablet-landscape-urdu_adhkar-ur__026__evening-1730-item01.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "evening-1730-item02", "shot": "tablet-landscape-urdu_adhkar-ur__027__evening-1730-item02.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "evening-1730-item03", "shot": "tablet-landscape-urdu_adhkar-ur__028__evening-1730-item03.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "evening-1730-item04", "shot": "tablet-landscape-urdu_adhkar-ur__029__evening-1730-item04.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "evening-1730-item05", "shot": "tablet-landscape-urdu_adhkar-ur__030__evening-1730-item05.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "evening-1730-item06", "shot": "tablet-landscape-urdu_adhkar-ur__031__evening-1730-item06.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "evening-1730-item07", "shot": "tablet-landscape-urdu_adhkar-ur__032__evening-1730-item07.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "evening-1730-item08", "shot": "tablet-landscape-urdu_adhkar-ur__033__evening-1730-item08.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "evening-1730-item09", "shot": "tablet-landscape-urdu_adhkar-ur__034__evening-1730-item09.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "evening-1730-item10", "shot": "tablet-landscape-urdu_adhkar-ur__035__evening-1730-item10.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "evening-1730-item11", "shot": "tablet-landscape-urdu_adhkar-ur__036__evening-1730-item11.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "evening-1730-item12", "shot": "tablet-landscape-urdu_adhkar-ur__037__evening-1730-item12.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "evening-1730-item13", "shot": "tablet-landscape-urdu_adhkar-ur__038__evening-1730-item13.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "set-time", "sc": "friday-1250", "out": "Fri Oct  9 01:50:00 UTC 2026", "t": 422.4}
+{"ev": "shot", "name": "friday-1250-home-p0", "shot": "tablet-landscape-urdu_adhkar-ur__039__friday-1250-home-p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولیں۔", "Sydney, NSW", "جمعہ، 9 اکتوبر 2026  ·  12
+{"ev": "shot", "name": "friday-1250-open-p0", "shot": "tablet-landscape-urdu_adhkar-ur__040__friday-1250-open-p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولیں۔", "Sydney, NSW", "جمعہ، 9 اکتوبر 2026  ·  12
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 514.5}
+{"ev": "gfx", "lines": ["Total frames rendered: 7", "Janky frames: 7 (100.00%)", "Janky frames (legacy): 7 (100.00%)", "50th percentile: 500ms", "90th percentile: 2250ms", "95th percentile: 2250ms", "99th percentile: 225
+{"ev": "mem", "lines": ["  Native Heap    19075    19016        0        0    22272    27204    20474     3061", "        TOTAL    41507    31488     3404        0   161120    39222    26499     9054", "           Java H
