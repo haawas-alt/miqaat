@@ -74,7 +74,7 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val portrait = maxHeight > maxWidth
         val u = if (portrait) maxWidth / 62 else minOf(maxWidth / 100, maxHeight / 56)
-        if (phase is Phase.Quiet) { QuietBody(phase, u, onStop); return@BoxWithConstraints }
+        if (phase is Phase.Quiet) { QuietPrayerScreen(phase, onStop); return@BoxWithConstraints }
         val isAzaan = phase is Phase.Azaan
         val isIq = phase is Phase.IqamahCountdown || phase is Phase.IqamahNow
         val tk = screenTokens()
@@ -243,24 +243,6 @@ private fun IqamahNowBody(phase: Phase, u: Dp) {
         Text("الإقامة", fontFamily = Amiri, fontSize = (u.value * 9f).sp, lineHeight = (u.value * 10f).sp, color = tk.arabicText)
         Text("قَدْ قَامَتِ الصَّلاَةُ", fontFamily = Amiri, fontSize = (u.value * 4.2f).sp, lineHeight = (u.value * 6f).sp, color = tk.accent)
         Text(Str[R.string.s_the_prayer_has_begun], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = tk.contentPrimary.copy(alpha = 0.9f), modifier = Modifier.padding(top = u * 0.6f))
-    }
-}
-
-@Composable
-private fun QuietBody(p: Phase.Quiet, u: Dp, onStop: () -> Unit) {
-    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
-    LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(1000) } }
-    Column(
-        Modifier.fillMaxSize().background(Color(0xFF05090F)).clickable(onClick = onStop),
-        horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
-    ) {
-        val st = com.usman.miqaat.MiqaatApp.instance.settings.value
-        val t = java.time.ZonedDateTime.ofInstant(java.time.Instant.ofEpochMilli(now), st.zone())
-        Text(com.usman.miqaat.data.PrayerEngine.clock(t, st.use24h), fontFamily = Cormorant, fontSize = (u.value * 12f).sp, lineHeight = (u.value * 12f).sp, color = Palette.textMuted)
-        if (!st.use24h) Text(com.usman.miqaat.data.PrayerEngine.suffix(t, false), fontFamily = Nunito, fontSize = (u.value * 2.2f).sp, letterSpacing = (u.value * 0.2f).sp, color = Palette.textMuted)
-        Text(p.prayer.arabic, fontFamily = Amiri, fontSize = (u.value * 3.4f).sp, color = Color(0xFFF6E7B8).copy(alpha = 0.5f))
-        val left = ((p.endsAt - now).coerceAtLeast(0) / 60_000) + 1
-        Text(Str.get(R.string.s_in_prayer_wake, left.toInt()), fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.08f).sp, color = Palette.textSecondary, modifier = Modifier.padding(top = u * 2))
     }
 }
 

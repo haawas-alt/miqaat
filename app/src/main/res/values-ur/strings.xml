@@ -23,4 +23,10 @@
     <string name="s_hadith_after_prayer">%1$s کے بعد حدیث</string>
     <string name="s_narrated_by">راوی: %1$s</string>
     <string name="s_english_text">انگریزی متن</string>
+    <string name="s_quiet_mode_title">خاموش موڈ</string>
+    <string name="s_quiet_prayer_progress">نماز جاری ہے</string>
+    <string name="s_quiet_current_azaan">اس نماز کی اذان</string>
+    <string name="s_quiet_next_azaan">اگلی اذان</string>
+    <string name="s_quiet_iqamah_complete">اقامت مکمل ہو گئی</string>
+    <string name="s_quiet_tomorrow">کل</string>
 </resources>

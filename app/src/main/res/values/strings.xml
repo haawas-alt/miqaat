@@ -23,4 +23,10 @@
     <string name="s_hadith_after_prayer">A hadith after %1$s</string>
     <string name="s_narrated_by">Narrated by %1$s</string>
     <string name="s_english_text">English text</string>
+    <string name="s_quiet_mode_title">Quiet mode</string>
+    <string name="s_quiet_prayer_progress">Prayer in progress</string>
+    <string name="s_quiet_current_azaan">This prayer’s Azaan</string>
+    <string name="s_quiet_next_azaan">Next Azaan</string>
+    <string name="s_quiet_iqamah_complete">Iqamah completed</string>
+    <string name="s_quiet_tomorrow">Tomorrow</string>
 </resources>
