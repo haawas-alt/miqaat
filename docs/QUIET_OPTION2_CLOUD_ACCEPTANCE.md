@@ -58,3 +58,23 @@ These are native Robolectric SDK34 screenshots and assertions, not physical-devi
 No qualified human Islamic/Urdu reviewer has signed off the new interface captions. They are operational UI wording, not added religious instruction. No Play Console policy review, upload acceptance or production rollout was performed.
 
 Before production promotion: install over 1.90-15 on a real phone and tablet without data loss; run actual Azaan→Iqamah→quiet→expiry; verify midnight Isha→Fajr; rotate and inspect system insets; check TalkBack, large-text scrolling and exit; obtain Urdu caption approval. The testing APK is published now; production readiness remains a separate gate.
+
+## 2026-10-14 Sydney — Settings Show launch fix (latest candidate)
+
+The previous build rendered the quiet screen correctly in isolated layout tests but Settings → Try it now → Quiet screen → Show did not open it. ACTION_QUIET initialized the service phase without calling showScreen. This confirmed gap was not covered by the original layout tests.
+
+The action now sets Phase.Quiet before opening AzaanActivity, whose null-phase handling would otherwise close the screen. The existing quiet-duration override still offers a one-minute preview when quiet mode is disabled, without changing settings. No Option 2 layout/artwork changes were made.
+
+- Pre-fix backup: [backup/pre-quiet-show-fix-20261014](https://github.com/haawas-alt/miqaat/tree/backup/pre-quiet-show-fix-20261014), exact commit 49aa895894193b9c33920225968d7fbfcd4f26e4.
+- Built source: c319ccb2088864beed93c56bfafc7cf48c24597a.
+- [Successful run 38430103332](https://github.com/haawas-alt/miqaat/actions/runs/38430103332), workflow run number 12.
+- [Latest direct APK](https://github.com/haawas-alt/miqaat/releases/download/quiet-option2-1.90-12/Miqaat-1.90-quiet-option2.apk).
+- VersionName 1.90-quiet-option2, actual manifest versionCode 1791908634, package com.usman.miqaat. Previous candidate code was 1791887993.
+- APK SHA-256 b56a7137753bd0409bb52b7f331f61f2747d7e408b5e5194072cb047c0447b76, independently computed from downloaded artifact and matched to release asset digest; 43,858,430 bytes.
+- Signature verification passed; certificate SHA-256 remains 6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01.
+- Full suite: 93 tests, 92 passed, 0 failures/errors, 1 pre-existing opt-in screenshot test skipped.
+- QuietPreviewLaunchTest: both tests passed. Actual Settings Show CTA is tapped on phone portrait and tablet landscape; the requested service intent/action/prayer is asserted. The real service command is dispatched with quietMinutes 0 and 3; tests assert a Quiet phase, expected preview expiry, launched AzaanActivity intent/prayer/new-task flag, unchanged saved settings and Stop cleanup.
+- Existing QuietOptionAcceptanceTest: all three tests passed again, including the 48 layout/value/exit cases. 48 PNGs were captured in the final artifact. The current fix changes the launch path only; the original visual-review scope and limitations above still apply.
+- Lint, GitHub APK, Play APK/AAB and forbidden-asset checks passed. Artifact ID 11832025832, quiet-option2-build-38430103332.
+
+The testing prerelease supersedes build 10 for this Show-button fix. No production/updater latest tag was moved. These are Robolectric interaction/service assertions; a real Samsung device installation and Settings-to-screen transition remain hardware confirmation, not claimed as performed.
