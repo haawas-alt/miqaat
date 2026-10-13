@@ -1,0 +1,74 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1848, "t": 2.3}
+{"ev": "setup-screen", "step": 0, "shot": "phone-portrait-urdu_adhkar__setup0.png", "key": "2118f4a8c2", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Tuesday 13 Oct
+{"ev": "setup-tap", "label": "Begin", "t": 7.9}
+{"ev": "setup-screen", "step": 1, "shot": "phone-portrait-urdu_adhkar__setup1.png", "key": "dd90683623", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Tuesday 13 Oct
+{"ev": "detect-result", "shot": "phone-portrait-urdu_adhkar__setup1_after-detect-20s.png", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Learn Salah", "Monthly timetable", "Sett
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 38.1}
+{"ev": "setup-screen", "step": 2, "shot": "phone-portrait-urdu_adhkar__setup2.png", "key": "f68d699d44", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "
+{"ev": "setup-tap", "label": "Next", "t": 40.9}
+{"ev": "setup-screen", "step": 3, "shot": "phone-portrait-urdu_adhkar__setup3.png", "key": "b214594bba", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "
+{"ev": "setup-stuck", "t": 46.1}
+{"ev": "setup-screen", "step": 4, "shot": "phone-portrait-urdu_adhkar__setup4.png", "key": "c13ee30e32", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "
+{"ev": "setup-stuck", "t": 51.2}
+{"ev": "setup-screen", "step": 5, "shot": "phone-portrait-urdu_adhkar__setup5.png", "key": "29b2836c7f", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "
+{"ev": "setup-tap", "label": "These look right", "t": 56.7}
+{"ev": "setup-screen", "step": 6, "shot": "phone-portrait-urdu_adhkar__setup6.png", "key": "1ec26ac652", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "
+{"ev": "setup-tap", "label": "Finish", "t": 61.8}
+{"ev": "setup-done", "step": 7, "t": 66.7}
+{"ev": "setup-result", "ok": true, "t": 66.7}
+{"ev": "lang-set", "t": 109.1}
+{"ev": "adb-root", "out": "restarting adbd as root", "t": 140.0}
+{"ev": "set-time", "sc": "morning-0630", "out": "Mon Oct  5 19:30:00 UTC 2026", "t": 143.1}
+{"ev": "shot", "name": "morning-0630-home-p0", "shot": "phone-portrait-urdu_adhkar-ur__001__morning-0630-home-p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولیں۔", "Sydney, NSW", "نماز سیکھیں", "ماہانہ ٹائم
+{"ev": "shot", "name": "morning-0630-home-p1", "shot": "phone-portrait-urdu_adhkar-ur__002__morning-0630-home-p1.png", "labels": ["الظهر", "ظہر", "12:44", "دوپہر", "⁧6 گھنٹے 13 منٹ⁩ باقی", "دن کے اوقات: صبح 5:01 سے صبح 6
+{"ev": "shot", "name": "morning-0630-open-p0", "shot": "phone-portrait-urdu_adhkar-ur__003__morning-0630-open-p0.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 1", "آیت الکرسی", "اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْح
+{"ev": "shot", "name": "morning-0630-item01", "shot": "phone-portrait-urdu_adhkar-ur__004__morning-0630-item01.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 2", "سورۃ الاخلاص", "قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ 
+{"ev": "shot", "name": "morning-0630-item02", "shot": "phone-portrait-urdu_adhkar-ur__005__morning-0630-item02.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 3", "سورۃ الفلق", "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِنْ
+{"ev": "shot", "name": "morning-0630-item03", "shot": "phone-portrait-urdu_adhkar-ur__006__morning-0630-item03.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 4", "سورۃ الناس", "قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِك
+{"ev": "shot", "name": "morning-0630-item04", "shot": "phone-portrait-urdu_adhkar-ur__007__morning-0630-item04.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 5", "صبح کی دعا", "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَ
+{"ev": "shot", "name": "morning-0630-item05", "shot": "phone-portrait-urdu_adhkar-ur__008__morning-0630-item05.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 6", "سید الاستغفار", "اللَّهُمَّ أَنْتَ رَبِّي لاَ إِلَه
+{"ev": "shot", "name": "morning-0630-item06", "shot": "phone-portrait-urdu_adhkar-ur__009__morning-0630-item06.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 7", "صبح کی دعا (اللہم بک أصبحنا)", "اللَّهُمَّ بِكَ أَص
+{"ev": "shot", "name": "morning-0630-item07", "shot": "phone-portrait-urdu_adhkar-ur__010__morning-0630-item07.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 8", "بسم اللہ الذی", "بِسْمِ اللَّهِ الَّذِي لاَ يَضُرُّ
+{"ev": "shot", "name": "morning-0630-item08", "shot": "phone-portrait-urdu_adhkar-ur__011__morning-0630-item08.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 9", "رضیت باللہ", "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالإِسْل
+{"ev": "shot", "name": "morning-0630-item09", "shot": "phone-portrait-urdu_adhkar-ur__012__morning-0630-item09.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 10", "عافیت کی دعا", "اللَّهُمَّ عَافِنِي فِي بَدَنِي، ا
+{"ev": "shot", "name": "morning-0630-item10", "shot": "phone-portrait-urdu_adhkar-ur__013__morning-0630-item10.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 11", "لا الٰہ الا اللہ", "لاَ إِلَهَ إِلاَّ اللَّهُ وَحْ
+{"ev": "shot", "name": "morning-0630-item11", "shot": "phone-portrait-urdu_adhkar-ur__014__morning-0630-item11.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 12", "سبحان اللہ وبحمدہ", "سُبْحَانَ اللَّهِ وَبِحَمْدِه
+{"ev": "shot", "name": "morning-0630-item12", "shot": "phone-portrait-urdu_adhkar-ur__015__morning-0630-item12.png", "labels": ["واپس", "صبح کے اذکار  ·  13 میں سے 13", "درود و سلام", "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَ
+{"ev": "set-time", "sc": "after-dhuhr-1250", "out": "Tue Oct  6 01:50:00 UTC 2026", "t": 290.6}
+{"ev": "shot", "name": "after-dhuhr-1250-home-p0", "shot": "phone-portrait-urdu_adhkar-ur__016__after-dhuhr-1250-home-p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولیں۔", "Sydney, NSW", "نماز سیکھیں", "ماہ
+{"ev": "shot", "name": "after-dhuhr-1250-home-p1", "shot": "phone-portrait-urdu_adhkar-ur__017__after-dhuhr-1250-home-p1.png", "labels": ["الظهر", "ظہر  ·  اب", "12:44", "دوپہر", "اذان ⁧6 منٹ⁩ پہلے ہوئی", "دن کے اوقات: ص
+{"ev": "shot", "name": "after-dhuhr-1250-open-p0", "shot": "phone-portrait-urdu_adhkar-ur__018__after-dhuhr-1250-open-p0.png", "labels": ["واپس", "نماز کے بعد  ·  8 میں سے 1", "استغفار", "أَسْتَغْفِرُ اللَّهَ", "میں اللہ
+{"ev": "shot", "name": "after-dhuhr-1250-item01", "shot": "phone-portrait-urdu_adhkar-ur__019__after-dhuhr-1250-item01.png", "labels": ["واپس", "نماز کے بعد  ·  8 میں سے 2", "اللہم انت السلام", "اللَّهُمَّ أَنْتَ السَّلا
+{"ev": "shot", "name": "after-dhuhr-1250-item02", "shot": "phone-portrait-urdu_adhkar-ur__020__after-dhuhr-1250-item02.png", "labels": ["واپس", "نماز کے بعد  ·  8 میں سے 3", "توحید کی دعا", "لاَ إِلَهَ إِلاَّ اللَّهُ وَح
+{"ev": "shot", "name": "after-dhuhr-1250-item03", "shot": "phone-portrait-urdu_adhkar-ur__021__after-dhuhr-1250-item03.png", "labels": ["واپس", "نماز کے بعد  ·  8 میں سے 4", "سبحان اللہ", "سُبْحَانَ اللَّهِ", "اللہ پاک ہ
+{"ev": "shot", "name": "after-dhuhr-1250-item04", "shot": "phone-portrait-urdu_adhkar-ur__022__after-dhuhr-1250-item04.png", "labels": ["واپس", "نماز کے بعد  ·  8 میں سے 5", "الحمد للہ", "الْحَمْدُ لِلَّهِ", "تمام تعریفی
+{"ev": "shot", "name": "after-dhuhr-1250-item05", "shot": "phone-portrait-urdu_adhkar-ur__023__after-dhuhr-1250-item05.png", "labels": ["واپس", "نماز کے بعد  ·  8 میں سے 6", "اللہ اکبر", "اللَّهُ أَكْبَرُ", "اللہ سب سے ب
+{"ev": "shot", "name": "after-dhuhr-1250-item06", "shot": "phone-portrait-urdu_adhkar-ur__024__after-dhuhr-1250-item06.png", "labels": ["واپس", "نماز کے بعد  ·  8 میں سے 7", "آیت الکرسی", "اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ 
+{"ev": "shot", "name": "after-dhuhr-1250-item07", "shot": "phone-portrait-urdu_adhkar-ur__025__after-dhuhr-1250-item07.png", "labels": ["واپس", "نماز کے بعد  ·  8 میں سے 8", "سورۃ الاخلاص، سورۃ الفلق، سورۃ الناس", "قُلْ 
+{"ev": "set-time", "sc": "evening-1730", "out": "Tue Oct  6 06:30:00 UTC 2026", "t": 467.3}
+{"ev": "shot", "name": "evening-1730-home-p0", "shot": "phone-portrait-urdu_adhkar-ur__026__evening-1730-home-p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولیں۔", "Sydney, NSW", "نماز سیکھیں", "ماہانہ ٹائم
+{"ev": "shot", "name": "evening-1730-home-p1", "shot": "phone-portrait-urdu_adhkar-ur__027__evening-1730-home-p1.png", "labels": ["المغرب", "مغرب", "7:01", "رات", "⁧1 گھنٹہ 30 منٹ⁩ باقی", "دن کے اوقات: صبح 5:01 سے صبح 6:
+{"ev": "shot", "name": "evening-1730-open-p0", "shot": "phone-portrait-urdu_adhkar-ur__028__evening-1730-open-p0.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 1", "آیت الکرسی", "اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْح
+{"ev": "shot", "name": "evening-1730-item01", "shot": "phone-portrait-urdu_adhkar-ur__029__evening-1730-item01.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 2", "سورۃ الاخلاص", "قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ 
+{"ev": "shot", "name": "evening-1730-item02", "shot": "phone-portrait-urdu_adhkar-ur__030__evening-1730-item02.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 3", "سورۃ الفلق", "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِنْ
+{"ev": "shot", "name": "evening-1730-item03", "shot": "phone-portrait-urdu_adhkar-ur__031__evening-1730-item03.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 4", "سورۃ الناس", "قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِك
+{"ev": "shot", "name": "evening-1730-item04", "shot": "phone-portrait-urdu_adhkar-ur__032__evening-1730-item04.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 5", "شام کی دعا", "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّ
+{"ev": "shot", "name": "evening-1730-item05", "shot": "phone-portrait-urdu_adhkar-ur__033__evening-1730-item05.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 6", "سید الاستغفار", "اللَّهُمَّ أَنْتَ رَبِّي لاَ إِلَه
+{"ev": "shot", "name": "evening-1730-item06", "shot": "phone-portrait-urdu_adhkar-ur__034__evening-1730-item06.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 7", "شام کی دعا (اللہم بک أمسینا)", "اللَّهُمَّ بِكَ أَم
+{"ev": "shot", "name": "evening-1730-item07", "shot": "phone-portrait-urdu_adhkar-ur__035__evening-1730-item07.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 8", "بسم اللہ الذی", "بِسْمِ اللَّهِ الَّذِي لاَ يَضُرُّ
+{"ev": "shot", "name": "evening-1730-item08", "shot": "phone-portrait-urdu_adhkar-ur__036__evening-1730-item08.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 9", "رضیت باللہ", "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالإِسْل
+{"ev": "shot", "name": "evening-1730-item09", "shot": "phone-portrait-urdu_adhkar-ur__037__evening-1730-item09.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 10", "عافیت کی دعا", "اللَّهُمَّ عَافِنِي فِي بَدَنِي، ا
+{"ev": "shot", "name": "evening-1730-item10", "shot": "phone-portrait-urdu_adhkar-ur__038__evening-1730-item10.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 11", "اللہ کی پناہ", "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّا
+{"ev": "shot", "name": "evening-1730-item11", "shot": "phone-portrait-urdu_adhkar-ur__039__evening-1730-item11.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 12", "لا الٰہ الا اللہ", "لاَ إِلَهَ إِلاَّ اللَّهُ وَحْ
+{"ev": "shot", "name": "evening-1730-item12", "shot": "phone-portrait-urdu_adhkar-ur__040__evening-1730-item12.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 13", "سبحان اللہ وبحمدہ", "سُبْحَانَ اللَّهِ وَبِحَمْدِه
+{"ev": "shot", "name": "evening-1730-item13", "shot": "phone-portrait-urdu_adhkar-ur__041__evening-1730-item13.png", "labels": ["واپس", "شام کے اذکار  ·  14 میں سے 14", "درود و سلام", "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَ
+{"ev": "set-time", "sc": "friday-1250", "out": "Fri Oct  9 01:50:00 UTC 2026", "t": 595.4}
+{"ev": "shot", "name": "friday-1250-home-p0", "shot": "phone-portrait-urdu_adhkar-ur__042__friday-1250-home-p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولیں۔", "Sydney, NSW", "نماز سیکھیں", "ماہانہ ٹائم ٹ
+{"ev": "shot", "name": "friday-1250-home-p1", "shot": "phone-portrait-urdu_adhkar-ur__043__friday-1250-home-p1.png", "labels": ["الظهر", "ظہر  ·  اب", "12:44", "دوپہر", "اذان ⁧6 منٹ⁩ پہلے ہوئی", "دن کے اوقات: صبح 4:57 سے
+{"ev": "shot", "name": "friday-1250-open-p0", "shot": "phone-portrait-urdu_adhkar-ur__044__friday-1250-open-p0.png", "labels": ["واپس", "جمعہ", "جمعہ، 9 اکتوبر", "\"بہترین دن جس پر سورج طلوع ہوا، جمعہ ہے۔\" · صحیح مسلم 8
+{"ev": "shot", "name": "friday-1250-open-p1", "shot": "phone-portrait-urdu_adhkar-ur__045__friday-1250-open-p1.png", "labels": ["سورة الكهف", "“جس نے جمعہ کے دن سورہ کہف پڑھی اس کے لیے دونوں جمعوں کے درمیان نور روشن کر د
+{"ev": "shot", "name": "why-open-p0", "shot": "phone-portrait-urdu_adhkar-ur__046__why-open-p0.png", "labels": ["4:57 کیوں؟ · فجر الفجر", "حساب کی بنیاد", "ماخذ", "اس ڈیوائس پر حساب شدہ", "اذان لائبریری · میوس کے فلکیاتی
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 832.7}
+{"ev": "gfx", "lines": ["Total frames rendered: 26", "Janky frames: 25 (96.15%)", "Janky frames (legacy): 25 (96.15%)", "50th percentile: 550ms", "90th percentile: 2550ms", "95th percentile: 2700ms", "99th percentile: 27
+{"ev": "mem", "lines": ["  Native Heap    24023    23928        0        0    27164    31348    24044     3457", "        TOTAL    47683    36408     3444        0   168076    45511    31126    10538", "           Java H
