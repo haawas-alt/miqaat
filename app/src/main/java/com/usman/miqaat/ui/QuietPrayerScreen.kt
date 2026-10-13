@@ -104,7 +104,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                 if (wide) QuietBackdrop(Modifier.matchParentSize())
             Column(Modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = if (short) 4.dp else 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                QuietLabel(Str[R.string.s_quiet_prayer_progress], urdu, Modifier.testTag("quiet-progress"))
+                QuietLabel(Str[R.string.s_quiet_prayer_progress], urdu, Modifier.testTag("quiet-progress"), QuietGold)
                 Spacer(Modifier.height(if (short) 6.dp else 16.dp))
                 Text(L10n.prayer(s, p.prayer), Modifier.fillMaxWidth().testTag("quiet-current-name").semantics { heading() },
                     fontFamily = displayFont, fontWeight = FontWeight.Bold,
@@ -134,15 +134,30 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
             Column(Modifier.fillMaxWidth().then(if (wide) Modifier.fillMaxHeight() else Modifier)
                 .padding(horizontal = 16.dp, vertical = if (short) 10.dp else 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                QuietLabel(Str[R.string.s_quiet_next_azaan], urdu, Modifier.testTag("quiet-next-label"))
-                Text(L10n.prayer(s, times.next), Modifier.fillMaxWidth().testTag("quiet-next-name"),
+                QuietLabel(Str[R.string.s_quiet_next_azaan], urdu, Modifier.testTag("quiet-next-label"), QuietGold)
+                val nextName: @Composable (Modifier) -> Unit = { m ->
+                    Text(L10n.prayer(s, times.next), m.testTag("quiet-next-name"),
                     fontFamily = displayFont, fontSize = (if (urdu) { if (short) 22 else if (large) 40 else 28 } else { if (short) 40 else if (large) 64 else 30 }).sp,
                     lineHeight = (if (urdu) { if (short) 42 else if (large) 80 else 54 } else { if (short) 46 else if (large) 70 else 36 }).sp,
                     color = QuietGold, textAlign = TextAlign.Center)
-                Text(L10n.iso(L10n.at(times.nextTime, s.use24h)), Modifier.fillMaxWidth().testTag("quiet-next-time"),
+                }
+                val nextClock: @Composable (Modifier) -> Unit = { m ->
+                    Text(L10n.iso(L10n.at(times.nextTime, s.use24h)), m.testTag("quiet-next-time"),
                     fontFamily = displayFont, fontSize = (if (urdu) { if (short) 20 else if (large) 38 else 26 } else { if (short) 34 else if (large) 48 else 32 }).sp,
                     lineHeight = (if (urdu) { if (short) 38 else if (large) 76 else 50 } else { if (short) 40 else if (large) 54 else 38 }).sp,
                     color = QuietIvory, textAlign = TextAlign.Center)
+                }
+                if (!wide && !accessible) {
+                    Spacer(Modifier.height(8.dp))
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        nextName(Modifier.weight(0.40f))
+                        Box(Modifier.width(1.dp).height(36.dp).background(QuietGold.copy(alpha = 0.35f)))
+                        nextClock(Modifier.weight(0.60f))
+                    }
+                } else {
+                    nextName(Modifier.fillMaxWidth())
+                    nextClock(Modifier.fillMaxWidth())
+                }
                 if (times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
                     Text(Str[R.string.s_quiet_tomorrow], Modifier.fillMaxWidth().testTag("quiet-tomorrow"), textAlign = TextAlign.Center, fontFamily = if (urdu) Nastaliq else Nunito,
                         fontSize = (if (urdu) 12 else 14).sp, color = QuietSecondary)
@@ -182,10 +197,10 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
 }
 
 @Composable
-private fun QuietLabel(text: String, urdu: Boolean, modifier: Modifier = Modifier) {
-    Text(text, modifier.fillMaxWidth(), fontFamily = if (urdu) Nastaliq else Nunito, fontWeight = FontWeight.SemiBold,
+private fun QuietLabel(text: String, urdu: Boolean, modifier: Modifier = Modifier, tint: Color = QuietIvory) {
+    Text(if (urdu) text else text.uppercase(java.util.Locale.ROOT), modifier.fillMaxWidth(), fontFamily = if (urdu) Nastaliq else Nunito, fontWeight = FontWeight.SemiBold,
         fontSize = (if (urdu) 12 else 12).sp, lineHeight = (if (urdu) 26 else 17).sp,
-        letterSpacing = (if (urdu) 0 else 1).sp, textAlign = TextAlign.Center, color = QuietIvory)
+        letterSpacing = (if (urdu) 0 else 1).sp, textAlign = TextAlign.Center, color = tint)
 }
 
 @Composable

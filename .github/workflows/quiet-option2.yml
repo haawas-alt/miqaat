@@ -34,6 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           set -o pipefail
+          ./gradlew --no-daemon testGithubReleaseUnitTest --tests com.usman.miqaat.ui.QuietOptionAcceptanceTest
           ./gradlew --no-daemon --continue testGithubReleaseUnitTest lintGithubRelease assembleGithubRelease assemblePlayRelease bundlePlayRelease 2>&1 | tee build.log
           python3 tools/check_forbidden_assets.py app/src/main app/build/outputs/apk/github/release/app-github-release.apk app/build/outputs/apk/play/release/app-play-release.apk app/build/outputs/bundle/playRelease/app-play-release.aab
           mkdir -p candidate
