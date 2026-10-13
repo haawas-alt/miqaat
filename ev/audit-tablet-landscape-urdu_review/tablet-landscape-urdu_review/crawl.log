@@ -1,0 +1,76 @@
+{"ev": "env", "density": 2.0, "size": "Physical size: 2560x1600", "rot": "", "t": 0.2}
+{"ev": "cold-start-ms", "ms": 2312, "t": 2.8}
+{"ev": "setup-screen", "step": 0, "shot": "tablet-landscape-urdu_review__setup0.png", "key": "772976b918", "labels": ["Location: ⁨⁩. Opens location settings", "Tuesday 13 October 2026  ·  5:34 AM", "·", "⁨٢ جمادى الأولى 
+{"ev": "setup-tap", "label": "Begin", "t": 8.3}
+{"ev": "setup-screen", "step": 1, "shot": "tablet-landscape-urdu_review__setup1.png", "key": "22ab46fe77", "labels": ["Location: ⁨⁩. Opens location settings", "Tuesday 13 October 2026  ·  5:34 AM", "·", "⁨٢ جمادى الأولى 
+{"ev": "detect-result", "shot": "tablet-landscape-urdu_review__setup1_after-detect-20s.png", "labels": ["Location: ⁨⁩. Opens location settings", "Tuesday 13 October 2026  ·  5:34 AM", "·", "⁨٢ جمادى الأولى ١٤٤٨⁩", "Learn
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 38.6}
+{"ev": "setup-screen", "step": 2, "shot": "tablet-landscape-urdu_review__setup2.png", "key": "4a4cbd14ec", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 13 October 2026  ·  4:34 P
+{"ev": "setup-tap", "label": "Next", "t": 44.2}
+{"ev": "setup-screen", "step": 3, "shot": "tablet-landscape-urdu_review__setup3.png", "key": "06e198900d", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 13 October 2026  ·  4:34 P
+{"ev": "setup-tap", "label": "These look right", "t": 49.5}
+{"ev": "setup-screen", "step": 4, "shot": "tablet-landscape-urdu_review__setup4.png", "key": "40e4525ca1", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Tuesday 13 October 2026  ·  4:35 P
+{"ev": "setup-tap", "label": "Finish", "t": 54.8}
+{"ev": "setup-done", "step": 5, "t": 59.7}
+{"ev": "setup-result", "ok": true, "t": 59.7}
+{"ev": "lang-set", "t": 103.1}
+{"ev": "shot", "name": "home-p0", "shot": "tablet-landscape-urdu_review-ur__001__home-p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولیں۔", "Sydney, NSW", "منگل، 13 اکتوبر 2026  ·  4:36 شام", "⁧2 جمادی الاو
+{"ev": "shot", "name": "h-qibla-p0", "shot": "tablet-landscape-urdu_review-ur__002__h-qibla-p0.png", "labels": ["واپس", "قبلہ", "القبلة", "277°  W", "⁨Sydney, NSW⁩ میں حقیقی شمال سے", "کمپاس کی درستگی زیادہ · مقناطیسی ان
+{"ev": "shot", "name": "h-location-p0", "shot": "tablet-landscape-urdu_review-ur__003__h-location-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر"
+{"ev": "shot", "name": "h-location-p1", "shot": "tablet-landscape-urdu_review-ur__004__h-location-p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر"
+{"ev": "shot", "name": "h-location-p2", "shot": "tablet-landscape-urdu_review-ur__005__h-location-p2.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر"
+{"ev": "shot", "name": "h-location-p3", "shot": "tablet-landscape-urdu_review-ur__006__h-location-p3.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر"
+{"ev": "shot", "name": "h-location-p4", "shot": "tablet-landscape-urdu_review-ur__007__h-location-p4.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر"
+{"ev": "shot", "name": "h-location-p5", "shot": "tablet-landscape-urdu_review-ur__008__h-location-p5.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر"
+{"ev": "nav-fail", "what": "[['Morning adhkār', 'صبح کے اذکار', 'Morning and evening adhkār', 'صبح و شام کے اذکار']]", "t": 420.7}
+{"ev": "shot", "name": "h-evening-adhkar-p0", "shot": "tablet-landscape-urdu_review-ur__009__h-evening-adhkar-p0.png", "labels": ["واپس", "شام کے اذکار", "أذكار المساء", "14 میں سے 0 مکمل", "1", "آیت الکرسی", "ابھی نہیں 
+{"ev": "shot", "name": "h-after-prayer-p0", "shot": "tablet-landscape-urdu_review-ur__010__h-after-prayer-p0.png", "labels": ["واپس", "نماز کے بعد", "أذكار بعد الصلاة", "8 میں سے 0 مکمل", "1", "استغفار", "⁦0 / 3⁩", "2", 
+{"ev": "nav-fail", "what": "[[\"Friday's sunnahs\", 'جمعے کی سنتیں', 'Jumuʿah', 'جمعہ']]", "t": 635.8}
+{"ev": "nav-fail", "what": "[['Why this time?', 'یہ وقت کیوں؟']]", "t": 754.8}
+{"ev": "shot", "name": "s-index-p0", "shot": "tablet-landscape-urdu_review-ur__011__s-index-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر", "ڈسپ
+{"ev": "shot", "name": "s-index-p1", "shot": "tablet-landscape-urdu_review-ur__012__s-index-p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر", "ڈسپ
+{"ev": "shot", "name": "s-index-p2", "shot": "tablet-landscape-urdu_review-ur__013__s-index-p2.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر", "ڈسپ
+{"ev": "shot", "name": "s-index-p3", "shot": "tablet-landscape-urdu_review-ur__014__s-index-p3.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر", "ڈسپ
+{"ev": "shot", "name": "s-index-p4", "shot": "tablet-landscape-urdu_review-ur__015__s-index-p4.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر", "ڈسپ
+{"ev": "shot", "name": "s-index-p5", "shot": "tablet-landscape-urdu_review-ur__016__s-index-p5.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر", "ڈسپ
+{"ev": "shot", "name": "s00-Location-p0", "shot": "tablet-landscape-urdu_review-ur__017__s00-Location-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیل
+{"ev": "shot", "name": "s00-Location-p1", "shot": "tablet-landscape-urdu_review-ur__018__s00-Location-p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیل
+{"ev": "shot", "name": "s00-Location-p2", "shot": "tablet-landscape-urdu_review-ur__019__s00-Location-p2.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیل
+{"ev": "shot", "name": "s00-Location-p3", "shot": "tablet-landscape-urdu_review-ur__020__s00-Location-p3.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیل
+{"ev": "shot", "name": "s00-Location-p4", "shot": "tablet-landscape-urdu_review-ur__021__s00-Location-p4.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیل
+{"ev": "shot", "name": "s00-Location-p5", "shot": "tablet-landscape-urdu_review-ur__022__s00-Location-p5.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیل
+{"ev": "shot", "name": "s01-Prayer_times-p0", "shot": "tablet-landscape-urdu_review-ur__023__s01-Prayer_times-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s01-Prayer_times-p1", "shot": "tablet-landscape-urdu_review-ur__024__s01-Prayer_times-p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s01-Prayer_times-p2", "shot": "tablet-landscape-urdu_review-ur__025__s01-Prayer_times-p2.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s01-Prayer_times-p3", "shot": "tablet-landscape-urdu_review-ur__026__s01-Prayer_times-p3.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s01-Prayer_times-p4", "shot": "tablet-landscape-urdu_review-ur__027__s01-Prayer_times-p4.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s01-Prayer_times-p5", "shot": "tablet-landscape-urdu_review-ur__028__s01-Prayer_times-p5.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s01-Prayer_times-p6", "shot": "tablet-landscape-urdu_review-ur__029__s01-Prayer_times-p6.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s01-Prayer_times-p7", "shot": "tablet-landscape-urdu_review-ur__030__s01-Prayer_times-p7.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s02-Azaan_alerts-p0", "shot": "tablet-landscape-urdu_review-ur__031__s02-Azaan_alerts-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s02-Azaan_alerts-p1", "shot": "tablet-landscape-urdu_review-ur__032__s02-Azaan_alerts-p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s02-Azaan_alerts-p2", "shot": "tablet-landscape-urdu_review-ur__033__s02-Azaan_alerts-p2.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s02-Azaan_alerts-p3", "shot": "tablet-landscape-urdu_review-ur__034__s02-Azaan_alerts-p3.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s02-Azaan_alerts-p4", "shot": "tablet-landscape-urdu_review-ur__035__s02-Azaan_alerts-p4.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s02-Azaan_alerts-p5", "shot": "tablet-landscape-urdu_review-ur__036__s02-Azaan_alerts-p5.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "
+{"ev": "shot", "name": "s03-Iqamah-p0", "shot": "tablet-landscape-urdu_review-ur__037__s03-Iqamah-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر"
+{"ev": "shot", "name": "s04-Hijri_calendar-p0", "shot": "tablet-landscape-urdu_review-ur__038__s04-Hijri_calendar-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت
+{"ev": "shot", "name": "s05-Display_art-p0", "shot": "tablet-landscape-urdu_review-ur__039__s05-Display_art-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہج
+{"ev": "shot", "name": "s05-Display_art-p1", "shot": "tablet-landscape-urdu_review-ur__040__s05-Display_art-p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہج
+{"ev": "shot", "name": "s05-Display_art-p2", "shot": "tablet-landscape-urdu_review-ur__041__s05-Display_art-p2.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہج
+{"ev": "shot", "name": "s05-Display_art-p3", "shot": "tablet-landscape-urdu_review-ur__042__s05-Display_art-p3.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہج
+{"ev": "shot", "name": "s05-Display_art-p4", "shot": "tablet-landscape-urdu_review-ur__043__s05-Display_art-p4.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہج
+{"ev": "shot", "name": "s06-Try_it_now-p0", "shot": "tablet-landscape-urdu_review-ur__044__s06-Try_it_now-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری
+{"ev": "shot", "name": "s06-Try_it_now-p1", "shot": "tablet-landscape-urdu_review-ur__045__s06-Try_it_now-p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری
+{"ev": "shot", "name": "s06-Try_it_now-p2", "shot": "tablet-landscape-urdu_review-ur__046__s06-Try_it_now-p2.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری
+{"ev": "shot", "name": "s06-Try_it_now-p3", "shot": "tablet-landscape-urdu_review-ur__047__s06-Try_it_now-p3.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری
+{"ev": "shot", "name": "s07-Reliability_backup-p0", "shot": "tablet-landscape-urdu_review-ur__048__s07-Reliability_backup-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ"
+{"ev": "shot", "name": "s07-Reliability_backup-p1", "shot": "tablet-landscape-urdu_review-ur__049__s07-Reliability_backup-p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ"
+{"ev": "shot", "name": "s08-Privacy-p0", "shot": "tablet-landscape-urdu_review-ur__050__s08-Privacy-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈ
+{"ev": "shot", "name": "s08-Privacy-p1", "shot": "tablet-landscape-urdu_review-ur__051__s08-Privacy-p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈ
+{"ev": "shot", "name": "s08-Privacy-p2", "shot": "tablet-landscape-urdu_review-ur__052__s08-Privacy-p2.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈ
+{"ev": "shot", "name": "s09-About-p0", "shot": "tablet-landscape-urdu_review-ur__053__s09-About-p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر", 
+{"ev": "shot", "name": "s09-About-p1", "shot": "tablet-landscape-urdu_review-ur__054__s09-About-p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نماز", "اذان اور الرٹ", "اقامت", "ہجری کیلنڈر", 
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 1141.7}
+{"ev": "gfx", "lines": ["Total frames rendered: 29", "Janky frames: 29 (100.00%)", "Janky frames (legacy): 29 (100.00%)", "50th percentile: 150ms", "90th percentile: 1100ms", "95th percentile: 3550ms", "99th percentile: 
+{"ev": "mem", "lines": ["  Native Heap    23210    23116        0        0    26356    30168    23104     3280", "        TOTAL    48020    36116     3564        0   170372    42861    29467     9610", "           Java H
