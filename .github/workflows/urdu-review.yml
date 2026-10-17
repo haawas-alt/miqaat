@@ -5,8 +5,8 @@ on:
 permissions:
   contents: write
 env:
-  TAG: quiet-option2-1.90-13
-  NAME: Miqaat-1.90-quiet-option2.apk
+  TAG: v1.160
+  NAME: Miqaat.apk
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -18,6 +18,10 @@ jobs:
           curl -sSL -o Miqaat.apk.sha256 https://github.com/haawas-alt/miqaat/releases/download/${{ env.TAG }}/${{ env.NAME }}.sha256
           cat Miqaat.apk.sha256; sha256sum Miqaat.apk
           grep -q "$(sha256sum Miqaat.apk | cut -d' ' -f1)" Miqaat.apk.sha256
+          AS=$(ls $ANDROID_HOME/build-tools/*/apksigner | sort -V | tail -1)
+          $AS verify --print-certs Miqaat.apk | tee certs.txt
+          grep -qi "6285b269" certs.txt && echo "SIGNING KEY MATCHES v1.83"
+          $ANDROID_HOME/build-tools/*/aapt2 dump badging Miqaat.apk 2>/dev/null | head -1 || true
       - uses: actions/upload-artifact@v4
         with: { name: apk, path: apk/ }
   crawl:
@@ -80,8 +84,8 @@ jobs:
         run: |
           git config user.name audit-ci; git config user.email audit-ci@users.noreply.github.com
           rm -rf /tmp/pub && mkdir -p /tmp/pub/ev && cp -r /tmp/ev/audit-* /tmp/pub/ev/
-          git checkout -q --orphan audit-ev15-kiswah-after
+          git checkout -q --orphan audit-ev16-main-v1160
           git rm -rfq . >/dev/null 2>&1 || true
           cp -r /tmp/pub/ev ./ev
           git add ev && git commit -qm "urdu review evidence build 8"
-          git push -q -f origin audit-ev15-kiswah-after
+          git push -q -f origin audit-ev16-main-v1160
