@@ -57,6 +57,7 @@ jobs:
           name: audit-${{ matrix.device.name }}-${{ matrix.group.id }}-${{ github.run_id }}
           path: |
             shots/
+            app/build/outputs/androidTest-results/**/*.xml
             app/build/test-results/**/*.xml
           if-no-files-found: warn
   publish:
@@ -75,20 +76,25 @@ jobs:
           path: downloaded
       - name: Collect screenshots and results
         run: |
-          set -uo pipefail
-          OUT=publish; rm -rf $OUT; mkdir -p $OUT
-          find downloaded -name "*.png" | while read f; do
-            rel=${f#downloaded/}; dir=$(echo "$rel" | cut -d/ -f1); mkdir -p "$OUT/$dir"; cp "$f" "$OUT/$dir/$(basename "$f")"
-          done
-          find downloaded -name "*.xml" | while read f; do
-            rel=${f#downloaded/}; dir=$(echo "$rel" | cut -d/ -f1); mkdir -p "$OUT/$dir/results"; cp "$f" "$OUT/$dir/results/$(basename "$f")"
-          done
-          # Summary of pass and fail counts per device and group, read from the JUnit XML.
-          { echo "# Full audit matrix run ${{ github.run_number }} (${{ github.sha }})"; echo;
-            for x in $(find downloaded -name "*.xml" | sort); do
-              d=$(echo "$x" | cut -d/ -f2); t=$(grep -o 'tests="[0-9]*"' "$x" | head -1); fl=$(grep -o 'failures="[0-9]*"' "$x" | head -1); er=$(grep -o 'errors="[0-9]*"' "$x" | head -1)
-              echo "- $d: $t $fl $er ($(basename "$x"))"; done; } > $OUT/SUMMARY.md
-          echo "PNG count: $(find $OUT -name '*.png' | wc -l)"
+          OUT=publish; rm -rf "$OUT"; mkdir -p "$OUT"
+          find downloaded -type f -name "*.png" > pngs.txt || true
+          while IFS= read -r f; do
+            [ -n "$f" ] || continue
+            rel="${f#downloaded/}"; dir="${rel%%/*}"
+            mkdir -p "$OUT/$dir"; cp "$f" "$OUT/$dir/$(basename "$f")" || true
+          done < pngs.txt
+          find downloaded -type f -name "*.xml" > xmls.txt || true
+          SUM="$OUT/SUMMARY.md"
+          { echo "# Full audit matrix run ${{ github.run_number }} (${{ github.sha }})"; echo; } > "$SUM"
+          while IFS= read -r x; do
+            [ -n "$x" ] || continue
+            dir="$(echo "${x#downloaded/}" | cut -d/ -f1)"
+            mkdir -p "$OUT/$dir/results"; cp "$x" "$OUT/$dir/results/$(basename "$x")" || true
+            head -c 300 "$x" | grep -o '<testsuite [^>]*' | head -1 | sed "s#^#- $dir: #" >> "$SUM" || true
+            grep -h -A1 '<failure' "$x" | head -20 | sed "s#^#    FAIL $dir: #" >> "$SUM" || true
+          done < xmls.txt
+          echo "PNG files: $(wc -l < pngs.txt)  XML files: $(wc -l < xmls.txt)" | tee -a "$SUM"
+          exit 0
       - name: Publish to ci-audit-full branch
         env:
           GITHUB_WORKSPACE_REMOTE: ${{ format('https://x-access-token:{0}@github.com/{1}.git', secrets.GITHUB_TOKEN, github.repository) }}
