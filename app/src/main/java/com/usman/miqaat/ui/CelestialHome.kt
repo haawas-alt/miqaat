@@ -93,19 +93,49 @@ private fun CelestialWide(
     val ox = (bw - sc * 1585f) / 2; val oy = (bh - sc * 992f) / 2
     fun Modifier.at(x: Float, y: Float, w: Float, h: Float) = this.absoluteOffset(ox + sc * x, oy + sc * y).size(sc * w, sc * h)
     val u = sc * 13.8f
+    // Approved 17 Oct 2026 (combined-design mockup): full artwork, hero on the left, glass prayer panel on the right,
+    // the day's timeline and the shortcuts as pills underneath. The solar arc gives way to the labelled timeline.
     Box(Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.AbsoluteAlignment.TopLeft) {
         ThemedArtwork(portrait = false, modifier = Modifier.at(0f, 0f, 1585f, 992f), scrim = 0f)
-        Box(Modifier.at(0f, 0f, 1585f, 122f).background(tk.background.copy(alpha = 0.55f))) {
-            CelestialTopBar(state, s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = sc * 60f))
+        val night = tk.background
+        // Shade: darker at the edges where text sits, open in the middle so the sunrise stays the picture.
+        Box(Modifier.at(0f, 0f, 1585f, 992f).background(androidx.compose.ui.graphics.Brush.horizontalGradient(
+            0f to night.copy(alpha = 0.72f), 0.45f to night.copy(alpha = 0.22f), 0.68f to night.copy(alpha = 0.5f), 1f to night.copy(alpha = 0.85f))))
+        Box(Modifier.at(0f, 0f, 1585f, 992f).background(androidx.compose.ui.graphics.Brush.verticalGradient(
+            0f to night.copy(alpha = 0.85f), 0.2f to Color.Transparent, 0.74f to Color.Transparent, 1f to night.copy(alpha = 0.82f))))
+        Box(Modifier.at(0f, 0f, 1585f, 130f)) {
+            CelestialTopBar(state, s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = sc * 48f))
         }
-        Box(Modifier.at(0f, 121f, 1585f, 1.5f).background(tk.divider))
-        SolarArc(Modifier.at(240f, 500f, 880f, 250f), state, s, tk)
-        Box(Modifier.at(130f, 150f, 500f, 410f).testTag("home-hero")) {
-            FitHeight(Modifier.fillMaxSize()) { CelestialHero(hero, state, s, tk, u, F, urdu, Alignment.CenterHorizontally) }
+        Box(Modifier.at(56f, 175f, 640f, 600f).testTag("home-hero"), contentAlignment = Alignment.CenterStart) {
+            FitHeight(Modifier.fillMaxSize()) { CelestialHero(hero, state, s, tk, u * 1.05f, F, urdu, Alignment.Start, pill = true) }
         }
-        if (s.showDisliked) DayThread(s, state.today, state.now, modifier = Modifier.at(140f, 780f, 900f, 90f), labelSize = (u.value * 1.05f).sp, fullNames = true, gnomon = true)
-        CelestialPanel(state, s, tk, u, F, urdu, onWhy, a, Modifier.at(1093f, 153f, 458f, 674f).testTag("home-prayers"))
-        CelestialRail(doorList, tk, u, F, urdu, Modifier.at(0f, 892f, 1585f, 100f).background(tk.background.copy(alpha = 0.92f)).navigationBarsPadding().displayCutoutPadding().padding(horizontal = sc * 60f), spread = true)
+        if (s.showDisliked) DayThread(s, state.today, state.now, modifier = Modifier.at(56f, 790f, 870f, 80f), labelSize = (u.value * 1.3f).sp, fullNames = true, gnomon = true)
+        CelestialPills(doorList, tk, u, F, urdu, Modifier.at(48f, 880f, 900f, 112f).navigationBarsPadding())
+        CelestialPanel(state, s, tk, u, F, urdu, onWhy, a, Modifier.at(975f, 140f, 562f, 790f).navigationBarsPadding().testTag("home-prayers"))
+    }
+}
+
+/** The shortcuts as outlined pills, with the signature to their right when there is room. */
+@Composable
+private fun CelestialPills(doorList: List<Door>, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, modifier: Modifier) {
+    Row(modifier, verticalAlignment = Alignment.Top) {
+        @OptIn(ExperimentalLayoutApi::class)
+        FlowRow(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(u * 1.0f), verticalArrangement = Arrangement.spacedBy(u * 0.5f)) {
+            doorList.forEach { d ->
+                val warn = d.warn
+                Row(
+                    Modifier.clip(RoundedCornerShape(50)).border(1.dp, if (warn) tk.warning else tk.outline, RoundedCornerShape(50)).background(tk.background.copy(alpha = 0.55f))
+                        .then(if (d.onClick != null) Modifier.clickable(onClick = d.onClick, role = Role.Button) else Modifier).heightIn(min = 48.dp).padding(horizontal = u * 1.3f),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(if (warn) Icons.Outlined.WarningAmber else Icons.Outlined.ChevronRight, null, Modifier.size(u * 1.8f), tint = if (warn) tk.warning else tk.primary)
+                    Spacer(Modifier.width(u * 0.5f))
+                    Text(d.label, fontFamily = F, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.Medium, color = if (warn) tk.warning else tk.contentPrimary, maxLines = 1)
+                }
+            }
+        }
+        Text(Str[R.string.s_theme_signature], fontFamily = if (urdu) F else Cormorant, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary, maxLines = 1,
+            modifier = Modifier.padding(start = u, top = u * 1.2f))
     }
 }
 
@@ -172,7 +202,7 @@ private fun NavButton(icon: ImageVector, label: String, description: String, tk:
 }
 
 @Composable
-private fun CelestialHero(hero: HeroInfo, state: PrayerState, s: AppSettings, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, align: Alignment.Horizontal, scale: Float = 1f) {
+private fun CelestialHero(hero: HeroInfo, state: PrayerState, s: AppSettings, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, align: Alignment.Horizontal, scale: Float = 1f, pill: Boolean = false) {
     val density = LocalDensity.current
     fun fs(x: Float) = maxOf(u.value * x * scale, MIN_SP).sp
     fun fd(x: Float) = with(density) { (u * x * scale).toSp() }
@@ -186,7 +216,16 @@ private fun CelestialHero(hero: HeroInfo, state: PrayerState, s: AppSettings, tk
             Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = fd(11f), lineHeight = fd(10.6f), color = tk.contentPrimary, maxLines = 1)
             if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = tk.fontDisplay, fontSize = fd(3.6f), color = tk.contentPrimary, modifier = Modifier.padding(top = u * 2.0f * scale))
         }
-        Row(Modifier.padding(top = u * 0.8f), verticalAlignment = Alignment.CenterVertically) {
+        if (pill) Row(
+            Modifier.padding(top = u * 2.2f).clip(RoundedCornerShape(50)).border(1.dp, tk.accent.copy(alpha = 0.6f), RoundedCornerShape(50))
+                .background(tk.background.copy(alpha = 0.5f)).padding(horizontal = u * 1.5f, vertical = u * 0.6f),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (hero.justPassed) Icon(Icons.Outlined.CheckCircle, null, Modifier.size(u * 2.2f), tint = tk.accent)
+            else Box(Modifier.size(u * 1.0f).clip(CircleShape).background(tk.accent))
+            Spacer(Modifier.width(u * 0.9f))
+            Text(hero.status, fontFamily = F, fontSize = fs(if (urdu) 2.5f else 2.3f), fontWeight = FontWeight.Bold, color = tk.accent, maxLines = 2)
+        } else Row(Modifier.padding(top = u * 0.8f), verticalAlignment = Alignment.CenterVertically) {
             Icon(if (hero.justPassed) Icons.Outlined.CheckCircle else Icons.Outlined.Schedule, null, Modifier.size(u * 2.6f * scale), tint = tk.accent)
             Spacer(Modifier.width(u * 0.8f))
             Text(hero.status, fontFamily = F, fontSize = fs(if (urdu) 2.6f else 2.5f), fontWeight = FontWeight.SemiBold, color = tk.accent, maxLines = 2)
