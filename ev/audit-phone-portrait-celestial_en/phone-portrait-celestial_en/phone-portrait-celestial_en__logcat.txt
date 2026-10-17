@@ -1,0 +1,721 @@
+--------- beginning of main
+10-17 08:49:04.520   509   523 E libprocessgroup: No such cgroup attribute: /sys/fs/cgroup/uid_10141/cgroup.freeze
+10-17 08:49:04.521   509   523 W libprocessgroup: Failed to apply Frozen process profile: No such file or directory
+10-17 08:49:04.521   509   523 E libprocessgroup: No such cgroup attribute: /sys/fs/cgroup/uid_10141/cgroup.freeze
+10-17 08:49:04.521   509   523 W libprocessgroup: Failed to apply Unfrozen process profile: No such file or directory
+--------- beginning of system
+10-17 08:49:04.773   509   523 W ActivityTaskManager: callingPackage for (uid=2000, pid=2417) has no WPC
+10-17 08:49:04.782   807   864 W ShellStartingWindow: Window background does not exist, using android.graphics.drawable.ColorDrawable@67b01f2
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: Failed to apply ContentProviderOperation(type=insert uri=content://media/internal/file values={instance_id=null, compilation=null, disc_number=0, duration=10214, is_ringtone=1, album_artist=null, resolution=null, orientation=null, artist=pdx, author=null, height=null, is_drm=0, is_audiobook=0, date_modified=1702767290, writer=null, composer=null, _modifier=3, is_recording=0, datetaken=null, mime_type=audio/ogg, is_notification=0, bitrate=96000, cd_track_number=0, xmp=[], year=null, _data=/product/media/audio/ringtones/PERSEUS.ogg, _size=112981, album=Unknown, genre=Unknown, is_alarm=0, title=Perseus, track=0, width=null, is_music=0, document_id=null, is_podcast=0, capture_framerate=null, num_tracks=1, original_document_id=null, media_type=2} exceptionAllowed)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: files._data (code 2067 SQLITE_CONSTRAINT_UNIQUE)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at android.database.sqlite.SQLiteConnection.nativeExecuteForLastInsertedRowId(Native Method)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at android.database.sqlite.SQLiteConnection.executeForLastInsertedRowId(SQLiteConnection.java:961)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at android.database.sqlite.SQLiteSession.executeForLastInsertedRowId(SQLiteSession.java:790)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at android.database.sqlite.SQLiteStatement.executeInsert(SQLiteStatement.java:89)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.DatabaseUtils.executeInsert(DatabaseUtils.java:488)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.insert(SQLiteQueryBuilder.java:611)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.lambda$insert$1(SQLiteQueryBuilder.java:575)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.$r8$lambda$z6PmNgi8nEawad46M5nyYc14aRM(SQLiteQueryBuilder.java:0)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder$$ExternalSyntheticLambda4.apply(R8$$SyntheticClass:0)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.DatabaseHelper.runWithTransaction(DatabaseHelper.java:850)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.insert(SQLiteQueryBuilder.java:574)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.lambda$insertAllowingUpsert$20(MediaProvider.java:4846)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.$r8$lambda$A8_bSAcDGkyGiCcvRo57xoMQkf8(MediaProvider.java:0)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider$$ExternalSyntheticLambda39.apply(R8$$SyntheticClass:0)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.DatabaseHelper.runWithTransaction(DatabaseHelper.java:850)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertAllowingUpsert(MediaProvider.java:4836)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertFile(MediaProvider.java:4818)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertInternal(MediaProvider.java:5287)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insert(MediaProvider.java:4980)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at android.content.ContentProviderOperation.applyInternal(ContentProviderOperation.java:375)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at android.content.ContentProviderOperation.apply(ContentProviderOperation.java:347)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at android.content.ContentProvider.applyBatch(ContentProvider.java:2653)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.applyBatch(MediaProvider.java:5339)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at android.content.ContentProvider.applyBatch(ContentProvider.java:2644)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at android.content.ContentResolver.applyBatch(ContentResolver.java:2246)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.applyPending(ModernMediaScanner.java:957)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.maybeApplyPending(ModernMediaScanner.java:947)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.visitFile(ModernMediaScanner.java:853)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.visitFile(ModernMediaScanner.java:338)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at java.nio.file.Files.walkFileTree(Files.java:2670)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at java.nio.file.Files.walkFileTree(Files.java:2742)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.walkFileTree(ModernMediaScanner.java:454)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.runInternal(ModernMediaScanner.java:417)
+10-17 08:49:04.792  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.run(ModernMediaScanner.java:406)
+10-17 08:49:04.801  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner.scanDirectory(ModernMediaScanner.java:252)
+10-17 08:49:04.801  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.scanDirectory(MediaProvider.java:1939)
+10-17 08:49:04.801  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onScanVolume(MediaService.java:204)
+10-17 08:49:04.801  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onScanVolume(MediaService.java:172)
+10-17 08:49:04.801  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onHandleWork(MediaService.java:95)
+10-17 08:49:04.801  1520  1897 W ModernMediaScanner: 	at androidx.core.app.JobIntentService$CommandProcessor.doInBackground(JobIntentService.java:396)
+10-17 08:49:04.801  1520  1897 W ModernMediaScanner: 	at androidx.core.app.JobIntentService$CommandProcessor.doInBackground(JobIntentService.java:387)
+10-17 08:49:04.801  1520  1897 W ModernMediaScanner: 	at android.os.AsyncTask$3.call(AsyncTask.java:394)
+10-17 08:49:04.801  1520  1897 W ModernMediaScanner: 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+10-17 08:49:04.801  1520  1897 W ModernMediaScanner: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-17 08:49:04.801  1520  1897 W ModernMediaScanner: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-17 08:49:04.801  1520  1897 W ModernMediaScanner: 	at java.lang.Thread.run(Thread.java:1012)
+10-17 08:49:04.845  2420  2420 W om.usman.miqaat: Unexpected CPU variant for x86: x86_64.
+10-17 08:49:04.845  2420  2420 W om.usman.miqaat: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:49:04.965  2420  2420 E om.usman.miqaat: Not starting debugger since process cannot load the jdwp agent.
+10-17 08:49:05.328  2420  2420 W OpenGLRenderer: Unknown dataspace 0
+10-17 08:49:05.478   390   401 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10141 pid=0
+10-17 08:49:05.479   390   400 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10141 pid=2420
+10-17 08:49:05.479   390   401 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10141 pid=0
+10-17 08:49:05.479   390   400 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10141 pid=2420
+10-17 08:49:05.479   390   401 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10141 pid=0
+10-17 08:49:05.501  2420  2443 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: Failed to apply ContentProviderOperation(type=insert uri=content://media/internal/file values={instance_id=null, compilation=null, disc_number=0, duration=4383, is_ringtone=0, album_artist=null, resolution=null, orientation=null, artist=Unknown, author=null, height=null, is_drm=0, is_audiobook=0, date_modified=1702767290, writer=null, composer=null, _modifier=3, is_recording=0, datetaken=null, mime_type=audio/ogg, is_notification=1, bitrate=96000, cd_track_number=null, xmp=[], year=null, _data=/product/media/audio/notifications/Vega.ogg, _size=29310, album=notifications, genre=null, is_alarm=0, title=Vega, track=null, width=null, is_music=0, document_id=null, is_podcast=0, capture_framerate=null, num_tracks=1, original_document_id=null, media_type=2} exceptionAllowed)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: files._data (code 2067 SQLITE_CONSTRAINT_UNIQUE)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.database.sqlite.SQLiteConnection.nativeExecuteForLastInsertedRowId(Native Method)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.database.sqlite.SQLiteConnection.executeForLastInsertedRowId(SQLiteConnection.java:961)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.database.sqlite.SQLiteSession.executeForLastInsertedRowId(SQLiteSession.java:790)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.database.sqlite.SQLiteStatement.executeInsert(SQLiteStatement.java:89)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.DatabaseUtils.executeInsert(DatabaseUtils.java:488)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.insert(SQLiteQueryBuilder.java:611)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.lambda$insert$1(SQLiteQueryBuilder.java:575)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.$r8$lambda$z6PmNgi8nEawad46M5nyYc14aRM(SQLiteQueryBuilder.java:0)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder$$ExternalSyntheticLambda4.apply(R8$$SyntheticClass:0)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.DatabaseHelper.runWithTransaction(DatabaseHelper.java:850)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.insert(SQLiteQueryBuilder.java:574)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.lambda$insertAllowingUpsert$20(MediaProvider.java:4846)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.$r8$lambda$A8_bSAcDGkyGiCcvRo57xoMQkf8(MediaProvider.java:0)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider$$ExternalSyntheticLambda39.apply(R8$$SyntheticClass:0)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.DatabaseHelper.runWithTransaction(DatabaseHelper.java:850)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertAllowingUpsert(MediaProvider.java:4836)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertFile(MediaProvider.java:4818)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertInternal(MediaProvider.java:5287)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insert(MediaProvider.java:4980)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.content.ContentProviderOperation.applyInternal(ContentProviderOperation.java:375)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.content.ContentProviderOperation.apply(ContentProviderOperation.java:347)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.content.ContentProvider.applyBatch(ContentProvider.java:2653)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.applyBatch(MediaProvider.java:5339)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.content.ContentProvider.applyBatch(ContentProvider.java:2644)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.content.ContentResolver.applyBatch(ContentResolver.java:2246)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.applyPending(ModernMediaScanner.java:957)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.maybeApplyPending(ModernMediaScanner.java:947)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.visitFile(ModernMediaScanner.java:853)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.visitFile(ModernMediaScanner.java:338)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at java.nio.file.Files.walkFileTree(Files.java:2670)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at java.nio.file.Files.walkFileTree(Files.java:2742)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.walkFileTree(ModernMediaScanner.java:454)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.runInternal(ModernMediaScanner.java:417)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.run(ModernMediaScanner.java:406)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner.scanDirectory(ModernMediaScanner.java:252)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.scanDirectory(MediaProvider.java:1939)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onScanVolume(MediaService.java:204)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onScanVolume(MediaService.java:172)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onHandleWork(MediaService.java:95)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at androidx.core.app.JobIntentService$CommandProcessor.doInBackground(JobIntentService.java:396)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at androidx.core.app.JobIntentService$CommandProcessor.doInBackground(JobIntentService.java:387)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.os.AsyncTask$3.call(AsyncTask.java:394)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at java.lang.Thread.run(Thread.java:1012)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: Failed to apply ContentProviderOperation(type=insert uri=content://media/internal/file values={instance_id=null, compilation=null, disc_number=null, duration=1000, is_ringtone=0, album_artist=null, resolution=null, orientation=null, artist=pdx, author=null, height=null, is_drm=0, is_audiobook=0, date_modified=1702767290, writer=null, composer=null, _modifier=3, is_recording=0, datetaken=null, mime_type=audio/ogg, is_notification=1, bitrate=80000, cd_track_number=2dB214a, xmp=[], year=null, _data=/product/media/audio/notifications/arcturus.ogg, _size=7908, album=notifications, genre=null, is_alarm=0, title=Arcturus, track=null, width=null, is_music=0, document_id=null, is_podcast=0, capture_framerate=null, num_tracks=1, original_document_id=null, media_type=2} exceptionAllowed)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: files._data (code 2067 SQLITE_CONSTRAINT_UNIQUE)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.database.sqlite.SQLiteConnection.nativeExecuteForLastInsertedRowId(Native Method)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.database.sqlite.SQLiteConnection.executeForLastInsertedRowId(SQLiteConnection.java:961)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.database.sqlite.SQLiteSession.executeForLastInsertedRowId(SQLiteSession.java:790)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.database.sqlite.SQLiteStatement.executeInsert(SQLiteStatement.java:89)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.DatabaseUtils.executeInsert(DatabaseUtils.java:488)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.insert(SQLiteQueryBuilder.java:611)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.lambda$insert$1(SQLiteQueryBuilder.java:575)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.$r8$lambda$z6PmNgi8nEawad46M5nyYc14aRM(SQLiteQueryBuilder.java:0)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder$$ExternalSyntheticLambda4.apply(R8$$SyntheticClass:0)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.DatabaseHelper.runWithTransaction(DatabaseHelper.java:850)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.insert(SQLiteQueryBuilder.java:574)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.lambda$insertAllowingUpsert$20(MediaProvider.java:4846)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.$r8$lambda$A8_bSAcDGkyGiCcvRo57xoMQkf8(MediaProvider.java:0)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider$$ExternalSyntheticLambda39.apply(R8$$SyntheticClass:0)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.DatabaseHelper.runWithTransaction(DatabaseHelper.java:850)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertAllowingUpsert(MediaProvider.java:4836)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertFile(MediaProvider.java:4818)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertInternal(MediaProvider.java:5287)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insert(MediaProvider.java:4980)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.content.ContentProviderOperation.applyInternal(ContentProviderOperation.java:375)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.content.ContentProviderOperation.apply(ContentProviderOperation.java:347)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.content.ContentProvider.applyBatch(ContentProvider.java:2653)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.applyBatch(MediaProvider.java:5339)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.content.ContentProvider.applyBatch(ContentProvider.java:2644)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.content.ContentResolver.applyBatch(ContentResolver.java:2246)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.applyPending(ModernMediaScanner.java:957)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.maybeApplyPending(ModernMediaScanner.java:947)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.visitFile(ModernMediaScanner.java:853)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.visitFile(ModernMediaScanner.java:338)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at java.nio.file.Files.walkFileTree(Files.java:2670)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at java.nio.file.Files.walkFileTree(Files.java:2742)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.walkFileTree(ModernMediaScanner.java:454)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.runInternal(ModernMediaScanner.java:417)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.run(ModernMediaScanner.java:406)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner.scanDirectory(ModernMediaScanner.java:252)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.scanDirectory(MediaProvider.java:1939)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onScanVolume(MediaService.java:204)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onScanVolume(MediaService.java:172)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onHandleWork(MediaService.java:95)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at androidx.core.app.JobIntentService$CommandProcessor.doInBackground(JobIntentService.java:396)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at androidx.core.app.JobIntentService$CommandProcessor.doInBackground(JobIntentService.java:387)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at android.os.AsyncTask$3.call(AsyncTask.java:394)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-17 08:49:05.833  1520  1897 W ModernMediaScanner: 	at java.lang.Thread.run(Thread.java:1012)
+10-17 08:49:05.881  1520  1897 W MediaProvider: Didn't find any volume for getVolume(/product/media/audio/ringtones/Ring_Synth_04.ogg)
+10-17 08:49:05.888  1520  1897 W MediaProvider: Didn't find any volume for getVolume(/product/media/audio/notifications/pixiedust.ogg)
+10-17 08:49:05.894  1520  1897 W MediaProvider: Didn't find any volume for getVolume(/product/media/audio/alarms/Alarm_Classic.ogg)
+10-17 08:49:05.899  1520  1897 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:49:05.900  1520  1897 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:49:05.902  1520  1746 E StorageManager: Failed to set extended attributes for /storage/emulated/0/Android to set project id.: Operation not permitted
+10-17 08:49:05.902  1520  1746 W MediaProvider: Failed to update quota type for /storage/emulated/0/Android
+10-17 08:49:05.902  1520  1746 W MediaProvider: java.io.IOException: Failed to update quota type for /storage/emulated/0/Android
+10-17 08:49:05.902  1520  1746 W MediaProvider: 	at android.os.storage.StorageManager.updateExternalStorageFileQuotaType(StorageManager.java:2551)
+10-17 08:49:05.902  1520  1746 W MediaProvider: 	at com.android.providers.media.MediaProvider.updateQuotaTypeForFileInternal(MediaProvider.java:882)
+10-17 08:49:05.902  1520  1746 W MediaProvider: 	at com.android.providers.media.MediaProvider.updateQuotaTypeForUri(MediaProvider.java:857)
+10-17 08:49:05.902  1520  1746 W MediaProvider: 	at com.android.providers.media.MediaProvider.-$$Nest$mupdateQuotaTypeForUri(MediaProvider.java:0)
+10-17 08:49:05.902  1520  1746 W MediaProvider: 	at com.android.providers.media.MediaProvider$5.lambda$onInsert$0(MediaProvider.java:916)
+10-17 08:49:05.902  1520  1746 W MediaProvider: 	at com.android.providers.media.MediaProvider$5.$r8$lambda$fpXVCCb4tNgN0rBFXazZWCUznbc(MediaProvider.java:0)
+10-17 08:49:05.902  1520  1746 W MediaProvider: 	at com.android.providers.media.MediaProvider$5$$ExternalSyntheticLambda1.run(R8$$SyntheticClass:0)
+10-17 08:49:05.902  1520  1746 W MediaProvider: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-17 08:49:05.902  1520  1746 W MediaProvider: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-17 08:49:05.902  1520  1746 W MediaProvider: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-17 08:49:05.902  1520  1746 W MediaProvider: 	at android.os.Looper.loop(Looper.java:294)
+10-17 08:49:05.902  1520  1746 W MediaProvider: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-17 08:49:05.905  1520  1897 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:49:05.908  1520  1746 E StorageManager: Failed to set extended attributes for /storage/emulated/0/Android/media to set project id.: Operation not permitted
+10-17 08:49:05.908  1520  1746 W MediaProvider: Failed to update quota type for /storage/emulated/0/Android/media
+10-17 08:49:05.908  1520  1746 W MediaProvider: java.io.IOException: Failed to update quota type for /storage/emulated/0/Android/media
+10-17 08:49:05.908  1520  1746 W MediaProvider: 	at android.os.storage.StorageManager.updateExternalStorageFileQuotaType(StorageManager.java:2551)
+10-17 08:49:05.908  1520  1746 W MediaProvider: 	at com.android.providers.media.MediaProvider.updateQuotaTypeForFileInternal(MediaProvider.java:882)
+10-17 08:49:05.908  1520  1746 W MediaProvider: 	at com.android.providers.media.MediaProvider.updateQuotaTypeForUri(MediaProvider.java:857)
+10-17 08:49:05.908  1520  1746 W MediaProvider: 	at com.android.providers.media.MediaProvider.-$$Nest$mupdateQuotaTypeForUri(MediaProvider.java:0)
+10-17 08:49:05.908  1520  1746 W MediaProvider: 	at com.android.providers.media.MediaProvider$5.lambda$onInsert$0(MediaProvider.java:916)
+10-17 08:49:05.908  1520  1746 W MediaProvider: 	at com.android.providers.media.MediaProvider$5.$r8$lambda$fpXVCCb4tNgN0rBFXazZWCUznbc(MediaProvider.java:0)
+10-17 08:49:05.908  1520  1746 W MediaProvider: 	at com.android.providers.media.MediaProvider$5$$ExternalSyntheticLambda1.run(R8$$SyntheticClass:0)
+10-17 08:49:05.908  1520  1746 W MediaProvider: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-17 08:49:05.908  1520  1746 W MediaProvider: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-17 08:49:05.908  1520  1746 W MediaProvider: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-17 08:49:05.908  1520  1746 W MediaProvider: 	at android.os.Looper.loop(Looper.java:294)
+10-17 08:49:05.908  1520  1746 W MediaProvider: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-17 08:49:06.519  2420  2447 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#0) as ready
+10-17 08:49:06.520   509  1549 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10141 pid=0
+10-17 08:49:06.520   509  1549 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10141 pid=0
+10-17 08:49:06.520   509  1549 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10141 pid=0
+10-17 08:49:06.522  2420  2447 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#1) as ready
+10-17 08:49:06.542   807   862 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@ca6b36d
+10-17 08:49:06.543   509   523 W InputManager-JNI: Input channel object '3d8d5f1 Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-17 08:49:07.784   509  1850 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-17 08:49:08.548   388   396 W GpuWork : Failed to attach bpf program to power/gpu_work_period tracepoint [2(No such file or directory)]
+10-17 08:49:09.741  2469  2469 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:49:09.741  2469  2469 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:49:09.743  2469  2469 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:49:09.745  2469  2469 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:49:09.759  2469  2469 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:49:09.760  2469  2469 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:49:09.760  2469  2469 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:49:09.759  2469  2469 W main    : type=1400 audit(0.0:15): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:09.763  2469  2469 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:49:09.759  2469  2469 W main    : type=1400 audit(0.0:16): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:09.766   509  2099 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:09.759  2469  2469 W main    : type=1400 audit(0.0:17): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:09.774   509  2099 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:10.784  1520  2241 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:49:10.849  2469  2469 W AccessibilityNodeInfoDumper: Fetch time: 69ms
+10-17 08:49:10.856   509  1549 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:11.517   509   537 W VoiceInteractionManager: no available voice recognition services found for user 0
+10-17 08:49:11.536   509   537 W VoiceInteractionManager: no available voice recognition services found for user 0
+10-17 08:49:11.537   509   537 W VoiceInteractionManager: no available voice recognition services found for user 0
+10-17 08:49:11.538   509   537 W VoiceInteractionManager: no available voice recognition services found for user 0
+10-17 08:49:11.715   509   919 W OverlayManager: service 'idmap' died
+10-17 08:49:11.766  2513  2513 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-17 08:49:11.766  2513  2513 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-17 08:49:11.767   390   784 W ServiceManagerCppClient: Permission failure: android.permission.CAPTURE_BLACKOUT_CONTENT from uid=2000 pid=2513
+10-17 08:49:13.990  1016  1031 W ndroid.settings: Cleared Reference was only reachable from finalizer (only reported once)
+10-17 08:49:14.938  2528  2528 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:49:14.938  2528  2528 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:49:14.939  2528  2528 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:49:14.940  2528  2528 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:49:14.950  2528  2528 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:49:14.952  2528  2528 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:49:14.953  2528  2528 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:49:14.947  2528  2528 W main    : type=1400 audit(0.0:18): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:14.955  2528  2528 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:49:14.951  2528  2528 W main    : type=1400 audit(0.0:19): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:14.958   509  1085 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:14.960   509  1085 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:14.951  2528  2528 W main    : type=1400 audit(0.0:20): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:15.973  1520  2241 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:49:16.028  2528  2528 W AccessibilityNodeInfoDumper: Fetch time: 61ms
+10-17 08:49:16.034   509   581 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:16.959  2553  2553 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-17 08:49:16.959  2553  2553 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-17 08:49:20.772   509   528 W AlarmManager: Unrecognized alarm listener com.android.server.location.gnss.GnssLocationProvider$$ExternalSyntheticLambda13@707800d
+10-17 08:49:20.772   509   528 W AlarmManager: Unrecognized alarm listener com.android.server.location.gnss.GnssLocationProvider$$ExternalSyntheticLambda12@e43abc2
+10-17 08:49:21.319  1420  1428 W putmethod.latin: Cleared Reference was only reachable from finalizer (only reported once)
+--------- beginning of kernel
+10-17 08:49:38.274     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-17 08:49:38.639  2578  2578 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:49:38.639  2578  2578 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:49:38.640  2578  2578 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:49:38.641  2578  2578 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:49:38.652  2578  2578 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:49:38.652  2578  2578 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:49:38.652  2578  2578 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:49:38.651  2578  2578 W main    : type=1400 audit(0.0:21): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:38.655  2578  2578 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:49:38.657   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:38.651  2578  2578 W main    : type=1400 audit(0.0:22): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:38.660   509   571 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:38.651  2578  2578 W main    : type=1400 audit(0.0:23): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:39.230   509   729 E WifiHealthMonitor:  Hit PackageManager exception
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: android.content.pm.PackageManager$NameNotFoundException: No module info for package: com.android.wifi
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at android.app.ApplicationPackageManager.getModuleInfo(ApplicationPackageManager.java:1190)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.getWifiStackVersion(WifiHealthMonitor.java:367)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.extractCurrentSoftwareBuildInfo(WifiHealthMonitor.java:588)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.postBootSwBuildCheck(WifiHealthMonitor.java:523)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.postBootDetectionHandler(WifiHealthMonitor.java:514)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor.-$$Nest$mpostBootDetectionHandler(WifiHealthMonitor.java:0)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at com.android.server.wifi.WifiHealthMonitor$2.onAlarm(WifiHealthMonitor.java:190)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at android.app.AlarmManager$ListenerWrapper.run(AlarmManager.java:375)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at com.android.server.wifi.RunnerHandler.dispatchMessage(RunnerHandler.java:122)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at android.os.Looper.loop(Looper.java:294)
+10-17 08:49:39.230   509   729 E WifiHealthMonitor: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-17 08:49:39.666  1520  2241 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:49:39.709  2578  2578 W AccessibilityNodeInfoDumper: Fetch time: 44ms
+10-17 08:49:39.711   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:40.614  2598  2598 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-17 08:49:40.614  2598  2598 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-17 08:49:42.417  2607  2607 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:49:42.417  2607  2607 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:49:42.419  2607  2607 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:49:42.421  2607  2607 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:49:42.438  2607  2607 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:49:42.439  2607  2607 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:49:42.439  2607  2607 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:49:42.435  2607  2607 W main    : type=1400 audit(0.0:24): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:42.435  2607  2607 W main    : type=1400 audit(0.0:25): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:42.464  2607  2607 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:49:42.435  2607  2607 W main    : type=1400 audit(0.0:26): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:42.468   509  1716 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:42.554   509  1716 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:43.713  1520  1801 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:49:43.749  2607  2607 W AccessibilityNodeInfoDumper: Fetch time: 37ms
+10-17 08:49:43.750   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:44.660  2627  2627 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-17 08:49:44.660  2627  2627 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-17 08:49:47.837  2636  2636 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:49:47.837  2636  2636 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:49:47.838  2636  2636 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:49:47.839  2636  2636 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:49:47.851  2636  2636 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:49:47.851  2636  2636 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:49:47.851  2636  2636 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:49:47.847  2636  2636 W main    : type=1400 audit(0.0:27): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:47.854  2636  2636 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:49:47.857   509  2566 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:47.851  2636  2636 W main    : type=1400 audit(0.0:28): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:47.851  2636  2636 W main    : type=1400 audit(0.0:29): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:47.864   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:48.869  1520  1800 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:49:48.908  2636  2636 W AccessibilityNodeInfoDumper: Fetch time: 41ms
+10-17 08:49:48.909   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:49.814  2657  2657 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-17 08:49:49.814  2657  2657 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-17 08:49:52.977  2667  2667 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:49:52.977  2667  2667 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:49:52.978  2667  2667 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:49:52.979  2667  2667 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:49:52.990  2667  2667 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:49:52.990  2667  2667 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:49:52.990  2667  2667 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:49:52.987  2667  2667 W main    : type=1400 audit(0.0:30): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:52.996  2667  2667 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:49:52.987  2667  2667 W main    : type=1400 audit(0.0:31): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:52.998   509   571 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:52.987  2667  2667 W main    : type=1400 audit(0.0:32): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:53.001   509   790 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:54.007  1520  2241 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:49:54.034  2667  2667 W AccessibilityNodeInfoDumper: Fetch time: 28ms
+10-17 08:49:54.034   509  2566 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:54.947  2687  2687 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-17 08:49:54.947  2687  2687 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-17 08:49:57.028   509  2099 W BatteryExternalStatsWorker: error reading Bluetooth stats: 11
+10-17 08:49:58.467  2696  2696 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:49:58.467  2696  2696 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:49:58.469  2696  2696 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:49:58.469  2696  2696 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:49:58.481  2696  2696 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:49:58.481  2696  2696 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:49:58.481  2696  2696 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:49:58.486  2696  2696 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:49:58.479  2696  2696 W main    : type=1400 audit(0.0:33): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:58.489   509  2099 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:58.479  2696  2696 W main    : type=1400 audit(0.0:34): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:58.479  2696  2696 W main    : type=1400 audit(0.0:35): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:49:58.496   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:49:59.495  1520  2651 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:49:59.520  2696  2696 W AccessibilityNodeInfoDumper: Fetch time: 27ms
+10-17 08:49:59.521   509  2099 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:00.512  2717  2717 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-17 08:50:00.512  2717  2717 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-17 08:50:03.690  2726  2726 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:03.690  2726  2726 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:03.691  2726  2726 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:03.692  2726  2726 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:03.704  2726  2726 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:03.704  2726  2726 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:03.705  2726  2726 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:03.703  2726  2726 W main    : type=1400 audit(0.0:36): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:03.703  2726  2726 W main    : type=1400 audit(0.0:37): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:03.703  2726  2726 W main    : type=1400 audit(0.0:38): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:03.714  2726  2726 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:03.716   509   571 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:03.726   509   790 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:04.724  1520  1800 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:04.745  2726  2726 W AccessibilityNodeInfoDumper: Fetch time: 22ms
+10-17 08:50:04.746   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:05.650  2746  2746 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-17 08:50:05.651  2746  2746 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-17 08:50:05.765  1015  1040 W System  : A resource failed to call AbstractCursor.close. 
+10-17 08:50:05.765  1015  1040 W System  : A resource failed to call AbstractCursor.close. 
+10-17 08:50:05.766  1015  1040 W System  : A resource failed to call AbstractCursor.close. 
+10-17 08:50:05.888   807   807 W AlarmManager: Unrecognized alarm listener com.android.systemui.keyguard.KeyguardSliceProvider$$ExternalSyntheticLambda0@81dcc6d
+10-17 08:50:08.842  2762  2762 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:08.842  2762  2762 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:08.843  2762  2762 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:08.844  2762  2762 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:08.855  2762  2762 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:08.855  2762  2762 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:08.855  2762  2762 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:08.858  2762  2762 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:08.851  2762  2762 W main    : type=1400 audit(0.0:39): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:08.860   509  1058 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:08.855  2762  2762 W main    : type=1400 audit(0.0:40): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:08.855  2762  2762 W main    : type=1400 audit(0.0:41): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:08.867   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:09.867  1520  2651 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:09.891  2762  2762 W AccessibilityNodeInfoDumper: Fetch time: 25ms
+10-17 08:50:09.893   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:10.883  2782  2782 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:10.883  2782  2782 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:10.885  2782  2782 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:10.886  2782  2782 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:10.897  2782  2782 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:10.897  2782  2782 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:10.897  2782  2782 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:10.900  2782  2782 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:10.895  2782  2782 W main    : type=1400 audit(0.0:42): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:10.903   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:10.895  2782  2782 W main    : type=1400 audit(0.0:43): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:10.913   509  1058 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:10.895  2782  2782 W main    : type=1400 audit(0.0:44): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:11.919  1520  2241 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:11.937  2782  2782 W AccessibilityNodeInfoDumper: Fetch time: 20ms
+10-17 08:50:11.939   509  1058 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:12.930  2801  2801 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:12.930  2801  2801 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:12.931  2801  2801 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:12.932  2801  2801 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:12.944  2801  2801 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:12.944  2801  2801 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:12.944  2801  2801 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:12.943  2801  2801 W main    : type=1400 audit(0.0:45): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:12.943  2801  2801 W main    : type=1400 audit(0.0:46): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:12.952  2801  2801 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:12.954   509   571 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:12.943  2801  2801 W main    : type=1400 audit(0.0:47): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:12.956   509  1058 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:13.961  1520  1801 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:13.978  2801  2801 W AccessibilityNodeInfoDumper: Fetch time: 18ms
+10-17 08:50:13.979   509   571 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:14.054   325  1821 W resolv  : SSL_connect ssl error =5, mark 0xf0064: Connection refused
+10-17 08:50:14.054   325  1821 W resolv  : TLS Handshake failed
+10-17 08:50:14.054   325  1821 W resolv  : query failed
+10-17 08:50:14.054   325  1821 W resolv  : validateDnsTlsServer returned 0 for 10.0.2.3
+10-17 08:50:14.054   325  1821 W resolv  : Validation failed
+10-17 08:50:14.842  2420  2420 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-17 08:50:14.842  2420  2420 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-17 08:50:16.287  2826  2826 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:16.287  2826  2826 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:16.288  2826  2826 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:16.289  2826  2826 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:16.300  2826  2826 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:16.300  2826  2826 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:16.300  2826  2826 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:16.302  2826  2826 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:16.299  2826  2826 W main    : type=1400 audit(0.0:48): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:16.299  2826  2826 W main    : type=1400 audit(0.0:49): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:16.308   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:16.311   509  2566 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:16.299  2826  2826 W main    : type=1400 audit(0.0:50): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:17.314  1520  2241 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:17.324  2826  2826 W AccessibilityNodeInfoDumper: Fetch time: 11ms
+10-17 08:50:17.325   509   571 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:19.626  2851  2851 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:19.626  2851  2851 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:19.627  2851  2851 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:19.628  2851  2851 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:19.639  2851  2851 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:19.639  2851  2851 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:19.639  2851  2851 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:19.642  2851  2851 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:19.635  2851  2851 W main    : type=1400 audit(0.0:51): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:19.644   509  1058 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:19.635  2851  2851 W main    : type=1400 audit(0.0:52): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:19.649   509  1058 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:19.635  2851  2851 W main    : type=1400 audit(0.0:53): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:20.655  1520  1801 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:20.661  2851  2851 W AccessibilityNodeInfoDumper: Fetch time: 8ms
+10-17 08:50:20.662   509   790 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:20.674  2420  2429 W System  : A resource failed to call end. 
+10-17 08:50:24.468  2875  2875 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:24.468  2875  2875 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:24.469  2875  2875 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:24.470  2875  2875 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:24.481  2875  2875 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:24.481  2875  2875 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:24.481  2875  2875 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:24.484  2875  2875 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:24.479  2875  2875 W main    : type=1400 audit(0.0:54): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:24.486   509  2566 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:24.479  2875  2875 W main    : type=1400 audit(0.0:55): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:24.479  2875  2875 W main    : type=1400 audit(0.0:56): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:24.501   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:25.494  1520  2651 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:25.499  2875  2875 W AccessibilityNodeInfoDumper: Fetch time: 7ms
+10-17 08:50:25.500   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:28.649  2905  2905 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:28.649  2905  2905 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:28.650  2905  2905 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:28.651  2905  2905 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:28.663  2905  2905 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:28.663  2905  2905 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:28.663  2905  2905 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:28.659  2905  2905 W main    : type=1400 audit(0.0:57): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:28.659  2905  2905 W main    : type=1400 audit(0.0:58): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:28.659  2905  2905 W main    : type=1400 audit(0.0:59): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:28.675  2905  2905 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:28.677   509  1716 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:28.681   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:29.686  1520  2241 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:29.694  2905  2905 W AccessibilityNodeInfoDumper: Fetch time: 10ms
+10-17 08:50:29.695   509  1716 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:32.825  2932  2932 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:32.825  2932  2932 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:32.826  2932  2932 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:32.826  2932  2932 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:32.837  2932  2932 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:32.837  2932  2932 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:32.838  2932  2932 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:32.840  2932  2932 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:32.835  2932  2932 W main    : type=1400 audit(0.0:60): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:32.835  2932  2932 W main    : type=1400 audit(0.0:61): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:32.848   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:32.835  2932  2932 W main    : type=1400 audit(0.0:62): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:32.849   509  1058 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:33.854  1520  2651 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:33.874  2932  2932 W AccessibilityNodeInfoDumper: Fetch time: 22ms
+10-17 08:50:33.875   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:34.860  2951  2951 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:34.860  2951  2951 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:34.861  2951  2951 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:34.862  2951  2951 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:34.873  2951  2951 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:34.873  2951  2951 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:34.873  2951  2951 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:34.876  2951  2951 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:34.871  2951  2951 W main    : type=1400 audit(0.0:63): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:34.878   509  2099 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:34.871  2951  2951 W main    : type=1400 audit(0.0:64): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:34.871  2951  2951 W main    : type=1400 audit(0.0:65): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:34.884   509   571 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:35.889  1520  1801 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:35.909  2951  2951 W AccessibilityNodeInfoDumper: Fetch time: 22ms
+10-17 08:50:35.911   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:36.896  2970  2970 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:36.896  2970  2970 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:36.897  2970  2970 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:36.898  2970  2970 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:36.909  2970  2970 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:36.909  2970  2970 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:36.909  2970  2970 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:36.912  2970  2970 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:36.907  2970  2970 W main    : type=1400 audit(0.0:66): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:36.914   509  2099 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:36.907  2970  2970 W main    : type=1400 audit(0.0:67): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:36.921   509  2099 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:36.907  2970  2970 W main    : type=1400 audit(0.0:68): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:37.929  1520  2241 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:37.945  2970  2970 W AccessibilityNodeInfoDumper: Fetch time: 18ms
+10-17 08:50:37.946   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:38.273     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-17 08:50:38.848  2989  2989 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-17 08:50:38.848  2989  2989 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-17 08:50:41.186  2998  2998 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:41.186  2998  2998 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:41.188  2998  2998 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:41.188  2998  2998 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:41.202  2998  2998 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:41.203  2998  2998 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:41.203  2998  2998 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:41.199  2998  2998 W main    : type=1400 audit(0.0:69): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:41.206  2998  2998 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:41.199  2998  2998 W main    : type=1400 audit(0.0:70): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:41.208   509   790 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:41.199  2998  2998 W main    : type=1400 audit(0.0:71): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:41.212   509  2099 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:42.214  1520  1801 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:42.234  2998  2998 W AccessibilityNodeInfoDumper: Fetch time: 21ms
+10-17 08:50:42.235   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:43.224  3017  3017 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:43.224  3017  3017 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:43.225  3017  3017 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:43.225  3017  3017 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:43.237  3017  3017 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:43.237  3017  3017 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:43.237  3017  3017 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:43.235  3017  3017 W main    : type=1400 audit(0.0:72): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:43.242  3017  3017 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:43.245   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:43.235  3017  3017 W main    : type=1400 audit(0.0:73): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:43.235  3017  3017 W main    : type=1400 audit(0.0:74): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:43.254   509  2566 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:44.260  1520  1800 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:44.277  3017  3017 W AccessibilityNodeInfoDumper: Fetch time: 19ms
+10-17 08:50:44.277   509  1058 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:45.142  2420  2420 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-17 08:50:45.142  2420  2420 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-17 08:50:46.585  3042  3042 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:46.585  3042  3042 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:46.586  3042  3042 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:46.586  3042  3042 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:46.599  3042  3042 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:46.599  3042  3042 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:46.599  3042  3042 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:46.595  3042  3042 W main    : type=1400 audit(0.0:75): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:46.604  3042  3042 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:46.607   509  2099 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:46.599  3042  3042 W main    : type=1400 audit(0.0:76): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:46.612   509  2099 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:46.599  3042  3042 W main    : type=1400 audit(0.0:77): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:47.613  1520  2241 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:47.615  3042  3042 W AccessibilityNodeInfoDumper: Fetch time: 4ms
+10-17 08:50:47.616   509  2099 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:48.623  3064  3064 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:48.623  3064  3064 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:48.625  3064  3064 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:48.625  3064  3064 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:48.636  3064  3064 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:48.636  3064  3064 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:48.636  3064  3064 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:48.635  3064  3064 W main    : type=1400 audit(0.0:78): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:48.635  3064  3064 W main    : type=1400 audit(0.0:79): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:48.644  3064  3064 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:48.646   509  1716 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:48.635  3064  3064 W main    : type=1400 audit(0.0:80): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:48.648   509  2566 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:49.652  1520  2651 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:49.655  3064  3064 W AccessibilityNodeInfoDumper: Fetch time: 4ms
+10-17 08:50:49.656   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:50.554  3084  3084 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-17 08:50:50.555  3084  3084 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-17 08:50:52.236  3093  3093 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:52.236  3093  3093 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:52.238  3093  3093 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:52.239  3093  3093 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:52.250  3093  3093 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:52.250  3093  3093 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:52.250  3093  3093 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:52.255  3093  3093 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:52.247  3093  3093 W main    : type=1400 audit(0.0:81): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:52.247  3093  3093 W main    : type=1400 audit(0.0:82): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:52.247  3093  3093 W main    : type=1400 audit(0.0:83): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:52.266   509  2566 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:52.267   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:53.273  1520  2651 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:53.278  3093  3093 W AccessibilityNodeInfoDumper: Fetch time: 6ms
+10-17 08:50:53.279   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:55.380  3117  3117 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:55.380  3117  3117 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:55.381  3117  3117 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:55.382  3117  3117 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:55.393  3117  3117 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:55.393  3117  3117 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:55.393  3117  3117 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:55.391  3117  3117 W main    : type=1400 audit(0.0:84): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:55.396  3117  3117 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:55.398   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:55.391  3117  3117 W main    : type=1400 audit(0.0:85): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:55.402   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:55.391  3117  3117 W main    : type=1400 audit(0.0:86): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:56.405  1520  1800 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:56.427  3117  3117 W AccessibilityNodeInfoDumper: Fetch time: 23ms
+10-17 08:50:56.428   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:57.407  3137  3137 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:50:57.407  3137  3137 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:50:57.408  3137  3137 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:50:57.408  3137  3137 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:50:57.419  3137  3137 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:50:57.419  3137  3137 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:50:57.420  3137  3137 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:50:57.419  3137  3137 W main    : type=1400 audit(0.0:87): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:57.422  3137  3137 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:50:57.425   509  2566 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:57.419  3137  3137 W main    : type=1400 audit(0.0:88): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:57.419  3137  3137 W main    : type=1400 audit(0.0:89): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:50:57.430   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:58.433  1520  2241 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:50:58.453  3137  3137 W AccessibilityNodeInfoDumper: Fetch time: 22ms
+10-17 08:50:58.454   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:50:59.326  2420  2420 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-17 08:50:59.326  2420  2420 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-17 08:51:00.758  3162  3162 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:51:00.758  3162  3162 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:51:00.759  3162  3162 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:51:00.760  3162  3162 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:51:00.770  3162  3162 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:51:00.771  3162  3162 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:51:00.771  3162  3162 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:51:00.774  3162  3162 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:51:00.767  3162  3162 W main    : type=1400 audit(0.0:90): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:51:00.767  3162  3162 W main    : type=1400 audit(0.0:91): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:51:00.778   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:51:00.767  3162  3162 W main    : type=1400 audit(0.0:92): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:51:00.782   509  1058 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:51:01.785  1520  1800 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:51:01.814  3162  3162 W AccessibilityNodeInfoDumper: Fetch time: 30ms
+10-17 08:51:01.815   509  1057 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:51:03.954  3190  3190 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:51:03.954  3190  3190 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:51:03.956  3190  3190 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:51:03.956  3190  3190 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:51:03.968  3190  3190 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:51:03.968  3190  3190 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:51:03.968  3190  3190 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:51:03.973  3190  3190 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:51:03.967  3190  3190 W main    : type=1400 audit(0.0:93): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:51:03.975   509  1716 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:51:03.967  3190  3190 W main    : type=1400 audit(0.0:94): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:51:03.979   509  1716 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:51:03.967  3190  3190 W main    : type=1400 audit(0.0:95): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:51:04.985  1520  2241 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:51:05.002  3190  3190 W AccessibilityNodeInfoDumper: Fetch time: 18ms
+10-17 08:51:05.004   509  1716 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:51:05.991  3209  3209 W app_process: Unexpected CPU variant for x86: x86_64.
+10-17 08:51:05.991  3209  3209 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-17 08:51:05.992  3209  3209 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-17 08:51:05.993  3209  3209 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-17 08:51:06.006  3209  3209 W libc    : Access denied finding property "ro.product.name_for_attestation"
+10-17 08:51:06.006  3209  3209 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+10-17 08:51:06.007  3209  3209 W libc    : Access denied finding property "ro.product.model_for_attestation"
+10-17 08:51:06.011  3209  3209 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-17 08:51:06.003  3209  3209 W main    : type=1400 audit(0.0:96): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:51:06.013   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:51:06.003  3209  3209 W main    : type=1400 audit(0.0:97): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:51:06.003  3209  3209 W main    : type=1400 audit(0.0:98): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+10-17 08:51:06.022   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-17 08:51:07.026  1520  1800 W MediaProvider: isAppCloneUserPair for user 0: false
+10-17 08:51:07.043  3209  3209 W AccessibilityNodeInfoDumper: Fetch time: 18ms
+10-17 08:51:07.046   509  2113 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
