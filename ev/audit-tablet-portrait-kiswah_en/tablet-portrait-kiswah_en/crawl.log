@@ -1,0 +1,29 @@
+{"ev": "env", "density": 2.0, "size": "Physical size: 2560x1600", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1214, "t": 1.6}
+{"ev": "setup-screen", "step": 0, "shot": "tablet-portrait-kiswah_en__setup0.png", "key": "0615154f1d", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Saturday 17 Oct
+{"ev": "setup-tap", "label": "Begin", "t": 6.7}
+{"ev": "setup-screen", "step": 1, "shot": "tablet-portrait-kiswah_en__setup1.png", "key": "cb3e0fef6f", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Saturday 17 Oct
+{"ev": "detect-result", "shot": "tablet-portrait-kiswah_en__setup1_after-detect-20s.png", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Saturday 17 October 2026", "6
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 36.5}
+{"ev": "setup-screen", "step": 2, "shot": "tablet-portrait-kiswah_en__setup2.png", "key": "9f9dd20a6f", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "S
+{"ev": "setup-tap", "label": "Next", "t": 38.8}
+{"ev": "setup-screen", "step": 3, "shot": "tablet-portrait-kiswah_en__setup3.png", "key": "61c3c5c76e", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "S
+{"ev": "setup-tap", "label": "These look right", "t": 43.8}
+{"ev": "setup-screen", "step": 4, "shot": "tablet-portrait-kiswah_en__setup4.png", "key": "6d2439d98c", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "S
+{"ev": "setup-tap", "label": "Finish", "t": 48.7}
+{"ev": "setup-done", "step": 5, "t": 53.5}
+{"ev": "setup-result", "ok": true, "t": 53.5}
+{"ev": "theme-set", "kw": "Kiswah", "t": 65.4}
+{"ev": "screen", "depth": 0, "path": [], "key": "f51bc3a137", "pos": 0, "shot": "tablet-portrait-kiswah_en-Kiswah-en-f1.0__001__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "a2e8cb114e", "pos": 0, "shot": "tablet-portrait-kiswah_en-Kiswah-en-f1.0__002__d1__p0.png", "labels": ["Back", "LEARN SALAH", "الصَّلَاة", "One common form of
+{"ev": "screen", "depth": 1, "path": ["Monthly timetable"], "key": "8edb7749a8", "pos": 0, "shot": "tablet-portrait-kiswah_en-Kiswah-en-f1.0__003__d1__p0.png", "labels": ["Back", "October 2026", "Rabīʿ al-Thānī – Jumādā 
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "c6e20ebf0f", "pos": 0, "shot": "tablet-portrait-kiswah_en-Kiswah-en-f1.0__004__d1__p0.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "bcca6a6c60", "pos": 1, "shot": "tablet-portrait-kiswah_en-Kiswah-en-f1.0__005__d1__p1.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "421afd8f49", "pos": 2, "shot": "tablet-portrait-kiswah_en-Kiswah-en-f1.0__006__d1__p2.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer
+{"ev": "screen", "depth": 1, "path": ["Settings"], "key": "a955ae0956", "pos": 3, "shot": "tablet-portrait-kiswah_en-Kiswah-en-f1.0__007__d1__p3.png", "labels": ["Back", "Settings", "Search settings", "Location", "Prayer
+{"ev": "screen", "depth": 1, "path": ["Qibla ⁨277° W⁩"], "key": "7295fd8bcb", "pos": 0, "shot": "tablet-portrait-kiswah_en-Kiswah-en-f1.0__008__d1__p0.png", "labels": ["Back", "Qibla", "القبلة", "Turn right 175 degrees t
+{"ev": "back-mismatch", "label": "Qibla ⁨277° W⁩", "path": [], "t": 154.8}
+{"ev": "theme-done", "tag": "tablet-portrait-kiswah_en-Kiswah-en-f1.0", "actions": 4, "screens": 8, "t": 161.3}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 163.2}
+{"ev": "gfx", "lines": ["Total frames rendered: 6", "Janky frames: 6 (100.00%)", "Janky frames (legacy): 6 (100.00%)", "50th percentile: 450ms", "90th percentile: 2350ms", "95th percentile: 2350ms", "99th percentile: 235
+{"ev": "mem", "lines": ["  Native Heap    17768    17704        0        0    20976    26404    21296     1317", "        TOTAL    36640    26864     3452        0   156320    34203    25212     5200", "           Java H
