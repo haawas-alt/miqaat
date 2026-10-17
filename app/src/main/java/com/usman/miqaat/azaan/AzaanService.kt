@@ -87,7 +87,12 @@ class AzaanService : Service() {
             ACTION_PREVIEW_HADITH -> if (prayer != null) { forcedHadith = intent.getIntExtra(EXTRA_HADITH, 0); begin(prayer); startHadith(prayer) }
             ACTION_IQAMAH -> if (prayer != null) startIqamahCountdown(prayer, intent.getIntExtra(EXTRA_SECONDS, -1))
             ACTION_IQAMAH_NOW -> if (prayer != null) { begin(prayer); startIqamahNow(prayer) }
-            ACTION_QUIET -> if (prayer != null) { begin(prayer); startQuiet(prayer, forceTest = true) }
+            ACTION_QUIET -> if (prayer != null) {
+                begin(prayer)
+                startQuiet(prayer, forceTest = true)
+                // Publish the phase before opening the activity: it closes itself on a null phase.
+                showScreen(prayer)
+            }
         }
         return START_NOT_STICKY
     }

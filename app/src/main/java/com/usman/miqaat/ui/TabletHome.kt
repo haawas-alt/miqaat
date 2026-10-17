@@ -62,6 +62,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -146,21 +147,26 @@ private fun Header(state: PrayerState, s: AppSettings, a: HomeActions, u: Dp, go
     fun fs(x: Float) = maxOf(u.value * x, MIN_SP).sp
     val hij = PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+      // Place and date share whatever width is left after the header buttons, so a long date can never push
+      // Learn Salah, the timetable or Settings off the screen (they were missing on the Kiswah tablet home).
+      Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
         Row(
-            Modifier.clip(RoundedCornerShape(50)).clickable(onClick = a.onOpenLocation, role = Role.Button).heightIn(min = 48.dp).padding(end = u * 1.5f)
+            Modifier.weight(1f, fill = false).clip(RoundedCornerShape(50)).clickable(onClick = a.onOpenLocation, role = Role.Button).heightIn(min = 48.dp).padding(end = u * 1.5f)
                 .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(L10n.place(s.locationName))) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(Icons.Outlined.LocationOn, null, Modifier.size(u * 2.2f), tint = gold)
             Spacer(Modifier.width(u * 0.8f))
-            if (kiswah) Text(L10n.place(s.locationName).uppercase(), fontFamily = Cinzel, fontSize = fs(1.3f), letterSpacing = fs(0.3f), color = gold, maxLines = 1)
-            else Text(L10n.place(s.locationName), fontFamily = F, fontSize = fs(1.9f), fontWeight = FontWeight.SemiBold, color = ivory, maxLines = 1)
+            if (kiswah) Text(L10n.place(s.locationName).uppercase(), fontFamily = Cinzel, fontSize = fs(1.3f), letterSpacing = fs(0.3f), color = gold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            else Text(L10n.place(s.locationName), fontFamily = F, fontSize = fs(1.9f), fontWeight = FontWeight.SemiBold, color = ivory, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
-        Spacer(Modifier.weight(1f))
+        Spacer(Modifier.width(u * 2))
         Column(horizontalAlignment = Alignment.End) {
             if (kiswah) {
-                Text((if (s.showHijri) L10n.hijri(s, hij) + "  ·  " else "") + (if (urdu) L10n.dateShort(s, state.now) else L10n.dateShort(s, state.now).uppercase()) + "  ·  " + nowClock(state.now, s.use24h),
-                    fontFamily = Cinzel, fontSize = fs(1.3f), letterSpacing = fs(0.25f), color = ivory.copy(alpha = 0.85f), maxLines = 1)
+                // Date and clock on the first line, the Hijri date on its own line (as on the other tablet theme), so the line stays short.
+                Text((if (urdu) L10n.dateShort(s, state.now) else L10n.dateShort(s, state.now).uppercase()) + "  ·  " + nowClock(state.now, s.use24h),
+                    fontFamily = Cinzel, fontSize = fs(1.3f), letterSpacing = fs(0.25f), color = ivory.copy(alpha = 0.85f), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                if (s.showHijri) Text(L10n.hijri(s, hij), fontFamily = if (urdu) F else Cinzel, fontSize = fs(1.2f), letterSpacing = fs(0.2f), color = gold, maxLines = 1, overflow = TextOverflow.Ellipsis)
             } else {
                 Text(L10n.date(s, state.now) + "  ·  " + nowClock(state.now, s.use24h), fontFamily = F, fontSize = fs(1.6f), color = ivory.copy(alpha = 0.85f), maxLines = 1)
                 if (s.showHijri) Row(verticalAlignment = Alignment.CenterVertically) {
@@ -169,6 +175,7 @@ private fun Header(state: PrayerState, s: AppSettings, a: HomeActions, u: Dp, go
                 }
             }
         }
+      }
         Spacer(Modifier.width(u * 2.5f))
         if (s.kidsMode) HdrIcon(Icons.Outlined.MenuBook, u, gold, a.onOpenLearn, Str[R.string.s_learn_salah])
         HdrIcon(Icons.Outlined.CalendarMonth, u, gold, a.onOpenTimetable, Str[R.string.s_monthly_timetable])
