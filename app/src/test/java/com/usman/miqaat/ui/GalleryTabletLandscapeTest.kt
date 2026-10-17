@@ -45,7 +45,7 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
             val bots = bottom.map { boundsOf("gallery-card-${it.name}") }
             assertTrue("top row left-to-right", tops[0].left < tops[1].left && tops[1].left < tops[2].left)
             assertTrue("bottom row left-to-right", bots[0].left < bots[1].left && bots[1].left < bots[2].left)
-            assertTrue("bottom row sits below top row", bots[0].top > tops[0].bottom - 1f)
+            assertTrue("bottom row sits below top row", bots[0].top.value > tops[0].bottom.value - 1f)
             assertEquals(tops[0].top.value, tops[2].top.value, 1f)
             assertEquals(bots[0].top.value, bots[2].top.value, 1f)
         }
