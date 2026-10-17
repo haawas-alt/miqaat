@@ -141,13 +141,13 @@ private fun GalleryHeroBand(hero: HeroInfo, state: PrayerState, s: AppSettings, 
                     Text(hero.status, fontFamily = F, fontSize = if (urdu) 16.sp else 18.sp, color = tk.contentPrimary, maxLines = 1)
                 }
             }
-            Column(Modifier.weight(0.30f), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(Modifier.weight(0.30f).clip(RoundedCornerShape(12.dp)).background(tk.background.copy(alpha = 0.86f)).padding(horizontal = 12.dp, vertical = 6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(greg, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium, fontSize = if (urdu) 20.sp else 26.sp, color = tk.contentPrimary, maxLines = 1, textAlign = TextAlign.Center)
                 hijriLine?.let { Text(it, fontFamily = F, fontSize = if (urdu) 18.sp else 19.sp, color = tk.contentSecondary, maxLines = 1, textAlign = TextAlign.Center) }
             }
             Column(Modifier.weight(0.28f).testTag("home-time"), horizontalAlignment = Alignment.End) {
                 Row(verticalAlignment = Alignment.Top) {
-                    Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = 72.sp, lineHeight = 72.sp, color = tk.contentPrimary, maxLines = 1)
+                    Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Bold, fontSize = 72.sp, lineHeight = 72.sp, color = tk.contentPrimary, maxLines = 1)
                     if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = tk.fontDisplay, fontSize = 22.sp, color = tk.contentSecondary, modifier = Modifier.padding(top = 10.dp))
                 }
                 Row(
@@ -214,7 +214,7 @@ private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
             }
             if (!urdu) Text(r.arabic, fontFamily = tk.fontArabic, fontSize = 20.sp, color = tk.accent, maxLines = 1)
             Row(verticalAlignment = Alignment.Bottom) {
-                Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Medium,
+                Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Bold,
                     fontSize = if (s.showRelative) 26.sp else 36.sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.8f else 1f))
                 if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = tk.fontDisplay, fontSize = 18.sp, color = tk.contentSecondary, modifier = Modifier.padding(bottom = 6.dp))
             }
@@ -368,7 +368,7 @@ private fun GalleryCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: F
                         }
                         if (!urdu) Text(r.arabic, fontFamily = tk.fontArabic, fontSize = fs(2.0f), lineHeight = fs(2.5f), color = tk.accent, maxLines = 1)
                         Row(verticalAlignment = Alignment.Bottom) {
-                            Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = fs(if (s.showRelative) 2.2f else 4.2f), lineHeight = fs(4.6f), color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.75f else 1f))
+                            Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Bold, fontSize = fs(if (s.showRelative) 2.2f else 4.2f), lineHeight = fs(4.6f), color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.75f else 1f))
                             if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = tk.fontDisplay, fontSize = fs(1.6f), color = tk.contentSecondary, modifier = Modifier.padding(bottom = u * 0.5f))
                         }
                         if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = fs(1.1f), color = tk.contentSecondary, maxLines = 2, textAlign = TextAlign.Center)
@@ -443,7 +443,7 @@ private fun GalleryStackedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
             if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = (12 * k).sp, color = tk.contentSecondary, maxLines = 2)
         }
         Row(verticalAlignment = Alignment.Bottom) {
-            Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = if (s.showRelative) (17 * k).sp else (32 * k).sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.75f else 1f))
+            Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Bold, fontSize = if (s.showRelative) (17 * k).sp else (32 * k).sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.75f else 1f))
             if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = tk.fontDisplay, fontSize = (13 * k).sp, color = tk.contentSecondary, modifier = Modifier.padding(bottom = 4.dp))
         }
         Box(Modifier.padding(horizontal = 4.dp).size(48.dp).clip(CircleShape).clickable(onClick = onWhy, role = Role.Button).semantics { contentDescription = Str[R.string.s_why_this_time] }, contentAlignment = Alignment.Center) {
