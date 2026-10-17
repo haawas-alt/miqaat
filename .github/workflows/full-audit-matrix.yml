@@ -1,0 +1,102 @@
+name: Full app audit matrix (phone and tablet, emulators)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['feat/gallery-tablet-landscape-option3']
+    paths: ['.github/workflows/full-audit-matrix.yml']
+permissions:
+  contents: write
+jobs:
+  emulator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        # Rotation 0 is the natural orientation: portrait for phones, landscape for tablets. Rotation 1 flips it.
+        device:
+          - { name: phone-portrait, profile: pixel_6, rotation: 0, api: 35 }
+          - { name: phone-landscape, profile: pixel_6, rotation: 1, api: 35 }
+          - { name: tablet-landscape, profile: pixel_tablet, rotation: 0, api: 35 }
+          - { name: tablet-portrait, profile: pixel_tablet, rotation: 1, api: 35 }
+        group: [a, b, c, d]
+    env:
+      # a: homes (4 themes x 100/130/200 %, EN and UR), states; b: settings; c: secondary pages; d: Azaan flow and Learn.
+      TESTS_a: homes,homesUrdu,states
+      TESTS_b: settingsLanding,settingsCategories
+      TESTS_c: secondaryPages
+      TESTS_d: azaanFlow,learnLessons
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Emulator matrix group
+        uses: reactivecircus/android-emulator-runner@v2
+        env:
+          EXPECTED_PAGE_SIZE: '4096'
+          REGRESSION_CLASSES: 'HomeLargeTextTest AdhkarEntryTest'
+        with:
+          api-level: ${{ matrix.device.api }}
+          target: google_apis
+          arch: x86_64
+          profile: ${{ matrix.device.profile }}
+          disable-animations: true
+          emulator-boot-timeout: 900
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096
+          script: bash .github/emulator-run.sh ${{ matrix.device.rotation }} ${{ matrix.device.name }}-${{ matrix.group }} "${{ env[format('TESTS_{0}', matrix.group)] }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-${{ matrix.device.name }}-${{ matrix.group }}-${{ github.run_id }}
+          path: |
+            shots/
+            app/build/test-results/**/*.xml
+          if-no-files-found: warn
+  publish:
+    needs: emulator
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: audit-*-${{ github.run_id }}
+          path: downloaded
+      - name: Collect screenshots and results
+        run: |
+          set -uo pipefail
+          OUT=publish; rm -rf $OUT; mkdir -p $OUT
+          find downloaded -name "*.png" | while read f; do
+            rel=${f#downloaded/}; dir=$(echo "$rel" | cut -d/ -f1); mkdir -p "$OUT/$dir"; cp "$f" "$OUT/$dir/$(basename "$f")"
+          done
+          find downloaded -name "*.xml" | while read f; do
+            rel=${f#downloaded/}; dir=$(echo "$rel" | cut -d/ -f1); mkdir -p "$OUT/$dir/results"; cp "$f" "$OUT/$dir/results/$(basename "$f")"
+          done
+          # Summary of pass and fail counts per device and group, read from the JUnit XML.
+          { echo "# Full audit matrix run ${{ github.run_number }} (${{ github.sha }})"; echo;
+            for x in $(find downloaded -name "*.xml" | sort); do
+              d=$(echo "$x" | cut -d/ -f2); t=$(grep -o 'tests="[0-9]*"' "$x" | head -1); fl=$(grep -o 'failures="[0-9]*"' "$x" | head -1); er=$(grep -o 'errors="[0-9]*"' "$x" | head -1)
+              echo "- $d: $t $fl $er ($(basename "$x"))"; done; } > $OUT/SUMMARY.md
+          echo "PNG count: $(find $OUT -name '*.png' | wc -l)"
+      - name: Publish to ci-audit-full branch
+        env:
+          GITHUB_WORKSPACE_REMOTE: ${{ format('https://x-access-token:{0}@github.com/{1}.git', secrets.GITHUB_TOKEN, github.repository) }}
+        run: |
+          set -uo pipefail
+          D="$(mktemp -d)"; cp -r publish/. "$D"/; cd "$D"
+          git init -q && git checkout -q -b ci-audit-full
+          git config user.name ci; git config user.email ci@users.noreply.github.com
+          git add -A && git commit -qm "full audit matrix ${{ github.run_number }}" || true
+          git push -qf "$GITHUB_WORKSPACE_REMOTE" HEAD:ci-audit-full
