@@ -1,6 +1,16 @@
 package com.usman.miqaat.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.drawscope.drawImage
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
+import java.time.ZonedDateTime
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -80,27 +90,144 @@ fun GalleryHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
 @Composable
 private fun GalleryWide(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, hero: HeroInfo, doorList: List<Door>, bw: Dp, bh: Dp, onWhy: (Prayer) -> Unit) {
     val F = uiFont(s); val urdu = L10n.isUrdu(s)
-    // Everything is placed in the approved artwork's own coordinate space (1586 x 992), so the baked-in period tiles and the
-    // prayer text always line up. `sc` is dp per artwork pixel; the artwork is fitted, never stretched.
+    // Tablet landscape: header, hero, a 3 x 2 grid of prayer cards and the utility rail, sized by weights so nothing
+    // overlaps or scrolls at normal text size. Artwork is cropped from the bundled Gallery landscape, never baked into text.
     val sc = minOf(bw / 1586f, bh / 992f)
-    val ox = (bw - sc * 1586f) / 2; val oy = (bh - sc * 992f) / 2
-    fun Modifier.at(x: Float, y: Float, w: Float, h: Float) = this.absoluteOffset(ox + sc * x, oy + sc * y).size(sc * w, sc * h)
     val u = sc * 13.8f
-    Box(Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.AbsoluteAlignment.TopLeft) {
-        ThemedArtwork(portrait = false, modifier = Modifier.at(0f, 104f, 1586f, 734f), scrim = 0f, fill = true)
-        Box(Modifier.at(0f, 0f, 1586f, 104f).background(tk.background.copy(alpha = 0.55f))) {
-            GalleryHeader(s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = sc * 52f))
+    Column(Modifier.fillMaxSize()) {
+        Box(Modifier.fillMaxWidth().height(72.dp).background(tk.background)) {
+            GalleryHeader(s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = 40.dp))
         }
-        Box(Modifier.at(0f, 103f, 1586f, 1.5f).background(tk.divider))
-        GalleryDate(state, s, tk, u * 0.92f, F, urdu, Modifier.at(400f, 104f, 786f, 84f).padding(top = sc * 4f))
-        Box(Modifier.at(120f, 196f, 500f, 290f).testTag("home-hero")) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroLeft(hero, state, s, tk, u, F, urdu) } }
-        Box(Modifier.at(1090f, 216f, 450f, 262f).testTag("home-time")) { FitHeight(Modifier.fillMaxSize()) { GalleryHeroRight(hero, tk, u, F, urdu) { onWhy(hero.prayer) } } }
-        Row(Modifier.at(0f, 503f, 1586f, 362f).testTag("home-prayers")) {
-            listedPrayers(s).forEach { p -> GalleryCard(rowInfo(p, state, s), s, tk, u, F, urdu, a.onToggleRelative, Modifier.weight(1f).fillMaxHeight()) { onWhy(p) } }
+        Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
+        GalleryHeroBand(hero, state, s, tk, F, urdu, Modifier.fillMaxWidth().weight(0.38f).testTag("home-hero")) { onWhy(hero.prayer) }
+        GalleryPrayerGrid(state, s, a, tk, F, urdu, Modifier.fillMaxWidth().weight(0.46f).padding(horizontal = 24.dp, vertical = 8.dp).testTag("home-prayers"), onWhy)
+        Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
+        GalleryRail(doorList, tk, u * 0.9f, F, urdu, Modifier.fillMaxWidth().height(60.dp).navigationBarsPadding().displayCutoutPadding().padding(horizontal = 40.dp), spread = true)
+    }
+}
+
+/** Gregorian line and the complete Hijri line. The Hijri month is never abbreviated; English carries the AH era. */
+internal fun galleryDateLines(s: AppSettings, now: ZonedDateTime, hijri: PrayerEngine.Hijri): Pair<String, String?> {
+    val greg = L10n.date(s, now)
+    if (!s.showHijri) return greg to null
+    return greg to galleryHijriLine(s, hijri)
+}
+
+internal fun galleryHijriLine(s: AppSettings, h: PrayerEngine.Hijri): String =
+    if (L10n.isUrdu(s)) L10n.hijri(s, h) else "${h.day} ${h.monthName} ${h.year} AH"
+
+/** Prayers in reading order, three per row: top row then bottom row. */
+internal fun galleryGridRows(prayers: List<Prayer>): List<List<Prayer>> = prayers.chunked(3)
+
+@Composable
+private fun GalleryHeroBand(hero: HeroInfo, state: PrayerState, s: AppSettings, tk: ThemeTokens, F: FontFamily, urdu: Boolean, modifier: Modifier, onDetails: () -> Unit) {
+    val density = LocalDensity.current
+    val hij = PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)
+    val (greg, hijriLine) = galleryDateLines(s, state.now, hij)
+    Box(modifier) {
+        Image(painterResource(R.drawable.art_gallery_landscape_v2), null, Modifier.matchParentSize().clearAndSetSemantics { }, contentScale = ContentScale.Crop, alignment = Alignment.TopCenter)
+        Box(Modifier.matchParentSize().background(tk.background.copy(alpha = 0.18f)))
+        Row(Modifier.fillMaxSize().padding(horizontal = 40.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(0.42f).semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
+                hero.special?.let { Text(it, fontFamily = Nunito, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = tk.accent) }
+                Text(hero.kickerLabel, fontFamily = F, fontSize = 14.sp, color = tk.contentSecondary)
+                Text(hero.label, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium, fontSize = if (urdu) 44.sp else 56.sp, color = tk.contentPrimary, maxLines = 1)
+                Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = 36.sp, color = tk.accent, maxLines = 1)
+                Row(Modifier.padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Icon(if (hero.justPassed) Icons.Outlined.CheckCircle else Icons.Outlined.Schedule, null, Modifier.size(20.dp), tint = tk.accent)
+                    Spacer(Modifier.width(8.dp))
+                    Text(hero.status, fontFamily = F, fontSize = 18.sp, color = tk.contentPrimary, maxLines = 1)
+                }
+            }
+            Column(Modifier.weight(0.30f), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(greg, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium, fontSize = if (urdu) 20.sp else 26.sp, color = tk.contentPrimary, maxLines = 1, textAlign = TextAlign.Center)
+                hijriLine?.let { Text(it, fontFamily = F, fontSize = if (urdu) 18.sp else 19.sp, color = tk.contentSecondary, maxLines = 1, textAlign = TextAlign.Center) }
+            }
+            Column(Modifier.weight(0.28f).testTag("home-time"), horizontalAlignment = Alignment.End) {
+                Row(verticalAlignment = Alignment.Top) {
+                    Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = 72.sp, lineHeight = 72.sp, color = tk.contentPrimary, maxLines = 1)
+                    if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = tk.fontDisplay, fontSize = 22.sp, color = tk.contentSecondary, modifier = Modifier.padding(top = 10.dp))
+                }
+                Row(
+                    Modifier.clip(RoundedCornerShape(50)).background(tk.accent).heightIn(min = 48.dp).clickable(onClick = onDetails, role = Role.Button).padding(horizontal = 20.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(Icons.Outlined.MenuBook, null, Modifier.size(20.dp), tint = tk.onPrimary)
+                    Spacer(Modifier.width(8.dp))
+                    Text(Str[R.string.s_view_prayer_details], fontFamily = F, fontWeight = FontWeight.Medium, fontSize = 17.sp, color = tk.onPrimary, maxLines = 1)
+                    Spacer(Modifier.width(6.dp))
+                    Icon(Icons.Outlined.ChevronRight, null, Modifier.size(20.dp), tint = tk.onPrimary)
+                }
+            }
         }
-        Box(Modifier.at(0f, 868f, 1586f, 124f)) {
-            GalleryRail(doorList, tk, u * 0.9f, F, urdu, Modifier.fillMaxSize().navigationBarsPadding().displayCutoutPadding().padding(horizontal = sc * 40f), spread = true)
+    }
+}
+
+@Composable
+private fun GalleryPrayerGrid(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, F: FontFamily, urdu: Boolean, modifier: Modifier, onWhy: (Prayer) -> Unit) {
+    val rows = galleryGridRows(listedPrayers(s))
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        rows.forEach { row ->
+            Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                row.forEach { p ->
+                    GalleryPrayerCard(rowInfo(p, state, s), s, tk, F, urdu, a.onToggleRelative, Modifier.weight(1f).fillMaxHeight()) { onWhy(p) }
+                }
+                // keep a short final row aligned to the three-column grid
+                repeat(3 - row.size) { Spacer(Modifier.weight(1f).fillMaxHeight()) }
+            }
         }
+    }
+}
+
+/** Illustrated tile index in the bundled Gallery artwork, in prayer order (Fajr … Isha). */
+private fun galleryTileIndex(p: Prayer): Int = when (p) {
+    Prayer.FAJR -> 0; Prayer.SUNRISE -> 1; Prayer.DHUHR -> 2; Prayer.ASR -> 3; Prayer.MAGHRIB -> 4; Prayer.ISHA -> 5
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: FontFamily, urdu: Boolean, onToggle: () -> Unit, modifier: Modifier, onWhy: () -> Unit) {
+    val selected = r.isNow || r.isNext
+    val ink = if (selected) tk.primary else tk.contentPrimary
+    val shape = RoundedCornerShape(14.dp)
+    Row(
+        modifier.clip(shape).background(tk.surface).border(if (selected) 2.dp else 1.dp, if (selected) tk.primary else tk.divider, shape)
+            .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = L10n.t("Switch between clock time and time until", "نماز کا وقت یا باقی وقت دکھانے کے لیے چھوئیں۔"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیسے طے ہوتا ہے؟"), role = Role.Button)
+            .testTag("gallery-card-${r.prayer.name}")
+            .semantics(mergeDescendants = true) { contentDescription = r.spoken }
+    ) {
+        GalleryTileArt(galleryTileIndex(r.prayer), Modifier.fillMaxHeight().aspectRatio(264f / 230f))
+        Column(Modifier.weight(1f).fillMaxHeight().padding(horizontal = 14.dp, vertical = 10.dp), verticalArrangement = Arrangement.SpaceBetween) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = if (urdu) 22.sp else 24.sp, color = ink, maxLines = 1, modifier = Modifier.weight(1f, fill = false))
+                Spacer(Modifier.width(6.dp))
+                when {
+                    r.isNow || r.isNext -> Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"), fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = tk.onPrimary,
+                        modifier = Modifier.clip(RoundedCornerShape(50)).background(tk.primary).padding(horizontal = 8.dp, vertical = 2.dp))
+                    r.done -> Icon(Icons.Outlined.Check, null, Modifier.size(20.dp), tint = tk.success)
+                    r.prayer.isPrayer -> Icon(if (r.azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(20.dp), tint = tk.contentMuted)
+                }
+            }
+            if (!urdu) Text(r.arabic, fontFamily = tk.fontArabic, fontSize = 20.sp, color = tk.accent, maxLines = 1)
+            Row(verticalAlignment = Alignment.Bottom) {
+                Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Medium,
+                    fontSize = if (s.showRelative) 26.sp else 40.sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.8f else 1f))
+                if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = tk.fontDisplay, fontSize = 18.sp, color = tk.contentSecondary, modifier = Modifier.padding(bottom = 6.dp))
+            }
+            if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = 16.sp, color = tk.contentSecondary, maxLines = 2)
+        }
+    }
+}
+
+/** Crops one illustrated period tile from the bundled Gallery landscape artwork (no text is baked into the crop). */
+@Composable
+private fun GalleryTileArt(index: Int, modifier: Modifier) {
+    val bmp = androidx.compose.ui.res.imageResource(R.drawable.art_gallery_landscape_v2)
+    val tileW = bmp.width / 6
+    val srcY = (bmp.height * 540f / 992f).toInt()
+    val srcH = (bmp.height * 230f / 992f).toInt()
+    Canvas(modifier.clearAndSetSemantics { }) {
+        drawImage(bmp, srcOffset = IntOffset(index * tileW, srcY), srcSize = IntSize(tileW, srcH), dstSize = IntSize(size.width.toInt(), size.height.toInt()))
     }
 }
 
