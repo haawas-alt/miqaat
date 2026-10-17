@@ -36,13 +36,16 @@ jobs:
           BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
           "$BT/apksigner" verify --print-certs candidate/Miqaat-gallery.apk | grep -i "SHA-256" | tee candidate/signature.txt
           grep -qi 6285b269 candidate/signature.txt
-      - name: Keep test screenshots
+      - name: Publish tablet-landscape captures to a branch (for review)
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: gallery-tablet-screens
-          path: app/build/audit-screens/
-          if-no-files-found: ignore
+        run: |
+          set -uo pipefail
+          mkdir -p /tmp/shots && cp app/build/audit-screens/gallery-tablet-landscape__*.png /tmp/shots/ 2>/dev/null || true
+          git config user.name ci; git config user.email ci@users.noreply.github.com
+          git checkout -q --orphan ci-shots-gallery; git rm -rfq . >/dev/null 2>&1 || true
+          cp /tmp/shots/*.png . 2>/dev/null || true
+          git add -A; git commit -qm "captures ${{ github.run_number }}" || true
+          git push -qf origin ci-shots-gallery || true
       - name: Publish log on failure
         if: failure()
         run: |
