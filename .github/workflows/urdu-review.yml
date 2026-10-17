@@ -33,9 +33,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: celestial_en }
-          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: celestial_ur }
-          - { device: tablet-portrait, profile: pixel_tablet, rot: 1, variant: celestial_en }
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: gallery_en }
+          - { device: phone-landscape, profile: pixel_6, rot: 1, variant: gallery_en }
+          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: gallery_en }
+          - { device: tablet-portrait, profile: pixel_tablet, rot: 1, variant: gallery_en }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -85,8 +86,8 @@ jobs:
         run: |
           git config user.name audit-ci; git config user.email audit-ci@users.noreply.github.com
           rm -rf /tmp/pub && mkdir -p /tmp/pub/ev && cp -r /tmp/ev/audit-* /tmp/pub/ev/
-          git checkout -q --orphan audit-ev22-asr-icon
+          git checkout -q --orphan audit-ev23-gallery
           git rm -rfq . >/dev/null 2>&1 || true
           cp -r /tmp/pub/ev ./ev
           git add ev && git commit -qm "urdu review evidence build 8"
-          git push -q -f origin audit-ev22-asr-icon
+          git push -q -f origin audit-ev23-gallery
