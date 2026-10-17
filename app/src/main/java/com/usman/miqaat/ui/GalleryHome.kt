@@ -355,7 +355,7 @@ private fun GalleryDate(state: PrayerState, s: AppSettings, tk: ThemeTokens, u: 
     val hij = PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)
     Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(L10n.date(s, state.now), fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium, fontSize = fs(2.6f), color = tk.contentPrimary, maxLines = 1, textAlign = TextAlign.Center)
-        if (s.showHijri) Text(galleryHijriLine(s, hij), fontFamily = F, fontSize = fs(1.6f), letterSpacing = if (urdu) 0.sp else fs(0.1f), color = tk.contentSecondary, maxLines = 1, textAlign = TextAlign.Center)
+        if (s.showHijri) Text(galleryHijriLine(s, hij), fontFamily = F, fontSize = fs(1.6f), letterSpacing = 0.sp, color = tk.contentSecondary, maxLines = 1, textAlign = TextAlign.Center, modifier = Modifier.testTag("gallery-date-hijri"))
     }
 }
 

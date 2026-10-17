@@ -209,6 +209,16 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         rule.runOnIdle { assertTrue("Overflow door did not invoke destination", opened) }
     }
 
+    @Test fun complete_hijri_date_fits_on_a_small_phone() {
+        val s = settings(); app.settings.update { s }
+        show(Dev.PHONE_PORTRAIT, AppTheme.PRAYER_GALLERY, qualifiers = "w360dp-h800dp-port-xhdpi") {
+            HomeRouter(state(s), s, actions, false) {}
+        }
+        noOverflowAt("gallery-date-hijri")
+        rule.onNodeWithTag("gallery-date-hijri", useUnmergedTree = true).assertTextContains("AH", substring = true)
+        capture("gallery-small-phone-full-hijri")
+    }
+
     private fun renderBitmap(): android.graphics.Bitmap {
         rule.waitForIdle()
         lateinit var bitmap: android.graphics.Bitmap
