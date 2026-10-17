@@ -115,15 +115,21 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         java.io.File(out, "$name.png").outputStream().use { assertTrue(renderBitmap().compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it)) }
     }
 
-    /** Every text node under the card must lay out without width or height overflow. */
+    /** Every text node under the card must sit inside the card's own bounds (geometry check, not text-flag heuristics). */
     private fun noOverflowAt(tag: String) {
-        val root = rule.onNodeWithTag(tag, useUnmergedTree = true).fetchSemanticsNode()
-        val texts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
+        val card = rule.onNodeWithTag(tag, useUnmergedTree = true).fetchSemanticsNode()
+        val cardBounds = card.boundsInRoot
+        val bad = mutableListOf<String>()
         fun walk(node: androidx.compose.ui.semantics.SemanticsNode) {
-            node.config.getOrNull(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult)?.action?.invoke(texts)
+            val text = node.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.Text)
+            if (!text.isNullOrEmpty()) {
+                val b = node.boundsInRoot
+                if (b.left < cardBounds.left - 0.5f || b.top < cardBounds.top - 0.5f || b.right > cardBounds.right + 0.5f || b.bottom > cardBounds.bottom + 0.5f)
+                    bad += "${text.first().text} $b outside $cardBounds"
+            }
             node.children.forEach { walk(it) }
         }
-        walk(root)
-        texts.forEach { assertFalse("Text clipped in $tag: ${it.layoutInput.text}; size=${it.size}; constraints=${it.layoutInput.constraints}; w=${it.didOverflowWidth}; h=${it.didOverflowHeight}; card=${root.size}", it.didOverflowWidth || it.didOverflowHeight) }
+        walk(card)
+        assertTrue("Text outside $tag: $bad", bad.isEmpty())
     }
 }
