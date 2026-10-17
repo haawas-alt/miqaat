@@ -107,7 +107,7 @@ private fun CelestialWide(
             CelestialTopBar(state, s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = sc * 48f))
         }
         Box(Modifier.at(56f, 175f, 640f, 600f).testTag("home-hero"), contentAlignment = Alignment.CenterStart) {
-            FitHeight(Modifier.fillMaxSize()) { CelestialHero(hero, state, s, tk, u * 1.05f, F, urdu, Alignment.Start, pill = true) }
+            FitHeight(Modifier.fillMaxSize()) { Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.Start) { CelestialHero(hero, state, s, tk, u * 1.05f, F, urdu, Alignment.Start, pill = true) } }
         }
         if (s.showDisliked) DayThread(s, state.today, state.now, modifier = Modifier.at(56f, 790f, 870f, 80f), labelSize = (u.value * 1.3f).sp, fullNames = true, gnomon = true)
         CelestialPills(doorList, tk, u, F, urdu, Modifier.at(48f, 880f, 900f, 112f).navigationBarsPadding())
