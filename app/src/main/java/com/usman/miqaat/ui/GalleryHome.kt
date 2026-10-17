@@ -101,8 +101,8 @@ private fun GalleryWide(state: PrayerState, s: AppSettings, a: HomeActions, tk: 
             GalleryHeader(s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = 40.dp))
         }
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
-        GalleryHeroBand(hero, state, s, tk, F, urdu, Modifier.fillMaxWidth().weight(0.38f).testTag("home-hero")) { onWhy(hero.prayer) }
-        GalleryPrayerGrid(state, s, a, tk, F, urdu, Modifier.fillMaxWidth().weight(0.46f).padding(horizontal = 24.dp, vertical = 8.dp).testTag("home-prayers"), onWhy)
+        GalleryHeroBand(hero, state, s, tk, F, urdu, Modifier.fillMaxWidth().weight(0.34f).testTag("home-hero")) { onWhy(hero.prayer) }
+        GalleryPrayerGrid(state, s, a, tk, F, urdu, Modifier.fillMaxWidth().weight(0.52f).padding(horizontal = 24.dp, vertical = 8.dp).testTag("home-prayers"), onWhy)
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
         GalleryRail(doorList, tk, u * 0.9f, F, urdu, Modifier.fillMaxWidth().height(60.dp).navigationBarsPadding().displayCutoutPadding().padding(horizontal = 40.dp), spread = true)
     }
@@ -201,7 +201,7 @@ private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
             .semantics(mergeDescendants = true) { contentDescription = r.spoken }
     ) {
         GalleryTileArt(art, galleryTileIndex(r.prayer), Modifier.fillMaxHeight().aspectRatio(264f / 230f))
-        Column(Modifier.weight(1f).fillMaxHeight().padding(horizontal = 14.dp, vertical = 10.dp), verticalArrangement = Arrangement.SpaceBetween) {
+        Column(Modifier.weight(1f).fillMaxHeight().padding(horizontal = 14.dp, vertical = 8.dp), verticalArrangement = Arrangement.SpaceBetween) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = if (urdu) 22.sp else 24.sp, color = ink, maxLines = 1, modifier = Modifier.weight(1f, fill = false))
                 Spacer(Modifier.width(6.dp))
@@ -215,7 +215,7 @@ private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
             if (!urdu) Text(r.arabic, fontFamily = tk.fontArabic, fontSize = 20.sp, color = tk.accent, maxLines = 1)
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Medium,
-                    fontSize = if (s.showRelative) 26.sp else 40.sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.8f else 1f))
+                    fontSize = if (s.showRelative) 26.sp else 36.sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.8f else 1f))
                 if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = tk.fontDisplay, fontSize = 18.sp, color = tk.contentSecondary, modifier = Modifier.padding(bottom = 6.dp))
             }
             if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = 16.sp, color = tk.contentSecondary, maxLines = 2)
