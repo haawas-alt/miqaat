@@ -1,0 +1,35 @@
+name: Verify release signing key
+on:
+  push:
+    branches: [audit/urdu-review]
+    paths: [".github/workflows/verify-signing.yml"]
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and check v1.160 and the latest pointer
+        run: |
+          set -euo pipefail
+          AS=$(ls $ANDROID_HOME/build-tools/*/apksigner | sort -V | tail -1)
+          AA=$(ls $ANDROID_HOME/build-tools/*/aapt2 | sort -V | tail -1)
+          mkdir -p /tmp/out
+          for T in v1.160 latest; do
+            curl -sSL -o $T.apk https://github.com/haawas-alt/miqaat/releases/download/$T/Miqaat.apk
+            curl -sSL -o $T.sha https://github.com/haawas-alt/miqaat/releases/download/$T/Miqaat.apk.sha256
+            { echo "== $T"; echo "sha256 $(sha256sum $T.apk | cut -d' ' -f1)  published $(cat $T.sha)"
+              $AS verify --print-certs $T.apk | grep -i "SHA-256"
+              $AA dump badging $T.apk | head -1; } | tee -a /tmp/out/signing.txt
+            grep -q "$(sha256sum $T.apk | cut -d' ' -f1)" $T.sha
+          done
+          grep -c -i "6285b269" /tmp/out/signing.txt
+          [ "$(grep -ci 6285b269 /tmp/out/signing.txt)" -ge 2 ] && echo "MATCH" | tee -a /tmp/out/signing.txt
+      - name: Publish
+        if: always()
+        run: |
+          git config user.name audit-ci; git config user.email audit-ci@users.noreply.github.com
+          git checkout -q --orphan audit-signing-v1160; git rm -rfq . >/dev/null 2>&1 || true
+          cp /tmp/out/signing.txt . 2>/dev/null || echo "no output" > signing.txt
+          git add signing.txt && git commit -qm "signing check v1.160" && git push -q -f origin audit-signing-v1160

@@ -2,6 +2,7 @@ name: Urdu review screenshots (build 1.90-8)
 on:
   push:
     branches: [audit/urdu-review]
+    paths: [".github/workflows/urdu-review.yml", "audit/**"]
 permissions:
   contents: write
 env:
