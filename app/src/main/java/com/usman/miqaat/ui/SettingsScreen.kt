@@ -554,6 +554,7 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
     SettingRow(Str[R.string.s_reminder_before_azaan], Str[R.string.s_a_quiet_notification_no_sound]) {
         Stepper(s.preReminderMinutes, 0, 30, 5, Str[R.string.s_min], zeroLabel = Str[R.string.s_off]) { v -> store.update { it.copy(preReminderMinutes = v) } }
     }
+    SettingRow(Str[R.string.s_prayer_messages], Str[R.string.s_prayer_messages_detail]) { Toggle(s.prayerMessages) { on -> store.update { it.copy(prayerMessages = on) } } }
     Spacer(Modifier.height(18.dp))
     Text(Str[R.string.s_after_the_azaan], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     Text(Str[R.string.s_when_the_azaan_finishes_the_dua], fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary)

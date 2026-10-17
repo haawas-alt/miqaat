@@ -70,6 +70,8 @@
     <string name="s_your_masjid_s_first_azaan_adjust">Your masjid\'s first azaan; adjust in 5-minute steps</string>
     <string name="s_friday_reminders">Friday reminders</string>
     <string name="s_a_jumu_ah_chip_from_thursday">A Jumuʿah chip from Thursday Maghrib to Friday Maghrib that opens the Friday routine: al-Kahf, ṣalawāt, the hour of acceptance</string>
+    <string name="s_prayer_messages">Hadith in prayer notifications</string>
+    <string name="s_prayer_messages_detail">A verse or authentic hadith with its reference in each azaan notification, a new one each day, plus a quiet notice at sunrise. English only for now.</string>
     <string name="s_hour_of_acceptance_reminder">Hour-of-acceptance reminder</string>
     <string name="s_a_quiet_notification_one_hour_before">A quiet notification one hour before Friday\'s Maghrib</string>
     <string name="s_rama_n_mode">Ramaḍān mode</string>

@@ -70,6 +70,8 @@
     <string name="s_your_masjid_s_first_azaan_adjust">آپ کی مسجد کی پہلی اذان؛ 5 منٹ کے وقفوں میں بدلیں</string>
     <string name="s_friday_reminders">جمعہ کی یاد دہانیاں</string>
     <string name="s_a_jumu_ah_chip_from_thursday">جمعرات کی مغرب سے جمعے کی مغرب تک جمعہ کا نشان جو جمعے کا معمول کھولتا ہے: سورۃ الکہف، درود، قبولیت کی گھڑی</string>
+    <string name="s_prayer_messages">اذان کی اطلاع میں حدیث</string>
+    <string name="s_prayer_messages_detail">ہر اذان کی اطلاع میں حوالے کے ساتھ ایک آیت یا صحیح حدیث، روزانہ نئی، اور طلوعِ آفتاب پر ایک خاموش اطلاع۔ فی الحال صرف انگریزی میں۔</string>
     <string name="s_hour_of_acceptance_reminder">قبولیت کی گھڑی کی یاد دہانی</string>
     <string name="s_a_quiet_notification_one_hour_before">جمعے کی مغرب سے ایک گھنٹہ پہلے ایک خاموش اطلاع</string>
     <string name="s_rama_n_mode">رمضان موڈ</string>

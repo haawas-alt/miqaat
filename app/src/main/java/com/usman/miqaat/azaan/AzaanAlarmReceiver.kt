@@ -39,6 +39,15 @@ class AzaanAlarmReceiver : BroadcastReceiver() {
             val st = (context.applicationContext as com.usman.miqaat.MiqaatApp).settings.value
             val ur = com.usman.miqaat.data.L10n.isUrdu(st)
             val name = com.usman.miqaat.data.L10n.prayer(st, prayer)
+            if (prayer == Prayer.SUNRISE) {
+                if (!st.prayerMessages || ur) return@runCatching
+                val m = com.usman.miqaat.data.PrayerMessages.forDay(prayer, java.time.LocalDate.now(st.zone()))
+                val n = androidx.core.app.NotificationCompat.Builder(context, com.usman.miqaat.MiqaatApp.CHANNEL_SILENT)
+                    .setSmallIcon(com.usman.miqaat.R.drawable.ic_launcher_monochrome).setContentTitle(m.title).setContentText(m.text)
+                    .setStyle(androidx.core.app.NotificationCompat.BigTextStyle().bigText(m.text)).setAutoCancel(true).build()
+                context.getSystemService(android.app.NotificationManager::class.java).notify(44, n)
+                return@runCatching
+            }
             val title = when { iqamah -> if (ur) "$name کی اقامت" else "${prayer.english} iqamah"; reminder -> if (ur) "$name میں چند منٹ باقی" else "${prayer.english} in a few minutes"; else -> if (ur) "$name کی اذان کا وقت" else "${prayer.english} azaan time" }
             val open = android.app.PendingIntent.getActivity(context, 7, Intent(context, com.usman.miqaat.azaan.AzaanActivity::class.java).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name), android.app.PendingIntent.FLAG_UPDATE_CURRENT or android.app.PendingIntent.FLAG_IMMUTABLE)
             val n = androidx.core.app.NotificationCompat.Builder(context, if (reminder) com.usman.miqaat.MiqaatApp.CHANNEL_SILENT else com.usman.miqaat.MiqaatApp.CHANNEL_AZAAN)

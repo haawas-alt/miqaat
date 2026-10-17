@@ -52,6 +52,11 @@ object AzaanScheduler {
                 }
             }
         }
+        // Quiet sunrise notice: Fajr time has ended (English only until a published Urdu translation is supplied)
+        if (s.prayerMessages && s.azaanEnabled[Prayer.FAJR] == true && !com.usman.miqaat.data.L10n.isUrdu(s)) for (dayOffset in 0L..1L) {
+            val t = PrayerEngine.times(s, from.toLocalDate().plusDays(dayOffset), from.zone)[Prayer.SUNRISE]
+            if (t.isAfter(from)) candidates += Upcoming(Prayer.SUNRISE, t, reminder = true)
+        }
         // Ramaḍān suhoor alarm and the Friday hour-of-acceptance reminder
         for (dayOffset in 0L..1L) {
             val date = from.toLocalDate().plusDays(dayOffset)
