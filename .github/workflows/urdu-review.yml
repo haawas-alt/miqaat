@@ -34,7 +34,6 @@ jobs:
       matrix:
         include:
           - { device: phone-portrait, profile: pixel_6, rot: 0, variant: notify }
-          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: notify }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4

@@ -524,9 +524,16 @@ def mode_notify():
         launch(); fire_fajr(tag, name)
     # Sunrise notice: arm at 05:30 local (after Fajr), then move the clock past sunrise so the alarm is delivered.
     log(ev="set-time", sc="sunrise-arm", out=sh("shell", "date", "-u", "101918302026.00").strip()[:60])
-    launch(); go_home(); time.sleep(4); sh("shell", "input", "keyevent", "KEYCODE_HOME"); time.sleep(2)
-    log(ev="set-time", sc="sunrise-fire", out=sh("shell", "date", "-u", "101919202026.00").strip()[:60])
-    time.sleep(15)
+    sh("shell", "am", "broadcast", "-a", "android.intent.action.TIME_SET")
+    launch(); go_home(); time.sleep(4)
+    alarms = sh("shell", "dumpsys", "alarm", timeout=60)
+    keep = [l for l in alarms.splitlines() if "miqaat" in l.lower()][:20]
+    open(os.path.join(A.out, "alarm-armed.txt"), "w").write("\n".join(keep)); log(ev="alarm", lines=keep[:8])
+    if tap_text("Settings") and tap_text("Reliability & backup"): time.sleep(2); snap(tag, "next-alarm-armed")
+    sh("shell", "input", "keyevent", "KEYCODE_HOME"); time.sleep(2)
+    out = sh("shell", "cmd", "alarm", "set-time", "1792437600000")
+    log(ev="set-time", sc="sunrise-fire", out=out.strip()[:80] + " | " + sh("shell", "date").strip())
+    time.sleep(20)
     sh("shell", "cmd", "statusbar", "expand-notifications"); time.sleep(3)
     snap(tag, "shade-sunrise"); notif_dump("sunrise")
 
