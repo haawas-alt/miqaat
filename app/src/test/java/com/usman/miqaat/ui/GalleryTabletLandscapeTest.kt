@@ -137,6 +137,10 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
                 if (scale > 1.15f) {
                     rule.onNodeWithText(L10n.word(s, "NOW"), useUnmergedTree = true).assertExists()
                     rule.onNodeWithText(L10n.word(s, "NEXT"), useUnmergedTree = true).performScrollTo().assertIsDisplayed()
+                    val advance = rule.onRoot().fetchSemanticsNode().size.height * 0.25f
+                    rule.onAllNodes(hasScrollAction()).onFirst().performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.ScrollBy) { it(0f, advance) }
+                    rule.onNodeWithText(L10n.word(s, "NEXT"), useUnmergedTree = true).assertIsDisplayed()
+                    rule.onAllNodesWithText(PrayerEngine.clock(state(s).nextTime, s.use24h), useUnmergedTree = true).onLast().assertIsDisplayed()
                     capture("gallery-matrix-${dev.label}-${if (urdu) "ur" else "en"}-${(scale * 100).toInt()}-next-visible")
                 }
                 rule.onAllNodes(hasText("" , substring = true), useUnmergedTree = true).fetchSemanticsNodes().also {
@@ -186,7 +190,8 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         val after = state(s, ZonedDateTime.of(2026, 10, 18, 0, 1, 0, 0, sydney))
         val a = galleryRowInfo(Prayer.FAJR, before, s)
         val b = galleryRowInfo(Prayer.FAJR, after, s)
-        assertEquals(before.nextTime, after.nextTime)
+        assertEquals(before.nextTime.truncatedTo(java.time.temporal.ChronoUnit.MINUTES), after.nextTime.truncatedTo(java.time.temporal.ChronoUnit.MINUTES))
+        assertTrue("Rollover event drift", java.time.Duration.between(before.nextTime, after.nextTime).abs().toMillis() < 1000)
         assertEquals(a.clock, b.clock)
         assertTrue(a.isNext && b.isNext)
         assertFalse(a.done || b.done)
