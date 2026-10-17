@@ -6,7 +6,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
@@ -167,11 +169,13 @@ private fun GalleryHeroBand(hero: HeroInfo, state: PrayerState, s: AppSettings, 
 @Composable
 private fun GalleryPrayerGrid(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, F: FontFamily, urdu: Boolean, modifier: Modifier, onWhy: (Prayer) -> Unit) {
     val rows = galleryGridRows(listedPrayers(s))
+    val ctx = LocalContext.current
+    val art = remember(ctx) { android.graphics.BitmapFactory.decodeResource(ctx.resources, R.drawable.art_gallery_landscape_v2).asImageBitmap() }
     Column(modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         rows.forEach { row ->
             Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 row.forEach { p ->
-                    GalleryPrayerCard(rowInfo(p, state, s), s, tk, F, urdu, a.onToggleRelative, Modifier.weight(1f).fillMaxHeight()) { onWhy(p) }
+                    GalleryPrayerCard(rowInfo(p, state, s), s, tk, F, urdu, a.onToggleRelative, Modifier.weight(1f).fillMaxHeight(), art) { onWhy(p) }
                 }
                 // keep a short final row aligned to the three-column grid
                 repeat(3 - row.size) { Spacer(Modifier.weight(1f).fillMaxHeight()) }
@@ -187,7 +191,7 @@ private fun galleryTileIndex(p: Prayer): Int = when (p) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: FontFamily, urdu: Boolean, onToggle: () -> Unit, modifier: Modifier, onWhy: () -> Unit) {
+private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: FontFamily, urdu: Boolean, onToggle: () -> Unit, modifier: Modifier, art: ImageBitmap, onWhy: () -> Unit) {
     val selected = r.isNow || r.isNext
     val ink = if (selected) tk.primary else tk.contentPrimary
     val shape = RoundedCornerShape(14.dp)
@@ -197,7 +201,7 @@ private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
             .testTag("gallery-card-${r.prayer.name}")
             .semantics(mergeDescendants = true) { contentDescription = r.spoken }
     ) {
-        GalleryTileArt(galleryTileIndex(r.prayer), Modifier.fillMaxHeight().aspectRatio(264f / 230f))
+        GalleryTileArt(art, galleryTileIndex(r.prayer), Modifier.fillMaxHeight().aspectRatio(264f / 230f))
         Column(Modifier.weight(1f).fillMaxHeight().padding(horizontal = 14.dp, vertical = 10.dp), verticalArrangement = Arrangement.SpaceBetween) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = if (urdu) 22.sp else 24.sp, color = ink, maxLines = 1, modifier = Modifier.weight(1f, fill = false))
@@ -222,8 +226,7 @@ private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
 
 /** Crops one illustrated period tile from the bundled Gallery landscape artwork (no text is baked into the crop). */
 @Composable
-private fun GalleryTileArt(index: Int, modifier: Modifier) {
-    val bmp = imageResource(R.drawable.art_gallery_landscape_v2)
+private fun GalleryTileArt(bmp: ImageBitmap, index: Int, modifier: Modifier) {
     val tileW = bmp.width / 6
     val srcY = (bmp.height * 540f / 992f).toInt()
     val srcH = (bmp.height * 230f / 992f).toInt()
