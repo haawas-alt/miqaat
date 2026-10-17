@@ -19,6 +19,7 @@ case "$VAR" in
   urdu_lessons) MODE=lessons; THEMES=Miqaat; LANG_=ur; FONT=1.0; DEPTH=1; MAXA=1;  BUD=110;;
   urdu_azaan)   MODE=azaan;   THEMES=Miqaat; LANG_=ur; FONT=1.0; DEPTH=1; MAXA=1;  BUD=110;;
   celestial_en) MODE=crawl; THEMES=Celestial; LANG_=en; FONT=1.0; DEPTH=1; MAXA=2; BUD=30;;
+  celestial_ur) MODE=crawl; THEMES=Celestial; LANG_=ur; FONT=1.0; DEPTH=1; MAXA=2; BUD=30;;
   notify)  MODE=notify;  THEMES=Miqaat; LANG_=en; FONT=1.0; DEPTH=1; MAXA=1;  BUD=60;;
   times)   MODE=times;   THEMES="Miqaat,Gallery"; LANG_=en; FONT=1.0; DEPTH=1; MAXA=1;  BUD=110;;
 esac
