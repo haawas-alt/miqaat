@@ -1,0 +1,8 @@
+--------- beginning of system
+10-19 19:07:00.075   503   524 W ActivityManager: setHasOverlayUi called on unknown pid: 3774
+10-19 19:07:00.330   503   880 W ActivityManager: registerReceiverWithFeature: no app for null
+--------- beginning of main
+10-19 19:07:00.609  4174  4174 I AzaanScheduler: Scheduled Sunrise reminder at 2026-10-20T06:08:00.605+11:00[Australia/Sydney]
+10-19 19:07:00.638  4174  4174 I AzaanScheduler: Scheduled Sunrise reminder at 2026-10-20T06:08:00.635+11:00[Australia/Sydney]
+10-19 19:08:00.642  4174  4174 I AzaanScheduler: Scheduled Dhuhr azaan at 2026-10-20T12:41:00.641+11:00[Australia/Sydney]
+10-19 19:08:00.644   503  1770 W ActivityManager: Foreground service started from background can not have location/camera/microphone access: service com.usman.miqaat/.azaan.AzaanService

@@ -1,0 +1,38 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 1437, "t": 1.9}
+{"ev": "setup-screen", "step": 0, "shot": "phone-portrait-notify__setup0.png", "key": "e4d95fa3c2", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Saturday 17 October
+{"ev": "setup-tap", "label": "Begin", "t": 7.0}
+{"ev": "setup-screen", "step": 1, "shot": "phone-portrait-notify__setup1.png", "key": "942b687636", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Saturday 17 October
+{"ev": "detect-result", "shot": "phone-portrait-notify__setup1_after-detect-20s.png", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Learn Salah", "Monthly timetable", "Settings"
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 36.8}
+{"ev": "setup-screen", "step": 2, "shot": "phone-portrait-notify__setup2.png", "key": "2cc5f2d67d", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "Next", "t": 38.9}
+{"ev": "setup-screen", "step": 3, "shot": "phone-portrait-notify__setup3.png", "key": "8351a58f55", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-stuck", "t": 43.8}
+{"ev": "setup-screen", "step": 4, "shot": "phone-portrait-notify__setup4.png", "key": "2ddf9d4276", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "These look right", "t": 49.1}
+{"ev": "setup-screen", "step": 5, "shot": "phone-portrait-notify__setup5.png", "key": "6e5bb56faf", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "Finish", "t": 54.1}
+{"ev": "setup-done", "step": 6, "t": 58.9}
+{"ev": "setup-result", "ok": true, "t": 58.9}
+{"ev": "shot", "name": "shade-today", "shot": "phone-portrait-notify-notify__001__shade-today.png", "labels": ["Internet, AndroidWifi", "Internet", "Bluetooth, On", "Bluetooth", "Flashlight, Camera in use", "Flashlight",
+{"ev": "notif", "name": "today", "lines": ["NotificationRecord(0x06ec6f81: pkg=com.usman.miqaat user=UserHandle{0} id=44 tag=null importance=2 key=0|com.usman.miqaat|44|null|10141: Notification(channel=silent shortcut=nu
+{"ev": "adb-root", "out": "", "t": 88.9}
+{"ev": "set-time", "sc": "mon19", "out": "Sun Oct 18 23:00:00 UTC 2026", "t": 91.9}
+{"ev": "shot", "name": "shade-mon19", "shot": "phone-portrait-notify-notify__002__shade-mon19.png", "labels": ["Internet, AndroidWifi", "Internet", "Bluetooth, On", "Bluetooth", "Flashlight, Camera in use", "Flashlight",
+{"ev": "notif", "name": "mon19", "lines": ["NotificationRecord(0x05c7cc2c: pkg=com.usman.miqaat user=UserHandle{0} id=44 tag=null importance=2 key=0|com.usman.miqaat|44|null|10141: Notification(channel=silent shortcut=nu
+{"ev": "set-time", "sc": "tue20", "out": "Mon Oct 19 23:00:00 UTC 2026", "t": 120.8}
+{"ev": "shot", "name": "shade-tue20", "shot": "phone-portrait-notify-notify__003__shade-tue20.png", "labels": ["Internet, AndroidWifi", "Internet", "Bluetooth, On", "Bluetooth", "Flashlight, Camera in use", "Flashlight",
+{"ev": "notif", "name": "tue20", "lines": ["NotificationRecord(0x03613a31: pkg=com.usman.miqaat user=UserHandle{0} id=44 tag=null importance=2 key=0|com.usman.miqaat|44|null|10141: Notification(channel=silent shortcut=nu
+{"ev": "set-time", "sc": "wed21", "out": "Tue Oct 20 23:00:00 UTC 2026", "t": 149.5}
+{"ev": "shot", "name": "shade-wed21", "shot": "phone-portrait-notify-notify__004__shade-wed21.png", "labels": ["Internet, AndroidWifi", "Internet", "Bluetooth, On", "Bluetooth", "Flashlight, Camera in use", "Flashlight",
+{"ev": "notif", "name": "wed21", "lines": ["NotificationRecord(0x03aad3f3: pkg=com.usman.miqaat user=UserHandle{0} id=44 tag=null importance=2 key=0|com.usman.miqaat|44|null|10141: Notification(channel=silent shortcut=nu
+{"ev": "set-time", "sc": "sunrise-arm", "out": "Mon Oct 19 18:30:00 UTC 2026", "t": 178.4}
+{"ev": "alarm", "lines": ["        com.usman.miqaat", "    RTC_WAKEUP #6: Alarm{dc15420 type 0 origWhen 1792436880466 whenElapsed 2485692 com.usman.miqaat}", "      tag=*walarm*:com.usman.miqaat.AZAAN", "        showInte
+{"ev": "shot", "name": "next-alarm-armed", "shot": "phone-portrait-notify-notify__005__next-alarm-armed.png", "labels": ["Back", "Reliability & backup", "Did it fire? Every azaan, iqamah and reminder is logged on this de
+{"ev": "set-time", "sc": "sunrise-minus1", "out": "Mon Oct 19 19:07:00 UTC 2026", "t": 228.4}
+{"ev": "shot", "name": "shade-sunrise", "shot": "phone-portrait-notify-notify__006__shade-sunrise.png", "labels": ["Internet, AndroidWifi", "Internet", "Bluetooth, On", "Bluetooth", "Flashlight, Camera in use", "Flashlig
+{"ev": "notif", "name": "sunrise", "lines": ["NotificationRecord(0x0fa4ba4e: pkg=com.usman.miqaat user=UserHandle{0} id=44 tag=null importance=2 key=0|com.usman.miqaat|44|null|10141: Notification(channel=silent shortcut=
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 352.4}
+{"ev": "gfx", "lines": ["Total frames rendered: 6", "Janky frames: 6 (100.00%)", "Janky frames (legacy): 6 (100.00%)", "50th percentile: 500ms", "90th percentile: 1600ms", "95th percentile: 1600ms", "99th percentile: 160
+{"ev": "mem", "lines": ["  Native Heap    16838    16780        0        0    20052    27072    18316     5328", "        TOTAL    35121    25444     3396        0   155644    37426    23493    10505", "           Java H

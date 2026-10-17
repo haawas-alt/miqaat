@@ -1,0 +1,19 @@
+        com.usman.miqaat
+    RTC_WAKEUP #6: Alarm{dc15420 type 0 origWhen 1792436880466 whenElapsed 2485692 com.usman.miqaat}
+      tag=*walarm*:com.usman.miqaat.AZAAN
+        showIntent=PendingIntent{3b2c1d9: PendingIntentRecord{102d79e com.usman.miqaat broadcastIntent}}
+      operation=PendingIntent{e1c227f: PendingIntentRecord{102d79e com.usman.miqaat broadcastIntent}}
+  Next wake from idle: Alarm{dc15420 type 0 origWhen 1792436880466 whenElapsed 2485692 com.usman.miqaat}
+    tag=*walarm*:com.usman.miqaat.AZAAN
+      showIntent=PendingIntent{3b2c1d9: PendingIntentRecord{102d79e com.usman.miqaat broadcastIntent}}
+    operation=PendingIntent{e1c227f: PendingIntentRecord{102d79e com.usman.miqaat broadcastIntent}}
+          type=RTC_WAKEUP tag=*walarm*:com.usman.miqaat.AZAAN 
+          type=RTC_WAKEUP tag=*walarm*:com.usman.miqaat.AZAAN 
+          type=RTC_WAKEUP tag=*walarm*:com.usman.miqaat.AZAAN 
+          type=RTC_WAKEUP tag=*walarm*:com.usman.miqaat.AZAAN 
+          type=RTC_WAKEUP tag=*walarm*:com.usman.miqaat.AZAAN 
+          type=RTC_WAKEUP tag=*walarm*:com.usman.miqaat.AZAAN 
+          type=RTC_WAKEUP tag=*walarm*:com.usman.miqaat.AZAAN 
+          type=RTC_WAKEUP tag=*walarm*:com.usman.miqaat.AZAAN 
+          type=RTC_WAKEUP tag=*walarm*:com.usman.miqaat.AZAAN 
+          type=RTC_WAKEUP tag=*walarm*:com.usman.miqaat.AZAAN 

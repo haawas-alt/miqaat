@@ -1,0 +1,109 @@
+--------- beginning of system
+10-19 19:07:00.073   503   525 W WindowManager: Failed to deliver inset control state change to w=Window{892a3cf u0 com.usman.miqaat/com.usman.miqaat.MainActivity EXITING}
+10-19 19:07:00.073   503   525 W WindowManager: android.os.DeadObjectException
+10-19 19:07:00.073   503   525 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+10-19 19:07:00.073   503   525 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+10-19 19:07:00.073   503   525 W WindowManager: 	at android.view.IWindow$Stub$Proxy.insetsControlChanged(IWindow.java:479)
+10-19 19:07:00.073   503   525 W WindowManager: 	at com.android.server.wm.WindowState.notifyInsetsControlChanged(WindowState.java:3802)
+10-19 19:07:00.073   503   525 W WindowManager: 	at com.android.server.wm.InsetsStateController.lambda$notifyPendingInsetsControlChanged$3(InsetsStateController.java:343)
+10-19 19:07:00.073   503   525 W WindowManager: 	at com.android.server.wm.InsetsStateController.$r8$lambda$8yykPRG1GyNq_J17QvL9d5xANMc(InsetsStateController.java:0)
+10-19 19:07:00.073   503   525 W WindowManager: 	at com.android.server.wm.InsetsStateController$$ExternalSyntheticLambda2.run(R8$$SyntheticClass:0)
+10-19 19:07:00.073   503   525 W WindowManager: 	at com.android.server.wm.WindowAnimator.executeAfterPrepareSurfacesRunnables(WindowAnimator.java:294)
+10-19 19:07:00.073   503   525 W WindowManager: 	at com.android.server.wm.RootWindowContainer.performSurfacePlacementNoTrace(RootWindowContainer.java:811)
+10-19 19:07:00.073   503   525 W WindowManager: 	at com.android.server.wm.RootWindowContainer.performSurfacePlacement(RootWindowContainer.java:756)
+10-19 19:07:00.073   503   525 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer.performSurfacePlacementLoop(WindowSurfacePlacer.java:177)
+10-19 19:07:00.073   503   525 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer.performSurfacePlacement(WindowSurfacePlacer.java:126)
+10-19 19:07:00.073   503   525 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer.performSurfacePlacement(WindowSurfacePlacer.java:115)
+10-19 19:07:00.073   503   525 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer$Traverser.run(WindowSurfacePlacer.java:57)
+10-19 19:07:00.073   503   525 W WindowManager: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-19 19:07:00.073   503   525 W WindowManager: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-19 19:07:00.073   503   525 W WindowManager: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-19 19:07:00.073   503   525 W WindowManager: 	at android.os.Looper.loop(Looper.java:294)
+10-19 19:07:00.073   503   525 W WindowManager: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-19 19:07:00.073   503   525 W WindowManager: 	at com.android.server.ServiceThread.run(ServiceThread.java:46)
+10-19 19:07:00.075   503   866 W WindowManager: Exception thrown during dispatchAppVisibility Window{892a3cf u0 com.usman.miqaat/com.usman.miqaat.MainActivity EXITING}
+10-19 19:07:00.075   503   866 W WindowManager: android.os.DeadObjectException
+10-19 19:07:00.075   503   866 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+10-19 19:07:00.075   503   866 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+10-19 19:07:00.075   503   866 W WindowManager: 	at android.view.IWindow$Stub$Proxy.dispatchAppVisibility(IWindow.java:546)
+10-19 19:07:00.075   503   866 W WindowManager: 	at com.android.server.wm.WindowState.sendAppVisibilityToClients(WindowState.java:3271)
+10-19 19:07:00.075   503   866 W WindowManager: 	at com.android.server.wm.WindowContainer.sendAppVisibilityToClients(WindowContainer.java:1221)
+10-19 19:07:00.075   503   866 W WindowManager: 	at com.android.server.wm.WindowToken.setClientVisible(WindowToken.java:409)
+10-19 19:07:00.075   503   866 W WindowManager: 	at com.android.server.wm.ActivityRecord.setClientVisible(ActivityRecord.java:6946)
+10-19 19:07:00.075   503   866 W WindowManager: 	at com.android.server.wm.ActivityRecord.postApplyAnimation(ActivityRecord.java:5637)
+10-19 19:07:00.075   503   866 W WindowManager: 	at com.android.server.wm.ActivityRecord.commitVisibility(ActivityRecord.java:5580)
+10-19 19:07:00.075   503   866 W WindowManager: 	at com.android.server.wm.Transition.finishTransition(Transition.java:1151)
+10-19 19:07:00.075   503   866 W WindowManager: 	at com.android.server.wm.TransitionController.finishTransition(TransitionController.java:868)
+10-19 19:07:00.075   503   866 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.finishTransition(WindowOrganizerController.java:396)
+10-19 19:07:00.075   503   866 W WindowManager: 	at android.window.IWindowOrganizerController$Stub.onTransact(IWindowOrganizerController.java:286)
+10-19 19:07:00.075   503   866 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.onTransact(WindowOrganizerController.java:181)
+10-19 19:07:00.075   503   866 W WindowManager: 	at android.os.Binder.execTransactInternal(Binder.java:1344)
+10-19 19:07:00.075   503   866 W WindowManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+10-19 19:07:00.075   503   524 W ActivityManager: setHasOverlayUi called on unknown pid: 3774
+--------- beginning of main
+10-19 19:07:00.102   388   388 E BpTransactionCompletedListener: Failed to transact (-32)
+10-19 19:07:00.315  4161  4161 W app_process: Unexpected CPU variant for x86: x86_64.
+10-19 19:07:00.315  4161  4161 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-19 19:07:00.325  4161  4161 W Monkey  : args: [-p, com.usman.miqaat, -c, android.intent.category.LAUNCHER, 1]
+10-19 19:07:00.325  4161  4161 W Monkey  :  arg: "-p"
+10-19 19:07:00.325  4161  4161 W Monkey  :  arg: "com.usman.miqaat"
+10-19 19:07:00.325  4161  4161 W Monkey  :  arg: "-c"
+10-19 19:07:00.325  4161  4161 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+10-19 19:07:00.325  4161  4161 W Monkey  :  arg: "1"
+10-19 19:07:00.325  4161  4161 W Monkey  : data="com.usman.miqaat"
+10-19 19:07:00.325  4161  4161 W Monkey  : data="android.intent.category.LAUNCHER"
+10-19 19:07:00.330   503   880 W ActivityManager: registerReceiverWithFeature: no app for null
+10-19 19:07:00.331  4161  4161 W System  : No Compatibility callbacks set! Querying change 263076149
+10-19 19:07:00.331  4161  4161 W System  : No Compatibility callbacks set! Querying change 263076149
+10-19 19:07:00.331  4161  4161 W System  : No Compatibility callbacks set! Querying change 263076149
+10-19 19:07:00.387  4174  4174 W om.usman.miqaat: Unexpected CPU variant for x86: x86_64.
+10-19 19:07:00.387  4174  4174 W om.usman.miqaat: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-19 19:07:00.399  4174  4174 E om.usman.miqaat: Not starting debugger since process cannot load the jdwp agent.
+10-19 19:07:00.450   800   838 W Looper  : Slow delivery took 56ms wmshell.anim h=android.os.Handler c=com.android.wm.shell.transition.DefaultTransitionHandler$$ExternalSyntheticLambda0@c6a4689 m=0
+10-19 19:07:00.450   800   838 W Looper  : Drained
+10-19 19:07:00.621  4174  4174 W OpenGLRenderer: Unknown dataspace 0
+10-19 19:07:00.621   503   561 W WindowManager: Failed looking up window session=Session{8435f08 4174:u0a10141} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:6034 com.android.server.wm.Session.updateRequestedVisibleTypes:690 android.view.IWindowSession$Stub.onTransact:1034 
+10-19 19:07:00.710  4174  4196 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-19 19:07:01.734  4174  4200 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#0) as ready
+10-19 19:07:01.743  4174  4200 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#1) as ready
+10-19 19:07:01.841   800   840 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@dc16c7
+10-19 19:07:01.842   503   880 W InputManager-JNI: Input channel object 'd5fbafd Splash Screen com.usman.miqaat (client)' was disposed without first being removed with the input manager!
+10-19 19:07:03.959  4211  4211 W app_process: Unexpected CPU variant for x86: x86_64.
+10-19 19:07:03.959  4211  4211 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-19 19:07:03.960  4211  4211 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-19 19:07:03.960  4211  4211 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-19 19:07:03.969  4211  4211 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-19 19:07:03.973   503   561 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-19 19:07:03.975   503  1770 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-19 19:07:04.077   503  1960 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+10-19 19:07:05.015  4211  4211 W AccessibilityNodeInfoDumper: Fetch time: 38ms
+10-19 19:07:05.016   503  3492 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+--------- beginning of kernel
+10-19 19:07:53.575     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-19 19:08:00.644   503  1770 W ActivityManager: Foreground service started from background can not have location/camera/microphone access: service com.usman.miqaat/.azaan.AzaanService
+10-19 19:08:00.649  4174  4174 W TextToSpeech: stop failed: not bound to TTS engine
+10-19 19:08:00.649  4174  4174 W TextToSpeech: stop failed: not bound to TTS engine
+10-19 19:08:00.649  4174  4174 W TextToSpeech: shutdown failed: not bound to TTS engine
+10-19 19:08:00.848   503   503 W NotificationHistory: Attempted to add notif for locked/gone/disabled user 0
+10-19 19:08:09.521   503  4239 E GnssPsdsDownloader: No Long-Term PSDS servers were specified in the GnssConfiguration
+10-19 19:08:53.575     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=3000000 cc=10 chg=a
+10-19 19:08:58.881   800   800 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-19 19:08:58.881   800   800 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-19 19:08:59.204   800   844 E QuickAccessWalletKeyguardQuickAffordanceConfig: Wallet card retrieval error, message: "null"
+10-19 19:08:59.205   800   844 E QuickAccessWalletKeyguardQuickAffordanceConfig: Wallet card retrieval error, message: "null"
+10-19 19:08:59.208   800   844 E QuickAccessWalletKeyguardQuickAffordanceConfig: Wallet card retrieval error, message: "null"
+10-19 19:08:59.248   800   800 W FrameTracker: Missed App frame:UNKNOWN: 10, 17836, 109897504, CUJ=J<NOTIFICATION_SHADE_EXPAND_COLLAPSE::Expand>
+10-19 19:08:59.248   800   800 W FrameTracker: Missed SF frame:UNKNOWN: 10, 17836, 109897504, CUJ=J<NOTIFICATION_SHADE_EXPAND_COLLAPSE::Expand>
+10-19 19:08:59.248   800   800 W FrameTracker: Missed App frame:UNKNOWN: 88, 17851, 233873677, CUJ=J<NOTIFICATION_SHADE_EXPAND_COLLAPSE::Expand>
+10-19 19:08:59.248   800   800 W FrameTracker: Missed SF frame:UNKNOWN: 88, 17851, 233873677, CUJ=J<NOTIFICATION_SHADE_EXPAND_COLLAPSE::Expand>
+10-19 19:09:01.921  4257  4257 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+10-19 19:09:01.921  4257  4257 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+10-19 19:09:02.138  4261  4261 W app_process: Unexpected CPU variant for x86: x86_64.
+10-19 19:09:02.138  4261  4261 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-19 19:09:02.138  4261  4261 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+10-19 19:09:02.139  4261  4261 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+10-19 19:09:02.148  4261  4261 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+10-19 19:09:02.150   503  3731 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-19 19:09:02.157   503  3731 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-19 19:09:03.174  4261  4261 W AccessibilityNodeInfoDumper: Fetch time: 15ms
+10-19 19:09:03.174   503  2031 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
