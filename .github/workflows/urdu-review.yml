@@ -6,8 +6,8 @@ on:
 permissions:
   contents: write
 env:
-  TAG: v1.160
-  NAME: Miqaat.apk
+  TAG: messages-1.161-1
+  NAME: Miqaat-messages.apk
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -33,9 +33,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: kiswah_en }
-          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: kiswah_ur }
-          - { device: tablet-portrait, profile: pixel_tablet, rot: 1, variant: kiswah_en }
+          - { device: phone-portrait, profile: pixel_6, rot: 0, variant: notify }
+          - { device: tablet-landscape, profile: pixel_tablet, rot: 0, variant: notify }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -85,8 +84,8 @@ jobs:
         run: |
           git config user.name audit-ci; git config user.email audit-ci@users.noreply.github.com
           rm -rf /tmp/pub && mkdir -p /tmp/pub/ev && cp -r /tmp/ev/audit-* /tmp/pub/ev/
-          git checkout -q --orphan audit-ev16-main-v1160
+          git checkout -q --orphan audit-ev17-messages
           git rm -rfq . >/dev/null 2>&1 || true
           cp -r /tmp/pub/ev ./ev
           git add ev && git commit -qm "urdu review evidence build 8"
-          git push -q -f origin audit-ev16-main-v1160
+          git push -q -f origin audit-ev17-messages

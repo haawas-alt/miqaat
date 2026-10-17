@@ -497,6 +497,39 @@ def mode_azaan():
                 time.sleep(wsec); snap(tag, f"{name}-t{int(time.time()-t0)}")
             sh("shell", "am", "force-stop", PKG); time.sleep(1); launch(); go_home()
 
+def notif_dump(name):
+    raw = sh("shell", "dumpsys", "notification", "--noredact", timeout=60)
+    keep = [l.strip() for l in raw.splitlines() if ("pkg=com.usman.miqaat" in l or "android.title=" in l or "android.text=" in l or "android.bigText=" in l)]
+    open(os.path.join(A.out, f"notif-{name}.txt"), "w").write("\n".join(keep))
+    log(ev="notif", name=name, lines=keep[:20])
+
+def fire_fajr(tag, name):
+    go_home()
+    if not (tap_text("Settings") and tap_text("Try it now")): log(ev="nav-fail", what="Try it now"); return
+    if not tap_after("Everything, exactly as at prayer time", "Fajr"): log(ev="nav-fail", what=name); return
+    time.sleep(6)
+    sh("shell", "cmd", "statusbar", "expand-notifications"); time.sleep(3)
+    snap(tag, f"shade-{name}"); notif_dump(name)
+    sh("shell", "cmd", "statusbar", "collapse"); time.sleep(1)
+    sh("shell", "am", "force-stop", PKG); time.sleep(1)
+
+NOTIFY_DAYS = [("mon19", "101823002026"), ("tue20", "101923002026"), ("wed21", "102023002026")]
+def mode_notify():
+    tag = f"{A.tag}-notify"
+    launch(); fire_fajr(tag, "today")
+    r = sh("root"); log(ev="adb-root", out=r.strip()[:80]); time.sleep(3)
+    sh("shell", "settings", "put", "global", "auto_time", "0"); sh("shell", "settings", "put", "global", "auto_time_zone", "0")
+    for name, stamp in NOTIFY_DAYS:
+        log(ev="set-time", sc=name, out=sh("shell", "date", "-u", stamp + ".00").strip()[:60])
+        launch(); fire_fajr(tag, name)
+    # Sunrise notice: arm at 05:30 local (after Fajr), then move the clock past sunrise so the alarm is delivered.
+    log(ev="set-time", sc="sunrise-arm", out=sh("shell", "date", "-u", "101918302026.00").strip()[:60])
+    launch(); go_home(); time.sleep(4); sh("shell", "input", "keyevent", "KEYCODE_HOME"); time.sleep(2)
+    log(ev="set-time", sc="sunrise-fire", out=sh("shell", "date", "-u", "101919202026.00").strip()[:60])
+    time.sleep(15)
+    sh("shell", "cmd", "statusbar", "expand-notifications"); time.sleep(3)
+    snap(tag, "shade-sunrise"); notif_dump("sunrise")
+
 # Sydney local -> UTC (AEDT, UTC+11 from 4 Oct 2026)
 SCENARIOS = [
   ("predawn-0430",   "100517302026"),   # Tue 6 Oct 04:30 AEDT
@@ -604,7 +637,7 @@ def mode_adhkar():
     else: log(ev="nav-fail", what="why")
 
 def run_mode():
-    {"lessons": mode_lessons, "azaan": mode_azaan, "times": mode_times, "review": mode_review, "adhkar": mode_adhkar}[A.mode]()
+    {"lessons": mode_lessons, "azaan": mode_azaan, "times": mode_times, "review": mode_review, "adhkar": mode_adhkar, "notify": mode_notify}[A.mode]()
     metrics(A.tag)
 
 main()
