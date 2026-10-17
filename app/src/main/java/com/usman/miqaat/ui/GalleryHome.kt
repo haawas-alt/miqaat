@@ -112,14 +112,14 @@ private fun GalleryWide(state: PrayerState, s: AppSettings, a: HomeActions, tk: 
     val u = sc * 13.8f
     val compact = bh < 700.dp
     Column(Modifier.fillMaxSize()) {
-        Box(Modifier.fillMaxWidth().height(72.dp).background(tk.background)) {
+        Box(Modifier.fillMaxWidth().height(72.dp + WindowInsets.statusBars.asPaddingValues().calculateTopPadding()).background(tk.background)) {
             GalleryHeader(s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = 40.dp))
         }
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
         GalleryHeroBand(hero, state, s, tk, F, urdu, Modifier.fillMaxWidth().weight(if (compact) 0.31f else 0.34f).testTag("home-hero")) { onWhy(hero.prayer) }
         GalleryPrayerGrid(state, s, a, tk, F, urdu, Modifier.fillMaxWidth().weight(if (compact) 0.55f else 0.52f).padding(horizontal = 24.dp, vertical = 8.dp).testTag("home-prayers"), onWhy)
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
-        GalleryRail(doorList, tk, u * 0.9f, F, urdu, Modifier.fillMaxWidth().height(60.dp).navigationBarsPadding().displayCutoutPadding().padding(horizontal = 40.dp), spread = true)
+        GalleryRail(doorList, tk, u * 0.9f, F, urdu, Modifier.fillMaxWidth().height(60.dp + WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()).navigationBarsPadding().displayCutoutPadding().padding(horizontal = 40.dp), spread = true)
     }
 }
 
@@ -283,7 +283,7 @@ private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
                     fontSize = if (s.showRelative) 24.sp else if (compact) 38.sp else 48.sp, color = ink, maxLines = 1)
                 if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = GalleryBody, fontSize = 18.sp, color = tk.contentPrimary, modifier = Modifier.padding(bottom = 6.dp))
             }
-            if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = if (compact && urdu) 12.sp else if (compact) 14.sp else 16.sp, color = tk.contentSecondary, maxLines = 2)
+            if (r.small.isNotEmpty()) Text(r.small, fontFamily = if (compact && urdu) tk.fontArabic else F, fontSize = if (compact) 14.sp else 16.sp, color = tk.contentSecondary, maxLines = 2)
         }
     }
 }

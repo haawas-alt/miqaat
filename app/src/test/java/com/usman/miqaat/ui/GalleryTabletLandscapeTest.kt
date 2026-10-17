@@ -180,6 +180,30 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         listedPrayers(s).forEach { noOverflowAt("gallery-card-${it.name}") }
     }
 
+    @Test fun midnight_rollover_keeps_next_fajr_consistent() {
+        val s = settings()
+        val before = state(s, ZonedDateTime.of(2026, 10, 17, 23, 59, 0, 0, sydney))
+        val after = state(s, ZonedDateTime.of(2026, 10, 18, 0, 1, 0, 0, sydney))
+        val a = galleryRowInfo(Prayer.FAJR, before, s)
+        val b = galleryRowInfo(Prayer.FAJR, after, s)
+        assertEquals(before.nextTime, after.nextTime)
+        assertEquals(a.clock, b.clock)
+        assertTrue(a.isNext && b.isNext)
+        assertFalse(a.done || b.done)
+    }
+
+    @Test fun overflow_utility_door_remains_actionable() {
+        val s = settings().copy(adhkarEnabled = true); app.settings.update { s }
+        var opened = false
+        val a = HomeActions({}, {}, {}, {}, {}, {}, {}, true, { opened = true }, {})
+        val st = state(s, ZonedDateTime.of(2026, 10, 17, 17, 0, 0, 0, sydney))
+        show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY) { HomeRouter(st, s, a, false) {} }
+        rule.onNodeWithContentDescription("More actions").performClick()
+        capture("gallery-utility-overflow")
+        rule.onNodeWithText(L10n.word(s, "Update available")).performClick()
+        rule.runOnIdle { assertTrue("Overflow door did not invoke destination", opened) }
+    }
+
     private fun renderBitmap(): android.graphics.Bitmap {
         rule.waitForIdle()
         lateinit var bitmap: android.graphics.Bitmap

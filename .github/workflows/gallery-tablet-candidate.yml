@@ -36,6 +36,7 @@ jobs:
           BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
           "$BT/apksigner" verify --print-certs candidate/Miqaat-gallery.apk | grep -i "SHA-256" | tee candidate/signature.txt
           grep -qi 6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01 candidate/signature.txt
+          printf 'Commit: %s\nVersion: %s\nVersion code: %s\n' "$GITHUB_SHA" "$MIQAAT_VERSION_NAME" "$MIQAAT_VERSION_CODE" > candidate/build.txt
       - name: Summarize actual test results
         if: always()
         run: |
@@ -64,6 +65,8 @@ jobs:
             app/build/reports/lint-results*
             build.log
             candidate/signature.txt
+            candidate/build.txt
+            app/build/outputs/apk/github/release/output-metadata.json
       - name: Publish tablet-landscape captures to a branch (for review)
         if: always()
         run: |
@@ -98,5 +101,7 @@ jobs:
           files: |
             candidate/Miqaat-gallery.apk
             candidate/Miqaat-gallery.apk.sha256
+            candidate/signature.txt
+            candidate/build.txt
           prerelease: true
           make_latest: false
