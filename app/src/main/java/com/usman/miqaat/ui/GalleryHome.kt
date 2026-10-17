@@ -129,16 +129,16 @@ private fun GalleryHeroBand(hero: HeroInfo, state: PrayerState, s: AppSettings, 
     Box(modifier) {
         Image(painterResource(R.drawable.art_gallery_landscape_v2), null, Modifier.matchParentSize().clearAndSetSemantics { }, contentScale = ContentScale.Crop, alignment = Alignment.TopCenter)
         Box(Modifier.matchParentSize().background(tk.background.copy(alpha = 0.18f)))
-        Row(Modifier.fillMaxSize().padding(horizontal = 40.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(Modifier.fillMaxSize().padding(horizontal = 40.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(0.42f).semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
                 hero.special?.let { Text(it, fontFamily = Nunito, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = tk.accent) }
                 Text(hero.kickerLabel, fontFamily = F, fontSize = 14.sp, color = tk.contentSecondary)
-                Text(hero.label, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium, fontSize = if (urdu) 44.sp else 56.sp, color = tk.contentPrimary, maxLines = 1)
+                Text(hero.label, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium, fontSize = if (urdu) 40.sp else 56.sp, color = tk.contentPrimary, maxLines = 1)
                 Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = 36.sp, color = tk.accent, maxLines = 1)
-                Row(Modifier.padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(Modifier.padding(top = 2.dp), verticalAlignment = Alignment.CenterVertically) {
                     Icon(if (hero.justPassed) Icons.Outlined.CheckCircle else Icons.Outlined.Schedule, null, Modifier.size(20.dp), tint = tk.accent)
                     Spacer(Modifier.width(8.dp))
-                    Text(hero.status, fontFamily = F, fontSize = 18.sp, color = tk.contentPrimary, maxLines = 1)
+                    Text(hero.status, fontFamily = F, fontSize = if (urdu) 16.sp else 18.sp, color = tk.contentPrimary, maxLines = 1)
                 }
             }
             Column(Modifier.weight(0.30f), horizontalAlignment = Alignment.CenterHorizontally) {

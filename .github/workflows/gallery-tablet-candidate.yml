@@ -40,12 +40,14 @@ jobs:
         if: always()
         run: |
           set -uo pipefail
-          mkdir -p /tmp/shots && cp app/build/audit-screens/gallery-tablet-landscape__*.png /tmp/shots/ 2>/dev/null || true
+          D="$(mktemp -d)"
+          cp app/build/audit-screens/gallery-tablet-landscape__*.png "$D"/ 2>/dev/null || true
+          cd "$D" && git init -q && git checkout -q -b ci-shots-gallery
           git config user.name ci; git config user.email ci@users.noreply.github.com
-          git checkout -q --orphan ci-shots-gallery; git rm -rfq . >/dev/null 2>&1 || true
-          cp /tmp/shots/*.png . 2>/dev/null || true
-          git add -A; git commit -qm "captures ${{ github.run_number }}" || true
-          git push -qf origin ci-shots-gallery || true
+          git add -A && git commit -qm "captures ${{ github.run_number }}" || true
+          git push -qf "$GITHUB_WORKSPACE_REMOTE" HEAD:ci-shots-gallery || true
+        env:
+          GITHUB_WORKSPACE_REMOTE: ${{ format('https://x-access-token:{0}@github.com/{1}.git', secrets.GITHUB_TOKEN, github.repository) }}
       - name: Publish log on failure
         if: failure()
         run: |
