@@ -99,6 +99,35 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         assertEquals(listOf(listOf(Prayer.FAJR, Prayer.SUNRISE, Prayer.DHUHR), listOf(Prayer.ASR, Prayer.MAGHRIB, Prayer.ISHA)), rows)
     }
 
+    @Test fun current_and_next_markers_are_independent() {
+        val s = settings()
+        val st = state(s, ZonedDateTime.of(2026, 10, 17, 12, 50, 0, 0, sydney))
+        assertTrue(galleryRowInfo(Prayer.DHUHR, st, s).isNow)
+        assertTrue(galleryRowInfo(Prayer.ASR, st, s).isNext)
+        assertFalse(galleryRowInfo(Prayer.ASR, st, s).done)
+    }
+
+    @Test fun overnight_fajr_uses_tomorrows_clock_and_end_time() {
+        val s = settings()
+        val st = state(s, ZonedDateTime.of(2026, 10, 17, 23, 59, 0, 0, sydney))
+        val row = galleryRowInfo(Prayer.FAJR, st, s)
+        assertTrue(row.isNext)
+        assertFalse(row.done)
+        assertFalse(row.isNow)
+        assertEquals(PrayerEngine.clock(st.nextTime, s.use24h), row.clock)
+        val tomorrow = PrayerEngine.times(s, st.nextTime.toLocalDate())
+        val end = PrayerEngine.endOf(s, tomorrow, Prayer.FAJR)!!
+        assertTrue(row.small, row.small.contains(PrayerEngine.clock(end, s.use24h)))
+    }
+
+    @Test fun card_info_opens_a_real_details_dialog() {
+        val s = settings(); app.settings.update { s }
+        show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY) { HomeRouter(state(s), s, actions, false) {} }
+        rule.onNodeWithTag("gallery-info-FAJR", useUnmergedTree = true).performClick()
+        rule.onNode(isDialog()).assertExists()
+        capture("gallery-details-fajr")
+    }
+
     private fun renderBitmap(): android.graphics.Bitmap {
         rule.waitForIdle()
         lateinit var bitmap: android.graphics.Bitmap
@@ -120,9 +149,15 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         val card = rule.onNodeWithTag(tag, useUnmergedTree = true).fetchSemanticsNode()
         val cardBounds = card.boundsInRoot
         val bad = mutableListOf<String>()
+        var checked = 0
         fun walk(node: androidx.compose.ui.semantics.SemanticsNode) {
             val text = node.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.Text)
             if (!text.isNullOrEmpty()) {
+                checked++
+                val layouts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
+                val action = node.config.getOrNull(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult)
+                assertTrue("Missing text layout for $text", action?.action?.invoke(layouts) == true && layouts.isNotEmpty())
+                layouts.forEach { assertFalse("Clipped text: $text", it.didOverflowWidth || it.didOverflowHeight) }
                 val b = node.boundsInRoot
                 if (b.left < cardBounds.left - 0.5f || b.top < cardBounds.top - 0.5f || b.right > cardBounds.right + 0.5f || b.bottom > cardBounds.bottom + 0.5f)
                     bad += "${text.first().text} $b outside $cardBounds"
@@ -130,6 +165,7 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
             node.children.forEach { walk(it) }
         }
         walk(card)
+        assertTrue("No text checked in $tag", checked > 0)
         assertTrue("Text outside $tag: $bad", bad.isEmpty())
     }
     private val sydney = ZoneId.of("Australia/Sydney")

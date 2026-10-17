@@ -116,7 +116,28 @@ internal fun galleryDateLines(s: AppSettings, now: ZonedDateTime, hijri: PrayerE
 }
 
 internal fun galleryHijriLine(s: AppSettings, h: PrayerEngine.Hijri): String =
-    if (L10n.isUrdu(s)) L10n.hijri(s, h) else "${h.day} ${h.monthName} ${h.year} AH"
+    if (L10n.isUrdu(s)) "${L10n.hijri(s, h)} ھ" else "${h.day} ${h.monthName} ${h.year} AH"
+
+/** Gallery selection follows actual windows, independently of the transient hero. Tomorrow's
+ * Fajr uses tomorrow's timetable, including its end time, rather than today's completed row. */
+internal fun galleryRowInfo(p: Prayer, state: PrayerState, s: AppSettings): RowInfo {
+    val tomorrow = p == state.next && state.nextTime.toLocalDate().isAfter(state.today.date)
+    val day = if (tomorrow) PrayerEngine.times(s, state.nextTime.toLocalDate()) else state.today
+    val base = rowInfo(p, state.copy(today = day), s)
+    val t = day[p]
+    val end = PrayerEngine.endOf(s, day, p)
+    val now = p.isPrayer && !tomorrow && state.current == p && !t.isAfter(state.now) && (end == null || state.now.isBefore(end))
+    val next = p == state.next
+    val done = p.isPrayer && !tomorrow && !t.isAfter(state.now) && !now
+    val iq = PrayerEngine.iqamah(s, day, p)
+    val small = listOfNotNull(
+        if (s.showEndTimes) end?.let { "${L10n.word(s, "ends")} ${L10n.iso(L10n.at(it, s.use24h))}" } else null,
+        iq?.let { "${L10n.word(s, "Iqamah")} ${L10n.iso(L10n.at(it, s.use24h))}" },
+        if (p == Prayer.SUNRISE) Str.get(R.string.s_duha_from, L10n.iso(L10n.at(t.plusMinutes(15), s.use24h))) else null
+    ).joinToString(" · ")
+    return base.copy(isNow = now, isNext = next, done = done, small = small,
+        spoken = L10n.spokenRow(s, base.label, p, t, state.now, now, next, done, iq, if (s.showEndTimes) end else null, !base.azaanOn && p.isPrayer))
+}
 
 /** Prayers in reading order, three per row: top row then bottom row. */
 internal fun galleryGridRows(prayers: List<Prayer>): List<List<Prayer>> = prayers.chunked(3)
@@ -129,7 +150,11 @@ private fun GalleryHeroBand(hero: HeroInfo, state: PrayerState, s: AppSettings, 
     Box(modifier) {
         Image(painterResource(R.drawable.art_gallery_landscape_v2), null, Modifier.matchParentSize().clearAndSetSemantics { }, contentScale = ContentScale.Crop, alignment = Alignment.TopCenter)
         Box(Modifier.matchParentSize().background(tk.background.copy(alpha = 0.18f)))
-        Row(Modifier.fillMaxSize().padding(horizontal = 40.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.fillMaxWidth().background(tk.background.copy(alpha = 0.94f)).padding(horizontal = 16.dp, vertical = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(greg, fontFamily = F, fontSize = 18.sp, color = tk.contentPrimary, textAlign = TextAlign.Center)
+            hijriLine?.let { Text(it, fontFamily = F, fontSize = 16.sp, color = tk.contentSecondary, textAlign = TextAlign.Center) }
+        }
+        Row(Modifier.fillMaxSize().padding(horizontal = 24.dp).padding(top = 62.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(0.42f).semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
                 hero.special?.let { Text(it, fontFamily = Nunito, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = tk.accent) }
                 Text(hero.kickerLabel, fontFamily = F, fontSize = 14.sp, color = tk.contentSecondary)
@@ -141,11 +166,8 @@ private fun GalleryHeroBand(hero: HeroInfo, state: PrayerState, s: AppSettings, 
                     Text(hero.status, fontFamily = F, fontSize = if (urdu) 16.sp else 18.sp, color = tk.contentPrimary, maxLines = 1)
                 }
             }
-            Column(Modifier.weight(0.30f).clip(RoundedCornerShape(12.dp)).background(tk.background.copy(alpha = 0.86f)).padding(horizontal = 12.dp, vertical = 6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(greg, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium, fontSize = if (urdu) 20.sp else 26.sp, color = tk.contentPrimary, maxLines = 1, textAlign = TextAlign.Center)
-                hijriLine?.let { Text(it, fontFamily = F, fontSize = if (urdu) 18.sp else 19.sp, color = tk.contentSecondary, maxLines = 1, textAlign = TextAlign.Center) }
-            }
-            Column(Modifier.weight(0.28f).testTag("home-time"), horizontalAlignment = Alignment.End) {
+            Spacer(Modifier.weight(0.20f))
+            Column(Modifier.weight(0.38f).testTag("home-time"), horizontalAlignment = Alignment.End) {
                 Row(verticalAlignment = Alignment.Top) {
                     Text(hero.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Bold, fontSize = 72.sp, lineHeight = 72.sp, color = tk.contentPrimary, maxLines = 1)
                     if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = tk.fontDisplay, fontSize = 22.sp, color = tk.contentSecondary, modifier = Modifier.padding(top = 10.dp))
@@ -158,8 +180,13 @@ private fun GalleryHeroBand(hero: HeroInfo, state: PrayerState, s: AppSettings, 
                     Spacer(Modifier.width(8.dp))
                     Text(Str[R.string.s_view_prayer_details], fontFamily = F, fontWeight = FontWeight.Medium, fontSize = 17.sp, color = tk.onPrimary, maxLines = 1)
                     Spacer(Modifier.width(6.dp))
-                    Icon(Icons.Outlined.ChevronRight, null, Modifier.size(20.dp), tint = tk.onPrimary)
+                    Icon(Icons.AutoMirrored.Outlined.KeyboardArrowRight, null, Modifier.size(20.dp), tint = tk.onPrimary)
                 }
+                fastProgress(state, s)?.let { (fraction, label) ->
+                    androidx.compose.material3.LinearProgressIndicator(progress = { fraction }, modifier = Modifier.fillMaxWidth().padding(top = 4.dp), color = tk.accent, trackColor = tk.divider)
+                    Text(label, fontFamily = F, fontSize = 14.sp, color = tk.contentPrimary)
+                }
+                tarawihLine(state, s)?.let { Text(it, fontFamily = F, fontSize = 14.sp, color = tk.contentPrimary) }
             }
         }
     }
@@ -174,7 +201,7 @@ private fun GalleryPrayerGrid(state: PrayerState, s: AppSettings, a: HomeActions
         rows.forEach { row ->
             Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 row.forEach { p ->
-                    GalleryPrayerCard(rowInfo(p, state, s), s, tk, F, urdu, a.onToggleRelative, Modifier.weight(1f).fillMaxHeight(), art) { onWhy(p) }
+                    GalleryPrayerCard(galleryRowInfo(p, state, s), s, tk, F, urdu, a.onToggleRelative, Modifier.weight(1f).fillMaxHeight(), art) { onWhy(p) }
                 }
                 // keep a short final row aligned to the three-column grid
                 repeat(3 - row.size) { Spacer(Modifier.weight(1f).fillMaxHeight()) }
@@ -192,30 +219,36 @@ private fun galleryTileIndex(p: Prayer): Int = when (p) {
 @Composable
 private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: FontFamily, urdu: Boolean, onToggle: () -> Unit, modifier: Modifier, art: ImageBitmap, onWhy: () -> Unit) {
     val selected = r.isNow || r.isNext
-    val ink = if (selected) tk.primary else tk.contentPrimary
+    val marker = if (r.isNow) tk.success else tk.accent
+    val ink = tk.contentPrimary
     val shape = RoundedCornerShape(14.dp)
     Row(
-        modifier.clip(shape).background(tk.surface).border(if (selected) 2.dp else 1.dp, if (selected) tk.primary else tk.divider, shape)
+        modifier.clip(shape).background(tk.surface).border(if (selected) 2.dp else 1.dp, if (selected) marker else tk.divider, shape)
             .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = L10n.t("Switch between clock time and time until", "نماز کا وقت یا باقی وقت دکھانے کے لیے چھوئیں۔"), onLongClickLabel = L10n.t("Why this time?", "یہ وقت کیسے طے ہوتا ہے؟"), role = Role.Button)
             .testTag("gallery-card-${r.prayer.name}")
             .semantics(mergeDescendants = true) { contentDescription = r.spoken }
     ) {
-        GalleryTileArt(art, galleryTileIndex(r.prayer), Modifier.fillMaxHeight().width(150.dp))
-        Column(Modifier.weight(1f).fillMaxHeight().padding(horizontal = 14.dp, vertical = 8.dp), verticalArrangement = Arrangement.SpaceBetween) {
+        GalleryTileArt(art, galleryTileIndex(r.prayer), Modifier.fillMaxHeight().fillMaxWidth(0.24f))
+        Column(Modifier.weight(1f).fillMaxHeight().padding(horizontal = 12.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterVertically)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = if (urdu) 22.sp else 24.sp, color = ink, maxLines = 1, modifier = Modifier.weight(1f, fill = false))
                 Spacer(Modifier.width(6.dp))
                 when {
                     r.isNow || r.isNext -> Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"), fontFamily = Nunito, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = tk.onPrimary,
-                        modifier = Modifier.clip(RoundedCornerShape(50)).background(tk.primary).padding(horizontal = 8.dp, vertical = 2.dp))
+                        modifier = Modifier.clip(RoundedCornerShape(50)).background(marker).padding(horizontal = 8.dp, vertical = 2.dp))
                     r.done -> Icon(Icons.Outlined.Check, null, Modifier.size(20.dp), tint = tk.success)
                     r.prayer.isPrayer -> Icon(if (r.azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(20.dp), tint = tk.contentMuted)
                 }
+            Box(Modifier.size(48.dp).testTag("gallery-info-${r.prayer.name}")
+                .clickable(onClick = onWhy, role = Role.Button)
+                .semantics { contentDescription = L10n.t("Why this time?", "یہ وقت کیسے طے ہوتا ہے؟") }, contentAlignment = Alignment.Center) {
+                Icon(Icons.Outlined.Info, null, Modifier.size(22.dp), tint = tk.accent)
+            }
             }
             if (!urdu) Text(r.arabic, fontFamily = tk.fontArabic, fontSize = 20.sp, color = tk.accent, maxLines = 1)
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = FontWeight.Bold,
-                    fontSize = if (s.showRelative) 26.sp else 36.sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.8f else 1f))
+                    fontSize = if (s.showRelative) 24.sp else 40.sp, color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.8f else 1f))
                 if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = tk.fontDisplay, fontSize = 18.sp, color = tk.contentSecondary, modifier = Modifier.padding(bottom = 6.dp))
             }
             if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = 16.sp, color = tk.contentSecondary, maxLines = 2)
@@ -392,6 +425,31 @@ private fun GalleryCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: F
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun GalleryRail(doorList: List<Door>, tk: ThemeTokens, u: Dp, F: FontFamily, urdu: Boolean, modifier: Modifier, spread: Boolean = false) {
+    if (spread) {
+        var expanded by remember { mutableStateOf(false) }
+        val visible = doorList.take(2)
+        val extra = doorList.drop(2)
+        Row(modifier, verticalAlignment = Alignment.CenterVertically) {
+            visible.forEach { d ->
+                Row(Modifier.weight(1f).heightIn(min = 48.dp)
+                    .then(if (d.onClick != null) Modifier.clickable(onClick = d.onClick, role = Role.Button) else Modifier)
+                    .padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Icon(if (d.warn) Icons.Outlined.NotificationsActive else Icons.AutoMirrored.Outlined.KeyboardArrowRight, null, Modifier.size(24.dp), tint = if (d.warn) tk.warning else tk.accent)
+                    Text(d.label, fontFamily = F, fontSize = 16.sp, color = tk.contentPrimary, maxLines = 2)
+                }
+            }
+            if (extra.isNotEmpty()) Box {
+                Box(Modifier.size(48.dp).clickable(onClick = { expanded = true }, role = Role.Button)
+                    .semantics { contentDescription = if (urdu) "مزید اختیارات" else "More actions" }, contentAlignment = Alignment.Center) {
+                    Icon(Icons.Outlined.MoreHoriz, null, tint = tk.contentPrimary)
+                }
+                androidx.compose.material3.DropdownMenu(expanded, onDismissRequest = { expanded = false }) {
+                    extra.forEach { d -> androidx.compose.material3.DropdownMenuItem(text = { Text(d.label, fontFamily = F) }, onClick = { expanded = false; d.onClick?.invoke() }) }
+                }
+            }
+        }
+        return
+    }
     Column(modifier) {
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
         Row(Modifier.fillMaxWidth().padding(top = u * 0.3f), verticalAlignment = Alignment.CenterVertically) {

@@ -23,7 +23,7 @@ jobs:
           test -n "$KEYSTORE_BASE64"
           mkdir -p keystore && printf '%s' "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
           echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
-          echo "MIQAAT_VERSION_NAME=1.162-gallery" >> "$GITHUB_ENV"
+          echo "MIQAAT_VERSION_NAME=1.163-gallery" >> "$GITHUB_ENV"
       - name: Unit tests, lint, build
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -36,6 +36,19 @@ jobs:
           BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
           "$BT/apksigner" verify --print-certs candidate/Miqaat-gallery.apk | grep -i "SHA-256" | tee candidate/signature.txt
           grep -qi 6285b269 candidate/signature.txt
+      - name: Retain raw evidence and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gallery-evidence-${{ github.sha }}
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            app/build/audit-screens/
+            app/build/test-results/
+            app/build/reports/
+            build.log
+            candidate/signature.txt
       - name: Publish tablet-landscape captures to a branch (for review)
         if: always()
         run: |
@@ -61,7 +74,7 @@ jobs:
         if: success()
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: gallery-tablet-1.162-${{ github.run_number }}
+          tag_name: gallery-tablet-1.163-${{ github.run_number }}
           target_commitish: ${{ github.sha }}
           name: Gallery tablet landscape candidate (build ${{ github.run_number }})
           body: |
