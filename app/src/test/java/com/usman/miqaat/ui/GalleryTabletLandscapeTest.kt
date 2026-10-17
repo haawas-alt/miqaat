@@ -191,8 +191,17 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
                 val layouts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
                 val action = node.config.getOrNull(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult)
                 assertTrue("Missing text layout for $text", action?.action?.invoke(layouts) == true && layouts.isNotEmpty())
-                layouts.forEach { assertFalse("Clipped text: $text", it.didOverflowWidth || it.didOverflowHeight) }
-                val b = node.boundsInRoot
+                layouts.forEach {
+                    // Compose compares float paragraph extents with integer layout pixels. Permit at most
+                    // one physical pixel of rounding; never permit a dropped line, ellipsis or material overflow.
+                    val widthOver = it.multiParagraph.width - it.size.width
+                    val heightOver = it.multiParagraph.height - it.size.height
+                    if (it.didOverflowWidth || it.didOverflowHeight) println("Gallery text metrics: $text size=${it.size} paragraph=${it.multiParagraph.width}x${it.multiParagraph.height} overflow=$widthOver,$heightOver")
+                    assertFalse("Clipped text: $text size=${it.size} paragraph=${it.multiParagraph.width}x${it.multiParagraph.height} overflow=$widthOver,$heightOver",
+                        it.multiParagraph.didExceedMaxLines || (it.didOverflowWidth && widthOver > 1f) || (it.didOverflowHeight && heightOver > 1f))
+                }
+                val b = androidx.compose.ui.geometry.Rect(node.positionInRoot,
+                    androidx.compose.ui.geometry.Size(node.size.width.toFloat(), node.size.height.toFloat()))
                 if (b.left < cardBounds.left - 0.5f || b.top < cardBounds.top - 0.5f || b.right > cardBounds.right + 0.5f || b.bottom > cardBounds.bottom + 0.5f)
                     bad += "${text.first().text} $b outside $cardBounds"
             }

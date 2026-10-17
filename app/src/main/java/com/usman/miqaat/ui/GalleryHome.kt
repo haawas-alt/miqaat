@@ -116,8 +116,8 @@ private fun GalleryWide(state: PrayerState, s: AppSettings, a: HomeActions, tk: 
             GalleryHeader(s, a, tk, u * 0.95f, F, urdu, Modifier.fillMaxSize().statusBarsPadding().displayCutoutPadding().padding(horizontal = 40.dp))
         }
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
-        GalleryHeroBand(hero, state, s, tk, F, urdu, Modifier.fillMaxWidth().weight(if (compact) 0.30f else 0.34f).testTag("home-hero")) { onWhy(hero.prayer) }
-        GalleryPrayerGrid(state, s, a, tk, F, urdu, Modifier.fillMaxWidth().weight(if (compact) 0.56f else 0.52f).padding(horizontal = 24.dp, vertical = 8.dp).testTag("home-prayers"), onWhy)
+        GalleryHeroBand(hero, state, s, tk, F, urdu, Modifier.fillMaxWidth().weight(if (compact) 0.31f else 0.34f).testTag("home-hero")) { onWhy(hero.prayer) }
+        GalleryPrayerGrid(state, s, a, tk, F, urdu, Modifier.fillMaxWidth().weight(if (compact) 0.55f else 0.52f).padding(horizontal = 24.dp, vertical = 8.dp).testTag("home-prayers"), onWhy)
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
         GalleryRail(doorList, tk, u * 0.9f, F, urdu, Modifier.fillMaxWidth().height(60.dp).navigationBarsPadding().displayCutoutPadding().padding(horizontal = 40.dp), spread = true)
     }
@@ -166,20 +166,30 @@ private fun GalleryHeroBand(hero: HeroInfo, state: PrayerState, s: AppSettings, 
     Box(modifier) {
         Image(painterResource(R.drawable.art_gallery_landscape_v2), null, Modifier.matchParentSize().clearAndSetSemantics { }, contentScale = ContentScale.Crop, alignment = Alignment.TopCenter)
         Box(Modifier.matchParentSize().background(tk.background.copy(alpha = 0.18f)))
-        Column(Modifier.fillMaxWidth().background(tk.background.copy(alpha = 0.94f)).padding(horizontal = 16.dp, vertical = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(greg, fontFamily = F, fontSize = if (compact) 14.sp else 18.sp, color = tk.contentPrimary, textAlign = TextAlign.Center)
-            hijriLine?.let { Text(it, fontFamily = F, fontSize = if (compact) 13.sp else 16.sp, color = tk.contentSecondary, textAlign = TextAlign.Center) }
+        if (urdu || compact) {
+            Row(Modifier.fillMaxWidth().background(tk.background.copy(alpha = 0.94f)).padding(horizontal = 16.dp, vertical = 4.dp),
+                verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                Text(greg, fontFamily = F, fontSize = if (compact) 13.sp else 18.sp, color = tk.contentPrimary,
+                    modifier = Modifier.weight(1f), textAlign = TextAlign.End)
+                hijriLine?.let { Text(it, fontFamily = F, fontSize = if (compact) 13.sp else 16.sp, color = tk.contentSecondary,
+                    modifier = Modifier.weight(1f), textAlign = TextAlign.Start) }
+            }
+        } else {
+            Column(Modifier.fillMaxWidth().background(tk.background.copy(alpha = 0.94f)).padding(horizontal = 16.dp, vertical = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(greg, fontFamily = F, fontSize = 18.sp, color = tk.contentPrimary, textAlign = TextAlign.Center)
+                hijriLine?.let { Text(it, fontFamily = F, fontSize = 16.sp, color = tk.contentSecondary, textAlign = TextAlign.Center) }
+            }
         }
-        Row(Modifier.fillMaxSize().padding(horizontal = 24.dp).padding(top = if (compact) 48.dp else 62.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(Modifier.fillMaxSize().padding(horizontal = 24.dp).padding(top = if (compact) 44.dp else 62.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(0.42f).semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
                 hero.special?.let { Text(it, fontFamily = Nunito, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = tk.accent) }
-                Text(hero.kickerLabel, fontFamily = F, fontSize = 14.sp, color = tk.contentSecondary)
-                Text(hero.label, fontFamily = if (urdu) F else GalleryDisplay, fontWeight = FontWeight.Medium, fontSize = if (compact) 36.sp else if (urdu) 40.sp else 56.sp, color = tk.contentPrimary, maxLines = 1)
-                Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = if (compact) 26.sp else 36.sp, color = tk.accent, maxLines = 1)
+                Text(hero.kickerLabel, fontFamily = F, fontSize = if (compact && urdu) 11.sp else 14.sp, color = tk.contentSecondary)
+                Text(hero.label, fontFamily = if (urdu) F else GalleryDisplay, fontWeight = FontWeight.Medium, fontSize = if (compact && urdu) 24.sp else if (compact) 36.sp else if (urdu) 40.sp else 56.sp, color = tk.contentPrimary, maxLines = 1)
+                if (!urdu) Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = if (compact) 26.sp else 36.sp, color = tk.accent, maxLines = 1)
                 Row(Modifier.padding(top = 2.dp), verticalAlignment = Alignment.CenterVertically) {
                     Icon(if (hero.justPassed) Icons.Outlined.CheckCircle else Icons.Outlined.Schedule, null, Modifier.size(20.dp), tint = tk.accent)
                     Spacer(Modifier.width(8.dp))
-                    Text(hero.status, fontFamily = F, fontSize = if (compact) 14.sp else if (urdu) 16.sp else 18.sp, color = tk.contentPrimary, maxLines = 1)
+                    Text(hero.status, fontFamily = F, fontSize = if (compact && urdu) 12.sp else if (compact) 14.sp else if (urdu) 16.sp else 18.sp, color = tk.contentPrimary, maxLines = 1)
                 }
             }
             Spacer(Modifier.weight(0.20f))
@@ -269,7 +279,7 @@ private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
                     fontSize = if (s.showRelative) 24.sp else if (compact) 38.sp else 48.sp, color = ink, maxLines = 1)
                 if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = GalleryBody, fontSize = 18.sp, color = tk.contentPrimary, modifier = Modifier.padding(bottom = 6.dp))
             }
-            if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = if (compact) 14.sp else 16.sp, color = tk.contentSecondary, maxLines = 2)
+            if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = if (compact && urdu) 12.sp else if (compact) 14.sp else 16.sp, color = tk.contentSecondary, maxLines = 2)
         }
     }
 }
