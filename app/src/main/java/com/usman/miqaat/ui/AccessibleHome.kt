@@ -10,6 +10,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
@@ -149,7 +150,7 @@ private fun DoorRow(d: Door, tk: ThemeTokens, F: androidx.compose.ui.text.font.F
             .then(if (d.onClick != null) Modifier.clickable(role = Role.Button, onClick = d.onClick) else Modifier).padding(horizontal = 16.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(if (d.warn) Icons.Outlined.WarningAmber else Icons.Outlined.ChevronRight, null, Modifier.size(24.dp), tint = if (d.warn) tk.warning else tk.primary)
+        Icon(if (d.warn) Icons.Outlined.WarningAmber else if (tk.theme == com.usman.miqaat.data.AppTheme.PRAYER_GALLERY) Icons.AutoMirrored.Outlined.KeyboardArrowRight else Icons.Outlined.ChevronRight, null, Modifier.size(24.dp), tint = if (d.warn) tk.warning else tk.primary)
         Spacer(Modifier.width(12.dp))
         Text(d.label, fontFamily = F, fontSize = 18.sp, fontWeight = FontWeight.Medium, color = ink)
     }
