@@ -273,7 +273,7 @@ private fun CelestialRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: 
         if (selected) Box(Modifier.width(u * 0.5f).height(u * 5f).background(tk.accent)) else Spacer(Modifier.width(u * 0.5f))
         Spacer(Modifier.width(u * 1.2f))
         Box(Modifier.size(u * 4.6f).clip(CircleShape).background(tk.surfaceRaised), contentAlignment = Alignment.Center) {
-            Icon(prayerIcon(r.prayer), null, Modifier.size(u * 2.4f), tint = if (selected) tk.accent else tk.primary)
+            Icon(if (r.prayer == Prayer.ASR) AsrShadowIcon else prayerIcon(r.prayer), null, Modifier.size(u * 2.4f), tint = if (selected) tk.accent else tk.primary)
         }
         Spacer(Modifier.width(u * 1.4f))
         Column(Modifier.weight(1f)) {
