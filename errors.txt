@@ -1,0 +1,21 @@
+> Task :app:compileGithubReleaseKotlin FAILED
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:16:13 Cannot infer type for this parameter. Please specify it explicitly.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:17:9 Unresolved reference 'path'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:17:9 Cannot infer type for this parameter. Please specify it explicitly.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:18:9 Unresolved reference 'path'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:19:9 Unresolved reference 'path'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:20:9 Unresolved reference 'path'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:21:9 Unresolved reference 'path'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:22:9 Unresolved reference 'path'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:23:9 Unresolved reference 'path'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:24:9 Unresolved reference 'path'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:25:9 Unresolved reference 'path'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:26:9 Unresolved reference 'path'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:27:9 Unresolved reference 'path'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:28:9 Unresolved reference 'path'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:31:11 Cannot infer type for this parameter. Please specify it explicitly.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:31:11 Not enough information to infer type argument for 'T'.
+e: app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt:31:21 Cannot infer type for this parameter. Please specify it explicitly.
+FAILURE: Build failed with an exception.
+* What went wrong:
+BUILD FAILED in 56s
