@@ -180,7 +180,7 @@ private fun GalleryHeroBand(hero: HeroInfo, state: PrayerState, s: AppSettings, 
                 hijriLine?.let { Text(it, fontFamily = F, fontSize = 16.sp, color = tk.contentSecondary, textAlign = TextAlign.Center) }
             }
         }
-        Row(Modifier.fillMaxSize().padding(horizontal = 24.dp).padding(top = if (compact) 44.dp else 62.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(Modifier.fillMaxSize().padding(horizontal = 24.dp).padding(top = if (compact) 42.dp else 62.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(0.42f).semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
                 Text(hero.kickerLabel, fontFamily = F, fontSize = if (compact && urdu) 11.sp else 14.sp, color = tk.contentSecondary)
                 Text(hero.label, fontFamily = if (urdu) F else GalleryDisplay, fontWeight = FontWeight.Medium, fontSize = if (compact && urdu) 24.sp else if (compact) 36.sp else if (urdu) 40.sp else 56.sp, color = tk.contentPrimary, maxLines = 1)
@@ -259,7 +259,7 @@ private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
             .testTag("gallery-card-${r.prayer.name}")
             .semantics(mergeDescendants = true) { contentDescription = r.spoken }
     ) {
-        Box(Modifier.fillMaxHeight().fillMaxWidth(0.26f)) {
+        Box(Modifier.fillMaxHeight().fillMaxWidth(if (compact) 0.22f else 0.34f)) {
             GalleryTileArt(art, galleryTileIndex(r.prayer), Modifier.matchParentSize())
             if (selected) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"), fontFamily = GalleryBody, fontSize = if (compact) 11.sp else 13.sp,
                 fontWeight = FontWeight.Bold, color = Color.White,
@@ -783,8 +783,13 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
         .semantics(mergeDescendants = true) { contentDescription = r.spoken },
         verticalAlignment = Alignment.CenterVertically) {
         Box(Modifier.width(4.dp).fillMaxHeight().background(if (r.isNow) tk.success else if (r.isNext) tk.accent else Color.Transparent))
-        PrayerCardArt(r.prayer, Modifier.padding(horizontal = 8.dp).size(52.dp)
-            .clip(RoundedCornerShape(10.dp)).clearAndSetSemantics { })
+        Box(Modifier.padding(horizontal = 8.dp).size(52.dp).clip(RoundedCornerShape(10.dp))) {
+            PrayerCardArt(r.prayer, Modifier.matchParentSize().clearAndSetSemantics { })
+            if (selected) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"), fontFamily = if (urdu) tk.fontArabic else GalleryBody,
+                fontSize = if (urdu) 12.sp else 10.sp, fontWeight = FontWeight.Bold, color = Color.White,
+                modifier = Modifier.align(Alignment.BottomCenter).testTag("gallery-fit-marker-${r.prayer.name}")
+                    .clip(RoundedCornerShape(12.dp)).background(if (r.isNow) tk.success else tk.accent).padding(horizontal = 4.dp))
+        }
         Column(Modifier.weight(1f)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Text(r.label, fontFamily = if (urdu) tk.fontArabic else Cormorant,
@@ -797,9 +802,6 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
                 if (selected) Icon(if (r.isNow) Icons.Outlined.Schedule else Icons.Outlined.ChevronRight,
                     null, Modifier.size(16.dp), tint = ink)
             }
-            if (selected) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"), fontFamily = if (urdu) tk.fontArabic else GalleryBody,
-                fontSize = 12.sp, fontWeight = FontWeight.Bold, color = if (r.isNow) tk.success else tk.accent,
-                modifier = Modifier.testTag("gallery-fit-marker-${r.prayer.name}"))
             Text(r.small, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp,
                 style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)), color = tk.contentSecondary, maxLines = 2,
                 modifier = Modifier.fillMaxWidth().testTag("gallery-fit-detail-${r.prayer.name}"))

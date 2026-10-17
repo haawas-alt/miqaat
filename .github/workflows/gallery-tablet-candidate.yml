@@ -61,6 +61,7 @@ jobs:
           if-no-files-found: error
           path: |
             app/build/audit-screens/gallery-*.png
+            app/build/audit-screens/detailed-gallery/
             app/build/test-results/**/*.xml
             app/build/reports/lint-results*
             build.log

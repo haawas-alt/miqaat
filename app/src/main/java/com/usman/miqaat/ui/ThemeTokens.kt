@@ -146,7 +146,7 @@ object ThemeTokenSets {
         contentPrimary = Color(0xFF0B302D), contentSecondary = Color(0xFF665F59), contentMuted = Color(0xFF6B635C),
         info = Color(0xFFA94F31), success = Color(0xFF0E7A58), warning = Color(0xFFA94F31), accent = Color(0xFFA94F31), sun = Color(0xFFE7A94B),
         error = Color(0xFFB3261E),
-        todayText = Color(0xFFA94F31), fridayText = Color(0xFF0E7A58), neutralStroke = Color(0xFF8C8377),
+        todayText = Color(0xFF8F3F26), fridayText = Color(0xFF0E7A58), neutralStroke = Color(0xFF8C8377),
         arabicText = Color(0xFF0B302D), scrim = Color(0x0D0B302D), softFill = Color(0xFFF3ECDD),
         skyAzaan = listOf(Color(0xFFF6E7D0), Color(0xFFFBF7EE)), skyIqamah = listOf(Color(0xFFDCEBE4), Color(0xFFF3F4EA), Color(0xFFFBF7EE)), skyDua = listOf(Color(0xFFE3EAF8), Color(0xFFF3F0EA), Color(0xFFFBF7EE)),
         cornerSmall = 10.dp, cornerMedium = 16.dp, cornerLarge = 22.dp, elevation = 0.dp,
