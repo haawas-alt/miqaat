@@ -1,0 +1,32 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 2099, "t": 2.7}
+{"ev": "setup-screen", "step": 0, "shot": "phone-landscape-gallery_en__setup0.png", "key": "5eb3fbd341", "labels": ["Location: ⁨⁩. Opens location settings", "Saturday 17 October 2026", "6 Jumādā al-Ūlā 1448", "Learn Sala
+{"ev": "setup-stuck", "t": 8.2}
+{"ev": "setup-screen", "step": 1, "shot": "phone-landscape-gallery_en__setup1.png", "key": "0987c4cadb", "labels": ["Location: ⁨⁩. Opens location settings", "Saturday 17 October 2026", "6 Jumādā al-Ūlā 1448", "Learn Sala
+{"ev": "setup-tap", "label": "Begin", "t": 13.5}
+{"ev": "setup-screen", "step": 2, "shot": "phone-landscape-gallery_en__setup2.png", "key": "c037237329", "labels": ["Location: ⁨⁩. Opens location settings", "Saturday 17 October 2026", "6 Jumādā al-Ūlā 1448", "Learn Sala
+{"ev": "detect-result", "shot": "phone-landscape-gallery_en__setup2_after-detect-20s.png", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Saturday 17 October 2026", "6 Jumādā al-
+{"ev": "setup-screen", "step": 3, "shot": "phone-landscape-gallery_en__setup3.png", "key": "200543aad0", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Saturday 17 October 2026",
+{"ev": "setup-tap", "label": "Next", "t": 44.5}
+{"ev": "setup-screen", "step": 4, "shot": "phone-landscape-gallery_en__setup4.png", "key": "d6a3888e34", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Saturday 17 October 2026",
+{"ev": "setup-stuck", "t": 49.6}
+{"ev": "setup-screen", "step": 5, "shot": "phone-landscape-gallery_en__setup5.png", "key": "970758d159", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Saturday 17 October 2026",
+{"ev": "setup-stuck", "t": 55.0}
+{"ev": "setup-screen", "step": 6, "shot": "phone-landscape-gallery_en__setup6.png", "key": "dae91cbbe9", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Saturday 17 October 2026",
+{"ev": "setup-tap", "label": "These look right", "t": 60.3}
+{"ev": "setup-screen", "step": 7, "shot": "phone-landscape-gallery_en__setup7.png", "key": "e9427b174d", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Saturday 17 October 2026",
+{"ev": "setup-stuck", "t": 65.5}
+{"ev": "setup-screen", "step": 8, "shot": "phone-landscape-gallery_en__setup8.png", "key": "999bd683b6", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Saturday 17 October 2026",
+{"ev": "setup-stuck", "t": 70.8}
+{"ev": "setup-screen", "step": 9, "shot": "phone-landscape-gallery_en__setup9.png", "key": "86d0aae482", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Saturday 17 October 2026",
+{"ev": "setup-tap", "label": "Finish", "t": 76.6}
+{"ev": "setup-done", "step": 10, "t": 81.4}
+{"ev": "setup-result", "ok": true, "t": 81.4}
+{"ev": "theme-set", "kw": "Gallery", "t": 126.9}
+{"ev": "screen", "depth": 0, "path": [], "key": "5341bd0684", "pos": 0, "shot": "phone-landscape-gallery_en-Gallery-en-f1.0__001__d0__p0.png", "labels": ["Current location", "Sat 17 Oct", "Learn Salah", "Monthly timetabl
+{"ev": "no-change", "label": "Fajr", "shot": "phone-landscape-gallery_en-Gallery-en-f1.0__002__same__Fajr.png", "path": [], "t": 152.5}
+{"ev": "no-change", "label": "Fajr", "shot": "phone-landscape-gallery_en-Gallery-en-f1.0__003__same__Fajr.png", "path": [], "t": 158.4}
+{"ev": "theme-done", "tag": "phone-landscape-gallery_en-Gallery-en-f1.0", "actions": 2, "screens": 3, "t": 158.4}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 160.4}
+{"ev": "gfx", "lines": ["Total frames rendered: 136", "Janky frames: 133 (97.79%)", "Janky frames (legacy): 136 (100.00%)", "50th percentile: 117ms", "90th percentile: 550ms", "95th percentile: 600ms", "99th percentile: 
+{"ev": "mem", "lines": ["  Native Heap    40373    40316        0        0    43488    49704    42179     3974", "        TOTAL    67051    54936     3732        0   193332    64082    49384    11147", "           Java H

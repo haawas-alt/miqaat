@@ -1,0 +1,26 @@
+{"ev": "env", "density": 2.625, "size": "Physical size: 1080x2400", "rot": "", "t": 0.3}
+{"ev": "cold-start-ms", "ms": 1827, "t": 2.5}
+{"ev": "setup-screen", "step": 0, "shot": "phone-portrait-gallery_en__setup0.png", "key": "3cd4f0e6bb", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Saturday 17 Oct
+{"ev": "setup-tap", "label": "Begin", "t": 7.8}
+{"ev": "setup-screen", "step": 1, "shot": "phone-portrait-gallery_en__setup1.png", "key": "2748bec844", "labels": ["Location: ⁨⁩. Opens location settings", "Learn Salah", "Monthly timetable", "Settings", "Saturday 17 Oct
+{"ev": "detect-result", "shot": "phone-portrait-gallery_en__setup1_after-detect-20s.png", "labels": ["Location: ⁨Current location⁩. Opens location settings", "Current location", "Learn Salah", "Monthly timetable", "Setti
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 38.0}
+{"ev": "setup-screen", "step": 2, "shot": "phone-portrait-gallery_en__setup2.png", "key": "50ed5a3145", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "S
+{"ev": "setup-tap", "label": "Next", "t": 40.8}
+{"ev": "setup-screen", "step": 3, "shot": "phone-portrait-gallery_en__setup3.png", "key": "28e0a8f8d8", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "S
+{"ev": "setup-stuck", "t": 45.9}
+{"ev": "setup-screen", "step": 4, "shot": "phone-portrait-gallery_en__setup4.png", "key": "ee64e33422", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "S
+{"ev": "setup-stuck", "t": 51.4}
+{"ev": "setup-screen", "step": 5, "shot": "phone-portrait-gallery_en__setup5.png", "key": "2859417d06", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "S
+{"ev": "setup-tap", "label": "These look right", "t": 56.9}
+{"ev": "setup-screen", "step": 6, "shot": "phone-portrait-gallery_en__setup6.png", "key": "d84c7ad566", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Learn Salah", "Monthly timetable", "S
+{"ev": "setup-tap", "label": "Finish", "t": 62.0}
+{"ev": "setup-done", "step": 7, "t": 66.9}
+{"ev": "setup-result", "ok": true, "t": 66.9}
+{"ev": "theme-set", "kw": "Gallery", "t": 79.0}
+{"ev": "screen", "depth": 0, "path": [], "key": "996eb71eb9", "pos": 0, "shot": "phone-portrait-gallery_en-Gallery-en-f1.0__001__d0__p0.png", "labels": ["Miqaat", "Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydn
+{"ev": "screen", "depth": 1, "path": ["Learn Salah"], "key": "80d228ac5e", "pos": 0, "shot": "phone-portrait-gallery_en-Gallery-en-f1.0__002__d1__p0.png", "labels": ["Back", "Learn Salah", "الصَّلَاة", "One common form o
+{"ev": "theme-done", "tag": "phone-portrait-gallery_en-Gallery-en-f1.0", "actions": 2, "screens": 2, "t": 121.9}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 123.9}
+{"ev": "gfx", "lines": ["Total frames rendered: 80", "Janky frames: 80 (100.00%)", "Janky frames (legacy): 80 (100.00%)", "50th percentile: 150ms", "90th percentile: 650ms", "95th percentile: 700ms", "99th percentile: 22
+{"ev": "mem", "lines": ["  Native Heap    54337    54280        0        0    57484    64612    54873     5686", "        TOTAL    80904    68764     3684        0   207032    82452    63793    14606", "           Java H
