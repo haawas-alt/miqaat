@@ -530,10 +530,14 @@ def mode_notify():
     keep = [l for l in alarms.splitlines() if "miqaat" in l.lower()][:20]
     open(os.path.join(A.out, "alarm-armed.txt"), "w").write("\n".join(keep)); log(ev="alarm", lines=keep[:8])
     if tap_text("Settings") and tap_text("Reliability & backup"): time.sleep(2); snap(tag, "next-alarm-armed")
-    sh("shell", "input", "keyevent", "KEYCODE_HOME"); time.sleep(2)
-    out = sh("shell", "cmd", "alarm", "set-time", "1792437600000")
-    log(ev="set-time", sc="sunrise-fire", out=out.strip()[:80] + " | " + sh("shell", "date").strip())
-    time.sleep(20)
+    # Real-time firing: clock to 06:07 local (one minute before), relaunch so the alarm is re-armed from the new clock, wait.
+    sh("shell", "am", "force-stop", PKG)
+    log(ev="set-time", sc="sunrise-minus1", out=sh("shell", "date", "-u", "101919072026.00").strip()[:60])
+    sh("logcat", "-c"); launch(); go_home(); time.sleep(3)
+    sh("shell", "input", "keyevent", "KEYCODE_HOME")
+    time.sleep(110)
+    lc = sh("logcat", "-d", "-s", "AzaanScheduler:*", "AndroidRuntime:E", "ActivityManager:W", timeout=60)
+    open(os.path.join(A.out, "logcat-sunrise.txt"), "w").write(lc[-20000:])
     sh("shell", "cmd", "statusbar", "expand-notifications"); time.sleep(3)
     snap(tag, "shade-sunrise"); notif_dump("sunrise")
 
