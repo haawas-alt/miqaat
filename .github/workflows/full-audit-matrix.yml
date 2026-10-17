@@ -19,13 +19,12 @@ jobs:
           - { name: phone-landscape, profile: pixel_6, rotation: 1, api: 35 }
           - { name: tablet-landscape, profile: pixel_tablet, rotation: 0, api: 35 }
           - { name: tablet-portrait, profile: pixel_tablet, rotation: 1, api: 35 }
-        group: [a, b, c, d]
-    env:
-      # a: homes (4 themes x 100/130/200 %, EN and UR), states; b: settings; c: secondary pages; d: Azaan flow and Learn.
-      TESTS_a: homes,homesUrdu,states
-      TESTS_b: settingsLanding,settingsCategories
-      TESTS_c: secondaryPages
-      TESTS_d: azaanFlow,learnLessons
+        # a: homes (4 themes x 100/130/200 %, EN and UR) and states; b: settings; c: secondary pages; d: Azaan flow and Learn.
+        group:
+          - { id: a, tests: 'homes,homesUrdu,states' }
+          - { id: b, tests: 'settingsLanding,settingsCategories' }
+          - { id: c, tests: 'secondaryPages' }
+          - { id: d, tests: 'azaanFlow,learnLessons' }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -51,11 +50,11 @@ jobs:
           disable-animations: true
           emulator-boot-timeout: 900
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096
-          script: bash .github/emulator-run.sh ${{ matrix.device.rotation }} ${{ matrix.device.name }}-${{ matrix.group }} "${{ env[format('TESTS_{0}', matrix.group)] }}"
+          script: bash .github/emulator-run.sh ${{ matrix.device.rotation }} ${{ matrix.device.name }}-${{ matrix.group.id }} "${{ matrix.group.tests }}"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: audit-${{ matrix.device.name }}-${{ matrix.group }}-${{ github.run_id }}
+          name: audit-${{ matrix.device.name }}-${{ matrix.group.id }}-${{ github.run_id }}
           path: |
             shots/
             app/build/test-results/**/*.xml
