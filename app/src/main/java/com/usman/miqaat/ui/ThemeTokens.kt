@@ -119,11 +119,11 @@ object ThemeTokenSets {
     val celestial = ThemeTokens(
         theme = AppTheme.CELESTIAL_MERIDIAN, dark = true, art = ArtStyle.CELESTIAL,
         background = Color(0xFF061A36), backgroundBrush = Brush.verticalGradient(listOf(Color(0xFF061A36), Color(0xFF0B2C55))),
-        surface = Color(0xFF0D2748), surfaceRaised = Color(0xFF133559), selectedSurface = Color(0xFF3A2B33),
+        surface = Color(0xFF0D2748), surfaceRaised = Color(0xFF133559), selectedSurface = Color(0xFF1E3A62),   // next prayer: lifted night blue with a gold edge (was a reddish wash)
         divider = Color(0x33B9C8DB), outline = Color(0x66B9C8DB), focusRing = Color(0xFF72D7E8),
         primary = Color(0xFFFFD166), onPrimary = Color(0xFF061A36),
         contentPrimary = Color(0xFFFFF6E5), contentSecondary = Color(0xFFB9C8DB), contentMuted = Color(0xFF8FA3BC),
-        info = Color(0xFF72D7E8), success = Color(0xFF63D7BB), warning = Color(0xFFFF805C), accent = Color(0xFFFF805C), sun = Color(0xFFFFD166),
+        info = Color(0xFF72D7E8), success = Color(0xFF63D7BB), warning = Color(0xFFFF805C), accent = Color(0xFFFFBE5C), sun = Color(0xFFFFD166),   // accent is warm gold, not coral: coral stays for warnings only
         error = Color(0xFFFF8A80),
         todayText = Color(0xFFFFD166), fridayText = Color(0xFF63D7BB), neutralStroke = Color(0x33B9C8DB),
         arabicText = Color(0xFFFFF6E5), scrim = Color(0x33061A36), softFill = Color(0x14FFFFFF),

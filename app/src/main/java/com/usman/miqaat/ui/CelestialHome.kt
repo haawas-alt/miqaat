@@ -127,8 +127,8 @@ private fun CelestialTopBar(state: PrayerState, s: AppSettings, a: HomeActions, 
     }
     val dateColumn: @Composable (Modifier) -> Unit = { m ->
         Column(m, horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(L10n.date(s, state.now), fontFamily = F, fontSize = fs(1.9f), letterSpacing = if (urdu) 0.sp else fs(0.08f), color = tk.contentPrimary, maxLines = 1, textAlign = TextAlign.Center)
-            if (s.showHijri) Text(L10n.hijri(s, hij), fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.9f), color = tk.primary, maxLines = 1, textAlign = TextAlign.Center)
+            Text(L10n.date(s, state.now), fontFamily = F, fontSize = fs(1.9f), color = tk.contentPrimary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, textAlign = TextAlign.Center)
+            if (s.showHijri) Text(L10n.hijri(s, hij), fontFamily = if (urdu) F else Cormorant, fontSize = fs(1.9f), color = tk.primary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, textAlign = TextAlign.Center)
         }
     }
     val buttons: @Composable (Modifier) -> Unit = { m ->
@@ -149,9 +149,10 @@ private fun CelestialTopBar(state: PrayerState, s: AppSettings, a: HomeActions, 
         }
     } else {
         Row(modifier, verticalAlignment = Alignment.CenterVertically) {
+            // Buttons are measured first at their natural width (labels never clipped); place and date share what is left.
             locationRow(Modifier.weight(1f))
             dateColumn(Modifier.weight(1.4f))
-            buttons(Modifier.weight(1f))
+            buttons(Modifier)
         }
     }
 }
@@ -186,9 +187,9 @@ private fun CelestialHero(hero: HeroInfo, state: PrayerState, s: AppSettings, tk
             if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = tk.fontDisplay, fontSize = fd(3.6f), color = tk.contentPrimary, modifier = Modifier.padding(top = u * 2.0f * scale))
         }
         Row(Modifier.padding(top = u * 0.8f), verticalAlignment = Alignment.CenterVertically) {
-            Icon(if (hero.justPassed) Icons.Outlined.CheckCircle else Icons.Outlined.Schedule, null, Modifier.size(u * 2.3f * scale), tint = tk.accent)
+            Icon(if (hero.justPassed) Icons.Outlined.CheckCircle else Icons.Outlined.Schedule, null, Modifier.size(u * 2.6f * scale), tint = tk.accent)
             Spacer(Modifier.width(u * 0.8f))
-            Text(hero.status, fontFamily = F, fontSize = fs(if (urdu) 2.3f else 2.1f), color = tk.accent, maxLines = 2)
+            Text(hero.status, fontFamily = F, fontSize = fs(if (urdu) 2.6f else 2.5f), fontWeight = FontWeight.SemiBold, color = tk.accent, maxLines = 2)
         }
         fastProgress(state, s)?.let { (frac, label) ->
             Column(Modifier.padding(top = u * 1.2f).width(u * 30 * scale)) {
@@ -238,7 +239,9 @@ private fun CelestialRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: 
         Spacer(Modifier.width(u * 1.4f))
         Column(Modifier.weight(1f)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(if (urdu) r.label else r.label.uppercase(), fontFamily = F, fontSize = fs(if (urdu) 1.9f else 1.5f), letterSpacing = if (urdu) 0.sp else fs(0.25f), fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, color = ink, maxLines = 1)
+                // Plain title case reads faster than spaced capitals and fits the narrow panel ("SUNRI…" was cut off).
+                Text(r.label, fontFamily = F, fontSize = fs(if (urdu) 1.9f else 1.85f), fontWeight = if (selected) FontWeight.Bold else FontWeight.SemiBold, color = ink, maxLines = 1,
+                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
                 Spacer(Modifier.width(u * 0.7f))
                 when {
                     r.isNow -> Text("· " + L10n.word(s, "NOW").lowercase(), fontFamily = Nunito, fontSize = fs(1.2f), fontWeight = FontWeight.Bold, color = tk.accent)
@@ -247,7 +250,7 @@ private fun CelestialRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: 
                     r.prayer.isPrayer -> Icon(if (r.azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(u * 1.5f), tint = tk.contentMuted)
                 }
             }
-            if (r.small.isNotEmpty() && !tight) Text(r.small, fontFamily = F, fontSize = maxOf(fs(1.15f).value, 11f).sp, color = tk.contentSecondary, maxLines = 2)
+            if (r.small.isNotEmpty() && !tight) Text(r.small, fontFamily = F, fontSize = maxOf(fs(1.35f).value, 12f).sp, color = tk.contentPrimary.copy(alpha = 0.78f), maxLines = 2)
         }
         Row(verticalAlignment = Alignment.Bottom) {
             Text(if (s.showRelative) r.relative else r.clock, fontFamily = if (s.showRelative) F else tk.fontDisplay, fontWeight = if (s.showRelative) FontWeight.SemiBold else FontWeight.Medium, fontSize = fs(if (s.showRelative) 2.2f else 4.2f), lineHeight = fs(4.4f), color = ink, maxLines = 1, modifier = Modifier.alpha(if (r.done) 0.7f else 1f))
