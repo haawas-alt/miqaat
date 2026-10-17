@@ -14,18 +14,18 @@ import androidx.compose.ui.unit.dp
  */
 internal val AsrShadowIcon: ImageVector by lazy {
     val d = listOf(
-        path("M8.7 6.2A2.5 2.5 0 1 1 3.7 6.2A2.5 2.5 0 1 1 8.7 6.2"),
-        path("M10.00 6.20L11.20 6.20"),
-        path("M8.89 8.89L9.74 9.74"),
-        path("M6.20 10.00L6.20 11.20"),
-        path("M3.51 8.89L2.66 9.74"),
-        path("M2.40 6.20L1.20 6.20"),
-        path("M3.51 3.51L2.66 2.66"),
-        path("M6.20 2.40L6.20 1.20"),
-        path("M8.89 3.51L9.74 2.66"),
-        path("M16 20V11"),
-        path("M16 15L22 20"),
-        path("M1.5 20H22.5"),
+        "M8.7 6.2A2.5 2.5 0 1 1 3.7 6.2A2.5 2.5 0 1 1 8.7 6.2",
+        "M10.00 6.20L11.20 6.20",
+        "M8.89 8.89L9.74 9.74",
+        "M6.20 10.00L6.20 11.20",
+        "M3.51 8.89L2.66 9.74",
+        "M2.40 6.20L1.20 6.20",
+        "M3.51 3.51L2.66 2.66",
+        "M6.20 2.40L6.20 1.20",
+        "M8.89 3.51L9.74 2.66",
+        "M16 20V11",
+        "M16 15L22 20",
+        "M1.5 20H22.5",
     )
     ImageVector.Builder(name = "AsrShadow", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
         d.forEach { p ->
