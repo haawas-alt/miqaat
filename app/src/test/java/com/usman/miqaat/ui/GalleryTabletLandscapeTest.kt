@@ -124,6 +124,6 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
             node.children.forEach { walk(it) }
         }
         walk(root)
-        texts.forEach { assertFalse("Text clipped in $tag: ${it.layoutInput.text}", it.didOverflowWidth || it.didOverflowHeight) }
+        texts.forEach { assertFalse("Text clipped in $tag: ${it.layoutInput.text}; size=${it.size}; constraints=${it.layoutInput.constraints}; w=${it.didOverflowWidth}; h=${it.didOverflowHeight}; card=${root.size}", it.didOverflowWidth || it.didOverflowHeight) }
     }
 }

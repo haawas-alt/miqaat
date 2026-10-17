@@ -200,7 +200,7 @@ private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
             .testTag("gallery-card-${r.prayer.name}")
             .semantics(mergeDescendants = true) { contentDescription = r.spoken }
     ) {
-        GalleryTileArt(art, galleryTileIndex(r.prayer), Modifier.fillMaxHeight().aspectRatio(264f / 230f))
+        GalleryTileArt(art, galleryTileIndex(r.prayer), Modifier.fillMaxHeight().width(150.dp))
         Column(Modifier.weight(1f).fillMaxHeight().padding(horizontal = 14.dp, vertical = 8.dp), verticalArrangement = Arrangement.SpaceBetween) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = if (urdu) 22.sp else 24.sp, color = ink, maxLines = 1, modifier = Modifier.weight(1f, fill = false))
@@ -230,7 +230,10 @@ private fun GalleryTileArt(bmp: ImageBitmap, index: Int, modifier: Modifier) {
     val srcY = (bmp.height * 540f / 992f).toInt()
     val srcH = (bmp.height * 230f / 992f).toInt()
     Canvas(modifier.clearAndSetSemantics { }) {
-        drawImage(bmp, srcOffset = IntOffset(index * tileW, srcY), srcSize = IntSize(tileW, srcH), dstSize = IntSize(size.width.toInt(), size.height.toInt()))
+        // Crop the tile to this box's own shape (centred), so the illustration is never stretched.
+        val srcW = minOf(tileW, (srcH * size.width / size.height).toInt())
+        val srcX = index * tileW + (tileW - srcW) / 2
+        drawImage(bmp, srcOffset = IntOffset(srcX, srcY), srcSize = IntSize(srcW, srcH), dstSize = IntSize(size.width.toInt(), size.height.toInt()))
     }
 }
 
