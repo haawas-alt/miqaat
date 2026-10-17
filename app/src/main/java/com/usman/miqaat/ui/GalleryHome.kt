@@ -5,8 +5,8 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.drawscope.drawImage
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
@@ -222,7 +222,7 @@ private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
 /** Crops one illustrated period tile from the bundled Gallery landscape artwork (no text is baked into the crop). */
 @Composable
 private fun GalleryTileArt(index: Int, modifier: Modifier) {
-    val bmp = androidx.compose.ui.res.imageResource(R.drawable.art_gallery_landscape_v2)
+    val bmp = imageResource(R.drawable.art_gallery_landscape_v2)
     val tileW = bmp.width / 6
     val srcY = (bmp.height * 540f / 992f).toInt()
     val srcH = (bmp.height * 230f / 992f).toInt()
