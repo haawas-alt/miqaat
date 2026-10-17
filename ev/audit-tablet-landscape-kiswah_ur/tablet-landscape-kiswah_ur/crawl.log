@@ -1,0 +1,34 @@
+{"ev": "env", "density": 2.0, "size": "Physical size: 2560x1600", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 2151, "t": 2.6}
+{"ev": "setup-screen", "step": 0, "shot": "tablet-landscape-kiswah_ur__setup0.png", "key": "943f1865c5", "labels": ["Location: ⁨⁩. Opens location settings", "Saturday 17 October 2026  ·  2:15 AM", "·", "⁨٦ جمادى الأولى ١
+{"ev": "setup-tap", "label": "Begin", "t": 7.9}
+{"ev": "setup-screen", "step": 1, "shot": "tablet-landscape-kiswah_ur__setup1.png", "key": "30d7c7d397", "labels": ["Location: ⁨⁩. Opens location settings", "Saturday 17 October 2026  ·  2:15 AM", "·", "⁨٦ جمادى الأولى ١
+{"ev": "detect-result", "shot": "tablet-landscape-kiswah_ur__setup1_after-detect-20s.png", "labels": ["Location: ⁨⁩. Opens location settings", "Saturday 17 October 2026  ·  2:15 AM", "·", "⁨٦ جمادى الأولى ١٤٤٨⁩", "Learn 
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 38.1}
+{"ev": "setup-screen", "step": 2, "shot": "tablet-landscape-kiswah_ur__setup2.png", "key": "4ac0e74536", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Saturday 17 October 2026  ·  1:15 PM
+{"ev": "setup-tap", "label": "Next", "t": 41.3}
+{"ev": "setup-screen", "step": 3, "shot": "tablet-landscape-kiswah_ur__setup3.png", "key": "28de799e74", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Saturday 17 October 2026  ·  1:15 PM
+{"ev": "setup-tap", "label": "These look right", "t": 46.7}
+{"ev": "setup-screen", "step": 4, "shot": "tablet-landscape-kiswah_ur__setup4.png", "key": "a94f098523", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Saturday 17 October 2026  ·  1:16 PM
+{"ev": "setup-tap", "label": "Finish", "t": 51.9}
+{"ev": "setup-done", "step": 5, "t": 56.8}
+{"ev": "setup-result", "ok": true, "t": 56.8}
+{"ev": "lang-set", "t": 99.5}
+{"ev": "theme-set", "kw": "Kiswah", "t": 115.6}
+{"ev": "screen", "depth": 0, "path": [], "key": "f570aa44c9", "pos": 0, "shot": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0__001__d0__p0.png", "labels": ["مقام: ⁨Sydney, NSW⁩۔ مقام کی ترتیبات کھولیں۔", "SYDNEY, NSW", "⁧6 
+{"ev": "screen", "depth": 1, "path": ["نماز سیکھیں"], "key": "75e33ecd9f", "pos": 0, "shot": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0__002__d1__p0.png", "labels": ["واپس", "نماز سیکھیں", "الصَّلَاة", "نماز کا ایک عام ط
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "b5553dd69c", "pos": 0, "shot": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0__003__d1__p0.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی ال
+{"ev": "screen", "depth": 1, "path": ["ماہانہ ٹائم ٹیبل"], "key": "1342cfc633", "pos": 1, "shot": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0__004__d1__p1.png", "labels": ["واپس", "⁧اکتوبر 2026⁩", "⁧ربیع الثانی – جمادی ال
+{"ev": "screen", "depth": 1, "path": ["ترتیبات"], "key": "3433d66d37", "pos": 0, "shot": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0__005__d1__p0.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نم
+{"ev": "screen", "depth": 1, "path": ["ترتیبات"], "key": "1b3abdfd79", "pos": 1, "shot": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0__006__d1__p1.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نم
+{"ev": "screen", "depth": 1, "path": ["ترتیبات"], "key": "f93ec8267b", "pos": 2, "shot": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0__007__d1__p2.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نم
+{"ev": "screen", "depth": 1, "path": ["ترتیبات"], "key": "b4d78f397c", "pos": 3, "shot": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0__008__d1__p3.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نم
+{"ev": "screen", "depth": 1, "path": ["ترتیبات"], "key": "2d944d030f", "pos": 4, "shot": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0__009__d1__p4.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نم
+{"ev": "screen", "depth": 1, "path": ["ترتیبات"], "key": "03588b7f7a", "pos": 5, "shot": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0__010__d1__p5.png", "labels": ["واپس", "ترتیبات", "ترتیبات تلاش کریں", "مقام", "اوقاتِ نم
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیسے طے ہوتا ہے؟"], "key": "3a6f79df9f", "pos": 0, "shot": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0__011__d1__p0.png", "labels": ["4:45 کیوں؟ · فجر الفجر", "حساب کی بنیاد",
+{"ev": "screen", "depth": 1, "path": ["یہ وقت کیسے طے ہوتا ہے؟"], "key": "77b2348aa4", "pos": 0, "shot": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0__012__d1__p0.png", "labels": ["6:12 کیوں؟ · طلوعِ آفتاب الشروق", "حساب ک
+{"ev": "back-mismatch", "label": "یہ وقت کیسے طے ہوتا ہے؟", "path": [], "t": 231.1}
+{"ev": "theme-done", "tag": "tablet-landscape-kiswah_ur-Kiswah-ur-f1.0", "actions": 6, "screens": 12, "t": 246.5}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 248.5}
+{"ev": "gfx", "lines": ["Total frames rendered: 14", "Janky frames: 14 (100.00%)", "Janky frames (legacy): 13 (92.86%)", "50th percentile: 350ms", "90th percentile: 2100ms", "95th percentile: 2100ms", "99th percentile: 2
+{"ev": "mem", "lines": ["  Native Heap    19354    19296        0        0    22536    26488    20522     2440", "        TOTAL    38362    28452     3360        0   159556    38369    26463     8380", "           Java H
