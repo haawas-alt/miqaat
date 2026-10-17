@@ -10,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -165,7 +166,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                                     maxLines = if (urdu && settings.showRelative) 2 else 1,
                                     lineHeight = if (urdu && settings.showRelative) 17.sp else TextUnit.Unspecified,
                                     textAlign = TextAlign.End, color = ink)
-                                Icon(Icons.Outlined.ChevronRight, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.contentSecondary)
+                                Icon(if (gallery) Icons.AutoMirrored.Outlined.KeyboardArrowRight else Icons.Outlined.ChevronRight, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.contentSecondary)
                             }
                         }
                     }
@@ -213,7 +214,7 @@ private fun ApprovedLandscapeHero(state: PrayerState, s: AppSettings, a: HomeAct
                     verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                     Text(Str[R.string.s_view_prayer_details], Modifier.weight(1f), fontFamily = font, maxLines = 1,
                         fontSize = if (short) 12.sp else 14.sp, color = if (gallery) tk.onPrimary else tk.contentPrimary)
-                    Icon(Icons.Outlined.ChevronRight, null, Modifier.size(18.dp), tint = if (gallery) tk.onPrimary else tk.contentPrimary)
+                    Icon(if (gallery) Icons.AutoMirrored.Outlined.KeyboardArrowRight else Icons.Outlined.ChevronRight, null, Modifier.size(18.dp), tint = if (gallery) tk.onPrimary else tk.contentPrimary)
                 }
             }
             Spacer(Modifier.width(8.dp))
@@ -226,7 +227,7 @@ private fun ApprovedLandscapeHero(state: PrayerState, s: AppSettings, a: HomeAct
                         Icon(Icons.Outlined.WbTwilight, null, Modifier.size(20.dp), tint = tk.accent)
                         Text(if (urdu) Str[R.string.s_learn_salah] else "Prepare for ${hero.label}", Modifier.weight(1f).padding(horizontal = 6.dp),
                             fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (short) 12.sp else 14.sp, maxLines = 2, color = ink)
-                        Icon(Icons.Outlined.ChevronRight, null, Modifier.size(16.dp), tint = tk.accent)
+                        Icon(if (gallery) Icons.AutoMirrored.Outlined.KeyboardArrowRight else Icons.Outlined.ChevronRight, null, Modifier.size(16.dp), tint = tk.accent)
                     }
                 } else {
                     Box(Modifier.fillMaxWidth().aspectRatio(1f).testTag("landscape-countdown-dial"), contentAlignment = Alignment.Center) {

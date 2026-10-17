@@ -402,7 +402,7 @@ private fun GalleryHeroRight(hero: HeroInfo, tk: ThemeTokens, u: Dp, F: FontFami
             Spacer(Modifier.width(u * 1.2f))
             Text(Str[R.string.s_view_prayer_details], fontFamily = F, fontWeight = FontWeight.Medium, fontSize = (u.value * 2.0f * scale).sp, color = tk.onPrimary, maxLines = 1)
             Spacer(Modifier.width(u * 1.2f))
-            Icon(Icons.Outlined.ChevronRight, null, Modifier.size(u * 2.2f * scale), tint = tk.onPrimary)
+            Icon(Icons.AutoMirrored.Outlined.KeyboardArrowRight, null, Modifier.size(u * 2.2f * scale), tint = tk.onPrimary)
         }
     }
 }
@@ -493,7 +493,7 @@ private fun GalleryRail(doorList: List<Door>, tk: ThemeTokens, u: Dp, F: FontFam
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Box(Modifier.size(u * 3.6f).clip(CircleShape).background(if (warn) tk.warning else tk.accent), contentAlignment = Alignment.Center) {
-                            Icon(if (warn) Icons.Outlined.NotificationsActive else Icons.Outlined.ChevronRight, null, Modifier.size(u * 2.0f), tint = Color.White)
+                            Icon(if (warn) Icons.Outlined.NotificationsActive else Icons.AutoMirrored.Outlined.KeyboardArrowRight, null, Modifier.size(u * 2.0f), tint = Color.White)
                         }
                         Spacer(Modifier.width(u * 0.9f))
                         Text(d.label, fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium, fontSize = (u.value * 1.9f).sp, color = if (warn) tk.warning else tk.contentPrimary, maxLines = 2)
@@ -742,7 +742,7 @@ private fun GalleryPhoneFit(state: PrayerState, s: AppSettings, a: HomeActions, 
                     .then(if (d.onClick != null) Modifier.clickable(onClick = d.onClick, role = Role.Button) else Modifier)
                     .semantics(mergeDescendants = true) { contentDescription = d.label }
                     .padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Icon(if (d.warn) Icons.Outlined.NotificationsActive else Icons.Outlined.ChevronRight,
+                    Icon(if (d.warn) Icons.Outlined.NotificationsActive else Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                         null, Modifier.size(24.dp), tint = if (d.warn) tk.warning else tk.accent)
                     Text(d.label, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp,
                         style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)),
@@ -799,7 +799,7 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
                     fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium)
                 if (!urdu) Text("  ${r.arabic}", fontFamily = tk.fontArabic, fontSize = 16.sp,
                     color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"))
-                if (selected) Icon(if (r.isNow) Icons.Outlined.Schedule else Icons.Outlined.ChevronRight,
+                if (selected) Icon(if (r.isNow) Icons.Outlined.Schedule else Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                     null, Modifier.size(16.dp), tint = ink)
             }
             Text(r.small, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp,
