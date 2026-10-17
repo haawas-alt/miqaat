@@ -35,7 +35,22 @@ jobs:
           (cd candidate && sha256sum Miqaat-gallery.apk | cut -d' ' -f1 > Miqaat-gallery.apk.sha256)
           BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
           "$BT/apksigner" verify --print-certs candidate/Miqaat-gallery.apk | grep -i "SHA-256" | tee candidate/signature.txt
-          grep -qi 6285b269 candidate/signature.txt
+          grep -qi 6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01 candidate/signature.txt
+      - name: Summarize actual test results
+        if: always()
+        run: |
+          python3 - <<'PYTEST'
+          import os, pathlib, xml.etree.ElementTree as ET
+          totals = dict(tests=0, failures=0, errors=0, skipped=0)
+          for path in pathlib.Path('app/build/test-results').rglob('TEST-*.xml'):
+              root = ET.parse(path).getroot()
+              for key in totals:
+                  totals[key] += int(root.attrib.get(key, 0))
+          captures = list(pathlib.Path('app/build/audit-screens').glob('gallery-*.png'))
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+              f.write('Commit: ' + os.environ['GITHUB_SHA'] + '\n\n')
+              f.write(str(totals) + '\n\nRaw Gallery captures: ' + str(len(captures)) + '\n')
+          PYTEST
       - name: Retain raw evidence and reports
         if: always()
         uses: actions/upload-artifact@v4

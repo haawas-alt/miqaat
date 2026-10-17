@@ -50,16 +50,16 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
             assertEquals(bots[0].top.value, bots[2].top.value, 1f)
         }
         listOf("home-hero", "home-prayers", "home-time").forEach { inside(it) }
-        p.forEach { noOverflowAt("gallery-card-${it.name}") }
         capture("gallery-tablet-landscape__en")
+        p.forEach { noOverflowAt("gallery-card-${it.name}") }
     }
 
     @Test fun grid_is_three_by_two_in_urdu_rtl() {
         val s = settings(urdu = true); app.settings.update { s }
         show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY, rtl = true) { HomeRouter(state(s), s, actions, false) {} }
         listOf("home-hero", "home-prayers", "home-time").forEach { inside(it) }
-        listedPrayers(s).forEach { noOverflowAt("gallery-card-${it.name}") }
         capture("gallery-tablet-landscape__ur")
+        listedPrayers(s).forEach { noOverflowAt("gallery-card-${it.name}") }
     }
 
     @Test fun hijri_line_is_complete_with_full_month_in_english() {
@@ -126,6 +126,40 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         rule.onNodeWithTag("gallery-info-FAJR", useUnmergedTree = true).performClick()
         rule.onNode(isDialog()).assertExists()
         capture("gallery-details-fajr")
+    }
+
+    @Test fun phone_tablet_orientation_language_and_scale_evidence() {
+        for (dev in Dev.entries) for (urdu in listOf(false, true)) for (scale in listOf(1f, 1.3f, 2f)) {
+            val s = settings(urdu); app.settings.update { s }
+            show(dev, AppTheme.PRAYER_GALLERY, fontScale = scale, rtl = urdu) { HomeRouter(state(s), s, actions, false) {} }
+            try {
+                capture("gallery-matrix-${dev.label}-${if (urdu) "ur" else "en"}-${(scale * 100).toInt()}")
+                rule.onAllNodes(hasText("" , substring = true), useUnmergedTree = true).fetchSemanticsNodes().also {
+                    assertTrue("Empty screen: $dev $urdu $scale", it.isNotEmpty())
+                }
+            } finally { scenario.close() }
+        }
+    }
+
+    @Test fun small_tablet_long_dates_and_rtl_order_fit() {
+        val s = settings(true); app.settings.update { s }
+        show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY, rtl = true, qualifiers = "w960dp-h600dp-land-xhdpi") {
+            HomeRouter(state(s, ZonedDateTime.of(2026, 9, 30, 14, 0, 0, 0, sydney)), s, actions, false) {}
+        }
+        val row = listOf(Prayer.FAJR, Prayer.SUNRISE, Prayer.DHUHR).map { boundsOf("gallery-card-${it.name}") }
+        assertTrue("RTL reading order", row[0].left > row[1].left && row[1].left > row[2].left)
+        capture("gallery-small-tablet-ur-long-date")
+        listedPrayers(s).forEach { noOverflowAt("gallery-card-${it.name}") }
+    }
+
+    @Test fun ramadan_progress_is_present_and_fits() {
+        val s = settings().copy(ramadanMode = RamadanMode.ON); app.settings.update { s }
+        val st = state(s)
+        show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY) { HomeRouter(st, s, actions, false) {} }
+        val label = fastProgress(st, s)!!.second
+        rule.onNodeWithText(label, useUnmergedTree = true).assertExists()
+        noOverflowAt("home-time")
+        capture("gallery-ramadan-daytime")
     }
 
     private fun renderBitmap(): android.graphics.Bitmap {
