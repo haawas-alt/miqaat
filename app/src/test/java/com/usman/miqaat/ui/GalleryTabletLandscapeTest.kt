@@ -132,4 +132,23 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         walk(card)
         assertTrue("Text outside $tag: $bad", bad.isEmpty())
     }
+    private val sydney = ZoneId.of("Australia/Sydney")
+
+    private fun formatCase(name: String, urdu: Boolean, use24h: Boolean, at: ZonedDateTime, fontScale: Float) {
+        val s = settings(urdu = urdu).copy(use24h = use24h)
+        app.settings.update { s }
+        show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY, fontScale = fontScale, rtl = urdu) { HomeRouter(state(s, at), s, actions, false) {} }
+        capture("gallery-$name")
+        if (fontScale <= 1.15f) {
+            listOf("home-hero", "home-prayers", "home-time").forEach { inside(it) }
+            listedPrayers(s).forEach { noOverflowAt("gallery-card-${it.name}") }
+        }
+    }
+
+    @Test fun capture_en_12h_now_next() = formatCase("en-12h-now-next", false, false, ZonedDateTime.of(2026, 10, 17, 12, 50, 0, 0, sydney), 1f)
+    @Test fun capture_en_24h() = formatCase("en-24h", false, true, ZonedDateTime.of(2026, 10, 17, 14, 0, 0, 0, sydney), 1f)
+    @Test fun capture_ur_12h() = formatCase("ur-12h", true, false, ZonedDateTime.of(2026, 10, 17, 14, 0, 0, 0, sydney), 1f)
+    @Test fun capture_en_overnight() = formatCase("en-overnight-2359", false, false, ZonedDateTime.of(2026, 10, 17, 23, 59, 0, 0, sydney), 1f)
+    @Test fun capture_en_130pct() = formatCase("en-130pct", false, false, ZonedDateTime.of(2026, 10, 17, 14, 0, 0, 0, sydney), 1.3f)
+    @Test fun capture_en_200pct() = formatCase("en-200pct", false, false, ZonedDateTime.of(2026, 10, 17, 14, 0, 0, 0, sydney), 2f)
 }
