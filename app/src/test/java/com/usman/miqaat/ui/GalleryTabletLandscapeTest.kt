@@ -134,6 +134,11 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
             show(dev, AppTheme.PRAYER_GALLERY, fontScale = scale, rtl = urdu) { HomeRouter(state(s), s, actions, false) {} }
             try {
                 capture("gallery-matrix-${dev.label}-${if (urdu) "ur" else "en"}-${(scale * 100).toInt()}")
+                if (scale > 1.15f) {
+                    rule.onNodeWithText(L10n.word(s, "NOW"), useUnmergedTree = true).assertExists()
+                    rule.onNodeWithText(L10n.word(s, "NEXT"), useUnmergedTree = true).performScrollTo().assertIsDisplayed()
+                    capture("gallery-matrix-${dev.label}-${if (urdu) "ur" else "en"}-${(scale * 100).toInt()}-next-visible")
+                }
                 rule.onAllNodes(hasText("" , substring = true), useUnmergedTree = true).fetchSemanticsNodes().also {
                     assertTrue("Empty screen: $dev $urdu $scale", it.isNotEmpty())
                 }
@@ -159,7 +164,20 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         val label = fastProgress(st, s)!!.second
         rule.onNodeWithText(label, useUnmergedTree = true).assertExists()
         noOverflowAt("home-time")
+        noOverflowAt("home-hero")
         capture("gallery-ramadan-daytime")
+    }
+
+    @Test fun compact_urdu_ramadan_evening_keeps_context_without_overlap() {
+        val s = settings(true).copy(ramadanMode = RamadanMode.ON); app.settings.update { s }
+        val st = state(s, ZonedDateTime.of(2026, 10, 17, 21, 0, 0, 0, sydney))
+        show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY, rtl = true, qualifiers = "w960dp-h600dp-land-xhdpi") {
+            HomeRouter(st, s, actions, false) {}
+        }
+        capture("gallery-small-tablet-ur-ramadan-night")
+        rule.onNodeWithText(tarawihLine(st, s)!!, useUnmergedTree = true).assertExists()
+        noOverflowAt("home-hero")
+        listedPrayers(s).forEach { noOverflowAt("gallery-card-${it.name}") }
     }
 
     private fun renderBitmap(): android.graphics.Bitmap {
@@ -192,13 +210,17 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
                 val action = node.config.getOrNull(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult)
                 assertTrue("Missing text layout for $text", action?.action?.invoke(layouts) == true && layouts.isNotEmpty())
                 layouts.forEach {
-                    // Compose compares float paragraph extents with integer layout pixels. Permit at most
-                    // one physical pixel of rounding; never permit a dropped line, ellipsis or material overflow.
-                    val widthOver = it.multiParagraph.width - it.size.width
-                    val heightOver = it.multiParagraph.height - it.size.height
-                    if (it.didOverflowWidth || it.didOverflowHeight) println("Gallery text metrics: $text size=${it.size} paragraph=${it.multiParagraph.width}x${it.multiParagraph.height} overflow=$widthOver,$heightOver")
-                    assertFalse("Clipped text: $text size=${it.size} paragraph=${it.multiParagraph.width}x${it.multiParagraph.height} overflow=$widthOver,$heightOver",
-                        it.multiParagraph.didExceedMaxLines || (it.didOverflowWidth && widthOver > 1f) || (it.didOverflowHeight && heightOver > 1f))
+                    // Native Robolectric exposes cached paragraph constraint width (e.g.452px)
+                    // for an intrinsic-width 76px "Fajr" node. That is not glyph overflow. Check
+                    // actual shaped line extents, every line and unclipped node geometry instead.
+                    val lineWidth = (0 until it.lineCount).maxOfOrNull { line ->
+                        it.getLineRight(line) - it.getLineLeft(line)
+                    } ?: 0f
+                    val lineHeight = if (it.lineCount > 0) it.getLineBottom(it.lineCount - 1) - it.getLineTop(0) else 0f
+                    val widthOver = lineWidth - node.size.width
+                    val heightOver = lineHeight - node.size.height
+                    assertFalse("Clipped text: $text node=${node.size} lines=${it.lineCount} extents=$lineWidth,$lineHeight paragraph=${it.multiParagraph.width}x${it.multiParagraph.height}",
+                        it.multiParagraph.didExceedMaxLines || widthOver > 1f || heightOver > 1f)
                 }
                 val b = androidx.compose.ui.geometry.Rect(node.positionInRoot,
                     androidx.compose.ui.geometry.Size(node.size.width.toFloat(), node.size.height.toFloat()))

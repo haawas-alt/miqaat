@@ -182,7 +182,6 @@ private fun GalleryHeroBand(hero: HeroInfo, state: PrayerState, s: AppSettings, 
         }
         Row(Modifier.fillMaxSize().padding(horizontal = 24.dp).padding(top = if (compact) 44.dp else 62.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(0.42f).semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
-                hero.special?.let { Text(it, fontFamily = Nunito, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = tk.accent) }
                 Text(hero.kickerLabel, fontFamily = F, fontSize = if (compact && urdu) 11.sp else 14.sp, color = tk.contentSecondary)
                 Text(hero.label, fontFamily = if (urdu) F else GalleryDisplay, fontWeight = FontWeight.Medium, fontSize = if (compact && urdu) 24.sp else if (compact) 36.sp else if (urdu) 40.sp else 56.sp, color = tk.contentPrimary, maxLines = 1)
                 if (!urdu) Text(hero.arabic, fontFamily = tk.fontArabic, fontSize = if (compact) 26.sp else 36.sp, color = tk.accent, maxLines = 1)
@@ -192,7 +191,16 @@ private fun GalleryHeroBand(hero: HeroInfo, state: PrayerState, s: AppSettings, 
                     Text(hero.status, fontFamily = F, fontSize = if (compact && urdu) 12.sp else if (compact) 14.sp else if (urdu) 16.sp else 18.sp, color = tk.contentPrimary, maxLines = 1)
                 }
             }
-            Spacer(Modifier.weight(0.20f))
+            Column(Modifier.weight(0.20f).padding(horizontal = 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                val fast = fastProgress(state, s)
+                val tarawih = tarawihLine(state, s)
+                if (fast == null && tarawih == null) hero.special?.let { Text(it, fontFamily = F, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = tk.accent) }
+                fast?.let { (fraction, label) ->
+                    androidx.compose.material3.LinearProgressIndicator(progress = { fraction }, modifier = Modifier.fillMaxWidth().padding(top = 4.dp), color = tk.accent, trackColor = tk.divider)
+                    Text(label, fontFamily = F, fontSize = if (compact && urdu) 12.sp else 14.sp, color = tk.contentPrimary, textAlign = TextAlign.Center)
+                }
+                tarawih?.let { Text(it, fontFamily = F, fontSize = if (compact && urdu) 12.sp else 14.sp, color = tk.contentPrimary, textAlign = TextAlign.Center) }
+            }
             Column(Modifier.weight(0.38f).testTag("home-time"), horizontalAlignment = Alignment.End) {
                 Row(verticalAlignment = Alignment.Top) {
                     Text(hero.clock, fontFamily = GalleryDisplay, fontWeight = FontWeight.Bold, fontSize = if (compact) 54.sp else 72.sp, lineHeight = if (compact) 54.sp else 72.sp, color = tk.contentPrimary, maxLines = 1)
@@ -208,11 +216,7 @@ private fun GalleryHeroBand(hero: HeroInfo, state: PrayerState, s: AppSettings, 
                     Spacer(Modifier.width(6.dp))
                     Icon(Icons.AutoMirrored.Outlined.KeyboardArrowRight, null, Modifier.size(20.dp), tint = tk.onPrimary)
                 }
-                fastProgress(state, s)?.let { (fraction, label) ->
-                    androidx.compose.material3.LinearProgressIndicator(progress = { fraction }, modifier = Modifier.fillMaxWidth().padding(top = 4.dp), color = tk.accent, trackColor = tk.divider)
-                    Text(label, fontFamily = F, fontSize = 14.sp, color = tk.contentPrimary)
-                }
-                tarawihLine(state, s)?.let { Text(it, fontFamily = F, fontSize = 14.sp, color = tk.contentPrimary) }
+
             }
         }
     }
@@ -351,7 +355,7 @@ private fun GalleryDate(state: PrayerState, s: AppSettings, tk: ThemeTokens, u: 
     val hij = PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)
     Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(L10n.date(s, state.now), fontFamily = if (urdu) F else Cormorant, fontWeight = FontWeight.Medium, fontSize = fs(2.6f), color = tk.contentPrimary, maxLines = 1, textAlign = TextAlign.Center)
-        if (s.showHijri) Text(L10n.hijri(s, hij), fontFamily = F, fontSize = fs(1.6f), letterSpacing = if (urdu) 0.sp else fs(0.1f), color = tk.contentSecondary, maxLines = 1, textAlign = TextAlign.Center)
+        if (s.showHijri) Text(galleryHijriLine(s, hij), fontFamily = F, fontSize = fs(1.6f), letterSpacing = if (urdu) 0.sp else fs(0.1f), color = tk.contentSecondary, maxLines = 1, textAlign = TextAlign.Center)
     }
 }
 
@@ -601,7 +605,7 @@ private fun GalleryStacked(state: PrayerState, s: AppSettings, a: HomeActions, t
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
         val shown = listedPrayers(s)
         shown.forEachIndexed { i, p ->
-            GalleryStackedRow(rowInfo(p, state, s), s, tk, F, urdu, a.onToggleRelative, onWhy = { onWhy(p) }, k = if (roomy) 1.25f else 1f)
+            GalleryStackedRow(galleryRowInfo(p, state, s), s, tk, F, urdu, a.onToggleRelative, onWhy = { onWhy(p) }, k = if (roomy) 1.25f else 1f)
             if (i < shown.lastIndex) Box(Modifier.padding(horizontal = 16.dp).fillMaxWidth().height(1.dp).background(tk.divider))
         }
         Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
@@ -719,7 +723,7 @@ private fun GalleryPhoneFit(state: PrayerState, s: AppSettings, a: HomeActions, 
         val shown = listedPrayers(s)
         Column(Modifier.weight(1f).fillMaxWidth().testTag("gallery-phone-prayers")) {
             shown.forEach { p ->
-                val r = rowInfo(p, state, s)
+                val r = galleryRowInfo(p, state, s)
                 val selected = r.isNow || r.isNext
                 val ink = if (selected) tk.primary else tk.contentPrimary
                 GalleryPhoneFitRow(r, s, tk, F, urdu, ink, selected, a.onToggleRelative,
@@ -778,7 +782,7 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
         .combinedClickable(onClick = onToggle, onLongClick = onWhy, role = Role.Button)
         .semantics(mergeDescendants = true) { contentDescription = r.spoken },
         verticalAlignment = Alignment.CenterVertically) {
-        Box(Modifier.width(4.dp).fillMaxHeight().background(if (selected) tk.primary else Color.Transparent))
+        Box(Modifier.width(4.dp).fillMaxHeight().background(if (r.isNow) tk.success else if (r.isNext) tk.accent else Color.Transparent))
         PrayerCardArt(r.prayer, Modifier.padding(horizontal = 8.dp).size(52.dp)
             .clip(RoundedCornerShape(10.dp)).clearAndSetSemantics { })
         Column(Modifier.weight(1f)) {
@@ -793,8 +797,11 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
                 if (selected) Icon(if (r.isNow) Icons.Outlined.Schedule else Icons.Outlined.ChevronRight,
                     null, Modifier.size(16.dp), tint = ink)
             }
+            if (selected) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"), fontFamily = if (urdu) tk.fontArabic else GalleryBody,
+                fontSize = 12.sp, fontWeight = FontWeight.Bold, color = if (r.isNow) tk.success else tk.accent,
+                modifier = Modifier.testTag("gallery-fit-marker-${r.prayer.name}"))
             Text(r.small, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp,
-                style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)), color = tk.contentSecondary, maxLines = 1,
+                style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)), color = tk.contentSecondary, maxLines = 2,
                 modifier = Modifier.fillMaxWidth().testTag("gallery-fit-detail-${r.prayer.name}"))
         }
         Spacer(Modifier.width(8.dp))

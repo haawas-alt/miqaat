@@ -48,7 +48,11 @@ fun AccessibleHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
     val tk = ThemeTokenSets.of(settings.theme)
     val F = uiFont(settings); val urdu = L10n.isUrdu(settings)
     var why by remember { mutableStateOf<Prayer?>(null) }
-    why?.let { WhyDialog(settings, state.today, it) { why = null } }
+    why?.let { prayer ->
+        val day = if (settings.theme == com.usman.miqaat.data.AppTheme.PRAYER_GALLERY && prayer == state.next && state.nextTime.toLocalDate().isAfter(state.today.date))
+            PrayerEngine.times(settings, state.nextTime.toLocalDate()) else state.today
+        WhyDialog(settings, day, prayer) { why = null }
+    }
     val hero = heroInfo(state, settings, kicker(state, settings))
     val doorList = doors(state, settings, a)
     val hij = PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)
@@ -80,7 +84,7 @@ fun AccessibleHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
                 Nav(Icons.Outlined.Settings, Str[R.string.s_settings], tk, F, a.onOpenSettings)
             }
             Text(L10n.date(settings, state.now), fontFamily = F, fontSize = 18.sp, color = tk.contentSecondary)
-            if (settings.showHijri) Text(L10n.hijri(settings, hij), fontFamily = if (urdu) F else tk.fontArabic, fontSize = 18.sp, color = tk.accent)
+            if (settings.showHijri) Text(if (settings.theme == com.usman.miqaat.data.AppTheme.PRAYER_GALLERY) galleryHijriLine(settings, hij) else L10n.hijri(settings, hij), fontFamily = if (urdu) F else tk.fontArabic, fontSize = 18.sp, color = tk.accent)
 
             val heroBlock: @Composable ColumnScope.() -> Unit = {
                 Column(
@@ -106,7 +110,7 @@ fun AccessibleHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
                 Column(Modifier.fillMaxWidth().clip(shape).background(tk.surface.copy(alpha = 0.94f)).border(1.dp, tk.divider, shape)) {
                     val shown = listedPrayers(settings)
                     shown.forEachIndexed { i, p ->
-                        PrayerLine(rowInfo(p, state, settings), settings, tk, F, urdu, a.onToggleRelative) { why = p }
+                        PrayerLine(if (settings.theme == com.usman.miqaat.data.AppTheme.PRAYER_GALLERY) galleryRowInfo(p, state, settings) else rowInfo(p, state, settings), settings, tk, F, urdu, a.onToggleRelative) { why = p }
                         if (i < shown.lastIndex) Box(Modifier.padding(horizontal = 16.dp).fillMaxWidth().height(1.dp).background(tk.divider))
                     }
                 }
@@ -168,6 +172,8 @@ private fun PrayerLine(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: androidx.
         Spacer(Modifier.width(12.dp))
         Column(Modifier.weight(1f)) {
             Text(r.label, fontFamily = if (urdu) F else tk.fontDisplay, fontSize = 22.sp, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, color = ink)
+            if (s.theme == com.usman.miqaat.data.AppTheme.PRAYER_GALLERY && selected)
+                Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"), fontFamily = F, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = if (r.isNow) tk.success else tk.accent)
             if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = 14.sp, color = tk.contentSecondary)
         }
         Column(horizontalAlignment = Alignment.End) {

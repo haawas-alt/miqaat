@@ -59,9 +59,9 @@ jobs:
           retention-days: 30
           if-no-files-found: error
           path: |
-            app/build/audit-screens/
-            app/build/test-results/
-            app/build/reports/
+            app/build/audit-screens/gallery-*.png
+            app/build/test-results/**/*.xml
+            app/build/reports/lint-results*
             build.log
             candidate/signature.txt
       - name: Publish tablet-landscape captures to a branch (for review)

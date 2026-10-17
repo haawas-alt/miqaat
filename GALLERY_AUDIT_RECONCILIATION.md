@@ -31,3 +31,9 @@ Do not delete previous prereleases: they remain rollback evidence. Do not merge 
 - No fresh production-readiness, qualified scholarly/Urdu review, physical-device TalkBack, or Play Console certification can be claimed from JVM captures. These require their own evidence.
 
 Implementation alone is not a 9.5 score. Final visual review and residual findings determine the actual score.
+
+### Test-harness calibration
+
+Run 39071902340 established a native Robolectric false positive in didOverflowWidth: the 76px-wide Fajr text node exposes a 452px paragraph constraint width; the word is visible in the raw capture. Urdu showed 41px node versus 452px paragraph. The regression gate therefore measures shaped line widths (right minus left), line heights, dropped lines and unclipped node geometry, with at most one physical pixel of rounding. It does not treat paragraph constraint width as painted glyph width. The original audit's missing visual verification remains valid; a raw overflow flag alone was insufficient to prove clipping.
+
+Gallery phone, compact landscape and accessible routes now share the corrected current/next and tomorrow-date facts. Accessible layouts show explicit state labels; normal phone portrait retains its one-screen composition. Gallery primary/focus/today colours use the warm accent consistently, while other themes are unchanged.

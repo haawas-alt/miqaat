@@ -50,7 +50,11 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
     val hero = heroInfo(state, settings, kicker(state, settings))
     var why by remember { mutableStateOf<Prayer?>(null) }
     var more by remember { mutableStateOf(false) }
-    why?.let { WhyDialog(settings, state.today, it) { why = null } }
+    why?.let { prayer ->
+        val day = if (settings.theme == com.usman.miqaat.data.AppTheme.PRAYER_GALLERY && prayer == state.next && state.nextTime.toLocalDate().isAfter(state.today.date))
+            PrayerEngine.times(settings, state.nextTime.toLocalDate()) else state.today
+        WhyDialog(settings, day, prayer) { why = null }
+    }
     Box(Modifier.fillMaxSize().background(if (gallery) tk.background else Color(0xFF03182D))) {
         if (!gallery) Image(painterResource(R.drawable.celestial_landscape_approved), null,
             Modifier.fillMaxSize(), contentScale = ContentScale.Crop, alpha = 0.35f)
@@ -112,7 +116,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                             .then(if (gallery) Modifier else Modifier.clip(RoundedCornerShape(12.dp))
                                 .background(Color(0xCC03182D)).border(1.dp, tk.divider, RoundedCornerShape(12.dp)))
                             .padding(horizontal = 12.dp), verticalArrangement = Arrangement.Center) {
-                            if (settings.showHijri) Text(L10n.hijri(settings, PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)),
+                            if (settings.showHijri) Text(if (gallery) galleryHijriLine(settings, PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)) else L10n.hijri(settings, PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)),
                                 Modifier.fillMaxWidth().testTag("landscape-hijri"), fontFamily = font, fontSize = 14.sp, maxLines = 1, color = ink)
                             if (settings.showDisliked) ApprovedLandscapeTimeline(state, settings, tk, ink, Modifier.fillMaxWidth().height(48.dp))
                         }
@@ -120,7 +124,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                     Column(Modifier.weight(0.46f).fillMaxHeight().testTag("landscape-prayer-list"),
                         verticalArrangement = Arrangement.spacedBy(gap)) {
                         prayers.forEach { prayer ->
-                            val row = rowInfo(prayer, state, settings)
+                            val row = if (gallery) galleryRowInfo(prayer, state, settings) else rowInfo(prayer, state, settings)
                             val selected = row.isNow || row.isNext
                             val shape = RoundedCornerShape(if (gallery) 8.dp else 12.dp)
                             val surface = if (gallery) {
