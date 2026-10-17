@@ -1,0 +1,9 @@
+== v1.160
+sha256 2151ba4287fed21149206756f37114d2bc5075ebddc8c1227d64a7f684622a93  published 2151ba4287fed21149206756f37114d2bc5075ebddc8c1227d64a7f684622a93
+V2 Signer: certificate SHA-256 digest: 6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01
+package: name='com.usman.miqaat' versionCode='1792211213' versionName='1.160' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'
+== latest
+sha256 2151ba4287fed21149206756f37114d2bc5075ebddc8c1227d64a7f684622a93  published 2151ba4287fed21149206756f37114d2bc5075ebddc8c1227d64a7f684622a93
+V2 Signer: certificate SHA-256 digest: 6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01
+package: name='com.usman.miqaat' versionCode='1792211213' versionName='1.160' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'
+MATCH
