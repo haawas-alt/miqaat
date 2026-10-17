@@ -1,0 +1,22 @@
+{"ev": "env", "density": 2.0, "size": "Physical size: 2560x1600", "rot": "", "t": 0.1}
+{"ev": "cold-start-ms", "ms": 2195, "t": 2.6}
+{"ev": "setup-screen", "step": 0, "shot": "tablet-landscape-celestial_en__setup0.png", "key": "943f1865c5", "labels": ["Location: ⁨⁩. Opens location settings", "Saturday 17 October 2026  ·  9:37 AM", "·", "⁨٦ جمادى الأول
+{"ev": "setup-tap", "label": "Begin", "t": 8.0}
+{"ev": "setup-screen", "step": 1, "shot": "tablet-landscape-celestial_en__setup1.png", "key": "30d7c7d397", "labels": ["Location: ⁨⁩. Opens location settings", "Saturday 17 October 2026  ·  9:37 AM", "·", "⁨٦ جمادى الأول
+{"ev": "detect-result", "shot": "tablet-landscape-celestial_en__setup1_after-detect-20s.png", "labels": ["Location: ⁨⁩. Opens location settings", "Saturday 17 October 2026  ·  9:38 AM", "·", "⁨٦ جمادى الأولى ١٤٤٨⁩", "Lea
+{"ev": "setup-tap", "label": "Sydney, NSW (preset; detect did not complete)", "t": 38.3}
+{"ev": "setup-screen", "step": 2, "shot": "tablet-landscape-celestial_en__setup2.png", "key": "4ac0e74536", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Saturday 17 October 2026  ·  8:38
+{"ev": "setup-tap", "label": "Next", "t": 41.5}
+{"ev": "setup-screen", "step": 3, "shot": "tablet-landscape-celestial_en__setup3.png", "key": "28de799e74", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Saturday 17 October 2026  ·  8:38
+{"ev": "setup-tap", "label": "These look right", "t": 46.7}
+{"ev": "setup-screen", "step": 4, "shot": "tablet-landscape-celestial_en__setup4.png", "key": "a94f098523", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, NSW", "Saturday 17 October 2026  ·  8:38
+{"ev": "setup-tap", "label": "Finish", "t": 51.9}
+{"ev": "setup-done", "step": 5, "t": 56.8}
+{"ev": "setup-result", "ok": true, "t": 56.8}
+{"ev": "theme-set", "kw": "Celestial", "t": 68.9}
+{"ev": "screen", "depth": 0, "path": [], "key": "5d6729bd50", "pos": 0, "shot": "tablet-landscape-celestial_en-Celestial-en-f1.0__001__d0__p0.png", "labels": ["Location: ⁨Sydney, NSW⁩. Opens location settings", "Sydney, 
+{"ev": "screen", "depth": 1, "path": ["Why this time?"], "key": "7321b65a25", "pos": 0, "shot": "tablet-landscape-celestial_en-Celestial-en-f1.0__002__d1__p0.png", "labels": ["Why 4:45? · Fajr الفجر", "CALCULATED FROM", 
+{"ev": "theme-done", "tag": "tablet-landscape-celestial_en-Celestial-en-f1.0", "actions": 2, "screens": 2, "t": 108.6}
+{"ev": "crash-buffer", "bytes": 0, "head": "", "t": 110.6}
+{"ev": "gfx", "lines": ["Total frames rendered: 49", "Janky frames: 49 (100.00%)", "Janky frames (legacy): 48 (97.96%)", "50th percentile: 400ms", "90th percentile: 1100ms", "95th percentile: 1200ms", "99th percentile: 2
+{"ev": "mem", "lines": ["  Native Heap    44909    44852        0        0    48036    53892    44124     5977", "        TOTAL    69130    57104     3656        0   195420    69250    51819    13640", "           Java H
