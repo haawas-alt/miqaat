@@ -24,9 +24,9 @@ import java.io.File
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk = [34])
 class AuditRemediationTest : ComposeSupport() {
-    private fun visible(tag: String) {
+    private fun visible(tag: String, unmerged: Boolean = false) {
         val root = rule.onRoot().fetchSemanticsNode().boundsInRoot
-        val node = rule.onNodeWithTag(tag).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+        val node = rule.onNodeWithTag(tag, useUnmergedTree = unmerged).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
         assertTrue("$tag must fit vertically: $node within $root", node.top >= root.top && node.bottom <= root.bottom)
         assertTrue("$tag must fit horizontally", node.left >= root.left && node.right <= root.right)
     }
@@ -127,9 +127,9 @@ class AuditRemediationTest : ComposeSupport() {
                 val tahlilIndex = Adhkar.morning().indexOfFirst { it.id == "tahlil" }
                 assertTrue(tahlilIndex > 0)
                 repeat(tahlilIndex) { rule.onNodeWithText(Str[R.string.s_next_2]).performClick() }
-                visible("adhkar-count-number")
+                visible("adhkar-count-number", unmerged = true)
                 val countLayouts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
-                rule.onNodeWithTag("adhkar-count-number").assertTextEquals("100").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) { it(countLayouts) }
+                rule.onNodeWithTag("adhkar-count-number", useUnmergedTree = true).assertTextEquals("100").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) { it(countLayouts) }
                 assertEquals("Three digit count must remain on one line",1,countLayouts.single().lineCount)
                 assertFalse(countLayouts.single().hasVisualOverflow)
                 capture("adhkar-counter100-tablet-portrait-$urdu-$scale")
