@@ -874,7 +874,7 @@ private fun AboutSection(s: AppSettings) {
     Text(
         Str[R.string.s_prayer_times_are_computed_on_the] +
             Str[if (com.usman.miqaat.BuildConfig.SELF_UPDATE) R.string.s_no_account_no_advertising_no_analytics else R.string.audit_play_privacy] +
-            Str.get(R.string.audit_current_method, s.method.label, s.asrMethod.label, s.locationName, s.latitude, s.longitude),
+            Str.get(R.string.audit_current_method, Str[s.method.labelRes], Str[s.asrMethod.labelRes], L10n.place(s.locationName), s.latitude, s.longitude),
         fontFamily = Nunito, fontSize = 15.sp, color = tk.contentSecondary, lineHeight = 22.sp
     )
 }

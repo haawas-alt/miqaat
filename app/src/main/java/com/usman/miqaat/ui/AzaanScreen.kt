@@ -80,11 +80,12 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
         val tk = screenTokens()
         val kiswah = com.usman.miqaat.MiqaatApp.instance.settings.value.theme == com.usman.miqaat.data.AppTheme.KISWAH
         val bg = if (kiswah) ThemeTokenSets.kiswah.skyAzaan else when { isAzaan -> tk.skyAzaan; isIq -> tk.skyIqamah; else -> tk.skyDua }
+        val compactCountdown = phase is Phase.IqamahCountdown && !portrait && (maxHeight < 500.dp || androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.15f)
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(bg))) {
             val artTheme = tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY
             if (artTheme) ThemedBackdrop(portrait, Modifier.fillMaxSize(), scrim = 0.72f)
             else if (kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
-            if (phase is Phase.IqamahCountdown && !portrait && (maxHeight < 500.dp || androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.15f)) {
+            if (compactCountdown && phase is Phase.IqamahCountdown) {
                 CompactCountdown(phase, onStop, onSkip)
                 return@Box
             }
