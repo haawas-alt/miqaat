@@ -12,7 +12,7 @@
     <string name="s_back">Back</string>
     <string name="s_settings">Settings</string>
     <string name="s_location_permission_was_not_granted_choose">Location permission was not granted. Choose a city below instead.</string>
-    <string name="s_prayer_times_are_calculated_for_these">Prayer times are calculated for these coordinates. Looking up the place name and searching for places uses Android\'s geocoder, which sends the coordinates or search text to Google. Nothing else leaves the device.</string>
+    <string name="s_prayer_times_are_calculated_for_these">Prayer times are calculated for these coordinates. Place-name lookup and search use the Android geocoder, which may send coordinates or search text to its provider. These requests are not sent to the developer.</string>
     <string name="s_time_zone_for_prayer_times">Time zone for prayer times</string>
     <string name="s_this_zone_is_several_hours_away">⚠ This zone is several hours away from the place above — times will be wrong until it matches.</string>
     <string name="s_chosen_by_you_automatic_location_refresh">Chosen by you · automatic location refresh will not change it</string>
@@ -252,7 +252,7 @@
     <string name="s_every_hadith_dhikr_dua_and_ruling">Every hadith, dhikr, dua and ruling in the app carries its source. A qualified scholarly review of this content version is pending; nothing in the app is presented as approved until it is signed.</string>
     <string name="s_unsigned">Unsigned</string>
     <string name="s_prayer_times_are_computed_on_the">"Prayer times are computed on the device with the Adhan library (Batoul Apps, MIT licence), using the high-precision astronomical algorithms of Jean Meeus. "</string>
-    <string name="s_no_account_no_advertising_no_analytics">No account, no advertising, no analytics. Network is used for three things only: the place-name lookup and place search (Android\'s geocoder, which contacts Google), and the update check against GitHub.\n\n</string>
+    <string name="s_no_account_no_advertising_no_analytics">No account, advertising or analytics. Place lookup and search use the Android geocoder, which may contact its provider. This direct-download edition also checks GitHub for updates.\n\n</string>
     <string name="s_one_hour_earlier">One hour earlier</string>
     <string name="s_one_hour_later">One hour later</string>
     <string name="s_five_minutes_earlier">Five minutes earlier</string>

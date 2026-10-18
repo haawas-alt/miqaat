@@ -237,9 +237,9 @@ private fun IftarBody(u: Dp) {
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Kicker(Str[R.string.s_rama_n_dua_at_iftar], u)
         Arabic(com.usman.miqaat.data.Ramadan.IFTAR_AR, u, size = 4.8f)
-        if (L10n.uiUrdu) Text(Str[R.string.audit_english_translation], fontFamily = Nunito, fontSize = 14.sp, color = tk.contentSecondary)
-        Translation(com.usman.miqaat.data.Ramadan.IFTAR_EN, u)
-        Source(com.usman.miqaat.data.Ramadan.IFTAR_SRC, u)
+        Translation(if (L10n.uiUrdu) com.usman.miqaat.data.Ramadan.IFTAR_UR else com.usman.miqaat.data.Ramadan.IFTAR_EN, u)
+        Source(com.usman.miqaat.data.Ramadan.IFTAR_SRC +
+            (if (L10n.uiUrdu) " · " + com.usman.miqaat.data.Ramadan.IFTAR_UR_CREDIT else ""), u)
     }
 }
 
@@ -261,7 +261,7 @@ private fun CountdownBody(p: Phase.IqamahCountdown, u: Dp) {
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("$secs", fontFamily = Cormorant, fontSize = (u.value * 10.5f).sp, lineHeight = (u.value * 10.5f).sp, color = tk.contentPrimary, modifier = Modifier.testTag("iqamah-seconds"))
-                Text(Str[R.string.s_seconds_caps], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f))
+                Text(Str[R.string.s_seconds_caps], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f).testTag("iqamah-unit"))
             }
         }
         Text(Str[R.string.s_straighten_your_rows], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = tk.contentPrimary.copy(alpha = 0.9f))

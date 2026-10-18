@@ -37,20 +37,20 @@ class AuditRemediationTest : ComposeSupport() {
     }
 
     @Test fun countdownNumberAndBothActionsRemainVisibleAndWorkInShortLandscape() {
-        for (theme in AppTheme.entries) for (urdu in listOf(false,true)) for (scale in listOf(1f,1.3f,2f)) {
+        for (dev in listOf(Dev.PHONE_LANDSCAPE,Dev.TABLET_LANDSCAPE)) for (theme in AppTheme.entries) for (urdu in listOf(false,true)) for (scale in listOf(1f,1.3f,2f)) {
             var start = 0; var dismiss = 0
             val s = AppSettings(theme = theme, language = if (urdu) Language.UR else Language.EN)
             app.settings.update { s }
             val now = System.currentTimeMillis()
             try {
-                show(Dev.PHONE_LANDSCAPE, theme, scale, urdu, qualifiers="w740dp-h360dp-land-xhdpi") {
+                show(dev, theme, scale, urdu, qualifiers=if(dev==Dev.PHONE_LANDSCAPE) "w740dp-h360dp-land-xhdpi" else null) {
                     AzaanScreen(Phase.IqamahCountdown(Prayer.DHUHR, now, now+180_000), { dismiss++ }, { start++ })
                 }
                 visible("iqamah-seconds"); visible("iqamah-unit")
                 rule.onNodeWithText(Str[R.string.s_start_iqamah_now]).assertIsDisplayed().performClick()
                 rule.onNodeWithText(Str[R.string.s_dismiss]).assertIsDisplayed().performClick()
                 assertEquals(1,start); assertEquals(1,dismiss)
-                capture("countdown-${theme.name}-$urdu-$scale")
+                capture("countdown-${dev.name}-${theme.name}-$urdu-$scale")
             } finally { scenario.close() }
         }
     }

@@ -31,6 +31,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.outlined.VolumeUp
 import androidx.compose.material.icons.outlined.Balance
 import androidx.compose.material.icons.outlined.Check
@@ -234,7 +235,7 @@ private fun LibraryCard(c: LearnColors, title: String, subtitle: String, primary
                 Box(Modifier.fillMaxWidth(progress.coerceIn(0.04f, 1f)).fillMaxHeight().clip(RoundedCornerShape(50)).background(c.primary))
             }
         }
-        if (done) Icon(Icons.Outlined.Check, null, Modifier.size(20.dp), tint = c.success) else Text("›", fontSize = 22.sp, color = c.textSecondary)
+        if (done) Icon(Icons.Outlined.Check, null, Modifier.size(20.dp), tint = c.success) else Icon(Icons.AutoMirrored.Outlined.KeyboardArrowRight, null, Modifier.size(22.dp), tint = c.textSecondary)
     }
 }
 
@@ -613,7 +614,7 @@ private fun LessonWords(c: LearnColors, step: Adhkar.Step, audio: Speaker, modif
 private fun BottomBar(c: LearnColors, canBack: Boolean, last: Boolean, nextLabel: String, onBack: () -> Unit, onNext: () -> Unit) {
     Row(Modifier.fillMaxWidth().background(c.surfaceRaised.copy(alpha = 0.92f)).navigationBarsPadding().padding(horizontal = 16.dp, vertical = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
         Box(Modifier.width(52.dp).heightIn(min = 52.dp).clip(RoundedCornerShape(26.dp)).border(1.dp, if (canBack) c.divider else c.divider.copy(alpha = 0.3f), CircleShape).clickable(enabled = canBack, role = Role.Button, onClick = onBack).semantics { contentDescription = Str[R.string.s_previous_step] }, contentAlignment = Alignment.Center) {
-            Text("‹", fontSize = 26.sp, color = if (canBack) c.text else c.textSecondary.copy(alpha = 0.4f))
+            Icon(Icons.AutoMirrored.Outlined.ArrowBack, null, Modifier.size(24.dp), tint = if (canBack) c.text else c.textSecondary.copy(alpha = 0.4f))
         }
         Column(Modifier.weight(1f).heightIn(min = 52.dp).testTag("lesson-next").clip(RoundedCornerShape(50)).background(if (last) c.success else c.primary).clickable(role = Role.Button, onClick = onNext).padding(horizontal = 18.dp, vertical = 14.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             Text(nextLabel, fontFamily = lessonUiFont(), fontWeight = FontWeight.Bold, fontSize = 15.sp, lineHeight = 24.sp, color = c.onPrimary, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth().testTag("lesson-next-label"))

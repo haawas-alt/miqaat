@@ -3,6 +3,5 @@
     <string name="audit_current_method">Current: %1$s, Asr %2$s, %3$s (%4$.3f, %5$.3f).</string>
     <string name="audit_basmala_cue">If you are reciting, begin with basmala before al-Fatihah in this rakah. Behind an imam, follow your school.</string>
     <string name="audit_basmala_audio">Recite the basmala shown above first. Listen plays al-Fatihah only.</string>
-    <string name="audit_english_translation">English translation (Urdu review pending)</string>
     <string name="audit_play_privacy">No account, advertising or analytics. Place lookup and search use the Android geocoder, which may contact its provider. Updates for this edition are delivered by Google Play.\n\n</string>
 </resources>

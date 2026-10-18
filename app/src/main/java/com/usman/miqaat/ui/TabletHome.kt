@@ -101,6 +101,13 @@ internal enum class DoorKind { OTHER, ADHKAR }
 internal class Door(val label: String, val warn: Boolean = false, val kind: DoorKind = DoorKind.OTHER, val onClick: (() -> Unit)? = null)
 
 /** Everything that used to be a chip, in one place, so both tablet homes show exactly the same doors. */
+internal fun galleryVisibleDoors(items: List<Door>): List<Door> {
+    if (items.size <= 2) return items
+    val adhkar = items.firstOrNull { !it.warn && it.kind == DoorKind.ADHKAR }
+    return (items.filter { it.warn }.take(1) + listOfNotNull(adhkar) +
+        items.filter { !it.warn && it !== adhkar }.take(1)).take(2)
+}
+
 @Composable
 internal fun doors(state: PrayerState, s: AppSettings, a: HomeActions): List<Door> {
     val ctx = androidx.compose.ui.platform.LocalContext.current

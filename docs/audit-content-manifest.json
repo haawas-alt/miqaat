@@ -4,8 +4,8 @@
   "files": [
     {
       "path": "app/src/main/java/com/usman/miqaat/data/Adhkar.kt",
-      "sha256": "83843de5fd3557bb67e6c7efd4898df6fbe7d70ad9db6ab4e4df12182a39460a",
-      "bytes": 23514
+      "sha256": "d8176fc7e012419928f0a76753013d417711d1ed7ca01c51918aaa2ad1459a9e",
+      "bytes": 24058
     },
     {
       "path": "app/src/main/java/com/usman/miqaat/data/Learn.kt",
@@ -614,13 +614,13 @@
     },
     {
       "path": "app/src/main/res/values/strings_ui.xml",
-      "sha256": "d05eb560a0ed32a821185e8c8abe5e569994fc2517cca044ebbeffc56c09173f",
-      "bytes": 56596
+      "sha256": "7f49f7d426d5e833b404f9e0be351be9a586546a99fad23bb034485675e041aa",
+      "bytes": 56583
     },
     {
       "path": "app/src/main/res/values-ur/strings_ui.xml",
-      "sha256": "79f179e802828865cff8ca0ad1478c22d2814310395aca973b43e790a14437b2",
-      "bytes": 72816
+      "sha256": "8020e052df2d8b3b164088eec9dd4fa5240b78653c77f54749047db0dd63fc9d",
+      "bytes": 72784
     }
   ]
 }

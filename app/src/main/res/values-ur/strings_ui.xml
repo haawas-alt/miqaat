@@ -12,7 +12,7 @@
     <string name="s_back">واپس</string>
     <string name="s_settings">ترتیبات</string>
     <string name="s_location_permission_was_not_granted_choose">مقام کی اجازت نہیں دی گئی۔ نیچے سے شہر منتخب کریں۔</string>
-    <string name="s_prayer_times_are_calculated_for_these">نماز کے اوقات کا حساب ان جغرافیائی نقاط کے مطابق کیا جاتا ہے۔ جگہ کا نام معلوم کرنے اور جگہ تلاش کرنے کے لیے اینڈرائیڈ کا جیوکوڈر استعمال ہوتا ہے جو کوآرڈینیٹس یا تلاش کا متن گوگل کو بھیجتا ہے۔ اس کے علاوہ کچھ بھی ڈیوائس سے باہر نہیں جاتا۔</string>
+    <string name="s_prayer_times_are_calculated_for_these">نماز کے اوقات کا حساب ان جغرافیائی نقاط کے مطابق کیا جاتا ہے۔ جگہ کے نام اور مقام کی تلاش کے لیے اینڈرائیڈ کا جیوکوڈر نقاط یا تلاش کا متن اپنے فراہم کنندہ کو بھیج سکتا ہے۔ یہ درخواستیں ایپ کے ڈویلپر کو نہیں بھیجی جاتیں۔</string>
     <string name="s_time_zone_for_prayer_times">نماز کے اوقات کے لیے ٹائم زون</string>
     <string name="s_this_zone_is_several_hours_away">⚠ یہ ٹائم زون اوپر دی گئی جگہ سے کئی گھنٹے دور ہے — جب تک یہ درست نہ ہو، اوقات غلط رہیں گے۔</string>
     <string name="s_chosen_by_you_automatic_location_refresh">آپ کا منتخب کردہ · خودکار مقام کی تازہ کاری اسے نہیں بدلے گی</string>
@@ -180,7 +180,7 @@
     <string name="s_github">گٹ ہب</string>
     <string name="s_delivered_by_google_play_miqaat_itself">گوگل پلے کے ذریعے فراہم۔ میقات خود اپ ڈیٹ کی کوئی درخواست نہیں کرتا۔</string>
     <string name="s_the_dua_and_hadith_recordings_are">دعا اور حدیث کی ریکارڈنگز ایپ کے اندر ہیں۔ ڈیوائس کی اپنی ٹیکسٹ ٹو اسپیچ صرف اس وقت استعمال ہوتی ہے جب ریکارڈنگ موجود نہ ہو۔</string>
-    <string name="s_health_log_adhk_r_counts_friday">کارکردگی کا لاگ: اذکار کی گنتی - جمعہ ٹریکر</string>
+    <string name="s_health_log_adhk_r_counts_friday">الارم کا ریکارڈ، اذکار کی گنتی اور جمعہ کی پیش رفت</string>
     <string name="s_stored_in_the_app_s_private">اس ڈیوائس پر ایپ کے نجی اسٹوریج میں محفوظ۔ اَن انسٹال کرنے پر مٹ جاتا ہے۔</string>
     <string name="s_analytics_advertising_accounts_crash_reporting">تجزیات، اشتہارات، اکاؤنٹس، کریش رپورٹنگ</string>
     <string name="s_none_there_is_no_miqaat_server">کچھ نہیں۔ میقات کا کوئی سرور نہیں۔</string>
@@ -252,7 +252,7 @@
     <string name="s_every_hadith_dhikr_dua_and_ruling">ایپ میں ہر حدیث، ذکر، دعا اور حکم اپنے ماخذ کے ساتھ ہے۔ اس مواد کے مستند علمی جائزے کا انتظار ہے؛ دستخط ہونے تک ایپ میں کچھ بھی منظور شدہ کے طور پر پیش نہیں کیا جاتا۔</string>
     <string name="s_unsigned">بغیر دستخط</string>
     <string name="s_prayer_times_are_computed_on_the">"نماز کے اوقات ڈیوائس پر اذان لائبریری (Batoul Apps، MIT لائسنس) کے ذریعے، ژاں میوس کے اعلیٰ درستگی والے فلکیاتی الگورتھم استعمال کرتے ہوئے حساب کیے جاتے ہیں۔  "</string>
-    <string name="s_no_account_no_advertising_no_analytics">کوئی اکاؤنٹ نہیں، کوئی اشتہار نہیں، کوئی تجزیات نہیں۔ نیٹ ورک صرف تین کاموں کے لیے استعمال ہوتا ہے: جگہ کے نام کی تلاش اور جگہ کی تلاش (اینڈرائیڈ کا جیوکوڈر، جو گوگل سے رابطہ کرتا ہے)، اور گٹ ہب پر اپ ڈیٹ کی جانچ۔\n\n</string>
+    <string name="s_no_account_no_advertising_no_analytics">کوئی اکاؤنٹ، اشتہار یا تجزیات نہیں۔ جگہ کے نام اور مقام کی تلاش کے لیے اینڈرائیڈ کا جیوکوڈر اپنے فراہم کنندہ سے رابطہ کر سکتا ہے۔ براہِ راست ڈاؤن لوڈ ہونے والا یہ ایڈیشن اپ ڈیٹس کے لیے گٹ ہب بھی دیکھتا ہے۔\n\n</string>
     <string name="s_one_hour_earlier">ایک گھنٹہ پہلے</string>
     <string name="s_one_hour_later">ایک گھنٹہ بعد</string>
     <string name="s_five_minutes_earlier">پانچ منٹ پہلے</string>

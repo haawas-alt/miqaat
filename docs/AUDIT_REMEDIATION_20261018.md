@@ -16,7 +16,7 @@ This status records implementation, not independent acceptance. CI results, raw 
 | F06 | Contextual Adhkar doors use semantic kind instead of English substring | Urdu competing-door fixture and callback verification |
 | F07 | Numerical compass error claims replaced by qualitative labels | Real compass calibration and no-sensor testing |
 | F08 | Portrait tablet uses single-column, wider, bounded reading layout | Long-entry/200% screenshots and physical reading review |
-| F09 | Urdu UI corrections and runtime template; Iftar English fallback explicitly labeled | Attributed qualified Urdu Iftar translation still OPEN; full proofreading |
+| F09 | Urdu UI corrections and runtime template; Iftar uses the exact attributed published Urdu translation from Mohaddis T2, Abu Dawud 2357 | Source checked; independent full-version scholarly approval and proofreading remain OPEN |
 | F10 | Assertions for countdown/selection/basmala; retry diagnostics; unique JUnit publication paths | CI pass; signed binary and full interactive coverage; locked mockup golden review |
 | F11 | Device checklist below | Physical execution remains OPEN |
 | F12 | Four-theme descriptions, Urdu listing correction and geocoder privacy contradiction addressed | Target audience decision and Console declarations remain OPEN; policy branch must be deployed before store release |

@@ -119,6 +119,11 @@ object Ramadan {
     /** Dua at iftar. Abū Dāwūd 2357, graded ḥasan by al-Albānī. */
     const val IFTAR_AR = "ذَهَبَ الظَّمَأُ، وَابْتَلَّتِ الْعُرُوقُ، وَثَبَتَ الأَجْرُ إِنْ شَاءَ اللَّهُ"
     const val IFTAR_EN = "The thirst is gone, the veins are moistened, and the reward is confirmed, if Allah wills."
+    // Exact supplication translation excerpt, not AI paraphrase: Mohaddis T2, Abu Dawud 2357.
+    // Dr Abd al-Rahman Faryuwai and scholarly board, Dar al-Dawah, New Delhi.
+    // https://mohaddis.com/View/Abu-Daud/T2/2357 (source checked 18 October 2026).
+    const val IFTAR_UR = "پیاس ختم ہو گئی، رگیں تر ہو گئیں، اور اگر اللہ نے چاہا تو ثواب مل گیا۔"
+    const val IFTAR_UR_CREDIT = "اردو: عبد الرحمٰن فریوائی ومجلس علمی، دار الدعوۃ؛ محدث"
     const val IFTAR_SRC = "Abū Dāwūd 2357 (ḥasan)"
     /** Sūrat al-Kahf on Friday: al-Ḥākim 2/399 and al-Bayhaqī, graded ṣaḥīḥ by al-Albānī. Ṣalawāt on Friday: Abū Dāwūd 1047 (ṣaḥīḥ). */
     const val KAHF_NOTE = "Whoever reads Sūrat al-Kahf on Friday, a light shines for him between the two Fridays"
