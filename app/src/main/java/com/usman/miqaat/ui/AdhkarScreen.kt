@@ -108,10 +108,10 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
 
     BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
         val u0 = minOf(maxWidth / 100, maxHeight / 56)
-        val u = if (maxWidth < 600.dp) u0 * 2.2f else u0
+        val u = if (maxWidth < 600.dp) u0 * 2.2f else if (maxHeight > maxWidth) (maxWidth / 65).coerceAtMost(12.dp) else u0
         if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedBackdrop(maxHeight > maxWidth, Modifier.fillMaxSize(), scrim = 0.7f)
         else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.07f)
-        val compact = maxWidth < 600.dp
+        val compact = maxWidth < 600.dp || maxHeight > maxWidth
         Row(Modifier.fillMaxSize().statusBarsPadding()) {
             // ---- list
             if (!compact) Column(Modifier.width(u * 30).fillMaxHeight().background(tk.scrim).padding(vertical = u * 1.6f)) {
@@ -161,7 +161,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                     Text(mode.title + "  ·  " + Str.get(R.string.s_count_of, index + 1, list.size), fontFamily = Nunito, fontSize = 14.sp, color = tk.contentPrimary.copy(alpha = 0.8f))
                 }
                 Text(if (L10n.uiUrdu) UrduContent.dhikrTitles.getValue(cur.id) else cur.title.uppercase(), fontFamily = Nunito, fontSize = (u.value * (if (compact) 3f else 1.3f)).sp, letterSpacing = (u.value * 0.3f).sp, fontWeight = FontWeight.Bold, color = tk.accent)
-                Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                Column(Modifier.weight(1f).widthIn(max = 720.dp).fillMaxWidth().verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                     val longText = cur.arabic.length > 220
                     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                         Text(cur.arabic, fontFamily = Amiri, fontSize = (u.value * (if (longText) 2.7f else 3.6f)).sp, lineHeight = (u.value * (if (longText) 4.6f else 6.2f)).sp, color = tk.arabicText, textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = u * 1))

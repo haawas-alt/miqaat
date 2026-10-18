@@ -537,6 +537,17 @@ private fun LessonWords(c: LearnColors, step: Adhkar.Step, audio: Speaker, modif
         Text(if (L10n.uiUrdu) UrduContent.position(step) else step.position.uppercase(),
             fontFamily = lessonUiFont(), fontSize = 12.sp, letterSpacing = if (L10n.uiUrdu) 0.sp else 2.sp,
             color = screenTokens().accent, modifier = Modifier.semantics { heading() })
+        if (step.reciteBasmalaBefore) {
+            Text(Str[R.string.audit_basmala_cue], fontFamily = lessonUiFont(), fontSize = 16.sp,
+                lineHeight = 25.sp, color = c.text, modifier = Modifier.testTag("lesson-basmala-cue"))
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+                Text("بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", fontFamily = c.arabic, fontSize = 30.sp,
+                    lineHeight = 48.sp, color = screenTokens().arabicText,
+                    modifier = Modifier.fillMaxWidth().testTag("lesson-basmala-arabic"))
+            }
+            Text(Str[R.string.audit_basmala_audio], fontFamily = lessonUiFont(), fontSize = 13.sp,
+                lineHeight = 21.sp, color = c.textSecondary)
+        }
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             Text(step.arabic, fontFamily = c.arabic, fontSize = if (longArabic) 27.sp else if (editorial) 64.sp else 36.sp,
                 lineHeight = if (longArabic) 44.sp else if (editorial) 88.sp else 56.sp,

@@ -732,7 +732,7 @@ private fun GalleryPhoneFit(state: PrayerState, s: AppSettings, a: HomeActions, 
             }
         }
         // Visible slots: the alarm warning first, then the contextual Adhkar entry (never hidden behind More), then one more door.
-        val adhkarDoor = doorList.firstOrNull { !it.warn && it.label.contains("adhk", ignoreCase = true) }
+        val adhkarDoor = doorList.firstOrNull { !it.warn && it.kind == DoorKind.ADHKAR }
         val visibleDoors = if (doorList.size <= 2) doorList else
             (doorList.filter { it.warn }.take(1) + listOfNotNull(adhkarDoor) + doorList.filter { !it.warn && it !== adhkarDoor }.take(1)).take(2)
         val extraDoors = doorList.filter { it !in visibleDoors }

@@ -97,7 +97,8 @@ class HomeActions(
     val updateAvailable: Boolean, val onOpenAbout: () -> Unit, val onToggleRelative: () -> Unit
 )
 
-internal class Door(val label: String, val warn: Boolean = false, val onClick: (() -> Unit)? = null)
+internal enum class DoorKind { OTHER, ADHKAR }
+internal class Door(val label: String, val warn: Boolean = false, val kind: DoorKind = DoorKind.OTHER, val onClick: (() -> Unit)? = null)
 
 /** Everything that used to be a chip, in one place, so both tablet homes show exactly the same doors. */
 @Composable
@@ -108,11 +109,11 @@ internal fun doors(state: PrayerState, s: AppSettings, a: HomeActions): List<Doo
     val hij = PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)
     val out = mutableListOf<Door>()
     if (s.showQibla) { val q = PrayerEngine.qibla(s); out += Door(L10n.word(s, "Qibla") + " " + L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"), onClick = a.onOpenQibla) }
-    if (AdhkarMode.MORNING in adhkarModes(state, s)) out += Door(L10n.word(s, "Morning adhkār")) { a.onOpenAdhkar(AdhkarMode.MORNING) }
-    if (AdhkarMode.EVENING in adhkarModes(state, s)) out += Door(L10n.word(s, "Evening adhkār")) { a.onOpenAdhkar(AdhkarMode.EVENING) }
+    if (AdhkarMode.MORNING in adhkarModes(state, s)) out += Door(L10n.word(s, "Morning adhkār"), kind = DoorKind.ADHKAR) { a.onOpenAdhkar(AdhkarMode.MORNING) }
+    if (AdhkarMode.EVENING in adhkarModes(state, s)) out += Door(L10n.word(s, "Evening adhkār"), kind = DoorKind.ADHKAR) { a.onOpenAdhkar(AdhkarMode.EVENING) }
     if (s.fridayReminders && PrayerEngine.isJumuahWindow(s, state.now)) out += Door(L10n.word(s, "Jumuʿah · al-Kahf · ṣalawāt"), onClick = a.onOpenFriday)
     if (AdhkarMode.POST in adhkarModes(state, s))
-        out += Door(L10n.word(s, "After-prayer adhkār")) { a.onOpenAdhkar(AdhkarMode.POST) }
+        out += Door(L10n.word(s, "After-prayer adhkār"), kind = DoorKind.ADHKAR) { a.onOpenAdhkar(AdhkarMode.POST) }
     if (ramadan && hij.day >= 27) out += Door("Zakāt al-Fiṭr before Eid prayer")
     if (a.updateAvailable) out += Door(L10n.word(s, "Update available"), onClick = a.onOpenAbout)
     if (!alarmsOk) out += Door(Str[R.string.s_azaan_may_be_late_fix], warn = true, onClick = a.onOpenSettings)

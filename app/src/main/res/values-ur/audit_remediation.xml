@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="audit_current_method">موجودہ طریقہ: %1$s، عصر: %2$s، %3$s (%4$.3f، %5$.3f)۔</string>
+    <string name="audit_basmala_cue">اگر آپ قراءت کر رہے ہیں تو اس رکعت میں سورۃ الفاتحہ سے پہلے بسم اللہ پڑھیں۔ امام کے پیچھے اپنے مسلک پر عمل کریں۔</string>
+    <string name="audit_basmala_audio">پہلے اوپر دی گئی بسم اللہ پڑھیں۔ سننے کا بٹن صرف سورۃ الفاتحہ کی آڈیو چلاتا ہے۔</string>
+    <string name="audit_english_translation">انگریزی ترجمہ (اردو کی جانچ باقی ہے)</string>
+    <string name="audit_play_privacy">کوئی اکاؤنٹ، اشتہار یا تجزیات نہیں۔ جگہ کے نام اور مقام کی تلاش کے لیے اینڈرائیڈ کا جیوکوڈر اپنے فراہم کنندہ سے رابطہ کر سکتا ہے۔ اس ایڈیشن کی اپ ڈیٹس گوگل پلے سے ملتی ہیں۔\n\n</string>
+</resources>

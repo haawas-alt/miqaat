@@ -18,7 +18,7 @@
     <string name="s_chosen_by_you_automatic_location_refresh">Chosen by you · automatic location refresh will not change it</string>
     <string name="s_follows_the_device_while_that_is">Follows the device while that is plausible for the place; pick one here to lock it.</string>
     <string name="s_use_the_tablet_s_location">Use the device\'s location</string>
-    <string name="s_re_detects_each_time_the_app">Re-detects each time the app opens</string>
+    <string name="s_re_detects_each_time_the_app">Refreshes on opening when at least 30 minutes have passed</string>
     <string name="s_detect_now">Detect now</string>
     <string name="s_or_choose_a_place">Or choose a place</string>
     <string name="s_search_a_suburb_or_city">Search a suburb or city</string>
@@ -51,7 +51,7 @@
     <string name="s_off_keeps_the_file_but_shows">Off keeps the file but shows calculated times</string>
     <string name="s_calculation_method">Calculation method</string>
     <string name="s_asr_juristic_method">Asr juristic method</string>
-    <string name="s_hanafi_asr_begins_later_shadow_2">Hanafi Asr begins later (shadow = 2× object)</string>
+    <string name="s_hanafi_asr_begins_later_shadow_2">Hanafi Asr: twice the object height plus its shadow at solar noon</string>
     <string name="s_high_latitude_rule">High-latitude rule</string>
     <string name="s_only_matters_above_48_latitude">Only matters above 48° latitude</string>
     <string name="s_show_end_times">Show end times</string>
@@ -283,7 +283,7 @@
     <string name="s_using_the_device_s_zone">Using the device\'s zone</string>
     <string name="s_from_the_chosen_place">From the chosen place</string>
     <string name="s_convention">Convention</string>
-    <string name="s_hanafi_asr_begins_later_shadow_2_2">Hanafi ʿAsr begins later (shadow = 2× object)</string>
+    <string name="s_hanafi_asr_begins_later_shadow_2_2">Hanafi Asr: twice the object height plus its shadow at solar noon</string>
     <string name="s_fix_the_time_zone_first">Fix the time zone first</string>
     <string name="s_these_look_right">These look right</string>
     <string name="s_calculation_convention">Calculation convention</string>
@@ -323,8 +323,8 @@
     <string name="s_no_compass_sensor">No compass sensor</string>
     <string name="s_waiting_for_the_compass">Waiting for the compass…</string>
     <string name="s_compass_unreliable_calibrate">Compass unreliable — calibrate</string>
-    <string name="s_compass_accuracy_low_about_15">Compass accuracy low (about ±15°)</string>
-    <string name="s_compass_accuracy_medium_about_5">Compass accuracy medium (about ±5°)</string>
+    <string name="s_compass_accuracy_low_about_15">Compass accuracy low — calibrate away from metal</string>
+    <string name="s_compass_accuracy_medium_about_5">Compass accuracy medium — check alignment</string>
     <string name="s_compass_accuracy_high">Compass accuracy high</string>
     <string name="s_qibla">Qibla</string>
     <string name="s_no_compass_sensor_face_the_phone">No compass sensor: face the phone\'s top edge north and read the Qibla needle.</string>
