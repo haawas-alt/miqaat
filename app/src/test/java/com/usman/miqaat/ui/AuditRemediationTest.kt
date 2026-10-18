@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.*
 import androidx.compose.ui.unit.dp
@@ -33,7 +32,15 @@ class AuditRemediationTest : ComposeSupport() {
     }
     private fun capture(name: String) {
         val f = File("build/audit-screens/remediation/$name.png"); f.parentFile.mkdirs()
-        f.outputStream().use { rule.onRoot().captureToImage().asAndroidBitmap().compress(android.graphics.Bitmap.CompressFormat.PNG,100,it) }
+        // PixelCopy callbacks are unavailable in this Robolectric host. Draw the actual composed view.
+        rule.waitForIdle()
+        scenario.onActivity { activity ->
+            val view = activity.findViewById<android.view.View>(android.R.id.content)
+            val bitmap = android.graphics.Bitmap.createBitmap(view.width, view.height, android.graphics.Bitmap.Config.ARGB_8888)
+            view.draw(android.graphics.Canvas(bitmap))
+            f.outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG,100,it) }
+            bitmap.recycle()
+        }
     }
 
     @Test fun countdownNumberAndBothActionsRemainVisibleAndWorkInShortLandscape() {
@@ -93,4 +100,21 @@ class AuditRemediationTest : ComposeSupport() {
         }
         assertEquals(3,Learn.words.indexOfFirst { it.arabic==actions[i].step.arabic })
     }
+    @Test fun tabletPortraitAdhkarUsesReadableArabicInBothLanguagesAndScales() {
+        for (urdu in listOf(false,true)) for (scale in listOf(1f,2f)) {
+            app.settings.update { AppSettings(theme=AppTheme.PRAYER_GALLERY,language=if(urdu) Language.UR else Language.EN) }
+            try {
+                show(Dev.TABLET_PORTRAIT,fontScale=scale,rtl=urdu) { AdhkarScreen(AdhkarMode.MORNING) {} }
+                val arabic=rule.onNodeWithText(Adhkar.morning().first().arabic,useUnmergedTree=true)
+                arabic.performScrollTo().assertIsDisplayed()
+                val layouts=mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
+                arabic.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) { it(layouts) }
+                assertTrue(layouts.isNotEmpty())
+                assertTrue("Portrait tablet Arabic must use its reading space",layouts.first().layoutInput.style.fontSize.value>=28f)
+                assertFalse(layouts.first().didOverflowWidth)
+                capture("adhkar-tablet-portrait-$urdu-$scale")
+            } finally { scenario.close() }
+        }
+    }
+
 }
