@@ -54,6 +54,17 @@ class AuditRemediationTest : ComposeSupport() {
                     AzaanScreen(Phase.IqamahCountdown(Prayer.DHUHR, now, now+180_000), { dismiss++ }, { start++ })
                 }
                 visible("iqamah-seconds"); visible("iqamah-unit")
+                if (dev == Dev.TABLET_LANDSCAPE && scale == 1f && !urdu) {
+                    val label = Str[R.string.s_iqamah_countdown].uppercase()
+                    val layouts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
+                    rule.onNodeWithText(label).performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) { it(layouts) }
+                    val layout = layouts.single()
+                    assertFalse("Phase label must not overflow", layout.hasVisualOverflow)
+                    for (line in 0 until layout.lineCount - 1) {
+                        val end = layout.getLineEnd(line, visibleEnd = true)
+                        assertTrue("Phase label must wrap between complete words: $label", end == 0 || end >= label.length || label[end].isWhitespace() || label[end - 1].isWhitespace())
+                    }
+                }
                 rule.onNodeWithText(Str[R.string.s_start_iqamah_now]).assertIsDisplayed().performClick()
                 rule.onNodeWithText(Str[R.string.s_dismiss]).assertIsDisplayed().performClick()
                 assertEquals(1,start); assertEquals(1,dismiss)

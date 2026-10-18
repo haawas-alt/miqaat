@@ -186,7 +186,7 @@ private fun StepsBar(phase: Phase, u: Dp) {
     // Keep the active step visible when accessibility text requires horizontal scrolling.
     val scroll = rememberScrollState()
     val density = androidx.compose.ui.platform.LocalDensity.current
-    val stepWidth = maxOf(96.dp * density.fontScale, u * 9)
+    val stepWidth = maxOf(128.dp * density.fontScale, u * 12)
     LaunchedEffect(idx, stepWidth) { scroll.scrollTo(with(density) { stepWidth.roundToPx() } * idx) }
     // Step line like the approved mockups: a dot per step joined by a line, label underneath.
     Row(Modifier.fillMaxWidth().horizontalScroll(scroll).padding(vertical = 8.dp).testTag("flow-steps"), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.Top) {

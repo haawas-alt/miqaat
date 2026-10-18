@@ -35,10 +35,10 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         run: |
           set -euo pipefail
-          # Full GitHub baseline suite at 4aef838 passed 124 existing tests with one legacy skip.
-          # Re-run affected tests after fixing the native capture harness, and run the full Play suite.
+          # Full Play suite passed at de2ef3d (128 pass, one opt-in screenshot skip).
+          # This follow-up only widens phase labels; re-run affected assertions in both release flavors.
           ./gradlew --no-daemon testGithubReleaseUnitTest --tests '*AuditRemediationTest' --tests '*GalleryDoorPriorityTest' --tests '*LearnSequenceTest' 2>&1 | tee validation.log
-          ./gradlew --no-daemon testPlayReleaseUnitTest lintGithubRelease lintPlayRelease compileGithubDebugAndroidTestKotlin 2>&1 | tee -a validation.log
+          ./gradlew --no-daemon testPlayReleaseUnitTest --tests '*AuditRemediationTest' --tests '*GalleryDoorPriorityTest' --tests '*LearnSequenceTest' lintGithubRelease lintPlayRelease compileGithubDebugAndroidTestKotlin 2>&1 | tee -a validation.log
       - name: Build both signed APKs and Play bundle
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
