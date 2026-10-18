@@ -1,0 +1,62 @@
+name: Notification messages candidate
+on:
+  push:
+    branches: ['feature/notification-messages']
+    paths: ['app/**', '.github/workflows/notification-messages.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Restore signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_BASE64"
+          mkdir -p keystore && printf '%s' "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
+          echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
+          echo "MIQAAT_VERSION_NAME=1.161-messages" >> "$GITHUB_ENV"
+      - name: Unit tests, lint, build
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon testGithubReleaseUnitTest lintGithubRelease assembleGithubRelease 2>&1 | tee build.log
+          mkdir -p candidate
+          cp app/build/outputs/apk/github/release/app-github-release.apk candidate/Miqaat-messages.apk
+          (cd candidate && sha256sum Miqaat-messages.apk | cut -d' ' -f1 > Miqaat-messages.apk.sha256)
+          BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
+          "$BT/apksigner" verify --print-certs candidate/Miqaat-messages.apk | grep -i "SHA-256" | tee candidate/signature.txt
+          grep -qi 6285b269 candidate/signature.txt
+      - name: Publish log on failure
+        if: failure()
+        run: |
+          grep -E "^e: |error:|Error:|FAILURE|What went wrong|FAILED|expected|Assertion|Lint found" build.log | sed 's#file:///home/runner/work/miqaat/miqaat/##' | head -200 > errors.txt || true
+          find app/build/test-results -name "*.xml" -exec grep -l "<failure" {} \; | xargs -r cat >> errors.txt || true
+          find app/build/reports -name "lint-results*.txt" -exec cat {} \; >> errors.txt 2>/dev/null || true
+          git config user.name ci; git config user.email ci@users.noreply.github.com
+          cp errors.txt build.log /tmp/ ; git checkout -q --orphan ci-logs-messages; git rm -rfq . >/dev/null 2>&1 || true
+          cp /tmp/errors.txt /tmp/build.log . ; git add errors.txt build.log; git commit -qm "log ${{ github.run_number }}"; git push -qf origin ci-logs-messages
+      - name: Publish as a pre-release (never reaches the in-app updater)
+        if: success()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: messages-1.161-${{ github.run_number }}
+          target_commitish: ${{ github.sha }}
+          name: Hadith notification messages candidate (build ${{ github.run_number }})
+          body: |
+            Testing candidate from feature/notification-messages at ${{ github.sha }}.
+            Not the updater release: the in-app updater only reads the `latest` tag.
+          files: |
+            candidate/Miqaat-messages.apk
+            candidate/Miqaat-messages.apk.sha256
+          prerelease: true
+          make_latest: false

@@ -1,0 +1,108 @@
+name: Gallery tablet landscape candidate
+on:
+  push:
+    branches: ['feat/gallery-tablet-landscape-option3']
+    paths: ['app/**', '.github/workflows/gallery-tablet-candidate.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Restore signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_BASE64"
+          mkdir -p keystore && printf '%s' "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
+          echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
+          echo "MIQAAT_VERSION_NAME=1.163-gallery" >> "$GITHUB_ENV"
+      - name: Unit tests, lint, build
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon testGithubReleaseUnitTest lintGithubRelease assembleGithubRelease 2>&1 | tee build.log
+          mkdir -p candidate
+          cp app/build/outputs/apk/github/release/app-github-release.apk candidate/Miqaat-gallery.apk
+          (cd candidate && sha256sum Miqaat-gallery.apk | cut -d' ' -f1 > Miqaat-gallery.apk.sha256)
+          BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
+          "$BT/apksigner" verify --print-certs candidate/Miqaat-gallery.apk | grep -i "SHA-256" | tee candidate/signature.txt
+          grep -qi 6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01 candidate/signature.txt
+          printf 'Commit: %s\nVersion: %s\nVersion code: %s\n' "$GITHUB_SHA" "$MIQAAT_VERSION_NAME" "$MIQAAT_VERSION_CODE" > candidate/build.txt
+      - name: Summarize actual test results
+        if: always()
+        run: |
+          python3 - <<'PYTEST'
+          import os, pathlib, xml.etree.ElementTree as ET
+          totals = dict(tests=0, failures=0, errors=0, skipped=0)
+          for path in pathlib.Path('app/build/test-results').rglob('TEST-*.xml'):
+              root = ET.parse(path).getroot()
+              for key in totals:
+                  totals[key] += int(root.attrib.get(key, 0))
+          captures = list(pathlib.Path('app/build/audit-screens').glob('gallery-*.png'))
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+              f.write('Commit: ' + os.environ['GITHUB_SHA'] + '\n\n')
+              f.write(str(totals) + '\n\nRaw Gallery captures: ' + str(len(captures)) + '\n')
+          PYTEST
+      - name: Retain raw evidence and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gallery-evidence-${{ github.sha }}
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            app/build/audit-screens/gallery-*.png
+            app/build/audit-screens/detailed-gallery/
+            app/build/test-results/**/*.xml
+            app/build/reports/lint-results*
+            build.log
+            candidate/signature.txt
+            candidate/build.txt
+            app/build/outputs/apk/github/release/output-metadata.json
+      - name: Publish tablet-landscape captures to a branch (for review)
+        if: always()
+        run: |
+          set -uo pipefail
+          D="$(mktemp -d)"
+          cp app/build/audit-screens/gallery-*.png "$D"/ 2>/dev/null || true
+          cd "$D" && git init -q && git checkout -q -b ci-shots-gallery
+          git config user.name ci; git config user.email ci@users.noreply.github.com
+          git add -A && git commit -qm "captures ${{ github.run_number }}" || true
+          git push -qf "$GITHUB_WORKSPACE_REMOTE" HEAD:ci-shots-gallery || true
+        env:
+          GITHUB_WORKSPACE_REMOTE: ${{ format('https://x-access-token:{0}@github.com/{1}.git', secrets.GITHUB_TOKEN, github.repository) }}
+      - name: Publish log on failure
+        if: failure()
+        run: |
+          grep -E "^e: |error:|Error:|FAILURE|What went wrong|FAILED|expected|Assertion|Lint found" build.log | sed 's#file:///home/runner/work/miqaat/miqaat/##' | head -200 > errors.txt || true
+          find app/build/test-results -name "*.xml" -exec grep -l "<failure" {} \; | xargs -r cat >> errors.txt || true
+          find app/build/reports -name "lint-results*.txt" -exec cat {} \; >> errors.txt 2>/dev/null || true
+          git config user.name ci; git config user.email ci@users.noreply.github.com
+          cp errors.txt build.log /tmp/ ; git checkout -q --orphan ci-logs-gallery; git rm -rfq . >/dev/null 2>&1 || true
+          cp /tmp/errors.txt /tmp/build.log . ; git add errors.txt build.log; git commit -qm "log ${{ github.run_number }}"; git push -qf origin ci-logs-gallery
+      - name: Publish as a pre-release (never reaches the in-app updater)
+        if: success()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: gallery-tablet-1.163-${{ github.run_number }}
+          target_commitish: ${{ github.sha }}
+          name: Gallery tablet landscape candidate (build ${{ github.run_number }})
+          body: |
+            Testing candidate from feat/gallery-tablet-landscape-option3 at ${{ github.sha }}.
+            Not the updater release: the in-app updater only reads the `latest` tag.
+          files: |
+            candidate/Miqaat-gallery.apk
+            candidate/Miqaat-gallery.apk.sha256
+            candidate/signature.txt
+            candidate/build.txt
+          prerelease: true
+          make_latest: false

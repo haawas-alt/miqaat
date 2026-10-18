@@ -103,21 +103,28 @@ abstract class ShotSupport {
 
     protected fun shot(name: String, theme: AppTheme, scale: Float = 1f, rtl: Boolean = false, content: @Composable (AppSettings, PrayerState) -> Unit) {
         var label = "$name-$theme"
-        try {
-            val s = settingsFor(theme, rtl); val st = stateAt(s)
-            app.settings.update { s }
-            Learn.clear(app)
-            host(theme, scale, rtl) { content(s, st) }
-            label = "${name}__${theme.name.lowercase()}__${device}__${(scale * 100).toInt()}${if (rtl) "__ur" else ""}"
-            Thread.sleep(700); rule.waitForIdle()
-            val bmp = rule.onRoot().captureToImage().asAndroidBitmap()
-            File(out, "$label.png").outputStream().use { bmp.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
-            scenario.close()
-        } catch (t: Throwable) {
-            errors += "$label: ${t.javaClass.simpleName}: ${t.message?.take(200)}"
-            runCatching { scenario.close() }
-            throw AssertionError("Capture failed: $label", t)
+        var lastError: Throwable? = null
+        // Emulators sometimes miss Compose's idle deadline for one frame. Retry once after a pause before failing the capture.
+        for (attempt in 1..2) {
+            try {
+                val s = settingsFor(theme, rtl); val st = stateAt(s)
+                app.settings.update { s }
+                Learn.clear(app)
+                host(theme, scale, rtl) { content(s, st) }
+                label = "${name}__${theme.name.lowercase()}__${device}__${(scale * 100).toInt()}${if (rtl) "__ur" else ""}"
+                Thread.sleep(700 + attempt * 1500L); rule.waitForIdle()
+                val bmp = rule.onRoot().captureToImage().asAndroidBitmap()
+                File(out, "$label.png").outputStream().use { bmp.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+                scenario.close()
+                return
+            } catch (t: Throwable) {
+                lastError = t
+                runCatching { scenario.close() }
+                Thread.sleep(1500)
+            }
         }
+        errors += "$label: ${lastError?.javaClass?.simpleName}: ${lastError?.message?.take(200)}"
+        throw AssertionError("Capture failed: $label", lastError)
     }
 
     protected fun flushErrors() {

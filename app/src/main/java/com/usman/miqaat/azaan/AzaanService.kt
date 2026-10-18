@@ -153,6 +153,7 @@ class AzaanService : Service() {
             }
         }
         _phase.value = Phase.Azaan(prayer, preview)
+        postMessage(prayer)
         if (!preview) { showScreen(prayer); com.usman.miqaat.data.Health.log(this, com.usman.miqaat.data.Health.Kind.INFO, "${prayer.english} azaan playing", "Recording started") }
     }
 
@@ -368,7 +369,37 @@ class AzaanService : Service() {
         stopForeground(STOP_FOREGROUND_REMOVE)
     }
 
+    /** Qur'an/hadith line for this prayer, as its own dismissible entry so it stays after the azaan ends. */
+    private fun messageNotification(prayer: Prayer): Notification? {
+        val st = (application as MiqaatApp).settings.value
+        if (!st.prayerMessages || com.usman.miqaat.data.L10n.isUrdu(st)) return null
+        val m = com.usman.miqaat.data.PrayerMessages.forDay(prayer, java.time.LocalDate.now(st.zone()))
+        val open = PendingIntent.getActivity(this, 8, packageManager.getLaunchIntentForPackage(packageName) ?: Intent(),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        return NotificationCompat.Builder(this, MiqaatApp.CHANNEL_SILENT)
+            .setSmallIcon(R.drawable.ic_launcher_monochrome)
+            .setContentTitle(m.title)
+            .setContentText(m.text)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(m.text))
+            .setContentIntent(open)
+            .setAutoCancel(true).build()
+    }
+
+    private fun postMessage(prayer: Prayer) {
+        val n = messageNotification(prayer) ?: return
+        runCatching { getSystemService(android.app.NotificationManager::class.java).notify(MSG_ID, n) }
+    }
+
     private fun showReminder(prayer: Prayer, note: String?) {
+        if (prayer == Prayer.SUNRISE) {
+            val n = messageNotification(prayer) ?: NotificationCompat.Builder(this, MiqaatApp.CHANNEL_SILENT).setSmallIcon(R.drawable.ic_launcher_monochrome).setContentTitle("Sunrise").setAutoCancel(true).build()
+            val promoted = runCatching {
+                if (Build.VERSION.SDK_INT >= 29) startForeground(MSG_ID, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK) else startForeground(MSG_ID, n)
+            }.isSuccess
+            if (promoted) stopForeground(STOP_FOREGROUND_DETACH)
+            else getSystemService(android.app.NotificationManager::class.java).notify(MSG_ID, n)
+            return
+        }
         val suhoor = note?.startsWith("Suhoor") == true
         val st = (application as MiqaatApp).settings.value
         val ur = com.usman.miqaat.data.L10n.isUrdu(st)
@@ -495,6 +526,7 @@ class AzaanService : Service() {
         const val ACTION_QUIET = "com.usman.miqaat.QUIET"
         const val EXTRA_SECONDS = "seconds"
         private const val NOTIF_ID = 41
+        private const val MSG_ID = 44   // the day's Qur'an/hadith line; 43 is the receiver's fallback
 
         private val _phase = MutableStateFlow<Phase?>(null)
         val phase: StateFlow<Phase?> = _phase

@@ -10,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -50,7 +51,11 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
     val hero = heroInfo(state, settings, kicker(state, settings))
     var why by remember { mutableStateOf<Prayer?>(null) }
     var more by remember { mutableStateOf(false) }
-    why?.let { WhyDialog(settings, state.today, it) { why = null } }
+    why?.let { prayer ->
+        val day = if (settings.theme == com.usman.miqaat.data.AppTheme.PRAYER_GALLERY && prayer == state.next && state.nextTime.toLocalDate().isAfter(state.today.date))
+            PrayerEngine.times(settings, state.nextTime.toLocalDate()) else state.today
+        WhyDialog(settings, day, prayer) { why = null }
+    }
     Box(Modifier.fillMaxSize().background(if (gallery) tk.background else Color(0xFF03182D))) {
         if (!gallery) Image(painterResource(R.drawable.celestial_landscape_approved), null,
             Modifier.fillMaxSize(), contentScale = ContentScale.Crop, alpha = 0.35f)
@@ -62,6 +67,18 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                     Icon(Icons.Outlined.LocationOn, null, Modifier.size(24.dp), tint = if (gallery) ink else tk.primary)
                     Text(L10n.place(settings.locationName), Modifier.weight(1f).padding(start = 6.dp).testTag("landscape-location"),
                         fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = 20.sp, maxLines = 1, color = ink)
+                }
+                adhkarModes(state, settings).firstOrNull()?.let { mode ->
+                    val label = L10n.word(settings, when (mode) {
+                        AdhkarMode.MORNING -> "Morning adhkār"
+                        AdhkarMode.EVENING -> "Evening adhkār"
+                        AdhkarMode.POST -> "After-prayer adhkār"
+                    })
+                    Text(label, Modifier.padding(horizontal = 4.dp).clip(RoundedCornerShape(50))
+                        .border(1.dp, if (gallery) tk.accent else tk.primary, RoundedCornerShape(50))
+                        .clickable(role = Role.Button) { actions.onOpenAdhkar(mode) }
+                        .padding(horizontal = 10.dp, vertical = 4.dp).testTag("landscape-adhkar-pill"),
+                        fontFamily = font, fontSize = 14.sp, maxLines = 1, color = ink)
                 }
                 Text(L10n.dateShort(settings, state.now), Modifier.width(if (urdu) 120.dp else 96.dp).padding(horizontal = 8.dp).testTag("landscape-date"),
                     fontFamily = font, fontSize = 17.sp, maxLines = 1, textAlign = if (gallery) TextAlign.End else TextAlign.Center, color = ink)
@@ -112,7 +129,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                             .then(if (gallery) Modifier else Modifier.clip(RoundedCornerShape(12.dp))
                                 .background(Color(0xCC03182D)).border(1.dp, tk.divider, RoundedCornerShape(12.dp)))
                             .padding(horizontal = 12.dp), verticalArrangement = Arrangement.Center) {
-                            if (settings.showHijri) Text(L10n.hijri(settings, PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)),
+                            if (settings.showHijri) Text(if (gallery) galleryHijriLine(settings, PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)) else L10n.hijri(settings, PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)),
                                 Modifier.fillMaxWidth().testTag("landscape-hijri"), fontFamily = font, fontSize = 14.sp, maxLines = 1, color = ink)
                             if (settings.showDisliked) ApprovedLandscapeTimeline(state, settings, tk, ink, Modifier.fillMaxWidth().height(48.dp))
                         }
@@ -120,7 +137,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                     Column(Modifier.weight(0.46f).fillMaxHeight().testTag("landscape-prayer-list"),
                         verticalArrangement = Arrangement.spacedBy(gap)) {
                         prayers.forEach { prayer ->
-                            val row = rowInfo(prayer, state, settings)
+                            val row = if (gallery) galleryRowInfo(prayer, state, settings) else rowInfo(prayer, state, settings)
                             val selected = row.isNow || row.isNext
                             val shape = RoundedCornerShape(if (gallery) 8.dp else 12.dp)
                             val surface = if (gallery) {
@@ -148,8 +165,10 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                                 }
                                 Text(buildAnnotatedString {
                                     append(row.label)
-                                    if (selected) withStyle(SpanStyle(color = if (gallery) tk.accent else tk.primary, fontWeight = FontWeight.Bold, fontSize = if (short) 12.sp else TextUnit.Unspecified)) {
-                                        append((if (short && !urdu) "\n" else " · ") + L10n.word(settings, if (row.isNow) "NOW" else "NEXT"))
+                                    if (selected) withStyle(SpanStyle(color = if (gallery) (if (row.isNow) tk.success else tk.accent) else tk.primary, fontWeight = FontWeight.Bold,
+                                        fontSize = if (short) 13.sp else TextUnit.Unspecified,
+                                        background = if (gallery) (if (row.isNow) tk.success else tk.accent).copy(alpha = 0.12f) else Color.Unspecified)) {
+                                        append((if (short && !urdu) "\n" else " · ") + (if (gallery) " " else "") + L10n.word(settings, if (row.isNow) "NOW" else "NEXT") + (if (gallery) " " else ""))
                                     }
                                 },
                                     Modifier.weight(1f).padding(horizontal = 8.dp).testTag("landscape-row-name-${prayer.name}"),
@@ -161,7 +180,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                                     maxLines = if (urdu && settings.showRelative) 2 else 1,
                                     lineHeight = if (urdu && settings.showRelative) 17.sp else TextUnit.Unspecified,
                                     textAlign = TextAlign.End, color = ink)
-                                Icon(Icons.Outlined.ChevronRight, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.contentSecondary)
+                                Icon(if (gallery) Icons.AutoMirrored.Outlined.KeyboardArrowRight else Icons.Outlined.ChevronRight, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.contentSecondary)
                             }
                         }
                     }
@@ -209,7 +228,7 @@ private fun ApprovedLandscapeHero(state: PrayerState, s: AppSettings, a: HomeAct
                     verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                     Text(Str[R.string.s_view_prayer_details], Modifier.weight(1f), fontFamily = font, maxLines = 1,
                         fontSize = if (short) 12.sp else 14.sp, color = if (gallery) tk.onPrimary else tk.contentPrimary)
-                    Icon(Icons.Outlined.ChevronRight, null, Modifier.size(18.dp), tint = if (gallery) tk.onPrimary else tk.contentPrimary)
+                    Icon(if (gallery) Icons.AutoMirrored.Outlined.KeyboardArrowRight else Icons.Outlined.ChevronRight, null, Modifier.size(18.dp), tint = if (gallery) tk.onPrimary else tk.contentPrimary)
                 }
             }
             Spacer(Modifier.width(8.dp))
@@ -222,7 +241,7 @@ private fun ApprovedLandscapeHero(state: PrayerState, s: AppSettings, a: HomeAct
                         Icon(Icons.Outlined.WbTwilight, null, Modifier.size(20.dp), tint = tk.accent)
                         Text(if (urdu) Str[R.string.s_learn_salah] else "Prepare for ${hero.label}", Modifier.weight(1f).padding(horizontal = 6.dp),
                             fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (short) 12.sp else 14.sp, maxLines = 2, color = ink)
-                        Icon(Icons.Outlined.ChevronRight, null, Modifier.size(16.dp), tint = tk.accent)
+                        Icon(if (gallery) Icons.AutoMirrored.Outlined.KeyboardArrowRight else Icons.Outlined.ChevronRight, null, Modifier.size(16.dp), tint = tk.accent)
                     }
                 } else {
                     Box(Modifier.fillMaxWidth().aspectRatio(1f).testTag("landscape-countdown-dial"), contentAlignment = Alignment.Center) {

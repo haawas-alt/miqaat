@@ -119,11 +119,11 @@ object ThemeTokenSets {
     val celestial = ThemeTokens(
         theme = AppTheme.CELESTIAL_MERIDIAN, dark = true, art = ArtStyle.CELESTIAL,
         background = Color(0xFF061A36), backgroundBrush = Brush.verticalGradient(listOf(Color(0xFF061A36), Color(0xFF0B2C55))),
-        surface = Color(0xFF0D2748), surfaceRaised = Color(0xFF133559), selectedSurface = Color(0xFF3A2B33),
+        surface = Color(0xFF0D2748), surfaceRaised = Color(0xFF133559), selectedSurface = Color(0xFF1E3A62),   // next prayer: lifted night blue with a gold edge (was a reddish wash)
         divider = Color(0x33B9C8DB), outline = Color(0x66B9C8DB), focusRing = Color(0xFF72D7E8),
         primary = Color(0xFFFFD166), onPrimary = Color(0xFF061A36),
         contentPrimary = Color(0xFFFFF6E5), contentSecondary = Color(0xFFB9C8DB), contentMuted = Color(0xFF8FA3BC),
-        info = Color(0xFF72D7E8), success = Color(0xFF63D7BB), warning = Color(0xFFFF805C), accent = Color(0xFFFF805C), sun = Color(0xFFFFD166),
+        info = Color(0xFF72D7E8), success = Color(0xFF63D7BB), warning = Color(0xFFFF805C), accent = Color(0xFFFFBE5C), sun = Color(0xFFFFD166),   // accent is warm gold, not coral: coral stays for warnings only
         error = Color(0xFFFF8A80),
         todayText = Color(0xFFFFD166), fridayText = Color(0xFF63D7BB), neutralStroke = Color(0x33B9C8DB),
         arabicText = Color(0xFFFFF6E5), scrim = Color(0x33061A36), softFill = Color(0x14FFFFFF),
@@ -140,13 +140,13 @@ object ThemeTokenSets {
     val gallery = ThemeTokens(
         theme = AppTheme.PRAYER_GALLERY, dark = false, art = ArtStyle.GALLERY,
         background = Color(0xFFFBF7EE), backgroundBrush = Brush.verticalGradient(listOf(Color(0xFFFBF7EE), Color(0xFFF5EFE2))),
-        surface = Color(0xFFFFFDF7), surfaceRaised = Color(0xFFF3ECDD), selectedSurface = Color(0xFFE8EFFC),
-        divider = Color(0xFFD8D0C3), outline = Color(0xFF8C8377), focusRing = Color(0xFF1559D6),
-        primary = Color(0xFF1559D6), onPrimary = Color(0xFFFFFFFF),
+        surface = Color(0xFFFFFDF7), surfaceRaised = Color(0xFFF3ECDD), selectedSurface = Color(0xFFF7E9DF),
+        divider = Color(0xFFD8D0C3), outline = Color(0xFF8C8377), focusRing = Color(0xFFA94F31),
+        primary = Color(0xFFA94F31), onPrimary = Color(0xFFFFFFFF),
         contentPrimary = Color(0xFF0B302D), contentSecondary = Color(0xFF665F59), contentMuted = Color(0xFF6B635C),
-        info = Color(0xFF1559D6), success = Color(0xFF0E7A58), warning = Color(0xFFA94F31), accent = Color(0xFFA94F31), sun = Color(0xFFE7A94B),
+        info = Color(0xFFA94F31), success = Color(0xFF0E7A58), warning = Color(0xFFA94F31), accent = Color(0xFFA94F31), sun = Color(0xFFE7A94B),
         error = Color(0xFFB3261E),
-        todayText = Color(0xFF1559D6), fridayText = Color(0xFF0E7A58), neutralStroke = Color(0xFF8C8377),
+        todayText = Color(0xFF8F3F26), fridayText = Color(0xFF0E7A58), neutralStroke = Color(0xFF8C8377),
         arabicText = Color(0xFF0B302D), scrim = Color(0x0D0B302D), softFill = Color(0xFFF3ECDD),
         skyAzaan = listOf(Color(0xFFF6E7D0), Color(0xFFFBF7EE)), skyIqamah = listOf(Color(0xFFDCEBE4), Color(0xFFF3F4EA), Color(0xFFFBF7EE)), skyDua = listOf(Color(0xFFE3EAF8), Color(0xFFF3F0EA), Color(0xFFFBF7EE)),
         cornerSmall = 10.dp, cornerMedium = 16.dp, cornerLarge = 22.dp, elevation = 0.dp,
