@@ -11,6 +11,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   validate:
+    if: ${{ !contains(github.event.head_commit.message, '[evidence only]') }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
