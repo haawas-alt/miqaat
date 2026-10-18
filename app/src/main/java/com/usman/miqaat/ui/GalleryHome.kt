@@ -784,8 +784,10 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
         Box(Modifier.width(4.dp).fillMaxHeight().background(if (r.isNow) tk.success else if (r.isNext) tk.accent else Color.Transparent))
         Box(Modifier.padding(horizontal = 8.dp).size(52.dp).clip(RoundedCornerShape(10.dp))) {
             PrayerCardArt(r.prayer, Modifier.matchParentSize().clearAndSetSemantics { })
-            if (selected) GalleryStatusBadge(r.isNow, s,
-                Modifier.align(Alignment.BottomCenter).testTag("gallery-fit-marker-${r.prayer.name}"), compact = true)
+            if (selected) Box(Modifier.align(Alignment.BottomCenter)
+                .testTag("gallery-fit-marker-${r.prayer.name}")) {
+                GalleryStatusBadge(r.isNow, s, compact = true)
+            }
         }
         Column(Modifier.weight(1f)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
