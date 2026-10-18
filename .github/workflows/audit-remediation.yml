@@ -2,6 +2,7 @@ name: Audit remediation validation and signed artifacts
 on:
   push:
     branches: ['fix/audit-1.163-25-remediation']
+    paths-ignore: ['docs/**', '.github/workflows/audit-evidence-recovery.yml']
   workflow_dispatch:
 permissions:
   contents: read
