@@ -179,7 +179,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.6f), modifier = Modifier.padding(top = u * 1)) {
                     val c = counts[cur.id] ?: 0
                     Box(
-                        Modifier.size(maxOf(u * 7.5f, 56.dp) * counterScale).clip(CircleShape).background(if (done) tk.success else tk.primary)
+                        Modifier.testTag("adhkar-count-control").size(maxOf(u * 7.5f, 56.dp) * counterScale).clip(CircleShape).background(if (done) tk.success else tk.primary)
                             .clickable(role = androidx.compose.ui.semantics.Role.Button, onClickLabel = if (cur.count > 1) Str[R.string.s_count_one_recitation] else Str[R.string.s_mark_as_read]) { countOne() }
                             .semantics { contentDescription = if (done) Str[R.string.s_complete] else if (cur.count > 1) Str.get(R.string.s_count_remaining, cur.count - c, cur.count) else Str[R.string.s_tap_when_read]; stateDescription = if (done) Str[R.string.s_complete] else Str.get(R.string.s_count_of, c, cur.count); liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite },
                         contentAlignment = Alignment.Center

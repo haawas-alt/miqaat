@@ -133,10 +133,13 @@ class AuditRemediationTest : ComposeSupport() {
                 assertEquals("Three digit count must remain on one line",1,countLayouts.single().lineCount)
                 capture("adhkar-counter100-tablet-portrait-$urdu-$scale")
                 val countLayout = countLayouts.single()
-                // Compose rounds the node to integer pixels but retains fractional paragraph width.
                 assertFalse("All three digits must be laid out",countLayout.multiParagraph.didExceedMaxLines)
-                assertTrue("Counter paragraph must fit within one physical pixel of rounding",countLayout.multiParagraph.width <= countLayout.size.width + 1f && countLayout.multiParagraph.height <= countLayout.size.height + 1f)
-                for (digit in 0..2) assertTrue("Every counter digit must fit", countLayout.getBoundingBox(digit).right <= countLayout.size.width + 1f)
+                val control = rule.onNodeWithTag("adhkar-count-control",useUnmergedTree=true).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+                val glyphs = (0..2).map { countLayout.getBoundingBox(it) }
+                // Paragraph canvas width can retain max constraints; measure actual glyph extent against the control.
+                val glyphWidth = glyphs.maxOf { it.right } - glyphs.minOf { it.left }
+                val glyphHeight = glyphs.maxOf { it.bottom } - glyphs.minOf { it.top }
+                assertTrue("Complete count must fit its circular control",glyphWidth <= control.width + 1f && glyphHeight <= control.height + 1f)
             } finally { scenario.close() }
         }
     }
