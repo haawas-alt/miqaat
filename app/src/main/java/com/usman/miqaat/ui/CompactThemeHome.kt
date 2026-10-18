@@ -141,15 +141,16 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                             val selected = row.isNow || row.isNext
                             val shape = RoundedCornerShape(if (gallery) 8.dp else 12.dp)
                             val surface = if (gallery) {
-                                if (selected) Color(0xFFFFEEDD) else tk.surface
+                                if (row.isNow) Color(0xFFE8F0EC) else if (row.isNext) Color(0xFFFFF1E4) else tk.surface
                             } else if (selected) Color(0xFF23323D) else Color(0xE60A2238)
                             Row(Modifier.weight(1f).fillMaxWidth().testTag("compact-prayer-${prayer.name}").clip(shape)
                                 .background(surface).border(if (selected) 1.5.dp else 1.dp,
-                                    if (selected) (if (gallery) tk.accent else tk.primary) else tk.divider, shape)
+                                    if (selected) (if (gallery) (if (row.isNow) tk.contentPrimary else tk.accent) else tk.primary) else tk.divider, shape)
                                 .combinedClickable(onClick = actions.onToggleRelative, onLongClick = { why = prayer }, role = Role.Button,
                                     onClickLabel = Str[R.string.s_switch_clock_time_until], onLongClickLabel = Str[R.string.s_why_this_time])
                                 .semantics(mergeDescendants = true) { contentDescription = row.spoken }
                                 .padding(horizontal = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                                if (gallery && selected) Box(Modifier.width(3.dp).fillMaxHeight(0.7f).background(if (row.isNow) tk.contentPrimary else tk.accent))
                                 val icon = when (prayer) {
                                     Prayer.FAJR, Prayer.SUNRISE, Prayer.MAGHRIB -> Icons.Outlined.WbTwilight
                                     Prayer.ISHA -> Icons.Outlined.DarkMode
@@ -163,6 +164,15 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                                         when (prayer) { Prayer.DHUHR, Prayer.ISHA -> tk.primary; Prayer.SUNRISE, Prayer.ASR -> Color(0xFFB26900); else -> tk.accent }
                                     } else tk.primary)
                                 }
+                                if (gallery) {
+                                    FlowRow(Modifier.weight(1f).padding(horizontal = 8.dp),
+                                        horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                        Text(row.label, fontFamily = font, fontWeight = FontWeight.SemiBold,
+                                            fontSize = if (urdu && short) 12.sp else if (urdu) 17.sp else if (short) 18.sp else 21.sp,
+                                            color = ink, maxLines = 1, modifier = Modifier.testTag("landscape-row-name-${prayer.name}"))
+                                        if (selected) GalleryStatusBadge(row.isNow, settings, compact = true)
+                                    }
+                                } else {
                                 Text(buildAnnotatedString {
                                     append(row.label)
                                     if (selected) withStyle(SpanStyle(color = if (gallery) (if (row.isNow) tk.success else tk.accent) else tk.primary, fontWeight = FontWeight.Bold,
@@ -174,6 +184,7 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                                     Modifier.weight(1f).padding(horizontal = 8.dp).testTag("landscape-row-name-${prayer.name}"),
                                     fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = if (urdu && short) 12.sp else if (urdu) 17.sp else if (short) 18.sp else 21.sp,
                                     color = ink, maxLines = if (short && selected && !urdu) 2 else 1, lineHeight = if (short && selected && !urdu) 20.sp else TextUnit.Unspecified)
+                                }
                                 Text(L10n.iso(if (settings.showRelative) row.relative else "${row.clock} ${row.suffix}".trim()),
                                     Modifier.width(if (urdu && settings.showRelative) 140.dp else if (urdu) 104.dp else if (settings.showRelative) 112.dp else 104.dp).testTag("landscape-row-time-${prayer.name}"), fontFamily = font,
                                     fontWeight = FontWeight.Medium, fontSize = if (urdu && settings.showRelative) 14.sp else if (urdu) 15.sp else if (settings.showRelative) 17.sp else 20.sp,

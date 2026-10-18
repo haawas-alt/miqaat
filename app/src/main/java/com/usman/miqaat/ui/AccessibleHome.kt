@@ -174,7 +174,7 @@ private fun PrayerLine(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: androidx.
         Column(Modifier.weight(1f)) {
             Text(r.label, fontFamily = if (urdu) F else tk.fontDisplay, fontSize = 22.sp, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, color = ink)
             if (s.theme == com.usman.miqaat.data.AppTheme.PRAYER_GALLERY && selected)
-                Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"), fontFamily = F, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = if (r.isNow) tk.success else tk.accent)
+                GalleryStatusBadge(r.isNow, s)
             if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = 14.sp, color = tk.contentSecondary)
         }
         Column(horizontalAlignment = Alignment.End) {
