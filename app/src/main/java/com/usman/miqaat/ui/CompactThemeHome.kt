@@ -68,6 +68,18 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                     Text(L10n.place(settings.locationName), Modifier.weight(1f).padding(start = 6.dp).testTag("landscape-location"),
                         fontFamily = font, fontWeight = FontWeight.SemiBold, fontSize = 20.sp, maxLines = 1, color = ink)
                 }
+                adhkarModes(state, settings).firstOrNull()?.let { mode ->
+                    val label = L10n.word(settings, when (mode) {
+                        AdhkarMode.MORNING -> "Morning adhkār"
+                        AdhkarMode.EVENING -> "Evening adhkār"
+                        AdhkarMode.POST -> "After-prayer adhkār"
+                    })
+                    Text(label, Modifier.padding(horizontal = 4.dp).clip(RoundedCornerShape(50))
+                        .border(1.dp, if (gallery) tk.accent else tk.primary, RoundedCornerShape(50))
+                        .clickable(role = Role.Button) { actions.onOpenAdhkar(mode) }
+                        .padding(horizontal = 10.dp, vertical = 4.dp).testTag("landscape-adhkar-pill"),
+                        fontFamily = font, fontSize = 14.sp, maxLines = 1, color = ink)
+                }
                 Text(L10n.dateShort(settings, state.now), Modifier.width(if (urdu) 120.dp else 96.dp).padding(horizontal = 8.dp).testTag("landscape-date"),
                     fontFamily = font, fontSize = 17.sp, maxLines = 1, textAlign = if (gallery) TextAlign.End else TextAlign.Center, color = ink)
                 Row(Modifier.then(if (gallery) Modifier else Modifier.weight(1f)), horizontalArrangement = Arrangement.End) {
@@ -153,8 +165,10 @@ fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeAct
                                 }
                                 Text(buildAnnotatedString {
                                     append(row.label)
-                                    if (selected) withStyle(SpanStyle(color = if (gallery) tk.accent else tk.primary, fontWeight = FontWeight.Bold, fontSize = if (short) 12.sp else TextUnit.Unspecified)) {
-                                        append((if (short && !urdu) "\n" else " · ") + L10n.word(settings, if (row.isNow) "NOW" else "NEXT"))
+                                    if (selected) withStyle(SpanStyle(color = if (gallery) (if (row.isNow) tk.success else tk.accent) else tk.primary, fontWeight = FontWeight.Bold,
+                                        fontSize = if (short) 13.sp else TextUnit.Unspecified,
+                                        background = if (gallery) (if (row.isNow) tk.success else tk.accent).copy(alpha = 0.12f) else Color.Unspecified)) {
+                                        append((if (short && !urdu) "\n" else " · ") + (if (gallery) " " else "") + L10n.word(settings, if (row.isNow) "NOW" else "NEXT") + (if (gallery) " " else ""))
                                     }
                                 },
                                     Modifier.weight(1f).padding(horizontal = 8.dp).testTag("landscape-row-name-${prayer.name}"),

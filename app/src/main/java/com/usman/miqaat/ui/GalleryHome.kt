@@ -731,8 +731,10 @@ private fun GalleryPhoneFit(state: PrayerState, s: AppSettings, a: HomeActions, 
                 Box(Modifier.fillMaxWidth().height(1.dp).background(tk.divider))
             }
         }
+        // Visible slots: the alarm warning first, then the contextual Adhkar entry (never hidden behind More), then one more door.
+        val adhkarDoor = doorList.firstOrNull { !it.warn && it.label.contains("adhk", ignoreCase = true) }
         val visibleDoors = if (doorList.size <= 2) doorList else
-            (doorList.filter { it.warn }.take(1) + doorList.filter { !it.warn }.take(1))
+            (doorList.filter { it.warn }.take(1) + listOfNotNull(adhkarDoor) + doorList.filter { !it.warn && it !== adhkarDoor }.take(1)).take(2)
         val extraDoors = doorList.filter { it !in visibleDoors }
         var more by remember { mutableStateOf(false) }
         Row(Modifier.fillMaxWidth().testTag("gallery-phone-footer").padding(horizontal = 12.dp),
@@ -744,7 +746,7 @@ private fun GalleryPhoneFit(state: PrayerState, s: AppSettings, a: HomeActions, 
                     .padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                     Icon(if (d.warn) Icons.Outlined.NotificationsActive else Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                         null, Modifier.size(24.dp), tint = if (d.warn) tk.warning else tk.accent)
-                    Text(d.label, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 12.sp,
+                    Text(d.label, fontFamily = if (urdu) tk.fontArabic else F, fontSize = 14.sp,
                         style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)),
                         color = tk.contentPrimary, maxLines = 2, modifier = Modifier.weight(1f))
                 }

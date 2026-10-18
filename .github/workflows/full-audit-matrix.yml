@@ -42,6 +42,9 @@ jobs:
         env:
           EXPECTED_PAGE_SIZE: '4096'
           REGRESSION_CLASSES: 'HomeLargeTextTest AdhkarEntryTest'
+          # Report the real release identity in About, not the debug default.
+          MIQAAT_VERSION_NAME: '1.163-gallery'
+          MIQAAT_VERSION_CODE: '1792276064'
         with:
           api-level: ${{ matrix.device.api }}
           target: google_apis
