@@ -40,7 +40,7 @@ import com.usman.miqaat.data.*
 import java.time.Duration
 
 /** The approved short landscape board. Neither Home column is a scroll container. */
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
 @Composable
 fun CompactThemeHome(state: PrayerState, settings: AppSettings, actions: HomeActions) {
     val tk = ThemeTokenSets.of(settings.theme)
