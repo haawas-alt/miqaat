@@ -132,7 +132,11 @@ class AuditRemediationTest : ComposeSupport() {
                 rule.onNodeWithTag("adhkar-count-number", useUnmergedTree = true).assertTextEquals("100").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) { it(countLayouts) }
                 assertEquals("Three digit count must remain on one line",1,countLayouts.single().lineCount)
                 capture("adhkar-counter100-tablet-portrait-$urdu-$scale")
-                assertFalse("Count overflow: width=${countLayouts.single().didOverflowWidth}, height=${countLayouts.single().didOverflowHeight}, size=${countLayouts.single().size}, paragraphHeight=${countLayouts.single().multiParagraph.height}",countLayouts.single().hasVisualOverflow)
+                val countLayout = countLayouts.single()
+                // Compose rounds the node to integer pixels but retains fractional paragraph width.
+                assertFalse("All three digits must be laid out",countLayout.multiParagraph.didExceedMaxLines)
+                assertTrue("Counter paragraph must fit within one physical pixel of rounding",countLayout.multiParagraph.width <= countLayout.size.width + 1f && countLayout.multiParagraph.height <= countLayout.size.height + 1f)
+                for (digit in 0..2) assertTrue("Every counter digit must fit", countLayout.getBoundingBox(digit).right <= countLayout.size.width + 1f)
             } finally { scenario.close() }
         }
     }
