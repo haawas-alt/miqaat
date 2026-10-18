@@ -38,3 +38,13 @@ Do not mark any of these passed without a named tester, device/OS, exact artifac
 - Account-specific closed-testing eligibility and required duration where applicable.
 
 No production publication is authorized by this status file. Candidate artifacts do not prove Console acceptance.
+
+## Verified cloud candidate
+
+Tested application commit: 49427f05655e844bf501dc1c9c8233bbe14ee029.
+Successful run: https://github.com/haawas-alt/miqaat/actions/runs/39107606299.
+Both release flavors: seven targeted test methods each, zero failures/errors/skips. Seventy raw regression captures. Both lint tasks pass with 98 warnings and six hints per distribution, not zero warnings. Instrumentation Kotlin compiles but does not execute on a device.
+
+Signed 1.164-audit code 1792308350: both APKs and Play AAB prepared and verified. Independent local hashes and native alignment checks pass, and official bundletool 1.18.2 validates the AAB. Final raw review confirms complete tablet phase-label words and readable three-digit portrait-tablet counters in EN/UR 100/200. The detailed finding-by-finding verification, artifact hashes and remaining gates are in AUDIT_VERIFICATION_20261018.md.
+
+These outcomes supersede the native-test and build work listed as remaining in the implementation table above. Qualified review, physical acceptance, locked mockup acceptance and Play Console gates remain OPEN. A test prerelease is published separately without changing stable/latest or production approval. Documentation/publication-only commits after the tested application commit are not another design build.

@@ -1,11 +1,92 @@
 {
-  "baseline": "a5028c6424ab51f2186fc108ee71dfbe5ac29959",
+  "source_commit": "49427f05655e844bf501dc1c9c8233bbe14ee029",
   "status": "REVIEW_PENDING_NOT_SCHOLAR_APPROVED",
+  "scope": "Every tracked file under app/src/main including translations, inline text, images, audio, fonts and manifest",
   "files": [
+    {
+      "path": "app/src/main/AndroidManifest.xml",
+      "sha256": "d04ac29f6205c8e384db39f1aab6cb9f0198f2b454136eac928e226459f6bf0c",
+      "bytes": 4521
+    },
+    {
+      "path": "app/src/main/assets/licenses/androidx-graphics-path-LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+      "bytes": 10175
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/MainActivity.kt",
+      "sha256": "3a67037209c4d6c9e5e2c491c44421e07cd0d6be1b4b105df70cc32e4ca7241b",
+      "bytes": 9847
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/MiqaatApp.kt",
+      "sha256": "6c90f959bf38a4e4e53080f68e4b2a1feeb71ec268da04d62204b92af93a92a1",
+      "bytes": 2650
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/MiqaatWidget.kt",
+      "sha256": "4959b2b625acc9c29182a0ba013f1dc92de4a41d4760eabb44956488592a432a",
+      "bytes": 4393
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/azaan/AlarmVolume.kt",
+      "sha256": "92c2d2f9d7501023b86e1aa9213944317327978f670362d3fcbd7ed37131327f",
+      "bytes": 1842
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/azaan/AzaanActivity.kt",
+      "sha256": "0bcd79d14a54f0f573b8c7e8db282c5f3fb7d1e4347eed199b6df56d1e662a17",
+      "bytes": 2350
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/azaan/AzaanAlarmReceiver.kt",
+      "sha256": "508752fb04b5364c8aa696b19f106ed482e3e809f66d21cd00557c085946c919",
+      "bytes": 4725
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/azaan/AzaanScheduler.kt",
+      "sha256": "f90c827e2c613c81399c5767773994d96814f9077837f3ca2aa0b4235854a212",
+      "bytes": 6335
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt",
+      "sha256": "141da3cf716ab494e61a87e68cb53e5723d964054cff83e8d379b01d4d9587f3",
+      "bytes": 31050
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/azaan/BootReceiver.kt",
+      "sha256": "1a3259f6e8fd7ab0d49f6a69a4f82ee51569efa9715e34973f698451673f0935",
+      "bytes": 2311
+    },
     {
       "path": "app/src/main/java/com/usman/miqaat/data/Adhkar.kt",
       "sha256": "d8176fc7e012419928f0a76753013d417711d1ed7ca01c51918aaa2ad1459a9e",
       "bytes": 24058
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/DailyDhikrProgress.kt",
+      "sha256": "bd3ab229976c8bb68210cb097575d2cbd1749c17b6985891ddf3534883c3ea74",
+      "bytes": 918
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Device.kt",
+      "sha256": "47ea3ca95dff8223eeeae6d6c97b21c6cd1258cfb300269a67d2e283dc521a0e",
+      "bytes": 519
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Hadith.kt",
+      "sha256": "7e8195895595ead7775735cc3353f59ee4ede8e71c54eab73881f01877ebbcb7",
+      "bytes": 18222
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Health.kt",
+      "sha256": "6fb49e7a454abab70b413045ef692ea276106bd3c49add685b60b8af9d59edbb",
+      "bytes": 4887
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/L10n.kt",
+      "sha256": "a256f854d91885619b7a03b1a5f535fb794487050d691dc11dcdb79d0adca0a0",
+      "bytes": 14341
     },
     {
       "path": "app/src/main/java/com/usman/miqaat/data/Learn.kt",
@@ -13,14 +94,214 @@
       "bytes": 5619
     },
     {
+      "path": "app/src/main/java/com/usman/miqaat/data/LocationRepo.kt",
+      "sha256": "0288babec0f632950aed514bb04a52f270cecd0c1fa03e8adc3caec6c3924ff9",
+      "bytes": 9941
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/PrayerEngine.kt",
+      "sha256": "ce8bddb2c2fa7a4c25687095b58db8e2d4192ad0cdbf1f7a95923293bd0a906c",
+      "bytes": 22375
+    },
+    {
       "path": "app/src/main/java/com/usman/miqaat/data/PrayerMessages.kt",
       "sha256": "4a25073c7e59b6d4c4224c80866af9b4e18bbd3f68c95b9e09136e29550eebe4",
       "bytes": 4894
     },
     {
+      "path": "app/src/main/java/com/usman/miqaat/data/Reliability.kt",
+      "sha256": "53c3586834abedce97ea4a4c7f5a37d993f18e5a107bef4c18cb6533cd981456",
+      "bytes": 5331
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Settings.kt",
+      "sha256": "a2049a23ec7671675109f07ec8b59f4b67c4afb33d94800fbfdc489e2278b3be",
+      "bytes": 20669
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Setup.kt",
+      "sha256": "b26293fe9102da7149cde0a630f0fdc99fe3a4995bc08b99f59a3e5cd3c1d299",
+      "bytes": 4601
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/UpdatePolicy.kt",
+      "sha256": "002674c9ebd59b540f9f768e935fbdb0609917de215eae0a9fa44955196ebcd8",
+      "bytes": 1178
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Updater.kt",
+      "sha256": "07db68198beac36e489c7c345e3d3bb6b8d51c38a41efdc8b53d8f6c737ee5eb",
+      "bytes": 9457
+    },
+    {
       "path": "app/src/main/java/com/usman/miqaat/data/UrduContent.kt",
       "sha256": "8d6e70773624a24c3502d6cba77291d2f247d66e33cab9a134549445db523eef",
       "bytes": 17696
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/AccessibleHome.kt",
+      "sha256": "e4507130b021d58c5a60257f74f13e0b346af3fa0ef8d9e1a1d124e6789c02d8",
+      "bytes": 13151
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/AdhkarScreen.kt",
+      "sha256": "892d525e282f436851810a46e5e1ffae876d28f22c6367d3d0da1319bd997f21",
+      "bytes": 15943
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/Art.kt",
+      "sha256": "715439e161b9441e625d2a0c222464e254cf84d328f9ee952ff62333e8005528",
+      "bytes": 4605
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt",
+      "sha256": "02a93a35352736e6a8f6aaea92d21cf3ef9b8a9c8d909986cd5a1699c673289e",
+      "bytes": 1553
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/AzaanScreen.kt",
+      "sha256": "6456c1e61284c30a44bc25a38a62750b76b90f814d9c5f3baffc2ee7ec067686",
+      "bytes": 26280
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/CelestialHome.kt",
+      "sha256": "335ab1fa011d0f88bc8d1805edeed9d9df3d677adcc20b2d4772cf10d6621160",
+      "bytes": 25828
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/CompactLandscapeHero.kt",
+      "sha256": "f229ec6395bae31d20e0599d8fee99cd380d4167d4cb82c4f94ba54df296950f",
+      "bytes": 6629
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/CompactThemeHome.kt",
+      "sha256": "4a08c54a77b5310932360ac061dfdb817c7089a322efda57beed70326fa02b67",
+      "bytes": 24083
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/DesignSystem.kt",
+      "sha256": "1710b74b17671f9fa7c1aa1dfaaec8b28f3d2a563d7591829cb84575f36ea40e",
+      "bytes": 17613
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/Explain.kt",
+      "sha256": "469b2cc9644e53ab6de8b38757bf70f6d011ea887f9ae62b9351eb8b7dffbbb4",
+      "bytes": 22169
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/Fit.kt",
+      "sha256": "0855e7fd4ebf9c4e143eff992d6f8d3841c0451a9a0eafc2a377fcd0931df0fd",
+      "bytes": 1755
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/FridayScreen.kt",
+      "sha256": "1df97fe550aff135be33262c54f0fb1c3e6c80a0b7bbbc7901ccd3e1154e4d06",
+      "bytes": 11327
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/GalleryHome.kt",
+      "sha256": "607c96c4c057c8f1d6884c4aa413a251792954554c9d8ebf36bd8c0d83182be9",
+      "bytes": 59768
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/HomeModel.kt",
+      "sha256": "c0763b3c523b4937b239d933ebfd2938bedb543b15556c102944336608a7fabf",
+      "bytes": 6093
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/HomeRouter.kt",
+      "sha256": "ea7d87376960c704ea94e61a5a74160ea77bf8a7ab4159e8db689ff381247b9a",
+      "bytes": 2341
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/HomeScreen.kt",
+      "sha256": "f11640e584692efbcf2242e36af59b3851a60191ae0ff8734ddf3f685ebbcd75",
+      "bytes": 29490
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/KiswahHome.kt",
+      "sha256": "418128b79cf0718119d4ae1f4601744a5b22d2f2c9350d4b565b49596ee0e773",
+      "bytes": 17068
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/LandscapeHome.kt",
+      "sha256": "b177b15363c9881dac1faf7f32373e32fcc5f9b67bbcf3e6fde75fb36d0e4fc0",
+      "bytes": 21230
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/LargeHome.kt",
+      "sha256": "357eea03fb4d1402700f69ce7970329bfc86d03b93159717c541f249dbbf89eb",
+      "bytes": 5075
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/LearnScreen.kt",
+      "sha256": "84f5236c29c03d47af2a02df9431656e05a3513e1c9c0b0b6bc3e674e6eef4d2",
+      "bytes": 51638
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/PortraitHome.kt",
+      "sha256": "e1512f7d7b2d39bc75b0fa5a0520f9b9b49d347f8162c60055d68da93a0abd6d",
+      "bytes": 22116
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/QiblaScreen.kt",
+      "sha256": "f7ebd4855da6bbd8c5ea2ad4e6eaf19c33297f2e371b14b317d71e80647b5e78",
+      "bytes": 14556
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/QuietPrayerScreen.kt",
+      "sha256": "64d6b0e13120da5de79aa74842a5bb7aa24fa916c44dd6b5bdeb5a0b1d53a381",
+      "bytes": 14023
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/SettingsModel.kt",
+      "sha256": "9eaa81b105efb852f08e9df35ade87562e70580d02c04d4e142e94f80511feed",
+      "bytes": 15672
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/SettingsScreen.kt",
+      "sha256": "9ad35f7d3777a4909b7e7fd416602d3ebb6c08b696880994d2e514300176d8bd",
+      "bytes": 78567
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/SetupScreen.kt",
+      "sha256": "e1957b3ff9b62cee000296fa60534d323ae45bd7b7ca080323d7e17eac357417",
+      "bytes": 19648
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/Str.kt",
+      "sha256": "13c9922d2dd4c8cce71be76f05aa80776a2c8dc698ff5b2b054662a8f39a8bc5",
+      "bytes": 2060
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/TabletHome.kt",
+      "sha256": "11e5af866935c8107949feaa174b0db325a7bbb0286c7cf841fc51b4e860be4d",
+      "bytes": 37401
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/Theme.kt",
+      "sha256": "17fa9da782d0abcb4d38dac5178409d64847fe6f18df6e0148281f0a93c519f8",
+      "bytes": 7025
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/ThemeArt.kt",
+      "sha256": "847f95712241fcfb554e9aaed4d1998b62663f9048e51c63ba085be244e5f687",
+      "bytes": 13435
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/ThemePicker.kt",
+      "sha256": "8c7e609f4a25026960d6e09fe6d884757a6ec06f0a03121c8e8e40b2fb230a77",
+      "bytes": 7929
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/ThemeTokens.kt",
+      "sha256": "39ce0ff0e1f5870a0555df2303e70ee54c3303dc4eee056bcaf21be003de068f",
+      "bytes": 10139
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/TimetableScreen.kt",
+      "sha256": "23775c9cdbde8cac07d9ce3e69bcbaa508f1a65e75ff1f7a8595e558281dd73c",
+      "bytes": 12522
     },
     {
       "path": "app/src/main/res/drawable-nodpi/art_celestial_landscape_v2.webp",
@@ -106,6 +387,126 @@
       "path": "app/src/main/res/drawable-nodpi/quiet_option2_mihrab.webp",
       "sha256": "bc7f4ba05f2de85e41b68943f87f413df447d25efaf89c8a2995a3a60b6276ed",
       "bytes": 72430
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_launcher_monochrome.xml",
+      "sha256": "cabbc5d9b3eb0ad796cda0531380d381cc91957d3efffb0b976914b65c2275bb",
+      "bytes": 978
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_bowing.xml",
+      "sha256": "88796e78fe628cd6122bbef6ca75ea030cbd9fc85bceacc920e1ad14b5b3721f",
+      "bytes": 2306
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_prostrating.xml",
+      "sha256": "74232be49ffd2dd3272c21d035323f3ff3d6f4e7e2e2186048c28ef014ed83cc",
+      "bytes": 2596
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_rising.xml",
+      "sha256": "00cbabc8b80b943aa246b14cb7e8a5e2da07a267735c834b751a3a95fb6ac78a",
+      "bytes": 3150
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_salam.xml",
+      "sha256": "0ce7beb11489019773df5ef442cc730e523a047bf4f8b44de6735dc713d9593c",
+      "bytes": 3081
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_salam_left.xml",
+      "sha256": "08d0a9e956fc6a0ab72c6094ec1f9af73739cb92300a9731e86ad97389626762",
+      "bytes": 3081
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_sitting.xml",
+      "sha256": "8bdefd58d257bb95022950f8f09f084b95eb37870130650edded3765f93a071f",
+      "bytes": 2536
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_standing.xml",
+      "sha256": "29d5dc787efb59f122f29d62ad1316cdb44db421c9e1f450c66e6b054f16152c",
+      "bytes": 3270
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_takbir.xml",
+      "sha256": "3445a91f6fc7c8b3887a9d852ceea444abe7df18462b49e36aa75e9c3982acbb",
+      "bytes": 3411
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_tashahhud.xml",
+      "sha256": "b5bd0f82c4a89aafe3d0fb6cafd587d89168cd914cf5fc207a59ba748d923669",
+      "bytes": 3286
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_scene_celestial.xml",
+      "sha256": "74d2da2cc762c9d48fdd38ca375075340cd1cee0acdc797c1d5027b68e58224a",
+      "bytes": 2330
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_scene_gallery.xml",
+      "sha256": "755f0a9412fef9a91bf11f5133e6bbaf7ff5c31357cb5c0395e861ffb44039ad",
+      "bytes": 2634
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_scene_kiswah.xml",
+      "sha256": "3005c5159ec7b972657a97db385b244b38ed485b8c4e80e6034a5e277936b7c0",
+      "bytes": 2369
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_scene_miqaat.xml",
+      "sha256": "ab8950b0dad73ef532616955037349c47d183e371dea27fc2b80cdde251b33a3",
+      "bytes": 2136
+    },
+    {
+      "path": "app/src/main/res/drawable/widget_bg.xml",
+      "sha256": "f759e9b51caac715e065f726b0280936de6baff08f87259616f71151e5572b76",
+      "bytes": 334
+    },
+    {
+      "path": "app/src/main/res/font/amiri_bold.ttf",
+      "sha256": "cfccb794268e7d573d857e6d6a67f89cf8a053e8ffd85dfa0c8ec1bb36fc4827",
+      "bytes": 413480
+    },
+    {
+      "path": "app/src/main/res/font/amiri_regular.ttf",
+      "sha256": "ab391c4147d054c48976e98322ad0eefe1427aa0e0502a12a4c75d80a70cfcd7",
+      "bytes": 431116
+    },
+    {
+      "path": "app/src/main/res/font/cinzel.ttf",
+      "sha256": "f4d83d34d1f6c741193e4acf4b3dff9531e5a67b6aa65228d00a7db72a4e0f34",
+      "bytes": 125468
+    },
+    {
+      "path": "app/src/main/res/font/cormorant_garamond_medium.ttf",
+      "sha256": "b20b7d9626dd956b2c5e558692ad328b1f19e3275e2782db4fa07670d83f35e0",
+      "bytes": 1195560
+    },
+    {
+      "path": "app/src/main/res/font/noto_nastaliq_urdu.ttf",
+      "sha256": "98a4787f34eb6fde57fb9a1121a8f216301196ab0da98ea110cad581be8abbcd",
+      "bytes": 690304
+    },
+    {
+      "path": "app/src/main/res/font/nunito_sans.ttf",
+      "sha256": "f934d7142fb4784bf828da485b7dcbd90c0c80d514e9d49a5da0ed3a1ae2491d",
+      "bytes": 571240
+    },
+    {
+      "path": "app/src/main/res/font/reem_kufi.ttf",
+      "sha256": "33ead1986cd48c138c4d906c9e5a6341877268461f97623409a2014de1cd4aa4",
+      "bytes": 127152
+    },
+    {
+      "path": "app/src/main/res/layout/widget_next.xml",
+      "sha256": "0e4cdebf8b29f0dd3b0cab019a7163e3d8830f27cba85107e951d4a41706458e",
+      "bytes": 1489
+    },
+    {
+      "path": "app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+      "sha256": "97da340af494e34650017084df1b48c4b053f27a38431550fbf3e6bcd2a458e5",
+      "bytes": 320
     },
     {
       "path": "app/src/main/res/mipmap-hdpi/ic_launcher.png",
@@ -548,6 +949,11 @@
       "bytes": 186313
     },
     {
+      "path": "app/src/main/res/raw/keep.xml",
+      "sha256": "6dff4ca5397cf9418db73595f59bf26bf1bc2aba3694c5b7577b0e2b1c5646d2",
+      "bytes": 263
+    },
+    {
       "path": "app/src/main/res/raw/learn_01.mp3",
       "sha256": "8897fc88d40004874b2abac1ecd06259d8a10c1bc3882680978b1cc79fd34b03",
       "bytes": 32959
@@ -613,14 +1019,69 @@
       "bytes": 5336
     },
     {
-      "path": "app/src/main/res/values/strings_ui.xml",
-      "sha256": "7f49f7d426d5e833b404f9e0be351be9a586546a99fad23bb034485675e041aa",
-      "bytes": 56583
+      "path": "app/src/main/res/values-ur/audit_remediation.xml",
+      "sha256": "d0e99c557d673bcf4a8cbd81163a6f776a6b80ed03ac290bfd085037c92380a7",
+      "bytes": 984
+    },
+    {
+      "path": "app/src/main/res/values-ur/learn_rebuild.xml",
+      "sha256": "78943353ddebbca2c278f665586d0e6a2328f3e4de92a3ef695d2b2e7e2f8dcd",
+      "bytes": 1482
+    },
+    {
+      "path": "app/src/main/res/values-ur/strings.xml",
+      "sha256": "402e922f582b5f66aef7711ba3915ebc056aab7b386fcade8b5dfcd504fdbadf",
+      "bytes": 2390
     },
     {
       "path": "app/src/main/res/values-ur/strings_ui.xml",
       "sha256": "8020e052df2d8b3b164088eec9dd4fa5240b78653c77f54749047db0dd63fc9d",
       "bytes": 72784
+    },
+    {
+      "path": "app/src/main/res/values/audit_remediation.xml",
+      "sha256": "b3bbdf8dfb81cef2797c0f89bc8062851374e7652cff0aa203a7ecb4e19cfc4f",
+      "bytes": 658
+    },
+    {
+      "path": "app/src/main/res/values/colors_launcher.xml",
+      "sha256": "c364d1a7cf40509a1988b47d1e7fef7418ff2978c88ac50f2e7d36a280226aa7",
+      "bytes": 201
+    },
+    {
+      "path": "app/src/main/res/values/learn_rebuild.xml",
+      "sha256": "df8a6307c8de4da5360071b3145d2f8655009d64631686ba93617dee0c0453d5",
+      "bytes": 1108
+    },
+    {
+      "path": "app/src/main/res/values/strings.xml",
+      "sha256": "d17ca80a1273b31c48dc873082dc214dade8571cddb61f258063c28eec568c96",
+      "bytes": 2022
+    },
+    {
+      "path": "app/src/main/res/values/strings_ui.xml",
+      "sha256": "7f49f7d426d5e833b404f9e0be351be9a586546a99fad23bb034485675e041aa",
+      "bytes": 56583
+    },
+    {
+      "path": "app/src/main/res/values/themes.xml",
+      "sha256": "a564753077e0edce589c6ea956206add57164233076b6eda5935a7dc253ef174",
+      "bytes": 482
+    },
+    {
+      "path": "app/src/main/res/xml/data_extraction_rules.xml",
+      "sha256": "719184c2f100b5a464922336894945e890021c38dd644904a6d0494599c072d3",
+      "bytes": 741
+    },
+    {
+      "path": "app/src/main/res/xml/file_paths.xml",
+      "sha256": "5a7d0bc7f78378552590ad8f35aa4ee72f6c3d04cbf86f9b4bb96d66fa3b8546",
+      "bytes": 115
+    },
+    {
+      "path": "app/src/main/res/xml/widget_info.xml",
+      "sha256": "7f1c9781b15d009ebc1306008b47ce93d4edad8a7c56a0f3149f328dca73f510",
+      "bytes": 457
     }
   ]
 }
