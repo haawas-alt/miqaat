@@ -33,6 +33,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
@@ -112,6 +113,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
         if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedBackdrop(maxHeight > maxWidth, Modifier.fillMaxSize(), scrim = 0.7f)
         else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.07f)
         val compact = maxWidth < 600.dp || maxHeight > maxWidth
+        val counterScale = if (maxWidth >= 600.dp && maxHeight > maxWidth) androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceAtLeast(1f) else 1f
         Row(Modifier.fillMaxSize().statusBarsPadding()) {
             // ---- list
             if (!compact) Column(Modifier.width(u * 30).fillMaxHeight().background(tk.scrim).padding(vertical = u * 1.6f)) {
@@ -177,13 +179,13 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(u * 1.6f), modifier = Modifier.padding(top = u * 1)) {
                     val c = counts[cur.id] ?: 0
                     Box(
-                        Modifier.size(maxOf(u * 7.5f, 56.dp)).clip(CircleShape).background(if (done) tk.success else tk.primary)
+                        Modifier.size(maxOf(u * 7.5f, 56.dp) * counterScale).clip(CircleShape).background(if (done) tk.success else tk.primary)
                             .clickable(role = androidx.compose.ui.semantics.Role.Button, onClickLabel = if (cur.count > 1) Str[R.string.s_count_one_recitation] else Str[R.string.s_mark_as_read]) { countOne() }
                             .semantics { contentDescription = if (done) Str[R.string.s_complete] else if (cur.count > 1) Str.get(R.string.s_count_remaining, cur.count - c, cur.count) else Str[R.string.s_tap_when_read]; stateDescription = if (done) Str[R.string.s_complete] else Str.get(R.string.s_count_of, c, cur.count); liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite },
                         contentAlignment = Alignment.Center
                     ) {
                         if (done) Icon(Icons.Outlined.Check, null, Modifier.size(u * 3.4f), tint = tk.onPrimary)
-                        else Text("${cur.count - c}", fontFamily = Cormorant, fontSize = (u.value * 3.4f).sp, color = tk.onPrimary)
+                        else Text("${cur.count - c}", fontFamily = Cormorant, fontSize = (u.value * 3.4f).sp, color = tk.onPrimary, modifier = Modifier.testTag("adhkar-count-number"))
                     }
                     Column {
                         Text(if (done) Str[R.string.s_complete] else if (cur.count == 1) Str[R.string.s_tap_when_read] else Str[R.string.s_tap_for_each_recitation], fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)

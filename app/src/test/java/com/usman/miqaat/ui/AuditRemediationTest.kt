@@ -124,6 +124,15 @@ class AuditRemediationTest : ComposeSupport() {
                 assertTrue("Portrait tablet Arabic must use its reading space",layouts.first().layoutInput.style.fontSize.value>=28f)
                 assertFalse(layouts.first().didOverflowWidth)
                 capture("adhkar-tablet-portrait-$urdu-$scale")
+                val tahlilIndex = Adhkar.morning().indexOfFirst { it.id == "tahlil" }
+                assertTrue(tahlilIndex > 0)
+                repeat(tahlilIndex) { rule.onNodeWithText(Str[R.string.s_next_2]).performClick() }
+                visible("adhkar-count-number")
+                val countLayouts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
+                rule.onNodeWithTag("adhkar-count-number").assertTextEquals("100").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) { it(countLayouts) }
+                assertEquals("Three digit count must remain on one line",1,countLayouts.single().lineCount)
+                assertFalse(countLayouts.single().hasVisualOverflow)
+                capture("adhkar-counter100-tablet-portrait-$urdu-$scale")
             } finally { scenario.close() }
         }
     }
