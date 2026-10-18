@@ -664,7 +664,7 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
     Heading(Str[R.string.s_test_preview], Str[R.string.s_run_any_part_of_the_experience])
     Text(Str[R.string.s_theme], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     // Same action as Display & art, but as a compact chip row: the large theme cards belong to Display & art only.
-    SettingRow(Str[R.string.s_preview_a_theme], Str[R.string.s_applies_straight_away_press_back_to]) {
+    SettingRow(Str[R.string.s_preview_a_theme], Str[R.string.s_applies_straight_away_press_back_to], stacked = true) {
         @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
         androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.selectableGroup()) {
             AppTheme.entries.forEach { th -> MiqChip(th.text, th == s.theme, { store.update { it.copy(theme = th) } }) }
@@ -776,7 +776,7 @@ private fun PrivacySection() {
     Heading(Str[R.string.s_privacy], Str[R.string.s_what_miqaat_does_with_your_data])
     SettingRow(Str[R.string.s_prayer_times], Str[R.string.s_calculated_on_this_device_from_your]) { Value(Str[R.string.s_on_device]) }
     SettingRow(Str[R.string.s_place_name_search], Str[R.string.s_android_s_geocoder_sends_your_coordinates]) { GoldValue(Str[R.string.s_google]) }
-    if (Updater.enabled) SettingRow(Str[R.string.s_updates], Str[R.string.s_miqaat_asks_github_com_whether_a]) { GoldValue(Str[R.string.s_github]) }
+    if (com.usman.miqaat.BuildConfig.SELF_UPDATE) SettingRow(Str[R.string.s_updates], Str[R.string.s_miqaat_asks_github_com_whether_a]) { GoldValue(Str[R.string.s_github]) }
     else SettingRow(Str[R.string.s_updates], Str[R.string.s_delivered_by_google_play_miqaat_itself]) { Value(Str[R.string.s_play]) }
     SettingRow(Str[R.string.s_narration], Str[R.string.s_the_dua_and_hadith_recordings_are]) { Value(Str[R.string.s_on_device]) }
     SettingRow(Str[R.string.s_health_log_adhk_r_counts_friday], Str[R.string.s_stored_in_the_app_s_private]) { Value(Str[R.string.s_on_device]) }
@@ -873,8 +873,8 @@ private fun AboutSection(s: AppSettings) {
     SettingRow(Str[R.string.s_content_sources], Str[R.string.s_every_hadith_dhikr_dua_and_ruling]) { Value(Str[R.string.s_content_review_pending]) }
     Text(
         Str[R.string.s_prayer_times_are_computed_on_the] +
-            Str[R.string.s_no_account_no_advertising_no_analytics] +
-            "Current: ${s.method.label}, Asr ${s.asrMethod.label}, ${s.locationName} (%.3f, %.3f).".format(s.latitude, s.longitude),
+            Str[if (com.usman.miqaat.BuildConfig.SELF_UPDATE) R.string.s_no_account_no_advertising_no_analytics else R.string.audit_play_privacy] +
+            Str.get(R.string.audit_current_method, Str[s.method.labelRes], Str[s.asrMethod.labelRes], L10n.place(s.locationName), s.latitude, s.longitude),
         fontFamily = Nunito, fontSize = 15.sp, color = tk.contentSecondary, lineHeight = 22.sp
     )
 }
@@ -900,7 +900,7 @@ internal fun SettingRow(title: String, subtitle: String?, onClick: (() -> Unit)?
     val bring = remember { androidx.compose.foundation.relocation.BringIntoViewRequester() }
     LaunchedEffect(focused) { if (focused) bring.bringIntoView() }
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxWidth().androidxBring(bring).then(if (focused) Modifier.background(tk.selectedSurface) else Modifier)) {
-        val compact = stacked || maxWidth < 560.dp
+        val compact = stacked || maxWidth / androidx.compose.ui.platform.LocalDensity.current.fontScale < 560.dp
         // The row reads as one element to TalkBack ("title, subtitle") and the control keeps its own role.
         val rowMod = Modifier.fillMaxWidth().then(if (onClick != null) Modifier.clickable(onClick = onClick, role = androidx.compose.ui.semantics.Role.Button) else Modifier).padding(vertical = 14.dp)
         if (compact) {

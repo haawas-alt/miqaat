@@ -1,0 +1,1087 @@
+{
+  "source_commit": "49427f05655e844bf501dc1c9c8233bbe14ee029",
+  "status": "REVIEW_PENDING_NOT_SCHOLAR_APPROVED",
+  "scope": "Every tracked file under app/src/main including translations, inline text, images, audio, fonts and manifest",
+  "files": [
+    {
+      "path": "app/src/main/AndroidManifest.xml",
+      "sha256": "d04ac29f6205c8e384db39f1aab6cb9f0198f2b454136eac928e226459f6bf0c",
+      "bytes": 4521
+    },
+    {
+      "path": "app/src/main/assets/licenses/androidx-graphics-path-LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+      "bytes": 10175
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/MainActivity.kt",
+      "sha256": "3a67037209c4d6c9e5e2c491c44421e07cd0d6be1b4b105df70cc32e4ca7241b",
+      "bytes": 9847
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/MiqaatApp.kt",
+      "sha256": "6c90f959bf38a4e4e53080f68e4b2a1feeb71ec268da04d62204b92af93a92a1",
+      "bytes": 2650
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/MiqaatWidget.kt",
+      "sha256": "4959b2b625acc9c29182a0ba013f1dc92de4a41d4760eabb44956488592a432a",
+      "bytes": 4393
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/azaan/AlarmVolume.kt",
+      "sha256": "92c2d2f9d7501023b86e1aa9213944317327978f670362d3fcbd7ed37131327f",
+      "bytes": 1842
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/azaan/AzaanActivity.kt",
+      "sha256": "0bcd79d14a54f0f573b8c7e8db282c5f3fb7d1e4347eed199b6df56d1e662a17",
+      "bytes": 2350
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/azaan/AzaanAlarmReceiver.kt",
+      "sha256": "508752fb04b5364c8aa696b19f106ed482e3e809f66d21cd00557c085946c919",
+      "bytes": 4725
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/azaan/AzaanScheduler.kt",
+      "sha256": "f90c827e2c613c81399c5767773994d96814f9077837f3ca2aa0b4235854a212",
+      "bytes": 6335
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/azaan/AzaanService.kt",
+      "sha256": "141da3cf716ab494e61a87e68cb53e5723d964054cff83e8d379b01d4d9587f3",
+      "bytes": 31050
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/azaan/BootReceiver.kt",
+      "sha256": "1a3259f6e8fd7ab0d49f6a69a4f82ee51569efa9715e34973f698451673f0935",
+      "bytes": 2311
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Adhkar.kt",
+      "sha256": "d8176fc7e012419928f0a76753013d417711d1ed7ca01c51918aaa2ad1459a9e",
+      "bytes": 24058
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/DailyDhikrProgress.kt",
+      "sha256": "bd3ab229976c8bb68210cb097575d2cbd1749c17b6985891ddf3534883c3ea74",
+      "bytes": 918
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Device.kt",
+      "sha256": "47ea3ca95dff8223eeeae6d6c97b21c6cd1258cfb300269a67d2e283dc521a0e",
+      "bytes": 519
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Hadith.kt",
+      "sha256": "7e8195895595ead7775735cc3353f59ee4ede8e71c54eab73881f01877ebbcb7",
+      "bytes": 18222
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Health.kt",
+      "sha256": "6fb49e7a454abab70b413045ef692ea276106bd3c49add685b60b8af9d59edbb",
+      "bytes": 4887
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/L10n.kt",
+      "sha256": "a256f854d91885619b7a03b1a5f535fb794487050d691dc11dcdb79d0adca0a0",
+      "bytes": 14341
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Learn.kt",
+      "sha256": "1a541d12a76b6b492f4a3c6539b4b08e72bf843abee56198cc636681e66d9f03",
+      "bytes": 5619
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/LocationRepo.kt",
+      "sha256": "0288babec0f632950aed514bb04a52f270cecd0c1fa03e8adc3caec6c3924ff9",
+      "bytes": 9941
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/PrayerEngine.kt",
+      "sha256": "ce8bddb2c2fa7a4c25687095b58db8e2d4192ad0cdbf1f7a95923293bd0a906c",
+      "bytes": 22375
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/PrayerMessages.kt",
+      "sha256": "4a25073c7e59b6d4c4224c80866af9b4e18bbd3f68c95b9e09136e29550eebe4",
+      "bytes": 4894
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Reliability.kt",
+      "sha256": "53c3586834abedce97ea4a4c7f5a37d993f18e5a107bef4c18cb6533cd981456",
+      "bytes": 5331
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Settings.kt",
+      "sha256": "a2049a23ec7671675109f07ec8b59f4b67c4afb33d94800fbfdc489e2278b3be",
+      "bytes": 20669
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Setup.kt",
+      "sha256": "b26293fe9102da7149cde0a630f0fdc99fe3a4995bc08b99f59a3e5cd3c1d299",
+      "bytes": 4601
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/UpdatePolicy.kt",
+      "sha256": "002674c9ebd59b540f9f768e935fbdb0609917de215eae0a9fa44955196ebcd8",
+      "bytes": 1178
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/Updater.kt",
+      "sha256": "07db68198beac36e489c7c345e3d3bb6b8d51c38a41efdc8b53d8f6c737ee5eb",
+      "bytes": 9457
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/data/UrduContent.kt",
+      "sha256": "8d6e70773624a24c3502d6cba77291d2f247d66e33cab9a134549445db523eef",
+      "bytes": 17696
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/AccessibleHome.kt",
+      "sha256": "e4507130b021d58c5a60257f74f13e0b346af3fa0ef8d9e1a1d124e6789c02d8",
+      "bytes": 13151
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/AdhkarScreen.kt",
+      "sha256": "892d525e282f436851810a46e5e1ffae876d28f22c6367d3d0da1319bd997f21",
+      "bytes": 15943
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/Art.kt",
+      "sha256": "715439e161b9441e625d2a0c222464e254cf84d328f9ee952ff62333e8005528",
+      "bytes": 4605
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/AsrIcon.kt",
+      "sha256": "02a93a35352736e6a8f6aaea92d21cf3ef9b8a9c8d909986cd5a1699c673289e",
+      "bytes": 1553
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/AzaanScreen.kt",
+      "sha256": "6456c1e61284c30a44bc25a38a62750b76b90f814d9c5f3baffc2ee7ec067686",
+      "bytes": 26280
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/CelestialHome.kt",
+      "sha256": "335ab1fa011d0f88bc8d1805edeed9d9df3d677adcc20b2d4772cf10d6621160",
+      "bytes": 25828
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/CompactLandscapeHero.kt",
+      "sha256": "f229ec6395bae31d20e0599d8fee99cd380d4167d4cb82c4f94ba54df296950f",
+      "bytes": 6629
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/CompactThemeHome.kt",
+      "sha256": "4a08c54a77b5310932360ac061dfdb817c7089a322efda57beed70326fa02b67",
+      "bytes": 24083
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/DesignSystem.kt",
+      "sha256": "1710b74b17671f9fa7c1aa1dfaaec8b28f3d2a563d7591829cb84575f36ea40e",
+      "bytes": 17613
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/Explain.kt",
+      "sha256": "469b2cc9644e53ab6de8b38757bf70f6d011ea887f9ae62b9351eb8b7dffbbb4",
+      "bytes": 22169
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/Fit.kt",
+      "sha256": "0855e7fd4ebf9c4e143eff992d6f8d3841c0451a9a0eafc2a377fcd0931df0fd",
+      "bytes": 1755
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/FridayScreen.kt",
+      "sha256": "1df97fe550aff135be33262c54f0fb1c3e6c80a0b7bbbc7901ccd3e1154e4d06",
+      "bytes": 11327
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/GalleryHome.kt",
+      "sha256": "607c96c4c057c8f1d6884c4aa413a251792954554c9d8ebf36bd8c0d83182be9",
+      "bytes": 59768
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/HomeModel.kt",
+      "sha256": "c0763b3c523b4937b239d933ebfd2938bedb543b15556c102944336608a7fabf",
+      "bytes": 6093
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/HomeRouter.kt",
+      "sha256": "ea7d87376960c704ea94e61a5a74160ea77bf8a7ab4159e8db689ff381247b9a",
+      "bytes": 2341
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/HomeScreen.kt",
+      "sha256": "f11640e584692efbcf2242e36af59b3851a60191ae0ff8734ddf3f685ebbcd75",
+      "bytes": 29490
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/KiswahHome.kt",
+      "sha256": "418128b79cf0718119d4ae1f4601744a5b22d2f2c9350d4b565b49596ee0e773",
+      "bytes": 17068
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/LandscapeHome.kt",
+      "sha256": "b177b15363c9881dac1faf7f32373e32fcc5f9b67bbcf3e6fde75fb36d0e4fc0",
+      "bytes": 21230
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/LargeHome.kt",
+      "sha256": "357eea03fb4d1402700f69ce7970329bfc86d03b93159717c541f249dbbf89eb",
+      "bytes": 5075
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/LearnScreen.kt",
+      "sha256": "84f5236c29c03d47af2a02df9431656e05a3513e1c9c0b0b6bc3e674e6eef4d2",
+      "bytes": 51638
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/PortraitHome.kt",
+      "sha256": "e1512f7d7b2d39bc75b0fa5a0520f9b9b49d347f8162c60055d68da93a0abd6d",
+      "bytes": 22116
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/QiblaScreen.kt",
+      "sha256": "f7ebd4855da6bbd8c5ea2ad4e6eaf19c33297f2e371b14b317d71e80647b5e78",
+      "bytes": 14556
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/QuietPrayerScreen.kt",
+      "sha256": "64d6b0e13120da5de79aa74842a5bb7aa24fa916c44dd6b5bdeb5a0b1d53a381",
+      "bytes": 14023
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/SettingsModel.kt",
+      "sha256": "9eaa81b105efb852f08e9df35ade87562e70580d02c04d4e142e94f80511feed",
+      "bytes": 15672
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/SettingsScreen.kt",
+      "sha256": "9ad35f7d3777a4909b7e7fd416602d3ebb6c08b696880994d2e514300176d8bd",
+      "bytes": 78567
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/SetupScreen.kt",
+      "sha256": "e1957b3ff9b62cee000296fa60534d323ae45bd7b7ca080323d7e17eac357417",
+      "bytes": 19648
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/Str.kt",
+      "sha256": "13c9922d2dd4c8cce71be76f05aa80776a2c8dc698ff5b2b054662a8f39a8bc5",
+      "bytes": 2060
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/TabletHome.kt",
+      "sha256": "11e5af866935c8107949feaa174b0db325a7bbb0286c7cf841fc51b4e860be4d",
+      "bytes": 37401
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/Theme.kt",
+      "sha256": "17fa9da782d0abcb4d38dac5178409d64847fe6f18df6e0148281f0a93c519f8",
+      "bytes": 7025
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/ThemeArt.kt",
+      "sha256": "847f95712241fcfb554e9aaed4d1998b62663f9048e51c63ba085be244e5f687",
+      "bytes": 13435
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/ThemePicker.kt",
+      "sha256": "8c7e609f4a25026960d6e09fe6d884757a6ec06f0a03121c8e8e40b2fb230a77",
+      "bytes": 7929
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/ThemeTokens.kt",
+      "sha256": "39ce0ff0e1f5870a0555df2303e70ee54c3303dc4eee056bcaf21be003de068f",
+      "bytes": 10139
+    },
+    {
+      "path": "app/src/main/java/com/usman/miqaat/ui/TimetableScreen.kt",
+      "sha256": "23775c9cdbde8cac07d9ce3e69bcbaa508f1a65e75ff1f7a8595e558281dd73c",
+      "bytes": 12522
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/art_celestial_landscape_v2.webp",
+      "sha256": "d8283544946f255637dfefa59301df9c150ec888bfbea3529ea96f2cfdd22e97",
+      "bytes": 872532
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/art_celestial_portrait_v2.webp",
+      "sha256": "c9bc6c89deaba9a1857dc7cfcf24479b2f117b4a551954497edcffa08aeec591",
+      "bytes": 1114884
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/art_gallery_landscape_v2.webp",
+      "sha256": "133adf5c79de681e358bb62196cbbc357f8481ebedb526fc27c798b296a05e33",
+      "bytes": 1315314
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/art_gallery_portrait_v2.webp",
+      "sha256": "ba85cdab3217f6a356f1ca9b8b16d64f9cb27b680428eb68a547a45a38513541",
+      "bytes": 1283292
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/celestial_landscape_approved.webp",
+      "sha256": "22309732e1a238e2585c122916eb0b0c42d66b8c1e66f5225d0a63668e25badb",
+      "bytes": 80008
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/gallery_dawn_landscape.webp",
+      "sha256": "0388498d04a2626a52ca945e27c42df643e5be6140e0e42dd381c5ebe4336095",
+      "bytes": 38274
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/gallery_landscape_approved.webp",
+      "sha256": "c6704a852696fb5ef434fe9571efaa1ef2ed314d44dd2b1a2889e8d5c4183612",
+      "bytes": 112980
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/learn_figure_bowing.webp",
+      "sha256": "f17211c97425ca4522d2cc7e7cc2b173d003bf5fbb605fe14d9f2ef0be9409b4",
+      "bytes": 78830
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/learn_figure_prostrating.webp",
+      "sha256": "209aaa12c3436ddd77d07823fccb9337ec7d39792ea5f129c38c13c8f13256c6",
+      "bytes": 51518
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/learn_figure_rising.webp",
+      "sha256": "2ac2c04fb623b63361541d36873d40c75205397d0b80ea4ae22ff85660dd36f6",
+      "bytes": 54886
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/learn_figure_salam.webp",
+      "sha256": "e3f53d12720b7dc59559de92374f73482ebc93664bac91f4c284d34f6636dd50",
+      "bytes": 81506
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/learn_figure_salam_left.webp",
+      "sha256": "b5b1e75e215890f663684f172c37bac428636bbb5818e87103d25269a4fdb3a4",
+      "bytes": 84520
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/learn_figure_sitting.webp",
+      "sha256": "8817dd3c5eba4263086835c315815fbd0ebba38e367d6a2130c97006f9ab9295",
+      "bytes": 88466
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/learn_figure_standing.webp",
+      "sha256": "097e79a76def7345fbbea917162bc49b019309c50b50ac0b408c19e112df1e01",
+      "bytes": 53046
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/learn_figure_takbir.webp",
+      "sha256": "6a03b6ef6aaf85cbac5cd395257bd1e81629f9f2b7b9400fb9109195b5e49669",
+      "bytes": 65694
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/learn_figure_tashahhud.webp",
+      "sha256": "9bf657caebc794c9a77c5c300c9e6519e1403a209ecf9b2116390a7cb3c69770",
+      "bytes": 86052
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/quiet_option2_mihrab.webp",
+      "sha256": "bc7f4ba05f2de85e41b68943f87f413df447d25efaf89c8a2995a3a60b6276ed",
+      "bytes": 72430
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_launcher_monochrome.xml",
+      "sha256": "cabbc5d9b3eb0ad796cda0531380d381cc91957d3efffb0b976914b65c2275bb",
+      "bytes": 978
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_bowing.xml",
+      "sha256": "88796e78fe628cd6122bbef6ca75ea030cbd9fc85bceacc920e1ad14b5b3721f",
+      "bytes": 2306
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_prostrating.xml",
+      "sha256": "74232be49ffd2dd3272c21d035323f3ff3d6f4e7e2e2186048c28ef014ed83cc",
+      "bytes": 2596
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_rising.xml",
+      "sha256": "00cbabc8b80b943aa246b14cb7e8a5e2da07a267735c834b751a3a95fb6ac78a",
+      "bytes": 3150
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_salam.xml",
+      "sha256": "0ce7beb11489019773df5ef442cc730e523a047bf4f8b44de6735dc713d9593c",
+      "bytes": 3081
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_salam_left.xml",
+      "sha256": "08d0a9e956fc6a0ab72c6094ec1f9af73739cb92300a9731e86ad97389626762",
+      "bytes": 3081
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_sitting.xml",
+      "sha256": "8bdefd58d257bb95022950f8f09f084b95eb37870130650edded3765f93a071f",
+      "bytes": 2536
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_standing.xml",
+      "sha256": "29d5dc787efb59f122f29d62ad1316cdb44db421c9e1f450c66e6b054f16152c",
+      "bytes": 3270
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_takbir.xml",
+      "sha256": "3445a91f6fc7c8b3887a9d852ceea444abe7df18462b49e36aa75e9c3982acbb",
+      "bytes": 3411
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_pose_tashahhud.xml",
+      "sha256": "b5bd0f82c4a89aafe3d0fb6cafd587d89168cd914cf5fc207a59ba748d923669",
+      "bytes": 3286
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_scene_celestial.xml",
+      "sha256": "74d2da2cc762c9d48fdd38ca375075340cd1cee0acdc797c1d5027b68e58224a",
+      "bytes": 2330
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_scene_gallery.xml",
+      "sha256": "755f0a9412fef9a91bf11f5133e6bbaf7ff5c31357cb5c0395e861ffb44039ad",
+      "bytes": 2634
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_scene_kiswah.xml",
+      "sha256": "3005c5159ec7b972657a97db385b244b38ed485b8c4e80e6034a5e277936b7c0",
+      "bytes": 2369
+    },
+    {
+      "path": "app/src/main/res/drawable/learn_scene_miqaat.xml",
+      "sha256": "ab8950b0dad73ef532616955037349c47d183e371dea27fc2b80cdde251b33a3",
+      "bytes": 2136
+    },
+    {
+      "path": "app/src/main/res/drawable/widget_bg.xml",
+      "sha256": "f759e9b51caac715e065f726b0280936de6baff08f87259616f71151e5572b76",
+      "bytes": 334
+    },
+    {
+      "path": "app/src/main/res/font/amiri_bold.ttf",
+      "sha256": "cfccb794268e7d573d857e6d6a67f89cf8a053e8ffd85dfa0c8ec1bb36fc4827",
+      "bytes": 413480
+    },
+    {
+      "path": "app/src/main/res/font/amiri_regular.ttf",
+      "sha256": "ab391c4147d054c48976e98322ad0eefe1427aa0e0502a12a4c75d80a70cfcd7",
+      "bytes": 431116
+    },
+    {
+      "path": "app/src/main/res/font/cinzel.ttf",
+      "sha256": "f4d83d34d1f6c741193e4acf4b3dff9531e5a67b6aa65228d00a7db72a4e0f34",
+      "bytes": 125468
+    },
+    {
+      "path": "app/src/main/res/font/cormorant_garamond_medium.ttf",
+      "sha256": "b20b7d9626dd956b2c5e558692ad328b1f19e3275e2782db4fa07670d83f35e0",
+      "bytes": 1195560
+    },
+    {
+      "path": "app/src/main/res/font/noto_nastaliq_urdu.ttf",
+      "sha256": "98a4787f34eb6fde57fb9a1121a8f216301196ab0da98ea110cad581be8abbcd",
+      "bytes": 690304
+    },
+    {
+      "path": "app/src/main/res/font/nunito_sans.ttf",
+      "sha256": "f934d7142fb4784bf828da485b7dcbd90c0c80d514e9d49a5da0ed3a1ae2491d",
+      "bytes": 571240
+    },
+    {
+      "path": "app/src/main/res/font/reem_kufi.ttf",
+      "sha256": "33ead1986cd48c138c4d906c9e5a6341877268461f97623409a2014de1cd4aa4",
+      "bytes": 127152
+    },
+    {
+      "path": "app/src/main/res/layout/widget_next.xml",
+      "sha256": "0e4cdebf8b29f0dd3b0cab019a7163e3d8830f27cba85107e951d4a41706458e",
+      "bytes": 1489
+    },
+    {
+      "path": "app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+      "sha256": "97da340af494e34650017084df1b48c4b053f27a38431550fbf3e6bcd2a458e5",
+      "bytes": 320
+    },
+    {
+      "path": "app/src/main/res/mipmap-hdpi/ic_launcher.png",
+      "sha256": "105559d077bc6566580a9216d52222a6ca502862dd148d9d5262284d06dcfa72",
+      "bytes": 8341
+    },
+    {
+      "path": "app/src/main/res/mipmap-hdpi/ic_launcher_fg.png",
+      "sha256": "eaa9015c9ba6dbf49b94e43eb94e81ee72c126192bc2493b3f393b50dc961d66",
+      "bytes": 14386
+    },
+    {
+      "path": "app/src/main/res/mipmap-mdpi/ic_launcher.png",
+      "sha256": "168aabcff471ea179dc4b4368e75162d5dcde5b179908ff3ecb7fc8459acf171",
+      "bytes": 4271
+    },
+    {
+      "path": "app/src/main/res/mipmap-mdpi/ic_launcher_fg.png",
+      "sha256": "0e9da42cee3364dee89efaa5e807c4b90a83bab46c5da58835aa60fd1419b5cc",
+      "bytes": 7265
+    },
+    {
+      "path": "app/src/main/res/mipmap-xhdpi/ic_launcher.png",
+      "sha256": "3b06a28ed143dcad1312c3b8b5521a6d49c2f79bd267d7621e8002b7e4f8d79b",
+      "bytes": 13342
+    },
+    {
+      "path": "app/src/main/res/mipmap-xhdpi/ic_launcher_fg.png",
+      "sha256": "52068799f52627478ca6c9f943b70998c254a6ccb43fa6976165ce193967a4f3",
+      "bytes": 23074
+    },
+    {
+      "path": "app/src/main/res/mipmap-xxhdpi/ic_launcher.png",
+      "sha256": "509d96f442e3533f251998d1a4e128a6f0adcff93e97ba6b87dd8a16f07b61fd",
+      "bytes": 25752
+    },
+    {
+      "path": "app/src/main/res/mipmap-xxhdpi/ic_launcher_fg.png",
+      "sha256": "8342226bf8491eed7ee08f239b0f1382966b365ee55ecd3a45f13079464a452a",
+      "bytes": 45306
+    },
+    {
+      "path": "app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+      "sha256": "480fb61fdcfad4233a361e2c5d2614bd3afc14b447b63cffed0a23fdba0b8569",
+      "bytes": 41394
+    },
+    {
+      "path": "app/src/main/res/mipmap-xxxhdpi/ic_launcher_fg.png",
+      "sha256": "21a73251d90d6990344c7290f74ad70a9e4c57abd9d7e32bb0605d3ae777230c",
+      "bytes": 75020
+    },
+    {
+      "path": "app/src/main/res/raw/azaan.mp3",
+      "sha256": "6fbac856151079a1e8b05b046a2a19e14c0405c5629841ec543974c48286718e",
+      "bytes": 5587265
+    },
+    {
+      "path": "app/src/main/res/raw/azaan_fajr.mp3",
+      "sha256": "b4d596a8d60f3120ed6a3d0709dd63cd589b35d4bcc9a792bfc74da80f2a14f2",
+      "bytes": 1532448
+    },
+    {
+      "path": "app/src/main/res/raw/chime.wav",
+      "sha256": "b47e801d7fce35957f820801a1b62de8ab5d7635c9cc7fe00e8aa673511dcc83",
+      "bytes": 414584
+    },
+    {
+      "path": "app/src/main/res/raw/dua_ar.mp3",
+      "sha256": "595a02f22bc9a1abc8e1393864368a3f7d09760c560574b6b22f0a997e9435f6",
+      "bytes": 305318
+    },
+    {
+      "path": "app/src/main/res/raw/dua_en.mp3",
+      "sha256": "b5551c450d9458f9cd248c68003e0dd1e6a3861646ed27524a22f73d370d4ae7",
+      "bytes": 494653
+    },
+    {
+      "path": "app/src/main/res/raw/h01_ar.mp3",
+      "sha256": "54efc0363e5cd7a76862d4b6b78a43ddb6a3d12168f9e2fd9c70a33384e74a79",
+      "bytes": 211904
+    },
+    {
+      "path": "app/src/main/res/raw/h01_en.mp3",
+      "sha256": "455b38d90408b18d4f297bb4ecfa6b229db8adff2a18907c2100501d7869b433",
+      "bytes": 457037
+    },
+    {
+      "path": "app/src/main/res/raw/h02_ar.mp3",
+      "sha256": "7b9a5c599636d8e51df1c0b96c457769e5c27813ea1ff7635d641029f52a13d3",
+      "bytes": 212531
+    },
+    {
+      "path": "app/src/main/res/raw/h02_en.mp3",
+      "sha256": "3cdfab4c6333b3459c4cbf1753e5cacfc167c1c31f65efc213f42997739b8d94",
+      "bytes": 414405
+    },
+    {
+      "path": "app/src/main/res/raw/h03_ar.mp3",
+      "sha256": "8be6b5f8c23a2fca8c5b5053756e94c0af6ba063d21a1bcf0c83d2f57ec1bc21",
+      "bytes": 239489
+    },
+    {
+      "path": "app/src/main/res/raw/h03_en.mp3",
+      "sha256": "8e2a923c85483321220b6f362782df641cfef510d77ada4d679a59bd39b657da",
+      "bytes": 395597
+    },
+    {
+      "path": "app/src/main/res/raw/h04_ar.mp3",
+      "sha256": "fed50daf705b56cdb89e9121e1d6c4729111c961cbcd8cacc5aa1cf8da44b15f",
+      "bytes": 177422
+    },
+    {
+      "path": "app/src/main/res/raw/h04_en.mp3",
+      "sha256": "1740dfb3dd4acc7bfd5dfddc784e26fddb317d47dd739c6c2144162bd527be67",
+      "bytes": 318484
+    },
+    {
+      "path": "app/src/main/res/raw/h05_ar.mp3",
+      "sha256": "487c90814ed3db3abd93363a15cf5933ee635a0ce0cf6b775cd8bdea0b5adfc7",
+      "bytes": 192469
+    },
+    {
+      "path": "app/src/main/res/raw/h05_en.mp3",
+      "sha256": "6dbe007689b835fc8f34094ca1693d064f5c4221d0a7b73595e4222d421d9ffc",
+      "bytes": 314095
+    },
+    {
+      "path": "app/src/main/res/raw/h06_ar.mp3",
+      "sha256": "0a4214624ce9bfc647543c21ee79eeff521a16a5e5ce1bd0378ebc72781b1c08",
+      "bytes": 243878
+    },
+    {
+      "path": "app/src/main/res/raw/h06_en.mp3",
+      "sha256": "01cda73e54f27a5a08a9498e74bd11be8101a6965b3bfed9a8375221275e44dd",
+      "bytes": 544808
+    },
+    {
+      "path": "app/src/main/res/raw/h07_ar.mp3",
+      "sha256": "2376250c5aa2a6fd52e9b96f7e89fb77eab9cbd52b57be892107ae46174aff1a",
+      "bytes": 211531
+    },
+    {
+      "path": "app/src/main/res/raw/h07_en.mp3",
+      "sha256": "8497517b63aaa9dec6c28e4bfe4296adb6ed4cc1f84fc8879735591ceacfc2fc",
+      "bytes": 509073
+    },
+    {
+      "path": "app/src/main/res/raw/h08_ar.mp3",
+      "sha256": "6afcc2396eb2bfcb3e40c6c06faa365bf6fe09ad8045ec9cdc5b2c5f31f30a50",
+      "bytes": 280867
+    },
+    {
+      "path": "app/src/main/res/raw/h08_en.mp3",
+      "sha256": "895179d1c511548e5fbc19f4b7e62850428bc9c654565f982b3d4794f42cd208",
+      "bytes": 381177
+    },
+    {
+      "path": "app/src/main/res/raw/h09_ar.mp3",
+      "sha256": "9c70a156310a7867abc5b474bf27078919382b514a5deed68cfb78cde010ee30",
+      "bytes": 210650
+    },
+    {
+      "path": "app/src/main/res/raw/h09_en.mp3",
+      "sha256": "549940ac66d3ddd319841fd9c5df6f7a017abceb36d3d49c67906c624a05f5a7",
+      "bytes": 327888
+    },
+    {
+      "path": "app/src/main/res/raw/h10_ar.mp3",
+      "sha256": "6403fe4ae4ad96c8c124e7d1167894b543b68609734a8882b308e5da3e78b55e",
+      "bytes": 250774
+    },
+    {
+      "path": "app/src/main/res/raw/h10_en.mp3",
+      "sha256": "4de97b66a0ceb3e7107c93ff95b4e0b6b4f8ec54cee73f8005fb0ef5426aa5e2",
+      "bytes": 378043
+    },
+    {
+      "path": "app/src/main/res/raw/h11_ar.mp3",
+      "sha256": "38c134809f383e7031231dfe37b936d34ef5e16d59e40f9fc681d17490e18dea",
+      "bytes": 198111
+    },
+    {
+      "path": "app/src/main/res/raw/h11_en.mp3",
+      "sha256": "372586068f7ec598251af41682afad4ec6ce4bd69470348f64bdfaa0bb4d56fe",
+      "bytes": 460172
+    },
+    {
+      "path": "app/src/main/res/raw/h12_ar.mp3",
+      "sha256": "5db8552fb573dd43516e389064578abd4f277979ee31c0b4af0923f5a1714bc4",
+      "bytes": 260805
+    },
+    {
+      "path": "app/src/main/res/raw/h12_en.mp3",
+      "sha256": "112c020a2e80b63b507435ea172001c476e30d13c1b22152fa3d71b9dbea10a5",
+      "bytes": 316603
+    },
+    {
+      "path": "app/src/main/res/raw/h13_ar.mp3",
+      "sha256": "c7e2031513f5edabdb826c86acc46d620273ffaa231dbea459b64b9d24aed28c",
+      "bytes": 358608
+    },
+    {
+      "path": "app/src/main/res/raw/h13_en.mp3",
+      "sha256": "7774c17641d02430ed0b14f89846a18552964673371bdc10bd758cd01b4fb478",
+      "bytes": 480234
+    },
+    {
+      "path": "app/src/main/res/raw/h14_ar.mp3",
+      "sha256": "66380c3c99a58b6b5e89678ef66bd726fcd74e1a66b66e371bae5d329d8b938e",
+      "bytes": 300929
+    },
+    {
+      "path": "app/src/main/res/raw/h14_en.mp3",
+      "sha256": "54ce5fa725354393fc69eadee9089f105b2622573b4300a812d10eac7f964da5",
+      "bytes": 564870
+    },
+    {
+      "path": "app/src/main/res/raw/h15_ar.mp3",
+      "sha256": "d8c35055f7ca4c6c8b4256b8ee23d34666053220381cf92dbc8acc8baa13fdf2",
+      "bytes": 389955
+    },
+    {
+      "path": "app/src/main/res/raw/h15_en.mp3",
+      "sha256": "43b60f1cf30e3338f01f62087b7fdaa6d5388e26f1da7f1fab1ce4dbf6de8d5f",
+      "bytes": 546062
+    },
+    {
+      "path": "app/src/main/res/raw/h16_ar.mp3",
+      "sha256": "9c3ac8f0aee942e6a710df8f79ad76c3454c30e7ea295c5b40fdefcf22ac69d7",
+      "bytes": 278359
+    },
+    {
+      "path": "app/src/main/res/raw/h16_en.mp3",
+      "sha256": "a095d880b6449f447d33d2b86e07a02365f5c6956aaf344c79660509fb4d173a",
+      "bytes": 412524
+    },
+    {
+      "path": "app/src/main/res/raw/h17_ar.mp3",
+      "sha256": "915f71fa36458c0fdeedce701f5c6e0f4a1675b7b07f352cc1ac17fafc0b7320",
+      "bytes": 181856
+    },
+    {
+      "path": "app/src/main/res/raw/h17_en.mp3",
+      "sha256": "0700ed17d5774ba9e04fec1f83a9a2880be017839062a9397ea955b5b73e727e",
+      "bytes": 527254
+    },
+    {
+      "path": "app/src/main/res/raw/h18_ar.mp3",
+      "sha256": "eb2a70972d82164930390de5d5298f041c5847a0b27ffda9891de12c1d0cccef",
+      "bytes": 235101
+    },
+    {
+      "path": "app/src/main/res/raw/h18_en.mp3",
+      "sha256": "0e75889f65fdbdd9218a3386433f84952ef31b7ba63d8cde241c4135c7290e76",
+      "bytes": 355473
+    },
+    {
+      "path": "app/src/main/res/raw/h19_ar.mp3",
+      "sha256": "c8936d6b52e99890afe34afc536d4caed9e542910dcd2ec213dda2ad3abdbfac",
+      "bytes": 365504
+    },
+    {
+      "path": "app/src/main/res/raw/h19_en.mp3",
+      "sha256": "e53e946df5ede23de97c4128f1c48905339d25978fedba2f70efe2b439566830",
+      "bytes": 576155
+    },
+    {
+      "path": "app/src/main/res/raw/h20_ar.mp3",
+      "sha256": "a283cd669cdcf113ec96276ffe5c9415fe737fda74113aa516058ac8b0075c98",
+      "bytes": 248266
+    },
+    {
+      "path": "app/src/main/res/raw/h20_en.mp3",
+      "sha256": "50b7c129f010e51afc891c9abb517ecbd36773dd48cc35b654aa4b0525b248b5",
+      "bytes": 376789
+    },
+    {
+      "path": "app/src/main/res/raw/h21_ar.mp3",
+      "sha256": "978bb87e0aa918572da8a7374062051fa6e17c69943b95bb4c38bf23d750b633",
+      "bytes": 265030
+    },
+    {
+      "path": "app/src/main/res/raw/h21_en.mp3",
+      "sha256": "0340d0eabea0e6f50e5e84606ee8ef68df1a3795d323a96996e0418513601998",
+      "bytes": 528508
+    },
+    {
+      "path": "app/src/main/res/raw/h22_ar.mp3",
+      "sha256": "b3fbecdb82df95b64b4d441ed6bcc4f5dc4c3a3492e3217a6c6afc56d6a76fac",
+      "bytes": 259551
+    },
+    {
+      "path": "app/src/main/res/raw/h22_en.mp3",
+      "sha256": "00fdfb7bee5704755605b365cf22a2f964498ac59f811c4ed46322a6c4fa2fa2",
+      "bytes": 494653
+    },
+    {
+      "path": "app/src/main/res/raw/h23_ar.mp3",
+      "sha256": "80ab43ecdc24e879098629739649240cf24829495e8b45236180b2533aaa7b9c",
+      "bytes": 201873
+    },
+    {
+      "path": "app/src/main/res/raw/h23_en.mp3",
+      "sha256": "a208622300752d4157d56564637a527ed55ea7a2aa326803273984564abf4203",
+      "bytes": 334157
+    },
+    {
+      "path": "app/src/main/res/raw/h24_ar.mp3",
+      "sha256": "945333707149a56e8c0b91a90a3f7cb6aae069f01380b30279eedfe5dc3d0acc",
+      "bytes": 280076
+    },
+    {
+      "path": "app/src/main/res/raw/h24_en.mp3",
+      "sha256": "7d422b9a24ef5d6eb89cced03c2bd02a74eddbb9b70da6315ab5acf4e32100c7",
+      "bytes": 326470
+    },
+    {
+      "path": "app/src/main/res/raw/h25_ar.mp3",
+      "sha256": "77fcf2979a467053310eaabad355b07dc1a5d44e794a2011d495cc456f2fb94e",
+      "bytes": 240370
+    },
+    {
+      "path": "app/src/main/res/raw/h25_en.mp3",
+      "sha256": "8db3cbf54266c8e5430941375a822bd3e144b785368d7813d0f1c1e08d7a4569",
+      "bytes": 304736
+    },
+    {
+      "path": "app/src/main/res/raw/h26_ar.mp3",
+      "sha256": "7cc6a050c0132b7135d10249e05b37297ba27c448eced18c96dd4928d801d7e1",
+      "bytes": 189379
+    },
+    {
+      "path": "app/src/main/res/raw/h26_en.mp3",
+      "sha256": "3ee0d3c45cde4f09901cebd9671693705b860cbef3dc328f341ae9903b2d739d",
+      "bytes": 399986
+    },
+    {
+      "path": "app/src/main/res/raw/h27_ar.mp3",
+      "sha256": "e5b6e75e4e15d3d4ecbeb14f22e3ad38de3ac07c9fd26efe3719537f48734530",
+      "bytes": 176168
+    },
+    {
+      "path": "app/src/main/res/raw/h27_en.mp3",
+      "sha256": "05a65f3d6fe8449148a82f44556188287e7de53c217f3f5ee4ef54e596df36c9",
+      "bytes": 414405
+    },
+    {
+      "path": "app/src/main/res/raw/h28_ar.mp3",
+      "sha256": "228cd81b96cabf1032ad827e1a2379ffbdae984b4b7d96eec9f70d1981feb7fd",
+      "bytes": 119117
+    },
+    {
+      "path": "app/src/main/res/raw/h28_en.mp3",
+      "sha256": "1493a6d9777a004e3711b2e573618cd8549905f7f0c7a797ef7b573ae2a2dc28",
+      "bytes": 355473
+    },
+    {
+      "path": "app/src/main/res/raw/h29_ar.mp3",
+      "sha256": "4ace0c6ace8f6b410a8608cb3005c11cc330702d14bf3b9458392f4285ca57e0",
+      "bytes": 147329
+    },
+    {
+      "path": "app/src/main/res/raw/h29_en.mp3",
+      "sha256": "2618ca84e48a7f15020099f3b8b6101cd82d8e4ac19fa702e6cc0d1a7ba763d3",
+      "bytes": 288390
+    },
+    {
+      "path": "app/src/main/res/raw/h30_ar.mp3",
+      "sha256": "938fc04ad0157ef8caf21c84eaabf14b1de75d2d4c5826e292a1c8741089acd7",
+      "bytes": 269209
+    },
+    {
+      "path": "app/src/main/res/raw/h30_en.mp3",
+      "sha256": "713ff63883ae84dd07268bba93129412935a7d456716465640a4274d6da7df6f",
+      "bytes": 541674
+    },
+    {
+      "path": "app/src/main/res/raw/h31_ar.mp3",
+      "sha256": "790b85d87e038e4538a524ff305e80db4b919a628b05cc6bad1bef510b4c2aca",
+      "bytes": 209396
+    },
+    {
+      "path": "app/src/main/res/raw/h31_en.mp3",
+      "sha256": "7740a5b28340ba01cedfd8278577f9c938d595ed1fc259ba63f0ca08955fa9ee",
+      "bytes": 147583
+    },
+    {
+      "path": "app/src/main/res/raw/h32_ar.mp3",
+      "sha256": "c1b714e94855a9ceb8ca1f3c0b8a6fa945fd493dc941f23bef7692f6105262ce",
+      "bytes": 206933
+    },
+    {
+      "path": "app/src/main/res/raw/h32_en.mp3",
+      "sha256": "7f735e2d27fd568ffa4afd1f8a5ece5d63289d7fc2e586aba73fd39847e49f47",
+      "bytes": 570513
+    },
+    {
+      "path": "app/src/main/res/raw/h33_ar.mp3",
+      "sha256": "0decf9d77522d68f04ae7d874d3d64892460d4c0540605b500da6567cbef71ad",
+      "bytes": 169272
+    },
+    {
+      "path": "app/src/main/res/raw/h33_en.mp3",
+      "sha256": "f51abf032c7a7527076974721f0ea0fc1e35920e0325c9da9336a241e166e450",
+      "bytes": 416913
+    },
+    {
+      "path": "app/src/main/res/raw/h34_ar.mp3",
+      "sha256": "55232f227e469bf49e456357f9b1f3445ec80df3cf32e6d4ccb4000d4b6b60af",
+      "bytes": 295287
+    },
+    {
+      "path": "app/src/main/res/raw/h34_en.mp3",
+      "sha256": "a9820afdb9b4a193113bb64f44ad984c93e9f89280bb9dcc1e1e2d1a2ba1de10",
+      "bytes": 379924
+    },
+    {
+      "path": "app/src/main/res/raw/h35_ar.mp3",
+      "sha256": "f27a929133b54e044fac532a04da2656c22f5e4c67756727eec6e6472608f7a0",
+      "bytes": 245132
+    },
+    {
+      "path": "app/src/main/res/raw/h35_en.mp3",
+      "sha256": "81dc884eeb8ec9c86db300b5749c5b423f7ba84bbb5cee7b2ed9c553ac4e631d",
+      "bytes": 344188
+    },
+    {
+      "path": "app/src/main/res/raw/h36_ar.mp3",
+      "sha256": "17fcd50e8e2d137cfe006078ab39d7ba94005710dec4f96174f1d9de3b647438",
+      "bytes": 295287
+    },
+    {
+      "path": "app/src/main/res/raw/h36_en.mp3",
+      "sha256": "7d1df86525e3dab385f9ad0b5b477da0764659e47f2fb1644e41c21a228f1bbe",
+      "bytes": 472710
+    },
+    {
+      "path": "app/src/main/res/raw/iqamah.mp3",
+      "sha256": "dd794a9d7505793efeecb471d35552b2673f070b1d136ddd15e6f85031068370",
+      "bytes": 186313
+    },
+    {
+      "path": "app/src/main/res/raw/keep.xml",
+      "sha256": "6dff4ca5397cf9418db73595f59bf26bf1bc2aba3694c5b7577b0e2b1c5646d2",
+      "bytes": 263
+    },
+    {
+      "path": "app/src/main/res/raw/learn_01.mp3",
+      "sha256": "8897fc88d40004874b2abac1ecd06259d8a10c1bc3882680978b1cc79fd34b03",
+      "bytes": 32959
+    },
+    {
+      "path": "app/src/main/res/raw/learn_02.mp3",
+      "sha256": "2316bfc0e059811ed454c7da8ef24c4ae6b252fc961e8f7abc1d2e579d86c41a",
+      "bytes": 99728
+    },
+    {
+      "path": "app/src/main/res/raw/learn_03.mp3",
+      "sha256": "2b4fb0f8481ee2f0a1af0224c6b34268a2f7755a0395efff56c1d2967ddb43ef",
+      "bytes": 116655
+    },
+    {
+      "path": "app/src/main/res/raw/learn_04.mp3",
+      "sha256": "273dd4a5b0d94b034733422380639bbe7df91bf42ca18d9c926437602a5b05e0",
+      "bytes": 417272
+    },
+    {
+      "path": "app/src/main/res/raw/learn_05.mp3",
+      "sha256": "be09dade6b4656783d79aeaee00052a77fc4ce8a662e2ec31dc6c489864c0ff4",
+      "bytes": 124178
+    },
+    {
+      "path": "app/src/main/res/raw/learn_06.mp3",
+      "sha256": "6aad186d7d9091ce93b70f1d529890f88a48288cfd4dfb328b9b6db3f9ecd7cf",
+      "bytes": 146435
+    },
+    {
+      "path": "app/src/main/res/raw/learn_07.mp3",
+      "sha256": "78c4f797879015a9225c2486d949d8a9889ed9f5f36ee3dd387bf0f5aad08398",
+      "bytes": 79666
+    },
+    {
+      "path": "app/src/main/res/raw/learn_08.mp3",
+      "sha256": "dfcea7533a776f8ee16fc3d84e082dde2dd316ca27e335c5a22688767a085026",
+      "bytes": 137971
+    },
+    {
+      "path": "app/src/main/res/raw/learn_09.mp3",
+      "sha256": "a4093e1d1d2eb32033a6c474e009dc57215bffe8428de95d669e5ad1a63f19ed",
+      "bytes": 71202
+    },
+    {
+      "path": "app/src/main/res/raw/learn_10.mp3",
+      "sha256": "bb08b341a24541d69e0b84644b8a842af0d9564cbb5bc86f90b24aa732b84423",
+      "bytes": 322291
+    },
+    {
+      "path": "app/src/main/res/raw/learn_11.mp3",
+      "sha256": "d5d3e4e6e211e7c35c7c2542227b3b2d3d5f904b8b58fe6c3e4d89f507327626",
+      "bytes": 397837
+    },
+    {
+      "path": "app/src/main/res/raw/learn_12.mp3",
+      "sha256": "65b5109171b0086fca4b4047744c96550ce86bbcbd747b25e4a75eaa31cad4ca",
+      "bytes": 129194
+    },
+    {
+      "path": "app/src/main/res/raw/tick.wav",
+      "sha256": "454161fdcd7f97d2305667208614759138adea60bbc13d0f8b57f39a3b03e0ae",
+      "bytes": 5336
+    },
+    {
+      "path": "app/src/main/res/values-ur/audit_remediation.xml",
+      "sha256": "d0e99c557d673bcf4a8cbd81163a6f776a6b80ed03ac290bfd085037c92380a7",
+      "bytes": 984
+    },
+    {
+      "path": "app/src/main/res/values-ur/learn_rebuild.xml",
+      "sha256": "78943353ddebbca2c278f665586d0e6a2328f3e4de92a3ef695d2b2e7e2f8dcd",
+      "bytes": 1482
+    },
+    {
+      "path": "app/src/main/res/values-ur/strings.xml",
+      "sha256": "402e922f582b5f66aef7711ba3915ebc056aab7b386fcade8b5dfcd504fdbadf",
+      "bytes": 2390
+    },
+    {
+      "path": "app/src/main/res/values-ur/strings_ui.xml",
+      "sha256": "8020e052df2d8b3b164088eec9dd4fa5240b78653c77f54749047db0dd63fc9d",
+      "bytes": 72784
+    },
+    {
+      "path": "app/src/main/res/values/audit_remediation.xml",
+      "sha256": "b3bbdf8dfb81cef2797c0f89bc8062851374e7652cff0aa203a7ecb4e19cfc4f",
+      "bytes": 658
+    },
+    {
+      "path": "app/src/main/res/values/colors_launcher.xml",
+      "sha256": "c364d1a7cf40509a1988b47d1e7fef7418ff2978c88ac50f2e7d36a280226aa7",
+      "bytes": 201
+    },
+    {
+      "path": "app/src/main/res/values/learn_rebuild.xml",
+      "sha256": "df8a6307c8de4da5360071b3145d2f8655009d64631686ba93617dee0c0453d5",
+      "bytes": 1108
+    },
+    {
+      "path": "app/src/main/res/values/strings.xml",
+      "sha256": "d17ca80a1273b31c48dc873082dc214dade8571cddb61f258063c28eec568c96",
+      "bytes": 2022
+    },
+    {
+      "path": "app/src/main/res/values/strings_ui.xml",
+      "sha256": "7f49f7d426d5e833b404f9e0be351be9a586546a99fad23bb034485675e041aa",
+      "bytes": 56583
+    },
+    {
+      "path": "app/src/main/res/values/themes.xml",
+      "sha256": "a564753077e0edce589c6ea956206add57164233076b6eda5935a7dc253ef174",
+      "bytes": 482
+    },
+    {
+      "path": "app/src/main/res/xml/data_extraction_rules.xml",
+      "sha256": "719184c2f100b5a464922336894945e890021c38dd644904a6d0494599c072d3",
+      "bytes": 741
+    },
+    {
+      "path": "app/src/main/res/xml/file_paths.xml",
+      "sha256": "5a7d0bc7f78378552590ad8f35aa4ee72f6c3d04cbf86f9b4bb96d66fa3b8546",
+      "bytes": 115
+    },
+    {
+      "path": "app/src/main/res/xml/widget_info.xml",
+      "sha256": "7f1c9781b15d009ebc1306008b47ce93d4edad8a7c56a0f3149f328dca73f510",
+      "bytes": 457
+    }
+  ]
+}

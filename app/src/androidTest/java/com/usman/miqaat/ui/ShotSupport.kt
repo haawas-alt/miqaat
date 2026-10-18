@@ -119,7 +119,10 @@ abstract class ShotSupport {
                 return
             } catch (t: Throwable) {
                 lastError = t
+                File(out, "_attempts_${device}.txt").appendText("$label attempt $attempt: ${t.stackTraceToString()}\n")
                 runCatching { scenario.close() }
+                // Retry only the documented Compose idle timeout; assertions and app errors fail immediately.
+                if (t.javaClass.simpleName != "ComposeNotIdleException") break
                 Thread.sleep(1500)
             }
         }

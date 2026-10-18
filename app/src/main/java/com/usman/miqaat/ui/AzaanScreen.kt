@@ -80,10 +80,15 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
         val tk = screenTokens()
         val kiswah = com.usman.miqaat.MiqaatApp.instance.settings.value.theme == com.usman.miqaat.data.AppTheme.KISWAH
         val bg = if (kiswah) ThemeTokenSets.kiswah.skyAzaan else when { isAzaan -> tk.skyAzaan; isIq -> tk.skyIqamah; else -> tk.skyDua }
+        val compactCountdown = phase is Phase.IqamahCountdown && !portrait && (maxHeight < 500.dp || androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.15f)
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(bg))) {
             val artTheme = tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY
             if (artTheme) ThemedBackdrop(portrait, Modifier.fillMaxSize(), scrim = 0.72f)
             else if (kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
+            if (compactCountdown && phase is Phase.IqamahCountdown) {
+                CompactCountdown(phase, onStop, onSkip)
+                return@Box
+            }
             Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 FlowHeader(phase, u, stacked = portrait)
                 StepsBar(phase, u)
@@ -102,6 +107,34 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
                 BottomBar(phase, u, onStop, onSkip)
             }
         }
+    }
+}
+
+/** A short landscape viewport must expose the live number before any optional detail. */
+@Composable
+private fun CompactCountdown(phase: Phase.IqamahCountdown, onStop: () -> Unit, onSkip: () -> Unit) {
+    val tk = screenTokens()
+    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(phase.endsAt) { while (true) { now = System.currentTimeMillis(); delay(200) } }
+    val seconds = ((phase.endsAt - now).coerceAtLeast(0) + 999) / 1000
+    Column(Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState())
+        .padding(horizontal = 20.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(Str.get(R.string.s_iqamah_in_title, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer)),
+            fontFamily = Nunito, fontSize = 17.sp, color = tk.accent)
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(20.dp), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("$seconds", fontFamily = Cormorant, fontSize = 48.sp, lineHeight = 52.sp,
+                    color = tk.contentPrimary, modifier = Modifier.testTag("iqamah-seconds"))
+                Text(Str[R.string.s_seconds_caps], fontFamily = Nunito, fontSize = 14.sp,
+                    color = tk.contentSecondary, modifier = Modifier.testTag("iqamah-unit"))
+            }
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                GoldButton(Str[R.string.s_start_iqamah_now], onClick = onSkip)
+                GoldButton(Str[R.string.s_dismiss], onClick = onStop)
+            }
+        }
+        Text(Str[R.string.s_straighten_your_rows], fontFamily = Cormorant, fontSize = 16.sp, color = tk.contentPrimary)
+        Text(Str[R.string.s_a_al_bukh_r_723], fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary)
     }
 }
 
@@ -153,7 +186,7 @@ private fun StepsBar(phase: Phase, u: Dp) {
     // Keep the active step visible when accessibility text requires horizontal scrolling.
     val scroll = rememberScrollState()
     val density = androidx.compose.ui.platform.LocalDensity.current
-    val stepWidth = maxOf(96.dp * density.fontScale, u * 9)
+    val stepWidth = maxOf(128.dp * density.fontScale, u * 12)
     LaunchedEffect(idx, stepWidth) { scroll.scrollTo(with(density) { stepWidth.roundToPx() } * idx) }
     // Step line like the approved mockups: a dot per step joined by a line, label underneath.
     Row(Modifier.fillMaxWidth().horizontalScroll(scroll).padding(vertical = 8.dp).testTag("flow-steps"), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.Top) {
@@ -204,8 +237,9 @@ private fun IftarBody(u: Dp) {
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Kicker(Str[R.string.s_rama_n_dua_at_iftar], u)
         Arabic(com.usman.miqaat.data.Ramadan.IFTAR_AR, u, size = 4.8f)
-        Translation(com.usman.miqaat.data.Ramadan.IFTAR_EN, u)
-        Source(com.usman.miqaat.data.Ramadan.IFTAR_SRC, u)
+        Translation(if (L10n.uiUrdu) com.usman.miqaat.data.Ramadan.IFTAR_UR else com.usman.miqaat.data.Ramadan.IFTAR_EN, u)
+        Source(com.usman.miqaat.data.Ramadan.IFTAR_SRC +
+            (if (L10n.uiUrdu) " · " + com.usman.miqaat.data.Ramadan.IFTAR_UR_CREDIT else ""), u)
     }
 }
 
@@ -226,8 +260,8 @@ private fun CountdownBody(p: Phase.IqamahCountdown, u: Dp) {
                 drawArc(tk.primary, -90f, 360f * (leftMs / total.toFloat()), false, style = stroke)
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("$secs", fontFamily = Cormorant, fontSize = (u.value * 10.5f).sp, lineHeight = (u.value * 10.5f).sp, color = tk.contentPrimary)
-                Text(Str[R.string.s_seconds_caps], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f))
+                Text("$secs", fontFamily = Cormorant, fontSize = (u.value * 10.5f).sp, lineHeight = (u.value * 10.5f).sp, color = tk.contentPrimary, modifier = Modifier.testTag("iqamah-seconds"))
+                Text(Str[R.string.s_seconds_caps], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f).testTag("iqamah-unit"))
             }
         }
         Text(Str[R.string.s_straighten_your_rows], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = tk.contentPrimary.copy(alpha = 0.9f))

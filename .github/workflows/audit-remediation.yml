@@ -1,0 +1,96 @@
+name: Audit remediation validation and signed artifacts
+on:
+  push:
+    branches: ['fix/audit-1.163-25-remediation']
+    paths-ignore: ['docs/**', '.github/workflows/audit-evidence-recovery.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: audit-remediation-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    if: ${{ !contains(github.event.head_commit.message, '[evidence only]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: '17'}
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Set candidate identity and restore existing signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_BASE64"
+          mkdir -p keystore
+          printf '%s' "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
+          echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
+          echo "MIQAAT_VERSION_NAME=1.164-audit" >> "$GITHUB_ENV"
+          echo "MIQAAT_BUILD_TAG=audit-remediation-${GITHUB_RUN_ID}" >> "$GITHUB_ENV"
+      - name: Unit interaction layout tests and lint for both distributions
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          # Full Play suite passed at de2ef3d (128 pass, one opt-in screenshot skip).
+          # This follow-up only widens phase labels; re-run affected assertions in both release flavors.
+          ./gradlew --no-daemon testGithubReleaseUnitTest --tests '*AuditRemediationTest' --tests '*GalleryDoorPriorityTest' --tests '*LearnSequenceTest' 2>&1 | tee validation.log
+          ./gradlew --no-daemon testPlayReleaseUnitTest --tests '*AuditRemediationTest' --tests '*GalleryDoorPriorityTest' --tests '*LearnSequenceTest' lintGithubRelease lintPlayRelease compileGithubDebugAndroidTestKotlin 2>&1 | tee -a validation.log
+      - name: Build both signed APKs and Play bundle
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon assembleGithubRelease assemblePlayRelease bundlePlayRelease 2>&1 | tee build.log
+          mkdir -p candidate
+          cp app/build/outputs/apk/github/release/app-github-release.apk candidate/Miqaat-1.164-audit.apk
+          cp app/build/outputs/apk/play/release/app-play-release.apk candidate/Miqaat-1.164-play.apk
+          cp app/build/outputs/bundle/playRelease/app-play-release.aab candidate/Miqaat-1.164-play.aab
+          python3 tools/check_release_integrity.py candidate/Miqaat-1.164-audit.apk > candidate/github-native-integrity.json
+          python3 tools/check_release_integrity.py candidate/Miqaat-1.164-play.apk > candidate/play-native-integrity.json
+          python3 tools/check_forbidden_assets.py app/src/main candidate/Miqaat-1.164-audit.apk candidate/Miqaat-1.164-play.apk candidate/Miqaat-1.164-play.aab
+          BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
+          for edition in audit play; do
+            "$BT/apksigner" verify --verbose --print-certs "candidate/Miqaat-1.164-$edition.apk" > "candidate/$edition-signature.txt"
+            grep -qi 6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01 "candidate/$edition-signature.txt"
+            "$BT/aapt" dump badging "candidate/Miqaat-1.164-$edition.apk" > "candidate/$edition-badging.txt"
+            "$BT/aapt" dump permissions "candidate/Miqaat-1.164-$edition.apk" > "candidate/$edition-permissions.txt"
+            grep -q "targetSdkVersion:'36'" "candidate/$edition-badging.txt"
+          done
+          ! grep -q REQUEST_INSTALL_PACKAGES candidate/play-permissions.txt
+          "$BT/aapt" dump xmltree candidate/Miqaat-1.164-play.apk AndroidManifest.xml > candidate/play-manifest.txt
+          jarsigner -verify candidate/Miqaat-1.164-play.aab | tee candidate/aab-signature.txt
+          grep -q 'jar verified' candidate/aab-signature.txt
+          (cd candidate && sha256sum *.apk *.aab > SHA256SUMS)
+          printf 'Commit: %s\nRun: %s\nVersion: %s\nVersion code: %s\nCandidate only. No production acceptance or scholarly sign-off.\n' "$GITHUB_SHA" "$GITHUB_RUN_ID" "$MIQAAT_VERSION_NAME" "$MIQAAT_VERSION_CODE" > candidate/PROVENANCE.txt
+      - name: Summarize XML results without flattening paths
+        if: always()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as E,os
+          rows=[]
+          for f in Path('app/build/test-results').rglob('TEST-*.xml'):
+            r=E.parse(f).getroot()
+            rows.append((str(f),*[r.get(k,'0') for k in ['tests','failures','errors','skipped']]))
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as o:
+            o.write('Exact commit: '+os.environ['GITHUB_SHA']+'\n\n')
+            o.write('Native JVM validation only. No emulator, physical device, scholar or Console approval claimed.\n\n')
+            for row in rows:o.write(' | '.join(row)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-remediation-${{ github.sha }}
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            candidate/
+            app/build/audit-screens/
+            app/build/test-results/
+            app/build/reports/
+            validation.log
+            build.log

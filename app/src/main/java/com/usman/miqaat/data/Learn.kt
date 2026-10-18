@@ -39,7 +39,7 @@ object Learn {
                 out += Action(r, S[1], Posture.STANDING, "Quietly, hands folded")
                 out += Action(r, S[2], Posture.STANDING, "Quietly, before al-Fātiḥah")
             } else out += Action(r, S[0].copy(position = "Standing · rakʿah $r", note = "Rise saying Allāhu akbar and stand upright before reciting."), Posture.STANDING, "Stand for rakʿah $r")
-            out += Action(r, S[3], Posture.STANDING, "Every rakʿah; say āmīn at the end")
+            out += Action(r, S[3].copy(reciteBasmalaBefore = !first), Posture.STANDING, "Every rakʿah; say āmīn at the end")
             if (recitesSurah) out += Action(r, S[4], Posture.STANDING, "A sūrah after al-Fātiḥah in the first two rakʿahs")
             out += Action(r, S[5], Posture.BOWING, "Say Allāhu akbar going down; three times in rukūʿ")
             out += Action(r, S[6], Posture.RISING, "Stand fully upright")
