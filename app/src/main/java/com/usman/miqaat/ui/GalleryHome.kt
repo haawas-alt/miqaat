@@ -70,7 +70,7 @@ private val GalleryBody = FontFamily(androidx.compose.ui.text.font.Font(
 
 /*
  * Prayer Gallery home: warm ivory, editorial. Prayer periods are small abstract landscapes; the current one is marked
- * with a cobalt rule, a bold name and the words NOW / NEXT (never colour alone).
+ * with a leading rule, a bold name and rounded NOW / NEXT pills (never colour alone).
  *   landscape → header, hero band (name · art · time and details button), six period cards, bottom rail;
  *   portrait (phones, portrait tablets) → header, hero, one row per prayer, doors.
  * Every value is live; the same doors, Ramaḍān lines and gestures as the other homes.
@@ -261,9 +261,8 @@ private fun GalleryPrayerCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
     ) {
         Box(Modifier.fillMaxHeight().fillMaxWidth(if (compact) 0.22f else 0.34f)) {
             GalleryTileArt(art, galleryTileIndex(r.prayer), Modifier.matchParentSize())
-            if (selected) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"), fontFamily = GalleryBody, fontSize = if (compact) 11.sp else 13.sp,
-                fontWeight = FontWeight.Bold, color = Color.White,
-                modifier = Modifier.align(Alignment.TopCenter).padding(top = 8.dp).clip(RoundedCornerShape(50)).background(marker).padding(horizontal = 8.dp, vertical = 3.dp))
+            if (selected) GalleryStatusBadge(r.isNow, s,
+                Modifier.align(Alignment.TopCenter).padding(top = 8.dp), compact = compact)
         }
         Column(Modifier.weight(1f).fillMaxHeight().padding(horizontal = if (compact) 6.dp else 12.dp, vertical = if (compact) 4.dp else 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterVertically)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -426,7 +425,7 @@ private fun GalleryCard(r: RowInfo, s: AppSettings, tk: ThemeTokens, u: Dp, F: F
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = fs(if (urdu) 2.3f else 2.7f), color = ink, maxLines = 1)
                             when {
-                                r.isNow || r.isNext -> Text("  · " + L10n.word(s, if (r.isNow) "NOW" else "NEXT").lowercase(), fontFamily = Nunito, fontSize = fs(1.15f), fontWeight = FontWeight.Bold, color = tk.primary)
+                                r.isNow || r.isNext -> GalleryStatusBadge(r.isNow, s, Modifier.padding(start = 6.dp), compact = true)
                                 r.done -> Icon(Icons.Outlined.Check, null, Modifier.padding(start = u * 0.6f).size(u * 1.5f), tint = tk.success)
                                 r.prayer.isPrayer -> Icon(if (r.azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.padding(start = u * 0.6f).size(u * 1.5f), tint = tk.contentMuted)
                             }
@@ -524,7 +523,7 @@ private fun GalleryStackedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: Fo
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(r.label, fontFamily = if (urdu) F else Cormorant, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium, fontSize = (24 * k).sp, color = ink, maxLines = 1)
                 when {
-                    r.isNow || r.isNext -> Text("  · " + L10n.word(s, if (r.isNow) "NOW" else "NEXT").lowercase(), fontFamily = Nunito, fontSize = (12 * k).sp, fontWeight = FontWeight.Bold, color = tk.primary)
+                    r.isNow || r.isNext -> GalleryStatusBadge(r.isNow, s, Modifier.padding(start = 6.dp), compact = true)
                     r.done -> Icon(Icons.Outlined.Check, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.success)
                     r.prayer.isPrayer -> Icon(if (r.azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.padding(start = 6.dp).size(16.dp), tint = tk.contentMuted)
                 }
@@ -785,10 +784,10 @@ private fun GalleryPhoneFitRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: F
         Box(Modifier.width(4.dp).fillMaxHeight().background(if (r.isNow) tk.success else if (r.isNext) tk.accent else Color.Transparent))
         Box(Modifier.padding(horizontal = 8.dp).size(52.dp).clip(RoundedCornerShape(10.dp))) {
             PrayerCardArt(r.prayer, Modifier.matchParentSize().clearAndSetSemantics { })
-            if (selected) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"), fontFamily = if (urdu) tk.fontArabic else GalleryBody,
-                fontSize = if (urdu) 12.sp else 10.sp, fontWeight = FontWeight.Bold, color = Color.White,
-                modifier = Modifier.align(Alignment.BottomCenter).testTag("gallery-fit-marker-${r.prayer.name}")
-                    .clip(RoundedCornerShape(12.dp)).background(if (r.isNow) tk.success else tk.accent).padding(horizontal = 4.dp))
+            if (selected) Box(Modifier.align(Alignment.BottomCenter)
+                .testTag("gallery-fit-marker-${r.prayer.name}")) {
+                GalleryStatusBadge(r.isNow, s, compact = true)
+            }
         }
         Column(Modifier.weight(1f)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
