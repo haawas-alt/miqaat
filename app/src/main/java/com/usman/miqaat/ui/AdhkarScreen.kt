@@ -185,7 +185,7 @@ fun AdhkarScreen(mode: AdhkarMode, onBack: () -> Unit) {
                         contentAlignment = Alignment.Center
                     ) {
                         if (done) Icon(Icons.Outlined.Check, null, Modifier.size(u * 3.4f), tint = tk.onPrimary)
-                        else Text("${cur.count - c}", fontFamily = Cormorant, fontSize = (u.value * 3.4f).sp, color = tk.onPrimary, modifier = Modifier.testTag("adhkar-count-number"))
+                        else Text("${cur.count - c}", fontFamily = Cormorant, fontSize = (u.value * 3.4f).sp, lineHeight = (u.value * 4.4f).sp, maxLines = 1, color = tk.onPrimary, modifier = Modifier.testTag("adhkar-count-number"))
                     }
                     Column {
                         Text(if (done) Str[R.string.s_complete] else if (cur.count == 1) Str[R.string.s_tap_when_read] else Str[R.string.s_tap_for_each_recitation], fontFamily = Nunito, fontSize = (u.value * 1.5f).sp, fontWeight = FontWeight.SemiBold, color = tk.contentPrimary)

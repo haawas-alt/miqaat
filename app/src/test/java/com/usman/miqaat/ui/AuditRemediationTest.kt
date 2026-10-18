@@ -131,8 +131,8 @@ class AuditRemediationTest : ComposeSupport() {
                 val countLayouts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
                 rule.onNodeWithTag("adhkar-count-number", useUnmergedTree = true).assertTextEquals("100").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) { it(countLayouts) }
                 assertEquals("Three digit count must remain on one line",1,countLayouts.single().lineCount)
-                assertFalse(countLayouts.single().hasVisualOverflow)
                 capture("adhkar-counter100-tablet-portrait-$urdu-$scale")
+                assertFalse("Count overflow: width=${countLayouts.single().didOverflowWidth}, height=${countLayouts.single().didOverflowHeight}, size=${countLayouts.single().size}, paragraphHeight=${countLayouts.single().multiParagraph.height}",countLayouts.single().hasVisualOverflow)
             } finally { scenario.close() }
         }
     }
