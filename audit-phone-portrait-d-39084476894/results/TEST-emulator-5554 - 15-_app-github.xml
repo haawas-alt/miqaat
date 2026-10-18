@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.usman.miqaat.ui.ScreenshotMatrixTest" tests="2" failures="0" errors="0" skipped="0" time="303.07" timestamp="2026-10-18T01:05:23" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 15" />
+    <property name="flavor" value="github" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="learnLessons" classname="com.usman.miqaat.ui.ScreenshotMatrixTest" time="143.205" />
+  <testcase name="azaanFlow" classname="com.usman.miqaat.ui.ScreenshotMatrixTest" time="158.663" />
+</testsuite>

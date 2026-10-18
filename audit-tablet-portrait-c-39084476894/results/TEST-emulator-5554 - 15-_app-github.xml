@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.usman.miqaat.ui.ScreenshotMatrixTest" tests="1" failures="0" errors="0" skipped="0" time="290.372" timestamp="2026-10-18T01:03:46" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 15" />
+    <property name="flavor" value="github" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="secondaryPages" classname="com.usman.miqaat.ui.ScreenshotMatrixTest" time="289.507" />
+</testsuite>
