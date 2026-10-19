@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
@@ -44,7 +45,7 @@ internal fun quietPrayerTimes(s: AppSettings, prayer: Prayer, now: ZonedDateTime
 
 @OptIn(androidx.compose.ui.text.ExperimentalTextApi::class)
 private val QuietBody = FontFamily(Font(R.font.nunito_sans, FontWeight.Normal,
-    variationSettings = FontVariation.Settings(FontVariation.weight(500))))
+    variationSettings = FontVariation.Settings(FontVariation.weight(600))))
 @OptIn(androidx.compose.ui.text.ExperimentalTextApi::class)
 private val QuietDisplay = FontFamily(Font(R.font.cormorant_garamond_medium, FontWeight.Medium,
     variationSettings = FontVariation.Settings(FontVariation.weight(500))))
@@ -81,9 +82,9 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
             val short = maxHeight < 480.dp
             val wide = maxWidth > maxHeight && !accessible
             val tablet = maxWidth >= 600.dp
-            val compact = maxHeight < 780.dp
-            val headingSize = if (short) 28f else if (wide && compact) 44f else if (tablet) 72f else if (compact) 48f else 62f
-            val clockSize = if (short) 40f else if (wide && compact) 54f else if (tablet) 78f else if (compact) 52f else 64f
+            val compact = maxHeight < if (wide) 650.dp else 780.dp
+            val headingSize = if (short) 28f else if (wide && compact) 44f else if (tablet) 84f else if (compact) 48f else 62f
+            val clockSize = if (short) 40f else if (wide && compact) 54f else if (tablet) 128f else if (compact) 52f else 64f
             val header: @Composable () -> Unit = {
                 val brand: @Composable (Modifier) -> Unit = { m ->
                     Text("Miqaat", m.testTag("quiet-brand"), fontFamily = QuietDisplay, fontWeight = FontWeight.Medium,
@@ -127,7 +128,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                     if (!wide) { Spacer(Modifier.height(if (compact) 8.dp else 18.dp)); status() }
                     Spacer(Modifier.height(if (short) 4.dp else if (compact) 12.dp else 22.dp))
                     QuietLabel(Str[R.string.s_quiet_current_azaan], urdu, colors.accent, Modifier.testTag("quiet-current-label"), if (short) 10f else 12f)
-                    QuietTime(times.current, s, if (urdu) (if (short) 22f else if (tablet) 42f else 32f) else clockSize,
+                    QuietTime(times.current, s, if (urdu) (if (short) 22f else if (tablet && !compact) 64f else if (tablet) 42f else 32f) else clockSize,
                         if (s.theme == AppTheme.PRAYER_GALLERY) colors.accent else colors.ink, Modifier.fillMaxWidth().testTag("quiet-current-time"))
                     Text(Str[R.string.s_quiet_iqamah_complete], Modifier.fillMaxWidth().testTag("quiet-iqamah-complete"),
                         fontFamily = body, fontSize = if (short) 11.sp else 14.sp, lineHeight = if (urdu) 28.sp else 21.sp,
@@ -146,7 +147,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                             Modifier.fillMaxWidth().testTag("quiet-next-name"), fontFamily = if (urdu) Amiri else Cinzel,
                             fontSize = (if (urdu) 24 else if (wide) 24 else 19).sp, lineHeight = if (urdu) 42.sp else 32.sp,
                             color = colors.ink, textAlign = TextAlign.Center)
-                        QuietTime(times.nextTime, s, if (urdu) (if (short) 22f else 28f) else if (wide) (if (short) 36f else 52f) else 36f,
+                        QuietTime(times.nextTime, s, if (urdu) (if (short) 22f else 28f) else if (wide) (if (short) 36f else if (compact) 52f else 72f) else if (tablet) 52f else 36f,
                             colors.ink, Modifier.fillMaxWidth().testTag("quiet-next-time"))
                         if (times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
                             Text(Str[R.string.s_quiet_tomorrow], Modifier.fillMaxWidth().testTag("quiet-tomorrow"), fontFamily = body,
@@ -222,10 +223,16 @@ private fun QuietThemeBackdrop(s: AppSettings, wide: Boolean, modifier: Modifier
                 AppTheme.CELESTIAL_MERIDIAN -> R.drawable.celestial_landscape_approved
                 AppTheme.PRAYER_GALLERY -> if (wide) R.drawable.quiet_gallery_landscape else R.drawable.quiet_gallery_portrait
             }
-            Image(painterResource(id), null, Modifier.matchParentSize(),
-                contentScale = if (s.theme == AppTheme.KISWAH) ContentScale.FillBounds else ContentScale.Crop)
+            if (s.theme == AppTheme.KISWAH) Weave(Modifier.matchParentSize())
+            Image(painterResource(id), null,
+                if (s.theme == AppTheme.KISWAH) Modifier.align(Alignment.CenterEnd).fillMaxHeight().fillMaxWidth(if (wide) .32f else .24f)
+                else Modifier.matchParentSize(), contentScale = ContentScale.Crop,
+                alignment = if (s.theme == AppTheme.KISWAH) Alignment.CenterEnd else Alignment.Center)
             Box(Modifier.matchParentSize().background(if (s.theme == AppTheme.PRAYER_GALLERY) colors.background.copy(alpha = .12f)
-                else Color(0xFF010A18).copy(alpha = if (s.theme == AppTheme.KISWAH) .08f else .28f)))
+                else Color(0xFF010A18).copy(alpha = if (s.theme == AppTheme.KISWAH) .18f else .28f)))
+            Box(Modifier.matchParentSize().background(Brush.verticalGradient(
+                0f to colors.background.copy(alpha = .90f), .09f to colors.background.copy(alpha = .55f),
+                .18f to Color.Transparent, .80f to Color.Transparent, 1f to colors.background.copy(alpha = .80f))))
         }
     }
 }
