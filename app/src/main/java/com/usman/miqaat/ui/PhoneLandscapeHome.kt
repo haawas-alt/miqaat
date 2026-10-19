@@ -173,7 +173,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         .testTag("compact-prayer-${r.prayer.name}").combinedClickable(onClick=a.onToggleRelative,onLongClick=onWhy,role=Role.Button)
         .semantics(mergeDescendants=true){contentDescription=r.spoken},verticalAlignment=Alignment.CenterVertically) {
         if(gallery&&s.artTheme!=ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal,Modifier.width(24.dp).fillMaxHeight())
-        Column(Modifier.weight(1f).padding(horizontal=5.dp,vertical=2.dp)) {
+        Column(Modifier.weight(1f).padding(horizontal=5.dp)) {
             Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) {
                 Text(r.label,Modifier.weight(1f).testTag("landscape-row-name-${r.prayer.name}"),fontFamily=if(urdu)Amiri else ApprovedBody,
                     fontSize=if(urdu)14.sp else 11.sp,lineHeight=if(urdu)24.sp else 14.sp,color=c.ink)
