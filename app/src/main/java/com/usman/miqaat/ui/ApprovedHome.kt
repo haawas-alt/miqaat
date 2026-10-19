@@ -66,7 +66,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
             Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().displayCutoutPadding()
                 .padding(horizontal = if (wide) 24.dp else 12.dp)) {
                 ApprovedHeader(state, s, a, tk, wide)
-                if (kiswah && s.artTheme != ArtTheme.MINIMAL) KiswahBand(wide)
+                if (kiswah) KiswahBand(wide)
                 if (wide && gallery) {
                     GalleryApprovedHero(state, s, a, tk, hero, Modifier.fillMaxWidth().weight(.34f), true) { why = hero.prayer }
                     Column(Modifier.fillMaxWidth().weight(.66f).testTag("home-prayers"), verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -147,15 +147,15 @@ private fun ApprovedNav(icon: ImageVector, label: String, tk: ThemeTokens, onCli
         .clickable(role = Role.Button, onClick = onClick).semantics(mergeDescendants = true) { contentDescription = label }
         .padding(horizontal = 6.dp, vertical = 3.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Icon(icon, null, Modifier.size(24.dp), tint = tk.contentPrimary)
-        if (showLabel) Text(label, fontFamily = Nunito, fontSize = 11.sp, color = tk.contentPrimary, maxLines = 1)
+        if (showLabel) Text(label, fontFamily = if (L10n.uiUrdu) Amiri else Nunito, fontSize = 11.sp, color = tk.contentPrimary, maxLines = 1)
     }
 }
 
 @Composable
 internal fun KiswahBand(wide: Boolean) {
     Box(Modifier.fillMaxWidth().padding(vertical = 5.dp).border(1.dp, Kiswah.thread)
-        .background(Color.Black.copy(alpha = .65f)).testTag("kiswah-calligraphy-band"), contentAlignment = Alignment.Center) {
-        Text(Kiswah.BAND, Modifier.padding(horizontal = 12.dp, vertical = 3.dp),
+        .background(Color.Black.copy(alpha = .65f)), contentAlignment = Alignment.Center) {
+        Text(Kiswah.BAND, Modifier.padding(horizontal = 12.dp, vertical = 3.dp).testTag("kiswah-calligraphy-band"),
             fontFamily = Amiri, fontSize = if (wide) 28.sp else 15.sp, lineHeight = if (wide) 48.sp else 23.sp,
             color = Kiswah.threadSoft, textAlign = TextAlign.Center, maxLines = if (wide) 1 else 2)
     }
@@ -167,9 +167,10 @@ private fun DarkApprovedHero(state: PrayerState, s: AppSettings, tk: ThemeTokens
         val k = ((maxHeight.value - 52f) / 240f).coerceIn(.40f, if (roomy) 1.6f else 1.05f)
         val kiswah = s.theme == AppTheme.KISWAH
         if (s.theme == AppTheme.MIQAAT && s.artTheme != ArtTheme.MINIMAL) {
-            Image(painterResource(R.drawable.approved_miqaat_arch), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+            Image(painterResource(R.drawable.approved_miqaat_arch), null, Modifier.fillMaxSize(), contentScale = ContentScale.FillBounds)
             Box(Modifier.fillMaxSize().background(Color(0xFF00152C).copy(alpha = .14f)))
         }
+        if (kiswah && s.artTheme != ArtTheme.MINIMAL) Image(painterResource(R.drawable.approved_kiswah_silk), null, Modifier.fillMaxSize(), contentScale = ContentScale.FillBounds)
         if (s.theme == AppTheme.CELESTIAL_MERIDIAN && s.artTheme != ArtTheme.MINIMAL)
             SolarArc(Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 10.dp).clearAndSetSemantics { }, state, s, tk)
         Column(Modifier.fillMaxWidth().padding(horizontal = 12.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
@@ -207,7 +208,7 @@ private fun ApprovedDetails(label: String, tk: ThemeTokens, onClick: () -> Unit,
         .border(1.dp, if (tk.dark) tk.primary else tk.accent.copy(alpha = .6f), RoundedCornerShape(24.dp))
         .clickable(role = Role.Button, onClick = onClick).padding(horizontal = 14.dp),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-        Text(label, fontFamily = Nunito, fontSize = 13.sp, color = if (filled) tk.background else tk.contentPrimary, maxLines = 2)
+        Text(label, fontFamily = if (L10n.uiUrdu) Amiri else Nunito, fontSize = 13.sp, color = if (filled) tk.background else tk.contentPrimary, maxLines = 2)
         Icon(Icons.AutoMirrored.Outlined.ArrowForward, null, Modifier.padding(start = 6.dp).size(17.dp), tint = if (filled) tk.background else tk.primary)
     }
 }
@@ -231,7 +232,6 @@ private fun ApprovedGalleryArt(index: Int?, modifier: Modifier) {
 @Composable
 private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, hero: HeroInfo, modifier: Modifier, wide: Boolean, onDetails: () -> Unit) {
     BoxWithConstraints(modifier.testTag("gallery-mobile-hero")) {
-        val roomy = wide || maxHeight >= 255.dp
         Column(Modifier.fillMaxSize()) {
             if (!wide && s.artTheme != ArtTheme.MINIMAL)
                 ApprovedGalleryArt(null, Modifier.fillMaxWidth().weight(1f).clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)))
@@ -357,6 +357,19 @@ internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeToken
                 rotate(45f, point) { drawRect(gold, Offset(point.x-3.dp.toPx(),point.y-3.dp.toPx()), androidx.compose.ui.geometry.Size(6.dp.toPx(),6.dp.toPx())) }
                 if (sel) drawCircle(gold, 8.dp.toPx(), point, style = Stroke(1.dp.toPx()))
             }
+            if (s.showDisliked) {
+                fun at(t: java.time.ZonedDateTime): Float {
+                    val i = prayers.indexOfLast { !state.today[it].isAfter(t) }
+                    if (i < 0) return x(0)
+                    if (i >= prayers.lastIndex) return x(prayers.lastIndex)
+                    val whole = Duration.between(state.today[prayers[i]],state.today[prayers[i+1]]).seconds.coerceAtLeast(1)
+                    val fraction = (Duration.between(state.today[prayers[i]],t).seconds/whole.toFloat()).coerceIn(0f,1f)
+                    return x(i)+(x(i+1)-x(i))*fraction
+                }
+                PrayerEngine.dislikedWindows(state.today,s).forEach { w ->
+                    drawLine(if (tk.dark) Color(0xFFF3A781) else tk.accent, Offset(at(w.start),y),Offset(at(w.end),y),2.dp.toPx(),pathEffect=PathEffect.dashPathEffect(floatArrayOf(2.dp.toPx(),2.dp.toPx())))
+                }
+            }
             // The moving bead uses actual elapsed time, independent of equally spaced label slots.
             val times = prayers.map { state.today[it] }
             val idx = times.indexOfLast { !it.isAfter(state.now) }
@@ -376,7 +389,7 @@ internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeToken
 
 @Composable
 private fun ApprovedContext(links: List<Door>, s: AppSettings, tk: ThemeTokens, wide: Boolean, modifier: Modifier) {
-    val visible = if (wide) links.take(3) else galleryVisibleDoors(links)
+    val visible = if (wide) (links.filter { it.warn }.take(1) + links.filter { it.kind == DoorKind.ADHKAR }.take(1) + links.filter { !it.warn && it.kind != DoorKind.ADHKAR }.take(1)) else galleryVisibleDoors(links)
     val extra = links.filter { it !in visible }
     var more by remember { mutableStateOf(false) }
     Row(modifier.heightIn(min = 48.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {

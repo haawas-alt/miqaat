@@ -33,6 +33,14 @@ class ApprovedHomeAcceptanceTest : ComposeSupport() {
             val a=HomeActions({ table++ },{ settings++ },{}, {}, {}, {}, { learns++ },false,{}, { toggles++ })
             try {
                 show(dev,theme,rtl=lang==Language.UR,language=lang) { HomeRouter(state,s,a,false,{}) }
+                val prefix="build/approved-designs/${theme.name}/${dev.label}-${lang.name}"
+                scenario.onActivity { act ->
+                    val view=act.findViewById<View>(android.R.id.content)
+                    val bitmap=Bitmap.createBitmap(view.width,view.height,Bitmap.Config.ARGB_8888)
+                    view.draw(Canvas(bitmap))
+                    File("$prefix.png").also { it.parentFile.mkdirs() }.outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG,100,it) };bitmap.recycle()
+                }
+                File("$prefix.txt").writeText(rule.onRoot(true).printToString(100))
                 val root=rule.onRoot().fetchSemanticsNode().boundsInRoot
                 for (p in Prayer.entries) {
                     val row=rule.onNodeWithTag("approved-row-${p.name}",true).fetchSemanticsNode().boundsInRoot
@@ -49,14 +57,9 @@ class ApprovedHomeAcceptanceTest : ComposeSupport() {
                     rule.onNodeWithTag("approved-timeline-${p.name}",true).assertIsDisplayed()
                 }
                 if(theme==AppTheme.KISWAH) rule.onNodeWithTag("kiswah-calligraphy-band",true).assertIsDisplayed().assertTextEquals(Kiswah.BAND)
-                val prefix="build/approved-designs/${theme.name}/${dev.label}-${lang.name}"
-                scenario.onActivity { act ->
-                    val view=act.findViewById<View>(android.R.id.content)
-                    val bitmap=Bitmap.createBitmap(view.width,view.height,Bitmap.Config.ARGB_8888)
-                    view.draw(Canvas(bitmap))
-                    File("$prefix.png").also { it.parentFile.mkdirs() }.outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG,100,it) };bitmap.recycle()
-                }
-                File("$prefix.txt").writeText(rule.onRoot(true).printToString(100))
+                rule.onNodeWithContentDescription(Str[R.string.s_settings]).performClick(); assertEquals(1,settings)
+                rule.onNodeWithContentDescription(Str[R.string.s_learn_salah]).performClick(); assertEquals(1,learns)
+                rule.onNodeWithContentDescription(Str[R.string.s_monthly_timetable]).performClick(); assertEquals(1,table)
                 rule.onNodeWithTag("approved-row-FAJR",true).performClick(); assertEquals(1,toggles)
                 rule.onNodeWithTag("approved-info-MAGHRIB",true).performClick()
                 rule.onNodeWithText(Str[R.string.s_calculated_on_this_device],substring=true).assertExists()
