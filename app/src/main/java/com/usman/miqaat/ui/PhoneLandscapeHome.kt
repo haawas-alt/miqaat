@@ -49,7 +49,7 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
     }
     Box(Modifier.fillMaxSize().background(colors.background).testTag("landscape-fit-board")) {
         PrayerFlowBackdrop(s, true, Modifier.matchParentSize())
-        BoxWithConstraints(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = 12.dp, vertical = 2.dp)) {
+        Box(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = 12.dp, vertical = 2.dp)) {
             // Extra per-prayer Iqamah/relative detail remains readable through explicit reflow on a short phone.
             val reflow = s.iqamahEnabled || s.showRelative
             Column(Modifier.fillMaxSize().then(if (reflow) Modifier.verticalScroll(rememberScrollState()).testTag("landscape-home-reflow") else Modifier)) {
