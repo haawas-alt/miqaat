@@ -123,24 +123,25 @@ private fun LandscapeHomeHeader(state:PrayerState,s:AppSettings,a:HomeActions) {
 private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modifier:Modifier,onToggle:()->Unit,onDetails:()->Unit) {
     val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s);val gallery=s.theme==AppTheme.PRAYER_GALLERY
     BoxWithConstraints(modifier.testTag("landscape-authored-hero"),contentAlignment=Alignment.Center) {
-        val paired=maxHeight<if(urdu)215.dp else 175.dp
+        val paired=maxHeight<if(urdu)215.dp else 210.dp
         val name:@Composable (Modifier)->Unit={m->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
-            Text(hero.arabic,Modifier.fillMaxWidth().testTag("landscape-hero-name"),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(paired)29.sp else 32.sp,lineHeight=43.sp,color=c.accent,textAlign=TextAlign.Center)
+            Text(hero.arabic,Modifier.fillMaxWidth().testTag("landscape-hero-name"),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(paired)27.sp else 32.sp,lineHeight=if(paired)38.sp else 43.sp,color=c.accent,textAlign=TextAlign.Center)
             Text(if(urdu)hero.label else hero.label.uppercase(Locale.ROOT),Modifier.testTag("landscape-hero-english"),fontFamily=if(urdu)Amiri else Cinzel,fontSize=10.sp,lineHeight=if(urdu)21.sp else 14.sp,letterSpacing=if(urdu)0.sp else 1.7.sp,color=c.ink,textAlign=TextAlign.Center)
         }}
+        val heroClock=L10n.iso(L10n.at(state.heroTime,s.use24h))
         val clock:@Composable (Modifier)->Unit={m->Text(buildAnnotatedString {
-            append(L10n.iso(L10n.at(state.heroTime,s.use24h)))
-            if(hero.suffix.isNotBlank()) {val start=toString().indexOf(hero.suffix);if(start>=0)addStyle(SpanStyle(fontSize=14.sp),start,start+hero.suffix.length)}
+            append(heroClock)
+            if(hero.suffix.isNotBlank()) {val start=heroClock.indexOf(hero.suffix);if(start>=0)addStyle(SpanStyle(fontSize=14.sp),start,start+hero.suffix.length)}
         },m.testTag("landscape-hero-clock").clickable(role=Role.Button,onClick=onToggle),fontFamily=if(urdu)Amiri else ApprovedDisplay,fontWeight=FontWeight.Bold,
-            fontSize=if(urdu)25.sp else if(paired)40.sp else 46.sp,lineHeight=if(urdu)45.sp else 49.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}
+            fontSize=if(urdu)25.sp else if(paired)40.sp else 46.sp,lineHeight=if(urdu)if(paired)38.sp else 45.sp else 49.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}
         Column(Modifier.widthIn(max=244.dp).fillMaxWidth().fillMaxHeight(),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             val kicker:@Composable (Modifier)->Unit={m->Text(hero.special?:if(urdu)hero.kickerLabel else hero.kickerLabel.uppercase(Locale.ROOT),m.testTag("landscape-hero-kicker"),fontFamily=if(urdu)Amiri else Cinzel,fontWeight=FontWeight.Bold,fontSize=9.sp,lineHeight=if(urdu)20.sp else 13.sp,letterSpacing=if(urdu)0.sp else 2.sp,color=c.accent,textAlign=TextAlign.Center)}
             val status:@Composable (Modifier)->Unit={m->Row(m,horizontalArrangement=Arrangement.Center,verticalAlignment=Alignment.CenterVertically) {
                 Icon(Icons.Outlined.Schedule,null,Modifier.size(14.dp),tint=c.accent)
                 Text(hero.status,Modifier.weight(1f,fill=false).padding(start=4.dp).testTag("landscape-hero-status"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=12.sp,lineHeight=if(urdu)22.sp else 17.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)
             }}
-            if(paired)Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){kicker(Modifier.weight(1f));status(Modifier.weight(1f))}else kicker(Modifier.fillMaxWidth())
-            if(paired)Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){name(Modifier.weight(1f));clock(Modifier.weight(1f))}
+            if(paired)Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){kicker(Modifier.weight(.35f));status(Modifier.weight(.65f))}else kicker(Modifier.fillMaxWidth())
+            if(paired)Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){name(Modifier.weight(.43f));clock(Modifier.weight(.57f))}
             else {name(Modifier.fillMaxWidth());clock(Modifier.fillMaxWidth());status(Modifier.fillMaxWidth())}
             LandscapeHomeDoor(Str[R.string.s_view_prayer_details],null,s,Modifier.fillMaxWidth(.84f).testTag("landscape-hero-details"),solid=gallery,onClick=onDetails)
         }
@@ -166,7 +167,7 @@ private fun LandscapeHomeDoor(label:String,icon:androidx.compose.ui.graphics.vec
 
 @Composable
 private fun PhoneHomeNav(icon: androidx.compose.ui.graphics.vector.ImageVector, label:String, short:String, s:AppSettings,onClick:()->Unit) {
-    Column(Modifier.size(48.dp).clip(RoundedCornerShape(10.dp)).clickable(role=Role.Button,onClick=onClick)
+    Column(Modifier.width(58.dp).height(48.dp).clip(RoundedCornerShape(10.dp)).clickable(role=Role.Button,onClick=onClick)
         .semantics(mergeDescendants=true){contentDescription=label},horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
         Icon(icon,null,Modifier.size(21.dp),tint=quietPalette(s.theme).ink)
         Text(short,fontFamily=if(L10n.isUrdu(s))Amiri else ApprovedBody,fontSize=9.sp,lineHeight=if(L10n.isUrdu(s))18.sp else 13.sp,color=quietPalette(s.theme).ink)
