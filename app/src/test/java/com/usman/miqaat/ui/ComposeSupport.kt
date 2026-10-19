@@ -34,6 +34,10 @@ abstract class ComposeSupport {
     protected lateinit var scenario: ActivityScenario<ComponentActivity>
     protected val app: MiqaatApp get() = ApplicationProvider.getApplicationContext<Application>() as MiqaatApp
 
+    @org.junit.After fun closeTestActivity() {
+        if (::scenario.isInitialized) runCatching { scenario.close() }
+    }
+
     protected fun show(dev: Dev, theme: AppTheme = AppTheme.PRAYER_GALLERY, fontScale: Float = 1f, rtl: Boolean = false, language: Language? = null, qualifiers: String? = null, content: @Composable () -> Unit) {
         RuntimeEnvironment.setQualifiers("+" + (qualifiers ?: dev.q))
         val a = app

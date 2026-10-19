@@ -156,7 +156,7 @@ class MainActivity : ComponentActivity() {
                             Screen.QIBLA -> QiblaScreen(settings) { screen = Screen.HOME }
                             Screen.ADHKAR -> AdhkarScreen(adhkarMode) { screen = Screen.HOME }
                             Screen.FRIDAY -> com.usman.miqaat.ui.FridayScreen(settings) { screen = Screen.HOME }
-                            Screen.LEARN -> com.usman.miqaat.ui.LearnScreen(settings, previewLesson = preparedLesson) { screen = Screen.HOME }
+                            Screen.LEARN -> com.usman.miqaat.ui.LearnScreen(settings, startLesson = preparedLesson) { screen = Screen.HOME }
                             Screen.TIMETABLE -> TimetableScreen(settings) { screen = Screen.HOME }
                             Screen.SETTINGS -> SettingsScreen(store, settings, settingsSection) { screen = Screen.HOME }
                         }
