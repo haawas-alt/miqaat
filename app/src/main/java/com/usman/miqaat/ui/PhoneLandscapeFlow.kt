@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
@@ -23,8 +24,11 @@ import java.util.Locale
 /** A shallow full-width band reserves space for the complete original text on a short phone. */
 @Composable
 internal fun PhoneLandscapeBand() {
-    Box(Modifier.fillMaxWidth().padding(vertical=2.dp).border(.8.dp,Kiswah.thread).background(Color.Black.copy(alpha=.70f)),contentAlignment=Alignment.Center) {
-        Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=8.dp,vertical=1.dp).testTag("kiswah-calligraphy-band")
+    // Regular landscape keeps 12dp around the native Amiri glyphs. The shortest phones
+    // retain 6dp clearance and all six 48dp prayer cards rather than clipping either.
+    val clearance = if (LocalConfiguration.current.screenHeightDp < 390) 6.dp else 12.dp
+    Box(Modifier.fillMaxWidth().padding(vertical=2.dp).testTag("kiswah-calligraphy-frame").border(.8.dp,Kiswah.thread).background(Color.Black.copy(alpha=.70f)),contentAlignment=Alignment.Center) {
+        Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=8.dp,vertical=clearance).testTag("kiswah-calligraphy-band")
             .semantics{contentDescription=Kiswah.BAND},fontFamily=Amiri,fontSize=14.sp,lineHeight=22.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
     }
 }

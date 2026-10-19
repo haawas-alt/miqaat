@@ -78,7 +78,7 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
                 if (s.theme == AppTheme.KISWAH) PhoneLandscapeBand()
                 Row(Modifier.fillMaxWidth().then(if (reflow) Modifier.height(if (urdu) 294.dp else 258.dp) else Modifier.weight(1f)),
                     horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Column(Modifier.weight(.60f).fillMaxHeight().testTag("home-prayers"), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Column(Modifier.weight(.60f).fillMaxHeight().testTag("home-prayers"), verticalArrangement = Arrangement.spacedBy(if (s.theme == AppTheme.KISWAH) 2.dp else 4.dp)) {
                         listedPrayers(s).chunked(2).forEach { row ->
                             Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                 row.forEach { p -> PhoneLandscapePrayer(galleryRowInfo(p,state,s),s,a,Modifier.weight(1f).fillMaxHeight()) { why=p } }
