@@ -194,7 +194,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         r.isNext->if(gallery)Color(0xFFFFECD9)else Color(0xFF65491D).copy(alpha=.85f)
         else->if(gallery)Color(0xFFFFF9EE).copy(alpha=.85f)else Color(0xFF03162C).copy(alpha=if(s.theme==AppTheme.KISWAH).35f else .65f)}
     BoxWithConstraints(modifier.heightIn(min=48.dp)) {
-        val tight=maxWidth<260.dp
+        val tight=maxWidth<260.dp||(gallery&&urdu&&maxWidth<340.dp)
         val badge:@Composable ()->Unit={
             Box(Modifier.width(if(tight)32.dp else 38.dp).clip(RoundedCornerShape(10.dp))
                 .background(if(r.isNow)Color(0xFF34D6DA)else Color(0xFFFFD56E)),contentAlignment=Alignment.Center) {
