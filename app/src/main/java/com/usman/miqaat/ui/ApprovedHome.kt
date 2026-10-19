@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -57,7 +58,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
     }
     val hero = heroInfo(state, s, kicker(state, s))
     val links = doors(state, s, a)
-    BoxWithConstraints(Modifier.fillMaxSize().background(tk.background).testTag("approved-home")) {
+    BoxWithConstraints(Modifier.fillMaxSize().clipToBounds().background(tk.background).testTag("approved-home")) {
         val wide = maxWidth > maxHeight && maxHeight >= 500.dp
         val tablet = maxWidth >= 600.dp
         val compactWide = wide && maxHeight < 700.dp
@@ -117,8 +118,11 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
                     ApprovedList(state, s, tk, a, Modifier.height(listedPrayers(s).size * (if (tablet) 100.dp else if (reflow) 82.dp else if (compactGalleryPhone) 56.dp else 60.dp)).fillMaxWidth()
                         .then(if (gallery) Modifier.testTag("gallery-phone-fit") else Modifier)) { why = it }
                 }
-                ApprovedContext(links, s, tk, wide, Modifier.fillMaxWidth().testTag("gallery-phone-footer"))
-                if (!wide) ApprovedNavigation(s, a, tk)
+                if (!wide && !tablet) ApprovedPhoneDock(state, s, a, links, tk)
+                else {
+                    ApprovedContext(links, s, tk, wide, Modifier.fillMaxWidth().testTag("gallery-phone-footer"))
+                    if (!wide) ApprovedNavigation(s, a, tk)
+                }
                 Text(Str[R.string.s_theme_signature], Modifier.fillMaxWidth().padding(bottom = 2.dp),
                     fontFamily = approvedUi(s), fontSize = 9.sp, color = tk.contentSecondary, textAlign = TextAlign.End, maxLines = 1)
             }
@@ -168,9 +172,9 @@ private fun ApprovedNav(icon: ImageVector, label: String, tk: ThemeTokens, onCli
 
 @Composable
 internal fun KiswahBand(wide: Boolean) {
-    Box(Modifier.fillMaxWidth().padding(vertical = 5.dp).border(1.dp, Kiswah.thread)
+    Box(Modifier.fillMaxWidth().padding(vertical = 5.dp).testTag("kiswah-calligraphy-frame").border(1.dp, Kiswah.thread)
         .background(Color.Black.copy(alpha = .65f)), contentAlignment = Alignment.Center) {
-        Text(if (wide) Kiswah.BAND else Kiswah.BAND.replaceFirst("   ✦   ", "\n"), Modifier.padding(horizontal = 12.dp, vertical = 3.dp).testTag("kiswah-calligraphy-band").semantics { contentDescription = Kiswah.BAND },
+        Text(if (wide) Kiswah.BAND else Kiswah.BAND.replaceFirst("   ✦   ", "\n"), Modifier.padding(horizontal = 12.dp, vertical = 12.dp).testTag("kiswah-calligraphy-band").semantics { contentDescription = Kiswah.BAND },
             fontFamily = Amiri, fontSize = if (wide) 28.sp else 15.sp, lineHeight = if (wide) 48.sp else 23.sp,
             color = Kiswah.threadSoft, textAlign = TextAlign.Center, maxLines = if (wide) 1 else Int.MAX_VALUE)
     }
@@ -272,7 +276,7 @@ private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActio
         Column(Modifier.fillMaxSize()) {
             if (!wide && s.artTheme != ArtTheme.MINIMAL)
                 ApprovedGalleryArt(null, Modifier.fillMaxWidth().weight(1f).clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)))
-            Row(Modifier.fillMaxWidth().then(if (wide) Modifier.weight(1f) else Modifier).padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth().then(if (wide) Modifier.weight(1f) else Modifier).padding(vertical = if (compactPhoneHero) 0.dp else 2.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f).padding(start = 8.dp)) {
                     Text(hero.special ?: hero.kickerLabel, fontFamily = approvedUi(s), fontSize = if (compactPhoneHero) 10.sp else 11.sp, color = tk.contentSecondary, maxLines = 1)
                     Text(if (L10n.isUrdu(s)) hero.label else hero.arabic, fontFamily = Amiri, fontSize = if (wide) (if (compactHero) 38.sp else 54.sp) else if (compactPhoneHero) 26.sp else 32.sp,
@@ -347,8 +351,11 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
                     }
                 }
             }
-            if (illustrated && !tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.padding(horizontal = 5.dp, vertical = 3.dp).width(if (smallPhone) 48.dp else 64.dp).fillMaxHeight().clip(RoundedCornerShape(8.dp)))
-            Column(Modifier.weight(if (tile) 1.1f else 1f).padding(start = if (illustrated) 5.dp else 8.dp)) {
+            if (illustrated && !tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.padding(horizontal = 5.dp, vertical = 3.dp).width(if (smallPhone) 40.dp else 64.dp).fillMaxHeight().clip(RoundedCornerShape(8.dp)))
+            // Measure the phone name column before status badges and bell slots. Clock origins
+            // therefore stay identical for all six rows, including Sunrise and NOW/NEXT.
+            Column(Modifier.then(if (!large && !tile) Modifier.fillMaxWidth(if (illustrated) .285f else .34f)
+                else Modifier.weight(if (tile) 1.1f else 1f)).padding(start = if (illustrated) 5.dp else 8.dp)) {
                 Text(if (urdu) r.label else r.label.uppercase(), Modifier.heightIn(min = if (large) 32.dp else 20.dp).testTag("gallery-fit-label-${r.prayer.name}"), fontFamily = if (urdu) Amiri else Cinzel,
                     fontSize = if (urdu) (if (large) (if (compactTablet) 22.sp else 26.sp) else 18.sp) else if (large) (if (compactTablet) 17.sp else 20.sp) else 12.sp, lineHeight = if (large) 32.sp else if (urdu) 25.sp else 20.sp,
                     fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1, style = textStyle)

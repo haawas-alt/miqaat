@@ -78,7 +78,7 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
                 if (s.theme == AppTheme.KISWAH) PhoneLandscapeBand()
                 Row(Modifier.fillMaxWidth().then(if (reflow) Modifier.height(if (urdu) 294.dp else 258.dp) else Modifier.weight(1f)),
                     horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Column(Modifier.weight(.60f).fillMaxHeight().testTag("home-prayers"), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Column(Modifier.weight(.60f).fillMaxHeight().testTag("home-prayers"), verticalArrangement = Arrangement.spacedBy(if (s.theme == AppTheme.KISWAH) 2.dp else 4.dp)) {
                         listedPrayers(s).chunked(2).forEach { row ->
                             Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                 row.forEach { p -> PhoneLandscapePrayer(galleryRowInfo(p,state,s),s,a,Modifier.weight(1f).fillMaxHeight()) { why=p } }
@@ -88,9 +88,15 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
                     }
                     BoxWithConstraints(Modifier.weight(.40f).fillMaxHeight().testTag("landscape-authored-hero")) {
                         val tight = maxHeight < 235.dp
+                        val compactInfo = maxHeight < 165.dp
+                        val kickerText: @Composable (Modifier)->Unit = { m -> Text(hero.special ?: hero.kickerLabel, m.testTag("landscape-hero-kicker"), fontFamily=font,
+                            fontSize=10.sp,lineHeight=if(urdu) 20.sp else 14.sp,color=colors.accent,textAlign=TextAlign.Center) }
+                        val statusText: @Composable (Modifier)->Unit = { m -> Text(hero.status,m.testTag("landscape-hero-status"),fontFamily=font,fontSize=11.sp,
+                            lineHeight=if(urdu) 22.sp else 16.sp,color=colors.ink,textAlign=TextAlign.Center) }
                         Column(Modifier.fillMaxSize().padding(horizontal=4.dp), horizontalAlignment=Alignment.CenterHorizontally, verticalArrangement=Arrangement.SpaceEvenly) {
-                            Text(hero.special ?: hero.kickerLabel, Modifier.fillMaxWidth().testTag("landscape-hero-kicker"), fontFamily=font,
-                                fontSize=10.sp,lineHeight=if(urdu) 20.sp else 14.sp,color=colors.accent,textAlign=TextAlign.Center)
+                            if(compactInfo) Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) {
+                                kickerText(Modifier.weight(1f));statusText(Modifier.weight(1f))
+                            } else kickerText(Modifier.fillMaxWidth())
                             val name: @Composable (Modifier)->Unit = { m -> Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
                                 Text(hero.arabic,Modifier.fillMaxWidth().testTag("landscape-hero-name"),fontFamily=if(s.theme==AppTheme.KISWAH) ReemKufi else Amiri,
                                     fontSize=if(tight) 30.sp else 38.sp,lineHeight=if(tight) 44.sp else 56.sp,color=colors.accent,textAlign=TextAlign.Center)
@@ -101,10 +107,9 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
                                 colors.ink,m.testTag("landscape-hero-clock").clickable(role=Role.Button,onClick=a.onToggleRelative)) }
                             if(tight) Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) { name(Modifier.weight(1f));time(Modifier.weight(1f)) }
                             else {name(Modifier.fillMaxWidth());time(Modifier.fillMaxWidth())}
-                            Text(hero.status,Modifier.fillMaxWidth().testTag("landscape-hero-status"),fontFamily=font,fontSize=11.sp,
-                                lineHeight=if(urdu) 22.sp else 16.sp,color=colors.ink,textAlign=TextAlign.Center)
+                            if(!compactInfo) statusText(Modifier.fillMaxWidth())
                             PhoneHomeButton(Str[R.string.s_view_prayer_details],s,Modifier.fillMaxWidth().testTag("landscape-hero-details")) { why=hero.prayer }
-                            if (seasonal.isNotEmpty()) Text(seasonal.first(),Modifier.fillMaxWidth().testTag("landscape-seasonal"),fontFamily=font,
+                            if (!compactInfo && seasonal.isNotEmpty()) Text(seasonal.first(),Modifier.fillMaxWidth().testTag("landscape-seasonal"),fontFamily=font,
                                 fontSize=10.sp,lineHeight=if(urdu) 20.sp else 15.sp,color=colors.secondary,textAlign=TextAlign.Center)
                         }
                     }
