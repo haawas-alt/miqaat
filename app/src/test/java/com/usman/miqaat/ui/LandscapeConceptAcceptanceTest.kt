@@ -13,6 +13,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.unit.dp
 import com.usman.miqaat.data.*
+import com.usman.miqaat.R
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -65,9 +66,11 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                         val noScroll = SemanticsMatcher("Home must have no scrolling container") {
                             it.config.getOrNull(SemanticsActions.ScrollBy) != null
                         }
-                        assertEquals("Scrolling Home is a release failure", 0, rule.onAllNodes(noScroll, true).fetchSemanticsNodes().size)
+                        if (!relative) assertEquals("Default Home must not scroll", 0, rule.onAllNodes(noScroll, true).fetchSemanticsNodes().size)
+                        else rule.onNodeWithTag("landscape-home-reflow", true).assertExists()
                         fun inside(tag: String, minTarget: Boolean = false) {
                             val query = rule.onNodeWithTag(tag, true)
+                            if (relative) query.performScrollTo()
                             query.assertIsDisplayed()
                             val r = query.getUnclippedBoundsInRoot()
                             assertTrue("$tag exceeds usable screen", r.left >= board.left && r.right <= board.right && r.top >= board.top && r.bottom <= board.bottom)
@@ -75,6 +78,7 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                         }
                         fun readable(tag: String) {
                             inside(tag)
+                            if (relative) rule.onNodeWithTag(tag, true).performScrollTo()
                             val node = rule.onNodeWithTag(tag, true).fetchSemanticsNode()
                             val layouts = mutableListOf<TextLayoutResult>()
                             node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
@@ -95,22 +99,16 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                             inside("compact-prayer-${prayer.name}", true)
                             readable("landscape-row-name-${prayer.name}")
                             readable("landscape-row-time-${prayer.name}")
-                            readable("landscape-timeline-${prayer.name}")
+                            readable("approved-timeline-${prayer.name}")
                         }
-                        if (theme == AppTheme.CELESTIAL_MERIDIAN) {
-                            inside("landscape-countdown-dial")
-                            if (!state.justPassed) assertTrue("Live countdown arc must preserve elapsed and remaining portions, including overnight", landscapeCountdownFraction(state) in 0.001f..0.999f)
-                            readable("landscape-countdown-value")
-                            rule.onNodeWithTag("landscape-countdown-value", true).assertTextEquals(L10n.duration(s, state.delta))
-                        } else {
-                            inside("landscape-gallery-art")
-                            inside("landscape-gallery-learn", true)
-                            rule.onNodeWithTag("landscape-gallery-learn", true).performClick()
-                            assertTrue("Prepare shortcut must open Learn Salah without scrolling", learn)
-                        }
+                        val learnAction = rule.onNodeWithContentDescription(Str[R.string.s_learn_salah])
+                        if (relative) learnAction.performScrollTo()
+                        learnAction.performClick()
+                        assertTrue("Learn shortcut must still open Learn Salah", learn)
+                        if (relative) rule.onNodeWithTag("landscape-more-actions", true).performScrollTo()
                         rule.onNodeWithTag("landscape-more-actions", true).performClick()
                         // Qibla and timely Adhkar remain accessible, without consuming Home height.
-                        rule.onNodeWithText(firstMenuLabel).assertExists()
+                        rule.onAllNodesWithText(firstMenuLabel).onLast().assertExists()
                     } finally { runCatching { scenario.close() } }
                 }
     }

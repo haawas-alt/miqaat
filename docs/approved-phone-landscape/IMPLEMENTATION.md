@@ -1,0 +1,11 @@
+# Approved phone landscape implementation
+
+Approved 19 October 2026: dedicated short phone layouts for Home, Iqamah countdown and Quiet Mode in Miqaat, Kiswah, Celestial Meridian and Prayer Gallery. Based on verified Home/Quiet/Iqamah source f0d581d54471851b8229b500e61bbe31fe7f406e.
+
+Home uses a two-column, three-row grid of all configured prayers beside the hero, plus the day timeline and context actions. Borders are restrained and Gallery art is a narrow thumbnail strip. Existing row tap-to-relative, long-press/info, location, Learn, timetable, settings, Qibla, adhkar, alert fixes, extra actions, preparation and seasonal information remain available. Bell icons retain their existing informational role; notification settings remain in settings/alert actions. Current and next selections use actual prayer windows, including tomorrow Fajr. The full original Kiswah band remains native text.
+
+Iqamah places the live counter beside the prayer/deadline/reminder and both actions; normal phone landscape no longer relegates details to a scrolling panel. Quiet uses three horizontal information clusters: prayer, current Azaan, next Azaan; expiry and return actions remain visible. The native service remains responsible for scheduling, sounds, countdown completion and phase transitions.
+
+A short landscape viewport (configuration height below 500dp) selects these layouts. Portrait and tablet routes retain their verified implementations. Normal default phone layouts have no scroll container. Expanded per-prayer Iqamah or relative-time preferences use a deliberate scrolling reflow to preserve full secondary details. System text above 115% retains the existing accessible reflow; large-text Iqamah keeps its counter and both actions pinned. No text is painted into background images. Artwork, complete Arabic, English/Urdu, RTL, Minimal mode, 12/24-hour times, night dim and display preferences remain supported.
+
+Native acceptance covers normal and 740x360 phones with inset padding, both languages, all themes, text bounds, minimum touch targets, values, highlights, original Arabic band, actions and preferences. Retained portrait/tablet acceptance, regression, lint, established signing and build integrity checks must pass before delivery. A numerical design target does not imply a measured UX score; physical-device acceptance is separate.

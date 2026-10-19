@@ -55,6 +55,9 @@ internal fun IqamahPrayerScreen(p: Phase.IqamahCountdown, onStop: () -> Unit, on
 @Composable
 internal fun IqamahPrayerContent(p: Phase.IqamahCountdown, s: AppSettings, now: ZonedDateTime,
                                 onStop: () -> Unit, onStart: () -> Unit) {
+    if (isPhoneLandscape() && LocalDensity.current.fontScale <= 1.15f) {
+        PhoneLandscapeIqamahContent(p, s, now, onStop, onStart); return
+    }
     val colors = quietPalette(s.theme)
     val urdu = L10n.isUrdu(s)
     val scale = LocalDensity.current.fontScale
@@ -212,7 +215,7 @@ private fun IqamahStages(s: AppSettings, roomy: Boolean = false) {
 }
 
 @Composable
-private fun IqamahDial(counter: IqamahCounter, s: AppSettings, modifier: Modifier, compact: Boolean = false) {
+internal fun IqamahDial(counter: IqamahCounter, s: AppSettings, modifier: Modifier, compact: Boolean = false) {
     val colors = quietPalette(s.theme)
     val urdu = L10n.isUrdu(s)
     val scale = LocalDensity.current.fontScale
@@ -243,7 +246,7 @@ private fun IqamahDial(counter: IqamahCounter, s: AppSettings, modifier: Modifie
 }
 
 @Composable
-private fun IqamahAction(primary: Boolean, s: AppSettings, modifier: Modifier, onClick: () -> Unit, roomy: Boolean = false) {
+internal fun IqamahAction(primary: Boolean, s: AppSettings, modifier: Modifier, onClick: () -> Unit, roomy: Boolean = false) {
     val colors = quietPalette(s.theme)
     val gallery = s.theme == AppTheme.PRAYER_GALLERY
     val fill = if (primary) (if (gallery) colors.ink else colors.accent) else colors.panel
