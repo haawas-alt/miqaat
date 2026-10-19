@@ -50,13 +50,13 @@ class ApprovedHomeAcceptanceTest : ComposeSupport() {
                         val node=rule.onNodeWithTag("gallery-fit-$kind-${p.name}",true).fetchSemanticsNode()
                         val layouts=mutableListOf<TextLayoutResult>()
                         node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
-                        layouts.forEach { assertFalse("$theme/$dev/$lang $p $kind overflow: ${it.layoutInput.text} ${it.size} paragraph=${it.multiParagraph.width}x${it.multiParagraph.height} w=${it.didOverflowWidth} h=${it.didOverflowHeight}",it.didOverflowWidth || it.didOverflowHeight) }
+                        layouts.forEach { assertFalse("$theme/$dev/$lang $p $kind overflow: ${it.layoutInput.text} ${it.size} paragraph=${it.multiParagraph.width}x${it.multiParagraph.height} w=${it.didOverflowWidth} h=${it.didOverflowHeight}",it.multiParagraph.didExceedMaxLines || (0 until it.lineCount).any { line -> it.getLineRight(line)-it.getLineLeft(line) > node.size.width+1f } || (it.lineCount>0 && it.getLineBottom(it.lineCount-1)-it.getLineTop(0)>node.size.height+1f)) }
                     }
                     val info=rule.onNodeWithTag("approved-info-${p.name}",true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Info target too small",info.width>=48*app.resources.displayMetrics.density && info.height>=48*app.resources.displayMetrics.density)
                     rule.onNodeWithTag("approved-timeline-${p.name}",true).assertIsDisplayed()
                 }
-                if(theme==AppTheme.KISWAH) rule.onNodeWithTag("kiswah-calligraphy-band",true).assertIsDisplayed().assertTextEquals(Kiswah.BAND)
+                if(theme==AppTheme.KISWAH) rule.onNodeWithTag("kiswah-calligraphy-band",true).assertIsDisplayed().assertContentDescriptionEquals(Kiswah.BAND)
                 rule.onNodeWithContentDescription(Str[R.string.s_settings]).performClick(); assertEquals(1,settings)
                 rule.onNodeWithContentDescription(Str[R.string.s_learn_salah]).performClick(); assertEquals(1,learns)
                 rule.onNodeWithContentDescription(Str[R.string.s_monthly_timetable]).performClick(); assertEquals(1,table)

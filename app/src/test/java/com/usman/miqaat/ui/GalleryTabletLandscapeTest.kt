@@ -41,25 +41,25 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         val top = listOf(Prayer.FAJR, Prayer.SUNRISE, Prayer.DHUHR)
         val bottom = listOf(Prayer.ASR, Prayer.MAGHRIB, Prayer.ISHA)
         if (p.size == 6) {
-            val tops = top.map { boundsOf("gallery-card-${it.name}") }
-            val bots = bottom.map { boundsOf("gallery-card-${it.name}") }
+            val tops = top.map { boundsOf("approved-row-${it.name}") }
+            val bots = bottom.map { boundsOf("approved-row-${it.name}") }
             assertTrue("top row left-to-right", tops[0].left < tops[1].left && tops[1].left < tops[2].left)
             assertTrue("bottom row left-to-right", bots[0].left < bots[1].left && bots[1].left < bots[2].left)
             assertTrue("bottom row sits below top row", bots[0].top.value > tops[0].bottom.value - 1f)
             assertEquals(tops[0].top.value, tops[2].top.value, 1f)
             assertEquals(bots[0].top.value, bots[2].top.value, 1f)
         }
-        listOf("home-hero", "home-prayers", "home-time").forEach { inside(it) }
+        listOf("home-hero", "home-prayers", "gallery-mobile-prayer-time").forEach { inside(it) }
         capture("gallery-tablet-landscape__en")
-        p.forEach { noOverflowAt("gallery-card-${it.name}") }
+        p.forEach { noOverflowAt("approved-row-${it.name}") }
     }
 
     @Test fun grid_is_three_by_two_in_urdu_rtl() {
         val s = settings(urdu = true); app.settings.update { s }
         show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY, rtl = true) { HomeRouter(state(s), s, actions, false) {} }
-        listOf("home-hero", "home-prayers", "home-time").forEach { inside(it) }
+        listOf("home-hero", "home-prayers", "gallery-mobile-prayer-time").forEach { inside(it) }
         capture("gallery-tablet-landscape__ur")
-        listedPrayers(s).forEach { noOverflowAt("gallery-card-${it.name}") }
+        listedPrayers(s).forEach { noOverflowAt("approved-row-${it.name}") }
     }
 
     @Test fun hijri_line_is_complete_with_full_month_in_english() {
@@ -123,7 +123,7 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
     @Test fun card_info_opens_a_real_details_dialog() {
         val s = settings(); app.settings.update { s }
         show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY) { HomeRouter(state(s), s, actions, false) {} }
-        rule.onNodeWithTag("gallery-info-FAJR", useUnmergedTree = true).performClick()
+        rule.onNodeWithTag("approved-info-FAJR", useUnmergedTree = true).performClick()
         rule.onNode(isDialog()).assertExists()
         capture("gallery-details-fajr")
     }
@@ -155,10 +155,10 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY, rtl = true, qualifiers = "w960dp-h600dp-land-xhdpi") {
             HomeRouter(state(s, ZonedDateTime.of(2026, 9, 30, 14, 0, 0, 0, sydney)), s, actions, false) {}
         }
-        val row = listOf(Prayer.FAJR, Prayer.SUNRISE, Prayer.DHUHR).map { boundsOf("gallery-card-${it.name}") }
+        val row = listOf(Prayer.FAJR, Prayer.SUNRISE, Prayer.DHUHR).map { boundsOf("approved-row-${it.name}") }
         assertTrue("RTL reading order", row[0].left > row[1].left && row[1].left > row[2].left)
         capture("gallery-small-tablet-ur-long-date")
-        listedPrayers(s).forEach { noOverflowAt("gallery-card-${it.name}") }
+        listedPrayers(s).forEach { noOverflowAt("approved-row-${it.name}") }
     }
 
     @Test fun ramadan_progress_is_present_and_fits() {
@@ -167,7 +167,7 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY) { HomeRouter(st, s, actions, false) {} }
         val label = fastProgress(st, s)!!.second
         rule.onNodeWithText(label, useUnmergedTree = true).assertExists()
-        noOverflowAt("home-time")
+        noOverflowAt("gallery-mobile-prayer-time")
         noOverflowAt("home-hero")
         capture("gallery-ramadan-daytime")
     }
@@ -181,7 +181,7 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         capture("gallery-small-tablet-ur-ramadan-night")
         rule.onNodeWithText(tarawihLine(st, s)!!, useUnmergedTree = true).assertExists()
         noOverflowAt("home-hero")
-        listedPrayers(s).forEach { noOverflowAt("gallery-card-${it.name}") }
+        listedPrayers(s).forEach { noOverflowAt("approved-row-${it.name}") }
     }
 
     @Test fun midnight_rollover_keeps_next_fajr_consistent() {
@@ -214,8 +214,8 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         show(Dev.PHONE_PORTRAIT, AppTheme.PRAYER_GALLERY, qualifiers = "w360dp-h800dp-port-xhdpi") {
             HomeRouter(state(s), s, actions, false) {}
         }
-        noOverflowAt("gallery-date-hijri")
-        rule.onNodeWithTag("gallery-date-hijri", useUnmergedTree = true).assertTextContains("AH", substring = true)
+        noOverflowAt("approved-hijri")
+        rule.onNodeWithTag("approved-hijri", useUnmergedTree = true).assertTextContains("AH", substring = true)
         capture("gallery-small-phone-full-hijri")
     }
 
@@ -280,8 +280,8 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
         show(Dev.TABLET_LANDSCAPE, AppTheme.PRAYER_GALLERY, fontScale = fontScale, rtl = urdu) { HomeRouter(state(s, at), s, actions, false) {} }
         capture("gallery-$name")
         if (fontScale <= 1.15f) {
-            listOf("home-hero", "home-prayers", "home-time").forEach { inside(it) }
-            listedPrayers(s).forEach { noOverflowAt("gallery-card-${it.name}") }
+            listOf("home-hero", "home-prayers", "gallery-mobile-prayer-time").forEach { inside(it) }
+            listedPrayers(s).forEach { noOverflowAt("approved-row-${it.name}") }
         }
     }
 

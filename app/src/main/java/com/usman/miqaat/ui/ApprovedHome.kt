@@ -76,7 +76,9 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
                 ApprovedHeader(state, s, a, tk, wide)
                 if (kiswah) KiswahBand(wide)
                 if (wide && gallery) {
-                    GalleryApprovedHero(state, s, a, tk, hero, Modifier.fillMaxWidth().weight(.34f), true) { why = hero.prayer }
+                    Box(Modifier.fillMaxWidth().weight(.34f).testTag("home-hero")) {
+                        GalleryApprovedHero(state, s, a, tk, hero, Modifier.fillMaxSize(), true) { why = hero.prayer }
+                    }
                     Column(Modifier.fillMaxWidth().weight(.66f).testTag("home-prayers"), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         galleryGridRows(listedPrayers(s)).forEach { row ->
                             Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -93,7 +95,9 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
                         }
                         val focus: @Composable RowScope.() -> Unit = {
                             Column(Modifier.weight(if (celestial) .56f else .54f).fillMaxHeight()) {
-                                DarkApprovedHero(state, s, tk, hero, Modifier.weight(1f).fillMaxWidth(), true) { why = hero.prayer }
+                                Box(Modifier.weight(1f).fillMaxWidth().testTag("home-hero")) {
+                                    DarkApprovedHero(state, s, tk, hero, Modifier.fillMaxSize(), true) { why = hero.prayer }
+                                }
                                 ApprovedTimeline(state, s, tk, Modifier.fillMaxWidth().height(60.dp))
                             }
                         }
@@ -163,9 +167,9 @@ private fun ApprovedNav(icon: ImageVector, label: String, tk: ThemeTokens, onCli
 internal fun KiswahBand(wide: Boolean) {
     Box(Modifier.fillMaxWidth().padding(vertical = 5.dp).border(1.dp, Kiswah.thread)
         .background(Color.Black.copy(alpha = .65f)), contentAlignment = Alignment.Center) {
-        Text(Kiswah.BAND, Modifier.padding(horizontal = 12.dp, vertical = 3.dp).testTag("kiswah-calligraphy-band"),
+        Text(if (wide) Kiswah.BAND else Kiswah.BAND.replaceFirst("   ✦   ", "\n"), Modifier.padding(horizontal = 12.dp, vertical = 3.dp).testTag("kiswah-calligraphy-band").semantics { contentDescription = Kiswah.BAND },
             fontFamily = Amiri, fontSize = if (wide) 28.sp else 15.sp, lineHeight = if (wide) 48.sp else 23.sp,
-            color = Kiswah.threadSoft, textAlign = TextAlign.Center, maxLines = if (wide) 1 else 2)
+            color = Kiswah.threadSoft, textAlign = TextAlign.Center, maxLines = if (wide) 1 else Int.MAX_VALUE)
     }
 }
 

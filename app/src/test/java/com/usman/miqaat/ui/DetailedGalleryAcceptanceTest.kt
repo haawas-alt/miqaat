@@ -70,8 +70,9 @@ class DetailedGalleryAcceptanceTest : ComposeSupport() {
                         val node = rule.onNodeWithTag("gallery-fit-$kind-${prayer.name}", true).fetchSemanticsNode()
                         val layouts = mutableListOf<TextLayoutResult>()
                         node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                        // Compare shaped glyph extents: native Robolectric can expose cached paragraph constraint widths.
                         layouts.forEach {
-                            assertFalse("Clipped $kind: $prayer, urdu=$urdu small=$small", it.didOverflowWidth || it.didOverflowHeight)
+                            assertFalse("Clipped $kind: $prayer, urdu=$urdu small=$small", it.multiParagraph.didExceedMaxLines || (0 until it.lineCount).any { line -> it.getLineRight(line)-it.getLineLeft(line)>node.size.width+1f } || (it.lineCount>0 && it.getLineBottom(it.lineCount-1)-it.getLineTop(0)>node.size.height+1f))
                             assertTrue("Row clips $kind: $prayer, urdu=$urdu small=$small",
                                 node.boundsInRoot.height + 1f >= it.size.height.toFloat())
                             assertTrue("Text exceeds row: $prayer/$kind", node.boundsInRoot.top >= row.top && node.boundsInRoot.bottom <= row.bottom)
@@ -90,9 +91,10 @@ class DetailedGalleryAcceptanceTest : ComposeSupport() {
                 }
                 for (tag in listOf("gallery-mobile-prayer-name", "gallery-mobile-prayer-time")) {
                     val layouts = mutableListOf<TextLayoutResult>()
-                    rule.onNodeWithTag(tag, true).fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                    val node = rule.onNodeWithTag(tag, true).fetchSemanticsNode()
+                    node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
                     assertTrue("Missing layout for $tag", layouts.isNotEmpty())
-                    layouts.forEach { assertFalse("$tag overflow; urdu=$urdu hour=$hour; text=${it.layoutInput.text}; size=${it.size}; constraints=${it.layoutInput.constraints}; paragraph=${it.multiParagraph.width} x ${it.multiParagraph.height}; width=${it.didOverflowWidth}; height=${it.didOverflowHeight}", it.didOverflowWidth || it.didOverflowHeight) }
+                    layouts.forEach { assertFalse("$tag overflow; urdu=$urdu hour=$hour; text=${it.layoutInput.text}; size=${it.size}; constraints=${it.layoutInput.constraints}; paragraph=${it.multiParagraph.width} x ${it.multiParagraph.height}; width=${it.didOverflowWidth}; height=${it.didOverflowHeight}", it.multiParagraph.didExceedMaxLines || (0 until it.lineCount).any { line -> it.getLineRight(line)-it.getLineLeft(line)>node.size.width+1f } || (it.lineCount>0 && it.getLineBottom(it.lineCount-1)-it.getLineTop(0)>node.size.height+1f)) }
                 }
             } finally { runCatching { scenario.close() } }
         }
