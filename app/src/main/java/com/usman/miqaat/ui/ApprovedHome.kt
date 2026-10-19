@@ -1,0 +1,408 @@
+package com.usman.miqaat.ui
+
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowForward
+import androidx.compose.material.icons.outlined.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.*
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.*
+import com.usman.miqaat.R
+import com.usman.miqaat.data.*
+import java.time.Duration
+
+/** Approved October boards. Artwork is decorative; every fact and action is native Compose.
+ * Large text is routed to AccessibleHome; short landscape retains its dedicated layout.
+ */
+@Composable
+fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
+    val tk = ThemeTokenSets.of(s.theme)
+    val gallery = s.theme == AppTheme.PRAYER_GALLERY
+    val kiswah = s.theme == AppTheme.KISWAH
+    val celestial = s.theme == AppTheme.CELESTIAL_MERIDIAN
+    var why by remember { mutableStateOf<Prayer?>(null) }
+    why?.let { p ->
+        val day = if (p == state.next && state.nextTime.toLocalDate().isAfter(state.today.date))
+            PrayerEngine.times(s, state.nextTime.toLocalDate()) else state.today
+        WhyDialog(s, day, p) { why = null }
+    }
+    val hero = heroInfo(state, s, kicker(state, s))
+    val links = doors(state, s, a)
+    BoxWithConstraints(Modifier.fillMaxSize().background(tk.background).testTag("approved-home")) {
+        val wide = maxWidth > maxHeight && maxHeight >= 500.dp
+        val tablet = maxWidth >= 600.dp
+        Box(Modifier.fillMaxSize()) {
+            if (kiswah) {
+                Weave(Modifier.fillMaxSize())
+                if (s.artTheme == ArtTheme.GEOMETRIC) GirihLattice(Modifier.fillMaxSize(), Kiswah.thread, .065f, 100f)
+            } else if (celestial && s.artTheme != ArtTheme.MINIMAL) {
+                Image(painterResource(R.drawable.celestial_landscape_approved), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+                Box(Modifier.fillMaxSize().background(Color(0xFF00152C).copy(alpha = .18f)))
+            } else if (!gallery) {
+                Stars(Modifier.fillMaxSize(), .7f)
+                if (s.artTheme == ArtTheme.GEOMETRIC) GirihLattice(Modifier.fillMaxSize(), alpha = .06f)
+            }
+            Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().displayCutoutPadding()
+                .padding(horizontal = if (wide) 24.dp else 12.dp)) {
+                ApprovedHeader(state, s, a, tk, wide)
+                if (kiswah && s.artTheme != ArtTheme.MINIMAL) KiswahBand(wide)
+                if (wide && gallery) {
+                    GalleryApprovedHero(state, s, a, tk, hero, Modifier.fillMaxWidth().weight(.34f), true) { why = hero.prayer }
+                    Column(Modifier.fillMaxWidth().weight(.66f).testTag("home-prayers"), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        galleryGridRows(listedPrayers(s)).forEach { row ->
+                            Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                                row.forEach { p -> ApprovedRow(galleryRowInfo(p, state, s), s, tk, a, Modifier.weight(1f).fillMaxHeight(), true, true) { why = p } }
+                                repeat(3-row.size) { Spacer(Modifier.weight(1f)) }
+                            }
+                        }
+                    }
+                    ApprovedTimeline(state, s, tk, Modifier.fillMaxWidth().height(54.dp))
+                } else if (wide) {
+                    Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(24.dp)) {
+                        val list: @Composable RowScope.() -> Unit = {
+                            ApprovedList(state, s, tk, a, Modifier.weight(if (celestial) .44f else .46f).fillMaxHeight().padding(vertical = 12.dp)) { why = it }
+                        }
+                        val focus: @Composable RowScope.() -> Unit = {
+                            Column(Modifier.weight(if (celestial) .56f else .54f).fillMaxHeight()) {
+                                DarkApprovedHero(state, s, tk, hero, Modifier.weight(1f).fillMaxWidth(), true) { why = hero.prayer }
+                                ApprovedTimeline(state, s, tk, Modifier.fillMaxWidth().height(60.dp))
+                            }
+                        }
+                        if (celestial) { focus(); list() } else { list(); focus() }
+                    }
+                } else {
+                    // Six rows retain a minimum touch height. Hero and spare row space share the remaining height.
+                    // On 360x800 with system insets this yields a compact hero, rather than shrinking the entire screen.
+                    Box(Modifier.weight(1f).fillMaxWidth().testTag("home-hero")) {
+                        if (gallery) GalleryApprovedHero(state, s, a, tk, hero, Modifier.fillMaxSize(), false) { why = hero.prayer }
+                        else DarkApprovedHero(state, s, tk, hero, Modifier.fillMaxSize(), tablet) { why = hero.prayer }
+                    }
+                    ApprovedTimeline(state, s, tk, Modifier.fillMaxWidth().height(if (tablet) 56.dp else 40.dp))
+                    ApprovedList(state, s, tk, a, Modifier.height(listedPrayers(s).size * (if (tablet) 100.dp else 56.dp)).fillMaxWidth()
+                        .then(if (gallery) Modifier.testTag("gallery-phone-fit") else Modifier)) { why = it }
+                }
+                ApprovedContext(links, s, tk, wide, Modifier.fillMaxWidth().testTag("gallery-phone-footer"))
+                if (!wide) ApprovedNavigation(s, a, tk)
+                Text(Str[R.string.s_theme_signature], Modifier.fillMaxWidth().padding(bottom = 2.dp),
+                    fontFamily = uiFont(s), fontSize = 9.sp, color = tk.contentSecondary, textAlign = TextAlign.End, maxLines = 1)
+            }
+            if (s.nightDim && state.period == Prayer.ISHA && !state.justPassed)
+                Box(Modifier.fillMaxSize().background(Color(0xFF100A04).copy(alpha = .22f)))
+        }
+    }
+}
+
+@Composable
+private fun ApprovedHeader(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, wide: Boolean) {
+    val F = uiFont(s)
+    val dates: @Composable () -> Unit = {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(L10n.dateShort(s, state.now), fontFamily = F, fontSize = if (wide) 15.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
+            if (s.showHijri) Text(galleryHijriLine(s, PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)),
+                fontFamily = if (L10n.isUrdu(s)) Amiri else F, fontSize = if (wide) 15.sp else 12.sp,
+                lineHeight = 18.sp, color = tk.contentSecondary, maxLines = 1, modifier = Modifier.testTag("approved-hijri"))
+        }
+    }
+    Column(Modifier.fillMaxWidth()) {
+        Row(Modifier.fillMaxWidth().height(if (wide) 64.dp else 48.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.weight(1f).fillMaxHeight().clip(RoundedCornerShape(20.dp)).clickable(role = Role.Button, onClick = a.onOpenLocation)
+                .semantics(mergeDescendants = true) { contentDescription = Str.get(R.string.s_a11y_location, L10n.iso(L10n.place(s.locationName))) }, verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Outlined.LocationOn, null, Modifier.size(22.dp), tint = tk.primary)
+                Text(L10n.place(s.locationName), Modifier.padding(start = 5.dp), fontFamily = F, fontSize = if (wide) 19.sp else 15.sp, color = tk.contentPrimary, maxLines = 1)
+            }
+            if (wide) { dates(); Spacer(Modifier.weight(1f)) }
+            if (s.kidsMode) ApprovedNav(Icons.Outlined.MenuBook, Str[R.string.s_learn_salah], tk, a.onOpenLearn, wide)
+            // Timetable also remains in the header for discoverability and existing accessibility contracts.
+            ApprovedNav(Icons.Outlined.CalendarMonth, Str[R.string.s_monthly_timetable], tk, a.onOpenTimetable, wide)
+            ApprovedNav(Icons.Outlined.Settings, Str[R.string.s_settings], tk, a.onOpenSettings, wide)
+        }
+        if (!wide) Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { dates() }
+    }
+}
+
+@Composable
+private fun ApprovedNav(icon: ImageVector, label: String, tk: ThemeTokens, onClick: () -> Unit, showLabel: Boolean) {
+    Column(Modifier.widthIn(min = 48.dp).heightIn(min = 48.dp).clip(RoundedCornerShape(12.dp))
+        .clickable(role = Role.Button, onClick = onClick).semantics(mergeDescendants = true) { contentDescription = label }
+        .padding(horizontal = 6.dp, vertical = 3.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Icon(icon, null, Modifier.size(24.dp), tint = tk.contentPrimary)
+        if (showLabel) Text(label, fontFamily = Nunito, fontSize = 11.sp, color = tk.contentPrimary, maxLines = 1)
+    }
+}
+
+@Composable
+internal fun KiswahBand(wide: Boolean) {
+    Box(Modifier.fillMaxWidth().padding(vertical = 5.dp).border(1.dp, Kiswah.thread)
+        .background(Color.Black.copy(alpha = .65f)).testTag("kiswah-calligraphy-band"), contentAlignment = Alignment.Center) {
+        Text(Kiswah.BAND, Modifier.padding(horizontal = 12.dp, vertical = 3.dp),
+            fontFamily = Amiri, fontSize = if (wide) 28.sp else 15.sp, lineHeight = if (wide) 48.sp else 23.sp,
+            color = Kiswah.threadSoft, textAlign = TextAlign.Center, maxLines = if (wide) 1 else 2)
+    }
+}
+
+@Composable
+private fun DarkApprovedHero(state: PrayerState, s: AppSettings, tk: ThemeTokens, hero: HeroInfo, modifier: Modifier, roomy: Boolean, onDetails: () -> Unit) {
+    BoxWithConstraints(modifier.testTag("approved-dark-hero"), contentAlignment = Alignment.Center) {
+        val k = ((maxHeight.value - 52f) / 240f).coerceIn(.40f, if (roomy) 1.6f else 1.05f)
+        val kiswah = s.theme == AppTheme.KISWAH
+        if (s.theme == AppTheme.MIQAAT && s.artTheme != ArtTheme.MINIMAL) {
+            Image(painterResource(R.drawable.approved_miqaat_arch), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+            Box(Modifier.fillMaxSize().background(Color(0xFF00152C).copy(alpha = .14f)))
+        }
+        if (s.theme == AppTheme.CELESTIAL_MERIDIAN && s.artTheme != ArtTheme.MINIMAL)
+            SolarArc(Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 10.dp).clearAndSetSemantics { }, state, s, tk)
+        Column(Modifier.fillMaxWidth().padding(horizontal = 12.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+            Text(hero.special ?: hero.kickerLabel, fontFamily = uiFont(s), fontSize = (11*k).sp, lineHeight = (16*k).sp,
+                letterSpacing = if (L10n.isUrdu(s)) 0.sp else 2.sp, color = tk.primary, textAlign = TextAlign.Center, maxLines = 2)
+            Text(hero.arabic, fontFamily = if (kiswah) ReemKufi else Amiri, fontSize = (52*k).sp, lineHeight = (62*k).sp, color = if (kiswah) Kiswah.highlight else tk.arabicText,
+                modifier = Modifier.testTag("approved-hero-arabic"))
+            if (!L10n.isUrdu(s)) Text(hero.label.uppercase(), fontFamily = Cinzel, fontSize = (12*k).sp, letterSpacing = 3.sp, color = tk.contentPrimary, maxLines = 1)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(hero.clock, fontFamily = Cormorant, fontWeight = FontWeight.Medium, fontSize = (78*k).sp, lineHeight = (76*k).sp, color = tk.contentPrimary, maxLines = 1, modifier = Modifier.testTag("approved-hero-clock"))
+                if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (L10n.isUrdu(s)) Amiri else Cormorant, fontSize = (20*k).sp, color = tk.contentPrimary, maxLines = 1)
+            }
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                Icon(Icons.Outlined.Schedule, null, Modifier.size(16.dp), tint = tk.primary)
+                Text(hero.status, fontFamily = uiFont(s), fontSize = (14*k).sp, lineHeight = (19*k).sp, color = tk.contentPrimary, maxLines = 2, textAlign = TextAlign.Center)
+            }
+            ApprovedDetails(Str[R.string.s_view_prayer_details], tk, onDetails, Modifier.padding(top = 3.dp), false)
+            ApprovedSeasonal(state, s, tk)
+        }
+    }
+}
+
+@Composable
+private fun ApprovedSeasonal(state: PrayerState, s: AppSettings, tk: ThemeTokens) {
+    fastProgress(state, s)?.let { (progress, label) ->
+        LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth(.7f).height(3.dp), color = tk.primary, trackColor = tk.divider)
+        Text(label, fontFamily = uiFont(s), fontSize = 12.sp, color = tk.contentPrimary)
+    }
+    tarawihLine(state, s)?.let { Text(it, fontFamily = uiFont(s), fontSize = 12.sp, color = tk.contentPrimary, maxLines = 2) }
+}
+
+@Composable
+private fun ApprovedDetails(label: String, tk: ThemeTokens, onClick: () -> Unit, modifier: Modifier = Modifier, filled: Boolean = false) {
+    Row(modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(24.dp)).background(if (filled) tk.accent else tk.background.copy(alpha = .72f))
+        .border(1.dp, if (tk.dark) tk.primary else tk.accent.copy(alpha = .6f), RoundedCornerShape(24.dp))
+        .clickable(role = Role.Button, onClick = onClick).padding(horizontal = 14.dp),
+        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+        Text(label, fontFamily = Nunito, fontSize = 13.sp, color = if (filled) tk.background else tk.contentPrimary, maxLines = 2)
+        Icon(Icons.AutoMirrored.Outlined.ArrowForward, null, Modifier.padding(start = 6.dp).size(17.dp), tint = if (filled) tk.background else tk.primary)
+    }
+}
+
+/** Atlas contains only paintings: hero in top half; six equal period illustrations in bottom half. */
+@Composable
+private fun ApprovedGalleryArt(index: Int?, modifier: Modifier) {
+    val bmp = ImageBitmap.imageResource(R.drawable.approved_gallery_atlas)
+    Canvas(modifier.clearAndSetSemantics { }) {
+        val sw = if (index == null) bmp.width else bmp.width/6
+        val heroH = (bmp.height * .45f).toInt()
+        val sh = if (index == null) heroH else bmp.height-heroH
+        val x = if (index == null) 0 else index*sw
+        val y = if (index == null) 0 else heroH
+        val cropW = minOf(sw, (sh*size.width/size.height).toInt()).coerceAtLeast(1)
+        val cropH = minOf(sh, (sw*size.height/size.width).toInt()).coerceAtLeast(1)
+        drawImage(bmp, srcOffset = IntOffset(x+(sw-cropW)/2,y+(sh-cropH)/2), srcSize = IntSize(cropW,cropH), dstSize = IntSize(size.width.toInt(),size.height.toInt()))
+    }
+}
+
+@Composable
+private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, hero: HeroInfo, modifier: Modifier, wide: Boolean, onDetails: () -> Unit) {
+    BoxWithConstraints(modifier.testTag("gallery-mobile-hero")) {
+        val roomy = wide || maxHeight >= 255.dp
+        Column(Modifier.fillMaxSize()) {
+            if (!wide && s.artTheme != ArtTheme.MINIMAL)
+                ApprovedGalleryArt(null, Modifier.fillMaxWidth().weight(1f).clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)))
+            Row(Modifier.fillMaxWidth().then(if (wide) Modifier.weight(1f) else Modifier).padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f).padding(start = 8.dp)) {
+                    Text(hero.special ?: hero.kickerLabel, fontFamily = uiFont(s), fontSize = 11.sp, color = tk.contentSecondary, maxLines = 1)
+                    Text(if (L10n.isUrdu(s)) hero.label else hero.arabic, fontFamily = Amiri, fontSize = if (wide) 54.sp else 32.sp,
+                        lineHeight = if (wide) 70.sp else 40.sp, color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-mobile-prayer-name"))
+                    if (!L10n.isUrdu(s)) Text(hero.label.uppercase(), fontFamily = Cinzel, fontSize = 11.sp, letterSpacing = 2.sp, color = tk.accent, maxLines = 1)
+                }
+                if (wide && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(null, Modifier.weight(1.5f).fillMaxHeight())
+                Column(Modifier.weight(1.1f), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(hero.clock, fontFamily = Cormorant, fontWeight = FontWeight.Medium, fontSize = if (wide) 76.sp else 49.sp,
+                            lineHeight = if (wide) 80.sp else 50.sp, color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-mobile-prayer-time"))
+                        if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (L10n.isUrdu(s)) Amiri else Cormorant, fontSize = if (wide) 23.sp else 14.sp, color = tk.contentPrimary, maxLines = 1)
+                    }
+                    Text(hero.status, fontFamily = uiFont(s), fontSize = 12.sp, lineHeight = 16.sp, color = tk.contentPrimary, maxLines = 1)
+                }
+            }
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
+                ApprovedDetails(Str[R.string.s_view_prayer_details], tk, onDetails, Modifier.weight(1f), wide)
+                if (s.kidsMode) ApprovedDetails(if (L10n.isUrdu(s)) "نماز کی تیاری" else "Prepare for ${hero.label}", tk, a.onOpenLearn, Modifier.weight(1f), !wide)
+            }
+            ApprovedSeasonal(state, s, tk)
+        }
+    }
+}
+
+@Composable
+private fun ApprovedList(state: PrayerState, s: AppSettings, tk: ThemeTokens, a: HomeActions, modifier: Modifier, onWhy: (Prayer) -> Unit) {
+    Column(modifier.clip(RoundedCornerShape(12.dp)).background(if (tk.dark) Color(0xFF00162D).copy(alpha = if (s.theme == AppTheme.KISWAH) .12f else .82f) else tk.background.copy(alpha = .8f))
+        .border(1.dp, tk.outline, RoundedCornerShape(12.dp)).testTag("home-prayers")) {
+        listedPrayers(s).forEach { p ->
+            ApprovedRow(galleryRowInfo(p, state, s), s, tk, a, Modifier.weight(1f).fillMaxWidth().testTag("gallery-fit-row-${p.name}"), s.theme == AppTheme.PRAYER_GALLERY, false) { onWhy(p) }
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActions, modifier: Modifier, illustrated: Boolean, tile: Boolean, onWhy: () -> Unit) {
+    val now = r.isNow
+    val next = r.isNext && !now
+    val selected = now || next
+    val marker = if (now) (if (tk.dark) Color(0xFF45DAE3) else Color(0xFF087C77)) else if (tk.dark) Color(0xFFFFCC63) else tk.accent
+    val fill = if (now) (if (tk.dark) Color(0xFF00414C) else Color(0xFFEAF7F1)) else if (next) (if (tk.dark) Color(0xFF4B381C) else Color(0xFFFFEBDD)) else Color.Transparent
+    val urdu = L10n.isUrdu(s)
+    val textStyle = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false))
+    Column(modifier.clip(RoundedCornerShape(if (tile) 12.dp else 0.dp)).background(fill)
+        .border(if (selected) 1.dp else .5.dp, if (selected) marker.copy(alpha = .75f) else tk.divider, RoundedCornerShape(if (tile) 12.dp else 0.dp))
+        .combinedClickable(onClick = a.onToggleRelative, onLongClick = onWhy, role = Role.Button)
+        .semantics(mergeDescendants = true) { contentDescription = r.spoken }
+        .testTag("approved-row-${r.prayer.name}")) {
+        if (tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.fillMaxWidth().weight(.44f))
+        Row(Modifier.fillMaxWidth().then(if (tile) Modifier.weight(.56f) else Modifier.fillMaxHeight()), verticalAlignment = Alignment.CenterVertically) {
+            Box(Modifier.width(if (illustrated) 3.dp else 18.dp).fillMaxHeight(), contentAlignment = Alignment.Center) {
+                if (illustrated) Box(Modifier.fillMaxHeight().width(3.dp).background(if (selected) marker else Color.Transparent))
+                else Canvas(Modifier.fillMaxSize()) {
+                    val x = size.width/2; val y = size.height/2
+                    drawLine(tk.primary.copy(alpha = .55f), Offset(x,0f), Offset(x,size.height), 1.dp.toPx())
+                    rotate(45f, Offset(x,y)) {
+                        drawRect(if (r.done || selected) tk.primary else tk.background, Offset(x-3.dp.toPx(),y-3.dp.toPx()), androidx.compose.ui.geometry.Size(6.dp.toPx(),6.dp.toPx()))
+                        drawRect(tk.primary, Offset(x-3.dp.toPx(),y-3.dp.toPx()), androidx.compose.ui.geometry.Size(6.dp.toPx(),6.dp.toPx()), style = Stroke(1.dp.toPx()))
+                    }
+                }
+            }
+            if (illustrated && !tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.padding(horizontal = 5.dp, vertical = 3.dp).width(64.dp).fillMaxHeight().clip(RoundedCornerShape(8.dp)))
+            Column(Modifier.weight(if (tile) .9f else 1f).padding(start = if (illustrated) 5.dp else 8.dp)) {
+                Text(if (urdu) r.label else r.label.uppercase(), Modifier.testTag("gallery-fit-label-${r.prayer.name}"), fontFamily = if (urdu) Amiri else Cinzel,
+                    fontSize = if (urdu) 18.sp else if (tile) 14.sp else 12.sp, lineHeight = if (urdu) 25.sp else 18.sp,
+                    fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1, style = textStyle)
+                if (!urdu) Text(r.arabic, Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"), fontFamily = Amiri, fontSize = if (tile) 19.sp else 17.sp,
+                    lineHeight = 22.sp, color = if (tk.dark) tk.arabicText else tk.accent, maxLines = 1, style = textStyle)
+            }
+            Column(Modifier.weight(if (tile) 1.25f else 1.15f).padding(start = 8.dp), horizontalAlignment = Alignment.Start) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(if (s.showRelative) r.relative else r.clock, Modifier.testTag("gallery-fit-clock-${r.prayer.name}"), fontFamily = if (s.showRelative) uiFont(s) else Cormorant,
+                        fontSize = if (s.showRelative) 14.sp else if (tile) 30.sp else 25.sp, lineHeight = if (tile) 34.sp else 28.sp,
+                        fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1, style = textStyle)
+                    if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = if (urdu) Amiri else Cormorant, fontSize = if (urdu) 11.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
+                }
+                if (r.small.isNotEmpty()) Text(r.small, Modifier.testTag("gallery-fit-detail-${r.prayer.name}"), fontFamily = if (urdu) Amiri else Nunito,
+                    fontSize = if (tile) 12.sp else 10.sp, lineHeight = if (urdu) 17.sp else 13.sp, color = tk.contentSecondary, maxLines = 2, style = textStyle)
+            }
+            if (selected) Box(Modifier.testTag("gallery-fit-marker-${r.prayer.name}")) {
+                if (s.theme == AppTheme.PRAYER_GALLERY) GalleryStatusBadge(now, s, compact = true)
+                else Text(L10n.word(s, if (now) "NOW" else "NEXT"), Modifier.testTag(if (now) "home-status-now" else "home-status-next").clip(RoundedCornerShape(9.dp)).background(marker).padding(horizontal = 6.dp, vertical = 3.dp), fontFamily = if (urdu) Amiri else Nunito,
+                    fontSize = 10.sp, lineHeight = if (urdu) 20.sp else 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF032126), maxLines = 1)
+            }
+            // Bell state is informational; notification settings remain in the header and alert action.
+            if (r.prayer.isPrayer) Box(Modifier.width(28.dp).fillMaxHeight().semantics { contentDescription = if (r.azaanOn) L10n.t("Azaan enabled", "اذان فعال ہے") else L10n.t("Azaan off", "اذان بند ہے") }, contentAlignment = Alignment.Center) {
+                Icon(if (r.azaanOn) Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff, null, Modifier.size(17.dp), tint = if (tk.dark) tk.primary else tk.accent)
+            }
+            Box(Modifier.size(48.dp).clip(CircleShape).clickable(role = Role.Button, onClick = onWhy)
+                .testTag("approved-info-${r.prayer.name}").semantics { contentDescription = Str[R.string.s_why_this_time] }, contentAlignment = Alignment.Center) {
+                Icon(Icons.Outlined.Info, null, Modifier.size(19.dp), tint = tk.contentSecondary)
+            }
+        }
+    }
+}
+
+@Composable
+internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeTokens, modifier: Modifier) {
+    val prayers = listedPrayers(s)
+    val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+    val gold = if (tk.dark) Color(0xFFFFCC63) else tk.accent
+    val active = if (state.heroTime.toLocalDate() == state.today.date) state.hero else null
+    var explainDay by remember { mutableStateOf(false) }
+    if (explainDay) AlertDialog(onDismissRequest = { explainDay = false }, confirmButton = { TextButton({ explainDay = false }) { Text(L10n.t("Close", "بند کریں")) } }, text = { Column {
+        Text(Str[R.string.s_day_line])
+        if (s.showDisliked) PrayerEngine.dislikedWindows(state.today, s).forEach { w -> Text(L10n.avoidWindow(w.start,w.end,s.use24h)) }
+    } })
+    Column(modifier.testTag("approved-day-timeline").clickable(role = Role.Button) { explainDay = true }.padding(horizontal = 5.dp), verticalArrangement = Arrangement.Center) {
+        Canvas(Modifier.fillMaxWidth().height(17.dp).semantics { contentDescription = Str[R.string.s_day_line] }) {
+            val step = size.width/prayers.size
+            fun x(i: Int) = (if (rtl) prayers.lastIndex-i+.5f else i+.5f)*step
+            val y = size.height/2
+            drawLine(gold.copy(alpha = .65f), Offset(x(0),y), Offset(x(prayers.lastIndex),y), 1.dp.toPx())
+            prayers.forEachIndexed { i,p ->
+                val point = Offset(x(i),y); val sel = p == active
+                if (sel) drawCircle(Brush.radialGradient(listOf(gold.copy(alpha = .65f),Color.Transparent),point,13.dp.toPx()),13.dp.toPx(),point)
+                rotate(45f, point) { drawRect(gold, Offset(point.x-3.dp.toPx(),point.y-3.dp.toPx()), androidx.compose.ui.geometry.Size(6.dp.toPx(),6.dp.toPx())) }
+                if (sel) drawCircle(gold, 8.dp.toPx(), point, style = Stroke(1.dp.toPx()))
+            }
+            // The moving bead uses actual elapsed time, independent of equally spaced label slots.
+            val times = prayers.map { state.today[it] }
+            val idx = times.indexOfLast { !it.isAfter(state.now) }
+            if (idx >= 0 && idx < times.lastIndex) {
+                val duration = Duration.between(times[idx], times[idx+1]).seconds.coerceAtLeast(1)
+                val f = (Duration.between(times[idx],state.now).seconds/duration.toFloat()).coerceIn(0f,1f)
+                val nx = x(idx)+(x(idx+1)-x(idx))*f
+                drawCircle(tk.contentPrimary, 2.dp.toPx(), Offset(nx,y-5.dp.toPx()))
+            }
+        }
+        Row(Modifier.fillMaxWidth()) { prayers.forEach { p ->
+            Text(L10n.prayer(s,p), Modifier.weight(1f).testTag("approved-timeline-${p.name}"), fontFamily = if (L10n.isUrdu(s)) Amiri else Nunito,
+                fontSize = 11.sp, lineHeight = 18.sp, textAlign = TextAlign.Center, color = if (p == active) gold else tk.contentPrimary, maxLines = 1)
+        } }
+    }
+}
+
+@Composable
+private fun ApprovedContext(links: List<Door>, s: AppSettings, tk: ThemeTokens, wide: Boolean, modifier: Modifier) {
+    val visible = if (wide) links.take(3) else galleryVisibleDoors(links)
+    val extra = links.filter { it !in visible }
+    var more by remember { mutableStateOf(false) }
+    Row(modifier.heightIn(min = 48.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        visible.forEach { d ->
+            Row(Modifier.weight(1f).heightIn(min = 48.dp).padding(vertical = 3.dp).clip(RoundedCornerShape(24.dp))
+                .background(tk.background.copy(alpha = .82f)).border(1.dp, if (d.warn) tk.warning else tk.outline, RoundedCornerShape(24.dp))
+                .then(if (d.onClick != null) Modifier.clickable(role = Role.Button, onClick = d.onClick) else Modifier)
+                .semantics(mergeDescendants = true) { contentDescription = d.label }.padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                Icon(if (d.warn) Icons.Outlined.WarningAmber else if (d.kind == DoorKind.ADHKAR) Icons.Outlined.MenuBook else Icons.Outlined.Explore, null, Modifier.size(18.dp), tint = if (d.warn) tk.warning else tk.primary)
+                Text(d.label, Modifier.weight(1f).padding(start = 5.dp), fontFamily = if (L10n.isUrdu(s)) Amiri else Nunito, fontSize = if (wide) 15.sp else 12.sp, lineHeight = 17.sp, color = tk.contentPrimary, maxLines = 2)
+            }
+        }
+        if (extra.isNotEmpty()) Box {
+            IconButton({ more = true }, Modifier.size(48.dp)) { Icon(Icons.Outlined.MoreHoriz, L10n.word(s,"More actions"), tint = tk.contentPrimary) }
+            DropdownMenu(more, { more = false }) { extra.forEach { d -> DropdownMenuItem(text = { Text(d.label) }, onClick = { more = false; d.onClick?.invoke() }) } }
+        }
+    }
+}
+
+@Composable
+private fun ApprovedNavigation(s: AppSettings, a: HomeActions, tk: ThemeTokens) {
+    Row(Modifier.fillMaxWidth().height(54.dp).border(.5.dp, tk.outline, RoundedCornerShape(16.dp)).background(tk.background.copy(alpha = .84f), RoundedCornerShape(16.dp)), horizontalArrangement = Arrangement.SpaceEvenly) {
+        if (s.showQibla) Box(Modifier.weight(1f)) { ApprovedNav(Icons.Outlined.Explore, L10n.word(s,"Qibla"), tk, a.onOpenQibla, true) }
+        // The general Adhkar library remains accessible even outside a prompted time window.
+        Box(Modifier.weight(1f)) { ApprovedNav(Icons.Outlined.AutoStories, L10n.t("Adhkar", "اذکار"), tk, { a.onOpenAdhkar(AdhkarMode.MORNING) }, true) }
+        if (s.kidsMode) Box(Modifier.weight(1f)) { ApprovedNav(Icons.Outlined.MenuBook, L10n.t("Learn", "سیکھیں"), tk, a.onOpenLearn, true) }
+        Box(Modifier.weight(1f)) { ApprovedNav(Icons.Outlined.CalendarMonth, L10n.t("Timetable", "اوقات"), tk, a.onOpenTimetable, true) }
+    }
+}
