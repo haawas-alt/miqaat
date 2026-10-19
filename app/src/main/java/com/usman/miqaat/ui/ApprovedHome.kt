@@ -32,6 +32,14 @@ import com.usman.miqaat.R
 import com.usman.miqaat.data.*
 import java.time.Duration
 
+@OptIn(androidx.compose.ui.text.ExperimentalTextApi::class)
+private val ApprovedBody = androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(
+    R.font.nunito_sans, FontWeight.Normal, variationSettings = androidx.compose.ui.text.font.FontVariation.Settings(androidx.compose.ui.text.font.FontVariation.weight(500))))
+@OptIn(androidx.compose.ui.text.ExperimentalTextApi::class)
+private val ApprovedDisplay = androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(
+    R.font.cormorant_garamond_medium, FontWeight.Medium, variationSettings = androidx.compose.ui.text.font.FontVariation.Settings(androidx.compose.ui.text.font.FontVariation.weight(500))))
+private fun approvedUi(s: AppSettings) = if (L10n.isUrdu(s)) uiFont(s) else ApprovedBody
+
 /** Approved October boards. Artwork is decorative; every fact and action is native Compose.
  * Large text is routed to AccessibleHome; short landscape retains its dedicated layout.
  */
@@ -99,13 +107,13 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
                         else DarkApprovedHero(state, s, tk, hero, Modifier.fillMaxSize(), tablet) { why = hero.prayer }
                     }
                     ApprovedTimeline(state, s, tk, Modifier.fillMaxWidth().height(if (tablet) 56.dp else 40.dp))
-                    ApprovedList(state, s, tk, a, Modifier.height(listedPrayers(s).size * (if (tablet) 100.dp else 56.dp)).fillMaxWidth()
+                    ApprovedList(state, s, tk, a, Modifier.height(listedPrayers(s).size * (if (tablet) 100.dp else 60.dp)).fillMaxWidth()
                         .then(if (gallery) Modifier.testTag("gallery-phone-fit") else Modifier)) { why = it }
                 }
                 ApprovedContext(links, s, tk, wide, Modifier.fillMaxWidth().testTag("gallery-phone-footer"))
                 if (!wide) ApprovedNavigation(s, a, tk)
                 Text(Str[R.string.s_theme_signature], Modifier.fillMaxWidth().padding(bottom = 2.dp),
-                    fontFamily = uiFont(s), fontSize = 9.sp, color = tk.contentSecondary, textAlign = TextAlign.End, maxLines = 1)
+                    fontFamily = approvedUi(s), fontSize = 9.sp, color = tk.contentSecondary, textAlign = TextAlign.End, maxLines = 1)
             }
             if (s.nightDim && state.period == Prayer.ISHA && !state.justPassed)
                 Box(Modifier.fillMaxSize().background(Color(0xFF100A04).copy(alpha = .22f)))
@@ -115,10 +123,10 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
 
 @Composable
 private fun ApprovedHeader(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, wide: Boolean) {
-    val F = uiFont(s)
+    val F = approvedUi(s)
     val dates: @Composable () -> Unit = {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(L10n.dateShort(s, state.now), fontFamily = F, fontSize = if (wide) 15.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
+            Text(L10n.date(s, state.now), fontFamily = F, fontSize = if (wide) 15.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
             if (s.showHijri) Text(galleryHijriLine(s, PrayerEngine.hijri(state.now.toLocalDate(), s.hijriOffsetDays)),
                 fontFamily = if (L10n.isUrdu(s)) Amiri else F, fontSize = if (wide) 15.sp else 12.sp,
                 lineHeight = 18.sp, color = tk.contentSecondary, maxLines = 1, modifier = Modifier.testTag("approved-hijri"))
@@ -147,7 +155,7 @@ private fun ApprovedNav(icon: ImageVector, label: String, tk: ThemeTokens, onCli
         .clickable(role = Role.Button, onClick = onClick).semantics(mergeDescendants = true) { contentDescription = label }
         .padding(horizontal = 6.dp, vertical = 3.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Icon(icon, null, Modifier.size(24.dp), tint = tk.contentPrimary)
-        if (showLabel) Text(label, fontFamily = if (L10n.uiUrdu) Amiri else Nunito, fontSize = 11.sp, color = tk.contentPrimary, maxLines = 1)
+        if (showLabel) Text(label, fontFamily = if (L10n.uiUrdu) Amiri else ApprovedBody, fontSize = 11.sp, color = tk.contentPrimary, maxLines = 1)
     }
 }
 
@@ -172,20 +180,24 @@ private fun DarkApprovedHero(state: PrayerState, s: AppSettings, tk: ThemeTokens
         }
         if (kiswah && s.artTheme != ArtTheme.MINIMAL) Image(painterResource(R.drawable.approved_kiswah_silk), null, Modifier.fillMaxSize(), contentScale = ContentScale.FillBounds)
         if (s.theme == AppTheme.CELESTIAL_MERIDIAN && s.artTheme != ArtTheme.MINIMAL)
-            SolarArc(Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 10.dp).clearAndSetSemantics { }, state, s, tk)
+            Box(Modifier.fillMaxSize()) {
+                Image(painterResource(R.drawable.celestial_landscape_approved), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+                Box(Modifier.fillMaxSize().background(Color(0xFF00152C).copy(alpha = .22f)))
+                ApprovedSolarArc(state, Modifier.fillMaxSize().padding(12.dp))
+            }
         Column(Modifier.fillMaxWidth().padding(horizontal = 12.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-            Text(hero.special ?: hero.kickerLabel, fontFamily = uiFont(s), fontSize = (11*k).sp, lineHeight = (16*k).sp,
+            Text(hero.special ?: hero.kickerLabel, fontFamily = approvedUi(s), fontSize = (11*k).sp, lineHeight = (16*k).sp,
                 letterSpacing = if (L10n.isUrdu(s)) 0.sp else 2.sp, color = tk.primary, textAlign = TextAlign.Center, maxLines = 2)
             Text(hero.arabic, fontFamily = if (kiswah) ReemKufi else Amiri, fontSize = (52*k).sp, lineHeight = (62*k).sp, color = if (kiswah) Kiswah.highlight else tk.arabicText,
                 modifier = Modifier.testTag("approved-hero-arabic"))
             if (!L10n.isUrdu(s)) Text(hero.label.uppercase(), fontFamily = Cinzel, fontSize = (12*k).sp, letterSpacing = 3.sp, color = tk.contentPrimary, maxLines = 1)
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(hero.clock, fontFamily = Cormorant, fontWeight = FontWeight.Medium, fontSize = (78*k).sp, lineHeight = (76*k).sp, color = tk.contentPrimary, maxLines = 1, modifier = Modifier.testTag("approved-hero-clock"))
-                if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (L10n.isUrdu(s)) Amiri else Cormorant, fontSize = (20*k).sp, color = tk.contentPrimary, maxLines = 1)
+                Text(hero.clock, fontFamily = ApprovedDisplay, fontWeight = FontWeight.Medium, fontSize = (78*k).sp, lineHeight = (76*k).sp, color = tk.contentPrimary, maxLines = 1, modifier = Modifier.testTag("approved-hero-clock"))
+                if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (L10n.isUrdu(s)) Amiri else ApprovedDisplay, fontSize = (20*k).sp, color = tk.contentPrimary, maxLines = 1)
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 Icon(Icons.Outlined.Schedule, null, Modifier.size(16.dp), tint = tk.primary)
-                Text(hero.status, fontFamily = uiFont(s), fontSize = (14*k).sp, lineHeight = (19*k).sp, color = tk.contentPrimary, maxLines = 2, textAlign = TextAlign.Center)
+                Text(hero.status, fontFamily = approvedUi(s), fontSize = (14*k).sp, lineHeight = (19*k).sp, color = tk.contentPrimary, maxLines = 2, textAlign = TextAlign.Center)
             }
             ApprovedDetails(Str[R.string.s_view_prayer_details], tk, onDetails, Modifier.padding(top = 3.dp), false)
             ApprovedSeasonal(state, s, tk)
@@ -194,12 +206,28 @@ private fun DarkApprovedHero(state: PrayerState, s: AppSettings, tk: ThemeTokens
 }
 
 @Composable
+private fun ApprovedSolarArc(state: PrayerState, modifier: Modifier) {
+    Canvas(modifier.clearAndSetSemantics { }) {
+        val gold = Color(0xFFFFD071)
+        val w=size.width;val h=size.height;val base=h*.88f;val rise=h*.8f
+        fun point(f:Float)=Offset(w*(.05f+.9f*f),base-kotlin.math.sin(f*kotlin.math.PI.toFloat())*rise)
+        val path=Path().apply { moveTo(point(0f).x,point(0f).y);for(i in 1..100) { val p=point(i/100f);lineTo(p.x,p.y) } }
+        drawPath(path,gold.copy(alpha=.75f),style=Stroke(1.dp.toPx(),pathEffect=PathEffect.dashPathEffect(floatArrayOf(4.dp.toPx(),3.dp.toPx()))))
+        val sunrise=state.today[Prayer.SUNRISE];val sunset=state.today[Prayer.MAGHRIB]
+        val f=(Duration.between(sunrise,state.now).seconds/Duration.between(sunrise,sunset).seconds.coerceAtLeast(1).toFloat()).coerceIn(0f,1f)
+        val p=point(f)
+        drawCircle(Brush.radialGradient(listOf(gold.copy(alpha=.6f),Color.Transparent),p,18.dp.toPx()),18.dp.toPx(),p)
+        drawCircle(gold,5.dp.toPx(),p)
+    }
+}
+
+@Composable
 private fun ApprovedSeasonal(state: PrayerState, s: AppSettings, tk: ThemeTokens) {
     fastProgress(state, s)?.let { (progress, label) ->
         LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth(.7f).height(3.dp), color = tk.primary, trackColor = tk.divider)
-        Text(label, fontFamily = uiFont(s), fontSize = 12.sp, color = tk.contentPrimary)
+        Text(label, fontFamily = approvedUi(s), fontSize = 12.sp, color = tk.contentPrimary)
     }
-    tarawihLine(state, s)?.let { Text(it, fontFamily = uiFont(s), fontSize = 12.sp, color = tk.contentPrimary, maxLines = 2) }
+    tarawihLine(state, s)?.let { Text(it, fontFamily = approvedUi(s), fontSize = 12.sp, color = tk.contentPrimary, maxLines = 2) }
 }
 
 @Composable
@@ -208,7 +236,7 @@ private fun ApprovedDetails(label: String, tk: ThemeTokens, onClick: () -> Unit,
         .border(1.dp, if (tk.dark) tk.primary else tk.accent.copy(alpha = .6f), RoundedCornerShape(24.dp))
         .clickable(role = Role.Button, onClick = onClick).padding(horizontal = 14.dp),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-        Text(label, fontFamily = if (L10n.uiUrdu) Amiri else Nunito, fontSize = 13.sp, color = if (filled) tk.background else tk.contentPrimary, maxLines = 2)
+        Text(label, fontFamily = if (L10n.uiUrdu) Amiri else ApprovedBody, fontSize = 13.sp, color = if (filled) tk.background else tk.contentPrimary, maxLines = 2)
         Icon(Icons.AutoMirrored.Outlined.ArrowForward, null, Modifier.padding(start = 6.dp).size(17.dp), tint = if (filled) tk.background else tk.primary)
     }
 }
@@ -237,7 +265,7 @@ private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActio
                 ApprovedGalleryArt(null, Modifier.fillMaxWidth().weight(1f).clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)))
             Row(Modifier.fillMaxWidth().then(if (wide) Modifier.weight(1f) else Modifier).padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f).padding(start = 8.dp)) {
-                    Text(hero.special ?: hero.kickerLabel, fontFamily = uiFont(s), fontSize = 11.sp, color = tk.contentSecondary, maxLines = 1)
+                    Text(hero.special ?: hero.kickerLabel, fontFamily = approvedUi(s), fontSize = 11.sp, color = tk.contentSecondary, maxLines = 1)
                     Text(if (L10n.isUrdu(s)) hero.label else hero.arabic, fontFamily = Amiri, fontSize = if (wide) 54.sp else 32.sp,
                         lineHeight = if (wide) 70.sp else 40.sp, color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-mobile-prayer-name"))
                     if (!L10n.isUrdu(s)) Text(hero.label.uppercase(), fontFamily = Cinzel, fontSize = 11.sp, letterSpacing = 2.sp, color = tk.accent, maxLines = 1)
@@ -245,11 +273,11 @@ private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActio
                 if (wide && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(null, Modifier.weight(1.5f).fillMaxHeight())
                 Column(Modifier.weight(1.1f), horizontalAlignment = Alignment.CenterHorizontally) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(hero.clock, fontFamily = Cormorant, fontWeight = FontWeight.Medium, fontSize = if (wide) 76.sp else 49.sp,
+                        Text(hero.clock, fontFamily = ApprovedDisplay, fontWeight = FontWeight.Medium, fontSize = if (wide) 76.sp else 49.sp,
                             lineHeight = if (wide) 80.sp else 50.sp, color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-mobile-prayer-time"))
-                        if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (L10n.isUrdu(s)) Amiri else Cormorant, fontSize = if (wide) 23.sp else 14.sp, color = tk.contentPrimary, maxLines = 1)
+                        if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (L10n.isUrdu(s)) Amiri else ApprovedDisplay, fontSize = if (wide) 23.sp else 14.sp, color = tk.contentPrimary, maxLines = 1)
                     }
-                    Text(hero.status, fontFamily = uiFont(s), fontSize = 12.sp, lineHeight = 16.sp, color = tk.contentPrimary, maxLines = 1)
+                    Text(hero.status, fontFamily = approvedUi(s), fontSize = 12.sp, lineHeight = 16.sp, color = tk.contentPrimary, maxLines = 1)
                 }
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
@@ -266,7 +294,9 @@ private fun ApprovedList(state: PrayerState, s: AppSettings, tk: ThemeTokens, a:
     Column(modifier.clip(RoundedCornerShape(12.dp)).background(if (tk.dark) Color(0xFF00162D).copy(alpha = if (s.theme == AppTheme.KISWAH) .12f else .82f) else tk.background.copy(alpha = .8f))
         .border(1.dp, tk.outline, RoundedCornerShape(12.dp)).testTag("home-prayers")) {
         listedPrayers(s).forEach { p ->
-            ApprovedRow(galleryRowInfo(p, state, s), s, tk, a, Modifier.weight(1f).fillMaxWidth().testTag("gallery-fit-row-${p.name}"), s.theme == AppTheme.PRAYER_GALLERY, false) { onWhy(p) }
+            Box(Modifier.weight(1f).fillMaxWidth().testTag("gallery-fit-row-${p.name}")) {
+                ApprovedRow(galleryRowInfo(p, state, s), s, tk, a, Modifier.fillMaxSize(), s.theme == AppTheme.PRAYER_GALLERY, false) { onWhy(p) }
+            }
         }
     }
 }
@@ -280,6 +310,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
     val marker = if (now) (if (tk.dark) Color(0xFF45DAE3) else Color(0xFF087C77)) else if (tk.dark) Color(0xFFFFCC63) else tk.accent
     val fill = if (now) (if (tk.dark) Color(0xFF00414C) else Color(0xFFEAF7F1)) else if (next) (if (tk.dark) Color(0xFF4B381C) else Color(0xFFFFEBDD)) else Color.Transparent
     val urdu = L10n.isUrdu(s)
+    val large = androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp >= 600
     val textStyle = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false))
     Column(modifier.clip(RoundedCornerShape(if (tile) 12.dp else 0.dp)).background(fill)
         .border(if (selected) 1.dp else .5.dp, if (selected) marker.copy(alpha = .75f) else tk.divider, RoundedCornerShape(if (tile) 12.dp else 0.dp))
@@ -300,26 +331,26 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
                 }
             }
             if (illustrated && !tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.padding(horizontal = 5.dp, vertical = 3.dp).width(64.dp).fillMaxHeight().clip(RoundedCornerShape(8.dp)))
-            Column(Modifier.weight(if (tile) .9f else 1f).padding(start = if (illustrated) 5.dp else 8.dp)) {
-                Text(if (urdu) r.label else r.label.uppercase(), Modifier.testTag("gallery-fit-label-${r.prayer.name}"), fontFamily = if (urdu) Amiri else Cinzel,
-                    fontSize = if (urdu) 18.sp else if (tile) 14.sp else 12.sp, lineHeight = if (urdu) 25.sp else 18.sp,
+            Column(Modifier.weight(if (tile) 1.1f else 1f).padding(start = if (illustrated) 5.dp else 8.dp)) {
+                Text(if (urdu) r.label else r.label.uppercase(), Modifier.heightIn(min = if (large) 32.dp else 20.dp).testTag("gallery-fit-label-${r.prayer.name}"), fontFamily = if (urdu) Amiri else Cinzel,
+                    fontSize = if (urdu) (if (large) 26.sp else 18.sp) else if (large) 20.sp else 12.sp, lineHeight = if (large) 32.sp else if (urdu) 25.sp else 20.sp,
                     fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1, style = textStyle)
-                if (!urdu) Text(r.arabic, Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"), fontFamily = Amiri, fontSize = if (tile) 19.sp else 17.sp,
-                    lineHeight = 22.sp, color = if (tk.dark) tk.arabicText else tk.accent, maxLines = 1, style = textStyle)
+                if (!urdu) Text(r.arabic, Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"), fontFamily = Amiri, fontSize = if (large) 26.sp else 17.sp,
+                    lineHeight = if (large) 34.sp else 24.sp, color = if (tk.dark) tk.arabicText else tk.accent, maxLines = 1, style = textStyle)
             }
-            Column(Modifier.weight(if (tile) 1.25f else 1.15f).padding(start = 8.dp), horizontalAlignment = Alignment.Start) {
+            Column(Modifier.weight(if (tile) 1.2f else 1.15f).padding(start = 8.dp), horizontalAlignment = Alignment.Start) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(if (s.showRelative) r.relative else r.clock, Modifier.testTag("gallery-fit-clock-${r.prayer.name}"), fontFamily = if (s.showRelative) uiFont(s) else Cormorant,
-                        fontSize = if (s.showRelative) 14.sp else if (tile) 30.sp else 25.sp, lineHeight = if (tile) 34.sp else 28.sp,
+                    Text(if (s.showRelative) r.relative else r.clock, Modifier.testTag("gallery-fit-clock-${r.prayer.name}"), fontFamily = if (s.showRelative) approvedUi(s) else ApprovedDisplay,
+                        fontSize = if (s.showRelative) (if (large) 20.sp else 14.sp) else if (large) 38.sp else 25.sp, lineHeight = if (large) 46.sp else 32.sp,
                         fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1, style = textStyle)
-                    if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = if (urdu) Amiri else Cormorant, fontSize = if (urdu) 11.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
+                    if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay, fontSize = if (urdu) 11.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
                 }
-                if (r.small.isNotEmpty()) Text(r.small, Modifier.testTag("gallery-fit-detail-${r.prayer.name}"), fontFamily = if (urdu) Amiri else Nunito,
-                    fontSize = if (tile) 12.sp else 10.sp, lineHeight = if (urdu) 17.sp else 13.sp, color = tk.contentSecondary, maxLines = 2, style = textStyle)
+                if (r.small.isNotEmpty()) Text(r.small, Modifier.testTag("gallery-fit-detail-${r.prayer.name}"), fontFamily = if (urdu) Amiri else ApprovedBody,
+                    fontSize = if (large) 15.sp else 11.sp, lineHeight = if (large) 22.sp else if (urdu) 18.sp else 15.sp, color = tk.contentSecondary, maxLines = 2, style = textStyle)
             }
             if (selected) Box(Modifier.testTag("gallery-fit-marker-${r.prayer.name}")) {
-                if (s.theme == AppTheme.PRAYER_GALLERY) GalleryStatusBadge(now, s, compact = true)
-                else Text(L10n.word(s, if (now) "NOW" else "NEXT"), Modifier.testTag(if (now) "home-status-now" else "home-status-next").clip(RoundedCornerShape(9.dp)).background(marker).padding(horizontal = 6.dp, vertical = 3.dp), fontFamily = if (urdu) Amiri else Nunito,
+                if (s.theme == AppTheme.PRAYER_GALLERY) GalleryStatusBadge(now, s, compact = !large)
+                else Text(L10n.word(s, if (now) "NOW" else "NEXT"), Modifier.testTag(if (now) "home-status-now" else "home-status-next").clip(RoundedCornerShape(9.dp)).background(marker).padding(horizontal = 6.dp, vertical = 3.dp), fontFamily = if (urdu) Amiri else ApprovedBody,
                     fontSize = 10.sp, lineHeight = if (urdu) 20.sp else 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF032126), maxLines = 1)
             }
             // Bell state is informational; notification settings remain in the header and alert action.
@@ -381,7 +412,7 @@ internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeToken
             }
         }
         Row(Modifier.fillMaxWidth()) { prayers.forEach { p ->
-            Text(L10n.prayer(s,p), Modifier.weight(1f).testTag("approved-timeline-${p.name}"), fontFamily = if (L10n.isUrdu(s)) Amiri else Nunito,
+            Text(L10n.prayer(s,p), Modifier.weight(1f).testTag("approved-timeline-${p.name}"), fontFamily = if (L10n.isUrdu(s)) Amiri else ApprovedBody,
                 fontSize = 11.sp, lineHeight = 18.sp, textAlign = TextAlign.Center, color = if (p == active) gold else tk.contentPrimary, maxLines = 1)
         } }
     }
@@ -399,7 +430,7 @@ private fun ApprovedContext(links: List<Door>, s: AppSettings, tk: ThemeTokens, 
                 .then(if (d.onClick != null) Modifier.clickable(role = Role.Button, onClick = d.onClick) else Modifier)
                 .semantics(mergeDescendants = true) { contentDescription = d.label }.padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                 Icon(if (d.warn) Icons.Outlined.WarningAmber else if (d.kind == DoorKind.ADHKAR) Icons.Outlined.MenuBook else Icons.Outlined.Explore, null, Modifier.size(18.dp), tint = if (d.warn) tk.warning else tk.primary)
-                Text(d.label, Modifier.weight(1f).padding(start = 5.dp), fontFamily = if (L10n.isUrdu(s)) Amiri else Nunito, fontSize = if (wide) 15.sp else 12.sp, lineHeight = 17.sp, color = tk.contentPrimary, maxLines = 2)
+                Text(d.label, Modifier.weight(1f).padding(start = 5.dp), fontFamily = if (L10n.isUrdu(s)) Amiri else ApprovedBody, fontSize = if (wide) 15.sp else 12.sp, lineHeight = 17.sp, color = tk.contentPrimary, maxLines = 2)
             }
         }
         if (extra.isNotEmpty()) Box {

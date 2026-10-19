@@ -50,7 +50,7 @@ class ApprovedHomeAcceptanceTest : ComposeSupport() {
                         val node=rule.onNodeWithTag("gallery-fit-$kind-${p.name}",true).fetchSemanticsNode()
                         val layouts=mutableListOf<TextLayoutResult>()
                         node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
-                        layouts.forEach { assertFalse("$theme/$dev/$lang $p $kind overflow: ${it.layoutInput.text} ${it.size}",it.didOverflowWidth || it.didOverflowHeight) }
+                        layouts.forEach { assertFalse("$theme/$dev/$lang $p $kind overflow: ${it.layoutInput.text} ${it.size} paragraph=${it.multiParagraph.width}x${it.multiParagraph.height} w=${it.didOverflowWidth} h=${it.didOverflowHeight}",it.didOverflowWidth || it.didOverflowHeight) }
                     }
                     val info=rule.onNodeWithTag("approved-info-${p.name}",true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Info target too small",info.width>=48*app.resources.displayMetrics.density && info.height>=48*app.resources.displayMetrics.density)
