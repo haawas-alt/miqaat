@@ -9,3 +9,5 @@ All four themes use their approved artwork and typography, with the original com
 Large text on portrait reflows. Short/large-text landscape pins the counter and both actions while secondary information scrolls independently. English, Urdu/RTL, Minimal artwork, 12/24-hour time, midnight target date and Isha night dim are retained. No UI text or religious content is embedded in raster artwork. The approved countdown state is the scope of this change; the existing Iqamah playback state is retained.
 
 Verification must include deadline/rounding/progress cases, native text geometry and callback tests across all themes, languages and device sizes, retained regression tests, lint and signed builds. Final evidence and limitations are recorded after checks complete. No numerical UX score or physical-device acceptance is inferred from automated rendering.
+
+Visual refinement after native capture review: the countdown enables the bundled font’s lining/tabular numeral features (`lnum, tnum`) so every digit shares a stable baseline. Normal landscape tablets use larger header, prayer, scheduled-time and action typography; compact layouts retain their fitted scale.

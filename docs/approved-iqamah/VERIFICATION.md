@@ -1,22 +1,17 @@
-# Iqamah verification status — 19 October 2026
+# Iqamah verification — 19 October 2026
 
-Status: implementation prepared locally; Android compilation and execution are not yet verified.
+Validated implementation: `d3cc3664eba6595c7ab75149b305db9cf228f64d`.
+Passing workflow: https://github.com/haawas-alt/miqaat/actions/runs/39211354142
+Implementation PR: https://github.com/haawas-alt/miqaat/pull/8
 
-Passed local checks:
-- `git diff --check`.
-- All English and Urdu resource XML parses; no duplicate string identifiers.
-- Every string resource referenced by the new screen exists; four new labels have Urdu translations.
-- Repository destination checked: existing public `haawas-alt/miqaat`, connected account has write/admin permission; source base is the approved Quiet commit ca9b215aaaa13533236a9d6cdd6b9b6eee5449de.
+- All four theme jobs passed.
+- Main regression suite: 150 methods, 145 passed, 5 opt-in audit methods skipped, zero failures/errors. Each other theme job passed its 7 Iqamah acceptance and counter methods.
+- 64 native captures cover all four themes in English/Urdu: standard phone portrait and tablet portrait/landscape, compact phone/tablet/landscape, 200% text, and Minimal/24-hour overnight mode. The standard approved compositions account for 24 captures.
+- Counter boundary tests passed partial-second rounding, the exact deadline, elapsed phases, remaining-ring fraction/clamping and long durations. The UI update test verifies the countdown changes while the displayed Iqamah deadline stays fixed.
+- Native assertions passed text bounds, full Kiswah Arabic content, date rollover, clock formats and both 48dp action callbacks. Retained regression checks cover the live screen, existing Home/Quiet behaviour and other app features.
+- Debug and Play release lint passed. Signed GitHub APK, Play APK and Play AAB built as version 1.167-iqamah.
+- The GitHub APK verifies against established signing certificate SHA-256 `6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01`. Native alignment, rejected-artwork and Play-permission checks passed. Downloaded archives match GitHub digests; delivered build checksums match CI.
 
-Prepared but NOT RUN:
-- `IqamahCounterTest`: rounding at partial seconds, 00:01/00:00 deadline boundaries, progress interval/clamping, long durations.
-- `ApprovedIqamahAcceptanceTest`: four themes, EN/UR, phone/tablet portrait and landscape, compact screens, 200% text, midnight/24-hour/Minimal preferences, native text bounds, full Kiswah band and both 48dp action callbacks.
-- Existing regression suite, debug/release lint, signed APK/Play APK/AAB, established signing/native-integrity/Play-permission checks.
+Native English and Urdu captures were visually reviewed. Refinements aligned countdown digits and enlarged normal-tablet typography. The original Kiswah band, prayer stages, live clock/location, scheduled Iqamah time, original row-straightening reminder/source, Start Iqamah now and Dismiss remain native UI. The candidate includes the approved Home and Quiet designs.
 
-Attempted local command:
-`./gradlew --no-daemon testGithubDebugUnitTest --tests '*IqamahCounterTest' --tests '*ApprovedIqamahAcceptanceTest'`
-It failed before compilation because the Gradle 8.14.3 download was unreachable (`java.net.SocketException: Network is unreachable`). No Android SDK/toolchain cache is available locally.
-
-Cloud verification workflow is prepared at `.github/workflows/approved-iqamah-designs.yml`. Automatic approval review rejected source upload to GitHub, requiring explicit user authorization for this destination. No implementation commit has been uploaded and no new PR or candidate APK is available. The remote Iqamah branch exists at the unchanged Quiet base.
-
-Native captures and visual comparison against the approved boards remain pending. No numerical design score, successful Android test result or physical-device acceptance is claimed.
+Evidence uses Robolectric native graphics on Android SDK34. Physical-device acceptance remains outstanding; these checks do not establish a measured numerical UX score. This is a testing candidate, not a published store release. The Iqamah playback state retains its existing implementation; the approved countdown state is the scope of this redesign.
