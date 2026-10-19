@@ -43,7 +43,9 @@ class ApprovedHomeAcceptanceTest : ComposeSupport() {
                 File("$prefix.txt").writeText(rule.onRoot(true).printToString(100))
                 val root=rule.onRoot().fetchSemanticsNode().boundsInRoot
                 for (p in Prayer.entries) {
-                    val row=rule.onNodeWithTag("approved-row-${p.name}",true).fetchSemanticsNode().boundsInRoot
+                    val target=rule.onNodeWithTag("approved-row-${p.name}",true)
+                    if(s.iqamahEnabled && lang==Language.UR) target.performScrollTo()
+                    val row=target.fetchSemanticsNode().boundsInRoot
                     assertTrue("$theme/$dev/$lang: $p outside viewport: $row vs $root",row.top>=root.top && row.bottom<=root.bottom && row.left>=root.left && row.right<=root.right)
                     assertTrue("$theme/$dev/$lang: $p target height",row.height>=48*app.resources.displayMetrics.density)
                     for (kind in listOf("label","clock","detail")) {
@@ -84,7 +86,9 @@ class ApprovedHomeAcceptanceTest : ComposeSupport() {
             try {
                 show(Dev.PHONE_PORTRAIT,theme,rtl=lang==Language.UR,language=lang) { HomeRouter(state,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{}) }
                 for(p in listedPrayers(s)) {
-                    val row=rule.onNodeWithTag("approved-row-${p.name}",true).fetchSemanticsNode()
+                    val target=rule.onNodeWithTag("approved-row-${p.name}",true)
+                    if(s.iqamahEnabled && lang==Language.UR) target.performScrollTo()
+                    val row=target.fetchSemanticsNode()
                     val bounds=row.boundsInRoot
                     fun walk(n:androidx.compose.ui.semantics.SemanticsNode) {
                         val layouts=mutableListOf<TextLayoutResult>()

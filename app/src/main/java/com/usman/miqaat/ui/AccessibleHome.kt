@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -172,7 +173,7 @@ private fun PrayerLine(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: androidx.
     val stackedClock = LocalConfiguration.current.screenWidthDp < 600
     val ink = if (selected) tk.accent else tk.contentPrimary
     Row(
-        Modifier.fillMaxWidth().heightIn(min = 64.dp).then(if (selected) Modifier.background(tk.selectedSurface) else Modifier)
+        Modifier.fillMaxWidth().testTag("accessible-prayer-${r.prayer.name}").heightIn(min = 64.dp).then(if (selected) Modifier.background(tk.selectedSurface) else Modifier)
             .combinedClickable(onClick = onToggle, onLongClick = onWhy, onClickLabel = Str[R.string.s_switch_clock_time_until], onLongClickLabel = Str[R.string.s_why_this_time], role = Role.Button)
             .semantics(mergeDescendants = true) { contentDescription = r.spoken }.padding(start = 16.dp, top = 10.dp, bottom = 10.dp),
         verticalAlignment = Alignment.CenterVertically

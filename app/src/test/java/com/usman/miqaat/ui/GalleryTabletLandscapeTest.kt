@@ -136,9 +136,7 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
                 capture("gallery-matrix-${dev.label}-${if (urdu) "ur" else "en"}-${(scale * 100).toInt()}")
                 if (scale > 1.15f) {
                     rule.onNodeWithText(L10n.word(s, "NOW"), useUnmergedTree = true).assertExists()
-                    rule.onNodeWithText(L10n.word(s, "NEXT"), useUnmergedTree = true).performScrollTo().assertIsDisplayed()
-                    val advance = rule.onRoot().fetchSemanticsNode().size.height * 0.25f
-                    rule.onAllNodes(hasScrollAction()).onFirst().performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.ScrollBy) { it(0f, advance) }
+                    rule.onNodeWithTag("accessible-prayer-${state(s).next.name}",useUnmergedTree=true).performScrollTo()
                     rule.onNodeWithText(L10n.word(s, "NEXT"), useUnmergedTree = true).assertIsDisplayed()
                     rule.onAllNodesWithText(PrayerEngine.clock(state(s).nextTime, s.use24h), useUnmergedTree = true).onLast().assertIsDisplayed()
                     capture("gallery-matrix-${dev.label}-${if (urdu) "ur" else "en"}-${(scale * 100).toInt()}-next-visible")

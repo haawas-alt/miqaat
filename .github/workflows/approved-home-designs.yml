@@ -61,6 +61,18 @@ jobs:
           ! grep -q REQUEST_INSTALL_PACKAGES candidate/play-permissions.txt
           (cd candidate && sha256sum *.apk *.aab > SHA256SUMS)
           printf 'Commit: %s\nRun: %s\nVersion: %s\nNative Robolectric SDK34 verification. Candidate only; no physical-device acceptance claimed.\n' "$GITHUB_SHA" "$GITHUB_RUN_ID" "$MIQAAT_VERSION_NAME" > candidate/PROVENANCE.txt
+      - name: Print exact assertion failures and test totals
+        if: always()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as E
+          for p in Path('app/build/test-results').rglob('TEST-*.xml'):
+            r=E.parse(p).getroot()
+            print(p.name, {k:r.get(k) for k in ['tests','failures','errors','skipped']})
+            for t in r.findall('testcase'):
+              for f in t.findall('failure'): print(t.get('name'), f.get('message'))
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -69,7 +81,6 @@ jobs:
           path: |
             candidate/
             app/build/approved-designs/
-            app/build/audit-screens/
+            app/build/audit-screens/detailed-gallery/
             app/build/test-results/
             app/build/reports/
-            app/build/outputs/apk/github/debug/
