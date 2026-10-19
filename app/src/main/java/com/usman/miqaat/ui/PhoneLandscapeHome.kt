@@ -100,7 +100,7 @@ private fun LandscapeHomeHeader(state:PrayerState,s:AppSettings,a:HomeActions) {
                 Text(L10n.place(s.locationName),Modifier.weight(1f).padding(start=5.dp).testTag("landscape-location"),fontFamily=f,fontSize=12.sp,lineHeight=if(urdu)22.sp else 17.sp,color=c.ink,maxLines=2)
             }
             Row(Modifier.weight(.52f),horizontalArrangement=Arrangement.Center,verticalAlignment=Alignment.CenterVertically) {
-                Text(L10n.dateShort(s,state.now),Modifier.weight(1f).testTag("landscape-date"),fontFamily=f,fontSize=10.sp,lineHeight=if(urdu)20.sp else 15.sp,color=c.ink,textAlign=TextAlign.Center)
+                Text(L10n.dateShort(s,state.now)+" "+state.now.year,Modifier.weight(1f).testTag("landscape-date"),fontFamily=f,fontSize=10.sp,lineHeight=if(urdu)20.sp else 15.sp,color=c.ink,textAlign=TextAlign.Center)
                 if(s.showHijri) {
                     Box(Modifier.padding(horizontal=5.dp).width(.5.dp).height(16.dp).background(c.accent.copy(alpha=.45f)))
                     Text(galleryHijriLine(s,PrayerEngine.hijri(state.now.toLocalDate(),s.hijriOffsetDays)),Modifier.weight(1.35f).testTag("landscape-hijri"),fontFamily=f,fontSize=10.sp,lineHeight=if(urdu)20.sp else 15.sp,color=c.ink,textAlign=TextAlign.Center)
@@ -123,7 +123,7 @@ private fun LandscapeHomeHeader(state:PrayerState,s:AppSettings,a:HomeActions) {
 private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modifier:Modifier,onToggle:()->Unit,onDetails:()->Unit) {
     val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s);val gallery=s.theme==AppTheme.PRAYER_GALLERY
     BoxWithConstraints(modifier.testTag("landscape-authored-hero"),contentAlignment=Alignment.Center) {
-        val paired=maxHeight<if(urdu)215.dp else 210.dp
+        val paired=maxHeight<if(urdu)215.dp else 205.dp
         val name:@Composable (Modifier)->Unit={m->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
             Text(hero.arabic,Modifier.fillMaxWidth().testTag("landscape-hero-name"),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(paired)27.sp else 32.sp,lineHeight=if(paired)38.sp else 43.sp,color=c.accent,textAlign=TextAlign.Center)
             Text(if(urdu)hero.label else hero.label.uppercase(Locale.ROOT),Modifier.testTag("landscape-hero-english"),fontFamily=if(urdu)Amiri else Cinzel,fontSize=10.sp,lineHeight=if(urdu)21.sp else 14.sp,letterSpacing=if(urdu)0.sp else 1.7.sp,color=c.ink,textAlign=TextAlign.Center)
@@ -206,17 +206,18 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
             .border(.8.dp,if(r.isNow||r.isNext)mark.copy(alpha=.9f)else c.accent.copy(alpha=.35f),RoundedCornerShape(8.dp))
             .testTag("compact-prayer-${r.prayer.name}").combinedClickable(onClick=a.onToggleRelative,onLongClick=onWhy,role=Role.Button)
             .semantics(mergeDescendants=true){contentDescription=r.spoken},verticalAlignment=Alignment.CenterVertically) {
-            if(gallery&&s.artTheme!=ArtTheme.MINIMAL) {
+            if(gallery&&s.artTheme!=ArtTheme.MINIMAL&&!(tight&&urdu)) {
                 Box(Modifier.padding(start=4.dp,top=4.dp,bottom=4.dp).width(if(tight)32.dp else 46.dp).fillMaxHeight()) {
                     ApprovedGalleryArt(r.prayer.ordinal,Modifier.fillMaxSize().clip(RoundedCornerShape(5.dp)))
                     if(tight&&(r.isNow||r.isNext))Box(Modifier.align(Alignment.BottomCenter)){badge()}
                 }
-            }else if(tight&&(r.isNow||r.isNext))badge()
-            else Icon(Icons.Outlined.Schedule,null,Modifier.padding(start=if(tight)4.dp else 8.dp,end=if(tight)3.dp else 6.dp).size(15.dp),tint=c.secondary)
+            }else if(tight&&!urdu&&(r.isNow||r.isNext))badge()
+            else if(!(tight&&urdu))Icon(Icons.Outlined.Schedule,null,Modifier.padding(start=if(tight)4.dp else 8.dp,end=if(tight)3.dp else 6.dp).size(15.dp),tint=c.secondary)
             Row(Modifier.weight(1f).padding(start=5.dp),verticalAlignment=Alignment.Top) {
                 Column(Modifier.width(58.dp)) {
                     Text(r.label,Modifier.testTag("landscape-row-name-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(urdu)14.sp else 12.sp,lineHeight=if(urdu)25.sp else 17.sp,color=c.ink,maxLines=1)
                     if(!urdu)Text(r.arabic,Modifier.testTag("landscape-row-arabic-${r.prayer.name}"),fontFamily=Amiri,fontSize=14.sp,lineHeight=21.sp,color=c.accent)
+                    if(tight&&urdu&&(r.isNow||r.isNext))badge()
                 }
                 Column(Modifier.weight(1f).padding(start=2.dp),verticalArrangement=Arrangement.Top) {
                     val raw=if(s.showRelative)r.relative else L10n.iso((r.clock+" "+r.suffix).trim())
