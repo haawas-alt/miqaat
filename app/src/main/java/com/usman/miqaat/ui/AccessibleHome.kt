@@ -1,5 +1,6 @@
 package com.usman.miqaat.ui
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -88,7 +89,12 @@ fun AccessibleHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
             if (settings.showHijri) Text(galleryHijriLine(settings, hij), fontFamily = if (urdu) F else tk.fontArabic, fontSize = 18.sp, color = tk.accent)
 
             if (settings.theme == com.usman.miqaat.data.AppTheme.KISWAH) KiswahBand(false)
-            ApprovedTimeline(state, settings, tk, Modifier.fillMaxWidth().height(60.dp))
+            // The labelled timeline scrolls horizontally at large text; names keep the requested font scale.
+            Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
+                val timelineWidth = maxOf(LocalConfiguration.current.screenWidthDp - 32f,
+                    80f * androidx.compose.ui.platform.LocalDensity.current.fontScale * listedPrayers(settings).size).dp
+                ApprovedTimeline(state, settings, tk, Modifier.width(timelineWidth).height(72.dp))
+            }
 
             val heroBlock: @Composable ColumnScope.() -> Unit = {
                 Column(

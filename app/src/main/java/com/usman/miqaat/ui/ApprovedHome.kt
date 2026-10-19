@@ -175,7 +175,7 @@ internal fun KiswahBand(wide: Boolean) {
 
 @Composable
 private fun DarkApprovedHero(state: PrayerState, s: AppSettings, tk: ThemeTokens, hero: HeroInfo, modifier: Modifier, roomy: Boolean, onDetails: () -> Unit) {
-    BoxWithConstraints(modifier.testTag("approved-dark-hero"), contentAlignment = Alignment.Center) {
+    BoxWithConstraints(modifier.testTag("approved-dark-hero").semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }, contentAlignment = Alignment.Center) {
         val k = ((maxHeight.value - 52f) / 240f).coerceIn(.40f, if (roomy) 1.6f else 1.05f)
         val kiswah = s.theme == AppTheme.KISWAH
         if (s.theme == AppTheme.MIQAAT && s.artTheme != ArtTheme.MINIMAL) {
@@ -263,7 +263,7 @@ private fun ApprovedGalleryArt(index: Int?, modifier: Modifier) {
 
 @Composable
 private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, hero: HeroInfo, modifier: Modifier, wide: Boolean, onDetails: () -> Unit) {
-    BoxWithConstraints(modifier.testTag("gallery-mobile-hero")) {
+    BoxWithConstraints(modifier.testTag("gallery-mobile-hero").semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
         Column(Modifier.fillMaxSize()) {
             if (!wide && s.artTheme != ArtTheme.MINIMAL)
                 ApprovedGalleryArt(null, Modifier.fillMaxWidth().weight(1f).clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)))
@@ -286,7 +286,7 @@ private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActio
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
                 ApprovedDetails(Str[R.string.s_view_prayer_details], tk, onDetails, Modifier.weight(1f), wide)
-                if (s.kidsMode) ApprovedDetails(if (L10n.isUrdu(s)) "نماز کی تیاری" else "Prepare for ${hero.label}", tk, a.onOpenLearn, Modifier.weight(1f), !wide)
+                if (s.kidsMode) ApprovedDetails(if (L10n.isUrdu(s)) "نماز کی تیاری" else "Prepare for ${hero.label}", tk, { a.onPreparePrayer(hero.prayer) }, Modifier.weight(1f), !wide)
             }
             ApprovedSeasonal(state, s, tk)
         }
@@ -345,8 +345,8 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
             Column(Modifier.weight(if (tile) 1.2f else 1.15f).padding(start = 8.dp), horizontalAlignment = Alignment.Start) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(if (s.showRelative) r.relative else r.clock, Modifier.testTag("gallery-fit-clock-${r.prayer.name}"), fontFamily = if (s.showRelative) approvedUi(s) else ApprovedDisplay,
-                        fontSize = if (s.showRelative) (if (large) 20.sp else 14.sp) else if (large) 38.sp else 25.sp, lineHeight = if (large) 46.sp else 32.sp,
-                        fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1, style = textStyle)
+                        fontSize = if (s.showRelative) (if (large) 20.sp else 14.sp) else if (large) 38.sp else 25.sp, lineHeight = if (s.showRelative) (if (large) 26.sp else 18.sp) else if (large) 46.sp else 32.sp,
+                        fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = if (s.showRelative) 2 else 1, style = textStyle)
                     if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay, fontSize = if (urdu) 11.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
                 }
                 if (r.small.isNotEmpty()) Text(r.small, Modifier.testTag("gallery-fit-detail-${r.prayer.name}"), fontFamily = if (urdu) Amiri else ApprovedBody,

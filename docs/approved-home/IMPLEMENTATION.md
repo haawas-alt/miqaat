@@ -21,7 +21,7 @@ Design direction approved by the user on 19 October 2026. Native implementation 
 - Miqaat: navy field, illuminated golden arch, timetable left/hero right on tablets.
 - Kiswah: woven black and gold, original Arabic band and prayer thread; table left/hero right on tablets.
 - Celestial Meridian: mountain-lake scene and restrained gold solar arc; hero left/timetable right on tablets.
-- Prayer Gallery: warm ivory, architectural hero, individual illustrated periods; three-column by two-row tablet grid and illustrated phone rows. Phone prayer name and clock occupy the same horizontal band.
+- Prayer Gallery: warm ivory, architectural hero, individual illustrated periods; three-column by two-row tablet grid and illustrated phone rows. Phone prayer name and clock occupy the same horizontal band. Prepare for the hero prayer opens the matching existing guided lesson (Fajr, Maghrib or four-rakah prayer), rather than an unrelated default.
 
 Live UI is not a screenshot or a generated interface bitmap. AI-generated source concept art necessarily differs slightly in composition from the approved boards; native text uses the real app values rather than copying mockup typos or sample dates.
 
