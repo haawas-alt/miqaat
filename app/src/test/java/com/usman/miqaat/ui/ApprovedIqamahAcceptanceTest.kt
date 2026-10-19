@@ -111,4 +111,26 @@ class ApprovedIqamahAcceptanceTest : ComposeSupport() {
             check(Dev.TABLET_LANDSCAPE, theme, lang, "minimal-24h-overnight", minimal = true, overnight = true)
         }
     }
+    @Test fun liveCounterUpdatesWithoutMovingTheIqamahDeadline() {
+        val theme = themes().first()
+        val settings = AppSettings(theme = theme, language = Language.EN, zoneId = "Australia/Sydney")
+        app.settings.update { settings }
+        val initial = ZonedDateTime.of(2026, 10, 18, 19, 21, 0, 0, settings.zone())
+        val clock = androidx.compose.runtime.mutableStateOf(initial)
+        val phase = Phase.IqamahCountdown(Prayer.MAGHRIB, initial.minusMinutes(7).toInstant().toEpochMilli(), initial.plusMinutes(3).toInstant().toEpochMilli())
+        try {
+            show(Dev.PHONE_PORTRAIT, theme, language = Language.EN) {
+                IqamahPrayerContent(phase, settings, clock.value, {}, {})
+            }
+            val deadline = L10n.iso(L10n.at(initial.plusMinutes(3), false))
+            rule.onNodeWithTag("iqamah-seconds", true).assertTextEquals("03:00")
+            rule.runOnIdle { clock.value = initial.plusSeconds(1) }
+            rule.onNodeWithTag("iqamah-seconds", true).assertTextEquals("02:59")
+            rule.onNodeWithTag("iqamah-at-time", true).assertTextEquals(deadline)
+            rule.runOnIdle { clock.value = initial.plusMinutes(3).plusSeconds(1) }
+            rule.onNodeWithTag("iqamah-seconds", true).assertTextEquals("00:00")
+            rule.onNodeWithTag("iqamah-at-time", true).assertTextEquals(deadline)
+        } finally { scenario.close() }
+    }
+
 }
