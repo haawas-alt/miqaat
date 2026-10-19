@@ -61,6 +61,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
         val wide = maxWidth > maxHeight && maxHeight >= 500.dp
         val tablet = maxWidth >= 600.dp
         val compactWide = wide && maxHeight < 700.dp
+        val compactGalleryPhone = gallery && !tablet && maxHeight < 760.dp
         val reflow = !wide && (((s.iqamahEnabled || s.showRelative) && L10n.isUrdu(s) && !tablet) || maxHeight < 700.dp || (!tablet && !gallery && maxHeight < 820.dp))
         Box(Modifier.fillMaxSize()) {
             if (kiswah) {
@@ -113,7 +114,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
                         else DarkApprovedHero(state, s, tk, hero, Modifier.fillMaxSize(), tablet) { why = hero.prayer }
                     }
                     ApprovedTimeline(state, s, tk, Modifier.fillMaxWidth().height(if (tablet) 56.dp else 48.dp))
-                    ApprovedList(state, s, tk, a, Modifier.height(listedPrayers(s).size * (if (tablet) 100.dp else if (reflow) 82.dp else 60.dp)).fillMaxWidth()
+                    ApprovedList(state, s, tk, a, Modifier.height(listedPrayers(s).size * (if (tablet) 100.dp else if (reflow) 82.dp else if (compactGalleryPhone) 56.dp else 60.dp)).fillMaxWidth()
                         .then(if (gallery) Modifier.testTag("gallery-phone-fit") else Modifier)) { why = it }
                 }
                 ApprovedContext(links, s, tk, wide, Modifier.fillMaxWidth().testTag("gallery-phone-footer"))
