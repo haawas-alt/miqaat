@@ -266,24 +266,25 @@ private fun ApprovedGalleryArt(index: Int?, modifier: Modifier) {
 private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, hero: HeroInfo, modifier: Modifier, wide: Boolean, onDetails: () -> Unit) {
     BoxWithConstraints(modifier.testTag("gallery-mobile-hero").semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() }) {
         val compactHero = wide && maxHeight < 190.dp
+        val compactPhoneHero = !wide && maxHeight < 170.dp
         Column(Modifier.fillMaxSize()) {
             if (!wide && s.artTheme != ArtTheme.MINIMAL)
                 ApprovedGalleryArt(null, Modifier.fillMaxWidth().weight(1f).clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)))
             Row(Modifier.fillMaxWidth().then(if (wide) Modifier.weight(1f) else Modifier).padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f).padding(start = 8.dp)) {
-                    Text(hero.special ?: hero.kickerLabel, fontFamily = approvedUi(s), fontSize = 11.sp, color = tk.contentSecondary, maxLines = 1)
-                    Text(if (L10n.isUrdu(s)) hero.label else hero.arabic, fontFamily = Amiri, fontSize = if (wide) (if (compactHero) 44.sp else 54.sp) else 32.sp,
-                        lineHeight = if (wide) (if (compactHero) 56.sp else 70.sp) else 40.sp, color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-mobile-prayer-name"))
+                    Text(hero.special ?: hero.kickerLabel, fontFamily = approvedUi(s), fontSize = if (compactPhoneHero) 10.sp else 11.sp, color = tk.contentSecondary, maxLines = 1)
+                    Text(if (L10n.isUrdu(s)) hero.label else hero.arabic, fontFamily = Amiri, fontSize = if (wide) (if (compactHero) 44.sp else 54.sp) else if (compactPhoneHero) 26.sp else 32.sp,
+                        lineHeight = if (wide) (if (compactHero) 56.sp else 70.sp) else if (compactPhoneHero) 32.sp else 40.sp, color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-mobile-prayer-name"))
                     if (!L10n.isUrdu(s)) Text(hero.label.uppercase(), fontFamily = Cinzel, fontSize = 11.sp, letterSpacing = 2.sp, color = tk.accent, maxLines = 1)
                 }
                 if (wide && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(null, Modifier.weight(1.5f).fillMaxHeight())
                 Column(Modifier.weight(1.1f), horizontalAlignment = Alignment.CenterHorizontally) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(hero.clock, fontFamily = ApprovedDisplay, fontWeight = FontWeight.Medium, fontSize = if (wide) (if (compactHero) 52.sp else 76.sp) else 49.sp,
-                            lineHeight = if (wide) (if (compactHero) 56.sp else 80.sp) else 50.sp, color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-mobile-prayer-time"))
+                        Text(hero.clock, fontFamily = ApprovedDisplay, fontWeight = FontWeight.Medium, fontSize = if (wide) (if (compactHero) 52.sp else 76.sp) else if (compactPhoneHero) 38.sp else 49.sp,
+                            lineHeight = if (wide) (if (compactHero) 56.sp else 80.sp) else if (compactPhoneHero) 40.sp else 50.sp, color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-mobile-prayer-time"))
                         if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (L10n.isUrdu(s)) Amiri else ApprovedDisplay, fontSize = if (wide) 23.sp else 14.sp, color = tk.contentPrimary, maxLines = 1)
                     }
-                    Text(hero.status, fontFamily = approvedUi(s), fontSize = 12.sp, lineHeight = 16.sp, color = tk.contentPrimary, maxLines = 1)
+                    Text(hero.status, fontFamily = approvedUi(s), fontSize = if (compactPhoneHero) 11.sp else 12.sp, lineHeight = 16.sp, color = tk.contentPrimary, maxLines = 1)
                     if (wide && !compactHero) {
                         ApprovedDetails(Str[R.string.s_view_prayer_details], tk, onDetails, Modifier.fillMaxWidth(.9f), true)
                         if (s.kidsMode) ApprovedDetails(if (L10n.isUrdu(s)) "نماز کی تیاری" else "Prepare for ${hero.label}", tk,
