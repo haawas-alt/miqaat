@@ -1,0 +1,52 @@
+name: Package verified Home candidate
+on:
+  push:
+    branches: ['chore/package-approved-home']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: approved-home-PRAYER_GALLERY
+          github-token: ${{ github.token }}
+          run-id: 39192712134
+          path: incoming
+      - name: Report verified artifact sizes
+        run: |
+          du -sh incoming/candidate incoming/app/build/approved-designs incoming/app/build/audit-screens incoming/app/build/reports
+          ls -lh incoming/candidate
+      - uses: actions/upload-artifact@v4
+        with:
+          name: approved-final-github-apk
+          retention-days: 30
+          path: incoming/candidate/Miqaat-1.165-design.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: approved-final-play-apk
+          retention-days: 30
+          path: incoming/candidate/Miqaat-1.165-play.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: approved-final-play-bundle
+          retention-days: 30
+          path: incoming/candidate/Miqaat-1.165-play.aab
+      - name: Stage native verification evidence
+        run: |
+          mkdir -p evidence/candidate evidence/native evidence/test-results evidence/edge-cases
+          cp incoming/candidate/*.txt incoming/candidate/*.json incoming/candidate/SHA256SUMS evidence/candidate/
+          cp -R incoming/app/build/approved-designs/PRAYER_GALLERY evidence/native/
+          cp incoming/app/build/test-results/testGithubDebugUnitTest/TEST-*.xml evidence/test-results/
+          cp incoming/app/build/audit-screens/gallery-small-tablet-ur-ramadan-night.png evidence/edge-cases/
+          cp incoming/app/build/audit-screens/gallery-small-tablet-ur-long-date.png evidence/edge-cases/
+          cp incoming/app/build/audit-screens/gallery-matrix-phone-portrait-ur-200-next-visible.png evidence/edge-cases/
+          cp incoming/app/build/audit-screens/gallery-matrix-phone-landscape-ur-200-next-visible.png evidence/edge-cases/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: approved-final-native-evidence
+          retention-days: 30
+          path: evidence/
