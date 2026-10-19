@@ -276,7 +276,7 @@ private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActio
         Column(Modifier.fillMaxSize()) {
             if (!wide && s.artTheme != ArtTheme.MINIMAL)
                 ApprovedGalleryArt(null, Modifier.fillMaxWidth().weight(1f).clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)))
-            Row(Modifier.fillMaxWidth().then(if (wide) Modifier.weight(1f) else Modifier).padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth().then(if (wide) Modifier.weight(1f) else Modifier).padding(vertical = if (compactPhoneHero) 0.dp else 2.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f).padding(start = 8.dp)) {
                     Text(hero.special ?: hero.kickerLabel, fontFamily = approvedUi(s), fontSize = if (compactPhoneHero) 10.sp else 11.sp, color = tk.contentSecondary, maxLines = 1)
                     Text(if (L10n.isUrdu(s)) hero.label else hero.arabic, fontFamily = Amiri, fontSize = if (wide) (if (compactHero) 38.sp else 54.sp) else if (compactPhoneHero) 26.sp else 32.sp,

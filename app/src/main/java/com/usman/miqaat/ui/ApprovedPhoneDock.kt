@@ -53,7 +53,7 @@ internal fun ApprovedPhoneDock(state: PrayerState, s: AppSettings, a: HomeAction
             }
         }
         Box(Modifier.fillMaxWidth().height(.5.dp).background(tk.divider))
-        Row(Modifier.fillMaxWidth().background(tk.background.copy(alpha=.88f)).padding(top=2.dp,bottom=2.dp).testTag("phone-action-dock")) {
+        Row(Modifier.fillMaxWidth().background(tk.background.copy(alpha=.88f)).padding(top=1.dp,bottom=0.dp).testTag("phone-action-dock")) {
             if(s.showQibla) {
                 val q=PrayerEngine.qibla(s)
                 PhoneDockItem(Icons.Outlined.Explore,L10n.word(s,"Qibla"),L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"),
@@ -74,7 +74,7 @@ private fun PhoneDockItem(icon:ImageVector,label:String,context:String,spoken:St
     val urdu=L10n.isUrdu(s)
     Column(modifier.heightIn(min=68.dp).clip(RoundedCornerShape(8.dp)).clickable(role=Role.Button,onClick=onClick)
         .testTag("phone-dock-$tag").semantics(mergeDescendants=true) { contentDescription=spoken }
-        .padding(horizontal=3.dp,vertical=4.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
+        .padding(horizontal=3.dp,vertical=3.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
         Icon(icon,null,Modifier.size(22.dp),tint=tk.primary)
         Text(label,Modifier.fillMaxWidth().testTag("phone-dock-$tag-label"),fontFamily=if(urdu)Amiri else ApprovedBody,
             fontSize=12.sp,lineHeight=if(urdu)23.sp else 17.sp,color=tk.contentPrimary,textAlign=TextAlign.Center)
