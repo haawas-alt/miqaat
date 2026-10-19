@@ -109,7 +109,7 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
                         }
                     }
                 }
-                Box(Modifier.fillMaxWidth().height(40.dp).testTag("landscape-timeline-panel")) { ApprovedTimeline(state,s,tk,Modifier.fillMaxSize()) }
+                Box(Modifier.fillMaxWidth().height(40.dp).clip(RoundedCornerShape(8.dp)).background(colors.panel).testTag("landscape-timeline-panel")) { ApprovedTimeline(state,s,tk,Modifier.fillMaxSize()) }
                 val visible = (links.filter{!it.warn&&it.kind!=DoorKind.ADHKAR}.take(1)+links.filter{it.kind==DoorKind.ADHKAR}.take(1)+links.filter{it.warn}.take(1)).distinct()
                 Row(Modifier.fillMaxWidth().heightIn(min=48.dp),horizontalArrangement=Arrangement.spacedBy(8.dp),verticalAlignment=Alignment.CenterVertically) {
                     visible.forEachIndexed { index,d ->
