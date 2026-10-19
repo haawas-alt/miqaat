@@ -351,7 +351,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
                     }
                 }
             }
-            if (illustrated && !tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.padding(horizontal = 5.dp, vertical = 3.dp).width(if (smallPhone) 48.dp else 64.dp).fillMaxHeight().clip(RoundedCornerShape(8.dp)))
+            if (illustrated && !tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.padding(horizontal = 5.dp, vertical = 3.dp).width(if (smallPhone) 40.dp else 64.dp).fillMaxHeight().clip(RoundedCornerShape(8.dp)))
             // Measure the phone name column before status badges and bell slots. Clock origins
             // therefore stay identical for all six rows, including Sunrise and NOW/NEXT.
             Column(Modifier.then(if (!large && !tile) Modifier.fillMaxWidth(if (illustrated) .285f else .34f)
