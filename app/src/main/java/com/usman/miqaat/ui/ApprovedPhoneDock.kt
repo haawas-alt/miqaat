@@ -53,7 +53,7 @@ internal fun ApprovedPhoneDock(state: PrayerState, s: AppSettings, a: HomeAction
             }
         }
         Box(Modifier.fillMaxWidth().height(.5.dp).background(tk.divider))
-        Row(Modifier.fillMaxWidth().background(tk.background.copy(alpha=.88f)).padding(top=4.dp,bottom=2.dp).testTag("phone-action-dock")) {
+        Row(Modifier.fillMaxWidth().background(tk.background.copy(alpha=.88f)).padding(top=2.dp,bottom=2.dp).testTag("phone-action-dock")) {
             if(s.showQibla) {
                 val q=PrayerEngine.qibla(s)
                 PhoneDockItem(Icons.Outlined.Explore,L10n.word(s,"Qibla"),L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"),

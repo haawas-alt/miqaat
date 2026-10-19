@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -57,7 +58,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
     }
     val hero = heroInfo(state, s, kicker(state, s))
     val links = doors(state, s, a)
-    BoxWithConstraints(Modifier.fillMaxSize().background(tk.background).testTag("approved-home")) {
+    BoxWithConstraints(Modifier.fillMaxSize().clipToBounds().background(tk.background).testTag("approved-home")) {
         val wide = maxWidth > maxHeight && maxHeight >= 500.dp
         val tablet = maxWidth >= 600.dp
         val compactWide = wide && maxHeight < 700.dp

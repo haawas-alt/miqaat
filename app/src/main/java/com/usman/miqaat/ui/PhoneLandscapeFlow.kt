@@ -27,7 +27,7 @@ internal fun PhoneLandscapeBand() {
     // Regular landscape keeps 12dp around the native Amiri glyphs. The shortest phones
     // retain 6dp clearance and all six 48dp prayer cards rather than clipping either.
     val clearance = if (LocalConfiguration.current.screenHeightDp < 390) 6.dp else 12.dp
-    Box(Modifier.fillMaxWidth().padding(vertical=2.dp).testTag("kiswah-calligraphy-frame").border(.8.dp,Kiswah.thread).background(Color.Black.copy(alpha=.70f)),contentAlignment=Alignment.Center) {
+    Box(Modifier.fillMaxWidth().padding(vertical=1.dp).testTag("kiswah-calligraphy-frame").border(.8.dp,Kiswah.thread).background(Color.Black.copy(alpha=.70f)),contentAlignment=Alignment.Center) {
         Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=8.dp,vertical=clearance).testTag("kiswah-calligraphy-band")
             .semantics{contentDescription=Kiswah.BAND},fontFamily=Amiri,fontSize=14.sp,lineHeight=22.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
     }

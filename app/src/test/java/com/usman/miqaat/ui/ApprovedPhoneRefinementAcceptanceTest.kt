@@ -94,6 +94,20 @@ class ApprovedPhoneRefinementAcceptanceTest:ComposeSupport() {
             }finally{scenario.close()}
         }
     }
+    @Test fun themePreviewsSelectCorrectlyOnPhonesAtNormalAndLargeText() {
+        for(t in themes())for(l in Language.entries)for(large in listOf(false,true)) {
+            val s=settings(t,l);app.settings.update{s};var picked:AppTheme?=null
+            try {
+                show(Dev.PHONE_PORTRAIT,t,rtl=l==Language.UR,language=l,fontScale=if(large)2f else 1f) {
+                    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) { ThemePicker(t,s) {picked=it} }
+                }
+                for(choice in AppTheme.entries) {
+                    reach("theme-preview-${choice.name}").performTouchInput{click()};assertEquals(choice,picked)
+                }
+                capture(t,"theme-picker-phone-${if(large)"large"else"normal"}",l)
+            }finally{scenario.close()}
+        }
+    }
     @Test fun kiswahGlyphClearanceAndCurrentThemePreviews() {
         for(t in themes())for(l in Language.entries) {
             val s=settings(t,l);app.settings.update{s}

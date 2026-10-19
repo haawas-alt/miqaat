@@ -105,8 +105,8 @@ private fun ThemeCard(theme: AppTheme, cur: Boolean, host: ThemeTokens, settings
                 if (cur) Icon(Icons.Outlined.Check, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
             }
             Column(Modifier.weight(1f)) {
-                Text(theme.text, fontFamily = host.fontDisplay, fontSize = 20.sp, fontWeight = if (cur) FontWeight.Bold else FontWeight.Medium, color = host.contentPrimary, maxLines = 2)
-                Text(desc, fontFamily = Nunito, fontSize = 14.sp, color = host.contentSecondary, maxLines = 2)
+                Text(theme.text, fontFamily = host.fontDisplay, fontSize = 20.sp, fontWeight = if (cur) FontWeight.Bold else FontWeight.Medium, color = host.contentPrimary)
+                Text(desc, fontFamily = Nunito, fontSize = 14.sp, color = host.contentSecondary)
             }
         }
         // Decorative illustration only. Its external title/description remain fully font-scaled.
