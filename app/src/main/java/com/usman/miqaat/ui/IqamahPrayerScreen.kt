@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.*
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
@@ -66,6 +67,7 @@ internal fun IqamahPrayerContent(p: Phase.IqamahCountdown, s: AppSettings, now: 
         BoxWithConstraints(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = if (landscape) 28.dp else 20.dp, vertical = 10.dp)) {
             val compact = landscape && (maxHeight < 480.dp || accessible)
             val wide = landscape && !compact
+            val roomy = wide && maxHeight >= 650.dp
             val tablet = maxWidth >= 600.dp
             val body = if (urdu) Amiri else QuietBody
             val text: @Composable (String, String, Float, Color) -> Unit = { value, tag, size, color ->
@@ -75,32 +77,32 @@ internal fun IqamahPrayerContent(p: Phase.IqamahCountdown, s: AppSettings, now: 
             val prayer: @Composable () -> Unit = {
                 Text(p.prayer.arabic, Modifier.fillMaxWidth().testTag("iqamah-prayer-arabic").semantics { heading() },
                     fontFamily = if (s.theme == AppTheme.KISWAH) ReemKufi else Amiri,
-                    fontSize = (if (wide) 64 else if (tablet) 68 else 42).sp,
-                    lineHeight = (if (wide) 92 else if (tablet) 100 else 64).sp, color = colors.accent, textAlign = TextAlign.Center)
+                    fontSize = (if (roomy) 84 else if (wide) 64 else if (tablet) 68 else 42).sp,
+                    lineHeight = (if (roomy) 124 else if (wide) 92 else if (tablet) 100 else 64).sp, color = colors.accent, textAlign = TextAlign.Center)
                 Text(if (urdu) L10n.prayer(s, p.prayer) else L10n.prayer(s, p.prayer).uppercase(Locale.ROOT),
                     Modifier.fillMaxWidth().testTag("iqamah-prayer-name"), fontFamily = if (urdu) Amiri else Cinzel,
-                    fontSize = (if (wide || tablet) 19 else 14).sp, lineHeight = if (urdu) 30.sp else 24.sp,
+                    fontSize = (if (roomy) 22 else if (wide || tablet) 19 else 15).sp, lineHeight = if (roomy) (if (urdu) 42.sp else 32.sp) else if (urdu) 30.sp else 24.sp,
                     letterSpacing = if (urdu) 0.sp else 2.sp, color = colors.ink, textAlign = TextAlign.Center)
             }
             val schedule: @Composable () -> Unit = {
-                QuietLabel(Str[R.string.s_iqamah_at], urdu, colors.accent, Modifier.testTag("iqamah-at-label"), if (wide) 12f else 10f)
-                QuietTime(target, s, if (urdu) (if (wide || tablet) 32f else 26f) else if (wide) 56f else if (tablet) 58f else 38f,
+                QuietLabel(Str[R.string.s_iqamah_at], urdu, colors.accent, Modifier.testTag("iqamah-at-label"), if (roomy) 14f else if (wide) 12f else 10f)
+                QuietTime(target, s, if (urdu) (if (roomy) 40f else if (wide || tablet) 32f else 26f) else if (roomy) 72f else if (wide) 56f else if (tablet) 58f else 38f,
                     colors.ink, Modifier.fillMaxWidth().testTag("iqamah-at-time"))
                 if (target.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
                     text(Str[R.string.s_quiet_tomorrow], "iqamah-tomorrow", 11f, colors.secondary)
             }
             val reminder: @Composable () -> Unit = {
                 Text(Str[R.string.s_straighten_your_rows], Modifier.fillMaxWidth().padding(top = 5.dp).testTag("iqamah-reminder"),
-                    fontFamily = Amiri, fontSize = if (wide) 19.sp else 15.sp, lineHeight = if (wide) 29.sp else 25.sp,
+                    fontFamily = Amiri, fontSize = if (roomy) 22.sp else if (wide) 19.sp else 15.sp, lineHeight = if (roomy) 34.sp else if (wide) 29.sp else 25.sp,
                     color = colors.ink, textAlign = TextAlign.Center)
                 text(Str[R.string.s_a_al_bukh_r_723], "iqamah-source", if (wide) 12f else 10f, colors.secondary)
             }
             val actions: @Composable (Boolean) -> Unit = { inline ->
-                text(Str[R.string.s_tap_skip_if_the_imam_is], "iqamah-hint", if (wide) 12f else 11f, colors.secondary)
+                text(Str[R.string.s_tap_skip_if_the_imam_is], "iqamah-hint", if (roomy) 14f else if (wide) 12f else 11f, colors.secondary)
                 Spacer(Modifier.height(6.dp))
                 if (inline) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    IqamahAction(true, s, Modifier.weight(.65f), onStart)
-                    IqamahAction(false, s, Modifier.weight(.35f), onStop)
+                    IqamahAction(true, s, Modifier.weight(.65f), onStart, roomy)
+                    IqamahAction(false, s, Modifier.weight(.35f), onStop, roomy)
                 } else Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     IqamahAction(true, s, Modifier.fillMaxWidth(), onStart)
                     IqamahAction(false, s, Modifier.fillMaxWidth(), onStop)
@@ -126,9 +128,9 @@ internal fun IqamahPrayerContent(p: Phase.IqamahCountdown, s: AppSettings, now: 
                 }
             } else {
                 Column(Modifier.fillMaxSize().then(if (accessible) Modifier.verticalScroll(rememberScrollState()).testTag("iqamah-accessible") else Modifier)) {
-                    IqamahHeader(s, now, accessible)
+                    IqamahHeader(s, now, accessible, roomy)
                     if (s.theme == AppTheme.KISWAH) KiswahBand(wide)
-                    IqamahStages(s)
+                    IqamahStages(s, roomy)
                     if (wide) {
                         Row(Modifier.weight(1f).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             IqamahDial(counter, s, Modifier.weight(.52f).fillMaxHeight().testTag("iqamah-counter-panel"))
@@ -160,34 +162,34 @@ internal fun IqamahPrayerContent(p: Phase.IqamahCountdown, s: AppSettings, now: 
 }
 
 @Composable
-private fun IqamahHeader(s: AppSettings, now: ZonedDateTime, stacked: Boolean) {
+private fun IqamahHeader(s: AppSettings, now: ZonedDateTime, stacked: Boolean, roomy: Boolean = false) {
     val colors = quietPalette(s.theme)
     val urdu = L10n.isUrdu(s)
     val brand: @Composable (Modifier) -> Unit = { m ->
-        Text("Miqaat", m.testTag("iqamah-brand"), fontFamily = QuietDisplay, fontSize = 27.sp, lineHeight = 34.sp, color = colors.ink)
+        Text("Miqaat", m.testTag("iqamah-brand"), fontFamily = QuietDisplay, fontSize = if (roomy) 40.sp else 27.sp, lineHeight = if (roomy) 48.sp else 34.sp, color = colors.ink)
     }
-    val label: @Composable (Modifier) -> Unit = { m -> QuietLabel(Str[R.string.s_iqamah], urdu, colors.accent, m.testTag("iqamah-mode"), 11f) }
+    val label: @Composable (Modifier) -> Unit = { m -> QuietLabel(Str[R.string.s_iqamah], urdu, colors.accent, m.testTag("iqamah-mode"), if (roomy) 14f else 11f) }
     val clock: @Composable (Modifier) -> Unit = { m ->
         Column(m, horizontalAlignment = Alignment.End) {
-            Text(L10n.word(s, "NOW"), fontFamily = if (urdu) Amiri else QuietBody, fontSize = 9.sp,
+            Text(L10n.word(s, "NOW"), fontFamily = if (urdu) Amiri else QuietBody, fontSize = if (roomy) 11.sp else 9.sp,
                 lineHeight = if (urdu) 17.sp else 12.sp, color = colors.secondary)
             Text(L10n.iso(L10n.at(now, s.use24h)), Modifier.testTag("iqamah-live-clock"),
-                fontFamily = if (urdu) Amiri else QuietDisplay, fontSize = 14.sp, lineHeight = if (urdu) 26.sp else 21.sp, color = colors.ink)
+                fontFamily = if (urdu) Amiri else QuietDisplay, fontSize = if (roomy) 20.sp else 14.sp, lineHeight = if (roomy) (if (urdu) 38.sp else 28.sp) else if (urdu) 26.sp else 21.sp, color = colors.ink)
         }
     }
     if (stacked) Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) { brand(Modifier); label(Modifier); clock(Modifier.fillMaxWidth()) }
-    else Box(Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+    else Box(Modifier.fillMaxWidth().heightIn(min = if (roomy) 64.dp else 48.dp)) {
         brand(Modifier.fillMaxWidth(.25f).align(Alignment.CenterStart))
         label(Modifier.fillMaxWidth(.40f).align(Alignment.Center))
         clock(Modifier.fillMaxWidth(.28f).align(Alignment.CenterEnd))
     }
     if (s.locationName.isNotBlank()) Text(L10n.iso(L10n.place(s.locationName)),
         Modifier.fillMaxWidth().testTag("iqamah-location"), fontFamily = if (urdu) Amiri else QuietBody,
-        fontSize = 10.sp, lineHeight = if (urdu) 19.sp else 15.sp, color = colors.secondary, textAlign = TextAlign.End)
+        fontSize = if (roomy) 12.sp else 10.sp, lineHeight = if (roomy) (if (urdu) 23.sp else 18.sp) else if (urdu) 19.sp else 15.sp, color = colors.secondary, textAlign = TextAlign.End)
 }
 
 @Composable
-private fun IqamahStages(s: AppSettings) {
+private fun IqamahStages(s: AppSettings, roomy: Boolean = false) {
     val colors = quietPalette(s.theme)
     val urdu = L10n.isUrdu(s)
     val labels = listOf(Str[R.string.s_azaan], Str[R.string.s_iqamah_countdown], Str[R.string.s_iqamah], Str[R.string.s_step_prayer])
@@ -202,7 +204,7 @@ private fun IqamahStages(s: AppSettings) {
                     }
                 }
                 Text(if (urdu) label else label.uppercase(Locale.ROOT), Modifier.fillMaxWidth().testTag("iqamah-stage-$index"),
-                    fontFamily = if (urdu) Amiri else QuietBody, fontSize = 9.sp, lineHeight = if (urdu) 20.sp else 13.sp,
+                    fontFamily = if (urdu) Amiri else QuietBody, fontSize = if (roomy) 12.sp else 9.sp, lineHeight = if (roomy) (if (urdu) 25.sp else 18.sp) else if (urdu) 20.sp else 13.sp,
                     color = if (index == 1) colors.accent else colors.secondary, textAlign = TextAlign.Center)
             }
         }
@@ -229,7 +231,8 @@ private fun IqamahDial(counter: IqamahCounter, s: AppSettings, modifier: Modifie
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                     Text(counter.label, Modifier.fillMaxWidth().testTag("iqamah-seconds").semantics {
                         contentDescription = Str.get(R.string.s_iqamah_remaining_accessibility, (counter.seconds / 60).toInt(), (counter.seconds % 60).toInt())
-                    }, fontFamily = QuietDisplay, fontWeight = FontWeight.Medium, fontSize = (diameter.value * .285f / scale).sp,
+                    }, style = TextStyle(fontFeatureSettings = "lnum, tnum"),
+                        fontFamily = QuietDisplay, fontWeight = FontWeight.Medium, fontSize = (diameter.value * .285f / scale).sp,
                         lineHeight = (diameter.value * .32f / scale).sp, color = colors.ink, textAlign = TextAlign.Center)
                 }
                 QuietLabel(Str[R.string.s_iqamah_min_sec], urdu, colors.secondary, Modifier.testTag("iqamah-unit"),
@@ -240,18 +243,18 @@ private fun IqamahDial(counter: IqamahCounter, s: AppSettings, modifier: Modifie
 }
 
 @Composable
-private fun IqamahAction(primary: Boolean, s: AppSettings, modifier: Modifier, onClick: () -> Unit) {
+private fun IqamahAction(primary: Boolean, s: AppSettings, modifier: Modifier, onClick: () -> Unit, roomy: Boolean = false) {
     val colors = quietPalette(s.theme)
     val gallery = s.theme == AppTheme.PRAYER_GALLERY
     val fill = if (primary) (if (gallery) colors.ink else colors.accent) else colors.panel
     val ink = if (primary) (if (gallery) Color(0xFFFFF8E9) else Color(0xFF101819)) else colors.ink
-    Box(modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(28.dp)).background(fill)
+    Box(modifier.heightIn(min = if (roomy) 56.dp else 48.dp).clip(RoundedCornerShape(28.dp)).background(fill)
         .border(1.dp, colors.accent.copy(alpha = .8f), RoundedCornerShape(28.dp))
         .testTag(if (primary) "iqamah-start" else "iqamah-dismiss").clickable(role = Role.Button, onClick = onClick)
         .padding(horizontal = 16.dp, vertical = 10.dp), contentAlignment = Alignment.Center) {
         Text(Str[if (primary) R.string.s_start_iqamah_now else R.string.s_dismiss],
             Modifier.fillMaxWidth().testTag(if (primary) "iqamah-start-label" else "iqamah-dismiss-label"),
-            fontFamily = if (L10n.isUrdu(s)) Amiri else QuietBody, fontWeight = FontWeight.SemiBold, fontSize = 14.sp,
-            lineHeight = if (L10n.isUrdu(s)) 27.sp else 21.sp, color = ink, textAlign = TextAlign.Center)
+            fontFamily = if (L10n.isUrdu(s)) Amiri else QuietBody, fontWeight = FontWeight.SemiBold, fontSize = if (roomy) 18.sp else 14.sp,
+            lineHeight = if (roomy) (if (L10n.isUrdu(s)) 34.sp else 27.sp) else if (L10n.isUrdu(s)) 27.sp else 21.sp, color = ink, textAlign = TextAlign.Center)
     }
 }
