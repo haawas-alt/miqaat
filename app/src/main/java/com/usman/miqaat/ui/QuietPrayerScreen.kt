@@ -82,7 +82,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
             val wide = maxWidth > maxHeight && !accessible
             val tablet = maxWidth >= 600.dp
             val compact = maxHeight < 780.dp
-            val headingSize = if (short) 32f else if (wide && compact) 44f else if (tablet) 72f else if (compact) 48f else 62f
+            val headingSize = if (short) 28f else if (wide && compact) 44f else if (tablet) 72f else if (compact) 48f else 62f
             val clockSize = if (short) 40f else if (wide && compact) 54f else if (tablet) 78f else if (compact) 52f else 64f
             val header: @Composable () -> Unit = {
                 val brand: @Composable (Modifier) -> Unit = { m ->
@@ -128,7 +128,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                     Spacer(Modifier.height(if (short) 4.dp else if (compact) 12.dp else 22.dp))
                     QuietLabel(Str[R.string.s_quiet_current_azaan], urdu, colors.accent, Modifier.testTag("quiet-current-label"), if (short) 10f else 12f)
                     QuietTime(times.current, s, if (urdu) (if (short) 22f else if (tablet) 42f else 32f) else clockSize,
-                        colors.ink, Modifier.fillMaxWidth().testTag("quiet-current-time"))
+                        if (s.theme == AppTheme.PRAYER_GALLERY) colors.accent else colors.ink, Modifier.fillMaxWidth().testTag("quiet-current-time"))
                     Text(Str[R.string.s_quiet_iqamah_complete], Modifier.fillMaxWidth().testTag("quiet-iqamah-complete"),
                         fontFamily = body, fontSize = if (short) 11.sp else 14.sp, lineHeight = if (urdu) 28.sp else 21.sp,
                         color = colors.secondary, textAlign = TextAlign.Center)
@@ -159,7 +159,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                     Text(Str.get(R.string.s_quiet_ends_hint, remaining.toInt()), Modifier.fillMaxWidth().testTag("quiet-expiry-hint"),
                         fontFamily = body, fontSize = if (short) 10.sp else 11.sp, lineHeight = if (urdu) 24.sp else 17.sp,
                         color = colors.secondary, textAlign = TextAlign.Center)
-                    Row(Modifier.padding(top = 5.dp).widthIn(min = 180.dp, max = 420.dp).heightIn(min = 48.dp)
+                    Row(Modifier.padding(top = 5.dp).widthIn(max = if (wide) 360.dp else 420.dp).fillMaxWidth().heightIn(min = 48.dp)
                         .clip(RoundedCornerShape(28.dp)).background(colors.panel).border(1.dp, colors.accent.copy(alpha = .75f), RoundedCornerShape(28.dp))
                         .testTag("quiet-return").clickable(role = Role.Button, onClick = onStop).padding(horizontal = 24.dp, vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
