@@ -189,12 +189,12 @@ private fun PrayerLine(r: RowInfo, s: AppSettings, tk: ThemeTokens, F: androidx.
                 if (s.theme == com.usman.miqaat.data.AppTheme.PRAYER_GALLERY) GalleryStatusBadge(r.isNow, s)
                 else Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"), fontFamily = F, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = tk.primary)
             }
-            if (stackedClock) Text(if (s.showRelative) r.relative else "${r.clock} ${r.suffix}", fontFamily = if (urdu) Amiri else tk.fontDisplay, fontSize = 24.sp, color = ink)
+            if (stackedClock) Text(if (s.showRelative) r.relative else "${r.clock} ${r.suffix}", modifier = Modifier.testTag("accessible-clock-${r.prayer.name}"), fontFamily = if (urdu) Amiri else tk.fontDisplay, fontSize = 24.sp, color = ink)
             if (r.small.isNotEmpty()) Text(r.small, fontFamily = F, fontSize = 14.sp, color = tk.contentSecondary)
         }
         if (!stackedClock) Column(horizontalAlignment = Alignment.End) {
             Row(verticalAlignment = Alignment.Bottom) {
-                Text(if (s.showRelative) r.relative else r.clock, fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = 24.sp, color = ink)
+                Text(if (s.showRelative) r.relative else r.clock, modifier = Modifier.testTag("accessible-clock-${r.prayer.name}"), fontFamily = tk.fontDisplay, fontWeight = FontWeight.Medium, fontSize = 24.sp, color = ink)
                 if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = tk.fontDisplay, fontSize = 14.sp, color = tk.contentSecondary, modifier = Modifier.padding(bottom = 3.dp))
             }
         }

@@ -275,8 +275,8 @@ private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActio
             Row(Modifier.fillMaxWidth().then(if (wide) Modifier.weight(1f) else Modifier).padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f).padding(start = 8.dp)) {
                     Text(hero.special ?: hero.kickerLabel, fontFamily = approvedUi(s), fontSize = if (compactPhoneHero) 10.sp else 11.sp, color = tk.contentSecondary, maxLines = 1)
-                    Text(if (L10n.isUrdu(s)) hero.label else hero.arabic, fontFamily = Amiri, fontSize = if (wide) (if (compactHero) 44.sp else 54.sp) else if (compactPhoneHero) 26.sp else 32.sp,
-                        lineHeight = if (wide) (if (compactHero) 56.sp else 70.sp) else if (compactPhoneHero) 32.sp else 40.sp, color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-mobile-prayer-name"))
+                    Text(if (L10n.isUrdu(s)) hero.label else hero.arabic, fontFamily = Amiri, fontSize = if (wide) (if (compactHero) 38.sp else 54.sp) else if (compactPhoneHero) 26.sp else 32.sp,
+                        lineHeight = if (wide) (if (compactHero) 50.sp else 70.sp) else if (compactPhoneHero) 32.sp else 40.sp, color = tk.accent, maxLines = 1, modifier = Modifier.testTag("gallery-mobile-prayer-name"))
                     if (!L10n.isUrdu(s)) Text(hero.label.uppercase(), fontFamily = Cinzel, fontSize = 11.sp, letterSpacing = 2.sp, color = tk.accent, maxLines = 1)
                 }
                 if (wide && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(null, Modifier.weight(1.5f).fillMaxHeight())

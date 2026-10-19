@@ -138,7 +138,7 @@ class GalleryTabletLandscapeTest : ComposeSupport() {
                     rule.onNodeWithText(L10n.word(s, "NOW"), useUnmergedTree = true).assertExists()
                     rule.onNodeWithTag("accessible-prayer-${state(s).next.name}",useUnmergedTree=true).performScrollTo()
                     rule.onNodeWithText(L10n.word(s, "NEXT"), useUnmergedTree = true).assertIsDisplayed()
-                    rule.onAllNodesWithText(PrayerEngine.clock(state(s).nextTime, s.use24h), useUnmergedTree = true).onLast().assertIsDisplayed()
+                    rule.onNodeWithTag("accessible-clock-${state(s).next.name}",useUnmergedTree=true).performScrollTo().assertIsDisplayed()
                     capture("gallery-matrix-${dev.label}-${if (urdu) "ur" else "en"}-${(scale * 100).toInt()}-next-visible")
                 }
                 rule.onAllNodes(hasText("" , substring = true), useUnmergedTree = true).fetchSemanticsNodes().also {

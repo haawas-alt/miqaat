@@ -81,6 +81,6 @@ jobs:
           path: |
             candidate/
             app/build/approved-designs/
-            app/build/audit-screens/detailed-gallery/
+            app/build/audit-screens/
             app/build/test-results/
             app/build/reports/
