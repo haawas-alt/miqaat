@@ -109,8 +109,8 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
                         }
                     }
                 }
-                Box(Modifier.fillMaxWidth().height(36.dp).testTag("landscape-timeline-panel")) { ApprovedTimeline(state,s,tk,Modifier.fillMaxSize()) }
-                val visible = (links.filter{it.kind==DoorKind.ADHKAR}.take(1)+links.filter{!it.warn&&it.kind!=DoorKind.ADHKAR}.take(1)+links.filter{it.warn}.take(1)).distinct()
+                Box(Modifier.fillMaxWidth().height(40.dp).testTag("landscape-timeline-panel")) { ApprovedTimeline(state,s,tk,Modifier.fillMaxSize()) }
+                val visible = (links.filter{!it.warn&&it.kind!=DoorKind.ADHKAR}.take(1)+links.filter{it.kind==DoorKind.ADHKAR}.take(1)+links.filter{it.warn}.take(1)).distinct()
                 Row(Modifier.fillMaxWidth().heightIn(min=48.dp),horizontalArrangement=Arrangement.spacedBy(8.dp),verticalAlignment=Alignment.CenterVertically) {
                     visible.forEachIndexed { index,d ->
                         Row(Modifier.weight(1f).heightIn(min=48.dp).clip(RoundedCornerShape(24.dp)).background(colors.panel)
@@ -175,11 +175,8 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         if(gallery&&s.artTheme!=ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal,Modifier.width(24.dp).fillMaxHeight())
         Column(Modifier.weight(1f).padding(horizontal=5.dp,vertical=2.dp)) {
             Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) {
-                Column(Modifier.weight(1f)) {
-                    Text(r.label,Modifier.testTag("landscape-row-name-${r.prayer.name}"),fontFamily=if(urdu)Amiri else ApprovedBody,
-                        fontSize=if(urdu)14.sp else 11.sp,lineHeight=if(urdu)24.sp else 14.sp,color=c.ink)
-                    if(!urdu) Text(r.arabic,Modifier.testTag("landscape-row-arabic-${r.prayer.name}"),fontFamily=Amiri,fontSize=14.sp,lineHeight=20.sp,color=c.accent)
-                }
+                Text(r.label,Modifier.weight(1f).testTag("landscape-row-name-${r.prayer.name}"),fontFamily=if(urdu)Amiri else ApprovedBody,
+                    fontSize=if(urdu)14.sp else 11.sp,lineHeight=if(urdu)24.sp else 14.sp,color=c.ink)
                 val raw = if(s.showRelative) r.relative else L10n.iso((r.clock+" "+r.suffix).trim())
                 val clockLabel = buildAnnotatedString {
                     append(raw)
@@ -192,8 +189,12 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
                     fontFamily=if(s.showRelative) (if(urdu)Amiri else ApprovedBody) else ApprovedDisplay,fontSize=if(s.showRelative)11.sp else 18.sp,
                     lineHeight=if(urdu&&s.showRelative)22.sp else 22.sp,color=c.ink,textAlign=TextAlign.End)
             }
-            if(r.small.isNotEmpty()) Text(r.small,Modifier.fillMaxWidth().testTag("landscape-row-detail-${r.prayer.name}"),
-                fontFamily=if(urdu)Amiri else ApprovedBody,fontSize=9.sp,lineHeight=if(urdu)17.sp else 13.sp,color=c.secondary)
+            Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(4.dp)) {
+                if(!urdu) Text(r.arabic,Modifier.testTag("landscape-row-arabic-${r.prayer.name}"),fontFamily=Amiri,fontSize=14.sp,lineHeight=20.sp,color=c.accent)
+                if(r.small.isNotEmpty()) Text(r.small,Modifier.weight(1f).testTag("landscape-row-detail-${r.prayer.name}"),
+                    fontFamily=if(urdu)Amiri else ApprovedBody,fontSize=9.sp,lineHeight=if(urdu)17.sp else 13.sp,color=c.secondary,
+                    textAlign=if(urdu)TextAlign.Start else TextAlign.End)
+            }
         }
         Column(Modifier.width(48.dp).fillMaxHeight().heightIn(min=48.dp).testTag("landscape-info-${r.prayer.name}")
             .clip(RoundedCornerShape(8.dp)).clickable(role=Role.Button,onClick=onWhy)
