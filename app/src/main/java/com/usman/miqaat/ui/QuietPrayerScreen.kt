@@ -44,14 +44,14 @@ internal fun quietPrayerTimes(s: AppSettings, prayer: Prayer, now: ZonedDateTime
 }
 
 @OptIn(androidx.compose.ui.text.ExperimentalTextApi::class)
-private val QuietBody = FontFamily(Font(R.font.nunito_sans, FontWeight.Normal,
+internal val QuietBody = FontFamily(Font(R.font.nunito_sans, FontWeight.Normal,
     variationSettings = FontVariation.Settings(FontVariation.weight(600))))
 @OptIn(androidx.compose.ui.text.ExperimentalTextApi::class)
-private val QuietDisplay = FontFamily(Font(R.font.cormorant_garamond_medium, FontWeight.Medium,
+internal val QuietDisplay = FontFamily(Font(R.font.cormorant_garamond_medium, FontWeight.Medium,
     variationSettings = FontVariation.Settings(FontVariation.weight(500))))
 
-private data class QuietPalette(val background: Color, val ink: Color, val accent: Color, val secondary: Color, val panel: Color)
-private fun quietPalette(theme: AppTheme) = if (theme == AppTheme.PRAYER_GALLERY)
+internal data class QuietPalette(val background: Color, val ink: Color, val accent: Color, val secondary: Color, val panel: Color)
+internal fun quietPalette(theme: AppTheme) = if (theme == AppTheme.PRAYER_GALLERY)
     QuietPalette(Color(0xFFF6EFE2), Color(0xFF103E37), Color(0xFF9E4027), Color(0xFF3F584E), Color(0xFFF9F2E6).copy(alpha = .88f))
 else QuietPalette(if (theme == AppTheme.KISWAH) Color(0xFF080909) else Color(0xFF03152D),
     Color(0xFFF5ECD8), Color(0xFFE7C77E), Color(0xFFD8CFBD),
@@ -77,7 +77,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
     BoxWithConstraints(Modifier.fillMaxSize().background(colors.background).testTag("quiet-board")
         .clickable(role = Role.Button, onClickLabel = Str[R.string.s_quiet_exit], onClick = onStop)) {
         val landscapeArt = maxWidth > maxHeight
-        QuietThemeBackdrop(s, landscapeArt, Modifier.matchParentSize())
+        PrayerFlowBackdrop(s, landscapeArt, Modifier.matchParentSize())
         BoxWithConstraints(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = if (landscapeArt) 28.dp else 20.dp, vertical = 12.dp)) {
             val short = maxHeight < 480.dp
             val wide = maxWidth > maxHeight && !accessible
@@ -190,7 +190,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
 }
 
 @Composable
-private fun QuietTime(time: ZonedDateTime, s: AppSettings, size: Float, color: Color, modifier: Modifier) {
+internal fun QuietTime(time: ZonedDateTime, s: AppSettings, size: Float, color: Color, modifier: Modifier) {
     val urdu = L10n.isUrdu(s)
     val value = L10n.iso(L10n.at(time, s.use24h))
     val suffix = PrayerEngine.suffix(time, s.use24h)
@@ -206,14 +206,14 @@ private fun QuietTime(time: ZonedDateTime, s: AppSettings, size: Float, color: C
 }
 
 @Composable
-private fun QuietLabel(text: String, urdu: Boolean, color: Color, modifier: Modifier = Modifier, size: Float = 12f) {
+internal fun QuietLabel(text: String, urdu: Boolean, color: Color, modifier: Modifier = Modifier, size: Float = 12f) {
     Text(if (urdu) text else text.uppercase(java.util.Locale.ROOT), modifier.fillMaxWidth(), fontFamily = if (urdu) Amiri else QuietBody,
         fontSize = size.sp, lineHeight = (if (urdu) size * 2f else size * 1.5f).sp, letterSpacing = if (urdu) 0.sp else 1.4.sp,
         fontWeight = FontWeight.Medium, color = color, textAlign = TextAlign.Center)
 }
 
 @Composable
-private fun QuietThemeBackdrop(s: AppSettings, wide: Boolean, modifier: Modifier) {
+internal fun PrayerFlowBackdrop(s: AppSettings, wide: Boolean, modifier: Modifier) {
     val colors = quietPalette(s.theme)
     Box(modifier.background(colors.background).testTag("quiet-art-${s.theme.name}")) {
         if (s.artTheme != ArtTheme.MINIMAL) {
