@@ -78,27 +78,7 @@ private val GalleryBody = FontFamily(androidx.compose.ui.text.font.Font(
 
 @Composable
 fun GalleryHome(state: PrayerState, settings: AppSettings, a: HomeActions) {
-    val tk = ThemeTokenSets.gallery
-    var why by remember { mutableStateOf<Prayer?>(null) }
-    why?.let { prayer ->
-        val day = if (prayer == state.next && state.nextTime.toLocalDate().isAfter(state.today.date))
-            PrayerEngine.times(settings, state.nextTime.toLocalDate()) else state.today
-        WhyDialog(settings, day, prayer) { why = null }
-    }
-    val hero = heroInfo(state, settings, kicker(state, settings))
-    val doorList = doors(state, settings, a)
-    val dim = settings.nightDim && state.period == Prayer.ISHA && !state.justPassed
-    BoxWithConstraints(Modifier.fillMaxSize().background(tk.backgroundBrush)) {
-        val bw = maxWidth; val bh = maxHeight
-        val wide = bw > bh * 1.15f
-        if (wide) {
-            GalleryWide(state, settings, a, tk, hero, doorList, bw, bh) { why = it }
-        } else {
-            GalleryStacked(state, settings, a, tk, hero, doorList, bw, bh) { why = it }
-        }
-        // a night-time dim is applied as a warm scrim, not a colour swap, so text contrast is unchanged in kind
-        if (dim) Box(Modifier.fillMaxSize().background(Color(0xFF1A1208).copy(alpha = 0.22f)))
-    }
+    ApprovedHome(state, settings, a)
 }
 
 /* ───────────────────────────── landscape ───────────────────────────── */

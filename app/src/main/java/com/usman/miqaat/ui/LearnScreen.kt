@@ -120,11 +120,11 @@ private enum class Mode { LIBRARY, LESSON, WORDS, MOVES }
 
 /** Learn Salah — for beginners of any age. Library → guided prayer (rakʿah by rakʿah), words practice, or movement review. */
 @Composable
-fun LearnScreen(settings: AppSettings, previewLesson: Learn.Lesson? = null, previewStep: Int = 0, onBack: () -> Unit) {
+fun LearnScreen(settings: AppSettings, previewLesson: Learn.Lesson? = null, previewStep: Int = 0, startLesson: Learn.Lesson? = null, onBack: () -> Unit) {
     val ctx = LocalContext.current
     val c = learnColors(settings)
-    var mode by rememberSaveable { mutableStateOf(if (previewLesson != null) Mode.LESSON else Mode.LIBRARY) }
-    var lesson by rememberSaveable { mutableStateOf(previewLesson ?: Learn.Lesson.FAJR) }
+    var mode by rememberSaveable { mutableStateOf(if (previewLesson != null || startLesson != null) Mode.LESSON else Mode.LIBRARY) }
+    var lesson by rememberSaveable { mutableStateOf(previewLesson ?: startLesson ?: Learn.Lesson.FAJR) }
     var progressTick by remember { mutableIntStateOf(0) }
     val progress = remember(progressTick, mode) { Learn.progress(ctx) }
 

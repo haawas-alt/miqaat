@@ -80,7 +80,7 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                             node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
                             assertTrue("Missing text layout for $tag", layouts.isNotEmpty())
                             layouts.forEach { assertFalse("Clipped $tag: theme=$theme small=$small urdu=$urdu relative=$relative hour=$hour size=${it.size} width=${it.didOverflowWidth} height=${it.didOverflowHeight}",
-                                it.didOverflowWidth || it.didOverflowHeight) }
+                                it.multiParagraph.didExceedMaxLines || (0 until it.lineCount).any { line -> it.getLineRight(line)-it.getLineLeft(line)>node.size.width+1f } || (it.lineCount>0 && it.getLineBottom(it.lineCount-1)-it.getLineTop(0)>node.size.height+1f)) }
                         }
                         val location = rule.onNodeWithTag("landscape-location", true).getUnclippedBoundsInRoot()
                         val date = rule.onNodeWithTag("landscape-date", true).getUnclippedBoundsInRoot()

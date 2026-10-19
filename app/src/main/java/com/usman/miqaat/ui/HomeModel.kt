@@ -98,3 +98,11 @@ internal fun adhkarModes(state: PrayerState, s: com.usman.miqaat.data.AppSetting
     }
     return out
 }
+
+/** The preparation CTA opens the relevant existing guided lesson. Sunrise is not an obligatory prayer. */
+internal fun preparationLesson(prayer: Prayer): com.usman.miqaat.data.Learn.Lesson? = when (prayer) {
+    Prayer.FAJR -> com.usman.miqaat.data.Learn.Lesson.FAJR
+    Prayer.MAGHRIB -> com.usman.miqaat.data.Learn.Lesson.MAGHRIB
+    Prayer.DHUHR, Prayer.ASR, Prayer.ISHA -> com.usman.miqaat.data.Learn.Lesson.FOUR
+    Prayer.SUNRISE -> null
+}

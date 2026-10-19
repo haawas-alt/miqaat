@@ -11,7 +11,7 @@ import com.usman.miqaat.data.PrayerState
 /**
  * The single place that decides which home layout to show. Moved out of MainActivity unchanged in behaviour so that the
  * screenshot/UI tests exercise exactly the same routing the app uses:
- * large-type → the two new themes' own homes → short landscape (phone) → portrait → tablet landscape (Mihrab / Courtyard).
+ * large-type → dedicated short landscape → the approved responsive phone/tablet compositions.
  */
 @Composable
 fun HomeRouter(state: PrayerState, settings: AppSettings, a: HomeActions, showLarge: Boolean, onLargeTap: () -> Unit) {
@@ -24,14 +24,7 @@ fun HomeRouter(state: PrayerState, settings: AppSettings, a: HomeActions, showLa
         showLarge -> LargeHome(state, settings, onLargeTap)
         largeFont -> AccessibleHome(state, settings, a)
         !portrait && cfg.screenHeightDp < 500 && settings.theme in listOf(AppTheme.CELESTIAL_MERIDIAN, AppTheme.PRAYER_GALLERY) -> CompactThemeHome(state, settings, a)
-        settings.theme == AppTheme.CELESTIAL_MERIDIAN -> CelestialHome(state, settings, a)
-        settings.theme == AppTheme.PRAYER_GALLERY -> GalleryHome(state, settings, a)
-        !portrait && cfg.screenHeightDp < 500 -> {
-            LandscapeHome(state, settings, a.onOpenTimetable, a.onOpenSettings, a.onOpenLocation, a.onOpenQibla, a.onOpenAdhkar, a.onOpenFriday, a.onOpenLearn, a.updateAvailable, a.onOpenAbout, a.onToggleRelative)
-        }
-        portrait -> {
-            PortraitHome(state, settings, a.onOpenTimetable, a.onOpenSettings, a.onOpenLocation, a.onOpenQibla, a.onOpenAdhkar, a.onOpenFriday, a.onOpenLearn, a.updateAvailable, a.onOpenAbout, a.onToggleRelative)
-        }
-        else -> if (settings.theme == AppTheme.KISWAH) CourtyardHome(state, settings, a) else MihrabHome(state, settings, a)
+        !portrait && cfg.screenHeightDp < 500 -> LandscapeHome(state, settings, a.onOpenTimetable, a.onOpenSettings, a.onOpenLocation, a.onOpenQibla, a.onOpenAdhkar, a.onOpenFriday, a.onOpenLearn, a.updateAvailable, a.onOpenAbout, a.onToggleRelative)
+        else -> ApprovedHome(state, settings, a)
     }
 }
