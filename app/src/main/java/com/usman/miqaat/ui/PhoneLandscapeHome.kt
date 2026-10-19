@@ -151,10 +151,10 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
 /** The visual pill is shallow; its independent 48dp target never overlaps a neighbour. */
 @Composable
 private fun LandscapeHomeDoor(label:String,icon:androidx.compose.ui.graphics.vector.ImageVector?,s:AppSettings,modifier:Modifier=Modifier,warn:Boolean=false,solid:Boolean=false,onClick:()->Unit) {
-    val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s);val outline=if(warn)Color(0xFFE9B85B)else c.accent
+    val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s);val outline=if(warn&&s.theme==AppTheme.PRAYER_GALLERY)Color(0xFF83520D)else if(warn)Color(0xFFE9B85B)else c.accent
     Box(modifier.heightIn(min=48.dp).clickable(role=Role.Button,onClick=onClick).semantics(mergeDescendants=true){},contentAlignment=Alignment.Center) {
         Row(Modifier.fillMaxWidth().heightIn(min=30.dp).clip(RoundedCornerShape(18.dp))
-            .background(if(solid)c.accent else if(warn)Color(0xFF8E621F).copy(alpha=if(s.theme==AppTheme.PRAYER_GALLERY).12f else .25f)else c.panel)
+            .background(if(solid)c.accent else if(warn&&s.theme==AppTheme.PRAYER_GALLERY)Color(0xFFFFF3DF).copy(alpha=.97f)else if(warn)Color(0xFF8E621F).copy(alpha=.25f)else c.panel)
             .border(.8.dp,outline.copy(alpha=if(warn).85f else .65f),RoundedCornerShape(18.dp)).padding(horizontal=12.dp,vertical=2.dp),
             verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.Center) {
             if(icon!=null)Icon(icon,null,Modifier.size(17.dp),tint=if(solid)Color.White else outline)
