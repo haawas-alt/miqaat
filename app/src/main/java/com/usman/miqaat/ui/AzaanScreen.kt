@@ -75,20 +75,16 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
         val portrait = maxHeight > maxWidth
         val u = if (portrait) maxWidth / 62 else minOf(maxWidth / 100, maxHeight / 56)
         if (phase is Phase.Quiet) { QuietPrayerScreen(phase, onStop); return@BoxWithConstraints }
+        if (phase is Phase.IqamahCountdown) { IqamahPrayerScreen(phase, onStop, onSkip); return@BoxWithConstraints }
         val isAzaan = phase is Phase.Azaan
         val isIq = phase is Phase.IqamahCountdown || phase is Phase.IqamahNow
         val tk = screenTokens()
         val kiswah = com.usman.miqaat.MiqaatApp.instance.settings.value.theme == com.usman.miqaat.data.AppTheme.KISWAH
         val bg = if (kiswah) ThemeTokenSets.kiswah.skyAzaan else when { isAzaan -> tk.skyAzaan; isIq -> tk.skyIqamah; else -> tk.skyDua }
-        val compactCountdown = phase is Phase.IqamahCountdown && !portrait && (maxHeight < 500.dp || androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.15f)
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(bg))) {
             val artTheme = tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY
             if (artTheme) ThemedBackdrop(portrait, Modifier.fillMaxSize(), scrim = 0.72f)
             else if (kiswah) Weave(Modifier.fillMaxSize()) else GirihLattice(Modifier.fillMaxSize(), tile = u.value * 11f, alpha = 0.12f)
-            if (compactCountdown && phase is Phase.IqamahCountdown) {
-                CompactCountdown(phase, onStop, onSkip)
-                return@Box
-            }
             Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 FlowHeader(phase, u, stacked = portrait)
                 StepsBar(phase, u)
@@ -98,7 +94,6 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
                             Phase.Azaan::class -> AzaanBody(phase, u)
                             Phase.Dua::class -> DuaBody(u)
                             Phase.Iftar::class -> IftarBody(u)
-                            Phase.IqamahCountdown::class -> (phase as? Phase.IqamahCountdown)?.let { CountdownBody(it, u) }
                             Phase.IqamahNow::class -> IqamahNowBody(phase, u)
                             else -> (phase as? Phase.HadithPhase)?.let { HadithBody(it, u) }
                         }
@@ -110,35 +105,6 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
     }
 }
 
-/** A short landscape viewport must expose the live number before any optional detail. */
-@Composable
-private fun CompactCountdown(phase: Phase.IqamahCountdown, onStop: () -> Unit, onSkip: () -> Unit) {
-    val tk = screenTokens()
-    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
-    LaunchedEffect(phase.endsAt) { while (true) { now = System.currentTimeMillis(); delay(200) } }
-    val seconds = ((phase.endsAt - now).coerceAtLeast(0) + 999) / 1000
-    Column(Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState())
-        .padding(horizontal = 20.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(Str.get(R.string.s_iqamah_in_title, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer)),
-            fontFamily = Nunito, fontSize = 17.sp, color = tk.accent)
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(20.dp), verticalAlignment = Alignment.CenterVertically) {
-            Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("$seconds", fontFamily = Cormorant, fontSize = 48.sp, lineHeight = 52.sp,
-                    color = tk.contentPrimary, modifier = Modifier.testTag("iqamah-seconds"))
-                Text(Str[R.string.s_seconds_caps], fontFamily = Nunito, fontSize = 14.sp,
-                    color = tk.contentSecondary, modifier = Modifier.testTag("iqamah-unit"))
-            }
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                GoldButton(Str[R.string.s_start_iqamah_now], onClick = onSkip)
-                GoldButton(Str[R.string.s_dismiss], onClick = onStop)
-            }
-        }
-        Text(Str[R.string.s_straighten_your_rows], fontFamily = Cormorant, fontSize = 16.sp, color = tk.contentPrimary)
-        Text(Str[R.string.s_a_al_bukh_r_723], fontFamily = Nunito, fontSize = 13.sp, color = tk.contentSecondary)
-    }
-}
-
-/** One measured header: status and clock reserve their own space before the step line. */
 @Composable
 private fun FlowHeader(phase: Phase, u: Dp, stacked: Boolean) {
     val tk = screenTokens()
@@ -240,32 +206,6 @@ private fun IftarBody(u: Dp) {
         Translation(if (L10n.uiUrdu) com.usman.miqaat.data.Ramadan.IFTAR_UR else com.usman.miqaat.data.Ramadan.IFTAR_EN, u)
         Source(com.usman.miqaat.data.Ramadan.IFTAR_SRC +
             (if (L10n.uiUrdu) " · " + com.usman.miqaat.data.Ramadan.IFTAR_UR_CREDIT else ""), u)
-    }
-}
-
-@Composable
-private fun CountdownBody(p: Phase.IqamahCountdown, u: Dp) {
-    val tk = screenTokens()
-    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
-    LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(200) } }
-    val total = (p.endsAt - p.startedAt).coerceAtLeast(1)
-    val leftMs = (p.endsAt - now).coerceAtLeast(0)
-    val secs = ((leftMs + 999) / 1000).toInt()
-    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Kicker(Str.get(R.string.s_iqamah_in_title, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, p.prayer)), u)
-        Box(Modifier.padding(vertical = u * 1).size(u * 26), contentAlignment = Alignment.Center) {
-            Canvas(Modifier.fillMaxSize()) {
-                val stroke = Stroke(width = size.width * 0.045f, cap = StrokeCap.Round)
-                drawArc(tk.neutralStroke, 0f, 360f, false, style = stroke)
-                drawArc(tk.primary, -90f, 360f * (leftMs / total.toFloat()), false, style = stroke)
-            }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("$secs", fontFamily = Cormorant, fontSize = (u.value * 10.5f).sp, lineHeight = (u.value * 10.5f).sp, color = tk.contentPrimary, modifier = Modifier.testTag("iqamah-seconds"))
-                Text(Str[R.string.s_seconds_caps], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f).testTag("iqamah-unit"))
-            }
-        }
-        Text(Str[R.string.s_straighten_your_rows], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = tk.contentPrimary.copy(alpha = 0.9f))
-        Text(Str[R.string.s_a_al_bukh_r_723], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f))
     }
 }
 
