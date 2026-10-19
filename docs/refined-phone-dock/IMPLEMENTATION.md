@@ -10,4 +10,18 @@ Kiswah's native calligraphy frame now reserves 12dp internal vertical padding ar
 
 Display & Art theme cards now render a decorative, scaled version of the actual current landscape Home composable with current art and language preferences. They no longer use obsolete artwork or a separately drawn five-prayer mock layout. The card controls remain full-size radio buttons with selected/not-selected accessibility state; all taps on the miniature select that theme. The miniature uses sample prayer data and performs no navigation, audio or scheduling actions.
 
-Verification will include native phone portrait and landscape checks, both languages, small/normal phones, clock-column geometry, calligraphy clearance, dock actions/preferences, theme selection, retained tablet and flow checks, full regression, lint and established-certificate signed release builds. No physical-device acceptance or measured numerical UX score is implied.
+Verification includes native phone portrait and landscape checks, both languages, small/normal phones, clock-column geometry, calligraphy clearance, dock actions/preferences, theme selection, retained tablet and flow checks, full regression, lint and established-certificate signed release builds. No physical-device acceptance or measured numerical UX score is implied.
+
+## Native verification
+
+Application source: `058dc5032fe5395cb7ce3ba0fb1f23691bb4720c`. Run: https://github.com/haawas-alt/miqaat/actions/runs/39235261646. All four native theme jobs passed their initial acceptance stage (29 methods each). Native output contains 148 captures: 76 portrait/selector/band cases and 72 retained landscape Home/Iqamah/Quiet cases. Both languages, small/normal phones, context actions, 12/24-hour and relative times, plus normal/200% selector text are covered.
+
+The shortest landscape hero combines its kicker and countdown status on one line to retain the full details-button target. Additional seasonal detail remains available in More; its primary seasonal context remains in the hero. Decorative portrait artwork is clipped to the usable Home bounds. Compact Gallery spacing preserves both hero actions without reducing type size.
+
+The narrowest Gallery thumbnails retain the artwork at 40dp width, leaving room for full midnight end times in the aligned column. The existing multi-hour Ontario Gallery regression is included in the early native acceptance stage as well as the full suite.
+
+## Final release verification
+
+All four CI jobs completed successfully. The collected XML reports contain 244 test executions: 239 passed, zero failures/errors and five optional screenshot/audit skips. Full regression, Github and Play release lint, debug assembly and signed Github/Play release builds passed. The native-library integrity check passed 16KB ELF/ZIP alignment. Play permission checks passed.
+
+Signed candidate: `Miqaat-1.169-dock.apk`. SHA-256: `873f9617e4f53409a1c3252a5a68634dcd2246d48e6a8a55753bfa8f84398b53`. Its v2 signature uses the established certificate SHA-256 `6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01`. The delivery includes 148 native captures, three preview boards, raw XML, provenance, package checksums, and Play APK/AAB. Physical-device acceptance remains outstanding.
