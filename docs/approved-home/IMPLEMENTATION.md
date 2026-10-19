@@ -1,6 +1,6 @@
 # Approved Home design implementation
 
-Design direction approved by the user on 19 October 2026. Native implementation targets phone portrait, tablet portrait, and tablet landscape. Dedicated compact phone landscape and large-text reflow remain available. Expanded Urdu Iqamah/end-time content uses a taller scrolling page rather than clipping or reducing the requested text size. Standard settings retain the one-screen phone layout.
+Design direction approved by the user on 19 October 2026. Native implementation targets phone portrait, tablet portrait, and tablet landscape. Dedicated compact phone landscape and large-text reflow remain available. Short phones and expanded Urdu relative-time/Iqamah content use a taller scrolling page rather than clipping or reducing the requested text size. Standard settings retain the one-screen phone layout.
 
 ## Retained value
 

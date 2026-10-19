@@ -1,5 +1,7 @@
 package com.usman.miqaat.ui
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.unit.dp
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.view.View
@@ -44,7 +46,7 @@ class ApprovedHomeAcceptanceTest : ComposeSupport() {
                 val root=rule.onRoot().fetchSemanticsNode().boundsInRoot
                 for (p in Prayer.entries) {
                     val target=rule.onNodeWithTag("approved-row-${p.name}",true)
-                    if(s.iqamahEnabled && lang==Language.UR) target.performScrollTo()
+                    if((s.iqamahEnabled || s.showRelative) && lang==Language.UR) target.performScrollTo()
                     val row=target.fetchSemanticsNode().boundsInRoot
                     assertTrue("$theme/$dev/$lang: $p outside viewport: $row vs $root",row.top>=root.top && row.bottom<=root.bottom && row.left>=root.left && row.right<=root.right)
                     assertTrue("$theme/$dev/$lang: $p target height",row.height>=48*app.resources.displayMetrics.density)
@@ -87,7 +89,7 @@ class ApprovedHomeAcceptanceTest : ComposeSupport() {
                 show(Dev.PHONE_PORTRAIT,theme,rtl=lang==Language.UR,language=lang) { HomeRouter(state,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{}) }
                 for(p in listedPrayers(s)) {
                     val target=rule.onNodeWithTag("approved-row-${p.name}",true)
-                    if(s.iqamahEnabled && lang==Language.UR) target.performScrollTo()
+                    if((s.iqamahEnabled || s.showRelative) && lang==Language.UR) target.performScrollTo()
                     val row=target.fetchSemanticsNode()
                     val bounds=row.boundsInRoot
                     fun walk(n:androidx.compose.ui.semantics.SemanticsNode) {
@@ -102,6 +104,30 @@ class ApprovedHomeAcceptanceTest : ComposeSupport() {
                         n.children.forEach { walk(it) }
                     }
                     walk(row)
+                }
+            } finally { scenario.close() }
+        }
+    }
+    @Test fun compactPhonesKeepHeroActionsAndPrayerRowsReachable() {
+        val only=System.getenv("MIQAAT_VISUAL_THEME")
+        for(theme in AppTheme.entries.filter { only==null || it.name==only }) for(lang in Language.entries) {
+            val s=AppSettings(theme=theme,language=lang,latitude=-33.93,longitude=151.19,locationName="Mascot, NSW",zoneId="Australia/Sydney",locationSet=true,setupDone=true)
+            val state=PrayerEngine.state(s,ZonedDateTime.of(2026,10,18,18,53,0,0,ZoneId.of(s.zoneId)))
+            app.settings.update { s }
+            try {
+                show(Dev.PHONE_PORTRAIT,theme,rtl=lang==Language.UR,language=lang,qualifiers="w360dp-h800dp-port-xhdpi") {
+                    androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.padding(top=24.dp,bottom=48.dp)) {
+                        HomeRouter(state,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{})
+                    }
+                }
+                val details=rule.onNodeWithText(Str[R.string.s_view_prayer_details],useUnmergedTree=true)
+                details.assertIsDisplayed()
+                val target=details.onParent().fetchSemanticsNode().boundsInRoot
+                assertTrue("$theme/$lang: compact hero details target clipped: $target", target.height>=48*app.resources.displayMetrics.density)
+                for(p in listedPrayers(s)) {
+                    val row=rule.onNodeWithTag("approved-row-${p.name}",true)
+                    if(theme!=AppTheme.PRAYER_GALLERY) row.performScrollTo()
+                    row.assertIsDisplayed()
                 }
             } finally { scenario.close() }
         }
