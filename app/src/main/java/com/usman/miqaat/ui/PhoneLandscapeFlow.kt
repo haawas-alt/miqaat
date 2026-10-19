@@ -23,7 +23,8 @@ import java.util.Locale
 
 /** A shallow full-width band reserves space for the complete original text on a short phone. */
 @Composable
-internal fun PhoneLandscapeBand() {
+internal fun PhoneLandscapeBand(ornate:Boolean=false) {
+    if(ornate) { OrnateLandscapeBand(); return }
     // Regular landscape keeps 12dp around the native Amiri glyphs. The shortest phones
     // retain 6dp clearance and all six 48dp prayer cards rather than clipping either.
     val clearance = if (LocalConfiguration.current.screenHeightDp < 390) 6.dp else 12.dp
