@@ -23,8 +23,7 @@ fun HomeRouter(state: PrayerState, settings: AppSettings, a: HomeActions, showLa
     when {
         showLarge -> LargeHome(state, settings, onLargeTap)
         largeFont -> AccessibleHome(state, settings, a)
-        !portrait && cfg.screenHeightDp < 500 && settings.theme in listOf(AppTheme.CELESTIAL_MERIDIAN, AppTheme.PRAYER_GALLERY) -> CompactThemeHome(state, settings, a)
-        !portrait && cfg.screenHeightDp < 500 -> LandscapeHome(state, settings, a.onOpenTimetable, a.onOpenSettings, a.onOpenLocation, a.onOpenQibla, a.onOpenAdhkar, a.onOpenFriday, a.onOpenLearn, a.updateAvailable, a.onOpenAbout, a.onToggleRelative)
+        !portrait && cfg.screenHeightDp < 500 -> PhoneLandscapeHome(state, settings, a)
         else -> ApprovedHome(state, settings, a)
     }
 }

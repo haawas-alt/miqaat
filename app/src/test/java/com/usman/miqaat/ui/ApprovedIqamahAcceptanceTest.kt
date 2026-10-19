@@ -56,7 +56,7 @@ class ApprovedIqamahAcceptanceTest : ComposeSupport() {
             rule.onNodeWithTag("iqamah-stage-1", true).assertTextEquals(Str[com.usman.miqaat.R.string.s_iqamah_countdown].let { if (lang == Language.UR) it else it.uppercase(java.util.Locale.ROOT) })
             for (tag in tags + if (overnight) listOf("iqamah-tomorrow") else emptyList()) {
                 val target = rule.onNodeWithTag(tag, true)
-                if (scale > 1.15f || dev == Dev.PHONE_LANDSCAPE) {
+                if (scale > 1.15f) {
                     if (tag !in listOf("iqamah-seconds", "iqamah-unit", "iqamah-until", "iqamah-start-label", "iqamah-dismiss-label") || dev != Dev.PHONE_LANDSCAPE) target.performScrollTo()
                 }
                 target.assertIsDisplayed()
@@ -74,7 +74,7 @@ class ApprovedIqamahAcceptanceTest : ComposeSupport() {
             }
             if (theme == AppTheme.KISWAH) {
                 val band = rule.onNodeWithTag("kiswah-calligraphy-band", true)
-                if (scale > 1.15f || dev == Dev.PHONE_LANDSCAPE) band.performScrollTo()
+                if (scale > 1.15f) band.performScrollTo()
                 band.assertIsDisplayed().assertContentDescriptionEquals(Kiswah.BAND)
             }
             if (scale <= 1.15f && dev != Dev.PHONE_LANDSCAPE) {

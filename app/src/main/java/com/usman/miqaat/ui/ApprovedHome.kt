@@ -33,10 +33,10 @@ import com.usman.miqaat.data.*
 import java.time.Duration
 
 @OptIn(androidx.compose.ui.text.ExperimentalTextApi::class)
-private val ApprovedBody = androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(
+internal val ApprovedBody = androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(
     R.font.nunito_sans, FontWeight.Normal, variationSettings = androidx.compose.ui.text.font.FontVariation.Settings(androidx.compose.ui.text.font.FontVariation.weight(500))))
 @OptIn(androidx.compose.ui.text.ExperimentalTextApi::class)
-private val ApprovedDisplay = androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(
+internal val ApprovedDisplay = androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(
     R.font.cormorant_garamond_medium, FontWeight.Medium, variationSettings = androidx.compose.ui.text.font.FontVariation.Settings(androidx.compose.ui.text.font.FontVariation.weight(500))))
 private fun approvedUi(s: AppSettings) = if (L10n.isUrdu(s)) Amiri else ApprovedBody
 
@@ -250,7 +250,7 @@ private fun ApprovedDetails(label: String, tk: ThemeTokens, onClick: () -> Unit,
 
 /** Atlas contains only paintings: hero in top half; six equal period illustrations in bottom half. */
 @Composable
-private fun ApprovedGalleryArt(index: Int?, modifier: Modifier) {
+internal fun ApprovedGalleryArt(index: Int?, modifier: Modifier) {
     val bmp = ImageBitmap.imageResource(R.drawable.approved_gallery_atlas)
     Canvas(modifier.clearAndSetSemantics { }) {
         val sw = if (index == null) bmp.width else bmp.width/6
