@@ -113,7 +113,7 @@ class ApprovedPhoneRefinementAcceptanceTest:ComposeSupport() {
             var picked:AppTheme?=null
             try {
                 show(Dev.TABLET_LANDSCAPE,t,rtl=l==Language.UR,language=l) { ThemePicker(t,s) {picked=it} }
-                for(choice in AppTheme.entries) {rule.onNodeWithTag("theme-preview-${choice.name}",true).assertIsDisplayed().performClick();assertEquals(choice,picked)}
+                for(choice in AppTheme.entries) {rule.onNodeWithTag("theme-preview-${choice.name}",true).assertIsDisplayed().performTouchInput{click()};assertEquals(choice,picked)}
                 capture(t,"theme-picker",l)
             }finally{scenario.close()}
         }
