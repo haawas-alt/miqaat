@@ -60,6 +60,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
     BoxWithConstraints(Modifier.fillMaxSize().background(tk.background).testTag("approved-home")) {
         val wide = maxWidth > maxHeight && maxHeight >= 500.dp
         val tablet = maxWidth >= 600.dp
+        val compactWide = wide && maxHeight < 700.dp
         val reflow = !wide && ((s.iqamahEnabled && L10n.isUrdu(s) && !tablet) || maxHeight < 700.dp)
         Box(Modifier.fillMaxSize()) {
             if (kiswah) {
@@ -77,10 +78,10 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
                 ApprovedHeader(state, s, a, tk, wide)
                 if (kiswah) KiswahBand(wide)
                 if (wide && gallery) {
-                    Box(Modifier.fillMaxWidth().weight(if (maxHeight < 700.dp) .40f else .34f).testTag("home-hero")) {
+                    Box(Modifier.fillMaxWidth().weight(if (compactWide) .40f else .34f).testTag("home-hero")) {
                         GalleryApprovedHero(state, s, a, tk, hero, Modifier.fillMaxSize(), true) { why = hero.prayer }
                     }
-                    Column(Modifier.fillMaxWidth().weight(if (maxHeight < 700.dp) .60f else .66f).testTag("home-prayers"), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Column(Modifier.fillMaxWidth().weight(if (compactWide) .60f else .66f).testTag("home-prayers"), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         galleryGridRows(listedPrayers(s)).forEach { row ->
                             Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                                 row.forEach { p -> ApprovedRow(galleryRowInfo(p, state, s), s, tk, a, Modifier.weight(1f).fillMaxHeight(), true, true) { why = p } }
