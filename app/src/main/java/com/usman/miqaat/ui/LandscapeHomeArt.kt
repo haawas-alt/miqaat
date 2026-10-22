@@ -47,7 +47,12 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
                 // Keep the hero readable over the Milky Way while retaining the lake and sunset.
                 Box(Modifier.matchParentSize().background(Brush.horizontalGradient(0f to Color.Transparent,.61f to Color.Transparent,.73f to Color(0xFF03132B).copy(alpha=.28f),1f to Color(0xFF03132B).copy(alpha=.08f))))
             }
-            AppTheme.PRAYER_GALLERY->Image(painterResource(R.drawable.quiet_gallery_landscape),null,Modifier.matchParentSize(),contentScale=ContentScale.Crop)
+            AppTheme.PRAYER_GALLERY->{
+                Image(painterResource(R.drawable.quiet_gallery_landscape),null,Modifier.matchParentSize(),contentScale=ContentScale.Crop)
+                // The approved board leaves a calm parchment field behind the prayer grid.
+                val parchment=Color(0xFFFFF5E5).copy(alpha=.78f)
+                Box(Modifier.matchParentSize().background(Brush.horizontalGradient(0f to Color.Transparent,.055f to parchment,.58f to parchment,.67f to Color.Transparent)))
+            }
         }
         if(s.theme!=AppTheme.PRAYER_GALLERY)Box(Modifier.matchParentSize().background(Brush.verticalGradient(0f to Color.Black.copy(alpha=.24f),.17f to Color.Transparent,.85f to Color.Transparent,1f to Color.Black.copy(alpha=.12f))))
     }
@@ -56,7 +61,7 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
 /** Double stitched rails and interlaced end medallions; Arabic remains real selectable text. */
 @Composable
 internal fun OrnateLandscapeBand() {
-    val clearance=4.dp
+    val clearance=if(LocalConfiguration.current.screenHeightDp<390)6.dp else 12.dp
     Box(Modifier.fillMaxWidth().padding(vertical=1.dp).testTag("kiswah-calligraphy-frame").background(Color.Black.copy(alpha=.88f)),contentAlignment=Alignment.Center) {
         Canvas(Modifier.matchParentSize().testTag("kiswah-band-ornament")) {
             val gold=Kiswah.thread;val fine=.55.dp.toPx();val inset=4.dp.toPx();val side=37.dp.toPx()
