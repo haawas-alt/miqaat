@@ -7,7 +7,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: landscape-parity-v1-${{ github.ref }}
+  group: landscape-parity-v2-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   source:
@@ -51,6 +51,15 @@ jobs:
       - uses: actions/setup-java@v4
         with: {distribution: temurin, java-version: '17'}
       - uses: gradle/actions/setup-gradle@v4
+      - name: Ensure pinned native toolchain with download retry
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            if "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'ndk;28.2.13676358'; then break; fi
+            [ "$attempt" -lt 3 ] || exit 1
+          done
+          test -f "$ANDROID_HOME/ndk/28.2.13676358/build/cmake/android.toolchain.cmake"
       - name: Native mockup geometry, actions and retained portrait/tablet acceptance
         run: GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*LandscapeMockupParityTest' --tests '*DetailedGalleryAcceptanceTest' --tests '*ApprovedPhoneRefinementAcceptanceTest' --tests '*ThemeSelectionTest' --tests '*ApprovedPhoneLandscapeAcceptanceTest' --tests '*ApprovedHomeAcceptanceTest' --tests '*ApprovedQuietAcceptanceTest' --tests '*ApprovedIqamahAcceptanceTest' --tests '*IqamahCounterTest'
       - uses: actions/upload-artifact@v4
