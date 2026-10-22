@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.layout.ContentScale
@@ -35,13 +36,17 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
             AppTheme.MIQAAT->{
                 Image(painterResource(R.drawable.quiet_miqaat_landscape),null,Modifier.matchParentSize(),contentScale=ContentScale.Crop)
                 Box(Modifier.matchParentSize().background(Brush.horizontalGradient(0f to Color(0xFF03162D),.55f to Color(0xFF03162D).copy(alpha=.96f),.66f to Color.Transparent)))
-                Image(painterResource(R.drawable.approved_miqaat_arch),null,Modifier.align(Alignment.CenterEnd).fillMaxHeight().fillMaxWidth(.39f),contentScale=ContentScale.Crop,alignment=Alignment.TopCenter)
+                Image(painterResource(R.drawable.approved_miqaat_arch),null,Modifier.align(Alignment.CenterEnd).fillMaxHeight().fillMaxWidth(.37f).graphicsLayer { scaleX = -1f },contentScale=ContentScale.Crop,alignment=Alignment.TopCenter)
             }
             AppTheme.KISWAH->{
                 Weave(Modifier.matchParentSize())
                 Image(painterResource(R.drawable.approved_kiswah_silk),null,Modifier.align(Alignment.CenterEnd).fillMaxHeight().fillMaxWidth(.18f),contentScale=ContentScale.Crop,alignment=Alignment.CenterEnd)
             }
-            AppTheme.CELESTIAL_MERIDIAN->Image(painterResource(R.drawable.home_celestial_landscape_parity),null,Modifier.matchParentSize(),contentScale=ContentScale.Crop)
+            AppTheme.CELESTIAL_MERIDIAN->{
+                Image(painterResource(R.drawable.home_celestial_landscape_parity),null,Modifier.matchParentSize().graphicsLayer { scaleX=1.12f;scaleY=1.12f;translationX=size.width*.035f;translationY=size.height*.045f },contentScale=ContentScale.Crop)
+                // Keep the hero readable over the Milky Way while retaining the lake and sunset.
+                Box(Modifier.matchParentSize().background(Brush.horizontalGradient(0f to Color.Transparent,.61f to Color.Transparent,.73f to Color(0xFF03132B).copy(alpha=.28f),1f to Color(0xFF03132B).copy(alpha=.08f))))
+            }
             AppTheme.PRAYER_GALLERY->Image(painterResource(R.drawable.quiet_gallery_landscape),null,Modifier.matchParentSize(),contentScale=ContentScale.Crop)
         }
         if(s.theme!=AppTheme.PRAYER_GALLERY)Box(Modifier.matchParentSize().background(Brush.verticalGradient(0f to Color.Black.copy(alpha=.24f),.17f to Color.Transparent,.85f to Color.Transparent,1f to Color.Black.copy(alpha=.12f))))
@@ -51,7 +56,7 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
 /** Double stitched rails and interlaced end medallions; Arabic remains real selectable text. */
 @Composable
 internal fun OrnateLandscapeBand() {
-    val clearance=if(LocalConfiguration.current.screenHeightDp<390)6.dp else 12.dp
+    val clearance=4.dp
     Box(Modifier.fillMaxWidth().padding(vertical=1.dp).testTag("kiswah-calligraphy-frame").background(Color.Black.copy(alpha=.88f)),contentAlignment=Alignment.Center) {
         Canvas(Modifier.matchParentSize().testTag("kiswah-band-ornament")) {
             val gold=Kiswah.thread;val fine=.55.dp.toPx();val inset=4.dp.toPx();val side=37.dp.toPx()
@@ -65,14 +70,12 @@ internal fun OrnateLandscapeBand() {
             for(left in listOf(0f,size.width-side)) {
                 drawRect(gold.copy(alpha=.75f),Offset(left,inset),Size(side,size.height-2*inset),style=Stroke(fine))
                 val center=Offset(left+side/2,size.height/2);val radius=minOf(side*.43f,size.height*.38f)
-                fun star(r:Float,phase:Float):Path=Path().apply {
-                    repeat(16){i->val angle=(i*PI/8+phase).toFloat();val rr=if(i%2==0)r else r*.58f
-                        val x=center.x+cos(angle)*rr;val y=center.y+sin(angle)*rr
-                        if(i==0)moveTo(x,y)else lineTo(x,y)};close()
+                for(turn in listOf(0f,45f))rotate(turn,center) {
+                    val half=radius*.69f
+                    drawRoundRect(gold,Offset(center.x-half,center.y-half),Size(half*2,half*2),androidx.compose.ui.geometry.CornerRadius(radius*.12f),style=Stroke(.85.dp.toPx()))
+                    drawRoundRect(gold.copy(alpha=.8f),Offset(center.x-half*.72f,center.y-half*.72f),Size(half*1.44f,half*1.44f),androidx.compose.ui.geometry.CornerRadius(radius*.09f),style=Stroke(fine))
                 }
-                drawPath(star(radius,0f),gold,style=Stroke(.8.dp.toPx()))
-                drawPath(star(radius*.72f,(PI/8).toFloat()),gold,style=Stroke(fine))
-                drawCircle(gold,radius*.17f,center,style=Stroke(fine))
+                drawCircle(gold,radius*.18f,center,style=Stroke(fine))
                 for(dx in listOf(-1,1))for(dy in listOf(-1,1)) {
                     val p=Offset(center.x+dx*radius*.78f,center.y+dy*radius*.63f)
                     rotate(45f,p){drawRect(gold,Offset(p.x-2.dp.toPx(),p.y-2.dp.toPx()),Size(4.dp.toPx(),4.dp.toPx()),style=Stroke(fine))}
@@ -80,6 +83,6 @@ internal fun OrnateLandscapeBand() {
             }
         }
         Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=45.dp,vertical=clearance).testTag("kiswah-calligraphy-band")
-            .semantics{contentDescription=Kiswah.BAND},fontFamily=Amiri,fontSize=14.sp,lineHeight=22.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
+            .semantics{contentDescription=Kiswah.BAND},fontFamily=Amiri,fontSize=if(LocalConfiguration.current.screenHeightDp<390)16.sp else 18.sp,lineHeight=26.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
     }
 }

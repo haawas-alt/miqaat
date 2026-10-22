@@ -68,6 +68,17 @@ class LandscapeMockupParityTest:ComposeSupport() {
                     val time=rule.onNodeWithTag("landscape-row-time-${p.name}",true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Name and clock no longer share a compact line",abs(name.top-time.top)<8*app.resources.displayMetrics.density)
                 }
+                for(p in listedPrayers(s)) {
+                    val row=galleryRowInfo(p,st,s)
+                    if(row.isNow||row.isNext) {
+                        val tag=if(t==AppTheme.PRAYER_GALLERY)if(row.isNow)"gallery-status-now"else"gallery-status-next" else if(row.isNow)"home-status-now"else"home-status-next"
+                        readable(tag)
+                        val badge=rule.onNodeWithTag(tag,true).fetchSemanticsNode().boundsInRoot
+                        val time=rule.onNodeWithTag("landscape-row-time-${p.name}",true).fetchSemanticsNode().boundsInRoot
+                        assertTrue("Status must remain beside the clock rather than on artwork or name",abs(badge.center.y-time.center.y)<12*app.resources.displayMetrics.density)
+                        assertTrue("Status must not cover the clock",badge.right<=time.left+1f||badge.left>=time.right-1f)
+                    }
+                }
                 for(tag in listOf("landscape-location","landscape-date","landscape-hijri","landscape-live-clock","landscape-hero-name","landscape-hero-english","landscape-hero-clock","landscape-hero-status"))readable(tag)
                 val details=rule.onNodeWithTag("landscape-hero-details",true).fetchSemanticsNode().boundsInRoot
                 assertTrue("Reference details button became full-hero width",details.width/hero.width in .50f.. .87f)
