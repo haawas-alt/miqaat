@@ -49,7 +49,7 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
     }
     Box(Modifier.fillMaxSize().clipToBounds().background(c.background).testTag("landscape-fit-board")) {
         LandscapeHomeArt(s,Modifier.matchParentSize())
-        Box(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal=12.dp,vertical=2.dp)) {
+        Box(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal=12.dp,vertical=if(s.theme==AppTheme.KISWAH)0.dp else 2.dp)) {
             val reflow=s.iqamahEnabled||s.showRelative
             Column(Modifier.fillMaxSize().then(if(reflow)Modifier.verticalScroll(rememberScrollState()).testTag("landscape-home-reflow")else Modifier)) {
                 LandscapeHomeHeader(state,s,a)
