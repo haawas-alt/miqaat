@@ -32,6 +32,7 @@ class LandscapeMockupParityTest:ComposeSupport() {
         n.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(ls)
         assertTrue("$tag lacks native text",ls.isNotEmpty())
         for(l in ls) {
+            if(tag.startsWith("landscape-row-time-"))assertEquals("Prayer clock and suffix must share one line",1,l.lineCount)
             val w=(0 until l.lineCount).maxOfOrNull{l.getLineRight(it)-l.getLineLeft(it)}?:0f
             val h=if(l.lineCount>0)l.getLineBottom(l.lineCount-1)-l.getLineTop(0)else 0f
             assertFalse("$tag clips '${l.layoutInput.text}': ${n.size} vs $w,$h",l.multiParagraph.didExceedMaxLines||w>n.size.width+1f||h>n.size.height+1f)

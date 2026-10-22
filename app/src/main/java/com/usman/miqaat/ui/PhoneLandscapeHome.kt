@@ -229,7 +229,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
                     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(2.dp)) {
                         Text(buildAnnotatedString{append(raw);if(!s.showRelative&&r.suffix.isNotBlank()){val start=raw.indexOf(r.suffix);if(start>=0)addStyle(SpanStyle(fontSize=9.sp,baselineShift=BaselineShift(.15f)),start,start+r.suffix.length)}},
                             Modifier.weight(1f,fill=false).testTag("landscape-row-time-${r.prayer.name}"),fontFamily=if(s.showRelative&&urdu)Amiri else if(s.showRelative)ApprovedBody else androidx.compose.ui.text.font.FontFamily.Serif,
-                            fontSize=if(s.showRelative)11.sp else if(tight)14.sp else 18.sp,lineHeight=if(urdu)25.sp else 20.sp,color=c.ink)
+                            fontSize=if(s.showRelative)11.sp else if(thumbnail&&narrow&&!urdu)12.sp else if(tight)14.sp else 18.sp,lineHeight=if(urdu)25.sp else 20.sp,color=c.ink,maxLines=if(s.showRelative)Int.MAX_VALUE else 1)
                         if(r.isNow||r.isNext)badge()
                     }
                     if(r.small.isNotEmpty())Text(r.small,Modifier.testTag("landscape-row-detail-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=9.sp,lineHeight=if(urdu)16.sp else 12.sp,color=c.secondary)
