@@ -201,7 +201,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         val tight=maxWidth<260.dp
         val thumbnail=gallery&&s.artTheme!=ArtTheme.MINIMAL&&!(tight&&urdu)
         val badge:@Composable ()->Unit={
-            Box(Modifier.width(if(urdu)30.dp else 26.dp).clip(RoundedCornerShape(10.dp))
+            Box(Modifier.width(if(urdu)30.dp else 24.dp).clip(RoundedCornerShape(10.dp))
                 .background(if(r.isNow)Color(0xFF34D6DA)else Color(0xFFFFD56E)),contentAlignment=Alignment.Center) {
                 Text(L10n.word(s,if(r.isNow)"NOW"else"NEXT"),Modifier.padding(horizontal=2.dp,vertical=2.dp).testTag(if(gallery)if(r.isNow)"gallery-status-now"else"gallery-status-next"else if(r.isNow)"home-status-now"else"home-status-next"),
                     fontFamily=if(urdu)Amiri else ApprovedBody,fontWeight=FontWeight.Bold,fontSize=7.sp,lineHeight=if(urdu)18.sp else 11.sp,color=Color(0xFF112F32),maxLines=1)
@@ -212,13 +212,13 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
             .testTag("compact-prayer-${r.prayer.name}").combinedClickable(onClick=a.onToggleRelative,onLongClick=onWhy,role=Role.Button)
             .semantics(mergeDescendants=true){contentDescription=r.spoken},verticalAlignment=Alignment.CenterVertically) {
             if(thumbnail) {
-                Box(Modifier.padding(start=4.dp,top=4.dp,bottom=4.dp).width(if(tight)32.dp else 58.dp).fillMaxHeight()) {
+                Box(Modifier.padding(start=4.dp,top=4.dp,bottom=4.dp).width(if(tight)30.dp else 58.dp).fillMaxHeight()) {
                     // The approved Fajr vignette is a blue mosque, rather than the mountain painting.
                     ApprovedGalleryArt(if(r.prayer==Prayer.FAJR)Prayer.ISHA.ordinal else r.prayer.ordinal,Modifier.fillMaxSize().clip(RoundedCornerShape(5.dp)))
                 }
             } else if(!tight||!urdu)Icon(Icons.Outlined.Schedule,null,Modifier.padding(start=4.dp,end=3.dp).size(13.dp),tint=c.secondary)
             Row(Modifier.weight(1f).padding(start=4.dp),verticalAlignment=Alignment.Top) {
-                Column(Modifier.width(if(urdu)58.dp else if(tight)46.dp else 54.dp)) {
+                Column(Modifier.width(if(urdu)58.dp else if(tight)44.dp else 54.dp)) {
                     Text(r.label,Modifier.testTag("landscape-row-name-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(urdu)14.sp else if(tight)12.sp else 13.sp,lineHeight=if(urdu)25.sp else 17.sp,color=c.ink,maxLines=1)
                     if(!urdu)Text(r.arabic,Modifier.testTag("landscape-row-arabic-${r.prayer.name}"),fontFamily=Amiri,fontSize=14.sp,lineHeight=21.sp,color=c.accent)
                 }

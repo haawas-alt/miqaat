@@ -86,6 +86,25 @@ class LandscapeMockupParityTest:ComposeSupport() {
             }finally{scenario.close()}
         }
     }
+    @Test fun clockBadgesFitBeforeFajrAndAroundMiddayWithLongLocation() {
+        for(t in themes())for(hour in listOf(4,12,13)) {
+            val s=settings(t,Language.EN).copy(latitude=39.95,longitude=116.27,zoneId="Asia/Shanghai",locationName="Hai Dian Qu, Bei Jing Shi")
+            app.settings.update{s}
+            val st=PrayerEngine.state(s,ZonedDateTime.of(2026,10,20,hour,15,0,0,s.zone()))
+            try {
+                show(Dev.PHONE_LANDSCAPE,t,qualifiers="w740dp-h360dp-land-xhdpi") {
+                    Box(Modifier.padding(start=24.dp,bottom=12.dp)) {HomeRouter(st,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{})}
+                }
+                capture(t,"beijing-$hour",Language.EN)
+                readable("landscape-location")
+                for(p in listedPrayers(s)) {
+                    for(k in listOf("name","time","detail"))readable("landscape-row-$k-${p.name}")
+                    val row=galleryRowInfo(p,st,s)
+                    if(row.isNow||row.isNext)readable(if(t==AppTheme.PRAYER_GALLERY)if(row.isNow)"gallery-status-now"else"gallery-status-next" else if(row.isNow)"home-status-now"else"home-status-next")
+                }
+            }finally{scenario.close()}
+        }
+    }
     @Test fun landscapeAlertsAndContextActionsRetainTheirDestinations() {
         for(t in themes()) {
             val s=settings(t,Language.EN).copy(zoneNeedsReview=true);app.settings.update{s}
