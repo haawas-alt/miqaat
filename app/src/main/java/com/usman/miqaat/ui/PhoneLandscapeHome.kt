@@ -214,13 +214,13 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
             .testTag("compact-prayer-${r.prayer.name}").combinedClickable(onClick=a.onToggleRelative,onLongClick=onWhy,role=Role.Button)
             .semantics(mergeDescendants=true){contentDescription=r.spoken},verticalAlignment=Alignment.CenterVertically) {
             if(thumbnail) {
-                Box(Modifier.padding(start=4.dp,top=4.dp,bottom=4.dp).width(if(tight)if(narrow)26.dp else 30.dp else 58.dp).fillMaxHeight()) {
+                Box(Modifier.padding(start=4.dp,top=4.dp,bottom=4.dp).width(if(tight)if(narrow)22.dp else 30.dp else 58.dp).fillMaxHeight()) {
                     // The approved Fajr vignette is a blue mosque, rather than the mountain painting.
                     ApprovedGalleryArt(if(r.prayer==Prayer.FAJR)Prayer.ISHA.ordinal else r.prayer.ordinal,Modifier.fillMaxSize().clip(RoundedCornerShape(5.dp)))
                 }
             } else if(!tight||!urdu)Icon(Icons.Outlined.Schedule,null,Modifier.padding(start=4.dp,end=3.dp).size(13.dp),tint=c.secondary)
             Row(Modifier.weight(1f).padding(start=4.dp),verticalAlignment=Alignment.Top) {
-                Column(Modifier.width(if(urdu)58.dp else if(tight)44.dp else 54.dp)) {
+                Column(Modifier.width(if(urdu)58.dp else if(tight)50.dp else 54.dp)) {
                     Text(r.label,Modifier.testTag("landscape-row-name-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(urdu)14.sp else if(tight)12.sp else 13.sp,lineHeight=if(urdu)25.sp else 17.sp,color=c.ink,maxLines=1)
                     if(!urdu)Text(r.arabic,Modifier.testTag("landscape-row-arabic-${r.prayer.name}"),fontFamily=Amiri,fontSize=14.sp,lineHeight=21.sp,color=c.accent)
                 }
@@ -229,7 +229,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
                     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(2.dp)) {
                         Text(buildAnnotatedString{append(raw);if(!s.showRelative&&r.suffix.isNotBlank()){val start=raw.indexOf(r.suffix);if(start>=0)addStyle(SpanStyle(fontSize=9.sp,baselineShift=BaselineShift(.15f)),start,start+r.suffix.length)}},
                             Modifier.weight(1f,fill=false).testTag("landscape-row-time-${r.prayer.name}"),fontFamily=if(s.showRelative&&urdu)Amiri else if(s.showRelative)ApprovedBody else androidx.compose.ui.text.font.FontFamily.Serif,
-                            fontSize=if(s.showRelative)11.sp else if(tight)if(thumbnail&&narrow)15.sp else 16.sp else 18.sp,lineHeight=if(urdu)25.sp else 20.sp,color=c.ink)
+                            fontSize=if(s.showRelative)11.sp else if(tight)14.sp else 18.sp,lineHeight=if(urdu)25.sp else 20.sp,color=c.ink)
                         if(r.isNow||r.isNext)badge()
                     }
                     if(r.small.isNotEmpty())Text(r.small,Modifier.testTag("landscape-row-detail-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=9.sp,lineHeight=if(urdu)16.sp else 12.sp,color=c.secondary)
