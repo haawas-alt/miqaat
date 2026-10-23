@@ -121,6 +121,14 @@ class LandscapeMockupParityTest:ComposeSupport() {
                     val b=rule.onNodeWithTag(tag,true).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
                     assertTrue("Footer clipped on actual relative-mode phone: $tag",b.bottom<=root.bottom&&b.top>=root.top)
                 }
+                // The reported 891x411 phone must retain the approved stacked hero.
+                val name=rule.onNodeWithTag("landscape-hero-name",true).fetchSemanticsNode().boundsInRoot
+                val clock=rule.onNodeWithTag("landscape-hero-clock",true).fetchSemanticsNode().boundsInRoot
+                assertTrue("Hero switched to a side-by-side layout on the reported phone",name.bottom<=clock.top+1f)
+                for(tag in listOf("landscape-hero-name","landscape-hero-clock","landscape-hero-status"))readable(tag)
+                val details=rule.onNodeWithTag("landscape-hero-details",true).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+                val density=app.resources.displayMetrics.density
+                assertTrue("Hero details clipped on the reported phone",details.height>=48*density-.1f&&details.bottom<=root.bottom)
                 for(p in listedPrayers(s)) {
                     for(k in listOf("name","time","detail","relative"))readable("landscape-row-$k-${p.name}")
                     val r=galleryRowInfo(p,st,s)
