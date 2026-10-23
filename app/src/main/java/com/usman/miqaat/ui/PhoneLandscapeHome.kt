@@ -162,7 +162,7 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
             if(hero.suffix.isNotBlank()) {val start=heroClock.indexOf(hero.suffix);if(start>=0)addStyle(SpanStyle(fontSize=14.sp,baselineShift=BaselineShift(.2f)),start,start+hero.suffix.length)}
         },Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-clock").clickable(role=Role.Button,onClick=onToggle),style=heroStyle,fontFamily=if(urdu)Amiri else ApprovedDisplay,fontWeight=FontWeight.Bold,
             fontSize=if(urdu)25.sp else if(compactKiswah)if(tiny)38.sp else if(largeDisplay)60.sp else 52.sp else if(compact)40.sp else if(largeDisplay)70.sp else 66.sp,lineHeight=if(urdu)if(paired)38.sp else 45.sp else if(compactKiswah)if(tiny)42.sp else 54.sp else if(compact)49.sp else 69.sp,letterSpacing=if(urdu)0.sp else 1.4.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}}
-        val galleryExtraInset=if(gallery&&maxWidth>=250.dp)20.dp else 0.dp
+        val galleryExtraInset=if(gallery&&maxWidth>=250.dp)60.dp else 0.dp
         Box(Modifier.fillMaxSize().padding(end=galleryExtraInset),contentAlignment=Alignment.Center) {
         Column(Modifier.widthIn(max=244.dp).fillMaxWidth().fillMaxHeight(),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             val kicker:@Composable (Modifier)->Unit={m->Box(m.then(if(urdu||paired)Modifier else Modifier.height(if(compactKiswah)if(largeDisplay)16.dp else 14.5.dp else if(largeDisplay)18.dp else 16.dp)),contentAlignment=Alignment.Center) {
@@ -175,7 +175,7 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
             if(paired)Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){kicker(Modifier.weight(.35f));status(Modifier.weight(.65f))}else kicker(Modifier.fillMaxWidth())
             if(paired)Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){name(Modifier.weight(.43f));clock(Modifier.weight(.57f))}
             else {name(Modifier.fillMaxWidth());clock(Modifier.fillMaxWidth());status(Modifier.fillMaxWidth())}
-            LandscapeHomeDoor(Str[R.string.s_view_prayer_details],null,s,Modifier.fillMaxWidth(.78f).testTag("landscape-hero-details"),solid=gallery,onClick=onDetails)
+            LandscapeHomeDoor(Str[R.string.s_view_prayer_details],null,s,Modifier.widthIn(max=190.dp).fillMaxWidth().testTag("landscape-hero-details"),solid=gallery,onClick=onDetails)
         }
         }
     }
@@ -222,14 +222,18 @@ internal fun PhoneHomeButton(label:String,s:AppSettings,modifier:Modifier=Modifi
 @Composable
 private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:Modifier,onWhy:()->Unit) {
     val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s);val gallery=s.theme==AppTheme.PRAYER_GALLERY
-    val mark=if(r.isNow)Color(0xFF43DADE)else c.accent
-    val fill=when {r.isNow->if(gallery)Color(0xFFE6F3ED)else Color(0xFF074148).copy(alpha=.88f)
-        r.isNext->if(gallery)Color(0xFFFFECD9)else Color(0xFF65491D).copy(alpha=.85f)
-        else->if(gallery)Color(0xFFFFF9EE).copy(alpha=.85f)else if(s.theme==AppTheme.KISWAH)Color(0xFF090909).copy(alpha=.8f)else Color(0xFF03162C).copy(alpha=.65f)}
+    val mark=if(r.isNow)Color(0xFF43DADE)else if(gallery&&r.isNext)Color(0xFFC49B61)else c.accent
+    val fill=when {r.isNow->if(gallery)Color(0xFFE4EFEB)else Color(0xFF074148).copy(alpha=.88f)
+        r.isNext->if(gallery)Color(0xFFFDF1E3)else Color(0xFF65491D).copy(alpha=.85f)
+        else->if(gallery)Color(0xFFF8F5EC).copy(alpha=.85f)else if(s.theme==AppTheme.KISWAH)Color(0xFF090909).copy(alpha=.8f)else Color(0xFF03162C).copy(alpha=.65f)}
     val paint=if(gallery)Brush.horizontalGradient(listOf(fill,fill.copy(alpha=.94f))) else when {
-        r.isNow->Brush.horizontalGradient(listOf(Color(0xFF07505A).copy(alpha=.70f),Color(0xFF032E37).copy(alpha=.62f)))
-        r.isNext->Brush.horizontalGradient(listOf(Color(0xFF856326).copy(alpha=.54f),Color(0xFF222526).copy(alpha=.68f)))
+        r.isNow&&s.theme==AppTheme.CELESTIAL_MERIDIAN->Brush.horizontalGradient(listOf(Color(0xFF6B8C86).copy(alpha=.70f),Color(0xFF3F5455).copy(alpha=.62f)))
+        r.isNow&&s.theme==AppTheme.KISWAH->Brush.horizontalGradient(listOf(Color(0xFF07505A).copy(alpha=.70f),Color(0xFF032E37).copy(alpha=.62f)))
+        r.isNow->Brush.horizontalGradient(listOf(Color(0xFF074646).copy(alpha=.70f),Color(0xFF03262A).copy(alpha=.62f)))
+        r.isNext&&s.theme==AppTheme.KISWAH->Brush.horizontalGradient(listOf(Color(0xFF9F732B).copy(alpha=.72f),Color(0xFF4F351B).copy(alpha=.68f)))
+        r.isNext->Brush.horizontalGradient(listOf(Color(0xFF76501D).copy(alpha=.63f),Color(0xFF38220C).copy(alpha=.72f)))
         s.theme==AppTheme.KISWAH->Brush.horizontalGradient(listOf(Color(0xFF090909).copy(alpha=.82f),Color(0xFF10100F).copy(alpha=.58f)))
+        s.theme==AppTheme.CELESTIAL_MERIDIAN->Brush.horizontalGradient(listOf(Color(0xFF304654).copy(alpha=.70f),Color(0xFF293844).copy(alpha=.46f)))
         else->Brush.horizontalGradient(listOf(Color(0xFF041A34).copy(alpha=.70f),Color(0xFF03142A).copy(alpha=.46f)))
     }
     BoxWithConstraints(modifier.heightIn(min=48.dp)) {
@@ -244,7 +248,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         val density=LocalDensity.current
         val labelSize=if(urdu)14.sp else if(large&&!gallery)16.sp else if(large)15.sp else if(tight)12.sp else 13.sp
         val arabicSize=if(large&&!gallery)18.sp else 14.sp
-        val timeSize=if(urdu)18.sp else if(large&&!gallery)22.sp else if(large&&gallery)if(wideCard)20.sp else 18.sp else if(thumbnail&&narrow&&!urdu)12.sp else if(tinyCard)14.sp else if(gallery&&tight)16.sp else 18.sp
+        val timeSize=if(urdu)18.sp else if(large&&!gallery)22.sp else if(large&&gallery)if(wideCard)20.sp else 17.sp else if(thumbnail&&narrow&&!urdu)12.sp else if(tinyCard)14.sp else if(gallery&&tight)16.sp else 18.sp
         val detailSize=if(large&&!urdu)11.sp else if(gallery&&!urdu)8.sp else 9.sp
         val badgeWidth=if(urdu)30.dp else if(large&&(!gallery||wideCard))28.dp else 24.dp
         val suffixSize=if(large&&(!gallery||wideCard))11.sp else 9.sp

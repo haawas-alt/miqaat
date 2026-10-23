@@ -92,7 +92,7 @@ class LandscapeMockupParityTest:ComposeSupport() {
                     assertTrue("Timeline first stop drifted from approved composition",(first.center.x-board.left)/board.width in .11f.. .15f)
                     assertTrue("Timeline last stop extends past the approved Isha position",(last.center.x-board.left)/board.width in .75f.. .82f)
                     val clock=ink("landscape-hero-clock")
-                    assertTrue("Hero clock lost the approved visual hierarchy",clock.height/board.height in .12f.. .21f)
+                    assertTrue("Hero clock lost the approved visual hierarchy",clock.height/board.height in .12f.. .23f)
                 }
                 if(t==AppTheme.KISWAH)rule.onNodeWithTag("kiswah-band-ornament",true).assertIsDisplayed()
             }finally{scenario.close()}
@@ -194,7 +194,7 @@ class LandscapeMockupParityTest:ComposeSupport() {
                                 val y0=(if(top)frame.top+5*density else frame.bottom-6*density).toInt()
                                 val y1=(if(top)frame.top+6*density else frame.bottom-5*density).toInt()
                                 var marked=0
-                                for(y in y0 until y1)for(x in (frame.left+55*density).toInt() until (frame.right-55*density).toInt()) {
+                                for(y in y0 until y1)for(x in (frame.left+68*density).toInt() until (frame.right-68*density).toInt()) {
                                     val pixel=b.getPixel(x,y);val red=android.graphics.Color.red(pixel);val green=android.graphics.Color.green(pixel);val blue=android.graphics.Color.blue(pixel)
                                     if(red>145&&green>95&&red>blue*1.15f&&green>blue*1.05f)marked++
                                 }

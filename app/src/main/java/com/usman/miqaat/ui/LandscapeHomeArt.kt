@@ -16,6 +16,8 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
@@ -75,9 +77,13 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
 internal fun OrnateLandscapeBand() {
     val short=LocalConfiguration.current.screenHeightDp<390
     val clearance=if(short)6.dp else 10.dp
-    Box(Modifier.fillMaxWidth().padding(vertical=1.dp).testTag("kiswah-calligraphy-frame").background(Color(0xFF060605)),contentAlignment=Alignment.Center) {
+    BoxWithConstraints(Modifier.fillMaxWidth().padding(vertical=1.dp).testTag("kiswah-calligraphy-frame").background(Color(0xFF060605)),contentAlignment=Alignment.Center) {
+        val measure=rememberTextMeasurer()
+        val measured=measure.measure(Kiswah.BAND,TextStyle(fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=if(short)16.sp else 20.sp))
+        val nativeWidth=with(LocalDensity.current){measured.size.width.toDp()}
+        val textScale=minOf(1.60f,((maxWidth-144.dp)/nativeWidth)).coerceAtLeast(1f)
         Canvas(Modifier.matchParentSize().testTag("kiswah-band-ornament")) {
-            val gold=Kiswah.thread;val fine=.45.dp.toPx();val side=46.dp.toPx()
+            val gold=Kiswah.thread;val fine=.45.dp.toPx();val side=58.dp.toPx()
             val thread=Brush.linearGradient(listOf(Color(0xFF8B682D),Color(0xFFF2D784),Color(0xFFB58B43),Color(0xFFE4C978)),Offset.Zero,Offset(0f,size.height))
             drawRect(thread,style=Stroke(.8.dp.toPx()))
             for(y in listOf(3.dp.toPx(),size.height-3.dp.toPx())) {
@@ -117,6 +123,13 @@ internal fun OrnateLandscapeBand() {
                     }
                     drawPath(vine,thread,style=Stroke(.7.dp.toPx()))
                 }}
+                repeat(8) { i->rotate(i*45f,center) {
+                    val loop=Path().apply {
+                        moveTo(center.x,center.y-radius*.30f)
+                        cubicTo(center.x-radius*.50f,center.y-radius*.94f,center.x+radius*.50f,center.y-radius*.94f,center.x,center.y-radius*.30f)
+                    }
+                    drawPath(loop,thread,style=Stroke(fine))
+                }}
                 drawCircle(gold,radius*.13f,center,style=Stroke(fine))
                 // Tiny corner arabesques fill the square cartouche instead of a large bare star.
                 for(dx in listOf(-1,1))for(dy in listOf(-1,1)) {
@@ -129,8 +142,8 @@ internal fun OrnateLandscapeBand() {
                 }
             }
         }
-        Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=55.dp,vertical=clearance).testTag("kiswah-calligraphy-band")
-            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),textGeometricTransform=TextGeometricTransform(scaleX=if(short)1f else 1.18f)),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=if(short)16.sp else 20.sp,lineHeight=if(short)26.sp else 24.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
+        Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=68.dp,vertical=clearance).testTag("kiswah-calligraphy-band")
+            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),textGeometricTransform=TextGeometricTransform(scaleX=textScale)),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=if(short)16.sp else 20.sp,lineHeight=if(short)26.sp else 24.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
     }
 }
 
@@ -156,11 +169,15 @@ private fun LandscapePainting(resource:Int,theme:AppTheme,modifier:Modifier) {
     val bitmap=ImageBitmap.imageResource(resource)
     Canvas(modifier) {
         val source=if(theme==AppTheme.PRAYER_GALLERY)listOf(0f,.08f,.65f,1f)else if(theme==AppTheme.MIQAAT)listOf(0f,.565f,1f)else listOf(0f,.80f,1f)
-        val target=if(theme==AppTheme.PRAYER_GALLERY)listOf(0f,.08f,.80f,1f)else if(theme==AppTheme.MIQAAT)listOf(0f,.63f,1f)else listOf(0f,.86f,1f)
-        for(i in 0 until source.lastIndex) {
+        val target=if(theme==AppTheme.PRAYER_GALLERY)listOf(0f,.08f,.75f,1f)else if(theme==AppTheme.MIQAAT)listOf(0f,.63f,1f)else listOf(0f,.86f,1f)
+        val sourceY=if(theme==AppTheme.MIQAAT)listOf(0f,.60f,.80f,1f)else listOf(0f,1f)
+        val targetY=if(theme==AppTheme.MIQAAT)listOf(0f,.60f,.72f,1f)else listOf(0f,1f)
+        for(i in 0 until source.lastIndex)for(j in 0 until sourceY.lastIndex) {
             val sx=(source[i]*bitmap.width).toInt();val ex=(source[i+1]*bitmap.width).toInt()
+            val sy=(sourceY[j]*bitmap.height).toInt();val ey=(sourceY[j+1]*bitmap.height).toInt()
             val dx=(target[i]*size.width).toInt();val end=(target[i+1]*size.width).toInt()
-            drawImage(bitmap,srcOffset=IntOffset(sx,0),srcSize=IntSize(ex-sx,bitmap.height),dstOffset=IntOffset(dx,0),dstSize=IntSize(end-dx,size.height.toInt()))
+            val dy=(targetY[j]*size.height).toInt();val bottom=(targetY[j+1]*size.height).toInt()
+            drawImage(bitmap,srcOffset=IntOffset(sx,sy),srcSize=IntSize(ex-sx,ey-sy),dstOffset=IntOffset(dx,dy),dstSize=IntSize(end-dx,bottom-dy))
         }
     }
 }
