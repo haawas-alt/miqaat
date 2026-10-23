@@ -11,6 +11,7 @@ import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.usman.miqaat.data.*
 import org.junit.Assert.*
@@ -150,14 +151,17 @@ class LandscapeMockupParityTest:ComposeSupport() {
         n.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
         assertTrue("Missing text layout for artwork audit: $tag",layouts.isNotEmpty())
         val l=layouts.first();assertTrue(l.lineCount>0)
-        return Rect(n.boundsInRoot.left+(0 until l.lineCount).minOf{l.getLineLeft(it)},
+        // fill=false text can report a paragraph wider than its measured semantic slot.
+        // Normalize centered line offsets to the actual slot instead of centering twice.
+        val dx=if(l.layoutInput.style.textAlign==TextAlign.Center)(n.size.width-l.size.width)/2f else 0f
+        return Rect(n.boundsInRoot.left+dx+(0 until l.lineCount).minOf{l.getLineLeft(it)},
             n.boundsInRoot.top+l.getLineTop(0),
-            n.boundsInRoot.left+(0 until l.lineCount).maxOf{l.getLineRight(it)},
+            n.boundsInRoot.left+dx+(0 until l.lineCount).maxOf{l.getLineRight(it)},
             n.boundsInRoot.top+l.getLineBottom(l.lineCount-1))
     }
     @Test fun reportedNightPhoneHasClearArtworkBehindHeroText() {
         for(t in themes()) {
-            val s=settings(t,Language.EN).copy(showRelative=true,latitude=39.91,longitude=116.36,zoneId="Asia/Shanghai",locationName="Xi Cheng Qu, Bei Jing Shi")
+            val s=settings(t,Language.EN).copy(showRelative=true,nightDim=false,latitude=39.95,longitude=116.27,zoneId="Asia/Shanghai",locationName="Xi Cheng Qu, Bei Jing Shi")
             app.settings.update{s};val st=PrayerEngine.state(s,ZonedDateTime.of(2026,10,23,22,4,0,0,s.zone()))
             val artOnly=mutableStateOf(false)
             try {
