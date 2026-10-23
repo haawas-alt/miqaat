@@ -246,13 +246,13 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         val thumbnailSide=if(tight)if(narrow)22.dp else if(maxWidth>=230.dp)36.dp else 30.dp else 58.dp
         val measure=rememberTextMeasurer()
         val density=LocalDensity.current
-        val labelSize=if(urdu)14.sp else if(large&&!gallery)16.sp else if(large)15.sp else if(tight)12.sp else 13.sp
+        val labelSize=if(urdu)14.sp else if(large&&!gallery)16.sp else if(large)if(wideCard)15.sp else 14.sp else if(tight)12.sp else 13.sp
         val arabicSize=if(large&&!gallery)18.sp else 14.sp
         val timeSize=if(urdu)18.sp else if(large&&!gallery)22.sp else if(large&&gallery)if(wideCard)20.sp else 17.sp else if(thumbnail&&narrow&&!urdu)12.sp else if(tinyCard)14.sp else if(gallery&&tight)16.sp else 18.sp
-        val detailSize=if(large&&!urdu)11.sp else if(gallery&&!urdu)8.sp else 9.sp
-        val detailText=if(r.prayer==Prayer.ISHA&&s.showEndTimes)r.small.replaceFirst(L10n.word(s,"ends"),L10n.t("Preferred end","پسندیدہ آخری وقت"))else r.small
+        val detailSize=if(r.prayer==Prayer.ISHA&&!urdu)if(large&&wideCard)9.5.sp else if(large)9.sp else 8.sp else if(large&&!urdu)11.sp else if(gallery&&!urdu)8.sp else 9.sp
+        val detailText=if(r.prayer==Prayer.ISHA&&s.showEndTimes&&!urdu)r.small.replaceFirst(L10n.word(s,"ends"),if(wideCard)"Preferred end"else "Pref. end")else r.small
         val captionFont=if(urdu)Amiri else ApprovedBody
-        val badgeWidth=if(urdu)30.dp else if(large&&(!gallery||wideCard))28.dp else if(large&&gallery)25.dp else 24.dp
+        val badgeWidth=if(urdu)30.dp else if(large)28.dp else 24.dp
         val suffixSize=if(large&&(!gallery||wideCard))11.sp else 9.sp
         val raw=L10n.iso((r.clock+" "+r.suffix).trim())
         val clockText=buildAnnotatedString {
