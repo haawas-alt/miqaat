@@ -1,0 +1,101 @@
+name: Deliver verified landscape 1.173 APK
+on:
+  push:
+    branches: ['delivery/landscape-1.173']
+    paths: ['.github/workflows/deliver-landscape-173.yml']
+permissions:
+  actions: read
+  contents: write
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_RUN: '39936055724'
+      SOURCE_SHA: '8db8aaaa68f7f09186384b2ceb0fe3b82e29278c'
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Wait for complete native regression and signed build
+        run: gh run watch "$SOURCE_RUN" --exit-status --interval 30
+      - name: Download tested candidate and evidence
+        run: |
+          set -euo pipefail
+          gh run download "$SOURCE_RUN" -n Miqaat-1.173-landscape-apk -D candidate
+          gh run download "$SOURCE_RUN" -n approved-parity-PRAYER_GALLERY -D proof
+          for theme in MIQAAT KISWAH CELESTIAL_MERIDIAN PRAYER_GALLERY; do
+            gh run download "$SOURCE_RUN" -n "landscape-parity-native-$theme" -D "native/$theme"
+          done
+      - name: Verify provenance, signing, checksum and regression results
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, os, shutil, xml.etree.ElementTree as E
+          proof=Path('proof')
+          def one(name):
+              paths=list(proof.rglob(name))
+              assert len(paths)==1,(name,paths)
+              return paths[0]
+          provenance=one('PROVENANCE.txt').read_text()
+          assert 'Commit: '+os.environ['SOURCE_SHA']+'\n' in provenance
+          assert 'Run: '+os.environ['SOURCE_RUN']+'\n' in provenance
+          assert 'Version: 1.173-landscape' in provenance
+          signature=one('signature.txt').read_text()
+          assert '6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01' in signature.lower()
+          apk=Path('candidate/Miqaat-1.173-landscape.apk')
+          digest=hashlib.sha256(apk.read_bytes()).hexdigest()
+          checksum=one('SHA256SUMS').read_text()
+          assert digest+'  '+apk.name in checksum
+          Path('candidate/SHA256SUMS').write_text(digest+'  '+apk.name+'\n')
+          for name in ['PROVENANCE.txt','signature.txt','native-integrity.json']:
+              shutil.copyfile(one(name),Path('candidate')/name)
+          totals=dict(tests=0,failures=0,errors=0,skipped=0)
+          reports=list(proof.rglob('TEST-*.xml'))
+          assert len(reports)>=30,len(reports)
+          for path in reports:
+              r=E.parse(path).getroot()
+              for k in totals:totals[k]+=int(r.get(k,'0'))
+          assert totals['failures']==0 and totals['errors']==0,totals
+          assert totals['tests']>=161,totals
+          Path('candidate/TEST-RESULTS.txt').write_text(str(totals)+'\nNative Robolectric SDK34; not a physical-device test.\n')
+          for theme in ['MIQAAT','KISWAH','CELESTIAL_MERIDIAN','PRAYER_GALLERY']:
+              for name in ['reference-EN.png','actual-relative-EN.png','actual-maghrib-relative-EN.png']:
+                  paths=list((Path('native')/theme).rglob(name))
+                  assert len(paths)==1,(theme,name,paths)
+                  shutil.copyfile(paths[0],Path('candidate')/(theme+'-'+name))
+          print(provenance,signature,digest,totals)
+          PY
+      - name: Create approved versus native comparison
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet Pillow==12.0.0
+          curl --fail --location --retry 3 'https://raw.githubusercontent.com/haawas-alt/miqaat/ba7f11075f030c8a3c0bb1149aba26a11b7361bf/docs/landscape-parity/approved-landscape-board.jpg' -o approved.jpg
+          python3 - <<'PY'
+          from PIL import Image, ImageDraw, ImageFont
+          from pathlib import Path
+          approved=Image.open('approved.jpg').convert('RGB')
+          canvas=Image.new('RGB',(1500,1392),'#f4efe5')
+          draw=ImageDraw.Draw(canvas)
+          font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',18)
+          crops=[('MIQAAT',(14,69,760,379)),('KISWAH',(775,69,1525,379)),('CELESTIAL_MERIDIAN',(14,412,760,693)),('PRAYER_GALLERY',(775,412,1525,693))]
+          for i,(theme,box) in enumerate(crops):
+              y=i*348
+              draw.text((12,y+5),theme+' | APPROVED',fill='#302a20',font=font)
+              draw.text((762,y+5),'NATIVE 1.173 | SAME REFERENCE TIME',fill='#302a20',font=font)
+              a=approved.crop(box);a.thumbnail((748,310))
+              b=Image.open(Path('candidate')/(theme+'-reference-EN.png')).convert('RGB');b.thumbnail((748,310))
+              canvas.paste(a,(0,y+33));canvas.paste(b,(752,y+33))
+          canvas.save('candidate/Approved-vs-1.173.jpg',quality=94,subsampling=0)
+          PY
+      - name: Publish verified downloadable test candidate
+        run: |
+          set -euo pipefail
+          cat > notes.md <<'NOTES'
+          Landscape correction candidate: prominent clock times even in relative mode, secondary relative details, tighter cards with larger type on wide phones, licensed native Thuluth calligraphy with embroidered Kiswah band ornament, stacked hero composition on the reference phone, and pinned timeline/footer controls. Includes six distinct Prayer Gallery illustrations and quiet background treatment.
+
+          Built from 8db8aaaa68f7f09186384b2ceb0fe3b82e29278c after successful cloud validation run 39936055724. Includes native layout and interaction tests, retained regression tests, Android lint, established certificate verification, binary integrity checks, and APK checksum verification.
+
+          Install Miqaat-1.173-landscape.apk. Attached reference, Beijing relative-time and 5:27 PM Maghrib captures are native Android renders from the tested source. Approved-vs-1.173.jpg compares the approved board directly with each native theme at the matching reference time. Layla Thuluth is redistributed under its embedded SIL OFL license. This is a prerelease candidate; physical-device and exact visual approval remain to be verified. No 9.9/10 or pixel-identical claim is made.
+          NOTES
+          gh release create landscape-1.173-39936055724 --target "$SOURCE_SHA" --prerelease --latest=false --title "Miqaat 1.173 landscape corrections" --notes-file notes.md candidate/*
