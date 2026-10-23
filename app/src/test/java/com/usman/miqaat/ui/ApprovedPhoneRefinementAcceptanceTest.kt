@@ -118,9 +118,10 @@ class ApprovedPhoneRefinementAcceptanceTest:ComposeSupport() {
                     }
                     val frame=rule.onNodeWithTag("kiswah-calligraphy-frame",true).fetchSemanticsNode().boundsInRoot
                     val text=rule.onNodeWithTag("kiswah-calligraphy-band",true).fetchSemanticsNode().boundsInRoot
-                    val d=app.resources.displayMetrics.density;val min=if(small)6 else 12
+                    val d=app.resources.displayMetrics.density;val min=if(small)6 else 8
                     assertTrue("Arabic touches top frame: $frame vs $text",text.top-frame.top>=min*d-.1f)
                     assertTrue("Arabic touches bottom frame: $frame vs $text",frame.bottom-text.bottom>=min*d-.1f)
+                    if(!small)assertTrue("Kiswah band grew beyond approved shallow proportions",frame.height<=54*d)
                     readable("kiswah-calligraphy-band");capture(t,"band-${if(small)"small"else"normal"}",l)
                 }finally{scenario.close()}
             }

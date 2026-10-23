@@ -49,8 +49,10 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
                 AppTheme.CELESTIAL_MERIDIAN->R.drawable.home_celestial_v172
                 AppTheme.PRAYER_GALLERY->R.drawable.home_gallery_v172
             }
-            LandscapePainting(art,s.theme,Modifier.matchParentSize().padding(top=if(s.theme==AppTheme.MIQAAT)32.dp else 0.dp))
+            LandscapePainting(art,s.theme,Modifier.matchParentSize())
             if(s.theme==AppTheme.MIQAAT)Canvas(Modifier.matchParentSize()) {
+                // The arch starts above the heading; fade its apex behind the compact header.
+                drawRect(Brush.verticalGradient(0f to Color(0xFF02162D).copy(alpha=.94f),.10f to Color(0xFF02162D).copy(alpha=.78f),.20f to Color.Transparent,1f to Color.Transparent))
                 drawRect(Brush.horizontalGradient(0f to Color(0xFF02162D).copy(alpha=.92f),.56f to Color(0xFF02162D).copy(alpha=.85f),.65f to Color.Transparent,1f to Color.Transparent))
             }
             if(s.theme==AppTheme.KISWAH)Canvas(Modifier.matchParentSize()) {
@@ -69,7 +71,7 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
 @Composable
 internal fun OrnateLandscapeBand() {
     val short=LocalConfiguration.current.screenHeightDp<390
-    val clearance=if(short)6.dp else 12.dp
+    val clearance=if(short)6.dp else 8.dp
     Box(Modifier.fillMaxWidth().padding(vertical=1.dp).testTag("kiswah-calligraphy-frame").background(Color(0xFF060605)),contentAlignment=Alignment.Center) {
         Canvas(Modifier.matchParentSize().testTag("kiswah-band-ornament")) {
             val gold=Kiswah.thread;val fine=.45.dp.toPx();val side=46.dp.toPx()
@@ -96,27 +98,23 @@ internal fun OrnateLandscapeBand() {
                 drawRect(thread,Offset(left,top),Size(side,h),style=Stroke(.7.dp.toPx()))
                 drawRect(gold.copy(alpha=.65f),Offset(left+3.dp.toPx(),top+2.dp.toPx()),Size(side-6.dp.toPx(),h-4.dp.toPx()),style=Stroke(fine))
                 val center=Offset(left+side/2,size.height/2);val radius=minOf(side*.41f,h*.42f)
-                // Repeating palmettes and interlacing pointed leaves echo the woven Kiswah end cartouches.
-                repeat(8) { i->rotate(i*45f,center) {
-                    val leaf=Path().apply {
-                        moveTo(center.x,center.y-radius*.12f)
-                        cubicTo(center.x-radius*.48f,center.y-radius*.35f,center.x-radius*.35f,center.y-radius*.76f,center.x,center.y-radius)
-                        cubicTo(center.x+radius*.35f,center.y-radius*.76f,center.x+radius*.48f,center.y-radius*.35f,center.x,center.y-radius*.12f)
-                        moveTo(center.x,center.y-radius*.30f)
-                        cubicTo(center.x-radius*.17f,center.y-radius*.60f,center.x+radius*.12f,center.y-radius*.71f,center.x,center.y-radius*.84f)
-                    }
-                    drawPath(leaf,thread,style=Stroke(.7.dp.toPx()))
-                    val curl=Path().apply {
-                        moveTo(center.x+radius*.16f,center.y-radius*.25f)
-                        cubicTo(center.x+radius*.70f,center.y-radius*.34f,center.x+radius*.65f,center.y-radius*.88f,center.x+radius*.34f,center.y-radius*.65f)
-                    }
-                    drawPath(curl,gold.copy(alpha=.85f),style=Stroke(fine))
-                }}
+                // Square interlace in the end cartouche, with gold thread highlights.
                 for(turn in listOf(0f,45f))rotate(turn,center) {
-                    val r=radius*.40f
-                    drawRect(thread,Offset(center.x-r,center.y-r),Size(2*r,2*r),style=Stroke(.65.dp.toPx()))
+                    val r=radius*.70f
+                    drawRoundRect(Color(0xFF6F5128),Offset(center.x-r,center.y-r),Size(2*r,2*r),androidx.compose.ui.geometry.CornerRadius(1.8.dp.toPx()),style=Stroke(1.6.dp.toPx()))
+                    drawRoundRect(thread,Offset(center.x-r,center.y-r),Size(2*r,2*r),androidx.compose.ui.geometry.CornerRadius(1.8.dp.toPx()),style=Stroke(.7.dp.toPx()))
+                    val inner=r*.64f
+                    drawRoundRect(thread,Offset(center.x-inner,center.y-inner),Size(2*inner,2*inner),androidx.compose.ui.geometry.CornerRadius(1.dp.toPx()),style=Stroke(fine))
                 }
-                drawCircle(gold,radius*.12f,center,style=Stroke(fine))
+                repeat(4) { i->rotate(i*90f,center) {
+                    val vine=Path().apply {
+                        moveTo(center.x-radius*.12f,center.y-radius*.26f)
+                        cubicTo(center.x-radius*.48f,center.y-radius*.66f,center.x+radius*.42f,center.y-radius*.90f,center.x+radius*.24f,center.y-radius*.47f)
+                        cubicTo(center.x+radius*.18f,center.y-radius*.30f,center.x,center.y-radius*.34f,center.x-radius*.12f,center.y-radius*.26f)
+                    }
+                    drawPath(vine,thread,style=Stroke(.7.dp.toPx()))
+                }}
+                drawCircle(gold,radius*.13f,center,style=Stroke(fine))
                 // Tiny corner arabesques fill the square cartouche instead of a large bare star.
                 for(dx in listOf(-1,1))for(dy in listOf(-1,1)) {
                     val corner=Offset(center.x+dx*side*.37f,center.y+dy*h*.32f)

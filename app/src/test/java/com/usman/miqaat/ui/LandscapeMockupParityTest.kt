@@ -5,6 +5,8 @@ import android.graphics.Canvas
 import android.view.View
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.Modifier
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
@@ -107,14 +109,14 @@ class LandscapeMockupParityTest:ComposeSupport() {
         }
     }
     @Test fun relativeTimeFooterIsPinnedOnBeijingPhone() {
-        for(t in themes())for(hour in listOf(14,17)) {
-            val s=settings(t,Language.EN).copy(showRelative=true,latitude=39.95,longitude=116.27,zoneId="Asia/Shanghai",locationName=if(hour==17)"Chao Yang Qu, Bei Jing Shi"else "Hai Dian Qu, Bei Jing Shi")
-            app.settings.update{s};val st=PrayerEngine.state(s,ZonedDateTime.of(2026,10,23,hour,if(hour==17)27 else 35,0,0,s.zone()))
+        for(t in themes())for(hour in listOf(14,17,22)) {
+            val s=settings(t,Language.EN).copy(showRelative=true,latitude=39.95,longitude=116.27,zoneId="Asia/Shanghai",locationName=when(hour){22->"Xi Cheng Qu, Bei Jing Shi";17->"Chao Yang Qu, Bei Jing Shi";else->"Hai Dian Qu, Bei Jing Shi"})
+            app.settings.update{s};val st=PrayerEngine.state(s,ZonedDateTime.of(2026,10,23,hour,when(hour){22->4;17->27;else->35},0,0,s.zone()))
             try {
                 show(Dev.PHONE_LANDSCAPE,t,qualifiers="w891dp-h411dp-land-xhdpi") {
                     Box(Modifier.padding(start=36.dp,bottom=12.dp)){HomeRouter(st,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{})}
                 }
-                capture(t,if(hour==17)"actual-maghrib-relative"else "actual-relative",Language.EN)
+                capture(t,when(hour){22->"actual-night-relative";17->"actual-maghrib-relative";else->"actual-relative"},Language.EN)
                 assertEquals("English relative view must fit without scrolling",0,rule.onAllNodes(SemanticsMatcher("scroll"){it.config.getOrNull(SemanticsActions.ScrollBy)!=null},true).fetchSemanticsNodes().size)
                 val root=rule.onRoot().fetchSemanticsNode().boundsInRoot
                 for(tag in listOf("landscape-door-0","landscape-door-1","landscape-more-actions","landscape-timeline-panel")) {
@@ -131,9 +133,73 @@ class LandscapeMockupParityTest:ComposeSupport() {
                 assertTrue("Hero details clipped on the reported phone",details.height>=48*density-.1f&&details.bottom<=root.bottom)
                 for(p in listedPrayers(s)) {
                     for(k in listOf("name","time","detail","relative"))readable("landscape-row-$k-${p.name}")
+                    val label=ink("landscape-row-name-${p.name}")
+                    val clockInk=ink("landscape-row-time-${p.name}")
+                    assertTrue("Prayer label touches clock: $t $p gap=${(clockInk.left-label.right)/density}dp",clockInk.left-label.right>=7.5f*density)
                     val r=galleryRowInfo(p,st,s)
                     rule.onNodeWithTag("landscape-row-time-${p.name}",true).assertTextEquals(L10n.iso((r.clock+" "+r.suffix).trim()))
                     rule.onNodeWithTag("landscape-row-relative-${p.name}",true).assertTextEquals(r.relative)
+                }
+            }finally{scenario.close()}
+        }
+    }
+    /** Text glyph extents, rather than the full-width semantic slot, define the protected area. */
+    private fun ink(tag:String):Rect {
+        val n=rule.onNodeWithTag(tag,true).fetchSemanticsNode()
+        val layouts=mutableListOf<TextLayoutResult>()
+        n.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+        assertTrue("Missing text layout for artwork audit: $tag",layouts.isNotEmpty())
+        val l=layouts.first();assertTrue(l.lineCount>0)
+        return Rect(n.boundsInRoot.left+(0 until l.lineCount).minOf{l.getLineLeft(it)},
+            n.boundsInRoot.top+l.getLineTop(0),
+            n.boundsInRoot.left+(0 until l.lineCount).maxOf{l.getLineRight(it)},
+            n.boundsInRoot.top+l.getLineBottom(l.lineCount-1))
+    }
+    @Test fun reportedNightPhoneHasClearArtworkBehindHeroText() {
+        for(t in themes()) {
+            val s=settings(t,Language.EN).copy(showRelative=true,latitude=39.91,longitude=116.36,zoneId="Asia/Shanghai",locationName="Xi Cheng Qu, Bei Jing Shi")
+            app.settings.update{s};val st=PrayerEngine.state(s,ZonedDateTime.of(2026,10,23,22,4,0,0,s.zone()))
+            val artOnly=mutableStateOf(false)
+            try {
+                show(Dev.PHONE_LANDSCAPE,t,qualifiers="w891dp-h411dp-land-xhdpi") {
+                    Box(Modifier.padding(start=36.dp,bottom=12.dp)) {
+                        if(artOnly.value)LandscapeHomeArt(s,Modifier.fillMaxSize())
+                        else HomeRouter(st,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{})
+                    }
+                }
+                for(tag in listOf("landscape-hero-kicker","landscape-hero-name","landscape-hero-clock","landscape-hero-status"))readable(tag)
+                val tags=when(t) {
+                    AppTheme.MIQAAT->listOf("landscape-hero-kicker")
+                    AppTheme.PRAYER_GALLERY->listOf("landscape-hero-clock","landscape-hero-status")
+                    else->emptyList()
+                }
+                if(tags.isNotEmpty()) {
+                    val density=app.resources.displayMetrics.density
+                    val protected=tags.associateWith{ink(it).inflate(4*density)}
+                    rule.runOnIdle{artOnly.value=true};rule.waitForIdle()
+                    capture(t,"audit-night-art-only",Language.EN)
+                    scenario.onActivity {act->
+                        val v=act.findViewById<View>(android.R.id.content)
+                        val b=Bitmap.createBitmap(v.width,v.height,Bitmap.Config.ARGB_8888);v.draw(Canvas(b))
+                        try {
+                            val report=StringBuilder()
+                            for((tag,r)in protected) {
+                                var marked=0;var pixels=0
+                                for(y in r.top.toInt().coerceAtLeast(0) until r.bottom.toInt().coerceAtMost(b.height))
+                                    for(x in r.left.toInt().coerceAtLeast(0) until r.right.toInt().coerceAtMost(b.width)) {
+                                        val pixel=b.getPixel(x,y);val red=android.graphics.Color.red(pixel);val green=android.graphics.Color.green(pixel);val blue=android.graphics.Color.blue(pixel)
+                                        val intrudes=if(t==AppTheme.MIQAAT)red>145&&green>95&&red>blue*1.15f&&green>blue*1.05f
+                                            else red<125&&green<145&&blue<130
+                                        if(intrudes)marked++;pixels++
+                                    }
+                                val ratio=marked.toFloat()/pixels.coerceAtLeast(1)
+                                report.append("$tag rect=$r marked=$marked pixels=$pixels ratio=$ratio\n")
+                                val limit=if(t==AppTheme.MIQAAT).005f else .01f
+                                assertTrue("Artwork intrudes on hero text: $t $tag pixels=$marked/$pixels ratio=$ratio",ratio<limit)
+                            }
+                            File("build/landscape-parity/${t.name}/artwork-clearance.txt").writeText(report.toString())
+                        }finally{b.recycle()}
+                    }
                 }
             }finally{scenario.close()}
         }
