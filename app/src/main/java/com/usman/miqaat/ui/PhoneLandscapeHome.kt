@@ -18,6 +18,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.*
@@ -143,7 +145,7 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
         // These display fonts reserve much more ascent/descent than the six prayer
         // names use. Center their complete native text in optical slots; never clip
         // glyphs or spend the details button's independent 48dp touch target.
-        val arabicSlot=if(s.theme==AppTheme.KISWAH)if(tiny)34.dp else if(compact)42.dp else 54.dp else if(compact)40.dp else 56.dp
+        val arabicSlot=if(s.theme==AppTheme.KISWAH)if(tiny)34.dp else if(compact)42.dp else 54.dp else if(compact)38.dp else 56.dp
         val clockSlot=if(compactKiswah)if(tiny)44.dp else 56.dp else if(compact)48.dp else 72.dp
         val name:@Composable (Modifier)->Unit={m->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
             Box(Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.height(arabicSlot)),contentAlignment=Alignment.Center) {
@@ -231,46 +233,75 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         val tinyCard=maxWidth<225.dp
         val narrow=maxWidth<215.dp
         val thumbnail=gallery&&s.artTheme!=ArtTheme.MINIMAL&&!(tight&&urdu)
-        val thumbnailSide=if(tight)if(narrow)22.dp else if(maxWidth>=230.dp)40.dp else 30.dp else 58.dp
+        val thumbnailSide=if(tight)if(narrow)22.dp else if(maxWidth>=230.dp)38.dp else 30.dp else 58.dp
+        val measure=rememberTextMeasurer()
+        val density=LocalDensity.current
+        val labelSize=if(urdu)14.sp else if(large&&!gallery)16.sp else if(large)15.sp else if(tight)12.sp else 13.sp
+        val arabicSize=if(large&&!gallery)18.sp else 14.sp
+        val timeSize=if(urdu)18.sp else if(large&&!gallery)22.sp else if(large&&gallery)20.sp else if(thumbnail&&narrow&&!urdu)12.sp else if(tinyCard)14.sp else if(gallery&&tight)16.sp else 18.sp
+        val detailSize=if(large&&!urdu)11.sp else if(gallery&&!urdu)8.sp else 9.sp
+        val badgeWidth=if(urdu)30.dp else if(large)28.dp else 24.dp
+        val raw=L10n.iso((r.clock+" "+r.suffix).trim())
+        val clockText=buildAnnotatedString {
+            append(raw)
+            if(r.suffix.isNotBlank()){val start=raw.indexOf(r.suffix);if(start>=0)addStyle(SpanStyle(fontSize=if(large)11.sp else 9.sp,baselineShift=BaselineShift(.15f)),start,start+r.suffix.length)}
+        }
+        val serif=androidx.compose.ui.text.font.FontFamily.Serif
+        val labelWidth=if(large&&!urdu)with(density) {
+            maxOf(measure.measure(r.label,TextStyle(fontFamily=serif,fontSize=labelSize)).size.width.toDp(),
+                measure.measure(r.arabic,TextStyle(fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=arabicSize)).size.width.toDp(),
+                if(gallery)42.dp else 50.dp)+1.dp
+        } else if(urdu)58.dp else if(tight)50.dp else 54.dp
+        val nameGap=if(large&&!urdu)8.dp else 2.dp
+        // Match the board's inset labels without sacrificing a long clock, badge or
+        // detail line on a narrower phone. Measure the real native text, not character counts.
+        val leadingExtra=if(large&&!urdu)with(density) {
+            val clockWidth=measure.measure(clockText,TextStyle(fontFamily=serif,fontSize=timeSize)).size.width.toDp()+
+                (if(r.isNow||r.isNext)badgeWidth+2.dp else 0.dp)
+            val detailWidth=measure.measure(r.small,TextStyle(fontFamily=serif,fontSize=detailSize)).size.width.toDp()
+            val needed=maxOf(clockWidth,detailWidth)+2.dp
+            val baseLeading=if(thumbnail)thumbnailSide+8.dp else 26.dp
+            minOf(if(gallery)16.dp else 27.dp,(maxWidth-baseLeading-labelWidth-nameGap-48.dp-needed).coerceAtLeast(0.dp))
+        }else 0.dp
         val badge:@Composable ()->Unit={
-            Box(Modifier.width(if(urdu)30.dp else 24.dp).clip(RoundedCornerShape(10.dp))
+            Box(Modifier.width(badgeWidth).clip(RoundedCornerShape(10.dp))
                 .background(if(r.isNow)Color(0xFF34D6DA)else Color(0xFFFFD56E)),contentAlignment=Alignment.Center) {
                 Text(L10n.word(s,if(r.isNow)"NOW"else"NEXT"),Modifier.padding(horizontal=2.dp,vertical=2.dp).testTag(if(gallery)if(r.isNow)"gallery-status-now"else"gallery-status-next"else if(r.isNow)"home-status-now"else"home-status-next"),
-                    fontFamily=if(urdu)Amiri else ApprovedBody,fontWeight=FontWeight.Bold,fontSize=7.sp,lineHeight=if(urdu)18.sp else 11.sp,color=Color(0xFF112F32),maxLines=1)
+                    fontFamily=if(urdu)Amiri else ApprovedBody,fontWeight=FontWeight.Bold,fontSize=if(large&&!urdu)9.sp else 7.sp,lineHeight=if(urdu)18.sp else if(large)13.sp else 11.sp,color=Color(0xFF112F32),maxLines=1)
             }
         }
         Row(Modifier.fillMaxSize().shadow(if(r.isNow||r.isNext)4.dp else 0.dp,RoundedCornerShape(8.dp),ambientColor=mark.copy(alpha=.30f),spotColor=mark.copy(alpha=.30f)).clip(RoundedCornerShape(8.dp)).background(paint)
             .border(.8.dp,if(r.isNow||r.isNext)mark.copy(alpha=.9f)else c.accent.copy(alpha=.35f),RoundedCornerShape(8.dp))
             .testTag("compact-prayer-${r.prayer.name}").combinedClickable(onClick=a.onToggleRelative,onLongClick=onWhy,role=Role.Button)
             .semantics(mergeDescendants=true){contentDescription=r.spoken},verticalAlignment=Alignment.CenterVertically) {
+            if(!gallery&&leadingExtra>0.dp)Spacer(Modifier.width(leadingExtra*.48f))
             if(thumbnail) {
                 Box(Modifier.padding(start=4.dp,top=4.dp,bottom=4.dp).width(thumbnailSide).aspectRatio(1f)) {
                     PhoneLandscapePeriodArt(r.prayer.ordinal,Modifier.fillMaxSize().clip(RoundedCornerShape(5.dp)))
                 }
             } else if(!tight||!urdu)Icon(Icons.Outlined.Schedule,null,Modifier.padding(start=4.dp,end=3.dp).size(if(large)15.dp else 13.dp),tint=c.secondary)
-            Row(Modifier.weight(1f).padding(start=4.dp),verticalAlignment=Alignment.Top) {
-                Column(Modifier.width(if(urdu)58.dp else if(large&&!gallery)67.dp else if(large&&gallery)59.dp else if(tight)50.dp else 54.dp)) {
-                    Text(r.label,Modifier.testTag("landscape-row-name-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(urdu)14.sp else if(large&&!gallery)15.sp else if(large)13.sp else if(tight)12.sp else 13.sp,lineHeight=if(urdu)25.sp else if(large&&!gallery)20.sp else 17.sp,color=c.ink,maxLines=1)
-                    if(!urdu)Text(r.arabic,Modifier.testTag("landscape-row-arabic-${r.prayer.name}"),style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false)),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(large&&!gallery)18.sp else 14.sp,lineHeight=if(large&&!gallery)22.sp else 21.sp,color=c.accent)
+            Row(Modifier.weight(1f).padding(start=4.dp+if(gallery)leadingExtra else leadingExtra*.52f),verticalAlignment=Alignment.Top) {
+                Column(Modifier.width(labelWidth)) {
+                    Text(r.label,Modifier.testTag("landscape-row-name-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=labelSize,letterSpacing=0.sp,lineHeight=if(urdu)25.sp else if(large&&!gallery)20.sp else 17.sp,color=c.ink,maxLines=1)
+                    if(!urdu)Text(r.arabic,Modifier.testTag("landscape-row-arabic-${r.prayer.name}"),style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false)),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=arabicSize,letterSpacing=0.sp,lineHeight=if(large&&!gallery)22.sp else 21.sp,color=c.accent)
                 }
-                Column(Modifier.weight(1f).padding(start=2.dp),verticalArrangement=Arrangement.Top) {
+                Column(Modifier.weight(1f).padding(start=nameGap),verticalArrangement=Arrangement.Top) {
                     // Landscape keeps the authored large clock even when relative details are enabled.
-                    val raw=L10n.iso((r.clock+" "+r.suffix).trim())
                     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(2.dp)) {
-                        Text(buildAnnotatedString{append(raw);if(r.suffix.isNotBlank()){val start=raw.indexOf(r.suffix);if(start>=0)addStyle(SpanStyle(fontSize=if(large)11.sp else 9.sp,baselineShift=BaselineShift(.15f)),start,start+r.suffix.length)}},
+                        Text(clockText,
                             Modifier.weight(1f,fill=false).testTag("landscape-row-time-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,
-                            fontSize=if(urdu)18.sp else if(large&&!gallery)23.sp else if(large&&gallery)17.sp else if(thumbnail&&narrow&&!urdu)12.sp else if(tinyCard)14.sp else if(gallery&&tight)16.sp else 18.sp,lineHeight=if(urdu)25.sp else if(large&&!gallery)28.sp else 22.sp,color=c.ink,maxLines=1)
+                            fontSize=timeSize,letterSpacing=0.sp,lineHeight=if(urdu)25.sp else if(large&&!gallery)28.sp else 22.sp,color=c.ink,maxLines=1)
                         if(r.isNow||r.isNext)badge()
                     }
-                    if(s.showRelative)Text(r.relative,Modifier.testTag("landscape-row-relative-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=9.sp,lineHeight=if(urdu)18.sp else 12.sp,color=c.secondary)
-                    if(r.small.isNotEmpty())Text(r.small,Modifier.testTag("landscape-row-detail-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(gallery&&!large&&!urdu)8.sp else 9.sp,lineHeight=if(urdu)16.sp else 12.sp,color=c.secondary)
+                    if(s.showRelative)Text(r.relative,Modifier.testTag("landscape-row-relative-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(large&&!urdu)10.sp else 9.sp,letterSpacing=0.sp,lineHeight=if(urdu)18.sp else if(large)13.sp else 12.sp,color=c.secondary)
+                    if(r.small.isNotEmpty())Text(r.small,Modifier.testTag("landscape-row-detail-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=detailSize,letterSpacing=0.sp,lineHeight=if(urdu)16.sp else if(large)14.sp else 12.sp,color=c.secondary)
                 }
             }
             Row(Modifier.width(48.dp).fillMaxHeight().heightIn(min=48.dp).testTag("landscape-info-${r.prayer.name}").clickable(role=Role.Button,onClick=onWhy)
                 .semantics(mergeDescendants=true){contentDescription=Str[R.string.s_why_this_time]},horizontalArrangement=Arrangement.spacedBy(5.dp,Alignment.CenterHorizontally),verticalAlignment=Alignment.CenterVertically) {
-                if(r.prayer.isPrayer)Icon(if(r.azaanOn)Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff,null,Modifier.size(if(large)18.dp else 16.dp)
+                if(r.prayer.isPrayer)Icon(if(r.azaanOn)Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff,null,Modifier.size(if(large)21.dp else 16.dp)
                     .semantics{contentDescription=if(r.azaanOn)L10n.t("Azaan enabled","اذان فعال ہے")else L10n.t("Azaan off","اذان بند ہے")},tint=c.accent)
-                Icon(Icons.Outlined.Info,null,Modifier.size(if(large)17.dp else 15.dp),tint=c.secondary)
+                Icon(Icons.Outlined.Info,null,Modifier.size(if(large)21.dp else 15.dp),tint=c.secondary)
             }
         }
     }
