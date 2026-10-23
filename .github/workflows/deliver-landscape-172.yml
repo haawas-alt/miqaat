@@ -1,0 +1,79 @@
+name: Deliver verified landscape 1.172 APK
+on:
+  push:
+    branches: ['delivery/landscape-1.172']
+    paths: ['.github/workflows/deliver-landscape-172.yml']
+permissions:
+  actions: read
+  contents: write
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_RUN: '39920517697'
+      SOURCE_SHA: '832b0c98b1f10a9a0154beb1317841144a521f8f'
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Wait for complete native regression and signed build
+        run: gh run watch "$SOURCE_RUN" --exit-status --interval 30
+      - name: Download tested candidate and evidence
+        run: |
+          set -euo pipefail
+          gh run download "$SOURCE_RUN" -n Miqaat-1.172-landscape-apk -D candidate
+          gh run download "$SOURCE_RUN" -n approved-parity-PRAYER_GALLERY -D proof
+          for theme in MIQAAT KISWAH CELESTIAL_MERIDIAN PRAYER_GALLERY; do
+            gh run download "$SOURCE_RUN" -n "landscape-parity-native-$theme" -D "native/$theme"
+          done
+      - name: Verify provenance, signing, checksum and regression results
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, os, shutil, xml.etree.ElementTree as E
+          proof=Path('proof')
+          def one(name):
+              paths=list(proof.rglob(name))
+              assert len(paths)==1,(name,paths)
+              return paths[0]
+          provenance=one('PROVENANCE.txt').read_text()
+          assert 'Commit: '+os.environ['SOURCE_SHA']+'\n' in provenance
+          assert 'Run: '+os.environ['SOURCE_RUN']+'\n' in provenance
+          assert 'Version: 1.172-landscape' in provenance
+          signature=one('signature.txt').read_text()
+          assert '6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01' in signature.lower()
+          apk=Path('candidate/Miqaat-1.172-landscape.apk')
+          digest=hashlib.sha256(apk.read_bytes()).hexdigest()
+          checksum=one('SHA256SUMS').read_text()
+          assert digest+'  '+apk.name in checksum
+          Path('candidate/SHA256SUMS').write_text(digest+'  '+apk.name+'\n')
+          for name in ['PROVENANCE.txt','signature.txt','native-integrity.json']:
+              shutil.copyfile(one(name),Path('candidate')/name)
+          totals=dict(tests=0,failures=0,errors=0,skipped=0)
+          reports=list(proof.rglob('TEST-*.xml'))
+          assert len(reports)>=30,len(reports)
+          for path in reports:
+              r=E.parse(path).getroot()
+              for k in totals:totals[k]+=int(r.get(k,'0'))
+          assert totals['failures']==0 and totals['errors']==0,totals
+          assert totals['tests']>=161,totals
+          Path('candidate/TEST-RESULTS.txt').write_text(str(totals)+'\nNative Robolectric SDK34; not a physical-device test.\n')
+          for theme in ['MIQAAT','KISWAH','CELESTIAL_MERIDIAN','PRAYER_GALLERY']:
+              for name in ['reference-EN.png','actual-relative-EN.png']:
+                  paths=list((Path('native')/theme).rglob(name))
+                  assert len(paths)==1,(theme,name,paths)
+                  shutil.copyfile(paths[0],Path('candidate')/(theme+'-'+name))
+          print(provenance,signature,digest,totals)
+          PY
+      - name: Publish verified downloadable test candidate
+        run: |
+          set -euo pipefail
+          cat > notes.md <<'NOTES'
+          Landscape correction candidate: refreshed artwork for all four themes, six distinct Prayer Gallery illustrations, compact prayer cards with clocks, revised hero typography, and timeline/footer controls pinned inside the phone viewport.
+
+          Built from 832b0c98b1f10a9a0154beb1317841144a521f8f after successful cloud validation run 39920517697. Includes native layout and interaction tests, retained regression tests, Android lint, established certificate verification, binary integrity checks, and APK checksum verification.
+
+          Install Miqaat-1.172-landscape.apk. Attached reference and Beijing relative-time captures are native Android renders from the tested source. This is a prerelease candidate; physical-device and exact visual approval remain to be verified. No 9.9/10 or pixel-identical claim is made.
+          NOTES
+          gh release create landscape-1.172-39920517697 --target "$SOURCE_SHA" --prerelease --latest=false --title "Miqaat 1.172 landscape corrections" --notes-file notes.md candidate/*
