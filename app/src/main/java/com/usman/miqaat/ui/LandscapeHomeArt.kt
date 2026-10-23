@@ -50,7 +50,7 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
                 AppTheme.MIQAAT->R.drawable.home_miqaat_v175
                 AppTheme.KISWAH->R.drawable.home_kiswah_v172
                 AppTheme.CELESTIAL_MERIDIAN->R.drawable.home_celestial_v172
-                AppTheme.PRAYER_GALLERY->R.drawable.home_gallery_v175
+                AppTheme.PRAYER_GALLERY->R.drawable.home_gallery_v176
             }
             LandscapePainting(art,s.theme,Modifier.matchParentSize())
             if(s.theme==AppTheme.MIQAAT)Canvas(Modifier.matchParentSize()) {
@@ -60,11 +60,6 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
                 drawRect(Brush.verticalGradient(0f to Color(0xFF02162D).copy(alpha=.94f),.12f to Color(0xFF02162D).copy(alpha=.82f),.27f to Color.Transparent,1f to Color.Transparent))
                 drawRect(Brush.radialGradient(0f to Color(0xFF02162D).copy(alpha=.76f),.55f to Color(0xFF02162D).copy(alpha=.58f),1f to Color.Transparent,center=Offset(size.width*.79f,size.height*.17f),radius=size.width*.13f))
                 drawRect(Brush.horizontalGradient(0f to Color(0xFF02162D).copy(alpha=.55f),.56f to Color(0xFF02162D).copy(alpha=.42f),.65f to Color.Transparent,1f to Color.Transparent))
-            }
-            if(s.theme==AppTheme.PRAYER_GALLERY)Canvas(Modifier.matchParentSize()) {
-                // A soft parchment wash keeps foliage out of the live clock and
-                // next-day countdown while leaving the mosque and border intact.
-                drawRect(Brush.radialGradient(0f to Color(0xFFF8F2E6).copy(alpha=.88f),.55f to Color(0xFFF8F2E6).copy(alpha=.88f),1f to Color.Transparent,center=Offset(size.width*.76f,size.height*.52f),radius=size.width*.14f))
             }
             if(s.theme==AppTheme.KISWAH)Canvas(Modifier.matchParentSize()) {
                 // Recede the large cloth folds while retaining the embroidered edge.
@@ -168,7 +163,7 @@ internal fun PhoneLandscapePeriodArt(index:Int,modifier:Modifier) {
 /** Keep decorative scene edges out of the live hero typography without cutting off the artwork. */
 @Composable
 private fun LandscapePainting(resource:Int,theme:AppTheme,modifier:Modifier) {
-    if(theme==AppTheme.CELESTIAL_MERIDIAN) {
+    if(theme==AppTheme.CELESTIAL_MERIDIAN||theme==AppTheme.PRAYER_GALLERY) {
         Image(painterResource(resource),null,modifier,contentScale=ContentScale.FillBounds)
         return
     }
