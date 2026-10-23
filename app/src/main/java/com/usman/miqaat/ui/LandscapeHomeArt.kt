@@ -60,6 +60,11 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
                 drawRect(Brush.verticalGradient(0f to Color(0xFF02162D).copy(alpha=.94f),.10f to Color(0xFF02162D).copy(alpha=.78f),.20f to Color.Transparent,1f to Color.Transparent))
                 drawRect(Brush.horizontalGradient(0f to Color(0xFF02162D).copy(alpha=.55f),.56f to Color(0xFF02162D).copy(alpha=.42f),.65f to Color.Transparent,1f to Color.Transparent))
             }
+            if(s.theme==AppTheme.PRAYER_GALLERY)Canvas(Modifier.matchParentSize()) {
+                // A soft parchment wash keeps foliage out of the live clock and
+                // next-day countdown while leaving the mosque and border intact.
+                drawRect(Brush.radialGradient(0f to Color(0xFFF8F2E6).copy(alpha=.88f),.55f to Color(0xFFF8F2E6).copy(alpha=.88f),1f to Color.Transparent,center=Offset(size.width*.76f,size.height*.52f),radius=size.width*.14f))
+            }
             if(s.theme==AppTheme.KISWAH)Canvas(Modifier.matchParentSize()) {
                 // Recede the large cloth folds while retaining the embroidered edge.
                 drawRect(Brush.horizontalGradient(0f to Color.Black.copy(alpha=.62f),.80f to Color.Black.copy(alpha=.55f),.86f to Color.Transparent,1f to Color.Transparent))
