@@ -153,10 +153,12 @@ class LandscapeMockupParityTest:ComposeSupport() {
         val l=layouts.first();assertTrue(l.lineCount>0)
         // fill=false text can report a paragraph wider than its measured semantic slot.
         // Normalize centered line offsets to the actual slot instead of centering twice.
-        val dx=if(l.layoutInput.style.textAlign==TextAlign.Center)(n.size.width-l.size.width)/2f else 0f
-        return Rect(n.boundsInRoot.left+dx+(0 until l.lineCount).minOf{l.getLineLeft(it)},
+        val lineLeft=(0 until l.lineCount).minOf{l.getLineLeft(it)}
+        val lineRight=(0 until l.lineCount).maxOf{l.getLineRight(it)}
+        val dx=if(l.layoutInput.style.textAlign==TextAlign.Center)n.size.width/2f-(lineLeft+lineRight)/2f else 0f
+        return Rect(n.boundsInRoot.left+dx+lineLeft,
             n.boundsInRoot.top+l.getLineTop(0),
-            n.boundsInRoot.left+dx+(0 until l.lineCount).maxOf{l.getLineRight(it)},
+            n.boundsInRoot.left+dx+lineRight,
             n.boundsInRoot.top+l.getLineBottom(l.lineCount-1))
     }
     @Test fun reportedNightPhoneHasClearArtworkBehindHeroText() {
