@@ -72,18 +72,18 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
                     LandscapeHomeHero(hero,state,s,Modifier.weight(.38f).fillMaxHeight(),a.onToggleRelative){why=hero.prayer}
                 }
               }
-                Box(Modifier.fillMaxWidth().height(if(LocalConfiguration.current.screenHeightDp>=390)52.dp else 40.dp).testTag("landscape-timeline-panel")) {ApprovedTimeline(state,s,tk,Modifier.fillMaxSize())}
+                Box(Modifier.fillMaxWidth().height(if(LocalConfiguration.current.screenHeightDp>=390)52.dp else 40.dp).testTag("landscape-timeline-panel")) {ApprovedTimeline(state,s,tk,Modifier.fillMaxSize().padding(start=if(LocalConfiguration.current.screenWidthDp>=840)36.dp else 0.dp,end=if(LocalConfiguration.current.screenWidthDp>=840)136.dp else 0.dp),landscape=true)}
                 val qibla=if(s.showQibla)links.firstOrNull()else null
                 val adhkar=links.firstOrNull{it.kind==DoorKind.ADHKAR}
                 val warning=links.firstOrNull{it.warn}
                 Row(Modifier.fillMaxWidth().padding(end=44.dp).heightIn(min=48.dp).testTag("landscape-context-actions"),horizontalArrangement=Arrangement.spacedBy(12.dp),verticalAlignment=Alignment.CenterVertically) {
-                    if(qibla!=null)LandscapeHomeDoor(qibla.label,Icons.Outlined.Explore,s,Modifier.weight(.25f).testTag("landscape-door-0"),onClick={qibla.onClick?.invoke()})
-                    LandscapeHomeDoor(adhkar?.label?:L10n.t("Adhkar","اذکار"),Icons.Outlined.MenuBook,s,Modifier.weight(.24f).testTag("landscape-door-1"),onClick={if(adhkar!=null)adhkar.onClick?.invoke()else a.onOpenAdhkar(AdhkarMode.MORNING)})
+                    if(qibla!=null)LandscapeHomeDoor(qibla.label,Icons.Outlined.Explore,s,Modifier.weight(.25f).testTag("landscape-door-0"),footer=true,onClick={qibla.onClick?.invoke()})
+                    LandscapeHomeDoor(adhkar?.label?:L10n.t("Adhkar","اذکار"),Icons.Outlined.MenuBook,s,Modifier.weight(.24f).testTag("landscape-door-1"),footer=true,onClick={if(adhkar!=null)adhkar.onClick?.invoke()else a.onOpenAdhkar(AdhkarMode.MORNING)})
                     Spacer(Modifier.weight(.13f))
                     Box(Modifier.weight(.38f)) {
                         LandscapeHomeDoor(if(warning!=null)L10n.t("Alerts need attention · Fix","انتباہات پر توجہ دیں · درست کریں")else L10n.t("More actions","مزید اختیارات"),
                             if(warning!=null)Icons.Outlined.WarningAmber else Icons.Outlined.MoreHoriz,s,
-                            Modifier.fillMaxWidth().testTag("landscape-more-actions").semantics{contentDescription=warning?.label?:L10n.word(s,"More actions")},warn=warning!=null,onClick={more=true})
+                            Modifier.fillMaxWidth().testTag("landscape-more-actions").semantics{contentDescription=warning?.label?:L10n.word(s,"More actions")},warn=warning!=null,footer=true,onClick={more=true})
                         DropdownMenu(more,{more=false}) {
                             links.forEach { d ->DropdownMenuItem(text={Text(d.label)},onClick={more=false;d.onClick?.invoke()}) }
                             DropdownMenuItem(text={Text(L10n.t("Adhkar","اذکار"))},onClick={more=false;a.onOpenAdhkar(AdhkarMode.MORNING)})
@@ -103,28 +103,29 @@ private fun LandscapeHomeHeader(state:PrayerState,s:AppSettings,a:HomeActions) {
     val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s);val f=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif
     BoxWithConstraints(Modifier.fillMaxWidth().height(if(LocalConfiguration.current.screenHeightDp>=390)52.dp else 48.dp).testTag("landscape-compact-header")) {
         val compact=maxWidth<780.dp
+        val navWidth=if(maxWidth>=900.dp)82.dp else if(maxWidth>=800.dp)74.dp else 58.dp
         Row(Modifier.fillMaxSize(),verticalAlignment=Alignment.CenterVertically) {
             Row(Modifier.weight(.27f).fillMaxHeight().clickable(role=Role.Button,onClick=a.onOpenLocation),verticalAlignment=Alignment.CenterVertically) {
                 Icon(Icons.Outlined.LocationOn,null,Modifier.size(20.dp),tint=c.accent)
-                Text(L10n.place(s.locationName),Modifier.weight(1f).padding(start=5.dp).testTag("landscape-location"),fontFamily=f,fontSize=12.sp,lineHeight=if(urdu)22.sp else 17.sp,color=c.ink,maxLines=2)
+                Text(L10n.place(s.locationName),Modifier.weight(1f).padding(start=5.dp).testTag("landscape-location"),fontFamily=f,fontSize=if(!urdu&&!compact)16.sp else 12.sp,lineHeight=if(urdu)22.sp else if(!compact)20.sp else 17.sp,color=c.ink,maxLines=2)
             }
             Row(Modifier.weight(.52f),horizontalArrangement=Arrangement.Center,verticalAlignment=Alignment.CenterVertically) {
-                Text(L10n.dateShort(s,state.now)+" "+state.now.year,Modifier.weight(1f).testTag("landscape-date"),fontFamily=f,fontSize=10.sp,lineHeight=if(urdu)20.sp else 15.sp,color=c.ink,textAlign=TextAlign.Center)
+                Text(L10n.dateShort(s,state.now)+" "+state.now.year,Modifier.weight(1f).testTag("landscape-date"),fontFamily=f,fontSize=if(!urdu&&!compact)13.sp else 10.sp,lineHeight=if(urdu)20.sp else if(!compact)18.sp else 15.sp,color=c.ink,textAlign=TextAlign.Center)
                 if(s.showHijri) {
                     Box(Modifier.padding(horizontal=5.dp).width(.5.dp).height(16.dp).background(c.accent.copy(alpha=.45f)))
-                    Text(galleryHijriLine(s,PrayerEngine.hijri(state.now.toLocalDate(),s.hijriOffsetDays)),Modifier.weight(1.35f).testTag("landscape-hijri"),fontFamily=f,fontSize=10.sp,lineHeight=if(urdu)20.sp else 15.sp,color=c.ink,textAlign=TextAlign.Center)
+                    Text(galleryHijriLine(s,PrayerEngine.hijri(state.now.toLocalDate(),s.hijriOffsetDays)),Modifier.weight(1.35f).testTag("landscape-hijri"),fontFamily=f,fontSize=if(!urdu&&!compact)13.sp else 10.sp,lineHeight=if(urdu)20.sp else if(!compact)18.sp else 15.sp,color=c.ink,textAlign=TextAlign.Center)
                 }
             }
             Row(Modifier.weight(.21f).padding(horizontal=4.dp).clip(RoundedCornerShape(16.dp)).background(c.panel)
                 .border(.6.dp,c.accent.copy(alpha=.45f),RoundedCornerShape(16.dp)).padding(horizontal=6.dp,vertical=5.dp),
                 horizontalArrangement=Arrangement.Center,verticalAlignment=Alignment.CenterVertically) {
-                Text(L10n.word(s,"NOW"),fontFamily=if(urdu)Amiri else ApprovedBody,fontSize=8.sp,lineHeight=if(urdu)19.sp else 13.sp,color=c.accent)
-                Text(" "+L10n.iso(L10n.at(state.now,s.use24h)),Modifier.testTag("landscape-live-clock"),fontFamily=f,fontSize=11.sp,lineHeight=if(urdu)21.sp else 15.sp,color=c.ink)
+                Text(L10n.word(s,"NOW"),fontFamily=if(urdu)Amiri else ApprovedBody,fontSize=if(!urdu&&!compact)9.sp else 8.sp,lineHeight=if(urdu)19.sp else 13.sp,color=c.accent)
+                Text(" "+L10n.iso(L10n.at(state.now,s.use24h)),Modifier.testTag("landscape-live-clock"),fontFamily=f,fontSize=if(!urdu&&!compact)14.sp else 11.sp,lineHeight=if(urdu)21.sp else if(!compact)18.sp else 15.sp,color=c.ink)
             }
             Row(Modifier.clip(RoundedCornerShape(18.dp)).background(c.panel.copy(alpha=.55f)).border(.5.dp,c.accent.copy(alpha=.2f),RoundedCornerShape(18.dp))) {
-            if(s.kidsMode)PhoneHomeNav(Icons.Outlined.MenuBook,Str[R.string.s_learn_salah],if(urdu)Str[R.string.s_theme_home_nav_learn]else"Learn Salah",s,a.onOpenLearn)
-            PhoneHomeNav(Icons.Outlined.CalendarMonth,Str[R.string.s_monthly_timetable],Str[R.string.s_theme_home_nav_timetable],s,a.onOpenTimetable)
-            PhoneHomeNav(Icons.Outlined.Settings,Str[R.string.s_settings],Str[R.string.s_theme_home_nav_settings],s,a.onOpenSettings)
+            if(s.kidsMode)PhoneHomeNav(Icons.Outlined.MenuBook,Str[R.string.s_learn_salah],if(urdu)Str[R.string.s_theme_home_nav_learn]else"Learn Salah",s,a.onOpenLearn,navWidth)
+            PhoneHomeNav(Icons.Outlined.CalendarMonth,Str[R.string.s_monthly_timetable],Str[R.string.s_theme_home_nav_timetable],s,a.onOpenTimetable,navWidth)
+            PhoneHomeNav(Icons.Outlined.Settings,Str[R.string.s_settings],Str[R.string.s_theme_home_nav_settings],s,a.onOpenSettings,navWidth)
             }
         }
     }
@@ -140,15 +141,15 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
         val tiny=maxHeight<175.dp
         val compactKiswah=s.theme==AppTheme.KISWAH&&compact
         val name:@Composable (Modifier)->Unit={m->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
-            Text(hero.arabic,Modifier.fillMaxWidth().testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=1.35f)),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)26.sp else 34.sp else if(compact)30.sp else if(s.iqamahEnabled)34.sp else 36.sp,lineHeight=if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)34.sp else 44.sp else if(compact)40.sp else 46.sp,color=c.accent,textAlign=TextAlign.Center)
-            Text(if(urdu)hero.label else hero.label.uppercase(Locale.ROOT),Modifier.testTag("landscape-hero-english"),style=heroStyle,fontFamily=if(urdu)Amiri else Cinzel,fontSize=9.sp,lineHeight=if(urdu)21.sp else 12.sp,letterSpacing=if(urdu)0.sp else 1.3.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)
+            Text(hero.arabic,Modifier.fillMaxWidth().testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=1.35f)),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)30.sp else 38.sp else if(compact)30.sp else if(s.iqamahEnabled)34.sp else 40.sp,lineHeight=if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)36.sp else 46.sp else if(compact)40.sp else 48.sp,color=c.accent,textAlign=TextAlign.Center)
+            Text(if(urdu)hero.label else hero.label.uppercase(Locale.ROOT),Modifier.testTag("landscape-hero-english"),style=heroStyle,fontFamily=if(urdu)Amiri else Cinzel,fontSize=if(urdu)9.sp else 11.sp,lineHeight=if(urdu)21.sp else 14.sp,letterSpacing=if(urdu)0.sp else 1.3.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)
         }}
         val heroClock=L10n.iso(L10n.at(state.heroTime,s.use24h))
         val clock:@Composable (Modifier)->Unit={m->Text(buildAnnotatedString {
             append(heroClock)
             if(hero.suffix.isNotBlank()) {val start=heroClock.indexOf(hero.suffix);if(start>=0)addStyle(SpanStyle(fontSize=14.sp,baselineShift=BaselineShift(.2f)),start,start+hero.suffix.length)}
         },m.testTag("landscape-hero-clock").clickable(role=Role.Button,onClick=onToggle),style=heroStyle,fontFamily=if(urdu)Amiri else ApprovedDisplay,fontWeight=FontWeight.Bold,
-            fontSize=if(urdu)25.sp else if(compactKiswah)if(tiny)38.sp else 43.sp else if(compact)40.sp else 56.sp,lineHeight=if(urdu)if(paired)38.sp else 45.sp else if(compactKiswah)if(tiny)42.sp else 50.sp else if(compact)49.sp else 59.sp,letterSpacing=if(urdu)0.sp else 1.4.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}
+            fontSize=if(urdu)25.sp else if(compactKiswah)if(tiny)38.sp else 52.sp else if(compact)40.sp else 66.sp,lineHeight=if(urdu)if(paired)38.sp else 45.sp else if(compactKiswah)if(tiny)42.sp else 54.sp else if(compact)49.sp else 69.sp,letterSpacing=if(urdu)0.sp else 1.4.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}
         val galleryExtraInset=if(gallery&&maxWidth>=250.dp)20.dp else 0.dp
         Box(Modifier.fillMaxSize().padding(end=galleryExtraInset),contentAlignment=Alignment.Center) {
         Column(Modifier.widthIn(max=244.dp).fillMaxWidth().fillMaxHeight(),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
@@ -168,27 +169,27 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
 
 /** The visual pill is shallow; its independent 48dp target never overlaps a neighbour. */
 @Composable
-private fun LandscapeHomeDoor(label:String,icon:androidx.compose.ui.graphics.vector.ImageVector?,s:AppSettings,modifier:Modifier=Modifier,warn:Boolean=false,solid:Boolean=false,onClick:()->Unit) {
+private fun LandscapeHomeDoor(label:String,icon:androidx.compose.ui.graphics.vector.ImageVector?,s:AppSettings,modifier:Modifier=Modifier,warn:Boolean=false,solid:Boolean=false,footer:Boolean=false,onClick:()->Unit) {
     val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s);val outline=if(warn&&s.theme==AppTheme.PRAYER_GALLERY)Color(0xFF83520D)else if(warn)Color(0xFFE9B85B)else c.accent
     Box(modifier.heightIn(min=48.dp).clickable(role=Role.Button,onClick=onClick).semantics(mergeDescendants=true){},contentAlignment=Alignment.Center) {
         Row(Modifier.fillMaxWidth().heightIn(min=if(LocalConfiguration.current.screenHeightDp>=390)34.dp else 30.dp).clip(RoundedCornerShape(16.dp))
             .background(if(solid)c.accent else if(warn&&s.theme==AppTheme.PRAYER_GALLERY)Color(0xFFFFF3DF).copy(alpha=.97f)else if(s.theme!=AppTheme.PRAYER_GALLERY)(if(s.theme==AppTheme.KISWAH)Color(0xFF10100F)else Color(0xFF061C35)).copy(alpha=if(warn).90f else .84f)else c.panel)
             .border(.8.dp,outline.copy(alpha=if(warn).85f else .65f),RoundedCornerShape(16.dp)).padding(horizontal=8.dp,vertical=2.dp),
             verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.Center) {
-            if(icon!=null)Icon(icon,null,Modifier.size(20.dp),tint=if(solid)Color.White else outline)
-            Text(label,Modifier.padding(horizontal=5.dp),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(urdu)13.sp else 15.sp,
-                lineHeight=if(urdu)23.sp else 20.sp,color=if(solid)Color(0xFFFFF9ED)else if(warn)outline else c.ink,textAlign=TextAlign.Center)
+            if(icon!=null)Icon(icon,null,Modifier.size(if(footer)22.dp else 20.dp),tint=if(solid)Color.White else outline)
+            Text(label,Modifier.padding(horizontal=5.dp),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(urdu)13.sp else if(footer&&LocalConfiguration.current.screenWidthDp>=840)17.sp else 15.sp,
+                lineHeight=if(urdu)23.sp else if(footer)22.sp else 20.sp,color=if(solid)Color(0xFFFFF9ED)else if(warn)outline else c.ink,textAlign=TextAlign.Center)
             if(icon==null||warn)Icon(Icons.AutoMirrored.Outlined.ArrowForward,null,Modifier.size(15.dp),tint=if(solid)Color.White else outline)
         }
     }
 }
 
 @Composable
-private fun PhoneHomeNav(icon: androidx.compose.ui.graphics.vector.ImageVector, label:String, short:String, s:AppSettings,onClick:()->Unit) {
-    Column(Modifier.width(58.dp).height(48.dp).clip(RoundedCornerShape(10.dp)).clickable(role=Role.Button,onClick=onClick)
+private fun PhoneHomeNav(icon: androidx.compose.ui.graphics.vector.ImageVector, label:String, short:String, s:AppSettings,onClick:()->Unit,width:Dp=58.dp) {
+    Column(Modifier.width(width).height(48.dp).clip(RoundedCornerShape(10.dp)).clickable(role=Role.Button,onClick=onClick)
         .semantics(mergeDescendants=true){contentDescription=label},horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
-        Icon(icon,null,Modifier.size(21.dp),tint=quietPalette(s.theme).ink)
-        Text(short,fontFamily=if(L10n.isUrdu(s))Amiri else ApprovedBody,fontSize=9.sp,lineHeight=if(L10n.isUrdu(s))18.sp else 13.sp,color=quietPalette(s.theme).ink)
+        Icon(icon,null,Modifier.size(if(width>58.dp)24.dp else 21.dp),tint=quietPalette(s.theme).ink)
+        Text(short,fontFamily=if(L10n.isUrdu(s))Amiri else ApprovedBody,fontSize=if(width>58.dp&&!L10n.isUrdu(s))11.sp else 9.sp,lineHeight=if(L10n.isUrdu(s))18.sp else 13.sp,color=quietPalette(s.theme).ink)
     }
 }
 
@@ -239,11 +240,11 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
                 Box(Modifier.padding(start=4.dp,top=4.dp,bottom=4.dp).width(thumbnailSide).aspectRatio(1f)) {
                     PhoneLandscapePeriodArt(r.prayer.ordinal,Modifier.fillMaxSize().clip(RoundedCornerShape(5.dp)))
                 }
-            } else if(!tight||!urdu)Icon(Icons.Outlined.Schedule,null,Modifier.padding(start=4.dp,end=3.dp).size(13.dp),tint=c.secondary)
+            } else if(!tight||!urdu)Icon(Icons.Outlined.Schedule,null,Modifier.padding(start=4.dp,end=3.dp).size(if(large)15.dp else 13.dp),tint=c.secondary)
             Row(Modifier.weight(1f).padding(start=4.dp),verticalAlignment=Alignment.Top) {
                 Column(Modifier.width(if(urdu)58.dp else if(large&&!gallery)67.dp else if(large&&gallery)59.dp else if(tight)50.dp else 54.dp)) {
                     Text(r.label,Modifier.testTag("landscape-row-name-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(urdu)14.sp else if(large&&!gallery)15.sp else if(large)13.sp else if(tight)12.sp else 13.sp,lineHeight=if(urdu)25.sp else if(large&&!gallery)20.sp else 17.sp,color=c.ink,maxLines=1)
-                    if(!urdu)Text(r.arabic,Modifier.testTag("landscape-row-arabic-${r.prayer.name}"),style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false)),fontFamily=Amiri,fontSize=if(large&&!gallery)16.sp else 14.sp,lineHeight=if(large&&!gallery)22.sp else 21.sp,color=c.accent)
+                    if(!urdu)Text(r.arabic,Modifier.testTag("landscape-row-arabic-${r.prayer.name}"),style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false)),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(large&&!gallery)18.sp else 14.sp,lineHeight=if(large&&!gallery)22.sp else 21.sp,color=c.accent)
                 }
                 Column(Modifier.weight(1f).padding(start=2.dp),verticalArrangement=Arrangement.Top) {
                     // Landscape keeps the authored large clock even when relative details are enabled.
@@ -260,9 +261,9 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
             }
             Row(Modifier.width(48.dp).fillMaxHeight().heightIn(min=48.dp).testTag("landscape-info-${r.prayer.name}").clickable(role=Role.Button,onClick=onWhy)
                 .semantics(mergeDescendants=true){contentDescription=Str[R.string.s_why_this_time]},horizontalArrangement=Arrangement.spacedBy(5.dp,Alignment.CenterHorizontally),verticalAlignment=Alignment.CenterVertically) {
-                if(r.prayer.isPrayer)Icon(if(r.azaanOn)Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff,null,Modifier.size(16.dp)
+                if(r.prayer.isPrayer)Icon(if(r.azaanOn)Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff,null,Modifier.size(if(large)18.dp else 16.dp)
                     .semantics{contentDescription=if(r.azaanOn)L10n.t("Azaan enabled","اذان فعال ہے")else L10n.t("Azaan off","اذان بند ہے")},tint=c.accent)
-                Icon(Icons.Outlined.Info,null,Modifier.size(15.dp),tint=c.secondary)
+                Icon(Icons.Outlined.Info,null,Modifier.size(if(large)17.dp else 15.dp),tint=c.secondary)
             }
         }
     }

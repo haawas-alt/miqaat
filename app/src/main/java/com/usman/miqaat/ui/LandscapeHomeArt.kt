@@ -45,10 +45,10 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
     Box(modifier.background(c.background)) {
         if(s.artTheme!=ArtTheme.MINIMAL) {
             val art=when(s.theme) {
-                AppTheme.MIQAAT->R.drawable.home_miqaat_v172
+                AppTheme.MIQAAT->R.drawable.home_miqaat_v175
                 AppTheme.KISWAH->R.drawable.home_kiswah_v172
                 AppTheme.CELESTIAL_MERIDIAN->R.drawable.home_celestial_v172
-                AppTheme.PRAYER_GALLERY->R.drawable.home_gallery_v172
+                AppTheme.PRAYER_GALLERY->R.drawable.home_gallery_v175
             }
             LandscapePainting(art,s.theme,Modifier.matchParentSize())
             if(s.theme==AppTheme.MIQAAT)Canvas(Modifier.matchParentSize()) {
@@ -56,7 +56,7 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
                 drawRect(Brush.radialGradient(0f to Color(0xFF03162E).copy(alpha=.8f),.50f to Color(0xFF03162E).copy(alpha=.8f),1f to Color.Transparent,center=Offset(size.width*.81f,size.height*.49f),radius=size.width*.14f))
                 // The arch starts above the heading; fade its apex behind the compact header.
                 drawRect(Brush.verticalGradient(0f to Color(0xFF02162D).copy(alpha=.94f),.10f to Color(0xFF02162D).copy(alpha=.78f),.20f to Color.Transparent,1f to Color.Transparent))
-                drawRect(Brush.horizontalGradient(0f to Color(0xFF02162D).copy(alpha=.92f),.56f to Color(0xFF02162D).copy(alpha=.85f),.65f to Color.Transparent,1f to Color.Transparent))
+                drawRect(Brush.horizontalGradient(0f to Color(0xFF02162D).copy(alpha=.55f),.56f to Color(0xFF02162D).copy(alpha=.42f),.65f to Color.Transparent,1f to Color.Transparent))
             }
             if(s.theme==AppTheme.KISWAH)Canvas(Modifier.matchParentSize()) {
                 // Recede the large cloth folds while retaining the embroidered edge.
@@ -130,7 +130,7 @@ internal fun OrnateLandscapeBand() {
             }
         }
         Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=55.dp,vertical=clearance).testTag("kiswah-calligraphy-band")
-            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),textGeometricTransform=TextGeometricTransform(scaleX=if(short)1f else 1.045f)),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=if(short)16.sp else 22.sp,lineHeight=if(short)26.sp else 28.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
+            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),textGeometricTransform=TextGeometricTransform(scaleX=if(short)1f else 1.18f)),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=if(short)16.sp else 20.sp,lineHeight=if(short)26.sp else 24.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
     }
 }
 
@@ -149,14 +149,14 @@ internal fun PhoneLandscapePeriodArt(index:Int,modifier:Modifier) {
 /** Keep decorative scene edges out of the live hero typography without cutting off the artwork. */
 @Composable
 private fun LandscapePainting(resource:Int,theme:AppTheme,modifier:Modifier) {
-    if(theme!=AppTheme.PRAYER_GALLERY&&theme!=AppTheme.KISWAH) {
+    if(theme==AppTheme.CELESTIAL_MERIDIAN) {
         Image(painterResource(resource),null,modifier,contentScale=ContentScale.FillBounds)
         return
     }
     val bitmap=ImageBitmap.imageResource(resource)
     Canvas(modifier) {
-        val source=if(theme==AppTheme.PRAYER_GALLERY)listOf(0f,.08f,.65f,1f)else listOf(0f,.80f,1f)
-        val target=if(theme==AppTheme.PRAYER_GALLERY)listOf(0f,.08f,.80f,1f)else listOf(0f,.86f,1f)
+        val source=if(theme==AppTheme.PRAYER_GALLERY)listOf(0f,.08f,.65f,1f)else if(theme==AppTheme.MIQAAT)listOf(0f,.565f,1f)else listOf(0f,.80f,1f)
+        val target=if(theme==AppTheme.PRAYER_GALLERY)listOf(0f,.08f,.80f,1f)else if(theme==AppTheme.MIQAAT)listOf(0f,.63f,1f)else listOf(0f,.86f,1f)
         for(i in 0 until source.lastIndex) {
             val sx=(source[i]*bitmap.width).toInt();val ex=(source[i+1]*bitmap.width).toInt()
             val dx=(target[i]*size.width).toInt();val end=(target[i+1]*size.width).toInt()

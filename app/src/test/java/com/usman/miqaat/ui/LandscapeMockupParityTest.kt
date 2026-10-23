@@ -86,6 +86,14 @@ class LandscapeMockupParityTest:ComposeSupport() {
                 for(tag in listOf("landscape-location","landscape-date","landscape-hijri","landscape-live-clock","landscape-hero-name","landscape-hero-english","landscape-hero-clock","landscape-hero-status"))readable(tag)
                 val details=rule.onNodeWithTag("landscape-hero-details",true).fetchSemanticsNode().boundsInRoot
                 assertTrue("Reference details button became full-hero width",details.width/hero.width in .50f.. .87f)
+                if(device=="reference"&&l==Language.EN) {
+                    val first=rule.onNodeWithTag("approved-timeline-FAJR",true).fetchSemanticsNode().boundsInRoot
+                    val last=rule.onNodeWithTag("approved-timeline-ISHA",true).fetchSemanticsNode().boundsInRoot
+                    assertTrue("Timeline first stop drifted from approved composition",(first.center.x-board.left)/board.width in .11f.. .15f)
+                    assertTrue("Timeline last stop extends past the approved Isha position",(last.center.x-board.left)/board.width in .75f.. .82f)
+                    val clock=ink("landscape-hero-clock")
+                    assertTrue("Hero clock lost the approved visual hierarchy",clock.height/board.height in .12f.. .21f)
+                }
                 if(t==AppTheme.KISWAH)rule.onNodeWithTag("kiswah-band-ornament",true).assertIsDisplayed()
             }finally{scenario.close()}
         }

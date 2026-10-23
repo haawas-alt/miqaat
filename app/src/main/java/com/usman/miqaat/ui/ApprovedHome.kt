@@ -390,7 +390,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
 }
 
 @Composable
-internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeTokens, modifier: Modifier) {
+internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeTokens, modifier: Modifier, landscape: Boolean = false) {
     val prayers = listedPrayers(s)
     val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
     val gold = if (tk.dark) Color(0xFFFFCC63) else tk.accent
@@ -436,8 +436,8 @@ internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeToken
             }
         }
         Row(Modifier.fillMaxWidth()) { prayers.forEach { p ->
-            Text(L10n.prayer(s,p), Modifier.weight(1f).testTag("approved-timeline-${p.name}"), fontFamily = if (L10n.isUrdu(s)) Amiri else ApprovedBody,
-                fontSize = 11.sp, lineHeight = 18.sp, textAlign = TextAlign.Center, color = if (p == active) gold else tk.contentPrimary, maxLines = 1)
+            Text(L10n.prayer(s,p), Modifier.weight(1f).testTag("approved-timeline-${p.name}"), fontFamily = if (L10n.isUrdu(s)) Amiri else if (landscape) androidx.compose.ui.text.font.FontFamily.Serif else ApprovedBody,
+                fontSize = if (landscape && !L10n.isUrdu(s)) 13.sp else 11.sp, lineHeight = 18.sp, textAlign = TextAlign.Center, color = if (p == active) gold else tk.contentPrimary, maxLines = 1)
         } }
     }
 }
