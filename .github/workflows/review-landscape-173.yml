@@ -16,7 +16,10 @@ jobs:
       - name: Download completed final-source native captures
         run: |
           for theme in MIQAAT KISWAH CELESTIAL_MERIDIAN PRAYER_GALLERY; do
-            gh run download 39933491983 -n "landscape-parity-native-$theme" -D "native/$theme"
+            for attempt in $(seq 1 40); do
+              if gh run download 39934785462 -n "landscape-parity-native-$theme" -D "native/$theme"; then break; fi
+              sleep 15
+            done
           done
       - name: Emit compact visual proof
         run: |
@@ -25,7 +28,7 @@ jobs:
           from PIL import Image, ImageDraw
           from pathlib import Path
           import base64,io
-          for mode in ['reference-EN.png','actual-relative-EN.png']:
+          for mode in ['reference-EN.png','actual-relative-EN.png','actual-maghrib-relative-EN.png']:
               board=Image.new('RGB',(1440,652),'#eee9df')
               draw=ImageDraw.Draw(board)
               for i,theme in enumerate(['MIQAAT','KISWAH','CELESTIAL_MERIDIAN','PRAYER_GALLERY']):
