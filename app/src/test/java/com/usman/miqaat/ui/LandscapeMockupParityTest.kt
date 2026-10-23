@@ -107,21 +107,26 @@ class LandscapeMockupParityTest:ComposeSupport() {
         }
     }
     @Test fun relativeTimeFooterIsPinnedOnBeijingPhone() {
-        for(t in themes()) {
-            val s=settings(t,Language.EN).copy(showRelative=true,latitude=39.95,longitude=116.27,zoneId="Asia/Shanghai",locationName="Hai Dian Qu, Bei Jing Shi")
-            app.settings.update{s};val st=PrayerEngine.state(s,ZonedDateTime.of(2026,10,23,14,35,0,0,s.zone()))
+        for(t in themes())for(hour in listOf(14,17)) {
+            val s=settings(t,Language.EN).copy(showRelative=true,latitude=39.95,longitude=116.27,zoneId="Asia/Shanghai",locationName=if(hour==17)"Chao Yang Qu, Bei Jing Shi"else "Hai Dian Qu, Bei Jing Shi")
+            app.settings.update{s};val st=PrayerEngine.state(s,ZonedDateTime.of(2026,10,23,hour,if(hour==17)27 else 35,0,0,s.zone()))
             try {
                 show(Dev.PHONE_LANDSCAPE,t,qualifiers="w891dp-h411dp-land-xhdpi") {
                     Box(Modifier.padding(start=36.dp,bottom=12.dp)){HomeRouter(st,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{})}
                 }
-                capture(t,"actual-relative",Language.EN)
+                capture(t,if(hour==17)"actual-maghrib-relative"else "actual-relative",Language.EN)
                 assertEquals("English relative view must fit without scrolling",0,rule.onAllNodes(SemanticsMatcher("scroll"){it.config.getOrNull(SemanticsActions.ScrollBy)!=null},true).fetchSemanticsNodes().size)
                 val root=rule.onRoot().fetchSemanticsNode().boundsInRoot
                 for(tag in listOf("landscape-door-0","landscape-door-1","landscape-more-actions","landscape-timeline-panel")) {
                     val b=rule.onNodeWithTag(tag,true).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
                     assertTrue("Footer clipped on actual relative-mode phone: $tag",b.bottom<=root.bottom&&b.top>=root.top)
                 }
-                for(p in listedPrayers(s))for(k in listOf("name","time","detail"))readable("landscape-row-$k-${p.name}",false)
+                for(p in listedPrayers(s)) {
+                    for(k in listOf("name","time","detail","relative"))readable("landscape-row-$k-${p.name}")
+                    val r=galleryRowInfo(p,st,s)
+                    rule.onNodeWithTag("landscape-row-time-${p.name}",true).assertTextEquals(L10n.iso((r.clock+" "+r.suffix).trim()))
+                    rule.onNodeWithTag("landscape-row-relative-${p.name}",true).assertTextEquals(r.relative)
+                }
             }finally{scenario.close()}
         }
     }

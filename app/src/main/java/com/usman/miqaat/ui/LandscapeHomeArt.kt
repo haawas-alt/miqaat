@@ -50,6 +50,13 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
                 AppTheme.PRAYER_GALLERY->R.drawable.home_gallery_v172
             }
             LandscapePainting(art,s.theme,Modifier.matchParentSize().padding(top=if(s.theme==AppTheme.MIQAAT)32.dp else 0.dp))
+            if(s.theme==AppTheme.MIQAAT)Canvas(Modifier.matchParentSize()) {
+                drawRect(Brush.horizontalGradient(0f to Color(0xFF02162D).copy(alpha=.92f),.56f to Color(0xFF02162D).copy(alpha=.85f),.65f to Color.Transparent,1f to Color.Transparent))
+            }
+            if(s.theme==AppTheme.KISWAH)Canvas(Modifier.matchParentSize()) {
+                // Recede the large cloth folds while retaining the embroidered edge.
+                drawRect(Brush.horizontalGradient(0f to Color.Black.copy(alpha=.62f),.80f to Color.Black.copy(alpha=.55f),.86f to Color.Transparent,1f to Color.Transparent))
+            }
             if(s.theme==AppTheme.CELESTIAL_MERIDIAN)Canvas(Modifier.matchParentSize()) {
                 drawRect(Brush.radialGradient(listOf(Color(0xFF03142A).copy(alpha=.42f),Color.Transparent),Offset(size.width*.8f,size.height*.43f),size.width*.18f))
             }
@@ -122,7 +129,7 @@ internal fun OrnateLandscapeBand() {
             }
         }
         Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=55.dp,vertical=clearance).testTag("kiswah-calligraphy-band")
-            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false)),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=if(short)16.sp else 20.sp,lineHeight=26.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
+            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false)),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=if(short)16.sp else 23.sp,lineHeight=if(short)26.sp else 28.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
     }
 }
 
