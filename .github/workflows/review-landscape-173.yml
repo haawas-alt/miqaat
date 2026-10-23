@@ -1,0 +1,40 @@
+name: Review final native landscape captures
+on:
+  push:
+    branches: ['delivery/landscape-1.173']
+    paths: ['.github/workflows/review-landscape-173.yml']
+permissions:
+  actions: read
+  contents: read
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Download completed final-source native captures
+        run: |
+          for theme in MIQAAT KISWAH CELESTIAL_MERIDIAN PRAYER_GALLERY; do
+            gh run download 39933491983 -n "landscape-parity-native-$theme" -D "native/$theme"
+          done
+      - name: Emit compact visual proof
+        run: |
+          python3 -m pip install --quiet Pillow==12.0.0
+          python3 - <<'PY'
+          from PIL import Image, ImageDraw
+          from pathlib import Path
+          import base64,io
+          for mode in ['reference-EN.png','actual-relative-EN.png']:
+              board=Image.new('RGB',(1440,652),'#eee9df')
+              draw=ImageDraw.Draw(board)
+              for i,theme in enumerate(['MIQAAT','KISWAH','CELESTIAL_MERIDIAN','PRAYER_GALLERY']):
+                  path=next((Path('native')/theme).rglob(mode))
+                  im=Image.open(path).convert('RGB')
+                  im.thumbnail((720,302))
+                  x=(i%2)*720;y=(i//2)*326
+                  draw.text((x+8,y+3),theme,fill='black')
+                  board.paste(im,(x,y+22))
+              out=io.BytesIO();board.save(out,format='JPEG',quality=87)
+              print('VISUAL_'+mode+':'+base64.b64encode(out.getvalue()).decode())
+          PY
