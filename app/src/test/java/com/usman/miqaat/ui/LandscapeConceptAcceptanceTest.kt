@@ -66,11 +66,24 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                         val noScroll = SemanticsMatcher("Home must have no scrolling container") {
                             it.config.getOrNull(SemanticsActions.ScrollBy) != null
                         }
-                        if (!relative) assertEquals("Default Home must not scroll", 0, rule.onAllNodes(noScroll, true).fetchSemanticsNodes().size)
+                        val reflow = urdu && relative
+                        if (!reflow) assertEquals("Default Home must not scroll", 0, rule.onAllNodes(noScroll, true).fetchSemanticsNodes().size)
                         else rule.onNodeWithTag("landscape-home-reflow", true).assertExists()
+                        fun bringIntoView(query: SemanticsNodeInteraction) {
+                            if (reflow) {
+                                val node = query.fetchSemanticsNode()
+                                val bounds = node.boundsInRoot
+                                if (bounds.height + 1f < node.size.height || bounds.width + 1f < node.size.width) query.performScrollTo()
+                            }
+                        }
+                        // Footer and timeline must be fully visible before any body scroll.
+                        for (tag in listOf("landscape-door-0", "landscape-door-1", "landscape-more-actions", "landscape-timeline-panel")) {
+                            val bounds = rule.onNodeWithTag(tag, true).assertIsDisplayed().getUnclippedBoundsInRoot()
+                            assertTrue("$tag leaves initial viewport", bounds.top >= board.top && bounds.bottom <= board.bottom)
+                        }
                         fun inside(tag: String, minTarget: Boolean = false) {
                             val query = rule.onNodeWithTag(tag, true)
-                            if (relative) query.performScrollTo()
+                            bringIntoView(query)
                             query.assertIsDisplayed()
                             val r = query.getUnclippedBoundsInRoot()
                             assertTrue("$tag exceeds usable screen", r.left >= board.left && r.right <= board.right && r.top >= board.top && r.bottom <= board.bottom)
@@ -78,7 +91,7 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                         }
                         fun readable(tag: String) {
                             inside(tag)
-                            if (relative) rule.onNodeWithTag(tag, true).performScrollTo()
+                            bringIntoView(rule.onNodeWithTag(tag, true))
                             val node = rule.onNodeWithTag(tag, true).fetchSemanticsNode()
                             val layouts = mutableListOf<TextLayoutResult>()
                             node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
@@ -102,10 +115,10 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                             readable("approved-timeline-${prayer.name}")
                         }
                         val learnAction = rule.onNodeWithContentDescription(Str[R.string.s_learn_salah])
-                        if (relative) learnAction.performScrollTo()
+                        bringIntoView(learnAction)
                         learnAction.performClick()
                         assertTrue("Learn shortcut must still open Learn Salah", learn)
-                        if (relative) rule.onNodeWithTag("landscape-more-actions", true).performScrollTo()
+                        bringIntoView(rule.onNodeWithTag("landscape-more-actions", true))
                         rule.onNodeWithTag("landscape-more-actions", true).performClick()
                         // Qibla and timely Adhkar remain accessible, without consuming Home height.
                         rule.onAllNodesWithText(firstMenuLabel).onLast().assertExists()
