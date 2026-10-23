@@ -168,8 +168,29 @@ class LandscapeMockupParityTest:ComposeSupport() {
                     }
                 }
                 for(tag in listOf("landscape-hero-kicker","landscape-hero-name","landscape-hero-clock","landscape-hero-status"))readable(tag)
+                capture(t,"audit-night-ui",Language.EN)
+                if(t==AppTheme.KISWAH) {
+                    val frame=rule.onNodeWithTag("kiswah-calligraphy-frame",true).fetchSemanticsNode().boundsInRoot
+                    val density=app.resources.displayMetrics.density
+                    scenario.onActivity {act->
+                        val v=act.findViewById<View>(android.R.id.content)
+                        val b=Bitmap.createBitmap(v.width,v.height,Bitmap.Config.ARGB_8888);v.draw(Canvas(b))
+                        try {
+                            for(top in listOf(true,false)) {
+                                val y0=(if(top)frame.top+5*density else frame.bottom-6*density).toInt()
+                                val y1=(if(top)frame.top+6*density else frame.bottom-5*density).toInt()
+                                var marked=0
+                                for(y in y0 until y1)for(x in (frame.left+55*density).toInt() until (frame.right-55*density).toInt()) {
+                                    val pixel=b.getPixel(x,y);val red=android.graphics.Color.red(pixel);val green=android.graphics.Color.green(pixel);val blue=android.graphics.Color.blue(pixel)
+                                    if(red>145&&green>95&&red>blue*1.15f&&green>blue*1.05f)marked++
+                                }
+                                assertTrue("Kiswah Arabic touches embroidered rail: top=$top pixels=$marked",marked<=2)
+                            }
+                        }finally{b.recycle()}
+                    }
+                }
                 val tags=when(t) {
-                    AppTheme.MIQAAT->listOf("landscape-hero-kicker")
+                    AppTheme.MIQAAT->listOf("landscape-hero-kicker","landscape-hero-clock","landscape-hero-status")
                     AppTheme.PRAYER_GALLERY->listOf("landscape-hero-clock","landscape-hero-status")
                     else->emptyList()
                 }
@@ -194,8 +215,9 @@ class LandscapeMockupParityTest:ComposeSupport() {
                                     }
                                 val ratio=marked.toFloat()/pixels.coerceAtLeast(1)
                                 report.append("$tag rect=$r marked=$marked pixels=$pixels ratio=$ratio\n")
+                                File("build/landscape-parity/${t.name}/artwork-clearance.txt").writeText(report.toString())
                                 val limit=if(t==AppTheme.MIQAAT).005f else .01f
-                                assertTrue("Artwork intrudes on hero text: $t $tag pixels=$marked/$pixels ratio=$ratio",ratio<limit)
+                                assertTrue("Artwork intrudes on hero text: $t $tag pixels=$marked/$pixels ratio=$ratio rect=$r",ratio<limit)
                             }
                             File("build/landscape-parity/${t.name}/artwork-clearance.txt").writeText(report.toString())
                         }finally{b.recycle()}

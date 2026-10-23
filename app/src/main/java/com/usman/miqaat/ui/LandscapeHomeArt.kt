@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextGeometricTransform
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -51,6 +52,8 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
             }
             LandscapePainting(art,s.theme,Modifier.matchParentSize())
             if(s.theme==AppTheme.MIQAAT)Canvas(Modifier.matchParentSize()) {
+                // Keep architectural details quiet beneath the clock and long next-day countdown.
+                drawRect(Brush.radialGradient(0f to Color(0xFF03162E).copy(alpha=.8f),.50f to Color(0xFF03162E).copy(alpha=.8f),1f to Color.Transparent,center=Offset(size.width*.81f,size.height*.49f),radius=size.width*.14f))
                 // The arch starts above the heading; fade its apex behind the compact header.
                 drawRect(Brush.verticalGradient(0f to Color(0xFF02162D).copy(alpha=.94f),.10f to Color(0xFF02162D).copy(alpha=.78f),.20f to Color.Transparent,1f to Color.Transparent))
                 drawRect(Brush.horizontalGradient(0f to Color(0xFF02162D).copy(alpha=.92f),.56f to Color(0xFF02162D).copy(alpha=.85f),.65f to Color.Transparent,1f to Color.Transparent))
@@ -71,7 +74,7 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
 @Composable
 internal fun OrnateLandscapeBand() {
     val short=LocalConfiguration.current.screenHeightDp<390
-    val clearance=if(short)6.dp else 8.dp
+    val clearance=if(short)6.dp else 10.dp
     Box(Modifier.fillMaxWidth().padding(vertical=1.dp).testTag("kiswah-calligraphy-frame").background(Color(0xFF060605)),contentAlignment=Alignment.Center) {
         Canvas(Modifier.matchParentSize().testTag("kiswah-band-ornament")) {
             val gold=Kiswah.thread;val fine=.45.dp.toPx();val side=46.dp.toPx()
@@ -82,11 +85,11 @@ internal fun OrnateLandscapeBand() {
                 // A continuous interwoven gold cord, rather than isolated diamond dots.
                 for(phase in listOf(0.0,Math.PI)) {
                     val braid=Path()
-                    val center=if(y<size.height/2)7.dp.toPx()else size.height-7.dp.toPx()
+                    val center=if(y<size.height/2)2.dp.toPx()else size.height-2.dp.toPx()
                     val step=1.dp.toPx()
                     var x=0f
                     while(x<=size.width) {
-                        val yy=center+sin(x/9.dp.toPx()*2*Math.PI+phase).toFloat()*1.6.dp.toPx()
+                        val yy=center+sin(x/9.dp.toPx()*2*Math.PI+phase).toFloat()*.65.dp.toPx()
                         if(x==0f)braid.moveTo(x,yy)else braid.lineTo(x,yy)
                         x+=step
                     }
@@ -127,7 +130,7 @@ internal fun OrnateLandscapeBand() {
             }
         }
         Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=55.dp,vertical=clearance).testTag("kiswah-calligraphy-band")
-            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false)),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=if(short)16.sp else 23.sp,lineHeight=if(short)26.sp else 28.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
+            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),textGeometricTransform=TextGeometricTransform(scaleX=if(short)1f else 1.045f)),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=if(short)16.sp else 22.sp,lineHeight=if(short)26.sp else 28.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
     }
 }
 
