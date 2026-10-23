@@ -140,16 +140,23 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
         val compact=maxHeight<215.dp
         val tiny=maxHeight<175.dp
         val compactKiswah=s.theme==AppTheme.KISWAH&&compact
+        // These display fonts reserve much more ascent/descent than the six prayer
+        // names use. Center their complete native text in optical slots; never clip
+        // glyphs or spend the details button's independent 48dp touch target.
+        val arabicSlot=if(s.theme==AppTheme.KISWAH)if(tiny)34.dp else if(compact)42.dp else 54.dp else if(compact)40.dp else 56.dp
+        val clockSlot=if(compactKiswah)if(tiny)44.dp else 56.dp else if(compact)48.dp else 72.dp
         val name:@Composable (Modifier)->Unit={m->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
-            Text(hero.arabic,Modifier.fillMaxWidth().testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=1.35f)),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)30.sp else 38.sp else if(compact)30.sp else if(s.iqamahEnabled)34.sp else 40.sp,lineHeight=if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)36.sp else 46.sp else if(compact)40.sp else 48.sp,color=c.accent,textAlign=TextAlign.Center)
+            Box(Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.height(arabicSlot)),contentAlignment=Alignment.Center) {
+            Text(hero.arabic,Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=1.35f)),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)30.sp else 38.sp else if(compact)30.sp else if(s.iqamahEnabled)34.sp else 40.sp,lineHeight=if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)36.sp else 46.sp else if(compact)40.sp else 48.sp,color=c.accent,textAlign=TextAlign.Center)
+            }
             Text(if(urdu)hero.label else hero.label.uppercase(Locale.ROOT),Modifier.testTag("landscape-hero-english"),style=heroStyle,fontFamily=if(urdu)Amiri else Cinzel,fontSize=if(urdu)9.sp else 11.sp,lineHeight=if(urdu)21.sp else 14.sp,letterSpacing=if(urdu)0.sp else 1.3.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)
         }}
         val heroClock=L10n.iso(L10n.at(state.heroTime,s.use24h))
-        val clock:@Composable (Modifier)->Unit={m->Text(buildAnnotatedString {
+        val clock:@Composable (Modifier)->Unit={m->Box(m.then(if(urdu)Modifier else Modifier.height(clockSlot)),contentAlignment=Alignment.Center) {Text(buildAnnotatedString {
             append(heroClock)
             if(hero.suffix.isNotBlank()) {val start=heroClock.indexOf(hero.suffix);if(start>=0)addStyle(SpanStyle(fontSize=14.sp,baselineShift=BaselineShift(.2f)),start,start+hero.suffix.length)}
-        },m.testTag("landscape-hero-clock").clickable(role=Role.Button,onClick=onToggle),style=heroStyle,fontFamily=if(urdu)Amiri else ApprovedDisplay,fontWeight=FontWeight.Bold,
-            fontSize=if(urdu)25.sp else if(compactKiswah)if(tiny)38.sp else 52.sp else if(compact)40.sp else 66.sp,lineHeight=if(urdu)if(paired)38.sp else 45.sp else if(compactKiswah)if(tiny)42.sp else 54.sp else if(compact)49.sp else 69.sp,letterSpacing=if(urdu)0.sp else 1.4.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}
+        },Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-clock").clickable(role=Role.Button,onClick=onToggle),style=heroStyle,fontFamily=if(urdu)Amiri else ApprovedDisplay,fontWeight=FontWeight.Bold,
+            fontSize=if(urdu)25.sp else if(compactKiswah)if(tiny)38.sp else 52.sp else if(compact)40.sp else 66.sp,lineHeight=if(urdu)if(paired)38.sp else 45.sp else if(compactKiswah)if(tiny)42.sp else 54.sp else if(compact)49.sp else 69.sp,letterSpacing=if(urdu)0.sp else 1.4.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}}
         val galleryExtraInset=if(gallery&&maxWidth>=250.dp)20.dp else 0.dp
         Box(Modifier.fillMaxSize().padding(end=galleryExtraInset),contentAlignment=Alignment.Center) {
         Column(Modifier.widthIn(max=244.dp).fillMaxWidth().fillMaxHeight(),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
