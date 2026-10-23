@@ -1,0 +1,26 @@
+{
+  "source_sha": "d6c5f7582e1d78a3a17cab35fb15c74197012749",
+  "run_id": 39976559186,
+  "status": "reviewed_for_candidate",
+  "themes": [
+    "MIQAAT",
+    "KISWAH",
+    "CELESTIAL_MERIDIAN",
+    "PRAYER_GALLERY"
+  ],
+  "reviewed_modes": [
+    "matching approved reference at 18:53",
+    "Beijing 22:04 relative with night dim on",
+    "Beijing 22:04 relative with night dim off"
+  ],
+  "checks": [
+    "Miqaat heading clear of arch",
+    "English prayer names separated from clocks",
+    "Gallery clock and next-day status clear of palm",
+    "Kiswah band diacritics clear of stitched borders",
+    "All footer actions visible"
+  ],
+  "unresolved_visual_findings": [],
+  "physical_device_review": "pending",
+  "mockup_identity": "Not pixel-identical: artwork, calligraphy, proportions and live content differ. 9.9/10 not certified."
+}
