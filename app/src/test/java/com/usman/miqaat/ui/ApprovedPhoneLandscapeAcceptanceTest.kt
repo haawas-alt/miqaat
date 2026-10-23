@@ -98,9 +98,10 @@ class ApprovedPhoneLandscapeAcceptanceTest:ComposeSupport() {
                 if(l==Language.EN)readable("landscape-row-arabic-${p.name}",reflow)
                 for(kind in listOf("name","time"))readable("landscape-row-$kind-${p.name}",reflow)
                 if(galleryRowInfo(p,state,s).small.isNotBlank())readable("landscape-row-detail-${p.name}",reflow)
+                if(s.showRelative)readable("landscape-row-relative-${p.name}",reflow)
                 readable("approved-timeline-${p.name}",reflow)
                 val r=galleryRowInfo(p,state,s)
-                rule.onNodeWithTag("landscape-row-time-${p.name}",true).assertTextEquals(if(s.showRelative)r.relative else L10n.iso((r.clock+" "+r.suffix).trim()))
+                rule.onNodeWithTag("landscape-row-time-${p.name}",true).assertTextEquals(L10n.iso((r.clock+" "+r.suffix).trim()))
             }
             if(!s.showSunrise)rule.onNodeWithTag("compact-prayer-SUNRISE",true).assertDoesNotExist()
             for((p,r)in listedPrayers(s).map{it to galleryRowInfo(it,state,s)})if(r.isNow||r.isNext){
