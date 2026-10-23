@@ -17,7 +17,7 @@ jobs:
         run: |
           for theme in MIQAAT KISWAH CELESTIAL_MERIDIAN PRAYER_GALLERY; do
             for attempt in $(seq 1 40); do
-              if gh run download 39937049511 -n "landscape-parity-native-$theme" -D "native/$theme"; then break; fi
+              if gh run download 39937699389 -n "landscape-parity-native-$theme" -D "native/$theme"; then break; fi
               sleep 15
             done
           done
