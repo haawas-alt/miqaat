@@ -111,7 +111,7 @@ private fun LandscapeHomeHeader(state:PrayerState,s:AppSettings,a:HomeActions) {
             Row(Modifier.weight(.30f).fillMaxHeight().clickable(role=Role.Button,onClick=a.onOpenLocation),verticalAlignment=Alignment.CenterVertically) {
                 Icon(Icons.Outlined.LocationOn,null,Modifier.size(20.dp),tint=c.accent)
                 val place=L10n.place(s.locationName)
-                val placeSize=if(urdu||compact)12.sp else if(place.length>20)13.sp else if(place.length>16)14.sp else 16.sp
+                val placeSize=if(urdu||compact)12.sp else if(place.length>20)12.sp else if(place.length>16)14.sp else 16.sp
                 Text(place,Modifier.weight(1f).padding(start=5.dp).testTag("landscape-location"),fontFamily=f,fontSize=placeSize,lineHeight=if(urdu)22.sp else 20.sp,color=c.ink,maxLines=1,overflow=TextOverflow.Ellipsis)
             }
             Row(Modifier.weight(.49f),horizontalArrangement=Arrangement.Center,verticalAlignment=Alignment.CenterVertically) {
