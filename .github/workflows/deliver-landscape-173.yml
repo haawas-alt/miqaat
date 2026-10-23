@@ -12,8 +12,8 @@ jobs:
     timeout-minutes: 65
     env:
       GH_TOKEN: ${{ github.token }}
-      SOURCE_RUN: '39937049511'
-      SOURCE_SHA: '87341c9b3f8e0bfe7b0c6dd631e5e348ed2fc085'
+      SOURCE_RUN: '39937699389'
+      SOURCE_SHA: '3f01f7d321f37fab39da58c575c10a11c83679c2'
       GH_REPO: ${{ github.repository }}
     steps:
       - name: Wait for complete native regression and signed build
@@ -94,8 +94,8 @@ jobs:
           cat > notes.md <<'NOTES'
           Landscape correction candidate: prominent clock times even in relative mode, secondary relative details, tighter cards with larger type on wide phones, licensed native Thuluth calligraphy with embroidered Kiswah band ornament, stacked hero composition on the reference phone, and pinned timeline/footer controls. Includes six distinct Prayer Gallery illustrations and quiet background treatment.
 
-          Built from 87341c9b3f8e0bfe7b0c6dd631e5e348ed2fc085 after successful cloud validation run 39937049511. Includes native layout and interaction tests, retained regression tests, Android lint, established certificate verification, binary integrity checks, and APK checksum verification.
+          Built from 3f01f7d321f37fab39da58c575c10a11c83679c2 after successful cloud validation run 39937699389. Includes native layout and interaction tests, retained regression tests, Android lint, established certificate verification, binary integrity checks, and APK checksum verification.
 
           Install Miqaat-1.173-landscape.apk. Attached reference, Beijing relative-time and 5:27 PM Maghrib captures are native Android renders from the tested source. Approved-vs-1.173.jpg compares the approved board directly with each native theme at the matching reference time. Layla Thuluth is redistributed under its embedded SIL OFL license. This is a prerelease candidate; physical-device and exact visual approval remain to be verified. No 9.9/10 or pixel-identical claim is made.
           NOTES
-          gh release create landscape-1.173-39937049511 --target "$SOURCE_SHA" --prerelease --latest=false --title "Miqaat 1.173 landscape corrections" --notes-file notes.md candidate/*
+          gh release create landscape-1.173-39937699389 --target "$SOURCE_SHA" --prerelease --latest=false --title "Miqaat 1.173 landscape corrections" --notes-file notes.md candidate/*
