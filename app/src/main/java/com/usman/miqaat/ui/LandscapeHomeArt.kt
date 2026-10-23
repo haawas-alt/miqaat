@@ -21,6 +21,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.usman.miqaat.R
@@ -32,27 +36,14 @@ import kotlin.math.*
 internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
     val c=quietPalette(s.theme)
     Box(modifier.background(c.background)) {
-        if(s.artTheme!=ArtTheme.MINIMAL)when(s.theme) {
-            AppTheme.MIQAAT->{
-                Image(painterResource(R.drawable.quiet_miqaat_landscape),null,Modifier.matchParentSize(),contentScale=ContentScale.Crop)
-                Box(Modifier.matchParentSize().background(Brush.horizontalGradient(0f to Color(0xFF03162D),.55f to Color(0xFF03162D).copy(alpha=.96f),.66f to Color.Transparent)))
-                Image(painterResource(R.drawable.approved_miqaat_arch),null,Modifier.align(Alignment.CenterEnd).fillMaxHeight().fillMaxWidth(.37f).graphicsLayer { scaleX = -1f },contentScale=ContentScale.Crop,alignment=Alignment.TopCenter)
+        if(s.artTheme!=ArtTheme.MINIMAL) {
+            val art=when(s.theme) {
+                AppTheme.MIQAAT->R.drawable.home_miqaat_v172
+                AppTheme.KISWAH->R.drawable.home_kiswah_v172
+                AppTheme.CELESTIAL_MERIDIAN->R.drawable.home_celestial_v172
+                AppTheme.PRAYER_GALLERY->R.drawable.home_gallery_v172
             }
-            AppTheme.KISWAH->{
-                Weave(Modifier.matchParentSize())
-                Image(painterResource(R.drawable.approved_kiswah_silk),null,Modifier.align(Alignment.CenterEnd).fillMaxHeight().fillMaxWidth(.18f),contentScale=ContentScale.Crop,alignment=Alignment.CenterEnd)
-            }
-            AppTheme.CELESTIAL_MERIDIAN->{
-                Image(painterResource(R.drawable.home_celestial_landscape_parity),null,Modifier.matchParentSize().graphicsLayer { scaleX=1.12f;scaleY=1.12f;translationX=size.width*.035f;translationY=size.height*.045f },contentScale=ContentScale.Crop)
-                // Keep the hero readable over the Milky Way while retaining the lake and sunset.
-                Box(Modifier.matchParentSize().background(Brush.horizontalGradient(0f to Color.Transparent,.61f to Color.Transparent,.73f to Color(0xFF03132B).copy(alpha=.28f),1f to Color(0xFF03132B).copy(alpha=.08f))))
-            }
-            AppTheme.PRAYER_GALLERY->{
-                Image(painterResource(R.drawable.quiet_gallery_landscape),null,Modifier.matchParentSize(),contentScale=ContentScale.Crop)
-                // The approved board leaves a calm parchment field behind the prayer grid.
-                val parchment=Color(0xFFFFF5E5).copy(alpha=.78f)
-                Box(Modifier.matchParentSize().background(Brush.horizontalGradient(0f to Color.Transparent,.055f to parchment,.58f to parchment,.67f to Color.Transparent)))
-            }
+            Image(painterResource(art),null,Modifier.matchParentSize().padding(top=if(s.theme==AppTheme.MIQAAT)32.dp else 0.dp),contentScale=ContentScale.FillBounds)
         }
         if(s.theme!=AppTheme.PRAYER_GALLERY)Box(Modifier.matchParentSize().background(Brush.verticalGradient(0f to Color.Black.copy(alpha=.24f),.17f to Color.Transparent,.85f to Color.Transparent,1f to Color.Black.copy(alpha=.12f))))
     }
@@ -80,6 +71,15 @@ internal fun OrnateLandscapeBand() {
                     drawRoundRect(gold,Offset(center.x-half,center.y-half),Size(half*2,half*2),androidx.compose.ui.geometry.CornerRadius(radius*.12f),style=Stroke(.85.dp.toPx()))
                     drawRoundRect(gold.copy(alpha=.8f),Offset(center.x-half*.72f,center.y-half*.72f),Size(half*1.44f,half*1.44f),androidx.compose.ui.geometry.CornerRadius(radius*.09f),style=Stroke(fine))
                 }
+                repeat(8) { petal->rotate(petal*45f,center) {
+                    val p=Path().apply {
+                        moveTo(center.x,center.y-radius*.15f)
+                        cubicTo(center.x-radius*.42f,center.y-radius*.55f,center.x-radius*.22f,center.y-radius*.84f,center.x,center.y-radius*.9f)
+                        cubicTo(center.x+radius*.22f,center.y-radius*.84f,center.x+radius*.42f,center.y-radius*.55f,center.x,center.y-radius*.15f)
+                        close()
+                    }
+                    drawPath(p,gold.copy(alpha=.8f),style=Stroke(fine))
+                }}
                 drawCircle(gold,radius*.18f,center,style=Stroke(fine))
                 for(dx in listOf(-1,1))for(dy in listOf(-1,1)) {
                     val p=Offset(center.x+dx*radius*.78f,center.y+dy*radius*.63f)
@@ -88,6 +88,18 @@ internal fun OrnateLandscapeBand() {
             }
         }
         Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=45.dp,vertical=clearance).testTag("kiswah-calligraphy-band")
-            .semantics{contentDescription=Kiswah.BAND},fontFamily=Amiri,fontSize=if(LocalConfiguration.current.screenHeightDp<390)16.sp else 18.sp,lineHeight=26.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
+            .semantics{contentDescription=Kiswah.BAND},fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(LocalConfiguration.current.screenHeightDp<390)16.sp else 18.sp,lineHeight=26.sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center)
+    }
+}
+
+/** Six distinct reference-matched paintings: Fajr/Sunrise/Dhuhr, then Asr/Maghrib/Isha. */
+@Composable
+internal fun PhoneLandscapePeriodArt(index:Int,modifier:Modifier) {
+    val bitmap=ImageBitmap.imageResource(R.drawable.home_gallery_periods_v172)
+    Canvas(modifier) {
+        val i=index.coerceIn(0,5);val sideW=bitmap.width/3;val sideH=bitmap.height/2
+        val w=minOf(sideW,(sideH*size.width/size.height).toInt()).coerceAtLeast(1)
+        val h=minOf(sideH,(sideW*size.height/size.width).toInt()).coerceAtLeast(1)
+        drawImage(bitmap,srcOffset=IntOffset((i%3)*sideW+(sideW-w)/2,(i/3)*sideH+(sideH-h)/2),srcSize=IntSize(w,h),dstSize=IntSize(size.width.toInt(),size.height.toInt()))
     }
 }

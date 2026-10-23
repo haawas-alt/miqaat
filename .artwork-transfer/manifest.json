@@ -1,0 +1,69 @@
+[
+  {
+    "path": "app/src/main/res/drawable-nodpi/home_celestial_v172.webp",
+    "sha256": "4fbdb19203f9bf90006ca1234f440d9437a6f20d450748013b45efa19576bb75",
+    "parts": [
+      "home_celestial_v172/part-000",
+      "home_celestial_v172/part-001",
+      "home_celestial_v172/part-002",
+      "home_celestial_v172/part-003",
+      "home_celestial_v172/part-004",
+      "home_celestial_v172/part-005"
+    ]
+  },
+  {
+    "path": "app/src/main/res/drawable-nodpi/home_miqaat_v172.webp",
+    "sha256": "0710cb301ef5f6ef1a96bc25605b9921006c999db825b9c58518e8559c70f04a",
+    "parts": [
+      "home_miqaat_v172/part-000",
+      "home_miqaat_v172/part-001",
+      "home_miqaat_v172/part-002",
+      "home_miqaat_v172/part-003",
+      "home_miqaat_v172/part-004",
+      "home_miqaat_v172/part-005"
+    ]
+  },
+  {
+    "path": "app/src/main/res/drawable-nodpi/home_gallery_v172.webp",
+    "sha256": "79a10f0a2e33ef506da0f52b596e9c9f3d779c03d4dcc1ba737403051dd9d65d",
+    "parts": [
+      "home_gallery_v172/part-000",
+      "home_gallery_v172/part-001",
+      "home_gallery_v172/part-002",
+      "home_gallery_v172/part-003",
+      "home_gallery_v172/part-004"
+    ]
+  },
+  {
+    "path": "app/src/main/res/drawable-nodpi/home_gallery_periods_v172.webp",
+    "sha256": "96b5f6b434c57b9e48b3492c9029a433d5216ceccc379cc13642302642537eb6",
+    "parts": [
+      "home_gallery_periods_v172/part-000",
+      "home_gallery_periods_v172/part-001",
+      "home_gallery_periods_v172/part-002",
+      "home_gallery_periods_v172/part-003",
+      "home_gallery_periods_v172/part-004",
+      "home_gallery_periods_v172/part-005",
+      "home_gallery_periods_v172/part-006",
+      "home_gallery_periods_v172/part-007",
+      "home_gallery_periods_v172/part-008",
+      "home_gallery_periods_v172/part-009",
+      "home_gallery_periods_v172/part-010",
+      "home_gallery_periods_v172/part-011"
+    ]
+  },
+  {
+    "path": "app/src/main/res/drawable-nodpi/home_kiswah_v172.webp",
+    "sha256": "f9f995b37fe511ed415c738b54f80e65848ebae66c375dc99693404774b0638e",
+    "parts": [
+      "home_kiswah_v172/part-000",
+      "home_kiswah_v172/part-001",
+      "home_kiswah_v172/part-002",
+      "home_kiswah_v172/part-003",
+      "home_kiswah_v172/part-004",
+      "home_kiswah_v172/part-005",
+      "home_kiswah_v172/part-006",
+      "home_kiswah_v172/part-007"
+    ]
+  }
+]

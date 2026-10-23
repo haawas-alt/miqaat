@@ -27,12 +27,12 @@ import kotlin.math.abs
 class LandscapeMockupParityTest:ComposeSupport() {
     private fun themes()=AppTheme.entries.filter{System.getenv("MIQAAT_VISUAL_THEME").let{only->only==null||it.name==only}}
     private fun settings(t:AppTheme,l:Language)=AppSettings(theme=t,language=l,latitude=-33.93,longitude=151.19,locationName="Mascot, NSW",zoneId="Australia/Sydney",locationSet=true,setupDone=true)
-    private fun readable(tag:String) {
+    private fun readable(tag:String,clockSingleLine:Boolean=true) {
         val n=rule.onNodeWithTag(tag,true).assertIsDisplayed().fetchSemanticsNode();val ls=mutableListOf<TextLayoutResult>()
         n.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(ls)
         assertTrue("$tag lacks native text",ls.isNotEmpty())
         for(l in ls) {
-            if(tag.startsWith("landscape-row-time-"))assertEquals("Prayer clock and suffix must share one line",1,l.lineCount)
+            if(clockSingleLine&&tag.startsWith("landscape-row-time-"))assertEquals("Prayer clock and suffix must share one line",1,l.lineCount)
             val w=(0 until l.lineCount).maxOfOrNull{l.getLineRight(it)-l.getLineLeft(it)}?:0f
             val h=if(l.lineCount>0)l.getLineBottom(l.lineCount-1)-l.getLineTop(0)else 0f
             assertFalse("$tag clips '${l.layoutInput.text}': ${n.size} vs $w,$h",l.multiParagraph.didExceedMaxLines||w>n.size.width+1f||h>n.size.height+1f)
@@ -103,6 +103,25 @@ class LandscapeMockupParityTest:ComposeSupport() {
                     val row=galleryRowInfo(p,st,s)
                     if(row.isNow||row.isNext)readable(if(t==AppTheme.PRAYER_GALLERY)if(row.isNow)"gallery-status-now"else"gallery-status-next" else if(row.isNow)"home-status-now"else"home-status-next")
                 }
+            }finally{scenario.close()}
+        }
+    }
+    @Test fun relativeTimeFooterIsPinnedOnBeijingPhone() {
+        for(t in themes()) {
+            val s=settings(t,Language.EN).copy(showRelative=true,latitude=39.95,longitude=116.27,zoneId="Asia/Shanghai",locationName="Hai Dian Qu, Bei Jing Shi")
+            app.settings.update{s};val st=PrayerEngine.state(s,ZonedDateTime.of(2026,10,23,14,35,0,0,s.zone()))
+            try {
+                show(Dev.PHONE_LANDSCAPE,t,qualifiers="w891dp-h411dp-land-xhdpi") {
+                    Box(Modifier.padding(start=36.dp,bottom=12.dp)){HomeRouter(st,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{})}
+                }
+                capture(t,"actual-relative",Language.EN)
+                assertEquals("English relative view must fit without scrolling",0,rule.onAllNodes(SemanticsMatcher("scroll"){it.config.getOrNull(SemanticsActions.ScrollBy)!=null},true).fetchSemanticsNodes().size)
+                val root=rule.onRoot().fetchSemanticsNode().boundsInRoot
+                for(tag in listOf("landscape-door-0","landscape-door-1","landscape-more-actions","landscape-timeline-panel")) {
+                    val b=rule.onNodeWithTag(tag,true).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+                    assertTrue("Footer clipped on actual relative-mode phone: $tag",b.bottom<=root.bottom&&b.top>=root.top)
+                }
+                for(p in listedPrayers(s))for(k in listOf("name","time","detail"))readable("landscape-row-$k-${p.name}",false)
             }finally{scenario.close()}
         }
     }

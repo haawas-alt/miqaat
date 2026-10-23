@@ -35,9 +35,15 @@ class ApprovedPhoneLandscapeAcceptanceTest:ComposeSupport() {
         val scroll=SemanticsMatcher("scroll"){it.config.getOrNull(SemanticsActions.ScrollBy)!=null}
         assertEquals("Default phone landscape must fit without scrolling",0,rule.onAllNodes(scroll,true).fetchSemanticsNodes().size)
     }
+    private fun bringIntoView(q:SemanticsNodeInteraction,reflow:Boolean) {
+        if(reflow) {
+            val n=q.fetchSemanticsNode();val b=n.boundsInRoot
+            if(b.height+1f<n.size.height||b.width+1f<n.size.width)q.performScrollTo()
+        }
+    }
     private fun readable(tag:String,reflow:Boolean=false) {
         val q=rule.onNodeWithTag(tag,true)
-        if(reflow)q.performScrollTo()
+        bringIntoView(q,reflow)
         q.assertIsDisplayed()
         val n=q.fetchSemanticsNode();val b=n.boundsInRoot;val root=rule.onRoot().fetchSemanticsNode().boundsInRoot
         assertTrue("$tag leaves viewport: $b vs $root",b.left>=root.left&&b.right<=root.right&&b.top>=root.top&&b.bottom<=root.bottom)
@@ -50,7 +56,7 @@ class ApprovedPhoneLandscapeAcceptanceTest:ComposeSupport() {
         }
     }
     private fun target(tag:String,reflow:Boolean=false) {
-        val q=rule.onNodeWithTag(tag,true);if(reflow)q.performScrollTo();q.assertIsDisplayed()
+        val q=rule.onNodeWithTag(tag,true);bringIntoView(q,reflow);q.assertIsDisplayed()
         val b=q.fetchSemanticsNode().boundsInRoot;val density=app.resources.displayMetrics.density
         assertTrue("$tag below 48dp: $b",b.width>=48*density-.1f&&b.height>=48*density-.1f)
     }
@@ -75,9 +81,15 @@ class ApprovedPhoneLandscapeAcceptanceTest:ComposeSupport() {
             show(Dev.PHONE_LANDSCAPE,t,rtl=l==Language.UR,language=l,qualifiers=if(small)"w740dp-h360dp-land-xhdpi"else null) {
                 Box(Modifier.padding(top=12.dp,bottom=20.dp)){HomeRouter(state,s,a,false,{})}
             }
-            val reflow=s.iqamahEnabled||s.showRelative
+            val reflow=s.iqamahEnabled||(l==Language.UR&&s.showRelative)
             capture(t,"home-${if(small)"small"else"normal"}-$variant",l)
             if(!reflow)noScroll()
+            // Context controls and timeline must fit initially even when the prayer body reflows.
+            for(tag in listOf("landscape-door-0","landscape-door-1","landscape-more-actions","landscape-timeline-panel")) {
+                val b=rule.onNodeWithTag(tag,true).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+                val root=rule.onRoot().fetchSemanticsNode().boundsInRoot
+                assertTrue("Pinned controls leave viewport: $tag",b.top>=root.top&&b.bottom<=root.bottom)
+            }
             for(tag in listOf("landscape-location","landscape-date","landscape-live-clock","landscape-hero-name","landscape-hero-clock","landscape-hero-status"))readable(tag,reflow)
             rule.onNodeWithTag("landscape-hero-clock",true).assertTextEquals(L10n.iso(L10n.at(state.heroTime,s.use24h)))
             if(s.showHijri)readable("landscape-hijri",reflow)
@@ -96,12 +108,12 @@ class ApprovedPhoneLandscapeAcceptanceTest:ComposeSupport() {
                 readable(tag,reflow)
             }
             target("landscape-hero-details",reflow);target("landscape-more-actions",reflow)
-            if(t==AppTheme.KISWAH){val band=rule.onNodeWithTag("kiswah-calligraphy-band",true);if(reflow)band.performScrollTo();band.assertIsDisplayed().assertContentDescriptionEquals(Kiswah.BAND)}
-            rule.onNodeWithContentDescription(Str[R.string.s_settings]).also{if(reflow)it.performScrollTo()}.performClick();assertEquals(1,settings)
-            rule.onNodeWithContentDescription(Str[R.string.s_learn_salah]).also{if(reflow)it.performScrollTo()}.performClick();assertEquals(1,learn)
-            rule.onNodeWithContentDescription(Str[R.string.s_monthly_timetable]).also{if(reflow)it.performScrollTo()}.performClick();assertEquals(1,timetable)
-            val row=rule.onNodeWithTag("compact-prayer-FAJR",true);if(reflow)row.performScrollTo();row.performClick();assertEquals(1,toggles)
-            val info=rule.onNodeWithTag("landscape-info-MAGHRIB",true);if(reflow)info.performScrollTo();info.performClick()
+            if(t==AppTheme.KISWAH){val band=rule.onNodeWithTag("kiswah-calligraphy-band",true);bringIntoView(band,reflow);band.assertIsDisplayed().assertContentDescriptionEquals(Kiswah.BAND)}
+            rule.onNodeWithContentDescription(Str[R.string.s_settings]).also{bringIntoView(it,reflow)}.performClick();assertEquals(1,settings)
+            rule.onNodeWithContentDescription(Str[R.string.s_learn_salah]).also{bringIntoView(it,reflow)}.performClick();assertEquals(1,learn)
+            rule.onNodeWithContentDescription(Str[R.string.s_monthly_timetable]).also{bringIntoView(it,reflow)}.performClick();assertEquals(1,timetable)
+            val row=rule.onNodeWithTag("compact-prayer-FAJR",true);bringIntoView(row,reflow);row.performClick();assertEquals(1,toggles)
+            val info=rule.onNodeWithTag("landscape-info-MAGHRIB",true);bringIntoView(info,reflow);info.performClick()
             rule.onNodeWithText(Str[R.string.s_calculated_on_this_device],substring=true).assertExists()
         }finally{scenario.close()}
     }
