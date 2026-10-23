@@ -163,7 +163,7 @@ internal fun PhoneLandscapePeriodArt(index:Int,modifier:Modifier) {
 /** Keep decorative scene edges out of the live hero typography without cutting off the artwork. */
 @Composable
 private fun LandscapePainting(resource:Int,theme:AppTheme,modifier:Modifier) {
-    if(theme==AppTheme.CELESTIAL_MERIDIAN||theme==AppTheme.PRAYER_GALLERY) {
+    if(theme==AppTheme.CELESTIAL_MERIDIAN) {
         Image(painterResource(resource),null,modifier,contentScale=ContentScale.FillBounds)
         return
     }
