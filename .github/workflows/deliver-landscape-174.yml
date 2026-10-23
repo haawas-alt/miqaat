@@ -1,0 +1,73 @@
+name: Deliver audited landscape 1.174 APK
+on:
+  push:
+    branches: ['delivery/landscape-1.174']
+    paths: ['.github/workflows/deliver-landscape-174.yml']
+permissions:
+  actions: read
+  contents: write
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      SOURCE_RUN: '39976559186'
+      SOURCE_SHA: 'd6c5f7582e1d78a3a17cab35fb15c74197012749'
+    steps:
+      - name: Wait for complete validation
+        run: gh run watch "$SOURCE_RUN" --exit-status --interval 30
+      - name: Verify exact source and completed private visual review
+        run: |
+          set -euo pipefail
+          gh run view "$SOURCE_RUN" --json headSha,status,conclusion > run.json
+          gh api repos/haawas-alt/miqaat/contents/docs/landscape-parity/1.174-VISUAL-REVIEW.json?ref=29b20fa14d94a824395ee88b43a55b1197e4e8a9 --jq .content | base64 -d > review.json
+          python3 - <<'PY'
+          import json,os
+          r=json.load(open('run.json'));v=json.load(open('review.json'))
+          assert r['headSha']==os.environ['SOURCE_SHA'] and r['conclusion']=='success'
+          assert v['source_sha']==r['headSha'] and str(v['run_id'])==os.environ['SOURCE_RUN']
+          assert v['status']=='reviewed_for_candidate' and not v['unresolved_visual_findings']
+          assert len(v['themes'])==4
+          PY
+      - name: Download APK only and verify certificate and version
+        run: |
+          set -euo pipefail
+          gh run download "$SOURCE_RUN" -n Miqaat-1.174-landscape-apk -D candidate
+          BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
+          "$BT/apksigner" verify --verbose --print-certs candidate/Miqaat-1.174-landscape.apk > candidate/signature.txt
+          grep -qi 6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01 candidate/signature.txt
+          "$BT/aapt" dump badging candidate/Miqaat-1.174-landscape.apk > "$RUNNER_TEMP/badging.txt"
+          grep -q "versionName='1.174-landscape'" "$RUNNER_TEMP/badging.txt"
+          (cd candidate && sha256sum Miqaat-1.174-landscape.apk > SHA256SUMS)
+          gh api repos/haawas-alt/miqaat/contents/tools/check_release_integrity.py?ref="$SOURCE_SHA" --jq .content | base64 -d > "$RUNNER_TEMP/integrity.py"
+          python3 "$RUNNER_TEMP/integrity.py" candidate/Miqaat-1.174-landscape.apk > candidate/native-integrity.json
+          printf 'Commit: %s\nRun: %s\nVersion: 1.174-landscape\nPrivate full-resolution review of four native themes completed. Physical-device review pending. No 9.9 claim.\n' "$SOURCE_SHA" "$SOURCE_RUN" > candidate/PROVENANCE.txt
+      - name: Verify regression totals
+        run: |
+          set -euo pipefail
+          gh run view "$SOURCE_RUN" --job 120492929467 --log > "$RUNNER_TEMP/regression.log"
+          python3 - <<'PY'
+          import ast,os,re,pathlib
+          reports={}
+          for line in pathlib.Path(os.environ['RUNNER_TEMP'],'regression.log').read_text().splitlines():
+              m=re.search(r"(TEST-\S+\.xml) (\{.*\})",line)
+              if m: reports[m[1]]=ast.literal_eval(m[2])
+          totals={k:sum(int(v.get(k) or 0) for v in reports.values()) for k in ['tests','failures','errors','skipped']}
+          assert len(reports)>=30,(len(reports),totals)
+          assert totals['tests']>=162 and totals['failures']==0 and totals['errors']==0,totals
+          pathlib.Path('candidate/TEST-RESULTS.txt').write_text(str(totals)+'\nNative Robolectric SDK34, regression suite, lint, signed release and native integrity checks.\nNot a physical-device test.\n')
+          print(totals)
+          PY
+      - name: Publish APK and verification metadata
+        run: |
+          set -euo pipefail
+          cat > notes.md <<'NOTES'
+          Audited landscape correction candidate. Clears the Miqaat Next Prayer heading from the arch, separates prayer labels from clocks, softens card highlights, clears Gallery clock/status from artwork, and refines the Kiswah band border and Arabic hierarchy.
+          
+          All four native theme renders were privately reviewed before publication. Cloud validation includes native geometry and interaction checks, retained regression tests, Android lint, signed release builds and binary integrity. Source d6c5f7582e1d78a3a17cab35fb15c74197012749; validation run 39976559186.
+          
+          Install Miqaat-1.174-landscape.apk. Physical-device acceptance remains pending. Artwork and typography still differ from the approved mockup; this candidate is not certified as 9.9/10 or pixel-identical.
+          NOTES
+          gh release create landscape-1.174-39976559186 --target "$SOURCE_SHA" --prerelease --latest=false --title "Miqaat 1.174 audited landscape corrections" --notes-file notes.md candidate/Miqaat-1.174-landscape.apk candidate/SHA256SUMS candidate/PROVENANCE.txt candidate/signature.txt candidate/native-integrity.json candidate/TEST-RESULTS.txt
