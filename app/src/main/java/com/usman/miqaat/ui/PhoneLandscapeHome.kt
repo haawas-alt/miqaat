@@ -140,7 +140,7 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
         val tiny=maxHeight<175.dp
         val compactKiswah=s.theme==AppTheme.KISWAH&&compact
         val name:@Composable (Modifier)->Unit={m->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
-            Text(hero.arabic,Modifier.fillMaxWidth().testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=if(s.theme==AppTheme.KISWAH)1.4f else 1.35f)),fontFamily=if(s.theme==AppTheme.KISWAH)KiswahThuluth else Amiri,fontWeight=FontWeight.Bold,fontSize=if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)28.sp else 34.sp else if(compact)30.sp else 36.sp,lineHeight=if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)34.sp else 44.sp else if(compact)40.sp else 46.sp,color=c.accent,textAlign=TextAlign.Center)
+            Text(hero.arabic,Modifier.fillMaxWidth().testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=if(s.theme==AppTheme.KISWAH)1.4f else 1.35f)),fontFamily=if(s.theme==AppTheme.KISWAH)KiswahThuluth else Amiri,fontWeight=FontWeight.Bold,fontSize=if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)28.sp else 34.sp else if(compact)30.sp else if(s.iqamahEnabled)34.sp else 36.sp,lineHeight=if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)34.sp else 44.sp else if(compact)40.sp else 46.sp,color=c.accent,textAlign=TextAlign.Center)
             Text(if(urdu)hero.label else hero.label.uppercase(Locale.ROOT),Modifier.testTag("landscape-hero-english"),style=heroStyle,fontFamily=if(urdu)Amiri else Cinzel,fontSize=9.sp,lineHeight=if(urdu)21.sp else 12.sp,letterSpacing=if(urdu)0.sp else 1.3.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)
         }}
         val heroClock=L10n.iso(L10n.at(state.heroTime,s.use24h))
@@ -252,7 +252,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
                         if(r.isNow||r.isNext)badge()
                     }
                     if(s.showRelative)Text(r.relative,Modifier.testTag("landscape-row-relative-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=9.sp,lineHeight=if(urdu)18.sp else 12.sp,color=c.secondary)
-                    if(r.small.isNotEmpty())Text(r.small,Modifier.testTag("landscape-row-detail-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=9.sp,lineHeight=if(urdu)16.sp else 12.sp,color=c.secondary)
+                    if(r.small.isNotEmpty())Text(r.small,Modifier.testTag("landscape-row-detail-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(gallery&&!large&&!urdu)8.sp else 9.sp,lineHeight=if(urdu)16.sp else 12.sp,color=c.secondary)
                 }
             }
             Row(Modifier.width(48.dp).fillMaxHeight().heightIn(min=48.dp).testTag("landscape-info-${r.prayer.name}").clickable(role=Role.Button,onClick=onWhy)
