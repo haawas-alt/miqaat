@@ -29,6 +29,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextGeometricTransform
 import androidx.compose.ui.unit.*
@@ -107,11 +108,13 @@ private fun LandscapeHomeHeader(state:PrayerState,s:AppSettings,a:HomeActions) {
         val compact=maxWidth<780.dp
         val navWidth=if(maxWidth>=900.dp)82.dp else if(maxWidth>=800.dp)74.dp else 58.dp
         Row(Modifier.fillMaxSize(),verticalAlignment=Alignment.CenterVertically) {
-            Row(Modifier.weight(.27f).fillMaxHeight().clickable(role=Role.Button,onClick=a.onOpenLocation),verticalAlignment=Alignment.CenterVertically) {
+            Row(Modifier.weight(.30f).fillMaxHeight().clickable(role=Role.Button,onClick=a.onOpenLocation),verticalAlignment=Alignment.CenterVertically) {
                 Icon(Icons.Outlined.LocationOn,null,Modifier.size(20.dp),tint=c.accent)
-                Text(L10n.place(s.locationName),Modifier.weight(1f).padding(start=5.dp).testTag("landscape-location"),fontFamily=f,fontSize=if(!urdu&&!compact)16.sp else 12.sp,lineHeight=if(urdu)22.sp else if(!compact)20.sp else 17.sp,color=c.ink,maxLines=2)
+                val place=L10n.place(s.locationName)
+                val placeSize=if(urdu||compact)12.sp else if(place.length>20)13.sp else if(place.length>16)14.sp else 16.sp
+                Text(place,Modifier.weight(1f).padding(start=5.dp).testTag("landscape-location"),fontFamily=f,fontSize=placeSize,lineHeight=if(urdu)22.sp else 20.sp,color=c.ink,maxLines=1,overflow=TextOverflow.Ellipsis)
             }
-            Row(Modifier.weight(.52f),horizontalArrangement=Arrangement.Center,verticalAlignment=Alignment.CenterVertically) {
+            Row(Modifier.weight(.49f),horizontalArrangement=Arrangement.Center,verticalAlignment=Alignment.CenterVertically) {
                 Text(L10n.dateShort(s,state.now)+" "+state.now.year,Modifier.weight(1f).testTag("landscape-date"),fontFamily=f,fontSize=if(!urdu&&!compact)13.sp else 10.sp,lineHeight=if(urdu)20.sp else if(!compact)18.sp else 15.sp,color=c.ink,textAlign=TextAlign.Center)
                 if(s.showHijri) {
                     Box(Modifier.padding(horizontal=5.dp).width(.5.dp).height(16.dp).background(c.accent.copy(alpha=.45f)))
@@ -150,10 +153,10 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
         val clockSlot=if(compactKiswah)if(tiny)44.dp else 54.dp else if(compact)48.dp else if(largeDisplay)70.dp else 66.dp
         val name:@Composable (Modifier)->Unit={m->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
             Box(Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.height(arabicSlot)),contentAlignment=Alignment.Center) {
-            Text(hero.arabic,Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=1.35f)),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)30.sp else 38.sp else if(compact)30.sp else if(s.iqamahEnabled)34.sp else 40.sp,lineHeight=if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)36.sp else 46.sp else if(compact)40.sp else 48.sp,color=c.accent,textAlign=TextAlign.Center)
+            Text(hero.arabic,Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=1.35f)),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)30.sp else 38.sp else if(compact)30.sp else if(s.iqamahEnabled)34.sp else 38.sp,lineHeight=if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)36.sp else 46.sp else if(compact)40.sp else 48.sp,color=c.accent,textAlign=TextAlign.Center)
             }
             Box(Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.height(16.dp)),contentAlignment=Alignment.Center) {
-            Text(if(urdu)hero.label else hero.label.uppercase(Locale.ROOT),Modifier.then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-english"),style=heroStyle,fontFamily=if(urdu)Amiri else Cinzel,fontSize=if(urdu)9.sp else if(largeDisplay)16.sp else 11.sp,lineHeight=if(urdu)21.sp else 18.sp,letterSpacing=if(urdu)0.sp else 1.3.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)
+            Text(if(urdu)hero.label else hero.label.uppercase(Locale.ROOT),Modifier.then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-english"),style=heroStyle,fontFamily=if(urdu)Amiri else Cinzel,fontSize=if(urdu)9.sp else if(largeDisplay)14.sp else 11.sp,lineHeight=if(urdu)21.sp else 18.sp,letterSpacing=if(urdu)0.sp else 1.3.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)
             }
         }}
         val heroClock=L10n.iso(L10n.at(state.heroTime,s.use24h))
@@ -161,7 +164,7 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
             append(heroClock)
             if(hero.suffix.isNotBlank()) {val start=heroClock.indexOf(hero.suffix);if(start>=0)addStyle(SpanStyle(fontSize=14.sp,baselineShift=BaselineShift(.2f)),start,start+hero.suffix.length)}
         },Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-clock").clickable(role=Role.Button,onClick=onToggle),style=heroStyle,fontFamily=if(urdu)Amiri else ApprovedDisplay,fontWeight=FontWeight.Bold,
-            fontSize=if(urdu)25.sp else if(compactKiswah)if(tiny)38.sp else if(largeDisplay)60.sp else 52.sp else if(compact)40.sp else if(largeDisplay)70.sp else 66.sp,lineHeight=if(urdu)if(paired)38.sp else 45.sp else if(compactKiswah)if(tiny)42.sp else 54.sp else if(compact)49.sp else 69.sp,letterSpacing=if(urdu)0.sp else 1.4.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}}
+            fontSize=if(urdu)25.sp else if(compactKiswah)if(tiny)38.sp else if(largeDisplay)58.sp else 52.sp else if(compact)40.sp else if(largeDisplay)64.sp else 62.sp,lineHeight=if(urdu)if(paired)38.sp else 45.sp else if(compactKiswah)if(tiny)42.sp else 54.sp else if(compact)49.sp else 66.sp,letterSpacing=if(urdu)0.sp else 1.4.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}}
         val galleryExtraInset=if(gallery&&maxWidth>=250.dp)60.dp else 0.dp
         Box(Modifier.fillMaxSize().padding(end=galleryExtraInset),contentAlignment=Alignment.Center) {
         Column(Modifier.widthIn(max=244.dp).fillMaxWidth().fillMaxHeight(),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
@@ -191,7 +194,7 @@ private fun LandscapeHomeDoor(label:String,icon:androidx.compose.ui.graphics.vec
             .border(.8.dp,outline.copy(alpha=if(warn).85f else .65f),RoundedCornerShape(16.dp)).padding(horizontal=8.dp,vertical=2.dp),
             verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.Center) {
             if(icon!=null)Icon(icon,null,Modifier.size(if(footer)22.dp else 20.dp),tint=if(solid)Color.White else outline)
-            Text(label,Modifier.padding(horizontal=5.dp),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(urdu)13.sp else if(footer&&LocalConfiguration.current.screenWidthDp>=840)17.sp else 15.sp,
+            Text(label,Modifier.padding(horizontal=5.dp),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(urdu)13.sp else 15.sp,
                 lineHeight=if(urdu)23.sp else if(footer)22.sp else 20.sp,color=if(solid)Color(0xFFFFF9ED)else if(warn)outline else c.ink,textAlign=TextAlign.Center)
             if(icon==null||warn)Icon(Icons.AutoMirrored.Outlined.ArrowForward,null,Modifier.size(15.dp),tint=if(solid)Color.White else outline)
         }
@@ -202,8 +205,8 @@ private fun LandscapeHomeDoor(label:String,icon:androidx.compose.ui.graphics.vec
 private fun PhoneHomeNav(icon: androidx.compose.ui.graphics.vector.ImageVector, label:String, short:String, s:AppSettings,onClick:()->Unit,width:Dp=58.dp) {
     Column(Modifier.width(width).height(48.dp).clip(RoundedCornerShape(10.dp)).clickable(role=Role.Button,onClick=onClick)
         .semantics(mergeDescendants=true){contentDescription=label},horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
-        Icon(icon,null,Modifier.size(if(width>58.dp)24.dp else 21.dp),tint=quietPalette(s.theme).ink)
-        Text(short,fontFamily=if(L10n.isUrdu(s))Amiri else ApprovedBody,fontSize=if(width>58.dp&&!L10n.isUrdu(s))11.sp else 9.sp,lineHeight=if(L10n.isUrdu(s))18.sp else 13.sp,color=quietPalette(s.theme).ink)
+        Icon(icon,null,Modifier.size(if(width>58.dp)22.dp else 21.dp),tint=quietPalette(s.theme).ink)
+        Text(short,fontFamily=if(L10n.isUrdu(s))Amiri else ApprovedBody,fontSize=if(width>58.dp&&!L10n.isUrdu(s))10.sp else 9.sp,lineHeight=if(L10n.isUrdu(s))18.sp else 13.sp,color=quietPalette(s.theme).ink)
     }
 }
 
@@ -246,9 +249,9 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         val thumbnailSide=if(tight)if(narrow)22.dp else if(maxWidth>=230.dp)36.dp else 30.dp else 58.dp
         val measure=rememberTextMeasurer()
         val density=LocalDensity.current
-        val labelSize=if(urdu)14.sp else if(large&&!gallery)16.sp else if(large)if(wideCard)15.sp else 14.sp else if(tight)12.sp else 13.sp
-        val arabicSize=if(large&&!gallery)18.sp else 14.sp
-        val timeSize=if(urdu)18.sp else if(large&&!gallery)22.sp else if(large&&gallery)if(wideCard)20.sp else 17.sp else if(thumbnail&&narrow&&!urdu)12.sp else if(tinyCard)14.sp else if(gallery&&tight)16.sp else 18.sp
+        val labelSize=if(urdu)14.sp else if(large&&!gallery)15.sp else if(large)if(wideCard)15.sp else 14.sp else if(tight)12.sp else 13.sp
+        val arabicSize=if(large&&!gallery)17.sp else 14.sp
+        val timeSize=if(urdu)18.sp else if(large&&!gallery)20.sp else if(large&&gallery)if(wideCard)19.sp else 17.sp else if(thumbnail&&narrow&&!urdu)12.sp else if(tinyCard)14.sp else if(gallery&&tight)16.sp else 18.sp
         val detailSize=if(r.prayer==Prayer.ISHA&&!urdu)if(large&&wideCard)9.5.sp else if(large)9.sp else 8.sp else if(large&&!urdu)11.sp else if(gallery&&!urdu)8.sp else 9.sp
         val detailText=if(r.prayer==Prayer.ISHA&&s.showEndTimes&&!urdu)r.small.replaceFirst(L10n.word(s,"ends"),if(wideCard)"Preferred end"else "Pref. end")else r.small
         val captionFont=if(urdu)Amiri else ApprovedBody

@@ -57,7 +57,8 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
                 // Keep architectural details quiet beneath the clock and long next-day countdown.
                 drawRect(Brush.radialGradient(0f to Color(0xFF03162E).copy(alpha=.8f),.50f to Color(0xFF03162E).copy(alpha=.8f),1f to Color.Transparent,center=Offset(size.width*.81f,size.height*.49f),radius=size.width*.14f))
                 // The arch starts above the heading; fade its apex behind the compact header.
-                drawRect(Brush.verticalGradient(0f to Color(0xFF02162D).copy(alpha=.94f),.10f to Color(0xFF02162D).copy(alpha=.78f),.20f to Color.Transparent,1f to Color.Transparent))
+                drawRect(Brush.verticalGradient(0f to Color(0xFF02162D).copy(alpha=.94f),.12f to Color(0xFF02162D).copy(alpha=.82f),.27f to Color.Transparent,1f to Color.Transparent))
+                drawRect(Brush.radialGradient(0f to Color(0xFF02162D).copy(alpha=.76f),.55f to Color(0xFF02162D).copy(alpha=.58f),1f to Color.Transparent,center=Offset(size.width*.79f,size.height*.17f),radius=size.width*.13f))
                 drawRect(Brush.horizontalGradient(0f to Color(0xFF02162D).copy(alpha=.55f),.56f to Color(0xFF02162D).copy(alpha=.42f),.65f to Color.Transparent,1f to Color.Transparent))
             }
             if(s.theme==AppTheme.PRAYER_GALLERY)Canvas(Modifier.matchParentSize()) {
@@ -174,7 +175,7 @@ private fun LandscapePainting(resource:Int,theme:AppTheme,modifier:Modifier) {
     val bitmap=ImageBitmap.imageResource(resource)
     Canvas(modifier) {
         val source=if(theme==AppTheme.PRAYER_GALLERY)listOf(0f,.08f,.65f,1f)else if(theme==AppTheme.MIQAAT)listOf(0f,.565f,1f)else listOf(0f,.80f,1f)
-        val target=if(theme==AppTheme.PRAYER_GALLERY)listOf(0f,.08f,.75f,1f)else if(theme==AppTheme.MIQAAT)listOf(0f,.63f,1f)else listOf(0f,.86f,1f)
+        val target=if(theme==AppTheme.PRAYER_GALLERY)listOf(0f,.08f,.75f,1f)else if(theme==AppTheme.MIQAAT)listOf(0f,.59f,1f)else listOf(0f,.86f,1f)
         val sourceY=if(theme==AppTheme.MIQAAT)listOf(0f,.60f,.80f,1f)else listOf(0f,1f)
         val targetY=if(theme==AppTheme.MIQAAT)listOf(0f,.60f,.72f,1f)else listOf(0f,1f)
         for(i in 0 until source.lastIndex)for(j in 0 until sourceY.lastIndex) {
