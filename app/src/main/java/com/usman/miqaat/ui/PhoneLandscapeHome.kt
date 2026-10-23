@@ -75,11 +75,11 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
                 val qibla=if(s.showQibla)links.firstOrNull()else null
                 val adhkar=links.firstOrNull{it.kind==DoorKind.ADHKAR}
                 val warning=links.firstOrNull{it.warn}
-                Row(Modifier.fillMaxWidth().heightIn(min=48.dp).testTag("landscape-context-actions"),horizontalArrangement=Arrangement.spacedBy(12.dp),verticalAlignment=Alignment.CenterVertically) {
+                Row(Modifier.fillMaxWidth().padding(end=44.dp).heightIn(min=48.dp).testTag("landscape-context-actions"),horizontalArrangement=Arrangement.spacedBy(12.dp),verticalAlignment=Alignment.CenterVertically) {
                     if(qibla!=null)LandscapeHomeDoor(qibla.label,Icons.Outlined.Explore,s,Modifier.weight(.25f).testTag("landscape-door-0"),onClick={qibla.onClick?.invoke()})
                     LandscapeHomeDoor(adhkar?.label?:L10n.t("Adhkar","اذکار"),Icons.Outlined.MenuBook,s,Modifier.weight(.24f).testTag("landscape-door-1"),onClick={if(adhkar!=null)adhkar.onClick?.invoke()else a.onOpenAdhkar(AdhkarMode.MORNING)})
-                    Spacer(Modifier.weight(.08f))
-                    Box(Modifier.weight(.43f)) {
+                    Spacer(Modifier.weight(.13f))
+                    Box(Modifier.weight(.38f)) {
                         LandscapeHomeDoor(if(warning!=null)L10n.t("Alerts need attention · Fix","انتباہات پر توجہ دیں · درست کریں")else L10n.t("More actions","مزید اختیارات"),
                             if(warning!=null)Icons.Outlined.WarningAmber else Icons.Outlined.MoreHoriz,s,
                             Modifier.fillMaxWidth().testTag("landscape-more-actions").semantics{contentDescription=warning?.label?:L10n.word(s,"More actions")},warn=warning!=null,onClick={more=true})
