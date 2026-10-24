@@ -61,7 +61,7 @@ class ApprovedPhoneLandscapeAcceptanceTest:ComposeSupport() {
         assertTrue("$tag below 48dp: $b",b.width>=48*density-.1f&&b.height>=48*density-.1f)
     }
     private fun capture(t:AppTheme,name:String,l:Language) {
-        val prefix="build/phone-landscape/${t.name}/$name-${l.name}";rule.waitForIdle()
+        val prefix="build/phone-landscape/${t.name}/$name-${l.name}";rule.mainClock.advanceTimeBy(32);rule.waitForIdle()
         scenario.onActivity{act->val view=act.findViewById<View>(android.R.id.content);val b=Bitmap.createBitmap(view.width,view.height,Bitmap.Config.ARGB_8888)
             view.draw(Canvas(b));File("$prefix.png").also{it.parentFile.mkdirs()}.outputStream().use{b.compress(Bitmap.CompressFormat.PNG,100,it)};b.recycle()}
         File("$prefix.txt").writeText(rule.onRoot(true).printToString(100))

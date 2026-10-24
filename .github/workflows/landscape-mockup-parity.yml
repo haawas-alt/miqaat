@@ -58,6 +58,8 @@ jobs:
           trap - EXIT
       - name: Native mockup geometry, actions and retained portrait/tablet acceptance
         run: GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*PortraitPolishAcceptanceTest' --tests '*LandscapeMockupParityTest' --tests '*KiswahOptionOneBandTest' --tests '*DetailedGalleryAcceptanceTest' --tests '*ApprovedPhoneRefinementAcceptanceTest' --tests '*ThemeSelectionTest' --tests '*ApprovedPhoneLandscapeAcceptanceTest' --tests '*ApprovedHomeAcceptanceTest' --tests '*ApprovedQuietAcceptanceTest' --tests '*ApprovedIqamahAcceptanceTest' --tests '*IqamahCounterTest'
+      - name: Render candidate landscape in the same isolated test process as baseline
+        run: GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*ApprovedPhoneLandscapeAcceptanceTest'
       - name: Require all phone landscape captures to match approved version
         run: python3 tools/verify_landscape_unchanged.py landscape-baseline app/build/phone-landscape candidate/landscape-unchanged.json
       # Public artifacts contain ciphertext only. The reviewer private key is never

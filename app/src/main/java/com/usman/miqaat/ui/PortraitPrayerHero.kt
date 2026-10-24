@@ -22,6 +22,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.*
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -49,7 +51,6 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
     BoxWithConstraints(modifier.testTag("approved-dark-hero")
         .semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() },
         contentAlignment = Alignment.Center) {
-        val compact = maxHeight < 230.dp
         if (s.artTheme != ArtTheme.MINIMAL) {
             val art = when (s.theme) {
                 AppTheme.KISWAH -> R.drawable.approved_kiswah_silk
@@ -64,36 +65,64 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
             Box(Modifier.fillMaxSize().background(Brush.horizontalGradient(listOf(
                 tk.background.copy(alpha = .85f), Color.Transparent, Color.Transparent, tk.background.copy(alpha = .85f)))))
         }
-        Column(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp),
-            horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-            Text(hero.special ?: hero.kickerLabel, fontFamily = body,
-                fontSize = 10.sp, lineHeight = 14.sp, letterSpacing = if (urdu) 0.sp else 1.6.sp,
-                color = tk.primary, textAlign = TextAlign.Center, maxLines = 2)
-            Text(hero.arabic, fontFamily = if (kiswah) ReemKufi else Amiri,
-                fontSize = if (compact) 29.sp else 43.sp, lineHeight = if (compact) 38.sp else 57.sp,
-                color = tk.arabicText, modifier = Modifier.testTag("approved-hero-arabic"))
-            if (!urdu) Text(hero.label.uppercase(), fontFamily = Cinzel, fontSize = 10.sp,
-                lineHeight = 14.sp, letterSpacing = 2.sp, color = tk.contentSecondary, maxLines = 1)
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(hero.clock, fontFamily = ApprovedDisplay, fontWeight = FontWeight.Medium,
-                    fontSize = if (compact) 62.sp else 80.sp, lineHeight = if (compact) 60.sp else 78.sp,
-                    color = tk.contentPrimary, maxLines = 1, modifier = Modifier.testTag("approved-hero-clock"))
-                if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay,
-                    fontSize = 18.sp, color = tk.contentPrimary, maxLines = 1)
+        val nativeStyle = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false))
+        Column(Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 4.dp),
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            // Reserve countdown and 48dp action first. Only the name/clock region uses spare height.
+            BoxWithConstraints(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                val paired = maxHeight < 175.dp
+                val tight = maxHeight < 110.dp
+                val prayerName: @Composable () -> Unit = {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(hero.arabic, fontFamily = if (kiswah) ReemKufi else Amiri,
+                            fontSize = if (paired) (if (tight) 26.sp else 29.sp) else 43.sp,
+                            lineHeight = if (paired) (if (tight) 36.sp else 46.sp) else 57.sp,
+                            color = tk.arabicText, style = nativeStyle,
+                            modifier = Modifier.testTag("approved-hero-arabic"))
+                        if (!urdu) Text(hero.label.uppercase(), fontFamily = Cinzel, fontSize = 10.sp,
+                            lineHeight = 14.sp, letterSpacing = 2.sp, color = tk.contentSecondary,
+                            maxLines = 1, style = nativeStyle)
+                    }
+                }
+                val prayerClock: @Composable () -> Unit = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(hero.clock, fontFamily = ApprovedDisplay, fontWeight = FontWeight.Medium,
+                            fontSize = if (paired) (if (tight) 52.sp else 62.sp) else 80.sp,
+                            lineHeight = if (paired) (if (tight) 56.sp else 66.sp) else 78.sp,
+                            color = tk.contentPrimary, maxLines = 1, style = nativeStyle,
+                            modifier = Modifier.testTag("approved-hero-clock"))
+                        if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay,
+                            fontSize = if (paired) 15.sp else 18.sp, color = tk.contentPrimary,
+                            maxLines = 1, style = nativeStyle)
+                    }
+                }
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(hero.special ?: hero.kickerLabel, fontFamily = body,
+                        fontSize = 10.sp, lineHeight = 14.sp, letterSpacing = if (urdu) 0.sp else 1.6.sp,
+                        color = tk.primary, textAlign = TextAlign.Center, maxLines = 2, style = nativeStyle)
+                    if (paired) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Box(Modifier.weight(.44f), contentAlignment = Alignment.Center) { prayerName() }
+                        Box(Modifier.weight(.56f), contentAlignment = Alignment.Center) { prayerClock() }
+                    } else {
+                        prayerName()
+                        prayerClock()
+                    }
+                }
             }
             Row(Modifier.clip(RoundedCornerShape(12.dp)).background(tk.background.copy(alpha = .92f))
                 .padding(horizontal = 9.dp, vertical = 3.dp).testTag("portrait-hero-status"),
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                 Icon(Icons.Outlined.Schedule, null, Modifier.size(14.dp), tint = tk.primary)
                 Text(hero.status, fontFamily = body, fontSize = 12.sp, lineHeight = if (urdu) 21.sp else 17.sp,
-                    color = tk.contentPrimary, maxLines = 2, textAlign = TextAlign.Center)
+                    color = tk.contentPrimary, maxLines = 2, textAlign = TextAlign.Center, style = nativeStyle)
             }
             Row(Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(16.dp))
                 .clickable(role = Role.Button, onClick = onDetails).testTag("portrait-hero-details")
                 .padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                 Text(Str[R.string.s_view_prayer_details], fontFamily = body, fontSize = 12.sp,
-                    color = tk.contentPrimary, maxLines = 2)
+                    color = tk.contentPrimary, maxLines = 2, style = nativeStyle)
                 Icon(Icons.AutoMirrored.Outlined.ArrowForward, null, Modifier.size(16.dp), tint = tk.primary)
             }
             ApprovedSeasonal(state, s, tk)
