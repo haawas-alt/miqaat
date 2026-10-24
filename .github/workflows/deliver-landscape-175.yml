@@ -13,8 +13,8 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
-      SOURCE_RUN: '40045156520'
-      SOURCE_SHA: 'c3f8bfbd5092284411bd24889d82125c0d246844'
+      SOURCE_RUN: '40071274398'
+      SOURCE_SHA: 'f5c341aeea7aa04a48b317c14876c3c1dc349848'
     steps:
       - name: Wait for complete native regression and signed build
         run: gh run watch "$SOURCE_RUN" --exit-status --interval 30
@@ -63,7 +63,7 @@ jobs:
       - name: Verify regression totals and mark pending visual acceptance honestly
         run: |
           set -euo pipefail
-          gh run view "$SOURCE_RUN" --job 120725125621 --log > "$RUNNER_TEMP/regression.log"
+          gh run view "$SOURCE_RUN" --job 120805048183 --log > "$RUNNER_TEMP/regression.log"
           python3 - <<'PY'
           import ast,os,re,pathlib
           reports={}
@@ -71,19 +71,19 @@ jobs:
               m=re.search(r"(TEST-\S+\.xml) (\{.*\})",line)
               if m:reports[m[1]]=ast.literal_eval(m[2])
           totals={k:sum(int(v.get(k) or 0) for v in reports.values()) for k in ['tests','failures','errors','skipped']}
-          assert len(reports)>=30 and totals['tests']>=162 and totals['failures']==0 and totals['errors']==0,(len(reports),totals)
-          pathlib.Path('candidate/TEST-RESULTS.txt').write_text(str(totals)+'\n34 focused native methods per theme; all four themes passed.\nFull regression, debug/release lint, release signing and native integrity checks passed. Native Robolectric SDK34; no physical-device acceptance claimed.\n')
-          pathlib.Path('candidate/VISUAL-STATUS.txt').write_text('TEST CANDIDATE: exact-source encrypted native captures were privately decrypted and reviewed against the approved four-panel board.\nCritical visual scores: Miqaat 9.7/10; Kiswah 9.5/10; Celestial Meridian 9.5/10; Prayer Gallery 9.7/10.\nRequested 9.9/10 visual threshold is NOT achieved or certified. Remaining differences are source-art detail, Kiswah native ornament/calligraphy, glass/colour nuance and Gallery fine painting/thumbnail detail.\nNo physical-device acceptance is claimed.\n')
+          assert len(reports)>=30 and totals['tests']>=165 and totals['failures']==0 and totals['errors']==0,(len(reports),totals)
+          pathlib.Path('candidate/TEST-RESULTS.txt').write_text(str(totals)+'\n35 focused native methods per theme; all four themes passed.\nFull regression, debug/release lint, release signing and native integrity checks passed. Native Robolectric SDK34; no physical-device acceptance claimed.\n')
+          pathlib.Path('candidate/VISUAL-STATUS.txt').write_text('TEST CANDIDATE: exact-source encrypted native captures were privately decrypted and reviewed against the approved four-panel board.\nCritical visual scores, using the stricter actual-phone audit rubric: Miqaat 9.1/10; Kiswah 8.9/10; Celestial Meridian 9.0/10; Prayer Gallery 9.1/10. These supersede earlier over-generous ratings.\nRequested 9.9/10 visual threshold is NOT achieved or certified. Remaining differences are source-art detail, Kiswah native ornament/calligraphy, glass/colour nuance and Gallery fine painting/thumbnail detail.\nNo physical-device acceptance is claimed.\n')
           print(totals)
           PY
       - name: Publish tested APK candidate and nonvisual verification metadata only
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          Cloud-tested landscape correction candidate: refined Miqaat arch/scene composition, larger native hierarchy, measured prayer-card spacing, readable captions/status labels, restored full touch targets, refined Kiswah Thuluth/embroidery, matched theme colours and closer artwork framing.
+          Actual-phone correction candidate: redundant card clocks removed; common aligned name/time columns; uniform prayer clock hierarchy; complete NOW/NEXT badges at supported font sizes; fitted full Hijri date; one-line Kiswah band with diacritic clearance; stacked/inset Kiswah hero on the reported phone; stronger dark-card contrast. Includes saved Beijing timezone resolution and rejection of stale airport location caches. Manual timezone choices are preserved.
 
-          This is a testing build. Exact-source encrypted native captures were privately audited against the approved four-panel board. Critical scores are Miqaat 9.7, Kiswah 9.5, Celestial Meridian 9.5 and Prayer Gallery 9.7. The requested 9.9/10 threshold is not certified; this release must not be represented as final visual approval. No physical-device test is claimed.
+          This is a testing build. Exact-source encrypted native captures were privately audited against the approved four-panel board. Critical scores under the stricter actual-phone audit rubric are Miqaat 9.1, Kiswah 8.9, Celestial Meridian 9.0 and Prayer Gallery 9.1; these supersede earlier over-generous ratings. The requested 9.9/10 threshold is not certified; this release must not be represented as final visual approval. No physical-device test is claimed.
 
-          Source c3f8bfbd5092284411bd24889d82125c0d246844, successful validation run 40045156520. Includes APK checksum, established signing-certificate verification, native binary integrity and generic test results. No usable screenshots or image data are published.
+          Source f5c341aeea7aa04a48b317c14876c3c1dc349848, successful validation run 40071274398. Includes APK checksum, established signing-certificate verification, native binary integrity and generic test results. No usable screenshots or image data are published.
           NOTES
-          gh release create landscape-1.175-40045156520 --target "$SOURCE_SHA" --prerelease --latest=false --title "Miqaat 1.175 arch-refined tested candidate — below 9.9" --notes-file notes.md candidate/Miqaat-1.175-landscape.apk candidate/SHA256SUMS candidate/PROVENANCE.txt candidate/signature.txt candidate/native-integrity.json candidate/TEST-RESULTS.txt candidate/VISUAL-STATUS.txt
+          gh release create landscape-1.175-40071274398 --target "$SOURCE_SHA" --prerelease --latest=false --title "Miqaat 1.175 actual-phone layout and travel fixes — visual approval pending" --notes-file notes.md candidate/Miqaat-1.175-landscape.apk candidate/SHA256SUMS candidate/PROVENANCE.txt candidate/signature.txt candidate/native-integrity.json candidate/TEST-RESULTS.txt candidate/VISUAL-STATUS.txt
