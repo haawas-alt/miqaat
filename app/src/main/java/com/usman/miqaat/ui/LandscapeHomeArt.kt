@@ -78,14 +78,15 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
 internal fun OrnateLandscapeBand() {
     val short=LocalConfiguration.current.screenHeightDp<390
     val clearance=if(short)6.dp else 10.dp
-    BoxWithConstraints(Modifier.fillMaxWidth().padding(vertical=1.dp).height(if(short)42.dp else 50.dp).testTag("kiswah-calligraphy-frame").background(Color(0xFF060605)),contentAlignment=Alignment.Center) {
+    BoxWithConstraints(Modifier.fillMaxWidth().padding(vertical=1.dp).height(if(short)42.dp else 54.dp).testTag("kiswah-calligraphy-frame").background(Color(0xFF060605)),contentAlignment=Alignment.Center) {
         val measure=rememberTextMeasurer()
         val density=LocalDensity.current
         val baseSize=if(short)16f else 20f
-        val measured=measure.measure(Kiswah.BAND,TextStyle(fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=baseSize.sp),softWrap=false,maxLines=1)
+        val measured=measure.measure(Kiswah.BAND,TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=baseSize.sp),softWrap=false,maxLines=1)
         val nativeWidth=with(LocalDensity.current){measured.size.width.toDp()}
         // Fit the entire unwrapped phrase, including user font scaling, before stretching.
-        val fit=minOf(1f,(maxWidth-144.dp)/nativeWidth)
+        val availableHeight=with(density){minOf(maxHeight-clearance*2,if(short)26.dp else 34.dp).toPx()}
+        val fit=minOf(1f,(maxWidth-144.dp)/nativeWidth,availableHeight/measured.size.height.coerceAtLeast(1))
         val textScale=minOf(1.35f,((maxWidth-144.dp)/(nativeWidth*fit))).coerceAtLeast(1f)
         Canvas(Modifier.matchParentSize().testTag("kiswah-band-ornament")) {
             val gold=Kiswah.thread;val fine=.45.dp.toPx();val side=58.dp.toPx()
@@ -148,7 +149,7 @@ internal fun OrnateLandscapeBand() {
             }
         }
         Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=68.dp,vertical=clearance).testTag("kiswah-calligraphy-band")
-            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),textGeometricTransform=TextGeometricTransform(scaleX=textScale)),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=(baseSize*fit).sp,lineHeight=((if(short)26f else 30f)/density.fontScale).sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center,maxLines=1,softWrap=false)
+            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),textGeometricTransform=TextGeometricTransform(scaleX=textScale)),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=(baseSize*fit).sp,lineHeight=((if(short)26f else 34f)/density.fontScale).sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center,maxLines=1,softWrap=false)
     }
 }
 

@@ -41,6 +41,16 @@ class LandscapeMockupParityTest:ComposeSupport() {
                     }
                 }
                 capture(t,"actual-font-$scale",Language.EN)
+                if(scale>1.15f) {
+                    // Production routing deliberately uses AccessibleHome above 115%.
+                    // Verify that page rather than expecting dense-board tags there.
+                    for(p in listedPrayers(s)) {
+                        rule.onNodeWithTag("accessible-prayer-${p.name}",true).performScrollTo().assertIsDisplayed()
+                        rule.onNodeWithTag("accessible-clock-${p.name}",true).performScrollTo()
+                        readable("accessible-clock-${p.name}")
+                    }
+                    continue
+                }
                 for(tag in listOf("landscape-hijri","landscape-date")) {
                     readable(tag)
                     val layouts=mutableListOf<TextLayoutResult>()
