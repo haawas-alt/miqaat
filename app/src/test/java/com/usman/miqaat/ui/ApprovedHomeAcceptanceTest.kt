@@ -60,7 +60,10 @@ class ApprovedHomeAcceptanceTest : ComposeSupport() {
                     assertTrue("Info target too small",info.width>=48*app.resources.displayMetrics.density && info.height>=48*app.resources.displayMetrics.density)
                     rule.onNodeWithTag("approved-timeline-${p.name}",true).assertIsDisplayed()
                 }
-                if(theme==AppTheme.KISWAH) rule.onNodeWithTag("kiswah-calligraphy-band",true).assertIsDisplayed().assertContentDescriptionEquals(Kiswah.BAND)
+                if(theme==AppTheme.KISWAH) {
+                    val expected=if(dev==Dev.PHONE_PORTRAIT)Kiswah.BAND.substringBefore("   ✦   ")else Kiswah.BAND
+                    rule.onNodeWithTag("kiswah-calligraphy-band",true).assertIsDisplayed().assertContentDescriptionEquals(expected)
+                }
                 rule.onNodeWithContentDescription(Str[R.string.s_settings]).performClick(); assertEquals(1,settings)
                 rule.onNodeWithContentDescription(Str[R.string.s_learn_salah]).performClick(); assertEquals(1,learns)
                 rule.onNodeWithContentDescription(Str[R.string.s_monthly_timetable]).performClick(); assertEquals(1,table)

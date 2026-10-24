@@ -49,7 +49,6 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
     val tk=ThemeTokenSets.of(s.theme);val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s)
     val hero=heroInfo(state,s,kicker(state,s));val links=doors(state,s,a)
     val seasonal=listOfNotNull(hero.special,fastProgress(state,s)?.second,tarawihLine(state,s))
-    val shortKiswah=s.theme==AppTheme.KISWAH && LocalConfiguration.current.screenHeightDp<390
     var why by remember { mutableStateOf<Prayer?>(null) };var more by remember { mutableStateOf(false) }
     why?.let { p ->
         val day=if(p==state.next&&state.nextTime.toLocalDate().isAfter(state.today.date))PrayerEngine.times(s,state.nextTime.toLocalDate())else state.today
@@ -57,15 +56,16 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
     }
     Box(Modifier.fillMaxSize().clipToBounds().background(c.background).testTag("landscape-fit-board")) {
         LandscapeHomeArt(s,Modifier.matchParentSize())
-        Box(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal=12.dp,vertical=if(s.theme==AppTheme.KISWAH)0.dp else 2.dp)) {
+        BoxWithConstraints(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal=12.dp,vertical=if(s.theme==AppTheme.KISWAH)0.dp else 2.dp)) {
             val reflow=s.iqamahEnabled||(urdu&&s.showRelative)
+            val shortKiswah=s.theme==AppTheme.KISWAH && maxHeight<390.dp && !reflow
             Column(Modifier.fillMaxSize()) {
               Column(Modifier.weight(1f).fillMaxWidth().then(if(reflow)Modifier.verticalScroll(rememberScrollState()).testTag("landscape-home-reflow")else Modifier)) {
                 LandscapeHomeHeader(state,s,a)
                 if(s.theme==AppTheme.KISWAH)PhoneLandscapeBand(ornate=true)
                 Row(Modifier.fillMaxWidth().then(if(reflow)Modifier.height(if(urdu)270.dp else 240.dp)else Modifier.weight(1f)).padding(vertical=if(urdu)0.dp else if(s.theme==AppTheme.KISWAH)0.dp else 10.dp),
                     horizontalArrangement=Arrangement.spacedBy(12.dp),verticalAlignment=Alignment.CenterVertically) {
-                    Column(Modifier.weight(.62f).fillMaxHeight().testTag("home-prayers"),verticalArrangement=Arrangement.spacedBy(if(s.theme==AppTheme.KISWAH&&LocalConfiguration.current.screenHeightDp<390)2.dp else if(s.theme==AppTheme.KISWAH)4.dp else 5.dp)) {
+                    Column(Modifier.weight(.62f).fillMaxHeight().testTag("home-prayers"),verticalArrangement=Arrangement.spacedBy(if(s.theme==AppTheme.KISWAH&&LocalConfiguration.current.screenHeightDp<390)1.dp else if(s.theme==AppTheme.KISWAH)4.dp else 5.dp)) {
                         listedPrayers(s).chunked(2).forEach { row ->
                             Row(Modifier.weight(1f).fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(6.dp)) {
                                 row.forEach { p ->PhoneLandscapePrayer(galleryRowInfo(p,state,s),s,a,Modifier.weight(1f).fillMaxHeight()){why=p} }
@@ -77,11 +77,11 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
                         LandscapeHomeHero(hero,state,s,Modifier.weight(1f).fillMaxWidth(),a.onToggleRelative){why=hero.prayer}
                         // Keep the complete timeline beside the cards on short phones. This
                         // funds the taller approved border without shrinking the six targets.
-                        ApprovedTimeline(state,s,tk,Modifier.fillMaxWidth().height(35.dp).background(Color.Black.copy(alpha=.70f)).testTag("landscape-timeline-panel"),landscape=true,compact=true)
+                        ApprovedTimeline(state,s,tk,Modifier.fillMaxWidth().height(if(urdu)39.dp else 35.dp).background(Color.Black.copy(alpha=.70f)).testTag("landscape-timeline-panel"),landscape=true,compact=true)
                     } else LandscapeHomeHero(hero,state,s,Modifier.weight(.38f).fillMaxHeight(),a.onToggleRelative){why=hero.prayer}
                 }
               }
-                if(!shortKiswah) Box(Modifier.fillMaxWidth().height(if(s.theme==AppTheme.KISWAH)35.dp else if(LocalConfiguration.current.screenHeightDp>=390)52.dp else 40.dp).testTag("landscape-timeline-panel")) {ApprovedTimeline(state,s,tk,Modifier.fillMaxSize().padding(start=if(LocalConfiguration.current.screenWidthDp>=840)36.dp else 0.dp,end=if(LocalConfiguration.current.screenWidthDp>=840)136.dp else 0.dp),landscape=true)}
+                if(!shortKiswah) Box(Modifier.fillMaxWidth().height(if(s.theme==AppTheme.KISWAH)if(urdu)39.dp else 35.dp else if(LocalConfiguration.current.screenHeightDp>=390)52.dp else 40.dp).testTag("landscape-timeline-panel")) {ApprovedTimeline(state,s,tk,Modifier.fillMaxSize().padding(start=if(LocalConfiguration.current.screenWidthDp>=840)36.dp else 0.dp,end=if(LocalConfiguration.current.screenWidthDp>=840)136.dp else 0.dp),landscape=true)}
                 val qibla=if(s.showQibla)links.firstOrNull()else null
                 val adhkar=links.firstOrNull{it.kind==DoorKind.ADHKAR}
                 val warning=links.firstOrNull{it.warn}
@@ -178,7 +178,8 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
     BoxWithConstraints(modifier.testTag("landscape-authored-hero").padding(end=if(gallery)40.dp else if(s.theme==AppTheme.KISWAH)44.dp else 0.dp),contentAlignment=Alignment.Center) {
         val kiswah=s.theme==AppTheme.KISWAH
         val heroStyle=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),shadow=if(gallery||kiswah)null else Shadow(Color.Black.copy(alpha=.85f),Offset(0f,1.5f),4f))
-        val retainKiswahStack=kiswah && !urdu && LocalConfiguration.current.screenHeightDp>=390
+        val microKiswah=kiswah && maxHeight<150.dp
+        val retainKiswahStack=kiswah && !urdu && LocalConfiguration.current.screenHeightDp>=390 && maxHeight>=160.dp
         val paired=!retainKiswahStack && maxHeight<if(urdu)215.dp else if(s.theme==AppTheme.KISWAH)186.dp else 190.dp
         val compact=maxHeight<215.dp
         val tiny=maxHeight<175.dp
@@ -187,14 +188,14 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
         // These display fonts reserve much more ascent/descent than the six prayer
         // names use. Center their complete native text in optical slots; never clip
         // glyphs or spend the details button's independent 48dp touch target.
-        val arabicSlot=if(s.theme==AppTheme.KISWAH)if(tiny)30.dp else if(compact)if(largeDisplay)40.dp else 38.dp else 54.dp else if(compact)38.dp else 54.dp
-        val clockSlot=if(compactKiswah)if(tiny)40.dp else 54.dp else if(compact)48.dp else if(largeDisplay)70.dp else 66.dp
+        val arabicSlot=if(microKiswah)28.dp else if(s.theme==AppTheme.KISWAH)if(tiny)30.dp else if(compact)if(largeDisplay)40.dp else 38.dp else 54.dp else if(compact)38.dp else 54.dp
+        val clockSlot=if(microKiswah)36.dp else if(compactKiswah)if(tiny)40.dp else 54.dp else if(compact)48.dp else if(largeDisplay)70.dp else 66.dp
         val name:@Composable (Modifier)->Unit={m->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
             Box(Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.height(arabicSlot)),contentAlignment=Alignment.Center) {
-            Text(hero.arabic,Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=if(kiswah)1f else 1.35f)),fontFamily=if(kiswah)ReemKufi else Amiri,fontWeight=if(kiswah)FontWeight.Normal else FontWeight.Bold,fontSize=if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)30.sp else 38.sp else if(compact)30.sp else if(s.iqamahEnabled)34.sp else 38.sp,lineHeight=if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)36.sp else 46.sp else if(compact)40.sp else 48.sp,color=c.accent,textAlign=TextAlign.Center)
+            Text(hero.arabic,Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=if(kiswah)1f else 1.35f)),fontFamily=if(kiswah)ReemKufi else Amiri,fontWeight=if(kiswah)FontWeight.Normal else FontWeight.Bold,fontSize=if(microKiswah)if(urdu)18.sp else 20.sp else if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)30.sp else 38.sp else if(compact)30.sp else if(s.iqamahEnabled)34.sp else 38.sp,lineHeight=if(microKiswah)if(urdu)24.sp else 26.sp else if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)36.sp else 46.sp else if(compact)40.sp else 48.sp,color=c.accent,textAlign=TextAlign.Center)
             }
             Box(Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.height(16.dp)),contentAlignment=Alignment.Center) {
-            Text(if(urdu)hero.label else hero.label.uppercase(Locale.ROOT),Modifier.then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-english"),style=heroStyle,fontFamily=if(urdu)Amiri else Cinzel,fontSize=if(urdu)9.sp else if(largeDisplay)14.sp else 11.sp,lineHeight=if(urdu)21.sp else 18.sp,letterSpacing=if(urdu)0.sp else 1.3.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)
+            Text(if(urdu)hero.label else hero.label.uppercase(Locale.ROOT),Modifier.then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-english"),style=heroStyle,fontFamily=if(urdu)Amiri else Cinzel,fontSize=if(urdu)9.sp else if(largeDisplay)14.sp else 11.sp,lineHeight=if(microKiswah)18.sp else if(urdu)21.sp else 18.sp,letterSpacing=if(urdu)0.sp else 1.3.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)
             }
         }}
         val heroClock=L10n.iso(L10n.at(state.heroTime,s.use24h))
@@ -202,16 +203,16 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
             append(heroClock)
             if(hero.suffix.isNotBlank()) {val start=heroClock.indexOf(hero.suffix);if(start>=0)addStyle(SpanStyle(fontSize=14.sp,baselineShift=BaselineShift(.2f)),start,start+hero.suffix.length)}
         },Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-clock").clickable(role=Role.Button,onClick=onToggle),style=if(kiswah)heroStyle.copy(brush=Kiswah.goldText)else heroStyle,fontFamily=if(urdu)Amiri else if(kiswah)Cinzel else ApprovedDisplay,fontWeight=if(kiswah)FontWeight.Normal else FontWeight.Bold,
-            fontSize=if(urdu)25.sp else if(compactKiswah)if(tiny)38.sp else if(largeDisplay)64.sp else 58.sp else if(compact)40.sp else if(largeDisplay)64.sp else 62.sp,lineHeight=if(urdu)if(paired)38.sp else 45.sp else if(compactKiswah)if(tiny)42.sp else 54.sp else if(compact)49.sp else 66.sp,letterSpacing=if(urdu)0.sp else if(kiswah)(-1).sp else 1.4.sp,color=if(kiswah)Color.Unspecified else if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}}
+            fontSize=if(microKiswah)if(urdu)20.sp else 30.sp else if(urdu)25.sp else if(compactKiswah)if(tiny)38.sp else if(largeDisplay)64.sp else 58.sp else if(compact)40.sp else if(largeDisplay)64.sp else 62.sp,lineHeight=if(microKiswah)if(urdu)30.sp else 34.sp else if(urdu)if(paired)38.sp else 45.sp else if(compactKiswah)if(tiny)42.sp else 54.sp else if(compact)49.sp else 66.sp,letterSpacing=if(urdu)0.sp else if(kiswah)(-1).sp else 1.4.sp,color=if(kiswah)Color.Unspecified else if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}}
         val galleryExtraInset=if(gallery&&maxWidth>=250.dp)60.dp else 0.dp
         Box(Modifier.fillMaxSize().padding(end=galleryExtraInset),contentAlignment=Alignment.Center) {
         Column(Modifier.widthIn(max=244.dp).fillMaxWidth().fillMaxHeight(),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             val kicker:@Composable (Modifier)->Unit={m->Box(m.then(if(urdu||paired)Modifier else Modifier.height(if(compactKiswah)if(largeDisplay)16.dp else 14.5.dp else if(largeDisplay)18.dp else 16.dp)),contentAlignment=Alignment.Center) {
-                Text(hero.special?:if(urdu)hero.kickerLabel else hero.kickerLabel.uppercase(Locale.ROOT),Modifier.fillMaxWidth().then(if(urdu||paired)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-kicker"),style=heroStyle,fontFamily=if(urdu)Amiri else Cinzel,fontWeight=FontWeight.Bold,fontSize=if(hero.special!=null)9.sp else if(largeDisplay)if(compactKiswah)13.sp else 14.sp else if(compactKiswah)11.sp else 12.sp,lineHeight=if(urdu)20.sp else 18.sp,letterSpacing=if(urdu)0.sp else 2.sp,color=c.accent,textAlign=TextAlign.Center)
+                Text(hero.special?:if(urdu)hero.kickerLabel else hero.kickerLabel.uppercase(Locale.ROOT),Modifier.fillMaxWidth().then(if(urdu||paired)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-kicker"),style=heroStyle,fontFamily=if(urdu)Amiri else Cinzel,fontWeight=FontWeight.Bold,fontSize=if(microKiswah)9.sp else if(hero.special!=null)9.sp else if(largeDisplay)if(compactKiswah)13.sp else 14.sp else if(compactKiswah)11.sp else 12.sp,lineHeight=if(microKiswah)16.sp else if(urdu)20.sp else 18.sp,letterSpacing=if(urdu)0.sp else if(microKiswah).5.sp else 2.sp,color=c.accent,textAlign=TextAlign.Center)
             }}
             val status:@Composable (Modifier)->Unit={m->Row(m,horizontalArrangement=Arrangement.Center,verticalAlignment=Alignment.CenterVertically) {
                 Icon(Icons.Outlined.Schedule,null,Modifier.size(14.dp),tint=c.accent)
-                Text(hero.status,Modifier.weight(1f,fill=false).padding(start=4.dp).testTag("landscape-hero-status"),style=heroStyle,fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(largeDisplay)14.sp else 12.sp,lineHeight=if(urdu)22.sp else if(largeDisplay)18.sp else if(compactKiswah)14.sp else 17.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)
+                Text(hero.status,Modifier.weight(1f,fill=false).padding(start=4.dp).testTag("landscape-hero-status"),style=heroStyle,fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=if(microKiswah)10.sp else if(largeDisplay)14.sp else 12.sp,lineHeight=if(microKiswah)16.sp else if(urdu)22.sp else if(largeDisplay)18.sp else if(compactKiswah)14.sp else 17.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)
             }}
             if(paired)Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){kicker(Modifier.weight(.35f));status(Modifier.weight(.65f))}else kicker(Modifier.fillMaxWidth())
             if(paired)Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){name(Modifier.weight(.43f));clock(Modifier.weight(.57f))}

@@ -32,7 +32,7 @@ internal fun KiswahOptionOneBand(wide: Boolean) {
     val bitmap = ImageBitmap.imageResource(if (landscape) R.drawable.kiswah_option1_landscape else R.drawable.kiswah_option1_portrait)
     val density = LocalDensity.current
     val measure = rememberTextMeasurer()
-    BoxWithConstraints(Modifier.fillMaxWidth().padding(vertical = if (landscape) 1.dp else 5.dp)
+    BoxWithConstraints(Modifier.fillMaxWidth().padding(vertical = if (landscape) 0.dp else 5.dp)
         .testTag("kiswah-calligraphy-frame").background(Color(0xFF060605)), contentAlignment = Alignment.Center) {
         // One uniform scale preserves every vine and gold corner, including frame proportions.
         val height = maxWidth * (bitmap.height.toFloat() / bitmap.width)
