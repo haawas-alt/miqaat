@@ -38,7 +38,8 @@ import com.usman.miqaat.R
 import com.usman.miqaat.data.*
 import kotlin.math.*
 
-internal val KiswahThuluth=FontFamily(Font(R.font.layla_thuluth))
+// Original Kiswah typography, retained from KiswahHome and the user-approved legacy screen.
+internal val KiswahLandscapeArabic=ReemKufi
 
 /** Home art follows the approved composition, independent of Quiet/Iqamah scene framing. */
 @Composable
@@ -66,14 +67,21 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
                 drawRect(Brush.horizontalGradient(0f to Color.Black.copy(alpha=.62f),.80f to Color.Black.copy(alpha=.55f),.86f to Color.Transparent,1f to Color.Transparent))
             }
             if(s.theme==AppTheme.CELESTIAL_MERIDIAN)Canvas(Modifier.matchParentSize()) {
-                drawRect(Brush.radialGradient(listOf(Color(0xFF03142A).copy(alpha=.42f),Color.Transparent),Offset(size.width*.8f,size.height*.43f),size.width*.18f))
+                drawRect(Brush.radialGradient(listOf(Color(0xFF03142A).copy(alpha=.58f),Color.Transparent),Offset(size.width*.8f,size.height*.43f),size.width*.18f))
             }
+        }
+        if(s.theme==AppTheme.MIQAAT||s.theme==AppTheme.CELESTIAL_MERIDIAN)Canvas(Modifier.matchParentSize().testTag("landscape-timeline-art-scrim")) {
+            // Quiet bright water reflections behind the functional timeline without
+            // dimming the entire painting or placing a hard opaque panel over it.
+            drawRect(Brush.verticalGradient(0f to Color.Transparent,.70f to Color.Transparent,
+                .76f to Color(0xFF03162E).copy(alpha=.58f),.84f to Color(0xFF03162E).copy(alpha=.62f),
+                .90f to Color.Transparent,1f to Color.Transparent))
         }
         if(s.theme!=AppTheme.PRAYER_GALLERY)Box(Modifier.matchParentSize().background(Brush.verticalGradient(0f to Color.Black.copy(alpha=.24f),.17f to Color.Transparent,.85f to Color.Transparent,1f to Color.Black.copy(alpha=.12f))))
     }
 }
 
-/** Embroidered braid rails and arabesque end panels frame native Thuluth lettering. */
+/** Original Kufic lettering framed by native silver vine rails and antique-gold stitching. */
 @Composable
 internal fun OrnateLandscapeBand() {
     val short=LocalConfiguration.current.screenHeightDp<390
@@ -82,74 +90,69 @@ internal fun OrnateLandscapeBand() {
         val measure=rememberTextMeasurer()
         val density=LocalDensity.current
         val baseSize=if(short)16f else 20f
-        val measured=measure.measure(Kiswah.BAND,TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=baseSize.sp),softWrap=false,maxLines=1)
-        val nativeWidth=with(LocalDensity.current){measured.size.width.toDp()}
-        // Fit the entire unwrapped phrase, including user font scaling, before stretching.
+        val measured=measure.measure(Kiswah.BAND,TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),fontFamily=KiswahLandscapeArabic,fontWeight=FontWeight.Normal,fontSize=baseSize.sp),softWrap=false,maxLines=1)
+        val nativeWidth=with(density){measured.size.width.toDp()}
         val availableHeight=with(density){minOf(maxHeight-clearance*2,if(short)26.dp else 34.dp).toPx()}
         val fit=minOf(1f,(maxWidth-144.dp)/nativeWidth,availableHeight/measured.size.height.coerceAtLeast(1))
-        val textScale=minOf(1.35f,((maxWidth-144.dp)/(nativeWidth*fit))).coerceAtLeast(1f)
         Canvas(Modifier.matchParentSize().testTag("kiswah-band-ornament")) {
-            val gold=Kiswah.thread;val fine=.45.dp.toPx();val side=58.dp.toPx()
-            val thread=Brush.linearGradient(listOf(Color(0xFF8B682D),Color(0xFFF2D784),Color(0xFFB58B43),Color(0xFFE4C978)),Offset.Zero,Offset(0f,size.height))
-            drawRect(thread,style=Stroke(.8.dp.toPx()))
-            for(y in listOf(3.dp.toPx(),size.height-3.dp.toPx())) {
-                drawLine(gold.copy(alpha=.85f),Offset(0f,y),Offset(size.width,y),fine)
-                // A continuous interwoven gold cord, rather than isolated diamond dots.
-                for(phase in listOf(0.0,Math.PI)) {
-                    val braid=Path()
-                    val center=if(y<size.height/2)2.dp.toPx()else size.height-2.dp.toPx()
-                    val step=1.dp.toPx()
-                    var x=0f
-                    while(x<=size.width) {
-                        val yy=center+sin(x/9.dp.toPx()*2*Math.PI+phase).toFloat()*.65.dp.toPx()
-                        if(x==0f)braid.moveTo(x,yy)else braid.lineTo(x,yy)
-                        x+=step
+            val gold=Brush.linearGradient(listOf(Color(0xFF7E5C25),Color(0xFFE5C678),Color(0xFFA77C36),Color(0xFFE6CC88)),Offset.Zero,Offset(0f,size.height))
+            val silver=Brush.linearGradient(listOf(Color(0xFF72786F),Color(0xFFE0E1D3),Color(0xFF9CA398)),Offset.Zero,Offset(0f,size.height))
+            val fine=.45.dp.toPx()
+            drawRect(gold,style=Stroke(.8.dp.toPx()))
+            // Silver scrolling foliage is characteristic of the supplied references:
+            // broad leaves on a continuous vine, not a diamond braid or star rail.
+            for(bottom in listOf(false,true)) {
+                val y=if(bottom)size.height-5.dp.toPx()else 5.dp.toPx()
+                val sign=if(bottom)-1f else 1f
+                for(edge in listOf(1.4.dp.toPx(),8.6.dp.toPx())) {
+                    val yy=if(bottom)size.height-edge else edge
+                    drawLine(gold,Offset(0f,yy),Offset(size.width,yy),fine)
+                }
+                val pitch=13.dp.toPx()
+                var x=0f
+                while(x<size.width) {
+                    val stem=Path().apply {
+                        moveTo(x,y)
+                        cubicTo(x+pitch*.28f,y-sign*2.dp.toPx(),x+pitch*.72f,y+sign*2.dp.toPx(),x+pitch,y)
                     }
-                    drawPath(braid,thread,style=Stroke(fine))
+                    drawPath(stem,silver,style=Stroke(.65.dp.toPx()))
+                    for(side in listOf(-1f,1f)) {
+                        val leaf=Path().apply {
+                            moveTo(x+pitch*.46f,y)
+                            cubicTo(x+pitch*.18f,y+side*sign*.6.dp.toPx(),x+pitch*.22f,y+side*sign*2.7.dp.toPx(),x+pitch*.64f,y+side*sign*2.1.dp.toPx())
+                            cubicTo(x+pitch*.76f,y+side*sign*1.0.dp.toPx(),x+pitch*.57f,y+side*sign*.5.dp.toPx(),x+pitch*.46f,y)
+                            close()
+                        }
+                        drawPath(leaf,silver)
+                    }
+                    x+=pitch
                 }
             }
+            // Floral end cartouches replace the generic geometric stars. They are
+            // original vector ornament, not copied stock calligraphy or a false verse.
+            val side=58.dp.toPx()
             for(left in listOf(1.dp.toPx(),size.width-side-1.dp.toPx())) {
-                val top=3.dp.toPx();val h=size.height-2*top
-                drawRect(thread,Offset(left,top),Size(side,h),style=Stroke(.7.dp.toPx()))
-                drawRect(gold.copy(alpha=.65f),Offset(left+3.dp.toPx(),top+2.dp.toPx()),Size(side-6.dp.toPx(),h-4.dp.toPx()),style=Stroke(fine))
-                val center=Offset(left+side/2,size.height/2);val radius=minOf(side*.41f,h*.42f)
-                // Square interlace in the end cartouche, with gold thread highlights.
-                for(turn in listOf(0f,45f))rotate(turn,center) {
-                    val r=radius*.70f
-                    drawRoundRect(Color(0xFF6F5128),Offset(center.x-r,center.y-r),Size(2*r,2*r),androidx.compose.ui.geometry.CornerRadius(1.8.dp.toPx()),style=Stroke(1.6.dp.toPx()))
-                    drawRoundRect(thread,Offset(center.x-r,center.y-r),Size(2*r,2*r),androidx.compose.ui.geometry.CornerRadius(1.8.dp.toPx()),style=Stroke(.7.dp.toPx()))
-                    val inner=r*.64f
-                    drawRoundRect(thread,Offset(center.x-inner,center.y-inner),Size(2*inner,2*inner),androidx.compose.ui.geometry.CornerRadius(1.dp.toPx()),style=Stroke(fine))
-                }
-                repeat(4) { i->rotate(i*90f,center) {
-                    val vine=Path().apply {
-                        moveTo(center.x-radius*.12f,center.y-radius*.26f)
-                        cubicTo(center.x-radius*.48f,center.y-radius*.66f,center.x+radius*.42f,center.y-radius*.90f,center.x+radius*.24f,center.y-radius*.47f)
-                        cubicTo(center.x+radius*.18f,center.y-radius*.30f,center.x,center.y-radius*.34f,center.x-radius*.12f,center.y-radius*.26f)
+                val top=10.dp.toPx()
+                val h=size.height-2*top
+                val center=Offset(left+side/2,size.height/2)
+                drawRoundRect(gold,Offset(left+4.dp.toPx(),top),Size(side-8.dp.toPx(),h),androidx.compose.ui.geometry.CornerRadius(h*.48f),style=Stroke(.8.dp.toPx()))
+                drawOval(gold,Offset(left+9.dp.toPx(),top+2.dp.toPx()),Size(side-18.dp.toPx(),h-4.dp.toPx()),style=Stroke(fine))
+                val radius=minOf(side*.36f,h*.42f)
+                repeat(6) { i->rotate(i*60f,center) {
+                    val petal=Path().apply {
+                        moveTo(center.x,center.y+radius*.12f)
+                        cubicTo(center.x-radius*.78f,center.y-radius*.55f,center.x+radius*.48f,center.y-radius*1.25f,center.x+radius*.18f,center.y-radius*.50f)
+                        cubicTo(center.x+radius*.09f,center.y-radius*.21f,center.x-radius*.14f,center.y-radius*.12f,center.x,center.y+radius*.12f)
                     }
-                    drawPath(vine,thread,style=Stroke(.7.dp.toPx()))
+                    drawPath(petal,gold,style=Stroke(.65.dp.toPx()))
                 }}
-                repeat(8) { i->rotate(i*45f,center) {
-                    val loop=Path().apply {
-                        moveTo(center.x,center.y-radius*.30f)
-                        cubicTo(center.x-radius*.50f,center.y-radius*.94f,center.x+radius*.50f,center.y-radius*.94f,center.x,center.y-radius*.30f)
-                    }
-                    drawPath(loop,thread,style=Stroke(fine))
-                }}
-                drawCircle(gold,radius*.13f,center,style=Stroke(fine))
-                // Tiny corner arabesques fill the square cartouche instead of a large bare star.
-                for(dx in listOf(-1,1))for(dy in listOf(-1,1)) {
-                    val corner=Offset(center.x+dx*side*.37f,center.y+dy*h*.32f)
-                    val vine=Path().apply {
-                        moveTo(corner.x-dx*4.dp.toPx(),corner.y)
-                        cubicTo(corner.x+dx*4.dp.toPx(),corner.y-dy*5.dp.toPx(),corner.x+dx*3.dp.toPx(),corner.y+dy*4.dp.toPx(),corner.x-dx*2.dp.toPx(),corner.y+dy*2.dp.toPx())
-                    }
-                    drawPath(vine,thread,style=Stroke(fine))
-                }
+                drawCircle(Kiswah.threadSoft,radius*.12f,center,style=Stroke(fine))
             }
         }
         Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=68.dp,vertical=clearance).testTag("kiswah-calligraphy-band")
-            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),textGeometricTransform=TextGeometricTransform(scaleX=textScale)),fontFamily=KiswahThuluth,fontWeight=FontWeight.Bold,fontSize=(baseSize*fit).sp,lineHeight=((if(short)26f else 34f)/density.fontScale).sp,color=Kiswah.threadSoft,textAlign=TextAlign.Center,maxLines=1,softWrap=false)
+            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),brush=Kiswah.goldText),
+            fontFamily=KiswahLandscapeArabic,fontWeight=FontWeight.Normal,fontSize=(baseSize*fit).sp,
+            lineHeight=((if(short)26f else 34f)/density.fontScale).sp,textAlign=TextAlign.Center,maxLines=1,softWrap=false)
     }
 }
 

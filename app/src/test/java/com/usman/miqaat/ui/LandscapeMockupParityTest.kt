@@ -28,6 +28,27 @@ import kotlin.math.abs
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk=[34])
 class LandscapeMockupParityTest:ComposeSupport() {
+    @Test fun restoredKiswahTypographyAndQuietTimelineRemainNative() {
+        for(t in themes()) {
+            val s=settings(t,Language.EN);app.settings.update{s}
+            val st=PrayerEngine.state(s,ZonedDateTime.of(2026,10,24,18,9,0,0,s.zone()))
+            try {
+                show(Dev.PHONE_LANDSCAPE,t) {HomeRouter(st,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{})}
+                if(t==AppTheme.KISWAH) {
+                    for((tag,font)in listOf("kiswah-calligraphy-band" to ReemKufi,"landscape-hero-name" to ReemKufi,"landscape-hero-clock" to Cinzel)) {
+                        readable(tag)
+                        val layouts=mutableListOf<TextLayoutResult>()
+                        rule.onNodeWithTag(tag,true).fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                        assertEquals("Original Kiswah font was replaced: $tag",font,layouts.single().layoutInput.style.fontFamily)
+                        assertEquals("Original glyph proportions must not be stretched",1f,layouts.single().layoutInput.style.textGeometricTransform?.scaleX?:1f,.001f)
+                    }
+                }
+                if(t==AppTheme.MIQAAT||t==AppTheme.CELESTIAL_MERIDIAN)
+                    rule.onNodeWithTag("landscape-timeline-art-scrim",true).assertIsDisplayed()
+            } finally {scenario.close()}
+        }
+    }
+
     @Test fun actualPhoneFontScalingKeepsBandDatesAndColumnsStable() {
         for(t in themes())for(scale in listOf(1f,1.15f,1.3f)) {
             val s=settings(t,Language.EN).copy(showRelative=true,latitude=40.12,longitude=116.65,

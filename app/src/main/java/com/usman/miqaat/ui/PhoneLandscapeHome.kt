@@ -170,6 +170,7 @@ private fun FittedLandscapeLine(text:androidx.compose.ui.text.AnnotatedString,mo
 private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modifier:Modifier,onToggle:()->Unit,onDetails:()->Unit) {
     val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s);val gallery=s.theme==AppTheme.PRAYER_GALLERY
     BoxWithConstraints(modifier.testTag("landscape-authored-hero").padding(end=if(gallery)40.dp else if(s.theme==AppTheme.KISWAH)44.dp else 0.dp),contentAlignment=Alignment.Center) {
+        val kiswah=s.theme==AppTheme.KISWAH
         val heroStyle=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),shadow=if(gallery)null else Shadow(Color.Black.copy(alpha=.85f),Offset(0f,1.5f),4f))
         val paired=maxHeight<if(urdu)215.dp else if(s.theme==AppTheme.KISWAH)186.dp else 190.dp
         val compact=maxHeight<215.dp
@@ -183,7 +184,7 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
         val clockSlot=if(compactKiswah)if(tiny)44.dp else 54.dp else if(compact)48.dp else if(largeDisplay)70.dp else 66.dp
         val name:@Composable (Modifier)->Unit={m->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
             Box(Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.height(arabicSlot)),contentAlignment=Alignment.Center) {
-            Text(hero.arabic,Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=1.35f)),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)30.sp else 38.sp else if(compact)30.sp else if(s.iqamahEnabled)34.sp else 38.sp,lineHeight=if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)36.sp else 46.sp else if(compact)40.sp else 48.sp,color=c.accent,textAlign=TextAlign.Center)
+            Text(hero.arabic,Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=if(kiswah)1f else 1.35f)),fontFamily=if(kiswah)ReemKufi else Amiri,fontWeight=if(kiswah)FontWeight.Normal else FontWeight.Bold,fontSize=if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)30.sp else 38.sp else if(compact)30.sp else if(s.iqamahEnabled)34.sp else 38.sp,lineHeight=if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)36.sp else 46.sp else if(compact)40.sp else 48.sp,color=c.accent,textAlign=TextAlign.Center)
             }
             Box(Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.height(16.dp)),contentAlignment=Alignment.Center) {
             Text(if(urdu)hero.label else hero.label.uppercase(Locale.ROOT),Modifier.then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-english"),style=heroStyle,fontFamily=if(urdu)Amiri else Cinzel,fontSize=if(urdu)9.sp else if(largeDisplay)14.sp else 11.sp,lineHeight=if(urdu)21.sp else 18.sp,letterSpacing=if(urdu)0.sp else 1.3.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)
@@ -193,8 +194,8 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
         val clock:@Composable (Modifier)->Unit={m->Box(m.then(if(urdu)Modifier else Modifier.height(clockSlot)),contentAlignment=Alignment.Center) {Text(buildAnnotatedString {
             append(heroClock)
             if(hero.suffix.isNotBlank()) {val start=heroClock.indexOf(hero.suffix);if(start>=0)addStyle(SpanStyle(fontSize=14.sp,baselineShift=BaselineShift(.2f)),start,start+hero.suffix.length)}
-        },Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-clock").clickable(role=Role.Button,onClick=onToggle),style=heroStyle,fontFamily=if(urdu)Amiri else ApprovedDisplay,fontWeight=FontWeight.Bold,
-            fontSize=if(urdu)25.sp else if(compactKiswah)if(tiny)38.sp else if(largeDisplay)58.sp else 52.sp else if(compact)40.sp else if(largeDisplay)64.sp else 62.sp,lineHeight=if(urdu)if(paired)38.sp else 45.sp else if(compactKiswah)if(tiny)42.sp else 54.sp else if(compact)49.sp else 66.sp,letterSpacing=if(urdu)0.sp else 1.4.sp,color=if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}}
+        },Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-clock").clickable(role=Role.Button,onClick=onToggle),style=if(kiswah)heroStyle.copy(brush=Kiswah.goldText)else heroStyle,fontFamily=if(urdu)Amiri else if(kiswah)Cinzel else ApprovedDisplay,fontWeight=if(kiswah)FontWeight.Normal else FontWeight.Bold,
+            fontSize=if(urdu)25.sp else if(compactKiswah)if(tiny)38.sp else if(largeDisplay)64.sp else 58.sp else if(compact)40.sp else if(largeDisplay)64.sp else 62.sp,lineHeight=if(urdu)if(paired)38.sp else 45.sp else if(compactKiswah)if(tiny)42.sp else 54.sp else if(compact)49.sp else 66.sp,letterSpacing=if(urdu)0.sp else 1.4.sp,color=if(kiswah)Color.Unspecified else if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}}
         val galleryExtraInset=if(gallery&&maxWidth>=250.dp)60.dp else 0.dp
         Box(Modifier.fillMaxSize().padding(end=galleryExtraInset),contentAlignment=Alignment.Center) {
         Column(Modifier.widthIn(max=244.dp).fillMaxWidth().fillMaxHeight(),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
@@ -264,9 +265,9 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         r.isNow&&s.theme==AppTheme.KISWAH->Brush.horizontalGradient(listOf(Color(0xFF07505A).copy(alpha=.70f),Color(0xFF032E37).copy(alpha=.62f)))
         r.isNow->Brush.horizontalGradient(listOf(Color(0xFF074646).copy(alpha=.70f),Color(0xFF03262A).copy(alpha=.62f)))
         r.isNext&&s.theme==AppTheme.KISWAH->Brush.horizontalGradient(listOf(Color(0xFF9F732B).copy(alpha=.72f),Color(0xFF4F351B).copy(alpha=.68f)))
-        r.isNext->Brush.horizontalGradient(listOf(Color(0xFF76501D).copy(alpha=.63f),Color(0xFF38220C).copy(alpha=.72f)))
+        r.isNext->Brush.horizontalGradient(listOf(Color(0xFF76501D).copy(alpha=.88f),Color(0xFF38220C).copy(alpha=.90f)))
         s.theme==AppTheme.KISWAH->Brush.horizontalGradient(listOf(Color(0xFF090909).copy(alpha=.82f),Color(0xFF10100F).copy(alpha=.58f)))
-        s.theme==AppTheme.CELESTIAL_MERIDIAN->Brush.horizontalGradient(listOf(Color(0xFF061A30).copy(alpha=.94f),Color(0xFF071A30).copy(alpha=.88f)))
+        s.theme==AppTheme.CELESTIAL_MERIDIAN->Brush.horizontalGradient(listOf(Color(0xFF061A30).copy(alpha=.97f),Color(0xFF071A30).copy(alpha=.96f)))
         else->Brush.horizontalGradient(listOf(Color(0xFF041A34).copy(alpha=.92f),Color(0xFF03142A).copy(alpha=.86f)))
     }
     BoxWithConstraints(modifier.heightIn(min=48.dp)) {
@@ -276,19 +277,21 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         val tinyCard=maxWidth<225.dp
         val narrow=maxWidth<215.dp
         val thumbnail=gallery&&s.artTheme!=ArtTheme.MINIMAL&&!(tight&&urdu)
-        val thumbnailSide=if(tight)if(narrow)22.dp else 26.dp else 46.dp
+        val thumbnailSide=if(tight)if(narrow)22.dp else 30.dp else 46.dp
         val measure=rememberTextMeasurer()
         val density=LocalDensity.current
-        val labelSize=if(urdu)14.sp else if(large&&!gallery)15.sp else if(gallery&&large)13.sp else if(tight)12.sp else 13.sp
+        val labelSize=if(urdu)14.sp else if(large&&!gallery)15.sp else if(gallery&&large)12.5.sp else if(tight)12.sp else 13.sp
         val arabicSize=if(large&&!gallery)17.sp else 14.sp
-        val timeSize=if(urdu)18.sp else if(large&&!gallery)20.sp else if(large&&gallery)if(wideCard)19.sp else 17.sp else if(thumbnail&&narrow&&!urdu)12.sp else if(tinyCard)14.sp else if(gallery&&tight)16.sp else 18.sp
+        val rowArabicFont=if(s.theme==AppTheme.KISWAH)ReemKufi else Amiri
+        val rowArabicWeight=if(s.theme==AppTheme.KISWAH)FontWeight.Normal else FontWeight.Bold
+        val timeSize=if(urdu)18.sp else if(large&&!gallery)20.sp else if(large&&gallery)if(wideCard)19.sp else 18.sp else if(thumbnail&&narrow&&!urdu)12.sp else if(tinyCard)14.sp else if(gallery&&tight)16.sp else 18.sp
         val detailSize=if(r.prayer==Prayer.ISHA&&!urdu)if(large&&wideCard)9.5.sp else if(large)9.sp else 8.sp else if(large&&!urdu)11.sp else if(gallery&&!urdu)8.sp else 9.sp
         val detailText=if(r.prayer==Prayer.ISHA&&s.showEndTimes&&!urdu)r.small.replaceFirst(L10n.word(s,"ends"),if(wideCard)"Preferred end"else "Pref. end")else r.small
         val captionFont=if(urdu)Amiri else ApprovedBody
         val badgeWidth=with(density) {
-            val size=if(large&&!urdu)9.sp else 7.sp
+            val size=if(large&&!urdu)8.sp else 7.sp
             val font=if(urdu)Amiri else ApprovedBody
-            maxOf(if(urdu)30.dp else if(large)34.dp else 28.dp,
+            maxOf(if(urdu)30.dp else if(large)30.dp else 28.dp,
                 listOf("NOW","NEXT").maxOf { label ->
                     measure.measure(L10n.word(s,label),TextStyle(fontFamily=font,fontWeight=FontWeight.Bold,fontSize=size),softWrap=false,maxLines=1).size.width.toDp()+8.dp
                 })
@@ -305,7 +308,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
             listedPrayers(s).maxOf { p ->
                 val label=if(p==Prayer.DHUHR&&s.jumuahEnabled)L10n.word(s,"Jumuʿah")else L10n.prayer(s,p)
                 maxOf(measure.measure(label,TextStyle(fontFamily=if(urdu)Amiri else serif,fontSize=labelSize)).size.width.toDp(),
-                    if(urdu)0.dp else measure.measure(p.arabic,TextStyle(fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=arabicSize)).size.width.toDp())
+                    if(urdu)0.dp else measure.measure(p.arabic,TextStyle(fontFamily=rowArabicFont,fontWeight=rowArabicWeight,fontSize=arabicSize)).size.width.toDp())
             }+1.dp
         }
         val nameGap=if(large&&!urdu)8.dp else 2.dp
@@ -333,7 +336,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
             Box(Modifier.width(badgeWidth).clip(RoundedCornerShape(10.dp))
                 .background(if(r.isNow)Color(0xFF34D6DA)else Color(0xFFFFD56E)),contentAlignment=Alignment.Center) {
                 Text(L10n.word(s,if(r.isNow)"NOW"else"NEXT"),Modifier.padding(horizontal=2.dp,vertical=2.dp).testTag(if(gallery)if(r.isNow)"gallery-status-now"else"gallery-status-next"else if(r.isNow)"home-status-now"else"home-status-next"),
-                    fontFamily=if(urdu)Amiri else ApprovedBody,fontWeight=FontWeight.Bold,fontSize=if(large&&!urdu)9.sp else 7.sp,lineHeight=if(urdu)18.sp else if(large)13.sp else 11.sp,color=Color(0xFF112F32),maxLines=1)
+                    fontFamily=if(urdu)Amiri else ApprovedBody,fontWeight=FontWeight.Bold,fontSize=if(large&&!urdu)8.sp else 7.sp,lineHeight=if(urdu)18.sp else if(large)13.sp else 11.sp,color=Color(0xFF112F32),maxLines=1)
             }
         }
         Row(Modifier.fillMaxSize().shadow(if(r.isNow||r.isNext)4.dp else 0.dp,RoundedCornerShape(8.dp),ambientColor=mark.copy(alpha=.30f),spotColor=mark.copy(alpha=.30f)).clip(RoundedCornerShape(8.dp)).background(paint)
@@ -349,7 +352,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
             Row(Modifier.weight(1f).padding(start=4.dp+if(gallery)leadingExtra else leadingExtra*.52f),verticalAlignment=Alignment.Top) {
                 Column(Modifier.width(labelWidth)) {
                     Text(r.label,Modifier.testTag("landscape-row-name-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=labelSize,fontWeight=FontWeight.Normal,letterSpacing=0.sp,lineHeight=if(urdu)25.sp else if(large&&!gallery)20.sp else 17.sp,color=c.ink,maxLines=1)
-                    if(!urdu)Text(r.arabic,Modifier.testTag("landscape-row-arabic-${r.prayer.name}"),style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false)),fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=arabicSize,letterSpacing=0.sp,lineHeight=if(large&&!gallery)22.sp else 21.sp,color=c.accent)
+                    if(!urdu)Text(r.arabic,Modifier.testTag("landscape-row-arabic-${r.prayer.name}"),style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false)),fontFamily=rowArabicFont,fontWeight=rowArabicWeight,fontSize=arabicSize,letterSpacing=0.sp,lineHeight=if(large&&!gallery)22.sp else 21.sp,color=c.accent)
                 }
                 Column(Modifier.weight(1f).padding(start=nameGap),verticalArrangement=Arrangement.Top) {
                     // Landscape keeps the authored large clock even when relative details are enabled.
@@ -366,9 +369,9 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
             }
             Row(Modifier.width(48.dp).fillMaxHeight().heightIn(min=48.dp).testTag("landscape-info-${r.prayer.name}").clickable(role=Role.Button,onClick=onWhy)
                 .semantics(mergeDescendants=true){contentDescription=Str[R.string.s_why_this_time]},horizontalArrangement=Arrangement.spacedBy(5.dp,Alignment.CenterHorizontally),verticalAlignment=Alignment.CenterVertically) {
-                if(r.prayer.isPrayer)Icon(if(r.azaanOn)Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff,null,Modifier.size(if(large)21.dp else 16.dp)
+                if(r.prayer.isPrayer)Icon(if(r.azaanOn)Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff,null,Modifier.size(if(large)17.dp else 16.dp)
                     .semantics{contentDescription=if(r.azaanOn)L10n.t("Azaan enabled","اذان فعال ہے")else L10n.t("Azaan off","اذان بند ہے")},tint=c.accent)
-                Icon(Icons.Outlined.Info,null,Modifier.size(if(large)21.dp else 15.dp),tint=c.secondary)
+                Icon(Icons.Outlined.Info,null,Modifier.size(if(large)17.dp else 15.dp),tint=c.secondary)
             }
         }
     }
