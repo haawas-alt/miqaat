@@ -53,7 +53,7 @@ jobs:
           trap 'git restore --source=HEAD --worktree app/src/main' EXIT
           git restore --source=bc2e2290cf8a8eac160b0d1e0f58d157d4729be0 --worktree app/src/main
           GITHUB_SHA=bc2e2290cf8a8eac160b0d1e0f58d157d4729be0 ./gradlew --no-daemon testGithubDebugUnitTest --tests '*ApprovedPhoneLandscapeAcceptanceTest'
-          cp -a app/build/phone-landscape landscape-baseline
+          cp -a app/build/phone-landscape app/build/landscape-baseline
           git restore --source=HEAD --worktree app/src/main
           trap - EXIT
       - name: Native mockup geometry, actions and retained portrait/tablet acceptance
@@ -61,7 +61,9 @@ jobs:
       - name: Render candidate landscape in the same isolated test process as baseline
         run: GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*ApprovedPhoneLandscapeAcceptanceTest'
       - name: Require all phone landscape captures to match approved version
-        run: python3 tools/verify_landscape_unchanged.py landscape-baseline app/build/phone-landscape candidate/landscape-unchanged.json
+        run: |
+          python3 -m pip install Pillow==11.3.0
+          python3 tools/verify_landscape_unchanged.py app/build/landscape-baseline app/build/phone-landscape candidate/landscape-unchanged.json
       # Public artifacts contain ciphertext only. The reviewer private key is never
       # placed in source, runner environment, logs or uploaded artifacts.
       - name: Encrypt captures for private visual audit

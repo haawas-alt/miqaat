@@ -48,7 +48,7 @@ class PortraitPolishAcceptanceTest : ComposeSupport() {
                     val b = Bitmap.createBitmap(v.width, v.height, Bitmap.Config.ARGB_8888)
                     v.draw(Canvas(b))
                     File("build/portrait-polish/${theme.name}/${lang.name}-${if(small)360 else 411}-${if(relative)"night-relative" else "day"}.png")
-                        .also { it.parentFile.mkdirs() }.outputStream().use { b.compress(Bitmap.CompressFormat.PNG, 100, it) }
+                        .also { it.parentFile?.mkdirs() }.outputStream().use { b.compress(Bitmap.CompressFormat.PNG, 100, it) }
                     b.recycle()
                 }
                 fun reach(tag: String): SemanticsNodeInteraction = rule.onNodeWithTag(tag, true).also {
@@ -62,7 +62,7 @@ class PortraitPolishAcceptanceTest : ComposeSupport() {
                     layouts.forEach { l ->
                         val width = (0 until l.lineCount).maxOf { l.getLineRight(it)-l.getLineLeft(it) }
                         val height = l.getLineBottom(l.lineCount-1)-l.getLineTop(0)
-                        assertFalse("$theme/$lang/$small clips $tag", l.multiParagraph.didExceedMaxLines || width>n.size.width+1 || height>n.size.height+1)
+                        assertFalse("$theme/$lang/$small clips $tag: node=${n.size} ink=$width,$height text=${l.layoutInput.text}", l.multiParagraph.didExceedMaxLines || width>n.size.width+1 || height>n.size.height+1)
                     }
                 }
                 for (tag in listOf("portrait-hero-details", "phone-dock-learn", "phone-dock-timetable")) {

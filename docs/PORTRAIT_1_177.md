@@ -27,7 +27,7 @@ for provenance but is no longer used by the export script.
 CI renders the approved baseline `bc2e2290cf8a8eac160b0d1e0f58d157d4729be0`
 and the candidate on the same runner using the same isolated capture test,
 then requires every existing phone
-landscape PNG to be byte-identical. This covers all four themes, both languages,
+landscape PNG to have identical decoded pixels. This covers all four themes, both languages,
 normal/inset phone sizes and retained preference/quiet/iqamah cases. CI also runs
 the existing portrait/tablet/accessibility checks and new day/night portrait
 checks. Encrypted render artifacts permit private visual review. A successful

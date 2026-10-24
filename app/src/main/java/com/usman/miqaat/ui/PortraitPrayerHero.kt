@@ -70,16 +70,21 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
             horizontalAlignment = Alignment.CenterHorizontally) {
             // Reserve countdown and 48dp action first. Only the name/clock region uses spare height.
             BoxWithConstraints(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-                val paired = maxHeight < 175.dp
+                val paired = maxHeight < 230.dp
                 val tight = maxHeight < 110.dp
+                val tiny = maxHeight < 72.dp
                 val prayerName: @Composable () -> Unit = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        if (paired) Text(hero.special ?: hero.kickerLabel, fontFamily = body,
+                            fontSize = if (tiny) 9.sp else 10.sp, lineHeight = 16.sp,
+                            letterSpacing = if (urdu) 0.sp else 1.2.sp, color = tk.primary,
+                            textAlign = TextAlign.Center, maxLines = 1, style = nativeStyle)
                         Text(hero.arabic, fontFamily = if (kiswah) ReemKufi else Amiri,
-                            fontSize = if (paired) (if (tight) 26.sp else 29.sp) else 43.sp,
-                            lineHeight = if (paired) (if (tight) 36.sp else 46.sp) else 57.sp,
+                            fontSize = if (paired) (if (tiny) 22.sp else if (tight) 26.sp else 29.sp) else 43.sp,
+                            lineHeight = if (paired) (if (tiny) 34.sp else if (tight) 40.sp else 46.sp) else 76.sp,
                             color = tk.arabicText, style = nativeStyle,
                             modifier = Modifier.testTag("approved-hero-arabic"))
-                        if (!urdu) Text(hero.label.uppercase(), fontFamily = Cinzel, fontSize = 10.sp,
+                        if (!urdu && !tiny) Text(hero.label.uppercase(), fontFamily = Cinzel, fontSize = 10.sp,
                             lineHeight = 14.sp, letterSpacing = 2.sp, color = tk.contentSecondary,
                             maxLines = 1, style = nativeStyle)
                     }
@@ -87,8 +92,8 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                 val prayerClock: @Composable () -> Unit = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(hero.clock, fontFamily = ApprovedDisplay, fontWeight = FontWeight.Medium,
-                            fontSize = if (paired) (if (tight) 52.sp else 62.sp) else 80.sp,
-                            lineHeight = if (paired) (if (tight) 56.sp else 66.sp) else 78.sp,
+                            fontSize = if (paired) (if (tiny) 36.sp else if (tight) 46.sp else 62.sp) else 80.sp,
+                            lineHeight = if (paired) (if (tiny) 48.sp else if (tight) 62.sp else 82.sp) else 104.sp,
                             color = tk.contentPrimary, maxLines = 1, style = nativeStyle,
                             modifier = Modifier.testTag("approved-hero-clock"))
                         if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay,
@@ -97,7 +102,7 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                     }
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(hero.special ?: hero.kickerLabel, fontFamily = body,
+                    if (!paired) Text(hero.special ?: hero.kickerLabel, fontFamily = body,
                         fontSize = 10.sp, lineHeight = 14.sp, letterSpacing = if (urdu) 0.sp else 1.6.sp,
                         color = tk.primary, textAlign = TextAlign.Center, maxLines = 2, style = nativeStyle)
                     if (paired) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
