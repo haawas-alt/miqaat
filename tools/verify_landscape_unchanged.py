@@ -20,8 +20,9 @@ def timeline_canvas(png):
     if not snapshot.exists():
         return None
     lines = snapshot.read_text().splitlines()
+    tag = "approved-day-timeline" if any("Tag: 'approved-day-timeline'" in line for line in lines) else "landscape-timeline-panel"
     for i, line in enumerate(lines):
-        if "Tag: 'approved-day-timeline'" in line:
+        if f"Tag: '{tag}'" in line:
             # The first child of this Column is its non-text native Canvas.
             for child in lines[i+1:]:
                 m = re.search(r'at \(l=([\d.]+), t=([\d.]+), r=([\d.]+), b=([\d.]+)\)px', child)
