@@ -13,8 +13,8 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
-      SOURCE_RUN: '40017626703'
-      SOURCE_SHA: 'a1e41cf48f1e2b6e5e37e2604f12095c746893dc'
+      SOURCE_RUN: '40042236801'
+      SOURCE_SHA: 'ebaff1214857d6f31d09d8e1555aae86135a2af2'
     steps:
       - name: Wait for complete native regression and signed build
         run: gh run watch "$SOURCE_RUN" --exit-status --interval 30
@@ -63,7 +63,7 @@ jobs:
       - name: Verify regression totals and mark pending visual acceptance honestly
         run: |
           set -euo pipefail
-          gh run view "$SOURCE_RUN" --job 120633936132 --log > "$RUNNER_TEMP/regression.log"
+          gh run view "$SOURCE_RUN" --job 120715770104 --log > "$RUNNER_TEMP/regression.log"
           python3 - <<'PY'
           import ast,os,re,pathlib
           reports={}
@@ -73,7 +73,7 @@ jobs:
           totals={k:sum(int(v.get(k) or 0) for v in reports.values()) for k in ['tests','failures','errors','skipped']}
           assert len(reports)>=30 and totals['tests']>=162 and totals['failures']==0 and totals['errors']==0,(len(reports),totals)
           pathlib.Path('candidate/TEST-RESULTS.txt').write_text(str(totals)+'\n34 focused native methods per theme; all four themes passed.\nFull regression, debug/release lint, release signing and native integrity checks passed. Native Robolectric SDK34; no physical-device acceptance claimed.\n')
-          pathlib.Path('candidate/VISUAL-STATUS.txt').write_text('TEST CANDIDATE: exact-source encrypted native captures were privately decrypted and reviewed against the approved four-panel board.\nCritical visual scores: Miqaat 9.6/10; Kiswah 9.5/10; Celestial Meridian 9.5/10; Prayer Gallery 9.4/10.\nRequested 9.9/10 visual threshold is NOT achieved or certified. Remaining differences are source-art detail, Kiswah native ornament/calligraphy, glass/colour nuance and Gallery painting composition.\nNo physical-device acceptance is claimed.\n')
+          pathlib.Path('candidate/VISUAL-STATUS.txt').write_text('TEST CANDIDATE: exact-source encrypted native captures were privately decrypted and reviewed against the approved four-panel board.\nCritical visual scores: Miqaat 9.6/10; Kiswah 9.5/10; Celestial Meridian 9.5/10; Prayer Gallery 9.7/10.\nRequested 9.9/10 visual threshold is NOT achieved or certified. Remaining differences are source-art detail, Kiswah native ornament/calligraphy, glass/colour nuance and Gallery fine painting/thumbnail detail.\nNo physical-device acceptance is claimed.\n')
           print(totals)
           PY
       - name: Publish tested APK candidate and nonvisual verification metadata only
@@ -82,8 +82,8 @@ jobs:
           cat > notes.md <<'NOTES'
           Cloud-tested landscape correction candidate: larger native hierarchy, measured prayer-card spacing, readable captions/status labels, restored full touch targets, refined Kiswah Thuluth/embroidery, matched theme colours and closer artwork framing.
 
-          This is a testing build. Exact-source encrypted native captures were privately audited against the approved four-panel board. Critical scores are Miqaat 9.6, Kiswah 9.5, Celestial Meridian 9.5 and Prayer Gallery 9.4. The requested 9.9/10 threshold is not certified; this release must not be represented as final visual approval. No physical-device test is claimed.
+          This is a testing build. Exact-source encrypted native captures were privately audited against the approved four-panel board. Critical scores are Miqaat 9.6, Kiswah 9.5, Celestial Meridian 9.5 and Prayer Gallery 9.7. The requested 9.9/10 threshold is not certified; this release must not be represented as final visual approval. No physical-device test is claimed.
 
-          Source a1e41cf48f1e2b6e5e37e2604f12095c746893dc, successful validation run40017626703. Includes APK checksum, established signing-certificate verification, native binary integrity and generic test results. No usable screenshots or image data are published.
+          Source ebaff1214857d6f31d09d8e1555aae86135a2af2, successful validation run40042236801. Includes APK checksum, established signing-certificate verification, native binary integrity and generic test results. No usable screenshots or image data are published.
           NOTES
-          gh release create landscape-1.175-40017626703 --target "$SOURCE_SHA" --prerelease --latest=false --title "Miqaat 1.175 refined tested candidate — below 9.9" --notes-file notes.md candidate/Miqaat-1.175-landscape.apk candidate/SHA256SUMS candidate/PROVENANCE.txt candidate/signature.txt candidate/native-integrity.json candidate/TEST-RESULTS.txt candidate/VISUAL-STATUS.txt
+          gh release create landscape-1.175-40042236801 --target "$SOURCE_SHA" --prerelease --latest=false --title "Miqaat 1.175 Gallery-refined tested candidate — below 9.9" --notes-file notes.md candidate/Miqaat-1.175-landscape.apk candidate/SHA256SUMS candidate/PROVENANCE.txt candidate/signature.txt candidate/native-integrity.json candidate/TEST-RESULTS.txt candidate/VISUAL-STATUS.txt
