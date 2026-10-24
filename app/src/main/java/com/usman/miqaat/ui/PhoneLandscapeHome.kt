@@ -276,7 +276,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         val tinyCard=maxWidth<225.dp
         val narrow=maxWidth<215.dp
         val thumbnail=gallery&&s.artTheme!=ArtTheme.MINIMAL&&!(tight&&urdu)
-        val thumbnailSide=if(tight)if(narrow)22.dp else 30.dp else 46.dp
+        val thumbnailSide=if(tight)if(narrow)22.dp else 26.dp else 46.dp
         val measure=rememberTextMeasurer()
         val density=LocalDensity.current
         val labelSize=if(urdu)14.sp else if(large&&!gallery)15.sp else if(gallery&&large)13.sp else if(tight)12.sp else 13.sp
@@ -308,7 +308,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
                     if(urdu)0.dp else measure.measure(p.arabic,TextStyle(fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=arabicSize)).size.width.toDp())
             }+1.dp
         }
-        val nameGap=if(gallery&&large&&!urdu)4.dp else if(large&&!urdu)8.dp else 2.dp
+        val nameGap=if(large&&!urdu)8.dp else 2.dp
         // Match the board's inset labels without sacrificing a long clock, badge or
         // detail line on a narrower phone. Measure the real native text, not character counts.
         val leadingExtra=if(large&&!urdu&&!gallery)8.dp else 0.dp
