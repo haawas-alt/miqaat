@@ -49,12 +49,17 @@ class LandscapeMockupParityTest:ComposeSupport() {
                 }
                 for(col in listOf(listOf(Prayer.FAJR,Prayer.DHUHR,Prayer.MAGHRIB),listOf(Prayer.SUNRISE,Prayer.ASR,Prayer.ISHA))) {
                     val starts=col.map { p ->
-                        for(k in listOf("name","time","detail","relative"))readable("landscape-row-$k-${p.name}")
+                        for(k in listOf("name","time","detail","relative")) {
+                            val tag="landscape-row-$k-${p.name}"
+                            if(scale>1.2f)rule.onNodeWithTag(tag,true).performScrollTo()
+                            readable(tag)
+                        }
                         rule.onNodeWithTag("landscape-row-time-${p.name}",true).fetchSemanticsNode().boundsInRoot.left
                     }
                     assertTrue("Prayer times need one common column at fontScale=$scale",starts.max()-starts.min()<1.1f)
                 }
                 if(t==AppTheme.KISWAH) {
+                    if(scale>1.2f)rule.onNodeWithTag("kiswah-calligraphy-band",true).performScrollTo()
                     readable("kiswah-calligraphy-band")
                     val layouts=mutableListOf<TextLayoutResult>()
                     rule.onNodeWithTag("kiswah-calligraphy-band",true).fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)

@@ -161,7 +161,7 @@ private fun FittedLandscapeLine(text:androidx.compose.ui.text.AnnotatedString,mo
             val w=measure.measure(text,TextStyle(fontFamily=font,fontSize=trial.sp,letterSpacing=0.sp),softWrap=false,maxLines=1).size.width
             if(w<=available)low=trial else high=trial
         }
-        Text(text,Modifier.testTag(tag),fontFamily=font,fontSize=low.sp,letterSpacing=0.sp,
+        Text(text,Modifier.testTag(tag),style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false)),fontFamily=font,fontSize=low.sp,letterSpacing=0.sp,
             lineHeight=(line.value*(low/size.value)).sp,color=color,maxLines=1,softWrap=false)
     }
 }
@@ -169,7 +169,7 @@ private fun FittedLandscapeLine(text:androidx.compose.ui.text.AnnotatedString,mo
 @Composable
 private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modifier:Modifier,onToggle:()->Unit,onDetails:()->Unit) {
     val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s);val gallery=s.theme==AppTheme.PRAYER_GALLERY
-    BoxWithConstraints(modifier.testTag("landscape-authored-hero").padding(end=if(gallery)40.dp else 0.dp),contentAlignment=Alignment.Center) {
+    BoxWithConstraints(modifier.testTag("landscape-authored-hero").padding(end=if(gallery)40.dp else if(s.theme==AppTheme.KISWAH)44.dp else 0.dp),contentAlignment=Alignment.Center) {
         val heroStyle=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),shadow=if(gallery)null else Shadow(Color.Black.copy(alpha=.85f),Offset(0f,1.5f),4f))
         val paired=maxHeight<if(urdu)215.dp else if(s.theme==AppTheme.KISWAH)186.dp else 190.dp
         val compact=maxHeight<215.dp
@@ -331,7 +331,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
                     // Landscape keeps the authored large clock even when relative details are enabled.
                     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(2.dp)) {
                         FittedLandscapeLine(clockText,Modifier.weight(1f,fill=false),if(urdu)Amiri else serif,timeSize,
-                            if(urdu)25.sp else if(large&&!gallery)28.sp else 22.sp,c.ink,"landscape-row-time-${r.prayer.name}")
+                            if(urdu)25.sp else if(large&&!gallery)24.sp else 22.sp,c.ink,"landscape-row-time-${r.prayer.name}")
                         if(r.isNow||r.isNext)badge()
                     }
                     if(s.showRelative)FittedLandscapeLine(androidx.compose.ui.text.AnnotatedString(r.relative),Modifier.fillMaxWidth(),captionFont,
