@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.*
@@ -49,6 +50,7 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
     val kiswah = s.theme == AppTheme.KISWAH
     val urdu = L10n.isUrdu(s)
     val body = if (urdu) Amiri else ApprovedBody
+    val fontScale = LocalDensity.current.fontScale
     val nativeStyle = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false))
     BoxWithConstraints(modifier.testTag("approved-dark-hero")
         .semantics(mergeDescendants = true) { contentDescription = hero.spoken; heading() },
@@ -76,9 +78,10 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
         Column(Modifier.fillMaxSize().padding(horizontal = 10.dp, vertical = 4.dp).testTag("portrait-hero-content"),
             horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             BoxWithConstraints(Modifier.weight(1f, fill = false).fillMaxWidth(), contentAlignment = Alignment.Center) {
-                val compact = maxHeight < 176.dp
-                val micro = maxHeight < (if (kiswah) 118.dp else 126.dp)
-                val tiny = maxHeight < 72.dp
+                val textHeight = maxHeight.value / fontScale
+                val compact = textHeight < 176f
+                val micro = textHeight < (if (kiswah) 118f else 126f)
+                val tiny = textHeight < 72f
                 val caption: @Composable () -> Unit = {
                     Column(horizontalAlignment = Alignment.Start) {
                         if (tiny) Text(if (urdu) hero.kickerLabel else "${hero.kickerLabel} · ${hero.label}",
