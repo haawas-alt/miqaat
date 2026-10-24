@@ -276,10 +276,10 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         val tinyCard=maxWidth<225.dp
         val narrow=maxWidth<215.dp
         val thumbnail=gallery&&s.artTheme!=ArtTheme.MINIMAL&&!(tight&&urdu)
-        val thumbnailSide=if(tight)if(narrow)22.dp else if(maxWidth>=230.dp)36.dp else 30.dp else 58.dp
+        val thumbnailSide=if(tight)if(narrow)22.dp else 30.dp else 46.dp
         val measure=rememberTextMeasurer()
         val density=LocalDensity.current
-        val labelSize=if(urdu)14.sp else if(large&&!gallery)15.sp else if(large)if(wideCard)15.sp else 14.sp else if(tight)12.sp else 13.sp
+        val labelSize=if(urdu)14.sp else if(large&&!gallery)15.sp else if(gallery&&large)13.sp else if(tight)12.sp else 13.sp
         val arabicSize=if(large&&!gallery)17.sp else 14.sp
         val timeSize=if(urdu)18.sp else if(large&&!gallery)20.sp else if(large&&gallery)if(wideCard)19.sp else 17.sp else if(thumbnail&&narrow&&!urdu)12.sp else if(tinyCard)14.sp else if(gallery&&tight)16.sp else 18.sp
         val detailSize=if(r.prayer==Prayer.ISHA&&!urdu)if(large&&wideCard)9.5.sp else if(large)9.sp else 8.sp else if(large&&!urdu)11.sp else if(gallery&&!urdu)8.sp else 9.sp
@@ -308,10 +308,10 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
                     if(urdu)0.dp else measure.measure(p.arabic,TextStyle(fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=arabicSize)).size.width.toDp())
             }+1.dp
         }
-        val nameGap=if(large&&!urdu)8.dp else 2.dp
+        val nameGap=if(gallery&&large&&!urdu)4.dp else if(large&&!urdu)8.dp else 2.dp
         // Match the board's inset labels without sacrificing a long clock, badge or
         // detail line on a narrower phone. Measure the real native text, not character counts.
-        val leadingExtra=if(large&&!urdu)8.dp else 0.dp
+        val leadingExtra=if(large&&!urdu&&!gallery)8.dp else 0.dp
         // Reserve the same badge lane in every card and fit a worst-case clock once.
         // A NOW/NEXT row must not silently use a smaller clock than its neighbours.
         val clockRoom=maxWidth-(if(thumbnail)thumbnailSide+8.dp else if(large)12.dp else 6.dp)-
