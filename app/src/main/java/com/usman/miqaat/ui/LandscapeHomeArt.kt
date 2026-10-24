@@ -96,7 +96,7 @@ internal fun OrnateLandscapeBand() {
         val fit=minOf(1f,(maxWidth-144.dp)/nativeWidth,availableHeight/measured.size.height.coerceAtLeast(1))
         Canvas(Modifier.matchParentSize().testTag("kiswah-band-ornament")) {
             val gold=Brush.linearGradient(listOf(Color(0xFF7E5C25),Color(0xFFE5C678),Color(0xFFA77C36),Color(0xFFE6CC88)),Offset.Zero,Offset(0f,size.height))
-            val silver=Brush.linearGradient(listOf(Color(0xFF72786F),Color(0xFFE0E1D3),Color(0xFF9CA398)),Offset.Zero,Offset(0f,size.height))
+            val silver=Brush.horizontalGradient(listOf(Color(0xFFBEC2B2),Color(0xFFF1F0DE),Color(0xFFA8AE9F)))
             val fine=.45.dp.toPx()
             drawRect(gold,style=Stroke(.8.dp.toPx()))
             // Silver scrolling foliage is characteristic of the supplied references:
@@ -108,19 +108,19 @@ internal fun OrnateLandscapeBand() {
                     val yy=if(bottom)size.height-edge else edge
                     drawLine(gold,Offset(0f,yy),Offset(size.width,yy),fine)
                 }
-                val pitch=13.dp.toPx()
+                val pitch=16.dp.toPx()
                 var x=0f
                 while(x<size.width) {
                     val stem=Path().apply {
                         moveTo(x,y)
-                        cubicTo(x+pitch*.28f,y-sign*2.dp.toPx(),x+pitch*.72f,y+sign*2.dp.toPx(),x+pitch,y)
+                        cubicTo(x+pitch*.28f,y-sign*3.dp.toPx(),x+pitch*.72f,y+sign*3.dp.toPx(),x+pitch,y)
                     }
                     drawPath(stem,silver,style=Stroke(.65.dp.toPx()))
                     for(side in listOf(-1f,1f)) {
                         val leaf=Path().apply {
                             moveTo(x+pitch*.46f,y)
-                            cubicTo(x+pitch*.18f,y+side*sign*.6.dp.toPx(),x+pitch*.22f,y+side*sign*2.7.dp.toPx(),x+pitch*.64f,y+side*sign*2.1.dp.toPx())
-                            cubicTo(x+pitch*.76f,y+side*sign*1.0.dp.toPx(),x+pitch*.57f,y+side*sign*.5.dp.toPx(),x+pitch*.46f,y)
+                            cubicTo(x+pitch*.15f,y+side*sign*.8.dp.toPx(),x+pitch*.20f,y+side*sign*3.3.dp.toPx(),x+pitch*.64f,y+side*sign*2.8.dp.toPx())
+                            cubicTo(x+pitch*.79f,y+side*sign*1.3.dp.toPx(),x+pitch*.57f,y+side*sign*.6.dp.toPx(),x+pitch*.46f,y)
                             close()
                         }
                         drawPath(leaf,silver)
@@ -138,14 +138,16 @@ internal fun OrnateLandscapeBand() {
                 drawRoundRect(gold,Offset(left+4.dp.toPx(),top),Size(side-8.dp.toPx(),h),androidx.compose.ui.geometry.CornerRadius(h*.48f),style=Stroke(.8.dp.toPx()))
                 drawOval(gold,Offset(left+9.dp.toPx(),top+2.dp.toPx()),Size(side-18.dp.toPx(),h-4.dp.toPx()),style=Stroke(fine))
                 val radius=minOf(side*.36f,h*.42f)
-                repeat(6) { i->rotate(i*60f,center) {
+                repeat(12) { i->rotate(i*30f,center) {
                     val petal=Path().apply {
                         moveTo(center.x,center.y+radius*.12f)
                         cubicTo(center.x-radius*.78f,center.y-radius*.55f,center.x+radius*.48f,center.y-radius*1.25f,center.x+radius*.18f,center.y-radius*.50f)
                         cubicTo(center.x+radius*.09f,center.y-radius*.21f,center.x-radius*.14f,center.y-radius*.12f,center.x,center.y+radius*.12f)
                     }
-                    drawPath(petal,gold,style=Stroke(.65.dp.toPx()))
+                    drawPath(petal,Kiswah.thread.copy(alpha=.18f))
+                    drawPath(petal,gold,style=Stroke(.55.dp.toPx()))
                 }}
+                drawCircle(gold,radius*.56f,center,style=Stroke(fine))
                 drawCircle(Kiswah.threadSoft,radius*.12f,center,style=Stroke(fine))
             }
         }
