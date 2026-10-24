@@ -285,7 +285,14 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         val detailSize=if(r.prayer==Prayer.ISHA&&!urdu)if(large&&wideCard)9.5.sp else if(large)9.sp else 8.sp else if(large&&!urdu)11.sp else if(gallery&&!urdu)8.sp else 9.sp
         val detailText=if(r.prayer==Prayer.ISHA&&s.showEndTimes&&!urdu)r.small.replaceFirst(L10n.word(s,"ends"),if(wideCard)"Preferred end"else "Pref. end")else r.small
         val captionFont=if(urdu)Amiri else ApprovedBody
-        val badgeWidth=if(urdu)30.dp else if(large)28.dp else 24.dp
+        val badgeWidth=with(density) {
+            val size=if(large&&!urdu)9.sp else 7.sp
+            val font=if(urdu)Amiri else ApprovedBody
+            maxOf(if(urdu)30.dp else if(large)34.dp else 28.dp,
+                listOf("NOW","NEXT").maxOf { label ->
+                    measure.measure(L10n.word(s,label),TextStyle(fontFamily=font,fontWeight=FontWeight.Bold,fontSize=size),softWrap=false,maxLines=1).size.width.toDp()+8.dp
+                })
+        }
         val suffixSize=if(large&&(!gallery||wideCard))11.sp else 9.sp
         val raw=L10n.iso((r.clock+" "+r.suffix).trim())
         val clockText=buildAnnotatedString {

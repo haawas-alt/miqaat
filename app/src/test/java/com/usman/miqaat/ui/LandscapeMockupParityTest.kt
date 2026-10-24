@@ -64,6 +64,8 @@ class LandscapeMockupParityTest:ComposeSupport() {
                             if(scale>1.2f)rule.onNodeWithTag(tag,true).performScrollTo()
                             readable(tag)
                         }
+                        val info=galleryRowInfo(p,st,s)
+                        if(info.isNow||info.isNext)readable(if(t==AppTheme.PRAYER_GALLERY)if(info.isNow)"gallery-status-now"else"gallery-status-next"else if(info.isNow)"home-status-now"else"home-status-next")
                         rule.onNodeWithTag("landscape-row-time-${p.name}",true).fetchSemanticsNode().boundsInRoot.left
                     }
                     assertTrue("Prayer times need one common column at fontScale=$scale",starts.max()-starts.min()<1.1f)
