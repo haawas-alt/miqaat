@@ -27,7 +27,12 @@ for provenance but is no longer used by the export script.
 CI renders the approved baseline `bc2e2290cf8a8eac160b0d1e0f58d157d4729be0`
 and the candidate on the same runner using the same isolated capture test,
 then requires every existing phone
-landscape PNG to have identical decoded pixels. This covers all four themes, both languages,
+landscape PNG to have identical decoded pixels outside its non-text timeline Canvas.
+Native Robolectric draws showed 4–6 marker-edge pixels varying between unchanged
+renders. At most 16 pixels at a maximum 16/255 channel difference are permitted
+inside that Canvas only, with exactly unchanged Canvas bounds. Larger differences
+or any changed pixel in text, artwork or other controls fail. Reports distinguish
+pixel-exact captures from this bounded edge variance. This covers all four themes, both languages,
 normal/inset phone sizes and retained preference/quiet/iqamah cases. CI also runs
 the existing portrait/tablet/accessibility checks and new day/night portrait
 checks. Encrypted render artifacts permit private visual review. A successful
