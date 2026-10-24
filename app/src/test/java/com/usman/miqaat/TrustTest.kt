@@ -95,6 +95,12 @@ class TrustTest {
 
 /** Re-audit P0: automatic location refresh must never undo a time zone the user chose. */
 class ZoneRefreshTest {
+    @Test fun airportLocationCacheIsNotAcceptedAsCurrentAfterFlight() {
+        assertTrue(com.usman.miqaat.data.LocationRepo.cachedFixUsable(60_000L))
+        assertFalse(com.usman.miqaat.data.LocationRepo.cachedFixUsable(3*60_000L))
+        assertFalse(com.usman.miqaat.data.LocationRepo.cachedFixUsable(6*3600_000L))
+        assertFalse(com.usman.miqaat.data.LocationRepo.cachedFixUsable(-60_000L))
+    }
     @Test fun savedBeijingLocationDoesNotAcquireSydneyClocksAfterFlight() {
         val old=java.util.TimeZone.getDefault()
         try {
