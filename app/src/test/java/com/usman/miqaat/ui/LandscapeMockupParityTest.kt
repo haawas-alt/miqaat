@@ -70,6 +70,9 @@ class LandscapeMockupParityTest:ComposeSupport() {
                         val layouts=mutableListOf<TextLayoutResult>()
                         rule.onNodeWithTag("landscape-row-time-${p.name}",true).fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
                         sizes+=layouts.single().layoutInput.style.fontSize.value
+                        val captions=mutableListOf<TextLayoutResult>()
+                        rule.onNodeWithTag("landscape-row-relative-${p.name}",true).fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(captions)
+                        assertTrue("Prayer clock must remain primary above its caption",layouts.single().layoutInput.style.fontSize.value>=captions.single().layoutInput.style.fontSize.value*1.2f)
                         rule.onNodeWithTag("landscape-row-time-${p.name}",true).fetchSemanticsNode().boundsInRoot.left
                     }
                     assertTrue("Prayer times need one common column at fontScale=$scale",starts.max()-starts.min()<1.1f)
