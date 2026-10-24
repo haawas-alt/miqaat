@@ -77,8 +77,8 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
 @Composable
 internal fun OrnateLandscapeBand() {
     val short=LocalConfiguration.current.screenHeightDp<390
-    val clearance=8.dp
-    BoxWithConstraints(Modifier.fillMaxWidth().padding(vertical=1.dp).height(if(short)42.dp else 46.dp).testTag("kiswah-calligraphy-frame").background(Color(0xFF060605)),contentAlignment=Alignment.Center) {
+    val clearance=if(short)6.dp else 10.dp
+    BoxWithConstraints(Modifier.fillMaxWidth().padding(vertical=1.dp).height(if(short)42.dp else 50.dp).testTag("kiswah-calligraphy-frame").background(Color(0xFF060605)),contentAlignment=Alignment.Center) {
         val measure=rememberTextMeasurer()
         val density=LocalDensity.current
         val baseSize=if(short)16f else 20f

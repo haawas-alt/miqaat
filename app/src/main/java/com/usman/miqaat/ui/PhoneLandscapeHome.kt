@@ -57,7 +57,7 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
     Box(Modifier.fillMaxSize().clipToBounds().background(c.background).testTag("landscape-fit-board")) {
         LandscapeHomeArt(s,Modifier.matchParentSize())
         Box(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal=12.dp,vertical=if(s.theme==AppTheme.KISWAH)0.dp else 2.dp)) {
-            val reflow=s.iqamahEnabled||(urdu&&s.showRelative)
+            val reflow=s.iqamahEnabled||(urdu&&s.showRelative)||LocalDensity.current.fontScale>1.2f
             Column(Modifier.fillMaxSize()) {
               Column(Modifier.weight(1f).fillMaxWidth().then(if(reflow)Modifier.verticalScroll(rememberScrollState()).testTag("landscape-home-reflow")else Modifier)) {
                 LandscapeHomeHeader(state,s,a)
@@ -147,6 +147,22 @@ private fun FittedLandscapeDate(text:String,s:AppSettings,modifier:Modifier,tag:
         val fitted=(preferred*minOf(1f,available/natural.coerceAtLeast(1))).sp
         Text(text,Modifier.testTag(tag),fontFamily=font,fontSize=fitted,lineHeight=if(L10n.isUrdu(s))22.sp else 18.sp,
             color=quietPalette(s.theme).ink,textAlign=TextAlign.Center,maxLines=1,softWrap=false)
+    }
+}
+
+@Composable
+private fun FittedLandscapeLine(text:androidx.compose.ui.text.AnnotatedString,modifier:Modifier,font:androidx.compose.ui.text.font.FontFamily,size:TextUnit,line:TextUnit,color:Color,tag:String) {
+    val measure=rememberTextMeasurer();val density=LocalDensity.current
+    BoxWithConstraints(modifier) {
+        val available=with(density){maxWidth.toPx()}.toInt()-2
+        var low=size.value*.6f;var high=size.value
+        repeat(10) {
+            val trial=(low+high)/2
+            val w=measure.measure(text,TextStyle(fontFamily=font,fontSize=trial.sp,letterSpacing=0.sp),softWrap=false,maxLines=1).size.width
+            if(w<=available)low=trial else high=trial
+        }
+        Text(text,Modifier.testTag(tag),fontFamily=font,fontSize=low.sp,letterSpacing=0.sp,
+            lineHeight=(line.value*(low/size.value)).sp,color=color,maxLines=1,softWrap=false)
     }
 }
 
@@ -314,13 +330,14 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
                 Column(Modifier.weight(1f).padding(start=nameGap),verticalArrangement=Arrangement.Top) {
                     // Landscape keeps the authored large clock even when relative details are enabled.
                     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(2.dp)) {
-                        Text(clockText,
-                            Modifier.weight(1f,fill=false).testTag("landscape-row-time-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,
-                            fontSize=timeSize,fontWeight=FontWeight.Normal,letterSpacing=0.sp,lineHeight=if(urdu)25.sp else if(large&&!gallery)28.sp else 22.sp,color=c.ink,maxLines=1)
+                        FittedLandscapeLine(clockText,Modifier.weight(1f,fill=false),if(urdu)Amiri else serif,timeSize,
+                            if(urdu)25.sp else if(large&&!gallery)28.sp else 22.sp,c.ink,"landscape-row-time-${r.prayer.name}")
                         if(r.isNow||r.isNext)badge()
                     }
-                    if(s.showRelative)Text(r.relative,Modifier.testTag("landscape-row-relative-${r.prayer.name}"),fontFamily=captionFont,fontSize=if(large&&!urdu)10.sp else 9.sp,letterSpacing=0.sp,lineHeight=if(urdu)18.sp else if(large)13.sp else 12.sp,color=c.secondary)
-                    if(detailText.isNotEmpty())Text(detailText,Modifier.testTag("landscape-row-detail-${r.prayer.name}"),fontFamily=captionFont,fontSize=detailSize,fontWeight=FontWeight.Normal,letterSpacing=0.sp,lineHeight=if(urdu)16.sp else if(large)14.sp else 12.sp,color=c.secondary)
+                    if(s.showRelative)FittedLandscapeLine(androidx.compose.ui.text.AnnotatedString(r.relative),Modifier.fillMaxWidth(),captionFont,
+                        if(large&&!urdu)10.sp else 9.sp,if(urdu)18.sp else if(large)13.sp else 12.sp,c.secondary,"landscape-row-relative-${r.prayer.name}")
+                    if(detailText.isNotEmpty())FittedLandscapeLine(androidx.compose.ui.text.AnnotatedString(detailText),Modifier.fillMaxWidth(),captionFont,
+                        detailSize,if(urdu)16.sp else if(large)14.sp else 12.sp,c.secondary,"landscape-row-detail-${r.prayer.name}")
                 }
             }
             Row(Modifier.width(48.dp).fillMaxHeight().heightIn(min=48.dp).testTag("landscape-info-${r.prayer.name}").clickable(role=Role.Button,onClick=onWhy)
