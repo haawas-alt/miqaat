@@ -47,7 +47,7 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
     Box(modifier.background(c.background)) {
         if(s.artTheme!=ArtTheme.MINIMAL) {
             val art=when(s.theme) {
-                AppTheme.MIQAAT->R.drawable.home_miqaat_v175
+                AppTheme.MIQAAT->R.drawable.home_miqaat_v176
                 AppTheme.KISWAH->R.drawable.home_kiswah_v172
                 AppTheme.CELESTIAL_MERIDIAN->R.drawable.home_celestial_v172
                 AppTheme.PRAYER_GALLERY->R.drawable.home_gallery_v176
