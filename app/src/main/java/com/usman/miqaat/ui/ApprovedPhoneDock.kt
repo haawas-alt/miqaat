@@ -21,6 +21,7 @@ import com.usman.miqaat.data.*
 /** One destination per action, with live context in place of duplicated bordered chips. */
 @Composable
 internal fun ApprovedPhoneDock(state: PrayerState, s: AppSettings, a: HomeActions, links: List<Door>, tk: ThemeTokens) {
+    val polished = phonePortraitPolish(s)
     val qibla = if (s.showQibla) links.firstOrNull() else null // doors() always adds Qibla first.
     val adhkar = links.firstOrNull { it.kind == DoorKind.ADHKAR }
     val mode = listOf(AdhkarMode.MORNING, AdhkarMode.EVENING, AdhkarMode.POST).firstOrNull { it in adhkarModes(state, s) }
@@ -62,9 +63,9 @@ internal fun ApprovedPhoneDock(state: PrayerState, s: AppSettings, a: HomeAction
             PhoneDockItem(Icons.Outlined.AutoStories,L10n.t("Adhkar","اذکار"),period,adhkar?.label ?: L10n.t("Adhkar","اذکار"),
                 "adhkar",s,tk,Modifier.weight(1f),{a.onOpenAdhkar(mode ?: AdhkarMode.MORNING)})
             if(s.kidsMode) PhoneDockItem(Icons.Outlined.MenuBook,L10n.t("Learn","سیکھیں"),L10n.t("Salah","نماز"),
-                L10n.t("Learn Salah", "نماز سیکھیں") + ", " + L10n.t("Salah", "نماز"),"learn",s,tk,Modifier.weight(1f),a.onOpenLearn)
+                if (polished) Str[com.usman.miqaat.R.string.s_learn_salah] else L10n.t("Learn Salah", "نماز سیکھیں") + ", " + L10n.t("Salah", "نماز"),"learn",s,tk,Modifier.weight(1f),a.onOpenLearn)
             PhoneDockItem(Icons.Outlined.CalendarMonth,L10n.t("Timetable","اوقات"),L10n.t("Monthly","ماہانہ"),
-                L10n.t("Timetable", "اوقات") + ", " + L10n.t("Monthly", "ماہانہ"),"timetable",s,tk,Modifier.weight(1f),a.onOpenTimetable)
+                if (polished) Str[com.usman.miqaat.R.string.s_monthly_timetable] else L10n.t("Timetable", "اوقات") + ", " + L10n.t("Monthly", "ماہانہ"),"timetable",s,tk,Modifier.weight(1f),a.onOpenTimetable)
         }
     }
 }

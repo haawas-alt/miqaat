@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -50,6 +51,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
     val gallery = s.theme == AppTheme.PRAYER_GALLERY
     val kiswah = s.theme == AppTheme.KISWAH
     val celestial = s.theme == AppTheme.CELESTIAL_MERIDIAN
+    val portraitPolish = phonePortraitPolish(s)
     var why by remember { mutableStateOf<Prayer?>(null) }
     why?.let { p ->
         val day = if (p == state.next && state.nextTime.toLocalDate().isAfter(state.today.date))
@@ -68,7 +70,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
             if (kiswah) {
                 Weave(Modifier.fillMaxSize())
                 if (s.artTheme == ArtTheme.GEOMETRIC) GirihLattice(Modifier.fillMaxSize(), Kiswah.thread, .065f, 100f)
-            } else if (celestial && s.artTheme != ArtTheme.MINIMAL) {
+            } else if (celestial && s.artTheme != ArtTheme.MINIMAL && !portraitPolish) {
                 Image(painterResource(R.drawable.celestial_landscape_approved), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
                 Box(Modifier.fillMaxSize().background(Color(0xFF00152C).copy(alpha = .18f)))
             } else if (!gallery) {
@@ -77,7 +79,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
             }
             Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().displayCutoutPadding()
                 .padding(horizontal = if (wide) 24.dp else 12.dp).then(if (reflow) Modifier.verticalScroll(rememberScrollState()) else Modifier)) {
-                ApprovedHeader(state, s, a, tk, wide)
+                ApprovedHeader(state, s, a, tk, wide, portraitPolish)
                 if (kiswah) KiswahBand(wide)
                 if (wide && gallery) {
                     Box(Modifier.fillMaxWidth().weight(if (compactWide) .40f else .34f).testTag("home-hero")) {
@@ -112,6 +114,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
                     // On 360x800 with system insets this yields a compact hero, rather than shrinking the entire screen.
                     Box(Modifier.then(if (reflow) Modifier.height(if (gallery) 260.dp else 290.dp) else Modifier.weight(1f)).fillMaxWidth().testTag("home-hero")) {
                         if (gallery) GalleryApprovedHero(state, s, a, tk, hero, Modifier.fillMaxSize(), false) { why = hero.prayer }
+                        else if (portraitPolish) PortraitPrayerHero(state, s, tk, hero, Modifier.fillMaxSize()) { why = hero.prayer }
                         else DarkApprovedHero(state, s, tk, hero, Modifier.fillMaxSize(), tablet) { why = hero.prayer }
                     }
                     ApprovedTimeline(state, s, tk, Modifier.fillMaxWidth().height(if (tablet) 56.dp else 48.dp))
@@ -123,7 +126,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
                     ApprovedContext(links, s, tk, wide, Modifier.fillMaxWidth().testTag("gallery-phone-footer"))
                     if (!wide) ApprovedNavigation(s, a, tk)
                 }
-                Text(Str[R.string.s_theme_signature], Modifier.fillMaxWidth().padding(bottom = 2.dp),
+                if (!portraitPolish) Text(Str[R.string.s_theme_signature], Modifier.fillMaxWidth().padding(bottom = 2.dp),
                     fontFamily = approvedUi(s), fontSize = 9.sp, color = tk.contentSecondary, textAlign = TextAlign.End, maxLines = 1)
             }
             if (s.nightDim && state.period == Prayer.ISHA && !state.justPassed)
@@ -133,7 +136,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
 }
 
 @Composable
-private fun ApprovedHeader(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, wide: Boolean) {
+private fun ApprovedHeader(state: PrayerState, s: AppSettings, a: HomeActions, tk: ThemeTokens, wide: Boolean, portraitPolish: Boolean = false) {
     val F = approvedUi(s)
     val dates: @Composable () -> Unit = {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -151,9 +154,9 @@ private fun ApprovedHeader(state: PrayerState, s: AppSettings, a: HomeActions, t
                 Text(L10n.place(s.locationName), Modifier.padding(start = 5.dp), fontFamily = F, fontSize = if (wide) 19.sp else 15.sp, color = tk.contentPrimary, maxLines = 1)
             }
             if (wide) { dates(); Spacer(Modifier.weight(1f)) }
-            if (s.kidsMode) ApprovedNav(Icons.Outlined.MenuBook, Str[R.string.s_learn_salah], tk, a.onOpenLearn, wide)
+            if (s.kidsMode && !portraitPolish) ApprovedNav(Icons.Outlined.MenuBook, Str[R.string.s_learn_salah], tk, a.onOpenLearn, wide)
             // Timetable also remains in the header for discoverability and existing accessibility contracts.
-            ApprovedNav(Icons.Outlined.CalendarMonth, Str[R.string.s_monthly_timetable], tk, a.onOpenTimetable, wide)
+            if (!portraitPolish) ApprovedNav(Icons.Outlined.CalendarMonth, Str[R.string.s_monthly_timetable], tk, a.onOpenTimetable, wide)
             ApprovedNav(Icons.Outlined.Settings, Str[R.string.s_settings], tk, a.onOpenSettings, wide)
         }
         if (!wide) Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { dates() }
@@ -239,7 +242,7 @@ private fun ApprovedSolarArc(state: PrayerState, modifier: Modifier) {
 }
 
 @Composable
-private fun ApprovedSeasonal(state: PrayerState, s: AppSettings, tk: ThemeTokens) {
+internal fun ApprovedSeasonal(state: PrayerState, s: AppSettings, tk: ThemeTokens) {
     fastProgress(state, s)?.let { (progress, label) ->
         LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth(.7f).height(3.dp), color = tk.primary, trackColor = tk.divider)
         Text(label, fontFamily = approvedUi(s), fontSize = 12.sp, color = tk.contentPrimary)
@@ -315,8 +318,9 @@ private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActio
 
 @Composable
 private fun ApprovedList(state: PrayerState, s: AppSettings, tk: ThemeTokens, a: HomeActions, modifier: Modifier, onWhy: (Prayer) -> Unit) {
-    Column(modifier.clip(RoundedCornerShape(12.dp)).background(if (tk.dark) Color(0xFF00162D).copy(alpha = if (s.theme == AppTheme.KISWAH) .12f else .82f) else tk.background.copy(alpha = .8f))
-        .border(1.dp, tk.outline, RoundedCornerShape(12.dp)).testTag("home-prayers")) {
+    val polished = phonePortraitPolish(s)
+    Column(modifier.clip(RoundedCornerShape(12.dp)).background(if (polished) portraitPrayerSurface(s) else if (tk.dark) Color(0xFF00162D).copy(alpha = if (s.theme == AppTheme.KISWAH) .12f else .82f) else tk.background.copy(alpha = .8f))
+        .border(if (polished) .5.dp else 1.dp, if (polished) tk.outline.copy(alpha = .45f) else tk.outline, RoundedCornerShape(12.dp)).testTag("home-prayers")) {
         listedPrayers(s).forEach { p ->
             Box(Modifier.weight(1f).fillMaxWidth().testTag("gallery-fit-row-${p.name}")) {
                 ApprovedRow(galleryRowInfo(p, state, s), s, tk, a, Modifier.fillMaxSize(), s.theme == AppTheme.PRAYER_GALLERY, false) { onWhy(p) }
@@ -331,8 +335,9 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
     val now = r.isNow
     val next = r.isNext && !now
     val selected = now || next
-    val marker = if (now) (if (tk.dark) Color(0xFF45DAE3) else Color(0xFF087C77)) else if (tk.dark) Color(0xFFFFCC63) else tk.accent
-    val fill = if (now) (if (tk.dark) Color(0xFF00414C) else Color(0xFFEAF7F1)) else if (next) (if (tk.dark) Color(0xFF4B381C) else Color(0xFFFFEBDD)) else Color.Transparent
+    val polished = phonePortraitPolish(s)
+    val marker = if (polished) (if (now) tk.primary else tk.contentPrimary) else if (now) (if (tk.dark) Color(0xFF45DAE3) else Color(0xFF087C77)) else if (tk.dark) Color(0xFFFFCC63) else tk.accent
+    val fill = if (polished) (if (now) tk.primary.copy(alpha = .13f) else if (next) tk.primary.copy(alpha = .055f) else Color.Transparent) else if (now) (if (tk.dark) Color(0xFF00414C) else Color(0xFFEAF7F1)) else if (next) (if (tk.dark) Color(0xFF4B381C) else Color(0xFFFFEBDD)) else Color.Transparent
     val urdu = L10n.isUrdu(s)
     val configuration = androidx.compose.ui.platform.LocalConfiguration.current
     val large = configuration.screenWidthDp >= 600
@@ -340,14 +345,17 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
     val smallPhone = configuration.screenWidthDp < 380
     val textStyle = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false))
     Column(modifier.clip(RoundedCornerShape(if (tile) 12.dp else 0.dp)).background(fill)
-        .border(if (selected) 1.dp else .5.dp, if (selected) marker.copy(alpha = .75f) else tk.divider, RoundedCornerShape(if (tile) 12.dp else 0.dp))
+        .then(if (polished) Modifier.drawBehind {
+            if (r.prayer != Prayer.FAJR) drawLine(tk.divider.copy(alpha = .55f), Offset(16.dp.toPx(), 0f), Offset(size.width - 16.dp.toPx(), 0f), .5.dp.toPx())
+        } else Modifier.border(if (selected) 1.dp else .5.dp, if (selected) marker.copy(alpha = .75f) else tk.divider, RoundedCornerShape(if (tile) 12.dp else 0.dp)))
         .combinedClickable(onClick = a.onToggleRelative, onLongClick = onWhy, role = Role.Button)
         .semantics(mergeDescendants = true) { contentDescription = r.spoken }
         .testTag("approved-row-${r.prayer.name}")) {
         if (tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.fillMaxWidth().weight(if (compactTablet) .36f else .44f))
         Row(Modifier.fillMaxWidth().then(if (tile) Modifier.weight(if (compactTablet) .64f else .56f) else Modifier.fillMaxHeight()), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.width(if (illustrated) 3.dp else 18.dp).fillMaxHeight(), contentAlignment = Alignment.Center) {
-                if (illustrated) Box(Modifier.fillMaxHeight().width(3.dp).background(if (selected) marker else Color.Transparent))
+            Box(Modifier.width(if (polished) 4.dp else if (illustrated) 3.dp else 18.dp).fillMaxHeight(), contentAlignment = Alignment.Center) {
+                if (polished) Box(Modifier.height(24.dp).width(2.dp).background(if (selected) tk.primary.copy(alpha = if (now) 1f else .4f) else Color.Transparent, RoundedCornerShape(1.dp)))
+                else if (illustrated) Box(Modifier.fillMaxHeight().width(3.dp).background(if (selected) marker else Color.Transparent))
                 else Canvas(Modifier.fillMaxSize()) {
                     val x = size.width/2; val y = size.height/2
                     drawLine(tk.primary.copy(alpha = .55f), Offset(x,0f), Offset(x,size.height), 1.dp.toPx())
