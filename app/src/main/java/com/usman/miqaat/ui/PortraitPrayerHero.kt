@@ -80,7 +80,7 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
             BoxWithConstraints(Modifier.weight(1f, fill = false).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 val textHeight = maxHeight.value / fontScale
                 val compact = textHeight < 172f
-                val micro = textHeight < (if (kiswah) 122f else 130f)
+                val micro = textHeight < (if (kiswah) 118f else 130f)
                 val tiny = textHeight < 72f
                 val caption: @Composable () -> Unit = {
                     Column(horizontalAlignment = Alignment.Start) {
@@ -96,7 +96,7 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                     }
                 }
                 val clock: @Composable () -> Unit = {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                    Row(Modifier.testTag("portrait-hero-time"), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                         Text(hero.clock, fontFamily = ApprovedDisplay, fontWeight = FontWeight.Medium,
                         fontSize = if (tiny) 32.sp else if (micro) 42.sp else if (compact) 52.sp else 68.sp,
                         lineHeight = if (tiny) 44.sp else if (micro) 58.sp else if (compact) 70.sp else 92.sp,
@@ -108,7 +108,7 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                     }
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(if (micro) 0.dp else if (compact) (-10).dp else (-14).dp)) {
+                    verticalArrangement = Arrangement.spacedBy(if (micro) 0.dp else (-14).dp)) {
                     if (micro) {
                         // A tightly grouped fallback for short screens with an active reliability notice.
                         Row(Modifier.widthIn(max = 248.dp).fillMaxWidth().testTag("portrait-prayer-lockup"),

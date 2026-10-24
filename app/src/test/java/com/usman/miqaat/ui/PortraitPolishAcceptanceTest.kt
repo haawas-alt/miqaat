@@ -64,9 +64,15 @@ class PortraitPolishAcceptanceTest : ComposeSupport() {
                         .also { it.parentFile?.mkdirs() }.outputStream().use { b.compress(Bitmap.CompressFormat.PNG, 100, it) }
                     b.recycle()
                 }
+                File("build/portrait-polish/${theme.name}/review-${lang.name}-${if(small)360 else 411}.txt")
+                    .writeText(rule.onRoot(true).printToString(100))
                 val clock = rule.onNodeWithTag("approved-hero-clock", true).fetchSemanticsNode().boundsInRoot
                 val status = rule.onNodeWithTag("portrait-hero-status", true).fetchSemanticsNode().boundsInRoot
                 val density = app.resources.displayMetrics.density
+                val title = rule.onNodeWithTag("portrait-prayer-lockup", true).fetchSemanticsNode().boundsInRoot
+                val time = rule.onNodeWithTag("portrait-hero-time", true).fetchSemanticsNode().boundsInRoot
+                assertTrue("Configured portrait must centre the time below the name: $title / $time",
+                    time.top >= title.bottom-16*density && kotlin.math.abs(time.center.x-title.center.x) <= density)
                 assertTrue("Countdown detached from clock: $clock / $status", status.top-clock.bottom <= 12*density)
                 val action = rule.onNodeWithTag("portrait-hero-details", true).fetchSemanticsNode().boundsInRoot
                 assertTrue("Details action detached from countdown", action.top-status.bottom <= 8*density)
