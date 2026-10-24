@@ -1,5 +1,10 @@
 package com.usman.miqaat.ui
 
+import android.Manifest
+import android.app.NotificationManager
+import android.content.pm.PackageManager
+import org.robolectric.Shadows.shadowOf
+import org.robolectric.shadows.ShadowAlarmManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.view.View
@@ -35,11 +40,19 @@ class PortraitPolishAcceptanceTest : ComposeSupport() {
                 setupDone = true, showRelative = true, nightDim = false)
             app.settings.update { s }
             val state = PrayerEngine.state(s, ZonedDateTime.of(2026, 10, 25, 8, 38, 0, 0, s.zone()))
+            val manager = app.getSystemService(NotificationManager::class.java)
+            val exactBefore = Reliability.exactAlarmsGranted(app)
+            val notificationsBefore = manager.areNotificationsEnabled()
+            val permissionBefore = app.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
             try {
+                shadowOf(app).grantPermissions(Manifest.permission.POST_NOTIFICATIONS)
+                ShadowAlarmManager.setCanScheduleExactAlarms(true)
+                shadowOf(manager).setNotificationsEnabled(true)
+                assertTrue("Morning preview must match configured alerts", Reliability.allGood(app))
                 show(Dev.PHONE_PORTRAIT, theme, rtl = lang == Language.UR, language = lang,
                     qualifiers = if (small) "w360dp-h800dp-port-xhdpi" else null) {
                     Box(Modifier.padding(top = 12.dp, bottom = 20.dp)) {
-                        HomeRouter(state, s, HomeActions({}, {}, {}, {}, {}, {}, {}, true, {}, {}), false, {})
+                        HomeRouter(state, s, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {})
                     }
                 }
                 rule.mainClock.advanceTimeBy(32); rule.waitForIdle()
@@ -58,7 +71,12 @@ class PortraitPolishAcceptanceTest : ComposeSupport() {
                 val action = rule.onNodeWithTag("portrait-hero-details", true).fetchSemanticsNode().boundsInRoot
                 assertTrue("Details action detached from countdown", action.top-status.bottom <= 8*density)
                 assertTrue("Details target below 48dp", action.height >= 48*density-.1f)
-            } finally { scenario.close() }
+            } finally {
+                scenario.close()
+                ShadowAlarmManager.setCanScheduleExactAlarms(exactBefore)
+                shadowOf(manager).setNotificationsEnabled(notificationsBefore)
+                if (!permissionBefore) shadowOf(app).denyPermissions(Manifest.permission.POST_NOTIFICATIONS)
+            }
         }
     }
 

@@ -69,18 +69,18 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                     listOf(Color(0xFF020A15).copy(alpha = if (kiswah) .16f else .48f), Color.Transparent),
                     center = androidx.compose.ui.geometry.Offset(size.width*.5f, size.height*.38f),
                     radius = size.width*.42f))
-                drawRect(Brush.verticalGradient(0f to tk.background.copy(alpha = .24f),
-                    .16f to Color.Transparent, .76f to Color.Transparent, 1f to tk.background))
-                drawRect(Brush.horizontalGradient(0f to tk.background.copy(alpha = .32f),
-                    .12f to Color.Transparent, .88f to Color.Transparent, 1f to tk.background.copy(alpha = .32f)))
+                drawRect(Brush.verticalGradient(0f to tk.background,
+                    .06f to Color.Transparent, .76f to Color.Transparent, 1f to tk.background))
+                drawRect(Brush.horizontalGradient(0f to tk.background,
+                    .06f to Color.Transparent, .94f to Color.Transparent, 1f to tk.background))
             }
         }
         Column(Modifier.fillMaxSize().padding(horizontal = 10.dp, vertical = 4.dp).testTag("portrait-hero-content"),
             horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             BoxWithConstraints(Modifier.weight(1f, fill = false).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 val textHeight = maxHeight.value / fontScale
-                val compact = textHeight < 176f
-                val micro = textHeight < (if (kiswah) 118f else 126f)
+                val compact = textHeight < 172f
+                val micro = textHeight < (if (kiswah) 122f else 130f)
                 val tiny = textHeight < 72f
                 val caption: @Composable () -> Unit = {
                     Column(horizontalAlignment = Alignment.Start) {
@@ -107,7 +107,8 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                         color = tk.contentPrimary, maxLines = 1, style = nativeStyle)
                     }
                 }
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(if (micro) 0.dp else if (compact) (-10).dp else (-14).dp)) {
                     if (micro) {
                         // A tightly grouped fallback for short screens with an active reliability notice.
                         Row(Modifier.widthIn(max = 248.dp).fillMaxWidth().testTag("portrait-prayer-lockup"),
@@ -121,13 +122,19 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                             clock()
                         }
                     } else {
-                        Row(Modifier.testTag("portrait-prayer-lockup"), verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally)) {
+                        Column(Modifier.testTag("portrait-prayer-lockup"), horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy((-4).dp)) {
+                            Text(hero.special ?: hero.kickerLabel, fontFamily = body,
+                                fontSize = if (compact) 8.sp else 9.sp, lineHeight = if (urdu) 18.sp else 13.sp,
+                                letterSpacing = if (urdu) 0.sp else 1.6.sp, color = tk.primary,
+                                maxLines = 1, style = nativeStyle)
                             Text(hero.arabic, fontFamily = if (kiswah) ReemKufi else Amiri,
-                            fontSize = if (compact) 26.sp else 38.sp,
-                            lineHeight = if (compact) (if (kiswah) 44.sp else 50.sp) else 70.sp,
-                            color = tk.arabicText, style = nativeStyle, modifier = Modifier.testTag("approved-hero-arabic"))
-                            caption()
+                                fontSize = if (compact) 26.sp else 38.sp,
+                                lineHeight = if (compact) (if (kiswah) 44.sp else 50.sp) else 70.sp,
+                                color = tk.arabicText, style = nativeStyle, modifier = Modifier.testTag("approved-hero-arabic"))
+                            if (!urdu) Text(hero.label.uppercase(), fontFamily = Cinzel,
+                                fontSize = if (compact) 9.sp else 10.sp, lineHeight = if (compact) 12.sp else 14.sp,
+                                letterSpacing = 2.sp, color = tk.contentSecondary, maxLines = 1, style = nativeStyle)
                         }
                         clock()
                     }
@@ -145,7 +152,7 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                 .clip(RoundedCornerShape(24.dp)).clickable(role = Role.Button, onClick = onDetails)
                 .testTag("portrait-hero-details"), contentAlignment = Alignment.Center) {
                 Row(Modifier.heightIn(min = 34.dp).clip(RoundedCornerShape(18.dp))
-                    .background(tk.background.copy(alpha = .72f))
+                    .background(tk.background.copy(alpha = .94f))
                     .border(.75.dp, tk.primary.copy(alpha = .72f), RoundedCornerShape(18.dp))
                     .padding(horizontal = 14.dp, vertical = 3.dp), verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(7.dp)) {
