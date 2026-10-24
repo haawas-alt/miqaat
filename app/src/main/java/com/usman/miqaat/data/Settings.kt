@@ -159,7 +159,21 @@ data class AppSettings(
     val setupDone: Boolean = false
 ) {
     /** Zone the prayer times are shown in: the chosen place's zone, else the device's. */
-    fun zone(): java.time.ZoneId = zoneId?.let { runCatching { java.time.ZoneId.of(it) }.getOrNull() } ?: java.time.ZoneId.systemDefault()
+    fun zone(): java.time.ZoneId {
+        zoneId?.let { id -> runCatching { java.time.ZoneId.of(id) }.getOrNull()?.let { return it } }
+        val device=java.time.ZoneId.systemDefault()
+        // A stored automatic location must not silently change its prayer clocks when
+        // the handset changes timezone in flight. Only use a nearby known city, never
+        // infer a legal timezone from longitude alone. Explicit manual zones still win.
+        if(locationSet&&!zoneManual) {
+            val near=LocationRepo.presets.filter { it.zone!=null }.minByOrNull {
+                PrayerEngine.distanceKm(latitude,longitude,it.lat,it.lng)
+            }
+            if(near!=null&&PrayerEngine.distanceKm(latitude,longitude,near.lat,near.lng)<=150.0)
+                return java.time.ZoneId.of(near.zone!!)
+        }
+        return device
+    }
 
     fun calculationParameters(): CalculationParameters {
         val p = method.parameters()
@@ -301,3 +315,4 @@ class SettingsStore(context: Context) {
         }.apply()
     }
 }
+

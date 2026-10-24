@@ -95,6 +95,18 @@ class TrustTest {
 
 /** Re-audit P0: automatic location refresh must never undo a time zone the user chose. */
 class ZoneRefreshTest {
+    @Test fun savedBeijingLocationDoesNotAcquireSydneyClocksAfterFlight() {
+        val old=java.util.TimeZone.getDefault()
+        try {
+            java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone("Australia/Sydney"))
+            val s=AppSettings(latitude=40.12,longitude=116.65,locationName="Shun Yi Qu, Bei Jing Shi",locationSet=true,zoneId=null)
+            assertEquals("Asia/Shanghai",s.zone().id)
+            val day=PrayerEngine.times(s,java.time.LocalDate.of(2026,10,24))
+            assertTrue(day[com.usman.miqaat.data.Prayer.SUNRISE].hour in 6..7)
+            assertTrue(day[com.usman.miqaat.data.Prayer.MAGHRIB].hour in 17..18)
+            assertEquals("Australia/Sydney",s.copy(zoneId="Australia/Sydney",zoneManual=true).zone().id)
+        } finally { java.util.TimeZone.setDefault(old) }
+    }
     private val places = listOf(
         com.usman.miqaat.data.Place("Sydney, NSW", -33.87, 151.21, "Australia/Sydney"),
         com.usman.miqaat.data.Place("London, UK", 51.51, -0.13, "Europe/London"),
@@ -160,3 +172,4 @@ class ZoneRefreshTest {
         assertFalse(Setup.applyFix(picked, 10.1, -30.1, "Sea", sydney, places, jan).settings.zoneNeedsReview)
     }
 }
+

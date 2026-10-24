@@ -21,6 +21,7 @@ object LocationRepo {
 
     /** Offline fallback list so the app works with no network and no GPS. */
     val presets = listOf(
+        Place("Beijing, China", 39.9042, 116.4074, "Asia/Shanghai"),
         Place("Sydney, NSW", -33.87, 151.21, "Australia/Sydney"),
         Place("Lakemba, NSW", -33.92, 151.08, "Australia/Sydney"),
         Place("Parramatta, NSW", -33.82, 151.00, "Australia/Sydney"),
@@ -162,3 +163,4 @@ object LocationRepo {
         else -> state
     }
 }
+

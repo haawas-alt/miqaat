@@ -116,10 +116,10 @@ private fun LandscapeHomeHeader(state:PrayerState,s:AppSettings,a:HomeActions) {
                 Text(place,Modifier.weight(1f).padding(start=5.dp).testTag("landscape-location"),fontFamily=f,fontSize=placeSize,lineHeight=if(urdu)22.sp else 20.sp,color=c.ink,maxLines=1,overflow=TextOverflow.Ellipsis)
             }
             Row(Modifier.weight(if(longPlace).44f else .49f),horizontalArrangement=Arrangement.Center,verticalAlignment=Alignment.CenterVertically) {
-                Text(L10n.dateShort(s,state.now)+" "+state.now.year,Modifier.weight(1f).testTag("landscape-date"),fontFamily=f,fontSize=if(!urdu&&!compact)13.sp else 10.sp,lineHeight=if(urdu)20.sp else if(!compact)18.sp else 15.sp,color=c.ink,textAlign=TextAlign.Center)
+                FittedLandscapeDate(L10n.dateShort(s,state.now)+" "+state.now.year,s,Modifier.weight(1f),"landscape-date",if(!urdu&&!compact)13f else 10f)
                 if(s.showHijri) {
                     Box(Modifier.padding(horizontal=5.dp).width(.5.dp).height(16.dp).background(c.accent.copy(alpha=.45f)))
-                    Text(galleryHijriLine(s,PrayerEngine.hijri(state.now.toLocalDate(),s.hijriOffsetDays)),Modifier.weight(1.35f).testTag("landscape-hijri"),fontFamily=f,fontSize=if(!urdu&&!compact)13.sp else 10.sp,lineHeight=if(urdu)20.sp else if(!compact)18.sp else 15.sp,color=c.ink,textAlign=TextAlign.Center)
+                    FittedLandscapeDate(galleryHijriLine(s,PrayerEngine.hijri(state.now.toLocalDate(),s.hijriOffsetDays)),s,Modifier.weight(1.35f),"landscape-hijri",if(!urdu&&!compact)13f else 10f)
                 }
             }
             Row(Modifier.weight(.21f).padding(horizontal=4.dp).clip(RoundedCornerShape(16.dp)).background(c.panel)
@@ -134,6 +134,19 @@ private fun LandscapeHomeHeader(state:PrayerState,s:AppSettings,a:HomeActions) {
             PhoneHomeNav(Icons.Outlined.Settings,Str[R.string.s_settings],Str[R.string.s_theme_home_nav_settings],s,a.onOpenSettings,navWidth)
             }
         }
+    }
+}
+
+@Composable
+private fun FittedLandscapeDate(text:String,s:AppSettings,modifier:Modifier,tag:String,preferred:Float) {
+    val font=if(L10n.isUrdu(s))Amiri else androidx.compose.ui.text.font.FontFamily.Serif
+    val measure=rememberTextMeasurer();val density=LocalDensity.current
+    BoxWithConstraints(modifier,contentAlignment=Alignment.Center) {
+        val natural=measure.measure(text,TextStyle(fontFamily=font,fontSize=preferred.sp),softWrap=false,maxLines=1).size.width
+        val available=with(density){maxWidth.toPx()}
+        val fitted=(preferred*minOf(1f,available/natural.coerceAtLeast(1))).sp
+        Text(text,Modifier.testTag(tag),fontFamily=font,fontSize=fitted,lineHeight=if(L10n.isUrdu(s))22.sp else 18.sp,
+            color=quietPalette(s.theme).ink,textAlign=TextAlign.Center,maxLines=1,softWrap=false)
     }
 }
 
@@ -231,14 +244,14 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         r.isNext->if(gallery)Color(0xFFFDF1E3)else Color(0xFF65491D).copy(alpha=.85f)
         else->if(gallery)Color(0xFFF8F5EC).copy(alpha=.85f)else if(s.theme==AppTheme.KISWAH)Color(0xFF090909).copy(alpha=.8f)else Color(0xFF03162C).copy(alpha=.65f)}
     val paint=if(gallery)Brush.horizontalGradient(listOf(fill,fill.copy(alpha=.94f))) else when {
-        r.isNow&&s.theme==AppTheme.CELESTIAL_MERIDIAN->Brush.horizontalGradient(listOf(Color(0xFF6B8C86).copy(alpha=.70f),Color(0xFF3F5455).copy(alpha=.62f)))
+        r.isNow&&s.theme==AppTheme.CELESTIAL_MERIDIAN->Brush.horizontalGradient(listOf(Color(0xFF07505A).copy(alpha=.94f),Color(0xFF032E37).copy(alpha=.90f)))
         r.isNow&&s.theme==AppTheme.KISWAH->Brush.horizontalGradient(listOf(Color(0xFF07505A).copy(alpha=.70f),Color(0xFF032E37).copy(alpha=.62f)))
         r.isNow->Brush.horizontalGradient(listOf(Color(0xFF074646).copy(alpha=.70f),Color(0xFF03262A).copy(alpha=.62f)))
         r.isNext&&s.theme==AppTheme.KISWAH->Brush.horizontalGradient(listOf(Color(0xFF9F732B).copy(alpha=.72f),Color(0xFF4F351B).copy(alpha=.68f)))
         r.isNext->Brush.horizontalGradient(listOf(Color(0xFF76501D).copy(alpha=.63f),Color(0xFF38220C).copy(alpha=.72f)))
         s.theme==AppTheme.KISWAH->Brush.horizontalGradient(listOf(Color(0xFF090909).copy(alpha=.82f),Color(0xFF10100F).copy(alpha=.58f)))
-        s.theme==AppTheme.CELESTIAL_MERIDIAN->Brush.horizontalGradient(listOf(Color(0xFF304654).copy(alpha=.70f),Color(0xFF293844).copy(alpha=.46f)))
-        else->Brush.horizontalGradient(listOf(Color(0xFF041A34).copy(alpha=.70f),Color(0xFF03142A).copy(alpha=.46f)))
+        s.theme==AppTheme.CELESTIAL_MERIDIAN->Brush.horizontalGradient(listOf(Color(0xFF061A30).copy(alpha=.94f),Color(0xFF071A30).copy(alpha=.88f)))
+        else->Brush.horizontalGradient(listOf(Color(0xFF041A34).copy(alpha=.92f),Color(0xFF03142A).copy(alpha=.86f)))
     }
     BoxWithConstraints(modifier.heightIn(min=48.dp)) {
         val tight=maxWidth<260.dp
@@ -264,22 +277,18 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
             if(r.suffix.isNotBlank()){val start=raw.indexOf(r.suffix);if(start>=0)addStyle(SpanStyle(fontSize=suffixSize,baselineShift=BaselineShift(.15f)),start,start+r.suffix.length)}
         }
         val serif=androidx.compose.ui.text.font.FontFamily.Serif
-        val labelWidth=if(large&&!urdu)with(density) {
-            maxOf(measure.measure(r.label,TextStyle(fontFamily=serif,fontSize=labelSize)).size.width.toDp(),
-                measure.measure(r.arabic,TextStyle(fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=arabicSize)).size.width.toDp(),
-                if(gallery)42.dp else 50.dp)+1.dp
-        } else if(urdu)58.dp else if(tight)50.dp else 54.dp
+        // One shared label column for every prayer, not six content-dependent offsets.
+        val labelWidth=with(density) {
+            listedPrayers(s).maxOf { p ->
+                val label=if(p==Prayer.DHUHR&&s.jumuahEnabled)L10n.word(s,"Jumuʿah")else L10n.prayer(s,p)
+                maxOf(measure.measure(label,TextStyle(fontFamily=if(urdu)Amiri else serif,fontSize=labelSize)).size.width.toDp(),
+                    if(urdu)0.dp else measure.measure(p.arabic,TextStyle(fontFamily=Amiri,fontWeight=FontWeight.Bold,fontSize=arabicSize)).size.width.toDp())
+            }+1.dp
+        }
         val nameGap=if(large&&!urdu)8.dp else 2.dp
         // Match the board's inset labels without sacrificing a long clock, badge or
         // detail line on a narrower phone. Measure the real native text, not character counts.
-        val leadingExtra=if(large&&!urdu)with(density) {
-            val clockWidth=measure.measure(clockText,TextStyle(fontFamily=serif,fontSize=timeSize)).size.width.toDp()+
-                (if(r.isNow||r.isNext)badgeWidth+2.dp else 0.dp)
-            val detailWidth=measure.measure(detailText,TextStyle(fontFamily=captionFont,fontWeight=FontWeight.Normal,fontSize=detailSize)).size.width.toDp()
-            val needed=maxOf(clockWidth,detailWidth)+8.dp
-            val baseLeading=if(thumbnail)thumbnailSide+8.dp else 26.dp
-            minOf(if(gallery)16.dp else 27.dp,(maxWidth-baseLeading-labelWidth-nameGap-48.dp-needed).coerceAtLeast(0.dp))
-        }else 0.dp
+        val leadingExtra=if(large&&!urdu)8.dp else 0.dp
         val badge:@Composable ()->Unit={
             Box(Modifier.width(badgeWidth).clip(RoundedCornerShape(10.dp))
                 .background(if(r.isNow)Color(0xFF34D6DA)else Color(0xFFFFD56E)),contentAlignment=Alignment.Center) {
@@ -291,12 +300,12 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
             .border(.8.dp,if(r.isNow||r.isNext)mark.copy(alpha=.9f)else c.accent.copy(alpha=.35f),RoundedCornerShape(8.dp))
             .testTag("compact-prayer-${r.prayer.name}").combinedClickable(onClick=a.onToggleRelative,onLongClick=onWhy,role=Role.Button)
             .semantics(mergeDescendants=true){contentDescription=r.spoken},verticalAlignment=Alignment.CenterVertically) {
-            if(!gallery&&leadingExtra>0.dp)Spacer(Modifier.width(leadingExtra*.48f))
+            if(!gallery)Spacer(Modifier.width(if(large)12.dp else 6.dp))
             if(thumbnail) {
                 Box(Modifier.padding(start=4.dp,top=4.dp,bottom=4.dp).width(thumbnailSide).aspectRatio(1f)) {
                     PhoneLandscapePeriodArt(r.prayer.ordinal,Modifier.fillMaxSize().clip(RoundedCornerShape(5.dp)))
                 }
-            } else if(!tight||!urdu)Icon(Icons.Outlined.Schedule,null,Modifier.padding(start=4.dp,end=3.dp).size(if(large)15.dp else 13.dp),tint=c.secondary)
+            }
             Row(Modifier.weight(1f).padding(start=4.dp+if(gallery)leadingExtra else leadingExtra*.52f),verticalAlignment=Alignment.Top) {
                 Column(Modifier.width(labelWidth)) {
                     Text(r.label,Modifier.testTag("landscape-row-name-${r.prayer.name}"),fontFamily=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif,fontSize=labelSize,fontWeight=FontWeight.Normal,letterSpacing=0.sp,lineHeight=if(urdu)25.sp else if(large&&!gallery)20.sp else 17.sp,color=c.ink,maxLines=1)
@@ -323,3 +332,4 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         }
     }
 }
+

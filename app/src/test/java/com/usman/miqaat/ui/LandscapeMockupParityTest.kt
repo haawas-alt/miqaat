@@ -28,6 +28,44 @@ import kotlin.math.abs
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk=[34])
 class LandscapeMockupParityTest:ComposeSupport() {
+    @Test fun actualPhoneFontScalingKeepsBandDatesAndColumnsStable() {
+        for(t in themes())for(scale in listOf(1f,1.15f,1.3f)) {
+            val s=settings(t,Language.EN).copy(showRelative=true,latitude=40.12,longitude=116.65,
+                zoneId="Asia/Shanghai",locationName="Shun Yi Qu, Bei Jing Shi")
+            app.settings.update{s}
+            val st=PrayerEngine.state(s,ZonedDateTime.of(2026,10,24,16,27,0,0,s.zone()))
+            try {
+                show(Dev.PHONE_LANDSCAPE,t,fontScale=scale,qualifiers="w891dp-h411dp-land-xhdpi") {
+                    Box(Modifier.padding(start=36.dp,bottom=12.dp)) {
+                        HomeRouter(st,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{})
+                    }
+                }
+                capture(t,"actual-font-$scale",Language.EN)
+                for(tag in listOf("landscape-hijri","landscape-date")) {
+                    readable(tag)
+                    val layouts=mutableListOf<TextLayoutResult>()
+                    rule.onNodeWithTag(tag,true).fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                    assertEquals("Date must not strand AH on a second line",1,layouts.single().lineCount)
+                }
+                for(col in listOf(listOf(Prayer.FAJR,Prayer.DHUHR,Prayer.MAGHRIB),listOf(Prayer.SUNRISE,Prayer.ASR,Prayer.ISHA))) {
+                    val starts=col.map { p ->
+                        for(k in listOf("name","time","detail","relative"))readable("landscape-row-$k-${p.name}")
+                        rule.onNodeWithTag("landscape-row-time-${p.name}",true).fetchSemanticsNode().boundsInRoot.left
+                    }
+                    assertTrue("Prayer times need one common column at fontScale=$scale",starts.max()-starts.min()<1.1f)
+                }
+                if(t==AppTheme.KISWAH) {
+                    readable("kiswah-calligraphy-band")
+                    val layouts=mutableListOf<TextLayoutResult>()
+                    rule.onNodeWithTag("kiswah-calligraphy-band",true).fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                    assertEquals("Kiswah phrase must stay on one line",1,layouts.single().lineCount)
+                    val name=rule.onNodeWithTag("landscape-hero-name",true).fetchSemanticsNode().boundsInRoot
+                    val clock=rule.onNodeWithTag("landscape-hero-clock",true).fetchSemanticsNode().boundsInRoot
+                    assertTrue("Kiswah hero must retain the approved stack",name.bottom<=clock.top+1f)
+                }
+            } finally { scenario.close() }
+        }
+    }
     private fun themes()=AppTheme.entries.filter{System.getenv("MIQAAT_VISUAL_THEME").let{only->only==null||it.name==only}}
     private fun settings(t:AppTheme,l:Language)=AppSettings(theme=t,language=l,latitude=-33.93,longitude=151.19,locationName="Mascot, NSW",zoneId="Australia/Sydney",locationSet=true,setupDone=true)
     private fun readable(tag:String,clockSingleLine:Boolean=true) {
@@ -254,3 +292,4 @@ class LandscapeMockupParityTest:ComposeSupport() {
         }
     }
 }
+
