@@ -270,22 +270,12 @@ class LandscapeMockupParityTest:ComposeSupport() {
                 if(t==AppTheme.KISWAH) {
                     val frame=rule.onNodeWithTag("kiswah-calligraphy-frame",true).fetchSemanticsNode().boundsInRoot
                     val density=app.resources.displayMetrics.density
-                    scenario.onActivity {act->
-                        val v=act.findViewById<View>(android.R.id.content)
-                        val b=Bitmap.createBitmap(v.width,v.height,Bitmap.Config.ARGB_8888);v.draw(Canvas(b))
-                        try {
-                            for(top in listOf(true,false)) {
-                                val y0=(if(top)frame.top+5*density else frame.bottom-6*density).toInt()
-                                val y1=(if(top)frame.top+6*density else frame.bottom-5*density).toInt()
-                                var marked=0
-                                for(y in y0 until y1)for(x in (frame.left+68*density).toInt() until (frame.right-68*density).toInt()) {
-                                    val pixel=b.getPixel(x,y);val red=android.graphics.Color.red(pixel);val green=android.graphics.Color.green(pixel);val blue=android.graphics.Color.blue(pixel)
-                                    if(red>145&&green>95&&red>blue*1.15f&&green>blue*1.05f)marked++
-                                }
-                                assertTrue("Kiswah Arabic touches embroidered rail: top=$top pixels=$marked",marked<=2)
-                            }
-                        }finally{b.recycle()}
-                    }
+                    val text=ink("kiswah-calligraphy-band")
+                    val rail=frame.width*38f/1421f
+                    // The approved image itself contains gold thread in the vine rail.
+                    // Test actual Arabic ink clearance, rather than treating that gold as text.
+                    assertTrue("Arabic touches top silver vine",text.top>=frame.top+rail+2*density)
+                    assertTrue("Arabic touches bottom silver vine",text.bottom<=frame.bottom-rail-2*density)
                 }
                 val tags=when(t) {
                     AppTheme.MIQAAT->listOf("landscape-hero-kicker","landscape-hero-clock","landscape-hero-status")

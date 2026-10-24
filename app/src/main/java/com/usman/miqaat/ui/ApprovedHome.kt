@@ -172,11 +172,17 @@ private fun ApprovedNav(icon: ImageVector, label: String, tk: ThemeTokens, onCli
 
 @Composable
 internal fun KiswahBand(wide: Boolean) {
-    Box(Modifier.fillMaxWidth().padding(vertical = 5.dp).testTag("kiswah-calligraphy-frame").border(1.dp, Kiswah.thread)
-        .background(Color.Black.copy(alpha = .65f)), contentAlignment = Alignment.Center) {
-        Text(if (wide) Kiswah.BAND else Kiswah.BAND.replaceFirst("   ✦   ", "\n"), Modifier.padding(horizontal = 12.dp, vertical = 12.dp).testTag("kiswah-calligraphy-band").semantics { contentDescription = Kiswah.BAND },
-            fontFamily = Amiri, fontSize = if (wide) 28.sp else 15.sp, lineHeight = if (wide) 48.sp else 23.sp,
-            color = Kiswah.threadSoft, textAlign = TextAlign.Center, maxLines = if (wide) 1 else Int.MAX_VALUE)
+    val cfg=androidx.compose.ui.platform.LocalConfiguration.current
+    if(minOf(cfg.screenWidthDp,cfg.screenHeightDp)<600) {
+        KiswahOptionOneBand(wide)
+    } else {
+        // This approval covers phone banners; retain the established tablet allocation.
+        Box(Modifier.fillMaxWidth().padding(vertical = 5.dp).testTag("kiswah-calligraphy-frame").border(1.dp, Kiswah.thread)
+            .background(Color.Black.copy(alpha = .65f)), contentAlignment = Alignment.Center) {
+            Text(if (wide) Kiswah.BAND else Kiswah.BAND.replaceFirst("   ✦   ", "\n"), Modifier.padding(horizontal = 12.dp, vertical = 12.dp).testTag("kiswah-calligraphy-band").semantics { contentDescription = Kiswah.BAND },
+                fontFamily = Amiri, fontSize = if (wide) 28.sp else 15.sp, lineHeight = if (wide) 48.sp else 23.sp,
+                color = Kiswah.threadSoft, textAlign = TextAlign.Center, maxLines = if (wide) 1 else Int.MAX_VALUE)
+        }
     }
 }
 
@@ -390,7 +396,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
 }
 
 @Composable
-internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeTokens, modifier: Modifier, landscape: Boolean = false) {
+internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeTokens, modifier: Modifier, landscape: Boolean = false, compact: Boolean = false) {
     val prayers = listedPrayers(s)
     val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
     val gold = if (tk.dark) Color(0xFFFFCC63) else tk.accent
@@ -437,7 +443,7 @@ internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeToken
         }
         Row(Modifier.fillMaxWidth()) { prayers.forEach { p ->
             Text(L10n.prayer(s,p), Modifier.weight(1f).testTag("approved-timeline-${p.name}"), fontFamily = if (L10n.isUrdu(s)) Amiri else if (landscape) androidx.compose.ui.text.font.FontFamily.Serif else ApprovedBody,
-                fontSize = if (landscape && !L10n.isUrdu(s)) 13.sp else 11.sp, lineHeight = 18.sp, textAlign = TextAlign.Center, color = if (p == active) gold else tk.contentPrimary, maxLines = 1)
+                fontSize = if (compact && !L10n.isUrdu(s)) 10.sp else if (landscape && !L10n.isUrdu(s)) 13.sp else 11.sp, lineHeight = 18.sp, textAlign = TextAlign.Center, color = if (p == active) gold else tk.contentPrimary, maxLines = 1)
         } }
     }
 }

@@ -49,6 +49,7 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
     val tk=ThemeTokenSets.of(s.theme);val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s)
     val hero=heroInfo(state,s,kicker(state,s));val links=doors(state,s,a)
     val seasonal=listOfNotNull(hero.special,fastProgress(state,s)?.second,tarawihLine(state,s))
+    val shortKiswah=s.theme==AppTheme.KISWAH && LocalConfiguration.current.screenHeightDp<390
     var why by remember { mutableStateOf<Prayer?>(null) };var more by remember { mutableStateOf(false) }
     why?.let { p ->
         val day=if(p==state.next&&state.nextTime.toLocalDate().isAfter(state.today.date))PrayerEngine.times(s,state.nextTime.toLocalDate())else state.today
@@ -62,9 +63,9 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
               Column(Modifier.weight(1f).fillMaxWidth().then(if(reflow)Modifier.verticalScroll(rememberScrollState()).testTag("landscape-home-reflow")else Modifier)) {
                 LandscapeHomeHeader(state,s,a)
                 if(s.theme==AppTheme.KISWAH)PhoneLandscapeBand(ornate=true)
-                Row(Modifier.fillMaxWidth().then(if(reflow)Modifier.height(if(urdu)270.dp else 240.dp)else Modifier.weight(1f)).padding(vertical=if(urdu)0.dp else if(s.theme==AppTheme.KISWAH)if(LocalConfiguration.current.screenHeightDp<390)0.dp else 2.dp else 10.dp),
+                Row(Modifier.fillMaxWidth().then(if(reflow)Modifier.height(if(urdu)270.dp else 240.dp)else Modifier.weight(1f)).padding(vertical=if(urdu)0.dp else if(s.theme==AppTheme.KISWAH)0.dp else 10.dp),
                     horizontalArrangement=Arrangement.spacedBy(12.dp),verticalAlignment=Alignment.CenterVertically) {
-                    Column(Modifier.weight(.62f).fillMaxHeight().testTag("home-prayers"),verticalArrangement=Arrangement.spacedBy(if(s.theme==AppTheme.KISWAH&&LocalConfiguration.current.screenHeightDp<390)2.dp else 5.dp)) {
+                    Column(Modifier.weight(.62f).fillMaxHeight().testTag("home-prayers"),verticalArrangement=Arrangement.spacedBy(if(s.theme==AppTheme.KISWAH&&LocalConfiguration.current.screenHeightDp<390)2.dp else if(s.theme==AppTheme.KISWAH)4.dp else 5.dp)) {
                         listedPrayers(s).chunked(2).forEach { row ->
                             Row(Modifier.weight(1f).fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(6.dp)) {
                                 row.forEach { p ->PhoneLandscapePrayer(galleryRowInfo(p,state,s),s,a,Modifier.weight(1f).fillMaxHeight()){why=p} }
@@ -72,10 +73,15 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
                             }
                         }
                     }
-                    LandscapeHomeHero(hero,state,s,Modifier.weight(.38f).fillMaxHeight(),a.onToggleRelative){why=hero.prayer}
+                    if(shortKiswah) Column(Modifier.weight(.38f).fillMaxHeight()) {
+                        LandscapeHomeHero(hero,state,s,Modifier.weight(1f).fillMaxWidth(),a.onToggleRelative){why=hero.prayer}
+                        // Keep the complete timeline beside the cards on short phones. This
+                        // funds the taller approved border without shrinking the six targets.
+                        ApprovedTimeline(state,s,tk,Modifier.fillMaxWidth().height(35.dp).background(Color.Black.copy(alpha=.70f)).testTag("landscape-timeline-panel"),landscape=true,compact=true)
+                    } else LandscapeHomeHero(hero,state,s,Modifier.weight(.38f).fillMaxHeight(),a.onToggleRelative){why=hero.prayer}
                 }
               }
-                Box(Modifier.fillMaxWidth().height(if(LocalConfiguration.current.screenHeightDp>=390)52.dp else 40.dp).testTag("landscape-timeline-panel")) {ApprovedTimeline(state,s,tk,Modifier.fillMaxSize().padding(start=if(LocalConfiguration.current.screenWidthDp>=840)36.dp else 0.dp,end=if(LocalConfiguration.current.screenWidthDp>=840)136.dp else 0.dp),landscape=true)}
+                if(!shortKiswah) Box(Modifier.fillMaxWidth().height(if(s.theme==AppTheme.KISWAH)35.dp else if(LocalConfiguration.current.screenHeightDp>=390)52.dp else 40.dp).testTag("landscape-timeline-panel")) {ApprovedTimeline(state,s,tk,Modifier.fillMaxSize().padding(start=if(LocalConfiguration.current.screenWidthDp>=840)36.dp else 0.dp,end=if(LocalConfiguration.current.screenWidthDp>=840)136.dp else 0.dp),landscape=true)}
                 val qibla=if(s.showQibla)links.firstOrNull()else null
                 val adhkar=links.firstOrNull{it.kind==DoorKind.ADHKAR}
                 val warning=links.firstOrNull{it.warn}
@@ -104,7 +110,7 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
 @Composable
 private fun LandscapeHomeHeader(state:PrayerState,s:AppSettings,a:HomeActions) {
     val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s);val f=if(urdu)Amiri else androidx.compose.ui.text.font.FontFamily.Serif
-    BoxWithConstraints(Modifier.fillMaxWidth().height(if(LocalConfiguration.current.screenHeightDp>=390)52.dp else 48.dp).testTag("landscape-compact-header")) {
+    BoxWithConstraints(Modifier.fillMaxWidth().height(if(s.theme==AppTheme.KISWAH)48.dp else if(LocalConfiguration.current.screenHeightDp>=390)52.dp else 48.dp).testTag("landscape-compact-header")) {
         val compact=maxWidth<780.dp
         val navWidth=if(maxWidth>=900.dp)82.dp else if(maxWidth>=800.dp)74.dp else 58.dp
         val place=L10n.place(s.locationName)
@@ -172,7 +178,8 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
     BoxWithConstraints(modifier.testTag("landscape-authored-hero").padding(end=if(gallery)40.dp else if(s.theme==AppTheme.KISWAH)44.dp else 0.dp),contentAlignment=Alignment.Center) {
         val kiswah=s.theme==AppTheme.KISWAH
         val heroStyle=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),shadow=if(gallery||kiswah)null else Shadow(Color.Black.copy(alpha=.85f),Offset(0f,1.5f),4f))
-        val paired=maxHeight<if(urdu)215.dp else if(s.theme==AppTheme.KISWAH)186.dp else 190.dp
+        val retainKiswahStack=kiswah && !urdu && LocalConfiguration.current.screenHeightDp>=390
+        val paired=!retainKiswahStack && maxHeight<if(urdu)215.dp else if(s.theme==AppTheme.KISWAH)186.dp else 190.dp
         val compact=maxHeight<215.dp
         val tiny=maxHeight<175.dp
         val compactKiswah=s.theme==AppTheme.KISWAH&&compact
@@ -180,8 +187,8 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
         // These display fonts reserve much more ascent/descent than the six prayer
         // names use. Center their complete native text in optical slots; never clip
         // glyphs or spend the details button's independent 48dp touch target.
-        val arabicSlot=if(s.theme==AppTheme.KISWAH)if(tiny)34.dp else if(compact)if(largeDisplay)40.dp else 38.dp else 54.dp else if(compact)38.dp else 54.dp
-        val clockSlot=if(compactKiswah)if(tiny)44.dp else 54.dp else if(compact)48.dp else if(largeDisplay)70.dp else 66.dp
+        val arabicSlot=if(s.theme==AppTheme.KISWAH)if(tiny)30.dp else if(compact)if(largeDisplay)40.dp else 38.dp else 54.dp else if(compact)38.dp else 54.dp
+        val clockSlot=if(compactKiswah)if(tiny)40.dp else 54.dp else if(compact)48.dp else if(largeDisplay)70.dp else 66.dp
         val name:@Composable (Modifier)->Unit={m->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
             Box(Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.height(arabicSlot)),contentAlignment=Alignment.Center) {
             Text(hero.arabic,Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-name"),style=heroStyle.copy(textGeometricTransform=TextGeometricTransform(scaleX=if(kiswah)1f else 1.35f)),fontFamily=if(kiswah)ReemKufi else Amiri,fontWeight=if(kiswah)FontWeight.Normal else FontWeight.Bold,fontSize=if(s.theme==AppTheme.KISWAH)if(tiny)24.sp else if(compact)30.sp else 38.sp else if(compact)30.sp else if(s.iqamahEnabled)34.sp else 38.sp,lineHeight=if(s.theme==AppTheme.KISWAH)if(tiny)30.sp else if(compact)36.sp else 46.sp else if(compact)40.sp else 48.sp,color=c.accent,textAlign=TextAlign.Center)

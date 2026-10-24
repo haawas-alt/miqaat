@@ -81,81 +81,10 @@ internal fun LandscapeHomeArt(s:AppSettings,modifier:Modifier) {
     }
 }
 
-/** Original Kufic lettering framed by native silver vine rails and antique-gold stitching. */
+/** Selected Option 1 frame, using the actual approved silver-vine artwork. */
 @Composable
 internal fun OrnateLandscapeBand() {
-    val short=LocalConfiguration.current.screenHeightDp<390
-    val clearance=if(short)6.dp else 10.dp
-    BoxWithConstraints(Modifier.fillMaxWidth().padding(vertical=1.dp).height(if(short)42.dp else 54.dp).testTag("kiswah-calligraphy-frame").background(Color(0xFF060605)),contentAlignment=Alignment.Center) {
-        val measure=rememberTextMeasurer()
-        val density=LocalDensity.current
-        val baseSize=if(short)16f else 20f
-        val measured=measure.measure(Kiswah.BAND,TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),fontFamily=KiswahLandscapeArabic,fontWeight=FontWeight.Normal,fontSize=baseSize.sp),softWrap=false,maxLines=1)
-        val nativeWidth=with(density){measured.size.width.toDp()}
-        val availableHeight=with(density){minOf(maxHeight-clearance*2,if(short)26.dp else 34.dp).toPx()}
-        val fit=minOf(1f,(maxWidth-144.dp)/nativeWidth,availableHeight/measured.size.height.coerceAtLeast(1))
-        Canvas(Modifier.matchParentSize().testTag("kiswah-band-ornament")) {
-            val gold=Brush.linearGradient(listOf(Color(0xFF7E5C25),Color(0xFFE5C678),Color(0xFFA77C36),Color(0xFFE6CC88)),Offset.Zero,Offset(0f,size.height))
-            val silver=Brush.horizontalGradient(listOf(Color(0xFFBEC2B2),Color(0xFFF1F0DE),Color(0xFFA8AE9F)))
-            val fine=.45.dp.toPx()
-            drawRect(gold,style=Stroke(.8.dp.toPx()))
-            // Silver scrolling foliage is characteristic of the supplied references:
-            // broad leaves on a continuous vine, not a diamond braid or star rail.
-            for(bottom in listOf(false,true)) {
-                val y=if(bottom)size.height-5.dp.toPx()else 5.dp.toPx()
-                val sign=if(bottom)-1f else 1f
-                for(edge in listOf(1.4.dp.toPx(),8.6.dp.toPx())) {
-                    val yy=if(bottom)size.height-edge else edge
-                    drawLine(gold,Offset(0f,yy),Offset(size.width,yy),fine)
-                }
-                val pitch=16.dp.toPx()
-                var x=0f
-                while(x<size.width) {
-                    val stem=Path().apply {
-                        moveTo(x,y)
-                        cubicTo(x+pitch*.28f,y-sign*3.dp.toPx(),x+pitch*.72f,y+sign*3.dp.toPx(),x+pitch,y)
-                    }
-                    drawPath(stem,silver,style=Stroke(.65.dp.toPx()))
-                    for(side in listOf(-1f,1f)) {
-                        val leaf=Path().apply {
-                            moveTo(x+pitch*.46f,y)
-                            cubicTo(x+pitch*.15f,y+side*sign*.8.dp.toPx(),x+pitch*.20f,y+side*sign*3.3.dp.toPx(),x+pitch*.64f,y+side*sign*2.8.dp.toPx())
-                            cubicTo(x+pitch*.79f,y+side*sign*1.3.dp.toPx(),x+pitch*.57f,y+side*sign*.6.dp.toPx(),x+pitch*.46f,y)
-                            close()
-                        }
-                        drawPath(leaf,silver)
-                    }
-                    x+=pitch
-                }
-            }
-            // Floral end cartouches replace the generic geometric stars. They are
-            // original vector ornament, not copied stock calligraphy or a false verse.
-            val side=58.dp.toPx()
-            for(left in listOf(1.dp.toPx(),size.width-side-1.dp.toPx())) {
-                val top=10.dp.toPx()
-                val h=size.height-2*top
-                val center=Offset(left+side/2,size.height/2)
-                drawRoundRect(gold,Offset(left+4.dp.toPx(),top),Size(side-8.dp.toPx(),h),androidx.compose.ui.geometry.CornerRadius(h*.48f),style=Stroke(.8.dp.toPx()))
-                drawOval(gold,Offset(left+9.dp.toPx(),top+2.dp.toPx()),Size(side-18.dp.toPx(),h-4.dp.toPx()),style=Stroke(fine))
-                val radius=minOf(side*.36f,h*.42f)
-                repeat(12) { i->rotate(i*30f,center) {
-                    val petal=Path().apply {
-                        moveTo(center.x,center.y+radius*.12f)
-                        cubicTo(center.x-radius*.78f,center.y-radius*.55f,center.x+radius*.48f,center.y-radius*1.25f,center.x+radius*.18f,center.y-radius*.50f)
-                        cubicTo(center.x+radius*.09f,center.y-radius*.21f,center.x-radius*.14f,center.y-radius*.12f,center.x,center.y+radius*.12f)
-                    }
-                    drawPath(petal,Kiswah.thread.copy(alpha=.18f))
-                    drawPath(petal,gold,style=Stroke(.55.dp.toPx()))
-                }}
-                drawCircle(gold,radius*.56f,center,style=Stroke(fine))
-                drawCircle(Kiswah.threadSoft,radius*.12f,center,style=Stroke(fine))
-            }
-        }
-        Text(Kiswah.BAND,Modifier.fillMaxWidth().padding(horizontal=68.dp,vertical=clearance).testTag("kiswah-calligraphy-band")
-            .semantics{contentDescription=Kiswah.BAND},style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),brush=Kiswah.goldText),
-            fontFamily=KiswahLandscapeArabic,fontWeight=FontWeight.Normal,fontSize=(baseSize*fit).sp,
-            lineHeight=((if(short)26f else 34f)/density.fontScale).sp,textAlign=TextAlign.Center,maxLines=1,softWrap=false)
-    }
+    KiswahOptionOneBand(wide = true)
 }
 
 /** Six distinct reference-matched paintings: Fajr/Sunrise/Dhuhr, then Asr/Maghrib/Isha. */

@@ -72,7 +72,9 @@ class ApprovedQuietAcceptanceTest : ComposeSupport() {
             if (theme == AppTheme.KISWAH) {
                 val band = rule.onNodeWithTag("kiswah-calligraphy-band", true)
                 if (scale > 1.15f) band.performScrollTo()
-                band.assertIsDisplayed().assertContentDescriptionEquals(Kiswah.BAND)
+                val cfg=app.resources.configuration
+                val phonePortrait=cfg.orientation==android.content.res.Configuration.ORIENTATION_PORTRAIT && minOf(cfg.screenWidthDp,cfg.screenHeightDp)<600
+                band.assertIsDisplayed().assertContentDescriptionEquals(if(phonePortrait)Kiswah.BAND.substringBefore("   ✦   ")else Kiswah.BAND)
             }
             if (scale <= 1.15f) {
                 val current = rule.onNodeWithTag("quiet-current-panel", true).fetchSemanticsNode().boundsInRoot

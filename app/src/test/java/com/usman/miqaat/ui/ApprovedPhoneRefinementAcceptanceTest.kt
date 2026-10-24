@@ -121,7 +121,8 @@ class ApprovedPhoneRefinementAcceptanceTest:ComposeSupport() {
                     val d=app.resources.displayMetrics.density;val min=if(small)6 else 10
                     assertTrue("Arabic touches top frame: $frame vs $text",text.top-frame.top>=min*d-.1f)
                     assertTrue("Arabic touches bottom frame: $frame vs $text",frame.bottom-text.bottom>=min*d-.1f)
-                    if(!small)assertTrue("Kiswah band grew beyond approved shallow proportions",frame.height<=54*d)
+                    val ornament=rule.onNodeWithTag("kiswah-band-ornament",true).fetchSemanticsNode().boundsInRoot
+                    assertEquals("Option 1 frame proportions differ from the approved artwork",1421f/168f,ornament.width/ornament.height,.03f)
                     readable("kiswah-calligraphy-band");capture(t,"band-${if(small)"small"else"normal"}",l)
                 }finally{scenario.close()}
             }
