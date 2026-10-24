@@ -387,7 +387,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
                     if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay, fontSize = if (urdu) 11.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
                 }
                 if (r.small.isNotEmpty()) Text(if (urdu) r.small.replace(" بجے", "") else r.small, Modifier.testTag("gallery-fit-detail-${r.prayer.name}"), fontFamily = if (urdu) Amiri else ApprovedBody,
-                    fontSize = if (large) (if (compactTablet) 12.sp else 15.sp) else if (polished && !urdu) 12.sp else 11.sp, lineHeight = if (large) (if (compactTablet) 18.sp else 22.sp) else if (urdu) 18.sp else if (polished) 16.sp else 15.sp, color = tk.contentSecondary, maxLines = 2, style = textStyle)
+                    fontSize = if (large) (if (compactTablet) 12.sp else 15.sp) else if (polished && !urdu && !s.iqamahEnabled) 12.sp else 11.sp, lineHeight = if (large) (if (compactTablet) 18.sp else 22.sp) else if (urdu) 18.sp else if (polished && !s.iqamahEnabled) 16.sp else 15.sp, color = tk.contentSecondary, maxLines = 2, style = textStyle)
             }
             if (selected) Box(Modifier.testTag("gallery-fit-marker-${r.prayer.name}")) {
                 if (s.theme == AppTheme.PRAYER_GALLERY) GalleryStatusBadge(now, s, compact = !large)
