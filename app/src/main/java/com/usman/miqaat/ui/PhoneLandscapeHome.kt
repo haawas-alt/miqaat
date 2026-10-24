@@ -317,7 +317,7 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         val clockRoom=maxWidth-(if(thumbnail)thumbnailSide+8.dp else if(large)12.dp else 6.dp)-
             (4.dp+if(gallery)leadingExtra else leadingExtra*.52f)-labelWidth-nameGap-48.dp-badgeWidth-2.dp
         val template=buildAnnotatedString {
-            append(if(s.use24h)"23:59"else"12:59 PM")
+            append(if(s.use24h)"88:88"else"88:88 AM")
             if(!s.use24h)addStyle(SpanStyle(fontSize=suffixSize,baselineShift=BaselineShift(.15f)),6,8)
         }
         val uniformTimeSize=with(density) {
