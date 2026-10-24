@@ -74,8 +74,8 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
                 Image(painterResource(R.drawable.celestial_landscape_approved), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
                 Box(Modifier.fillMaxSize().background(Color(0xFF00152C).copy(alpha = .18f)))
             } else if (!gallery) {
-                Stars(Modifier.fillMaxSize(), .7f)
-                if (s.artTheme == ArtTheme.GEOMETRIC) GirihLattice(Modifier.fillMaxSize(), alpha = .06f)
+                Stars(Modifier.fillMaxSize(), if (portraitPolish) .30f else .7f)
+                if (s.artTheme == ArtTheme.GEOMETRIC) GirihLattice(Modifier.fillMaxSize(), alpha = if (portraitPolish) .025f else .06f)
             }
             Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().displayCutoutPadding()
                 .padding(horizontal = if (wide) 24.dp else 12.dp).then(if (reflow) Modifier.verticalScroll(rememberScrollState()) else Modifier)) {
@@ -336,8 +336,8 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
     val next = r.isNext && !now
     val selected = now || next
     val polished = phonePortraitPolish(s)
-    val marker = if (polished) (if (now) tk.primary else tk.contentPrimary) else if (now) (if (tk.dark) Color(0xFF45DAE3) else Color(0xFF087C77)) else if (tk.dark) Color(0xFFFFCC63) else tk.accent
-    val fill = if (polished) (if (now) tk.primary.copy(alpha = .13f) else if (next) tk.primary.copy(alpha = .055f) else Color.Transparent) else if (now) (if (tk.dark) Color(0xFF00414C) else Color(0xFFEAF7F1)) else if (next) (if (tk.dark) Color(0xFF4B381C) else Color(0xFFFFEBDD)) else Color.Transparent
+    val marker = if (polished) tk.primary else if (now) (if (tk.dark) Color(0xFF45DAE3) else Color(0xFF087C77)) else if (tk.dark) Color(0xFFFFCC63) else tk.accent
+    val fill = if (polished) (if (now) tk.primary.copy(alpha = .20f) else if (next) tk.primary.copy(alpha = .13f) else Color.Transparent) else if (now) (if (tk.dark) Color(0xFF00414C) else Color(0xFFEAF7F1)) else if (next) (if (tk.dark) Color(0xFF4B381C) else Color(0xFFFFEBDD)) else Color.Transparent
     val urdu = L10n.isUrdu(s)
     val configuration = androidx.compose.ui.platform.LocalConfiguration.current
     val large = configuration.screenWidthDp >= 600
@@ -346,7 +346,10 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
     val textStyle = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false))
     Column(modifier.clip(RoundedCornerShape(if (tile) 12.dp else 0.dp)).background(fill)
         .then(if (polished) Modifier.drawBehind {
-            if (r.prayer != Prayer.FAJR) drawLine(tk.divider.copy(alpha = .55f), Offset(16.dp.toPx(), 0f), Offset(size.width - 16.dp.toPx(), 0f), .5.dp.toPx())
+            if (selected) {
+                drawLine(tk.primary.copy(alpha = if (now) .65f else .4f), Offset(0f, 0f), Offset(size.width, 0f), .7.dp.toPx())
+                drawLine(tk.primary.copy(alpha = if (now) .45f else .3f), Offset(0f, size.height), Offset(size.width, size.height), .7.dp.toPx())
+            } else if (r.prayer != Prayer.FAJR) drawLine(tk.divider.copy(alpha = .55f), Offset(16.dp.toPx(), 0f), Offset(size.width - 16.dp.toPx(), 0f), .5.dp.toPx())
         } else Modifier.border(if (selected) 1.dp else .5.dp, if (selected) marker.copy(alpha = .75f) else tk.divider, RoundedCornerShape(if (tile) 12.dp else 0.dp)))
         .combinedClickable(onClick = a.onToggleRelative, onLongClick = onWhy, role = Role.Button)
         .semantics(mergeDescendants = true) { contentDescription = r.spoken }
@@ -354,7 +357,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
         if (tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.fillMaxWidth().weight(if (compactTablet) .36f else .44f))
         Row(Modifier.fillMaxWidth().then(if (tile) Modifier.weight(if (compactTablet) .64f else .56f) else Modifier.fillMaxHeight()), verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.width(if (polished) 4.dp else if (illustrated) 3.dp else 18.dp).fillMaxHeight(), contentAlignment = Alignment.Center) {
-                if (polished) Box(Modifier.height(24.dp).width(2.dp).background(if (selected) tk.primary.copy(alpha = if (now) 1f else .4f) else Color.Transparent, RoundedCornerShape(1.dp)))
+                if (polished) Box(Modifier.height(38.dp).width(3.dp).background(if (selected) tk.primary.copy(alpha = if (now) 1f else .8f) else Color.Transparent, RoundedCornerShape(1.dp)))
                 else if (illustrated) Box(Modifier.fillMaxHeight().width(3.dp).background(if (selected) marker else Color.Transparent))
                 else Canvas(Modifier.fillMaxSize()) {
                     val x = size.width/2; val y = size.height/2
@@ -374,22 +377,23 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
                     fontSize = if (urdu) (if (large) (if (compactTablet) 22.sp else 26.sp) else 18.sp) else if (large) (if (compactTablet) 17.sp else 20.sp) else 12.sp, lineHeight = if (large) 32.sp else if (urdu) 25.sp else 20.sp,
                     fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1, style = textStyle)
                 if (!urdu) Text(r.arabic, Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"), fontFamily = Amiri, fontSize = if (large) (if (compactTablet) 22.sp else 26.sp) else 17.sp,
-                    lineHeight = if (large) 34.sp else 24.sp, color = if (tk.dark) tk.arabicText else tk.accent, maxLines = 1, style = textStyle)
+                    lineHeight = if (large) 34.sp else 24.sp, color = if (polished && selected) tk.primary else if (tk.dark) tk.arabicText else tk.accent, maxLines = 1, style = textStyle)
             }
             Column(Modifier.weight(if (tile) 1.2f else 1.15f).padding(start = 8.dp), horizontalAlignment = Alignment.Start) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(if (s.showRelative) r.relative else r.clock, Modifier.testTag("gallery-fit-clock-${r.prayer.name}"), fontFamily = if (s.showRelative) approvedUi(s) else ApprovedDisplay,
                         fontSize = if (s.showRelative) (if (large) 20.sp else 14.sp) else if (large) (if (compactTablet) 30.sp else 38.sp) else 25.sp, lineHeight = if (s.showRelative) (if (large) (if (compactTablet) 22.sp else 26.sp) else 18.sp) else if (large) (if (compactTablet) 36.sp else 46.sp) else 32.sp,
-                        fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = if (s.showRelative) 2 else 1, style = textStyle)
+                        fontWeight = if (polished && selected) FontWeight.SemiBold else FontWeight.Medium, color = tk.contentPrimary, maxLines = if (s.showRelative) 2 else 1, style = textStyle)
                     if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay, fontSize = if (urdu) 11.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
                 }
                 if (r.small.isNotEmpty()) Text(if (urdu) r.small.replace(" بجے", "") else r.small, Modifier.testTag("gallery-fit-detail-${r.prayer.name}"), fontFamily = if (urdu) Amiri else ApprovedBody,
-                    fontSize = if (large) (if (compactTablet) 12.sp else 15.sp) else 11.sp, lineHeight = if (large) (if (compactTablet) 18.sp else 22.sp) else if (urdu) 18.sp else 15.sp, color = tk.contentSecondary, maxLines = 2, style = textStyle)
+                    fontSize = if (large) (if (compactTablet) 12.sp else 15.sp) else if (polished && !urdu) 12.sp else 11.sp, lineHeight = if (large) (if (compactTablet) 18.sp else 22.sp) else if (urdu) 18.sp else if (polished) 16.sp else 15.sp, color = tk.contentSecondary, maxLines = 2, style = textStyle)
             }
             if (selected) Box(Modifier.testTag("gallery-fit-marker-${r.prayer.name}")) {
                 if (s.theme == AppTheme.PRAYER_GALLERY) GalleryStatusBadge(now, s, compact = !large)
-                else Text(L10n.word(s, if (now) "NOW" else "NEXT"), Modifier.testTag(if (now) "home-status-now" else "home-status-next").clip(RoundedCornerShape(9.dp)).background(marker).padding(horizontal = 6.dp, vertical = 3.dp), fontFamily = if (urdu) Amiri else ApprovedBody,
-                    fontSize = 10.sp, lineHeight = if (urdu) 20.sp else 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF032126), maxLines = 1)
+                else Text(L10n.word(s, if (now) "NOW" else "NEXT"), Modifier.testTag(if (now) "home-status-now" else "home-status-next").clip(RoundedCornerShape(9.dp)).background(if (polished && next) Color.Transparent else marker)
+                    .then(if (polished && next) Modifier.border(.8.dp, tk.primary, RoundedCornerShape(9.dp)) else Modifier).padding(horizontal = 6.dp, vertical = 3.dp), fontFamily = if (urdu) Amiri else ApprovedBody,
+                    fontSize = 10.sp, lineHeight = if (urdu) 20.sp else 14.sp, fontWeight = FontWeight.Bold, color = if (polished && next) tk.primary else Color(0xFF032126), maxLines = 1)
             }
             // Bell state is informational; notification settings remain in the header and alert action.
             if (r.prayer.isPrayer) Box(Modifier.width(28.dp).fillMaxHeight().semantics { contentDescription = if (r.azaanOn) L10n.t("Azaan enabled", "اذان فعال ہے") else L10n.t("Azaan off", "اذان بند ہے") }, contentAlignment = Alignment.Center) {

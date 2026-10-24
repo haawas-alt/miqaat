@@ -26,6 +26,42 @@ import java.time.ZonedDateTime
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk = [34])
 class PortraitPolishAcceptanceTest : ComposeSupport() {
+    @Test fun portraitDesignReview() {
+        for (theme in AppTheme.entries.filter { it != AppTheme.PRAYER_GALLERY &&
+            System.getenv("MIQAAT_VISUAL_THEME").let { v -> v == null || v == it.name } })
+        for (lang in Language.entries) for (small in listOf(false, true)) {
+            val s = AppSettings(theme = theme, language = lang, latitude = -33.93, longitude = 151.19,
+                locationName = "Mascot, NSW", zoneId = "Australia/Sydney", locationSet = true,
+                setupDone = true, showRelative = true, nightDim = false)
+            app.settings.update { s }
+            val state = PrayerEngine.state(s, ZonedDateTime.of(2026, 10, 25, 8, 38, 0, 0, s.zone()))
+            try {
+                show(Dev.PHONE_PORTRAIT, theme, rtl = lang == Language.UR, language = lang,
+                    qualifiers = if (small) "w360dp-h800dp-port-xhdpi" else null) {
+                    Box(Modifier.padding(top = 12.dp, bottom = 20.dp)) {
+                        HomeRouter(state, s, HomeActions({}, {}, {}, {}, {}, {}, {}, true, {}, {}), false, {})
+                    }
+                }
+                rule.mainClock.advanceTimeBy(32); rule.waitForIdle()
+                scenario.onActivity { act ->
+                    val v = act.findViewById<View>(android.R.id.content)
+                    val b = Bitmap.createBitmap(v.width, v.height, Bitmap.Config.ARGB_8888)
+                    v.draw(Canvas(b))
+                    File("build/portrait-polish/${theme.name}/review-${lang.name}-${if(small)360 else 411}.png")
+                        .also { it.parentFile?.mkdirs() }.outputStream().use { b.compress(Bitmap.CompressFormat.PNG, 100, it) }
+                    b.recycle()
+                }
+                val clock = rule.onNodeWithTag("approved-hero-clock", true).fetchSemanticsNode().boundsInRoot
+                val status = rule.onNodeWithTag("portrait-hero-status", true).fetchSemanticsNode().boundsInRoot
+                val density = app.resources.displayMetrics.density
+                assertTrue("Countdown detached from clock: $clock / $status", status.top-clock.bottom <= 12*density)
+                val action = rule.onNodeWithTag("portrait-hero-details", true).fetchSemanticsNode().boundsInRoot
+                assertTrue("Details action detached from countdown", action.top-status.bottom <= 8*density)
+                assertTrue("Details target below 48dp", action.height >= 48*density-.1f)
+            } finally { scenario.close() }
+        }
+    }
+
     @Test fun nightAndDayPortraitKeepTextTargetsAndDestinationsReadable() {
         for (theme in AppTheme.entries.filter { it != AppTheme.PRAYER_GALLERY &&
             System.getenv("MIQAAT_VISUAL_THEME").let { v -> v == null || v == it.name } })

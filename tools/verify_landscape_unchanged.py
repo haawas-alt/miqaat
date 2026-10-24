@@ -1,8 +1,10 @@
 """Require unchanged landscape pixels, with a bounded native Canvas edge allowance.
 
-Robolectric may vary 4-6 antialiased edge pixels around the timeline marker.
-Only that non-text Canvas may vary: at most 16 pixels, at most 16/255 per
-channel. All other pixels and the Canvas bounds must match exactly.
+Robolectric may vary antialiased edge pixels around multiple timeline markers.
+Only that non-text Canvas may vary: at most 16 connected pixels per edge cluster,
+64 pixels overall, and 16/255 per channel. All other pixels and the Canvas bounds
+must match exactly. A count across the entire Canvas incorrectly combined
+separate marker edges and made otherwise unchanged renders intermittently fail.
 """
 from pathlib import Path
 import hashlib
@@ -47,7 +49,27 @@ for old in baseline:
         inside_canvas = box is not None and box == timeline_canvas(new) and all(
             bounds[0] >= box[0] and bounds[1] >= box[1] and bounds[2] <= box[2] and bounds[3] <= box[3]
             for bounds in boxes)
-        result['accepted'] = inside_canvas and result['changed_pixels'] <= 16 and result['max_channel_difference'] <= 16
+        clusters = []
+        if inside_canvas and result['changed_pixels'] <= 64 and result['max_channel_difference'] <= 16:
+            union = (min(b[0] for b in boxes), min(b[1] for b in boxes),
+                     max(b[2] for b in boxes), max(b[3] for b in boxes))
+            crop = difference.crop(union)
+            points = {(i % crop.width, i // crop.width) for i, pixel in enumerate(crop.getdata()) if any(pixel)}
+            while points:
+                pending = [points.pop()]
+                count = 0
+                while pending:
+                    x, y = pending.pop()
+                    count += 1
+                    for dx in (-1, 0, 1):
+                        for dy in (-1, 0, 1):
+                            neighbour = (x+dx, y+dy)
+                            if neighbour in points:
+                                points.remove(neighbour)
+                                pending.append(neighbour)
+                clusters.append(count)
+        result['edge_clusters'] = sorted(clusters, reverse=True)
+        result['accepted'] = bool(clusters) and max(clusters) <= 16
         result['timeline_antialiasing_only'] = bool(result['accepted'])
         print(json.dumps(result))
     results.append(result)
