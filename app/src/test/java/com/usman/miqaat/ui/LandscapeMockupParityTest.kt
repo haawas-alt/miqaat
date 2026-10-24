@@ -58,6 +58,7 @@ class LandscapeMockupParityTest:ComposeSupport() {
                     assertEquals("Date must not strand AH on a second line",1,layouts.single().lineCount)
                 }
                 for(col in listOf(listOf(Prayer.FAJR,Prayer.DHUHR,Prayer.MAGHRIB),listOf(Prayer.SUNRISE,Prayer.ASR,Prayer.ISHA))) {
+                    val sizes=mutableListOf<Float>()
                     val starts=col.map { p ->
                         for(k in listOf("name","time","detail","relative")) {
                             val tag="landscape-row-$k-${p.name}"
@@ -66,9 +67,13 @@ class LandscapeMockupParityTest:ComposeSupport() {
                         }
                         val info=galleryRowInfo(p,st,s)
                         if(info.isNow||info.isNext)readable(if(t==AppTheme.PRAYER_GALLERY)if(info.isNow)"gallery-status-now"else"gallery-status-next"else if(info.isNow)"home-status-now"else"home-status-next")
+                        val layouts=mutableListOf<TextLayoutResult>()
+                        rule.onNodeWithTag("landscape-row-time-${p.name}",true).fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                        sizes+=layouts.single().layoutInput.style.fontSize.value
                         rule.onNodeWithTag("landscape-row-time-${p.name}",true).fetchSemanticsNode().boundsInRoot.left
                     }
                     assertTrue("Prayer times need one common column at fontScale=$scale",starts.max()-starts.min()<1.1f)
+                    assertTrue("NOW/NEXT must not shrink only their own clocks",sizes.max()-sizes.min()<.2f)
                 }
                 if(t==AppTheme.KISWAH) {
                     if(scale>1.2f)rule.onNodeWithTag("kiswah-calligraphy-band",true).performScrollTo()

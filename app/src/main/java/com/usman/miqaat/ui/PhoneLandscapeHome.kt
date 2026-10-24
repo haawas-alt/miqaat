@@ -312,6 +312,23 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         // Match the board's inset labels without sacrificing a long clock, badge or
         // detail line on a narrower phone. Measure the real native text, not character counts.
         val leadingExtra=if(large&&!urdu)8.dp else 0.dp
+        // Reserve the same badge lane in every card and fit a worst-case clock once.
+        // A NOW/NEXT row must not silently use a smaller clock than its neighbours.
+        val clockRoom=maxWidth-(if(thumbnail)thumbnailSide+8.dp else if(large)12.dp else 6.dp)-
+            (4.dp+if(gallery)leadingExtra else leadingExtra*.52f)-labelWidth-nameGap-48.dp-badgeWidth-2.dp
+        val template=buildAnnotatedString {
+            append(if(s.use24h)"23:59"else"12:59 PM")
+            if(!s.use24h)addStyle(SpanStyle(fontSize=suffixSize,baselineShift=BaselineShift(.15f)),6,8)
+        }
+        val uniformTimeSize=with(density) {
+            var low=timeSize.value*.6f;var high=timeSize.value
+            repeat(10) {
+                val trial=(low+high)/2
+                val width=measure.measure(template,TextStyle(fontFamily=if(urdu)Amiri else serif,fontSize=trial.sp),softWrap=false,maxLines=1).size.width
+                if(width<=clockRoom.toPx()-4)low=trial else high=trial
+            }
+            low.sp
+        }
         val badge:@Composable ()->Unit={
             Box(Modifier.width(badgeWidth).clip(RoundedCornerShape(10.dp))
                 .background(if(r.isNow)Color(0xFF34D6DA)else Color(0xFFFFD56E)),contentAlignment=Alignment.Center) {
@@ -337,9 +354,9 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
                 Column(Modifier.weight(1f).padding(start=nameGap),verticalArrangement=Arrangement.Top) {
                     // Landscape keeps the authored large clock even when relative details are enabled.
                     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(2.dp)) {
-                        FittedLandscapeLine(clockText,Modifier.weight(1f,fill=false),if(urdu)Amiri else serif,timeSize,
-                            if(urdu)25.sp else if(large&&!gallery)24.sp else 22.sp,c.ink,"landscape-row-time-${r.prayer.name}")
-                        if(r.isNow||r.isNext)badge()
+                        FittedLandscapeLine(clockText,Modifier.weight(1f,fill=false),if(urdu)Amiri else serif,uniformTimeSize,
+                            ((if(urdu)25f else if(large&&!gallery)24f else 22f)*uniformTimeSize.value/timeSize.value).sp,c.ink,"landscape-row-time-${r.prayer.name}")
+                        if(r.isNow||r.isNext)badge()else Spacer(Modifier.width(badgeWidth))
                     }
                     if(s.showRelative)FittedLandscapeLine(androidx.compose.ui.text.AnnotatedString(r.relative),Modifier.fillMaxWidth(),captionFont,
                         if(large&&!urdu)10.sp else 9.sp,if(urdu)18.sp else if(large)13.sp else 12.sp,c.secondary,"landscape-row-relative-${r.prayer.name}")
