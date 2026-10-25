@@ -181,7 +181,7 @@ private fun TabletGalleryHero(state:PrayerState,s:AppSettings,a:HomeActions,tk:T
                         fontSize=(16*k).sp,lineHeight=(22*k).sp,letterSpacing=if(L10n.isUrdu(s))0.sp else 1.5.sp,
                         color=tk.accent,maxLines=2,textAlign=TextAlign.Center,style=tabletNativeText)
                     Text(if(L10n.isUrdu(s))hero.label else hero.arabic,Modifier.testTag("gallery-mobile-prayer-name"),
-                        fontFamily=Amiri,fontSize=(52*k).sp,lineHeight=(70*k).sp,color=tk.accent,maxLines=1,style=tabletNativeText)
+                        fontFamily=Amiri,fontSize=((if(LocalConfiguration.current.screenHeightDp<700)44 else 52)*k).sp,lineHeight=((if(LocalConfiguration.current.screenHeightDp<700)60 else 70)*k).sp,color=tk.accent,maxLines=1,style=tabletNativeText)
                     if(!L10n.isUrdu(s)) Text(hero.label.uppercase(),fontFamily=tabletDisplay(tk),fontSize=(17*k).sp,lineHeight=(24*k).sp,
                         letterSpacing=2.sp,color=tk.accent,maxLines=1,style=tabletNativeText)
                 }
