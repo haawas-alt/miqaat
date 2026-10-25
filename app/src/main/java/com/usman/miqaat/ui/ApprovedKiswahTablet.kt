@@ -78,7 +78,7 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
                 KiswahTabletHero(state,s,tk,hero,k,false,true,Modifier.weight(.435f).fillMaxWidth().testTag("home-hero")) {why=hero.prayer}
                 prayers(Modifier.weight(.565f).fillMaxWidth())
             }
-            ApprovedTimeline(state,s,tk,Modifier.fillMaxWidth().height(maxOf(48.dp,((if(wide)70 else 112)*k).dp)),landscape=true,mockupScale=if(wide)1.1f*k else 1.15f*k)
+            ApprovedTimeline(state,s,tk,Modifier.fillMaxWidth().height(maxOf(48.dp,((if(wide)50 else 112)*k).dp)),landscape=true,mockupScale=if(wide)1.1f*k else 1.15f*k)
             TabletContext(links,s,tk,k)
             TabletDock(state,s,a,tk,if(wide)k else 1.2f*k,if(wide)Modifier else Modifier.heightIn(min=(112*k).dp))
         }
