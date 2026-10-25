@@ -35,11 +35,13 @@ import com.usman.miqaat.data.*
 
 /** Explicit opt-in; landscape, tablets and Prayer Gallery retain their existing composition. */
 @Composable
-internal fun phonePortraitPolish(s: AppSettings): Boolean {
+internal fun phonePortraitLayout(): Boolean {
     val c = LocalConfiguration.current
-    return c.orientation == Configuration.ORIENTATION_PORTRAIT &&
-        minOf(c.screenWidthDp, c.screenHeightDp) < 600 && s.theme != AppTheme.PRAYER_GALLERY
+    return c.orientation == Configuration.ORIENTATION_PORTRAIT && minOf(c.screenWidthDp, c.screenHeightDp) < 600
 }
+
+@Composable
+internal fun phonePortraitPolish(s: AppSettings): Boolean = phonePortraitLayout() && s.theme != AppTheme.PRAYER_GALLERY
 
 internal fun portraitPrayerSurface(s: AppSettings) =
     if (s.theme == AppTheme.KISWAH) Color(0xFF101110) else Color(0xFF06172B)
@@ -58,11 +60,12 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
         if (s.artTheme != ArtTheme.MINIMAL) {
             val art = when (s.theme) {
                 AppTheme.KISWAH -> R.drawable.approved_kiswah_silk
-                AppTheme.CELESTIAL_MERIDIAN -> R.drawable.celestial_landscape_approved
+                AppTheme.CELESTIAL_MERIDIAN -> R.drawable.home_celestial_v172
                 else -> R.drawable.approved_miqaat_arch
             }
             Image(painterResource(art), null, Modifier.fillMaxSize(),
-                contentScale = if (s.theme == AppTheme.CELESTIAL_MERIDIAN) ContentScale.Crop else ContentScale.FillBounds)
+                contentScale = if (s.theme == AppTheme.CELESTIAL_MERIDIAN) ContentScale.Crop else ContentScale.FillBounds,
+                alignment = if (s.theme == AppTheme.CELESTIAL_MERIDIAN) Alignment.CenterEnd else Alignment.Center)
             // Preserve the scene's light and colour. Contrast is local to the central text.
             androidx.compose.foundation.Canvas(Modifier.fillMaxSize()) {
                 drawRect(Brush.radialGradient(
@@ -82,24 +85,11 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                 val compact = textHeight < 172f
                 val micro = textHeight < (if (kiswah) 118f else 130f)
                 val tiny = textHeight < 72f
-                val caption: @Composable () -> Unit = {
-                    Column(horizontalAlignment = Alignment.Start) {
-                        if (tiny) Text(if (urdu) hero.kickerLabel else "${hero.kickerLabel} · ${hero.label}",
-                        fontFamily = body, fontSize = 8.sp, lineHeight = if (urdu) 16.sp else 14.sp,
-                        color = tk.primary, maxLines = 1, style = nativeStyle)
-                        else Text(hero.special ?: hero.kickerLabel, fontFamily = body, fontSize = if (micro) 8.sp else 9.sp,
-                        lineHeight = if (urdu) 18.sp else 13.sp, letterSpacing = if (urdu) 0.sp else 1.1.sp,
-                        color = tk.primary, maxLines = 1, style = nativeStyle)
-                        if (!urdu && !tiny) Text(hero.label.uppercase(), fontFamily = Cinzel,
-                        fontSize = if (micro) 10.sp else 11.sp, lineHeight = 16.sp, letterSpacing = 1.5.sp,
-                        color = tk.contentPrimary, maxLines = 1, style = nativeStyle)
-                    }
-                }
                 val clock: @Composable () -> Unit = {
                     Row(Modifier.testTag("portrait-hero-time"), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                         Text(hero.clock, fontFamily = ApprovedDisplay, fontWeight = FontWeight.Medium,
-                        fontSize = if (tiny) 32.sp else if (micro) 42.sp else if (compact) 52.sp else 68.sp,
-                        lineHeight = if (tiny) 44.sp else if (micro) 58.sp else if (compact) 70.sp else 92.sp,
+                        fontSize = if (tiny) 32.sp else if (micro) 46.sp else if (compact) 52.sp else 68.sp,
+                        lineHeight = if (tiny) 44.sp else if (micro) 62.sp else if (compact) 70.sp else 92.sp,
                         color = tk.contentPrimary, maxLines = 1, style = nativeStyle,
                         modifier = Modifier.testTag("approved-hero-clock"))
                         if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay,
@@ -107,41 +97,29 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                         color = tk.contentPrimary, maxLines = 1, style = nativeStyle)
                     }
                 }
+                // A single stacked hierarchy survives device-height and font-scale changes.
                 Column(horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(if (micro) 0.dp else (-14).dp)) {
-                    if (micro) {
-                        // A tightly grouped fallback for short screens with an active reliability notice.
-                        Row(Modifier.widthIn(max = 248.dp).fillMaxWidth().testTag("portrait-prayer-lockup"),
-                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally)) {
-                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                caption()
-                                Text(hero.arabic, fontFamily = if (kiswah) ReemKufi else Amiri, fontSize = if (tiny) 20.sp else 24.sp,
-                                lineHeight = if (tiny) (if (kiswah) 32.sp else 38.sp) else if (kiswah) 38.sp else 46.sp, color = tk.arabicText, style = nativeStyle,
-                                modifier = Modifier.testTag("approved-hero-arabic"))
-                            }
-                            clock()
-                        }
-                    } else {
-                        Column(Modifier.testTag("portrait-prayer-lockup"), horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy((-4).dp)) {
-                            Text(hero.special ?: hero.kickerLabel, fontFamily = body,
-                                fontSize = if (compact) 8.sp else 9.sp, lineHeight = if (urdu) 18.sp else 13.sp,
-                                letterSpacing = if (urdu) 0.sp else 1.6.sp, color = tk.primary,
-                                maxLines = 1, style = nativeStyle)
-                            Text(hero.arabic, fontFamily = if (kiswah) ReemKufi else Amiri,
-                                fontSize = if (compact) 26.sp else 38.sp,
-                                lineHeight = if (compact) (if (kiswah) 44.sp else 50.sp) else 70.sp,
-                                color = tk.arabicText, style = nativeStyle, modifier = Modifier.testTag("approved-hero-arabic"))
-                            if (!urdu) Text(hero.label.uppercase(), fontFamily = Cinzel,
-                                fontSize = if (compact) 9.sp else 10.sp, lineHeight = if (compact) 12.sp else 14.sp,
-                                letterSpacing = 2.sp, color = tk.contentSecondary, maxLines = 1, style = nativeStyle)
-                        }
-                        clock()
+                    verticalArrangement = Arrangement.spacedBy(if (tiny) (-8).dp else (-12).dp)) {
+                    Column(Modifier.testTag("portrait-prayer-lockup"), horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(if (micro) (-3).dp else (-4).dp)) {
+                        Text(hero.special ?: hero.kickerLabel, fontFamily = body,
+                            fontSize = if (compact) 8.sp else 9.sp, lineHeight = if (urdu) 18.sp else 13.sp,
+                            letterSpacing = if (urdu) 0.sp else 1.6.sp, color = tk.primary,
+                            maxLines = 1, style = nativeStyle)
+                        Text(hero.arabic, fontFamily = if (kiswah) ReemKufi else Amiri,
+                            fontSize = if (tiny) 18.sp else if (micro) 24.sp else if (compact) 28.sp else 38.sp,
+                            lineHeight = if (tiny) 30.sp else if (micro) (if (kiswah) 36.sp else 42.sp) else if (compact) (if (kiswah) 44.sp else 50.sp) else 66.sp,
+                            color = tk.arabicText, style = nativeStyle, modifier = Modifier.testTag("approved-hero-arabic"))
+                        if (!urdu && !tiny) Text(hero.label.uppercase(), fontFamily = Cinzel,
+                            fontSize = if (compact) 8.sp else 10.sp, lineHeight = if (compact) 11.sp else 14.sp,
+                            letterSpacing = 2.sp, color = tk.contentSecondary, maxLines = 1, style = nativeStyle)
                     }
+                    clock()
                 }
             }
             Row(Modifier.padding(top = 2.dp).clip(RoundedCornerShape(14.dp))
-                .background(tk.background.copy(alpha = .78f)).padding(horizontal = 10.dp, vertical = 2.dp)
+                .background(tk.background.copy(alpha = .96f)).border(.5.dp, tk.primary.copy(alpha = .22f), RoundedCornerShape(14.dp))
+                .padding(horizontal = 10.dp, vertical = 2.dp)
                 .testTag("portrait-hero-status"), verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                 Icon(Icons.Outlined.Schedule, null, Modifier.size(14.dp), tint = tk.primary)
@@ -152,7 +130,7 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                 .clip(RoundedCornerShape(24.dp)).clickable(role = Role.Button, onClick = onDetails)
                 .testTag("portrait-hero-details"), contentAlignment = Alignment.Center) {
                 Row(Modifier.heightIn(min = 34.dp).clip(RoundedCornerShape(18.dp))
-                    .background(tk.background.copy(alpha = .94f))
+                    .background(tk.background.copy(alpha = .98f))
                     .border(.75.dp, tk.primary.copy(alpha = .72f), RoundedCornerShape(18.dp))
                     .padding(horizontal = 14.dp, vertical = 3.dp), verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(7.dp)) {

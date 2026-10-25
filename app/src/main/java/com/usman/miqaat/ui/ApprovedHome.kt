@@ -126,7 +126,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
                     ApprovedContext(links, s, tk, wide, Modifier.fillMaxWidth().testTag("gallery-phone-footer"))
                     if (!wide) ApprovedNavigation(s, a, tk)
                 }
-                if (!portraitPolish) Text(Str[R.string.s_theme_signature], Modifier.fillMaxWidth().padding(bottom = 2.dp),
+                if (!phonePortraitLayout()) Text(Str[R.string.s_theme_signature], Modifier.fillMaxWidth().padding(bottom = 2.dp),
                     fontFamily = approvedUi(s), fontSize = 9.sp, color = tk.contentSecondary, textAlign = TextAlign.End, maxLines = 1)
             }
             if (s.nightDim && state.period == Prayer.ISHA && !state.justPassed)
@@ -308,8 +308,20 @@ private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActio
                 }
             }
             if (!wide || compactHero) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
-                ApprovedDetails(Str[R.string.s_view_prayer_details], tk, onDetails, Modifier.weight(1f), wide)
-                if (s.kidsMode) ApprovedDetails(if (L10n.isUrdu(s)) "نماز کی تیاری" else "Prepare for ${hero.label}", tk, { a.onPreparePrayer(hero.prayer) }, Modifier.weight(1f), !wide)
+                if (phonePortraitLayout()) {
+                    ApprovedDetails(Str[R.string.s_view_prayer_details], tk, onDetails, Modifier.weight(1.2f), true)
+                    if (s.kidsMode) Row(Modifier.weight(1f).heightIn(min = 48.dp).clip(RoundedCornerShape(24.dp))
+                        .clickable(role = Role.Button, onClick = { a.onPreparePrayer(hero.prayer) })
+                        .padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center) {
+                        Text(if (L10n.isUrdu(s)) "نماز کی تیاری" else "Prepare for ${hero.label}",
+                            fontFamily = approvedUi(s), fontSize = 12.sp, color = tk.accent, maxLines = 2)
+                        Icon(Icons.AutoMirrored.Outlined.ArrowForward, null, Modifier.padding(start = 4.dp).size(16.dp), tint = tk.accent)
+                    }
+                } else {
+                    ApprovedDetails(Str[R.string.s_view_prayer_details], tk, onDetails, Modifier.weight(1f), wide)
+                    if (s.kidsMode) ApprovedDetails(if (L10n.isUrdu(s)) "نماز کی تیاری" else "Prepare for ${hero.label}", tk, { a.onPreparePrayer(hero.prayer) }, Modifier.weight(1f), !wide)
+                }
             }
             ApprovedSeasonal(state, s, tk)
         }
@@ -318,8 +330,8 @@ private fun GalleryApprovedHero(state: PrayerState, s: AppSettings, a: HomeActio
 
 @Composable
 private fun ApprovedList(state: PrayerState, s: AppSettings, tk: ThemeTokens, a: HomeActions, modifier: Modifier, onWhy: (Prayer) -> Unit) {
-    val polished = phonePortraitPolish(s)
-    Column(modifier.clip(RoundedCornerShape(12.dp)).background(if (polished) portraitPrayerSurface(s) else if (tk.dark) Color(0xFF00162D).copy(alpha = if (s.theme == AppTheme.KISWAH) .12f else .82f) else tk.background.copy(alpha = .8f))
+    val polished = phonePortraitLayout()
+    Column(modifier.clip(RoundedCornerShape(12.dp)).background(if (polished && tk.dark) portraitPrayerSurface(s) else if (tk.dark) Color(0xFF00162D).copy(alpha = if (s.theme == AppTheme.KISWAH) .12f else .82f) else tk.background.copy(alpha = .8f))
         .border(if (polished) .5.dp else 1.dp, if (polished) tk.outline.copy(alpha = .45f) else tk.outline, RoundedCornerShape(12.dp)).testTag("home-prayers")) {
         listedPrayers(s).forEach { p ->
             Box(Modifier.weight(1f).fillMaxWidth().testTag("gallery-fit-row-${p.name}")) {
@@ -335,7 +347,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
     val now = r.isNow
     val next = r.isNext && !now
     val selected = now || next
-    val polished = phonePortraitPolish(s)
+    val polished = phonePortraitLayout()
     val marker = if (polished) tk.primary else if (now) (if (tk.dark) Color(0xFF45DAE3) else Color(0xFF087C77)) else if (tk.dark) Color(0xFFFFCC63) else tk.accent
     val fill = if (polished) (if (now) tk.primary.copy(alpha = .20f) else if (next) tk.primary.copy(alpha = .13f) else Color.Transparent) else if (now) (if (tk.dark) Color(0xFF00414C) else Color(0xFFEAF7F1)) else if (next) (if (tk.dark) Color(0xFF4B381C) else Color(0xFFFFEBDD)) else Color.Transparent
     val urdu = L10n.isUrdu(s)
@@ -344,20 +356,24 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
     val compactTablet = large && configuration.screenHeightDp < 700
     val smallPhone = configuration.screenWidthDp < 380
     val textStyle = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false))
-    Column(modifier.clip(RoundedCornerShape(if (tile) 12.dp else 0.dp)).background(fill)
+    Column(modifier.then(if (polished) Modifier.padding(horizontal = 4.dp, vertical = 1.dp) else Modifier)
+        .clip(RoundedCornerShape(if (tile) 12.dp else if (polished) 8.dp else 0.dp))
+        .then(if (polished && selected) Modifier.background(Brush.horizontalGradient(listOf(
+            tk.primary.copy(alpha = if (now) .16f else .10f), tk.primary.copy(alpha = if (now) .08f else .04f)))) else Modifier.background(if (polished) Color.Transparent else fill))
         .then(if (polished) Modifier.drawBehind {
+            if (r.prayer != Prayer.FAJR && !selected) drawLine(tk.divider.copy(alpha = .45f),
+                Offset(10.dp.toPx(), 0f), Offset(size.width - 10.dp.toPx(), 0f), .5.dp.toPx())
             if (selected) {
-                drawLine(tk.primary.copy(alpha = if (now) .65f else .4f), Offset(0f, 0f), Offset(size.width, 0f), .7.dp.toPx())
-                drawLine(tk.primary.copy(alpha = if (now) .45f else .3f), Offset(0f, size.height), Offset(size.width, size.height), .7.dp.toPx())
-            } else if (r.prayer != Prayer.FAJR) drawLine(tk.divider.copy(alpha = .55f), Offset(16.dp.toPx(), 0f), Offset(size.width - 16.dp.toPx(), 0f), .5.dp.toPx())
+                drawRoundRect(tk.primary.copy(alpha = .30f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(8.dp.toPx()), style = Stroke(.5.dp.toPx()))
+            }
         } else Modifier.border(if (selected) 1.dp else .5.dp, if (selected) marker.copy(alpha = .75f) else tk.divider, RoundedCornerShape(if (tile) 12.dp else 0.dp)))
         .combinedClickable(onClick = a.onToggleRelative, onLongClick = onWhy, role = Role.Button)
         .semantics(mergeDescendants = true) { contentDescription = r.spoken }
         .testTag("approved-row-${r.prayer.name}")) {
         if (tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.fillMaxWidth().weight(if (compactTablet) .36f else .44f))
         Row(Modifier.fillMaxWidth().then(if (tile) Modifier.weight(if (compactTablet) .64f else .56f) else Modifier.fillMaxHeight()), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.width(if (polished) 4.dp else if (illustrated) 3.dp else 18.dp).fillMaxHeight(), contentAlignment = Alignment.Center) {
-                if (polished) Box(Modifier.height(38.dp).width(3.dp).background(if (selected) tk.primary.copy(alpha = if (now) 1f else .8f) else Color.Transparent, RoundedCornerShape(1.dp)))
+            Box(Modifier.width(if (polished) 8.dp else if (illustrated) 3.dp else 18.dp).fillMaxHeight(), contentAlignment = Alignment.Center) {
+                if (polished) Box(Modifier.height(26.dp).width(2.dp).background(if (selected) tk.primary.copy(alpha = if (now) 1f else .8f) else Color.Transparent, RoundedCornerShape(1.dp)))
                 else if (illustrated) Box(Modifier.fillMaxHeight().width(3.dp).background(if (selected) marker else Color.Transparent))
                 else Canvas(Modifier.fillMaxSize()) {
                     val x = size.width/2; val y = size.height/2
