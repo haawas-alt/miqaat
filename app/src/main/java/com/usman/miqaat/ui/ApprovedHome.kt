@@ -47,6 +47,10 @@ private fun approvedUi(s: AppSettings) = if (L10n.isUrdu(s)) Amiri else Approved
  */
 @Composable
 fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
+    if (approvedTabletLandscape(s)) {
+        ApprovedTabletLandscapeHome(state, s, a)
+        return
+    }
     val tk = ThemeTokenSets.of(s.theme)
     val gallery = s.theme == AppTheme.PRAYER_GALLERY
     val kiswah = s.theme == AppTheme.KISWAH
