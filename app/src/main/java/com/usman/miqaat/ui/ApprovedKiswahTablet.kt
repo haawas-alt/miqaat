@@ -35,7 +35,7 @@ import com.usman.miqaat.data.*
     val c=LocalConfiguration.current
     return s.theme==AppTheme.KISWAH && minOf(c.screenWidthDp,c.screenHeightDp)>=600
 }
-private val kiswahNative=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false))
+private val kiswahNative=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),fontWeight=FontWeight.Normal)
 private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Serif
 
 @Composable internal fun ApprovedKiswahTabletHome(state:PrayerState,s:AppSettings,a:HomeActions) {
@@ -70,7 +70,7 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
             }
             if(wide) Row(Modifier.weight(1f).fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy((24*k).dp)) {
                 prayers(Modifier.weight(.50f).fillMaxHeight())
-                KiswahTabletHero(state,s,tk,hero,k,compact,false,Modifier.weight(.50f).fillMaxHeight().testTag("home-hero")) {why=hero.prayer}
+                KiswahTabletHero(state,s,tk,hero,k,compact,false,Modifier.weight(.50f).fillMaxHeight().padding(end=(190*k).dp).testTag("home-hero")) {why=hero.prayer}
             } else {
                 KiswahTabletHero(state,s,tk,hero,k,false,true,Modifier.weight(.40f).fillMaxWidth().testTag("home-hero")) {why=hero.prayer}
                 prayers(Modifier.weight(.60f).fillMaxWidth())
@@ -124,15 +124,29 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
             val gold=tk.primary.copy(alpha=.80f);val inset=4.dp.toPx()
             drawRect(gold,style=Stroke(.8.dp.toPx()))
             drawRect(gold,topLeft=Offset(inset,inset),size=androidx.compose.ui.geometry.Size(size.width-inset*2,size.height-inset*2),style=Stroke(.45.dp.toPx()))
-            // Restrained native gold corner leaves; no raster lettering or heavy silver rails.
-            for(x in listOf(14.dp.toPx(),size.width-14.dp.toPx()))for(y in listOf(14.dp.toPx(),size.height-14.dp.toPx())) {
-                drawCircle(gold,2.dp.toPx(),Offset(x,y))
-                drawOval(gold.copy(alpha=.8f),Offset(x-2.dp.toPx(),y-9.dp.toPx()),androidx.compose.ui.geometry.Size(4.dp.toPx(),7.dp.toPx()),style=Stroke(.7.dp.toPx()))
-                drawOval(gold.copy(alpha=.8f),Offset(x-9.dp.toPx(),y-2.dp.toPx()),androidx.compose.ui.geometry.Size(7.dp.toPx(),4.dp.toPx()),style=Stroke(.7.dp.toPx()))
+            // Fine native leaf-and-vine ornaments, separate from accessible Arabic text.
+            val u=minOf(1.dp.toPx(),size.height/72f)
+            for(left in listOf(true,false)) {
+                val ox=if(left)12.dp.toPx() else size.width-12.dp.toPx()
+                val cy=size.height/2;val d=if(left)1f else -1f
+                fun x(v:Float)=ox+d*v*u
+                fun y(v:Float)=cy+v*u
+                val vine=Path().apply {
+                    moveTo(x(0f),y(-28f));cubicTo(x(17f),y(-23f),x(-5f),y(-12f),x(8f),y(-4f))
+                    cubicTo(x(24f),y(4f),x(-6f),y(13f),x(6f),y(28f))
+                }
+                drawPath(vine,gold,style=Stroke(.9.dp.toPx()))
+                for(v in listOf(-18f,-5f,10f,22f)) {
+                    val leaf=Path().apply {
+                        moveTo(x(5f),y(v));cubicTo(x(21f),y(v-10f),x(20f),y(v+8f),x(5f),y(v))
+                        cubicTo(x(-4f),y(v-9f),x(-3f),y(v-15f),x(5f),y(v))
+                    }
+                    drawPath(leaf,gold.copy(alpha=.14f));drawPath(leaf,gold,style=Stroke(.65.dp.toPx()))
+                }
             }
         }
         Text(text,Modifier.fillMaxWidth().padding(horizontal=(40*k).dp,vertical=(10*k).dp).testTag("kiswah-calligraphy-band")
-            .semantics {contentDescription=Kiswah.BAND},fontFamily=KiswahLandscapeArabic,fontSize=((if(wide)27 else 27)*k).sp,
+            .semantics {contentDescription=Kiswah.BAND},fontFamily=KiswahLandscapeArabic,fontSize=((if(wide)24 else 27)*k).sp,
             lineHeight=(43*k).sp,color=tk.primary,textAlign=TextAlign.Center,maxLines=if(wide)1 else 2,style=kiswahNative)
     }
 }
@@ -140,17 +154,17 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
 @Composable private fun KiswahTabletHero(state:PrayerState,s:AppSettings,tk:ThemeTokens,hero:HeroInfo,k:Float,compact:Boolean,portrait:Boolean,modifier:Modifier,onDetails:()->Unit) {
     Column(modifier.semantics(mergeDescendants=true) {contentDescription=hero.spoken;heading()},
         horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
-        Text(hero.special?:hero.kickerLabel,fontFamily=kiswahUi(s),fontSize=((if(compact)14 else 17)*k).sp,lineHeight=(24*k).sp,
+        Text(hero.special?:(if(state.justPassed)L10n.t("CURRENT PRAYER","موجودہ نماز") else L10n.t("NEXT PRAYER","اگلی نماز")),fontFamily=kiswahUi(s),fontSize=((if(compact)14 else 17)*k).sp,lineHeight=(24*k).sp,
             letterSpacing=if(L10n.isUrdu(s))0.sp else 2.sp,color=tk.primary,maxLines=2,textAlign=TextAlign.Center,style=kiswahNative)
         Text(hero.arabic,Modifier.testTag("approved-hero-arabic"),fontFamily=KiswahLandscapeArabic,fontSize=((if(compact)52 else 72)*k).sp,
             lineHeight=((if(compact)65 else 92)*k).sp,fontWeight=FontWeight.Bold,color=tk.primary,style=kiswahNative)
         if(!L10n.isUrdu(s))Text(hero.label.uppercase(),fontFamily=FontFamily.Serif,fontSize=((if(compact)19 else 23)*k).sp,
             lineHeight=(30*k).sp,letterSpacing=2.sp,color=tk.contentPrimary,maxLines=1,style=kiswahNative)
-        TabletHeroClock(hero,s,tk,k,if(compact)90f else if(portrait)128f else 116f,"approved-hero-clock")
+        TabletHeroClock(hero,s,tk.copy(contentPrimary=tk.primary),k,if(compact)90f else if(portrait)128f else 116f,"approved-hero-clock")
         Row(Modifier.fillMaxWidth().padding(horizontal=(12*k).dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.Center) {
             Box(Modifier.size((8*k).dp).background(if(state.justPassed)Color(0xFF64DAC5)else tk.primary,RoundedCornerShape(10.dp)))
-            val status=if(state.justPassed) L10n.t("Azaan was ","اذان: ")+hero.status else hero.status
-            Text(status,Modifier.padding(start=(9*k).dp),fontFamily=kiswahUi(s),fontSize=((if(compact)16 else 19)*k).sp,
+            val status=hero.status
+            Text(status,Modifier.padding(start=(9*k).dp).testTag("kiswah-tablet-status"),fontFamily=kiswahUi(s),fontSize=((if(compact)16 else 19)*k).sp,
                 lineHeight=(28*k).sp,color=tk.contentPrimary,maxLines=2,textAlign=TextAlign.Center,style=kiswahNative)
         }
         Spacer(Modifier.height((16*k).dp))
