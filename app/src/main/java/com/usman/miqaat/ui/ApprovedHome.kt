@@ -482,7 +482,7 @@ internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeToken
             }
         }
         Row(Modifier.fillMaxWidth()) { prayers.forEach { p ->
-            Text(L10n.prayer(s,p), Modifier.weight(1f).testTag("approved-timeline-${p.name}"), fontFamily = if (L10n.isUrdu(s)) Amiri else if (landscape) androidx.compose.ui.text.font.FontFamily.Serif else ApprovedBody,
+            Text(L10n.prayer(s,p), Modifier.weight(1f).testTag("approved-timeline-${p.name}"), fontFamily = if (L10n.isUrdu(s)) Amiri else if (landscape && approvedTabletLandscape(s) && s.theme==AppTheme.PRAYER_GALLERY) androidx.compose.ui.text.font.FontFamily.SansSerif else if (landscape) androidx.compose.ui.text.font.FontFamily.Serif else ApprovedBody,
                 fontSize = ((if (compact && !L10n.isUrdu(s)) 10 else if (landscape && !L10n.isUrdu(s)) 13 else 11)*mockupScale).sp, lineHeight = (18*mockupScale).sp, textAlign = TextAlign.Center, color = if (p == active) gold else tk.contentPrimary, maxLines = 1)
         } }
     }

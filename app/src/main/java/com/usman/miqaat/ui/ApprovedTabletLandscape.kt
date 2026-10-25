@@ -48,11 +48,11 @@ private fun tabletDisplay(tk:ThemeTokens)=if(tk.dark)tabletMiqaatDisplay else Ap
 
 private val tabletNativeText=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false))
 private val tabletClockText=tabletNativeText.copy(fontFeatureSettings="'lnum' 1, 'tnum' 1")
-private fun tabletUi(s:AppSettings)=if(L10n.isUrdu(s)) Amiri else ApprovedBody
+private fun tabletUi(s:AppSettings)=if(L10n.isUrdu(s)) Amiri else if(s.theme==AppTheme.PRAYER_GALLERY)FontFamily.SansSerif else ApprovedBody
 
 @Composable
 internal fun ApprovedTabletLandscapeHome(state:PrayerState,s:AppSettings,a:HomeActions) {
-    val tk=ThemeTokenSets.of(s.theme)
+    val tk=ThemeTokenSets.of(s.theme).let { if(s.theme==AppTheme.MIQAAT)it.copy(primary=Color(0xFFFFD078)) else it }
     val gallery=s.theme==AppTheme.PRAYER_GALLERY
     val hero=heroInfo(state,s,kicker(state,s))
     val links=doors(state,s,a)
@@ -67,6 +67,7 @@ internal fun ApprovedTabletLandscapeHome(state:PrayerState,s:AppSettings,a:HomeA
         val compact=maxHeight<700.dp
         if(s.artTheme!=ArtTheme.MINIMAL) Image(painterResource(if(gallery) R.drawable.tablet_gallery_paper_181 else R.drawable.tablet_miqaat_181),
             null,Modifier.fillMaxSize().graphicsLayer(scaleX=if(!gallery && L10n.isUrdu(s))-1f else 1f).testTag("tablet-approved-art"),contentScale=ContentScale.FillBounds)
+        if(gallery) Box(Modifier.fillMaxSize().background(Color(0xFFFFFAED).copy(alpha=.18f)))
         Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().displayCutoutPadding()
             .padding(horizontal=(24*k).dp).padding(bottom=((if(gallery)12 else 16)*k).dp).testTag("tablet-approved-${s.theme.name}")) {
             TabletHeader(state,s,a,tk,k)
@@ -113,15 +114,15 @@ private fun TabletHeader(state:PrayerState,s:AppSettings,a:HomeActions,tk:ThemeT
     val ui=tabletUi(s)
     Row(Modifier.fillMaxWidth().height(maxOf(48.dp,((if(gallery)64 else 72)*k).dp)),verticalAlignment=Alignment.CenterVertically,
         horizontalArrangement=Arrangement.spacedBy((12*k).dp)) {
-        Row(Modifier.weight(.29f).heightIn(min=48.dp).clip(RoundedCornerShape(20.dp))
+        Row(Modifier.weight(.24f).heightIn(min=48.dp).clip(RoundedCornerShape(20.dp))
             .clickable(role=Role.Button,onClick=a.onOpenLocation)
             .semantics(mergeDescendants=true) { contentDescription=Str.get(R.string.s_a11y_location,L10n.iso(L10n.place(s.locationName))) },
             verticalAlignment=Alignment.CenterVertically) {
             Icon(Icons.Outlined.LocationOn,null,Modifier.size((28*k).dp),tint=if(gallery)tk.accent else tk.primary)
-            Text(L10n.place(s.locationName),Modifier.padding(start=(10*k).dp),fontFamily=if(L10n.isUrdu(s))Amiri else if(gallery)ApprovedBody else tabletDisplay(tk),
+            Text(L10n.place(s.locationName),Modifier.padding(start=(10*k).dp),fontFamily=if(L10n.isUrdu(s))Amiri else if(gallery)tabletUi(s) else tabletDisplay(tk),
                 fontSize=((if(gallery)21 else 28)*k).sp,color=tk.contentPrimary,maxLines=1,style=tabletNativeText)
         }
-        Row(Modifier.weight(.53f),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.Center) {
+        Row(Modifier.weight(.58f),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.Center) {
             Text(L10n.date(s,state.now),fontFamily=if(gallery)ui else if(L10n.isUrdu(s))Amiri else tabletDisplay(tk),
                 fontSize=((if(gallery)16 else 20)*k).sp,color=tk.contentPrimary,maxLines=1,style=tabletNativeText)
             if(s.showHijri) {
@@ -153,7 +154,7 @@ private fun TabletMiqaatHero(state:PrayerState,s:AppSettings,tk:ThemeTokens,hero
         if(!L10n.isUrdu(s)) Text(hero.label.uppercase(),fontFamily=tabletDisplay(tk),fontSize=(28*k).sp,lineHeight=(34*k).sp,
             letterSpacing=2.sp,color=tk.contentPrimary,maxLines=1,style=tabletNativeText)
         Spacer(Modifier.height((6*k).dp))
-        TabletHeroClock(hero,s,tk,k,88f,"approved-hero-clock")
+        TabletHeroClock(hero,s,tk,k,82f,"approved-hero-clock")
         Spacer(Modifier.height((4*k).dp))
         Row(Modifier.clip(RoundedCornerShape(20.dp)).background(tk.background.copy(alpha=.92f))
             .border(.7.dp,tk.outline.copy(alpha=.7f),RoundedCornerShape(20.dp)).padding(horizontal=(16*k).dp,vertical=(4*k).dp),
@@ -220,7 +221,7 @@ private fun TabletAction(label:String,s:AppSettings,tk:ThemeTokens,k:Float,modif
         verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.Center) {
         Text(label,fontFamily=if(tk.dark && !L10n.isUrdu(s))tabletDisplay(tk) else tabletUi(s),fontSize=((if(tk.dark)20 else 16)*k).sp,lineHeight=((if(tk.dark)26 else 22)*k).sp,
             color=if(filled)tk.background else tk.contentPrimary,maxLines=2,style=tabletNativeText)
-        Icon(Icons.AutoMirrored.Outlined.ArrowForward,null,Modifier.padding(start=(8*k).dp).size((21*k).dp),
+        if(filled || tk.dark) Icon(Icons.AutoMirrored.Outlined.ArrowForward,null,Modifier.padding(start=(8*k).dp).size((21*k).dp),
             tint=if(filled)tk.background else if(tk.dark)tk.primary else tk.contentPrimary)
     }
 }
@@ -247,7 +248,7 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
     val shape=RoundedCornerShape(if(gallery)10.dp else 11.dp)
     val marker=if(r.isNow)Color(0xFF0A8279) else if(gallery)Color(0xFFFFCF70) else tk.primary
     val accent=if(gallery)tk.accent else tk.primary
-    val selectedColors=if(!gallery && !r.isNow)listOf(Color(0xFF6B4B21),Color(0xFF30251C)) else listOf(
+    val selectedColors=if(!gallery && !r.isNow)listOf(Color(0xFF765525),Color(0xFF251E19)) else listOf(
         (if(r.isNow)marker else accent).copy(alpha=if(gallery).12f else .24f),
         (if(r.isNow)marker else accent).copy(alpha=if(gallery).05f else .12f))
     val width=LocalConfiguration.current.screenWidthDp
@@ -263,7 +264,7 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
             Modifier.height(if(s.iqamahEnabled) (if(compact)84.dp else 94.dp) else (if(compact && L10n.isUrdu(s))80.dp else if(compact)68.dp else 84.dp)) else Modifier.weight(1f))
             .then(if(!gallery && !selected && r.prayer!=Prayer.FAJR)Modifier.border(.4.dp,tk.divider) else Modifier)
             .padding(horizontal=((if(gallery)12 else 28)*k).dp),verticalAlignment=Alignment.CenterVertically) {
-            Column(Modifier.fillMaxWidth(if(gallery).28f else .28f)) {
+            Column(Modifier.fillMaxWidth(if(gallery).31f else .28f)) {
                 Text(r.label,Modifier.testTag("gallery-fit-label-${r.prayer.name}"),
                     fontFamily=if(L10n.isUrdu(s))Amiri else tabletDisplay(tk),fontWeight=FontWeight.Medium,
                     fontSize=((if(gallery && compact && L10n.isUrdu(s))20 else if(gallery)24 else 32)*k).sp,lineHeight=((if(gallery && compact && L10n.isUrdu(s))28 else if(gallery)30 else 38)*k).sp,
@@ -278,8 +279,8 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
                     Row(Modifier.weight(1f,fill=false),verticalAlignment=Alignment.CenterVertically) {
                         Text(if(s.showRelative)r.relative else r.clock,Modifier.testTag("gallery-fit-clock-${r.prayer.name}"),
                             fontFamily=if(s.showRelative)tabletUi(s) else tabletDisplay(tk),fontWeight=FontWeight.Medium,
-                            fontSize=((if(s.showRelative) (if(gallery)18 else 22) else if(gallery)38 else if(compact && s.iqamahEnabled)36 else 46)*k).sp,
-                            lineHeight=((if(s.showRelative) (if(gallery)24 else 28) else if(gallery)46 else if(compact && s.iqamahEnabled)44 else 54)*k).sp,
+                            fontSize=((if(s.showRelative) (if(gallery)18 else 22) else if(gallery)36 else if(L10n.isUrdu(s) && s.showEndTimes)36 else if(compact && s.iqamahEnabled)36 else 46)*k).sp,
+                            lineHeight=((if(s.showRelative) (if(gallery)24 else 28) else if(gallery)44 else if(L10n.isUrdu(s) && s.showEndTimes)44 else if(compact && s.iqamahEnabled)44 else 54)*k).sp,
                             color=if(gallery && selected)tk.accent else tk.contentPrimary,maxLines=if(s.showRelative)2 else 1,
                             style=if(s.showRelative)tabletNativeText else tabletClockText)
                         if(!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}",fontFamily=if(L10n.isUrdu(s))Amiri else tabletDisplay(tk),
@@ -297,7 +298,7 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
                 Icon(if(r.azaanOn)Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff,null,Modifier.size(((if(gallery)22 else 28)*k).dp),tint=accent)
             }
             IconButton(onWhy,Modifier.size(48.dp).testTag("approved-info-${r.prayer.name}").semantics { contentDescription=Str[R.string.s_why_this_time] }) {
-                Icon(Icons.Outlined.Info,null,Modifier.size(((if(gallery)25 else 29)*k).dp),tint=if(gallery)tk.contentPrimary else tk.contentSecondary)
+                Icon(Icons.Outlined.Info,null,Modifier.size(((if(gallery)25 else 29)*k).dp),tint=tk.contentPrimary)
             }
         }
     }
@@ -323,7 +324,7 @@ private fun TabletDock(state:PrayerState,s:AppSettings,a:HomeActions,tk:ThemeTok
         if(s.showQibla) TabletDockItem(Icons.Outlined.Explore,L10n.word(s,"Qibla"),L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"),
             L10n.word(s,"Qibla"),s,tk,k,Modifier.weight(1f),a.onOpenQibla)
         if(s.showQibla) Box(Modifier.width(.6.dp).height((38*k).dp).background(tk.primary.copy(alpha=.5f)))
-        TabletDockItem(Icons.Outlined.AutoStories,L10n.t("Adhkar","اذکار"),when(mode){AdhkarMode.MORNING->L10n.t("Morning","صبح");AdhkarMode.EVENING->L10n.t("Evening","شام");else->L10n.t("After prayer","نماز کے بعد")},
+        TabletDockItem(Icons.Outlined.MenuBook,L10n.t("Adhkar","اذکار"),when(mode){AdhkarMode.MORNING->L10n.t("Morning","صبح");AdhkarMode.EVENING->L10n.t("Evening","شام");else->L10n.t("After prayer","نماز کے بعد")},
             L10n.t("Adhkar","اذکار"),s,tk,k,Modifier.weight(1f)) { a.onOpenAdhkar(mode) }
         if(s.kidsMode) Box(Modifier.width(.6.dp).height((38*k).dp).background(tk.primary.copy(alpha=.5f)))
         if(s.kidsMode) TabletDockItem(Icons.Outlined.MenuBook,L10n.t("Learn","سیکھیں"),L10n.t("Salah","نماز"),
