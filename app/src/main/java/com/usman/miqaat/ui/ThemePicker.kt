@@ -100,7 +100,9 @@ private fun ThemeCard(theme: AppTheme, cur: Boolean, host: ThemeTokens, settings
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        val portrait = phonePortraitLayout()
+        val heading: @Composable () -> Unit = {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Box(Modifier.size(28.dp).clip(CircleShape).background(if (cur) accent else Color.Transparent).border(2.dp, if (cur) accent else host.outline, CircleShape), contentAlignment = Alignment.Center) {
                 if (cur) Icon(Icons.Outlined.Check, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
             }
@@ -109,14 +111,29 @@ private fun ThemeCard(theme: AppTheme, cur: Boolean, host: ThemeTokens, settings
                 Text(desc, fontFamily = Nunito, fontSize = 14.sp, color = host.contentSecondary)
             }
         }
-        // Decorative illustration only. Its external title/description remain fully font-scaled.
-        val density = androidx.compose.ui.platform.LocalDensity.current
-        androidx.compose.runtime.CompositionLocalProvider(androidx.compose.ui.platform.LocalDensity provides androidx.compose.ui.unit.Density(density.density, 1f)) {
-            Box(Modifier.fillMaxWidth().aspectRatio(891f/411f).testTag("theme-preview-${theme.name}").clearAndSetSemantics { }) {
-                ThemePreview(tk, settings, Modifier.matchParentSize())
-                // The miniature is decorative. Every tap, including its tiny controls, selects the card.
-                Box(Modifier.matchParentSize().clickable(onClick=onClick).clearAndSetSemantics { })
+        }
+        val preview: @Composable (Modifier) -> Unit = { frame ->
+            // A decorative native render; the external title still honours system font size.
+            val density = androidx.compose.ui.platform.LocalDensity.current
+            CompositionLocalProvider(androidx.compose.ui.platform.LocalDensity provides androidx.compose.ui.unit.Density(density.density, 1f)) {
+                Box(frame.testTag("theme-preview-${theme.name}").clearAndSetSemantics { }) {
+                    ThemePreview(tk, settings, Modifier.matchParentSize(), portrait)
+                    Box(Modifier.matchParentSize().clickable(onClick=onClick).clearAndSetSemantics { })
+                }
             }
+        }
+        if (portrait) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp), verticalAlignment = Alignment.CenterVertically) {
+                preview(Modifier.width(96.dp).aspectRatio(393f/852f))
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    heading()
+                    Text(L10n.t("Phone portrait preview", "فون کا عمودی پیش منظر"), fontFamily = Nunito,
+                        fontSize = 12.sp, color = host.contentSecondary)
+                }
+            }
+        } else {
+            heading()
+            preview(Modifier.fillMaxWidth().aspectRatio(891f/411f))
         }
     }
 }
@@ -125,13 +142,13 @@ private fun ThemeCard(theme: AppTheme, cur: Boolean, host: ThemeTokens, settings
 @Composable
 internal fun selectionAccent(tk: ThemeTokens): Color = if (tk.dark) tk.primary else Color(0xFF9A6B1E)
 
-/** The same native short-landscape Home used by the app, reduced only as a decorative image. */
+/** Preview the current phone orientation using the same native Home renderer and artwork. */
 @Composable
-private fun ThemePreview(tk: ThemeTokens, settings: AppSettings, modifier: Modifier) {
+private fun ThemePreview(tk: ThemeTokens, settings: AppSettings, modifier: Modifier, portrait: Boolean) {
     val config = LocalConfiguration.current
-    val previewConfig = remember(config) { android.content.res.Configuration(config).apply {
-        orientation = android.content.res.Configuration.ORIENTATION_LANDSCAPE
-        screenWidthDp = 891; screenHeightDp = 411
+    val previewConfig = remember(config, portrait) { android.content.res.Configuration(config).apply {
+        orientation = if (portrait) android.content.res.Configuration.ORIENTATION_PORTRAIT else android.content.res.Configuration.ORIENTATION_LANDSCAPE
+        screenWidthDp = if (portrait) 393 else 891; screenHeightDp = if (portrait) 852 else 411
     } }
     val s = remember(tk.theme, settings.artTheme, settings.language) { AppSettings(theme=tk.theme,
         artTheme=settings.artTheme, language=settings.language, latitude=-33.93,longitude=151.19,
@@ -140,8 +157,8 @@ private fun ThemePreview(tk: ThemeTokens, settings: AppSettings, modifier: Modif
     val actions=remember { HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}) }
     Box(modifier.clip(RoundedCornerShape(10.dp)).background(tk.background)) {
         CompositionLocalProvider(LocalConfiguration provides previewConfig) {
-            Layout(content={ PhoneLandscapeHome(state,s,actions) }) { children,constraints ->
-                val width=891.dp.roundToPx();val height=411.dp.roundToPx()
+            Layout(content={ if (portrait) ApprovedHome(state,s,actions) else PhoneLandscapeHome(state,s,actions) }) { children,constraints ->
+                val width=(if (portrait) 393.dp else 891.dp).roundToPx();val height=(if (portrait) 852.dp else 411.dp).roundToPx()
                 val child=children.single().measure(Constraints.fixed(width,height))
                 val scale=minOf(constraints.maxWidth.toFloat()/width,constraints.maxHeight.toFloat()/height)
                 layout(constraints.maxWidth,constraints.maxHeight) {

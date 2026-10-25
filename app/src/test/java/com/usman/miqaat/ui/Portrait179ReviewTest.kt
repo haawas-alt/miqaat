@@ -42,12 +42,13 @@ class Portrait179ReviewTest : ComposeSupport() {
             shadowOf(manager).setNotificationsEnabled(true)
             for(theme in AppTheme.entries.filter { System.getenv("MIQAAT_VISUAL_THEME").let { v -> v==null || v==it.name } })
             for(lang in Language.entries)
+            for(relative in listOf(false,true))
             for(profile in listOf(Profile(393,852,1f,false),Profile(393,852,1f,true),
                 Profile(393,852,1.1f,false),Profile(360,800,1f,true))) {
                 val (w,h,scale,insets)=profile
                 val s=AppSettings(theme=theme,language=lang,latitude=-33.93,longitude=151.19,
                     locationName="Mascot, NSW",zoneId="Australia/Sydney",locationSet=true,setupDone=true,
-                    showRelative=true,nightDim=false)
+                    showRelative=relative,nightDim=false)
                 app.settings.update { s }
                 val state=PrayerEngine.state(s,ZonedDateTime.of(2026,10,25,11,17,0,0,s.zone()))
                 var prepared:Prayer?=null
@@ -59,7 +60,7 @@ class Portrait179ReviewTest : ComposeSupport() {
                         }
                     }
                     rule.mainClock.advanceTimeBy(32);rule.waitForIdle()
-                    val prefix="build/portrait-polish/${theme.name}/device-${lang.name}-$w-${(scale*100).toInt()}-${if(insets)"insets" else "full"}"
+                    val prefix="build/portrait-polish/${theme.name}/device-${lang.name}-$w-${(scale*100).toInt()}-${if(insets)"insets" else "full"}-${if(relative)"relative" else "clock"}"
                     scenario.onActivity { act ->
                         val v=act.findViewById<View>(android.R.id.content)
                         val b=Bitmap.createBitmap(v.width,v.height,Bitmap.Config.ARGB_8888);v.draw(Canvas(b))
@@ -72,6 +73,28 @@ class Portrait179ReviewTest : ComposeSupport() {
                         val clock=rule.onNodeWithTag("portrait-hero-time",true).fetchSemanticsNode().boundsInRoot
                         assertTrue("Normal portrait must keep time below prayer title: $theme/$profile/$lang $title $clock",
                             clock.top>=title.bottom-16*d && kotlin.math.abs(clock.center.x-title.center.x)<=d)
+                    }
+                    // The selected absolute clock must use the same bundled face, size and weight
+                    // as every other clock: synthetic bold previously changed its visible proportions.
+                    var clockStyle: androidx.compose.ui.text.TextStyle? = null
+                    for (p in listedPrayers(s)) {
+                        val layouts=mutableListOf<TextLayoutResult>()
+                        rule.onNodeWithTag("gallery-fit-clock-${p.name}",true).fetchSemanticsNode()
+                            .config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                        assertTrue("Clock layout missing for $theme/$p", layouts.isNotEmpty())
+                        layouts.forEach { l ->
+                            assertFalse("Clock truncates for $theme/$profile/$lang/$p", l.multiParagraph.didExceedMaxLines)
+                            if (!relative) {
+                                val style=l.layoutInput.style
+                                assertEquals(androidx.compose.ui.text.font.FontWeight.Medium, style.fontWeight)
+                                clockStyle?.let { first ->
+                                    assertEquals(first.fontFamily, style.fontFamily)
+                                    assertEquals(first.fontSize, style.fontSize)
+                                    assertEquals(first.lineHeight, style.lineHeight)
+                                }
+                                clockStyle=style
+                            }
+                        }
                     }
                     val details=rule.onNodeWithText(Str[R.string.s_view_prayer_details],useUnmergedTree=true)
                     runCatching { details.performScrollTo() };details.assertIsDisplayed()

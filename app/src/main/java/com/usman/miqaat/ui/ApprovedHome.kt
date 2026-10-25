@@ -406,7 +406,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(if (s.showRelative) r.relative else r.clock, Modifier.testTag("gallery-fit-clock-${r.prayer.name}"), fontFamily = if (s.showRelative) approvedUi(s) else ApprovedDisplay,
                         fontSize = if (s.showRelative) (if (large) 20.sp else 14.sp) else if (large) (if (compactTablet) 30.sp else 38.sp) else if (polished && illustrated && urdu && smallPhone) 21.sp else 25.sp, lineHeight = if (s.showRelative) (if (large) (if (compactTablet) 22.sp else 26.sp) else 18.sp) else if (large) (if (compactTablet) 36.sp else 46.sp) else if (polished && illustrated && urdu && smallPhone) 30.sp else 32.sp,
-                        fontWeight = if (polished && selected) FontWeight.SemiBold else FontWeight.Medium, color = tk.contentPrimary, maxLines = if (s.showRelative) 2 else 1, style = textStyle)
+                        fontWeight = if (polished && selected && s.showRelative) FontWeight.SemiBold else FontWeight.Medium, color = tk.contentPrimary, maxLines = if (s.showRelative) 2 else 1, style = textStyle)
                     if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay, fontSize = if (urdu) 11.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
                 }
                 if (r.small.isNotEmpty()) Text(if (urdu) r.small.replace(" بجے", "") else r.small, Modifier.testTag("gallery-fit-detail-${r.prayer.name}"), fontFamily = if (urdu) Amiri else ApprovedBody,
@@ -432,6 +432,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
 
 @Composable
 internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeTokens, modifier: Modifier, landscape: Boolean = false, compact: Boolean = false) {
+    val quietPortrait = phonePortraitLayout()
     val prayers = listedPrayers(s)
     val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
     val gold = if (tk.dark) Color(0xFFFFCC63) else tk.accent
@@ -449,9 +450,9 @@ internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeToken
             drawLine(gold.copy(alpha = .65f), Offset(x(0),y), Offset(x(prayers.lastIndex),y), 1.dp.toPx())
             prayers.forEachIndexed { i,p ->
                 val point = Offset(x(i),y); val sel = p == active
-                if (sel) drawCircle(Brush.radialGradient(listOf(gold.copy(alpha = .65f),Color.Transparent),point,13.dp.toPx()),13.dp.toPx(),point)
+                if (sel) drawCircle(Brush.radialGradient(listOf(gold.copy(alpha = if (quietPortrait) .30f else .65f),Color.Transparent),point,(if (quietPortrait) 10.dp else 13.dp).toPx()),(if (quietPortrait) 10.dp else 13.dp).toPx(),point)
                 rotate(45f, point) { drawRect(gold, Offset(point.x-3.dp.toPx(),point.y-3.dp.toPx()), androidx.compose.ui.geometry.Size(6.dp.toPx(),6.dp.toPx())) }
-                if (sel) drawCircle(gold, 8.dp.toPx(), point, style = Stroke(1.dp.toPx()))
+                if (sel) drawCircle(gold, (if (quietPortrait) 6.dp else 8.dp).toPx(), point, style = Stroke(1.dp.toPx()))
             }
             if (s.showDisliked) {
                 fun at(t: java.time.ZonedDateTime): Float {
