@@ -94,6 +94,12 @@ private fun celestialUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.S
 @Composable private fun CelestialRailRow(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:Float,compact:Boolean,first:Boolean,last:Boolean,selected:Boolean,modifier:Modifier,onWhy:()->Unit) {
     val shape=RoundedCornerShape(50.dp)
     val rtl=L10n.isUrdu(s)
+    val badge:@Composable ()->Unit={
+            if(r.isNow || r.isNext)Text(L10n.word(s,if(r.isNow)"NOW" else "NEXT"),Modifier.testTag(if(r.isNow)"home-status-now" else "home-status-next")
+                .clip(RoundedCornerShape(20.dp)).background(if(selected)tk.primary else tk.background.copy(alpha=.7f)).border(.7.dp,tk.primary,RoundedCornerShape(20.dp))
+                .padding(horizontal=(8*k).dp,vertical=(4*k).dp),fontFamily=if(rtl)Amiri else ApprovedBody,fontSize=(10*k).sp,lineHeight=(14*k).sp,
+                color=if(selected)tk.background else tk.primary,maxLines=1,style=celestialNative)
+    }
     Row(modifier.then(if(selected)Modifier.clip(shape).background(Brush.horizontalGradient(listOf(Color(0xFF664B20),Color(0xFF32291F)))).border(.8.dp,tk.primary,shape)else Modifier)
         .combinedClickable(onClick=a.onToggleRelative,onLongClick=onWhy,role=Role.Button).semantics(mergeDescendants=true){contentDescription=r.spoken}
         .testTag("approved-row-${r.prayer.name}"),verticalAlignment=Alignment.CenterVertically) {
@@ -120,15 +126,16 @@ private fun celestialUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.S
                     fontSize=((if(s.showRelative)18 else if(compact)30 else 36)*k).sp,lineHeight=((if(s.showRelative)24 else if(compact)36 else 43)*k).sp,
                     color=tk.contentPrimary,maxLines=if(s.showRelative)2 else 1,style=celestialNative)
                 if(!s.showRelative && r.suffix.isNotEmpty())Text(" ${r.suffix}",fontFamily=celestialUi(s),fontSize=(16*k).sp,color=tk.contentPrimary,maxLines=1,style=celestialNative)
+                if(!s.showRelative && (r.isNow || r.isNext)) {
+                    Spacer(Modifier.width((8*k).dp))
+                    badge()
+                }
             }
             if(r.small.isNotEmpty())Text(r.small,Modifier.testTag("gallery-fit-detail-${r.prayer.name}"),fontFamily=if(rtl)Amiri else ApprovedBody,
                 fontSize=((if(compact)14 else 16)*k).sp,lineHeight=((if(rtl)26 else if(compact)19 else 22)*k).sp,color=tk.contentSecondary,maxLines=2,style=celestialNative)
         }
         Box(Modifier.width((56*k).dp),contentAlignment=Alignment.Center) {
-            if(r.isNow || r.isNext)Text(L10n.word(s,if(r.isNow)"NOW" else "NEXT"),Modifier.testTag(if(r.isNow)"home-status-now" else "home-status-next")
-                .clip(RoundedCornerShape(20.dp)).background(if(selected)tk.primary else tk.background.copy(alpha=.7f)).border(.7.dp,tk.primary,RoundedCornerShape(20.dp))
-                .padding(horizontal=(8*k).dp,vertical=(4*k).dp),fontFamily=if(rtl)Amiri else ApprovedBody,fontSize=(10*k).sp,lineHeight=(14*k).sp,
-                color=if(selected)tk.background else tk.primary,maxLines=1,style=celestialNative)
+            if(s.showRelative)badge()
         }
         Box(Modifier.width((34*k).dp).heightIn(min=48.dp),contentAlignment=Alignment.Center) {
             if(r.prayer.isPrayer)Icon(if(r.azaanOn)Icons.Outlined.NotificationsNone else Icons.Outlined.NotificationsOff,null,Modifier.size((25*k).dp),tint=tk.primary)
