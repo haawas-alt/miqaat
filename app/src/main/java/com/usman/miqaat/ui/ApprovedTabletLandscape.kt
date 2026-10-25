@@ -44,7 +44,7 @@ internal fun approvedTabletLandscape(s: AppSettings): Boolean {
 @OptIn(androidx.compose.ui.text.ExperimentalTextApi::class)
 private val tabletMiqaatDisplay=FontFamily(Font(R.font.cormorant_garamond_medium,FontWeight.Medium,
     variationSettings=FontVariation.Settings(FontVariation.weight(600))))
-private fun tabletDisplay(tk:ThemeTokens)=if(tk.dark)tabletMiqaatDisplay else ApprovedDisplay
+private fun tabletDisplay(tk:ThemeTokens)=if(tk.theme==AppTheme.KISWAH)FontFamily.Serif else if(tk.dark)tabletMiqaatDisplay else ApprovedDisplay
 
 private val tabletNativeText=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false))
 private val tabletClockText=tabletNativeText.copy(fontFeatureSettings="'lnum' 1, 'tnum' 1")
@@ -203,7 +203,7 @@ private fun TabletGalleryHero(state:PrayerState,s:AppSettings,a:HomeActions,tk:T
 }
 
 @Composable
-private fun TabletHeroClock(hero:HeroInfo,s:AppSettings,tk:ThemeTokens,k:Float,sp:Float,tag:String) {
+internal fun TabletHeroClock(hero:HeroInfo,s:AppSettings,tk:ThemeTokens,k:Float,sp:Float,tag:String) {
     Row(verticalAlignment=Alignment.CenterVertically) {
         Text(hero.clock,Modifier.testTag(tag),fontFamily=tabletDisplay(tk),fontWeight=FontWeight.Medium,fontSize=(sp*k).sp,
             lineHeight=((sp+10)*k).sp,color=if(tk.dark)tk.contentPrimary else tk.accent,maxLines=1,style=tabletClockText)
@@ -213,7 +213,7 @@ private fun TabletHeroClock(hero:HeroInfo,s:AppSettings,tk:ThemeTokens,k:Float,s
 }
 
 @Composable
-private fun TabletAction(label:String,s:AppSettings,tk:ThemeTokens,k:Float,modifier:Modifier,filled:Boolean,onClick:()->Unit) {
+internal fun TabletAction(label:String,s:AppSettings,tk:ThemeTokens,k:Float,modifier:Modifier,filled:Boolean,onClick:()->Unit) {
     Row(modifier.heightIn(min=48.dp).clip(RoundedCornerShape(28.dp))
         .background(if(filled)tk.accent else if(tk.dark)tk.background.copy(alpha=.96f) else tk.background.copy(alpha=.4f))
         .border(.8.dp,if(tk.dark)tk.primary else tk.accent,RoundedCornerShape(28.dp))
@@ -243,12 +243,14 @@ private fun TabletGalleryArt(index:Int?,modifier:Modifier) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:Float,compact:Boolean,modifier:Modifier,gallery:Boolean,onWhy:()->Unit) {
-    val selected=r.isNow||r.isNext
+internal fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:Float,compact:Boolean,modifier:Modifier,gallery:Boolean,onWhy:()->Unit) {
+    val kiswah=s.theme==AppTheme.KISWAH
+    val showBadge=r.isNow||r.isNext
+    val selected=if(kiswah)r.isNow else showBadge
     val shape=RoundedCornerShape(if(gallery)10.dp else 11.dp)
-    val marker=if(r.isNow)Color(0xFF0A8279) else if(gallery)Color(0xFFFFCF70) else tk.primary
+    val marker=if(kiswah)tk.primary else if(r.isNow)Color(0xFF0A8279) else if(gallery)Color(0xFFFFCF70) else tk.primary
     val accent=if(gallery)tk.accent else tk.primary
-    val selectedColors=if(!gallery && !r.isNow)listOf(Color(0xFF765525),Color(0xFF251E19)) else listOf(
+    val selectedColors=if(!gallery && (!r.isNow || kiswah))listOf(Color(0xFF765525),Color(0xFF251E19)) else listOf(
         (if(r.isNow)marker else accent).copy(alpha=if(gallery).12f else .24f),
         (if(r.isNow)marker else accent).copy(alpha=if(gallery).05f else .12f))
     val width=LocalConfiguration.current.screenWidthDp
@@ -269,24 +271,24 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
                     fontFamily=if(L10n.isUrdu(s))Amiri else tabletDisplay(tk),fontWeight=FontWeight.Medium,
                     fontSize=((if(gallery && compact && L10n.isUrdu(s))20 else if(gallery)24 else 32)*k).sp,lineHeight=((if(gallery && compact && L10n.isUrdu(s))28 else if(gallery)30 else 38)*k).sp,
                     color=tk.contentPrimary,maxLines=if(L10n.isUrdu(s))2 else 1,style=tabletNativeText)
-                if(!L10n.isUrdu(s)) Text(r.arabic,Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"),fontFamily=Amiri,
+                if(!L10n.isUrdu(s)) Text(r.arabic,Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"),fontFamily=if(kiswah)KiswahLandscapeArabic else Amiri,
                     fontSize=((if(gallery)24 else 28)*k).sp,lineHeight=((if(gallery)30 else 34)*k).sp,
                     color=accent,fontWeight=FontWeight.Bold,maxLines=1,style=tabletNativeText)
-                if(selected && compactBadge) TabletBadge(r,s,marker,k)
+                if(showBadge && compactBadge) TabletBadge(r,s,marker,k)
             }
             Column(Modifier.weight(1f).padding(start=(4*k).dp)) {
                 Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy((5*k).dp)) {
                     Row(Modifier.weight(1f,fill=false),verticalAlignment=Alignment.CenterVertically) {
                         Text(if(s.showRelative)r.relative else r.clock,Modifier.testTag("gallery-fit-clock-${r.prayer.name}"),
                             fontFamily=if(s.showRelative)tabletUi(s) else tabletDisplay(tk),fontWeight=FontWeight.Medium,
-                            fontSize=((if(s.showRelative) (if(gallery)18 else 22) else if(gallery)36 else if(L10n.isUrdu(s) && s.showEndTimes)36 else if(compact && s.iqamahEnabled)36 else 46)*k).sp,
-                            lineHeight=((if(s.showRelative) (if(gallery)24 else 28) else if(gallery)44 else if(L10n.isUrdu(s) && s.showEndTimes)44 else if(compact && s.iqamahEnabled)44 else 54)*k).sp,
+                            fontSize=((if(s.showRelative) (if(gallery)18 else 22) else if(gallery)36 else if(L10n.isUrdu(s) && s.showEndTimes)36 else if(compact && kiswah)30 else if(compact && s.iqamahEnabled)36 else 46)*k).sp,
+                            lineHeight=((if(s.showRelative) (if(gallery)24 else 28) else if(gallery)44 else if(L10n.isUrdu(s) && s.showEndTimes)44 else if(compact && kiswah)36 else if(compact && s.iqamahEnabled)44 else 54)*k).sp,
                             color=if(gallery && selected)tk.accent else tk.contentPrimary,maxLines=if(s.showRelative)2 else 1,
                             style=if(s.showRelative)tabletNativeText else tabletClockText)
                         if(!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}",fontFamily=if(L10n.isUrdu(s))Amiri else tabletDisplay(tk),
                             fontSize=((if(gallery)16 else 19)*k).sp,color=tk.contentPrimary,maxLines=1,style=tabletNativeText)
                     }
-                    if(selected && !compactBadge) TabletBadge(r,s,marker,k)
+                    if(showBadge && !compactBadge) TabletBadge(r,s,marker,k)
                 }
                 if(r.small.isNotEmpty()) Text(r.small,Modifier.testTag("gallery-fit-detail-${r.prayer.name}"),fontFamily=tabletUi(s),
                     fontSize=((if(gallery)16 else if(compact && s.iqamahEnabled)16 else 18)*k).sp,lineHeight=((if(L10n.isUrdu(s))32 else if(gallery)21 else if(compact && s.iqamahEnabled)20 else 24)*k).sp,
@@ -308,12 +310,14 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
 private fun TabletBadge(r:RowInfo,s:AppSettings,marker:Color,k:Float) {
     Text(L10n.word(s,if(r.isNow)"NOW" else "NEXT"),Modifier.testTag(if(s.theme==AppTheme.PRAYER_GALLERY)
         (if(r.isNow)"gallery-status-now" else "gallery-status-next") else (if(r.isNow)"home-status-now" else "home-status-next"))
-        .clip(RoundedCornerShape(20.dp)).background(marker).padding(horizontal=(10*k).dp,vertical=(4*k).dp),
-        fontFamily=tabletUi(s),fontSize=(12*k).sp,lineHeight=(16*k).sp,color=if(r.isNow)Color.White else Color(0xFF062325),maxLines=1,style=tabletNativeText)
+        .clip(RoundedCornerShape(20.dp)).background(if(s.theme==AppTheme.KISWAH && !r.isNow)Color.Transparent else marker)
+        .then(if(s.theme==AppTheme.KISWAH && !r.isNow)Modifier.border(.8.dp,marker,RoundedCornerShape(20.dp)) else Modifier)
+        .padding(horizontal=(10*k).dp,vertical=(4*k).dp),
+        fontFamily=tabletUi(s),fontSize=(12*k).sp,lineHeight=(16*k).sp,color=if(s.theme==AppTheme.KISWAH) (if(r.isNow)Color(0xFF100D08) else marker) else if(r.isNow)Color.White else Color(0xFF062325),maxLines=1,style=tabletNativeText)
 }
 
 @Composable
-private fun TabletDock(state:PrayerState,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:Float) {
+internal fun TabletDock(state:PrayerState,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:Float) {
     val gallery=s.theme==AppTheme.PRAYER_GALLERY
     val mode=adhkarModes(state,s).firstOrNull()?:AdhkarMode.MORNING
     val q=PrayerEngine.qibla(s)
@@ -350,7 +354,7 @@ private fun TabletDockItem(icon:ImageVector,label:String,sub:String,spoken:Strin
 }
 
 @Composable
-private fun TabletContext(links:List<Door>,s:AppSettings,tk:ThemeTokens,k:Float) {
+internal fun TabletContext(links:List<Door>,s:AppSettings,tk:ThemeTokens,k:Float) {
     val extras=links.filter { it.kind!=DoorKind.ADHKAR && !(s.showQibla && it===links.firstOrNull()) }
     if(extras.isEmpty()) return
     val notice=extras.firstOrNull { it.warn }?:extras.first()
