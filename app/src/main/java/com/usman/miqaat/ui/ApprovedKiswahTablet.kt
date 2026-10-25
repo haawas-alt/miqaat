@@ -121,10 +121,10 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
 
 @Composable private fun KiswahTabletBanner(s:AppSettings,tk:ThemeTokens,k:Float,wide:Boolean) {
     val text=if(wide)Kiswah.BAND else Kiswah.BAND.replaceFirst("   ✦   ","\n")
-    Box(Modifier.fillMaxWidth().heightIn(min=((if(wide)76 else 108)*k).dp)
+    Box(Modifier.fillMaxWidth().heightIn(min=((if(wide)96 else 134)*k).dp)
         .background(Color.Black.copy(alpha=.92f)).testTag("kiswah-calligraphy-frame"),contentAlignment=Alignment.Center) {
         KiswahOrnamentalFrame(k,Modifier.matchParentSize())
-        Text(text,Modifier.fillMaxWidth().padding(horizontal=(40*k).dp,vertical=(15*k).dp).testTag("kiswah-calligraphy-band")
+        Text(text,Modifier.fillMaxWidth().padding(horizontal=(40*k).dp,vertical=(24*k).dp).testTag("kiswah-calligraphy-band")
             .semantics {contentDescription=Kiswah.BAND},fontFamily=KiswahLandscapeArabic,fontSize=((if(wide)24 else 27)*k).sp,
             lineHeight=(43*k).sp,color=tk.primary,textAlign=TextAlign.Center,maxLines=if(wide)1 else 2,style=kiswahNative)
     }
@@ -138,7 +138,7 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
         val left=(w*.012f).roundToInt();val right=(w*.988f).roundToInt()
         val top=(h*.043f).roundToInt();val bottom=(h*.923f).roundToInt()
         val corner=(w*.060f).roundToInt();val strip=(h*.130f).roundToInt()
-        val c=(22*k).dp.toPx().roundToInt();val t=(16*k).dp.toPx().roundToInt()
+        val c=(32*k).dp.toPx().roundToInt();val t=(22*k).dp.toPx().roundToInt()
         val dw=size.width.roundToInt();val dh=size.height.roundToInt()
         fun patch(sx:Int,sy:Int,sw:Int,sh:Int,dx:Int,dy:Int,pw:Int,ph:Int) {
             if(pw>0 && ph>0)drawImage(frame,IntOffset(sx,sy),IntSize(sw,sh),IntOffset(dx,dy),IntSize(pw,ph),filterQuality=FilterQuality.High)
