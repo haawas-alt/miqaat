@@ -1,0 +1,32 @@
+name: Native phone and tablet landscape comparison
+on:
+  push:
+    branches: ['review/device-comparison-178']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        theme: [MIQAAT, KISWAH, CELESTIAL_MERIDIAN, PRAYER_GALLERY]
+    env:
+      MIQAAT_VISUAL_THEME: ${{ matrix.theme }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: '17'}
+      - uses: gradle/actions/setup-gradle@v4
+      - run: GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*LandscapeComparisonReviewTest'
+      - name: Seal native review
+        if: always()
+        run: python3 tools/seal_landscape_review.py app/build tools/comparison-review-public.pem sealed/comparison-${{ matrix.theme }}.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: landscape-comparison-${{ matrix.theme }}
+          path: sealed/*.zip
+          retention-days: 7
