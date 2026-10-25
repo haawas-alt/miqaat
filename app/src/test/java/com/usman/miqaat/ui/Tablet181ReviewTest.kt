@@ -55,6 +55,7 @@ class Tablet181ReviewTest:ComposeSupport() {
                     show(Dev.TABLET_LANDSCAPE,theme,fontScale=c.scale,rtl=lang==Language.UR,language=lang,
                         qualifiers="w${c.width}dp-h${c.height}dp-land-xhdpi") { HomeRouter(state,s,a,false,{}) }
                     rule.waitForIdle()
+                    capture("build/tablet-polish/${theme.name}/${c.name}-${lang.name}")
                     val root=rule.onRoot(true).fetchSemanticsNode().boundsInRoot
                     rule.onNodeWithTag("tablet-approved-${theme.name}",true).assertIsDisplayed()
                     for(p in listedPrayers(s)) {
@@ -80,7 +81,6 @@ class Tablet181ReviewTest:ComposeSupport() {
                         if(!c.five) assertTrue("Gallery second row below first",asr.top>=fajr.bottom)
                         assertTrue("Gallery timeline follows all cards",timeline.top>=asr.bottom-.1f)
                     }
-                    capture("build/tablet-polish/${theme.name}/${c.name}-${lang.name}")
                     rule.onNodeWithContentDescription(Str[R.string.s_settings]).performClick();assertEquals(1,settings)
                     rule.onNodeWithContentDescription(Str[R.string.s_learn_salah]).performClick();assertEquals(1,learn)
                     rule.onNodeWithContentDescription(Str[R.string.s_monthly_timetable]).performClick();assertEquals(1,timetable)
