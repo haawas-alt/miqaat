@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.unit.dp
 import com.usman.miqaat.R
 import com.usman.miqaat.data.*
@@ -76,6 +79,12 @@ class Portrait179ReviewTest : ComposeSupport() {
                         else rule.onNodeWithTag("portrait-hero-details",true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Details needs a full touch target",target.height>=48*d-.1f)
                     if(theme==AppTheme.PRAYER_GALLERY) {
+                        if(lang==Language.EN) {
+                            val layouts=mutableListOf<TextLayoutResult>()
+                            rule.onNodeWithTag("gallery-fit-clock-DHUHR",true).fetchSemanticsNode()
+                                .config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                            assertTrue("Selected Gallery countdown must stay on one line: $profile",layouts.isNotEmpty() && layouts.all { it.lineCount==1 })
+                        }
                         val prep=rule.onNodeWithText(if(lang==Language.UR) "نماز کی تیاری" else "Prepare for Dhuhr",useUnmergedTree=true)
                         prep.assertIsDisplayed().performClick();assertEquals(Prayer.DHUHR,prepared)
                         val footer=rule.onNodeWithTag("gallery-phone-footer",true).fetchSemanticsNode().boundsInRoot

@@ -14,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -65,7 +66,7 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
             }
             Image(painterResource(art), null, Modifier.fillMaxSize(),
                 contentScale = if (s.theme == AppTheme.CELESTIAL_MERIDIAN) ContentScale.Crop else ContentScale.FillBounds,
-                alignment = if (s.theme == AppTheme.CELESTIAL_MERIDIAN) Alignment.CenterEnd else Alignment.Center)
+                alignment = if (s.theme == AppTheme.CELESTIAL_MERIDIAN) AbsoluteAlignment.CenterRight else Alignment.Center)
             // Preserve the scene's light and colour. Contrast is local to the central text.
             androidx.compose.foundation.Canvas(Modifier.fillMaxSize()) {
                 drawRect(Brush.radialGradient(
@@ -84,12 +85,13 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                 val textHeight = maxHeight.value / fontScale
                 val compact = textHeight < 172f
                 val micro = textHeight < (if (kiswah) 118f else 130f)
-                val tiny = textHeight < 72f
+                val tiny = textHeight < 104f
+                val ultra = textHeight < 72f
                 val clock: @Composable () -> Unit = {
                     Row(Modifier.testTag("portrait-hero-time"), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                         Text(hero.clock, fontFamily = ApprovedDisplay, fontWeight = FontWeight.Medium,
-                        fontSize = if (tiny) 32.sp else if (micro) 46.sp else if (compact) 52.sp else 68.sp,
-                        lineHeight = if (tiny) 44.sp else if (micro) 62.sp else if (compact) 70.sp else 92.sp,
+                        fontSize = if (ultra) 26.sp else if (tiny) 32.sp else if (micro) 46.sp else if (compact) 52.sp else 68.sp,
+                        lineHeight = if (ultra) 38.sp else if (tiny) 44.sp else if (micro) 62.sp else if (compact) 70.sp else 92.sp,
                         color = tk.contentPrimary, maxLines = 1, style = nativeStyle,
                         modifier = Modifier.testTag("approved-hero-clock"))
                         if (hero.suffix.isNotEmpty()) Text(" ${hero.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay,
@@ -102,13 +104,13 @@ internal fun PortraitPrayerHero(state: PrayerState, s: AppSettings, tk: ThemeTok
                     verticalArrangement = Arrangement.spacedBy(if (tiny) (-8).dp else (-12).dp)) {
                     Column(Modifier.testTag("portrait-prayer-lockup"), horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(if (micro) (-3).dp else (-4).dp)) {
-                        Text(hero.special ?: hero.kickerLabel, fontFamily = body,
+                        if (!ultra) Text(hero.special ?: hero.kickerLabel, fontFamily = body,
                             fontSize = if (compact) 8.sp else 9.sp, lineHeight = if (urdu) 18.sp else 13.sp,
                             letterSpacing = if (urdu) 0.sp else 1.6.sp, color = tk.primary,
                             maxLines = 1, style = nativeStyle)
                         Text(hero.arabic, fontFamily = if (kiswah) ReemKufi else Amiri,
-                            fontSize = if (tiny) 18.sp else if (micro) 24.sp else if (compact) 28.sp else 38.sp,
-                            lineHeight = if (tiny) 30.sp else if (micro) (if (kiswah) 36.sp else 42.sp) else if (compact) (if (kiswah) 44.sp else 50.sp) else 66.sp,
+                            fontSize = if (ultra) 16.sp else if (tiny) 18.sp else if (micro) 24.sp else if (compact) 28.sp else 38.sp,
+                            lineHeight = if (ultra) 26.sp else if (tiny) 30.sp else if (micro) (if (kiswah) 36.sp else 42.sp) else if (compact) (if (kiswah) 44.sp else 50.sp) else 66.sp,
                             color = tk.arabicText, style = nativeStyle, modifier = Modifier.testTag("approved-hero-arabic"))
                         if (!urdu && !tiny) Text(hero.label.uppercase(), fontFamily = Cinzel,
                             fontSize = if (compact) 8.sp else 10.sp, lineHeight = if (compact) 11.sp else 14.sp,

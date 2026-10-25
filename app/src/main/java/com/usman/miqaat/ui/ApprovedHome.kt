@@ -356,7 +356,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
     val compactTablet = large && configuration.screenHeightDp < 700
     val smallPhone = configuration.screenWidthDp < 380
     val textStyle = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false))
-    Column(modifier.then(if (polished) Modifier.padding(horizontal = 4.dp, vertical = 1.dp) else Modifier)
+    Column(modifier.then(if (polished) Modifier.padding(horizontal = 4.dp) else Modifier)
         .clip(RoundedCornerShape(if (tile) 12.dp else if (polished) 8.dp else 0.dp))
         .then(if (polished && selected) Modifier.background(Brush.horizontalGradient(listOf(
             tk.primary.copy(alpha = if (now) .16f else .10f), tk.primary.copy(alpha = if (now) .08f else .04f)))) else Modifier.background(if (polished) Color.Transparent else fill))
@@ -372,7 +372,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
         .testTag("approved-row-${r.prayer.name}")) {
         if (tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.fillMaxWidth().weight(if (compactTablet) .36f else .44f))
         Row(Modifier.fillMaxWidth().then(if (tile) Modifier.weight(if (compactTablet) .64f else .56f) else Modifier.fillMaxHeight()), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.width(if (polished) 8.dp else if (illustrated) 3.dp else 18.dp).fillMaxHeight(), contentAlignment = Alignment.Center) {
+            Box(Modifier.width(if (polished) (if (illustrated) 4.dp else 8.dp) else if (illustrated) 3.dp else 18.dp).fillMaxHeight(), contentAlignment = Alignment.Center) {
                 if (polished) Box(Modifier.height(26.dp).width(2.dp).background(if (selected) tk.primary.copy(alpha = if (now) 1f else .8f) else Color.Transparent, RoundedCornerShape(1.dp)))
                 else if (illustrated) Box(Modifier.fillMaxHeight().width(3.dp).background(if (selected) marker else Color.Transparent))
                 else Canvas(Modifier.fillMaxSize()) {
@@ -384,10 +384,10 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
                     }
                 }
             }
-            if (illustrated && !tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.padding(horizontal = 5.dp, vertical = 3.dp).width(if (smallPhone) 40.dp else 64.dp).fillMaxHeight().clip(RoundedCornerShape(8.dp)))
+            if (illustrated && !tile && s.artTheme != ArtTheme.MINIMAL) ApprovedGalleryArt(r.prayer.ordinal, Modifier.padding(horizontal = 5.dp, vertical = 3.dp).width(if (smallPhone) 40.dp else if (polished) 56.dp else 64.dp).fillMaxHeight().clip(RoundedCornerShape(8.dp)))
             // Measure the phone name column before status badges and bell slots. Clock origins
             // therefore stay identical for all six rows, including Sunrise and NOW/NEXT.
-            Column(Modifier.then(if (!large && !tile) Modifier.fillMaxWidth(if (illustrated) .285f else .34f)
+            Column(Modifier.then(if (!large && !tile) Modifier.fillMaxWidth(if (illustrated) (if (polished && !urdu) .24f else .285f) else .34f)
                 else Modifier.weight(if (tile) 1.1f else 1f)).padding(start = if (illustrated) 5.dp else 8.dp)) {
                 Text(if (urdu) r.label else r.label.uppercase(), Modifier.heightIn(min = if (large) 32.dp else 20.dp).testTag("gallery-fit-label-${r.prayer.name}"), fontFamily = if (urdu) Amiri else Cinzel,
                     fontSize = if (urdu) (if (large) (if (compactTablet) 22.sp else 26.sp) else 18.sp) else if (large) (if (compactTablet) 17.sp else 20.sp) else 12.sp, lineHeight = if (large) 32.sp else if (urdu) 25.sp else 20.sp,
@@ -403,7 +403,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
                     if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay, fontSize = if (urdu) 11.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
                 }
                 if (r.small.isNotEmpty()) Text(if (urdu) r.small.replace(" بجے", "") else r.small, Modifier.testTag("gallery-fit-detail-${r.prayer.name}"), fontFamily = if (urdu) Amiri else ApprovedBody,
-                    fontSize = if (large) (if (compactTablet) 12.sp else 15.sp) else if (polished && !urdu && !s.iqamahEnabled) 12.sp else 11.sp, lineHeight = if (large) (if (compactTablet) 18.sp else 22.sp) else if (urdu) 18.sp else if (polished && !s.iqamahEnabled) 16.sp else 15.sp, color = tk.contentSecondary, maxLines = 2, style = textStyle)
+                    fontSize = if (large) (if (compactTablet) 12.sp else 15.sp) else if (polished && tk.dark && !urdu && !s.iqamahEnabled) 12.sp else 11.sp, lineHeight = if (large) (if (compactTablet) 18.sp else 22.sp) else if (urdu) 18.sp else if (polished && tk.dark && !s.iqamahEnabled) 16.sp else 15.sp, color = tk.contentSecondary, maxLines = 2, style = textStyle)
             }
             if (selected) Box(Modifier.testTag("gallery-fit-marker-${r.prayer.name}")) {
                 if (s.theme == AppTheme.PRAYER_GALLERY) GalleryStatusBadge(now, s, compact = !large)
