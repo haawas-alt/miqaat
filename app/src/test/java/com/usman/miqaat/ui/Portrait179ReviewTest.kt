@@ -87,6 +87,7 @@ class Portrait179ReviewTest : ComposeSupport() {
                             if (!relative) {
                                 val style=l.layoutInput.style
                                 assertEquals(androidx.compose.ui.text.font.FontWeight.Medium, style.fontWeight)
+                                assertEquals("'lnum' 1, 'tnum' 1", style.fontFeatureSettings)
                                 clockStyle?.let { first ->
                                     assertEquals(first.fontFamily, style.fontFamily)
                                     assertEquals(first.fontSize, style.fontSize)

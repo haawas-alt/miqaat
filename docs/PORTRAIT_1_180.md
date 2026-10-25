@@ -2,7 +2,7 @@
 
 Phone portrait only; tablet proposals remain unimplemented.
 
-- Absolute prayer clocks share the bundled Medium display font, size and line height; NEXT uses tint and badge rather than synthetic bold.
+- Absolute prayer clocks share the bundled Medium display font, size and line height; NEXT uses tint and badge rather than synthetic bold. Lining tabular numerals give list clocks consistent digit heights and spacing.
 - Kiswah compact hero clock and Arabic name are stronger, with existing tiny-height safeguards retained.
 - Dark hero caption-to-clock spacing is tighter, the contrast scrim follows the clock, and the details button fills more of its unchanged 48dp touch target.
 - Portrait timeline selection uses a smaller, quieter glow and ring.

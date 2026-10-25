@@ -406,7 +406,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(if (s.showRelative) r.relative else r.clock, Modifier.testTag("gallery-fit-clock-${r.prayer.name}"), fontFamily = if (s.showRelative) approvedUi(s) else ApprovedDisplay,
                         fontSize = if (s.showRelative) (if (large) 20.sp else 14.sp) else if (large) (if (compactTablet) 30.sp else 38.sp) else if (polished && illustrated && urdu && smallPhone) 21.sp else 25.sp, lineHeight = if (s.showRelative) (if (large) (if (compactTablet) 22.sp else 26.sp) else 18.sp) else if (large) (if (compactTablet) 36.sp else 46.sp) else if (polished && illustrated && urdu && smallPhone) 30.sp else 32.sp,
-                        fontWeight = if (polished && selected && s.showRelative) FontWeight.SemiBold else FontWeight.Medium, color = tk.contentPrimary, maxLines = if (s.showRelative) 2 else 1, style = textStyle)
+                        fontWeight = if (polished && selected && s.showRelative) FontWeight.SemiBold else FontWeight.Medium, color = tk.contentPrimary, maxLines = if (s.showRelative) 2 else 1, style = if (polished && !s.showRelative) textStyle.copy(fontFeatureSettings = "'lnum' 1, 'tnum' 1") else textStyle)
                     if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay, fontSize = if (urdu) 11.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
                 }
                 if (r.small.isNotEmpty()) Text(if (urdu) r.small.replace(" بجے", "") else r.small, Modifier.testTag("gallery-fit-detail-${r.prayer.name}"), fontFamily = if (urdu) Amiri else ApprovedBody,
