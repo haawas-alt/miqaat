@@ -64,6 +64,11 @@ class CelestialTabletAcceptanceTest:ComposeSupport() {
                     val list=rule.onNodeWithTag("home-prayers",true).fetchSemanticsNode().boundsInRoot
                     if(c.dev==Dev.TABLET_PORTRAIT)assertTrue("Portrait hero must precede rows",hero.bottom<=list.top+.5f)
                     else assertTrue("Landscape hero must sit beside rows",hero.left>=list.right-.5f || hero.right<=list.left+.5f)
+                    val clockEdges=listedPrayers(s).map {p ->
+                        val b=rule.onNodeWithTag("gallery-fit-clock-${p.name}",true).fetchSemanticsNode().boundsInRoot
+                        if(lang==Language.UR)b.right else b.left
+                    }
+                    assertTrue("Prayer clocks must align regardless of badge",clockEdges.max()-clockEdges.min()<=1f)
                     for(p in listedPrayers(s)) {
                         rule.onNodeWithTag("constellation-node-${p.name}",true).assertIsDisplayed()
                         val b=rule.onNodeWithTag("approved-row-${p.name}",true).fetchSemanticsNode().boundsInRoot

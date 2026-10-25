@@ -86,7 +86,7 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
     }
 }
 
-@Composable internal fun KiswahTabletHeader(state:PrayerState,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:Float,wide:Boolean) {
+@Composable private fun KiswahTabletHeader(state:PrayerState,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:Float,wide:Boolean) {
     val location:@Composable (Modifier)->Unit={ m ->
         Row(m.heightIn(min=48.dp).clip(RoundedCornerShape(16.dp)).clickable(role=Role.Button,onClick=a.onOpenLocation)
             .semantics(mergeDescendants=true) {contentDescription=Str.get(R.string.s_a11y_location,L10n.iso(L10n.place(s.locationName)))},verticalAlignment=Alignment.CenterVertically) {
