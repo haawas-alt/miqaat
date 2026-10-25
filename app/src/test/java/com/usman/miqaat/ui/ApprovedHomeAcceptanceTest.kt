@@ -46,7 +46,7 @@ class ApprovedHomeAcceptanceTest : ComposeSupport() {
                 val root=rule.onRoot().fetchSemanticsNode().boundsInRoot
                 for (p in Prayer.entries) {
                     val target=rule.onNodeWithTag("approved-row-${p.name}",true)
-                    if((s.iqamahEnabled || s.showRelative) && lang==Language.UR) target.performScrollTo()
+                    if((s.iqamahEnabled || s.showRelative) && lang==Language.UR && (theme!=AppTheme.PRAYER_GALLERY || s.iqamahEnabled)) target.performScrollTo()
                     val row=target.fetchSemanticsNode().boundsInRoot
                     assertTrue("$theme/$dev/$lang: $p outside viewport: $row vs $root",row.top>=root.top && row.bottom<=root.bottom && row.left>=root.left && row.right<=root.right)
                     assertTrue("$theme/$dev/$lang: $p target height",row.height>=48*app.resources.displayMetrics.density)
@@ -92,7 +92,7 @@ class ApprovedHomeAcceptanceTest : ComposeSupport() {
                 show(Dev.PHONE_PORTRAIT,theme,rtl=lang==Language.UR,language=lang) { HomeRouter(state,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{}) }
                 for(p in listedPrayers(s)) {
                     val target=rule.onNodeWithTag("approved-row-${p.name}",true)
-                    if((s.iqamahEnabled || s.showRelative) && lang==Language.UR) target.performScrollTo()
+                    if((s.iqamahEnabled || s.showRelative) && lang==Language.UR && (theme!=AppTheme.PRAYER_GALLERY || s.iqamahEnabled)) target.performScrollTo()
                     val row=target.fetchSemanticsNode()
                     val bounds=row.boundsInRoot
                     fun walk(n:androidx.compose.ui.semantics.SemanticsNode) {

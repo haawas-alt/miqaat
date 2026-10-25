@@ -65,7 +65,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
         val tablet = maxWidth >= 600.dp
         val compactWide = wide && maxHeight < 700.dp
         val compactGalleryPhone = gallery && !tablet && maxHeight < 760.dp
-        val reflow = !wide && (((!gallery && (s.iqamahEnabled || s.showRelative)) && L10n.isUrdu(s) && !tablet) || maxHeight < 700.dp || (!tablet && !gallery && maxHeight < 820.dp))
+        val reflow = !wide && (((s.iqamahEnabled || (!gallery && s.showRelative)) && L10n.isUrdu(s) && !tablet) || maxHeight < 700.dp || (!tablet && !gallery && maxHeight < 820.dp))
         Box(Modifier.fillMaxSize()) {
             if (kiswah) {
                 Weave(Modifier.fillMaxSize())
@@ -392,6 +392,13 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
                 Text(if (urdu) r.label else r.label.uppercase(), Modifier.heightIn(min = if (large) 32.dp else 20.dp).testTag("gallery-fit-label-${r.prayer.name}"), fontFamily = if (urdu) Amiri else Cinzel,
                     fontSize = if (urdu) (if (large) (if (compactTablet) 22.sp else 26.sp) else 18.sp) else if (large) (if (compactTablet) 17.sp else 20.sp) else 12.sp, lineHeight = if (large) 32.sp else if (urdu) 25.sp else 20.sp,
                     fontWeight = FontWeight.Medium, color = tk.contentPrimary, maxLines = 1, style = textStyle)
+                if (polished && illustrated && urdu && selected) Box(Modifier.testTag("gallery-fit-marker-${r.prayer.name}")) {
+                    Text(L10n.word(s, if (now) "NOW" else "NEXT"),
+                        Modifier.testTag(if (now) "gallery-status-now" else "gallery-status-next")
+                            .clip(RoundedCornerShape(6.dp)).background(tk.accent).padding(horizontal = 5.dp, vertical = 1.dp),
+                        fontFamily = Amiri, fontSize = 11.sp, lineHeight = 18.sp, fontWeight = FontWeight.Bold,
+                        color = tk.background, maxLines = 1, style = textStyle)
+                }
                 if (!urdu) Text(r.arabic, Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"), fontFamily = Amiri, fontSize = if (large) (if (compactTablet) 22.sp else 26.sp) else 17.sp,
                     lineHeight = if (large) 34.sp else 24.sp, color = if (polished && selected) tk.primary else if (tk.dark) tk.arabicText else tk.accent, maxLines = 1, style = textStyle)
             }
@@ -405,7 +412,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
                 if (r.small.isNotEmpty()) Text(if (urdu) r.small.replace(" بجے", "") else r.small, Modifier.testTag("gallery-fit-detail-${r.prayer.name}"), fontFamily = if (urdu) Amiri else ApprovedBody,
                     fontSize = if (large) (if (compactTablet) 12.sp else 15.sp) else if (polished && tk.dark && !urdu && !s.iqamahEnabled) 12.sp else 11.sp, lineHeight = if (large) (if (compactTablet) 18.sp else 22.sp) else if (urdu) 18.sp else if (polished && tk.dark && !s.iqamahEnabled) 16.sp else 15.sp, color = tk.contentSecondary, maxLines = 2, style = textStyle)
             }
-            if (selected) Box(Modifier.testTag("gallery-fit-marker-${r.prayer.name}")) {
+            if (selected && !(polished && illustrated && urdu)) Box(Modifier.testTag("gallery-fit-marker-${r.prayer.name}")) {
                 if (s.theme == AppTheme.PRAYER_GALLERY) GalleryStatusBadge(now, s, compact = !large)
                 else Text(L10n.word(s, if (now) "NOW" else "NEXT"), Modifier.testTag(if (now) "home-status-now" else "home-status-next").clip(RoundedCornerShape(9.dp)).background(if (polished && next) Color.Transparent else marker)
                     .then(if (polished && next) Modifier.border(.8.dp, tk.primary, RoundedCornerShape(9.dp)) else Modifier).padding(horizontal = 6.dp, vertical = 3.dp), fontFamily = if (urdu) Amiri else ApprovedBody,

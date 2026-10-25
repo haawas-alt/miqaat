@@ -79,11 +79,22 @@ class Portrait179ReviewTest : ComposeSupport() {
                         else rule.onNodeWithTag("portrait-hero-details",true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Details needs a full touch target",target.height>=48*d-.1f)
                     if(theme==AppTheme.PRAYER_GALLERY) {
-                        if(lang==Language.EN) {
+                        run {
                             val layouts=mutableListOf<TextLayoutResult>()
                             rule.onNodeWithTag("gallery-fit-clock-DHUHR",true).fetchSemanticsNode()
                                 .config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
                             assertTrue("Selected Gallery countdown must stay on one line: $profile",layouts.isNotEmpty() && layouts.all { it.lineCount==1 })
+                        }
+                        for(p in listedPrayers(s)) for(kind in listOf("label","clock","detail")) {
+                            val node=rule.onNodeWithTag("gallery-fit-$kind-${p.name}",true).fetchSemanticsNode()
+                            val layouts=mutableListOf<TextLayoutResult>()
+                            node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                            layouts.forEach { l ->
+                                val inkWidth=(0 until l.lineCount).maxOfOrNull { l.getLineRight(it)-l.getLineLeft(it) } ?: 0f
+                                val inkHeight=if(l.lineCount>0) l.getLineBottom(l.lineCount-1)-l.getLineTop(0) else 0f
+                                assertTrue("Gallery $lang/$profile/$p/$kind clips ${l.layoutInput.text}: ${node.size} vs $inkWidth,$inkHeight",
+                                    !l.multiParagraph.didExceedMaxLines && inkWidth<=node.size.width+1f && inkHeight<=node.size.height+1f)
+                            }
                         }
                         val prep=rule.onNodeWithText(if(lang==Language.UR) "نماز کی تیاری" else "Prepare for Dhuhr",useUnmergedTree=true)
                         prep.assertIsDisplayed().performClick();assertEquals(Prayer.DHUHR,prepared)
