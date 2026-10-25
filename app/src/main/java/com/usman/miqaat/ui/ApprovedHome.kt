@@ -47,6 +47,10 @@ private fun approvedUi(s: AppSettings) = if (L10n.isUrdu(s)) Amiri else Approved
  */
 @Composable
 fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
+    if (approvedCelestialTablet(s)) {
+        ApprovedCelestialTabletHome(state, s, a)
+        return
+    }
     if (approvedKiswahTablet(s)) {
         ApprovedKiswahTabletHome(state, s, a)
         return
