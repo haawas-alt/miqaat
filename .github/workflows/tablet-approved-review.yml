@@ -1,0 +1,45 @@
+name: Approved tablet visual comparison
+on:
+  push:
+    branches: ['review/tablet-approved-181']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        theme: [MIQAAT, PRAYER_GALLERY]
+    env:
+      MIQAAT_VISUAL_THEME: ${{ matrix.theme }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: '17'}
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Native tablet captures and clipping checks
+        run: GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*Tablet181ReviewTest' --tests '*ApprovedHomeAcceptanceTest.tabletLandscape' --tests '*GalleryTabletLandscapeTest.compact_urdu_ramadan_evening_keeps_context_without_overlap'
+      - name: Seal review renders
+        if: always()
+        run: python3 tools/seal_landscape_review.py app/build tools/tablet-review-public.pem sealed/tablet-${{ matrix.theme }}.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tablet-${{ matrix.theme }}
+          path: sealed/*.zip
+          retention-days: 7
+      - name: Assertion results
+        if: always()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as E
+          for p in Path('app/build/test-results').rglob('TEST-*.xml'):
+            r=E.parse(p).getroot()
+            print(p.name, {k:r.get(k) for k in ['tests','failures','errors','skipped']})
+            for t in r.findall('testcase'):
+              for f in t.findall('failure'): print(t.get('name'),f.get('message'))
+          PY
