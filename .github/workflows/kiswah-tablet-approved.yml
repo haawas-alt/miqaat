@@ -74,7 +74,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         with: {name: protected-screen-comparison, path: protected-pixels.json}
   candidate:
-    needs: [render, protection]
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -109,7 +108,14 @@ jobs:
           (cd candidate && sha256sum *.apk *.aab > SHA256SUMS)
       - uses: actions/upload-artifact@v4
         with: {name: signed-kiswah-tablet-candidate, path: 'candidate/*'}
-      - name: Publish installable testing candidate
+  publish:
+    needs: [render, protection, candidate]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {name: signed-kiswah-tablet-candidate, path: candidate}
+      - name: Publish installable testing candidate after all gates pass
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

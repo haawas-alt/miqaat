@@ -269,10 +269,10 @@ internal fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k
             Column(Modifier.fillMaxWidth(if(gallery).31f else .28f)) {
                 Text(r.label,Modifier.testTag("gallery-fit-label-${r.prayer.name}"),
                     fontFamily=if(L10n.isUrdu(s))Amiri else tabletDisplay(tk),fontWeight=if(kiswah)FontWeight.Normal else FontWeight.Medium,
-                    fontSize=((if(gallery && compact && L10n.isUrdu(s))20 else if(gallery)24 else 32)*k).sp,lineHeight=((if(gallery && compact && L10n.isUrdu(s))28 else if(gallery)30 else 38)*k).sp,
+                    fontSize=((if(kiswah && compact)28 else if(gallery && compact && L10n.isUrdu(s))20 else if(gallery)24 else 32)*k).sp,lineHeight=((if(kiswah && compact)34 else if(gallery && compact && L10n.isUrdu(s))28 else if(gallery)30 else 38)*k).sp,
                     color=tk.contentPrimary,maxLines=if(L10n.isUrdu(s))2 else 1,style=tabletNativeText)
                 if(!L10n.isUrdu(s)) Text(r.arabic,Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"),fontFamily=if(kiswah)KiswahLandscapeArabic else Amiri,
-                    fontSize=((if(gallery)24 else 28)*k).sp,lineHeight=((if(gallery)30 else 34)*k).sp,
+                    fontSize=((if(kiswah && compact)26 else if(gallery)24 else 28)*k).sp,lineHeight=((if(gallery)30 else 34)*k).sp,
                     color=accent,fontWeight=FontWeight.Bold,maxLines=1,style=tabletNativeText)
                 if(showBadge && compactBadge) TabletBadge(r,s,marker,k)
             }
