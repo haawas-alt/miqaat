@@ -20,6 +20,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.imageResource
+import kotlin.math.ceil
+import kotlin.math.roundToInt
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
@@ -120,34 +123,40 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
     val text=if(wide)Kiswah.BAND else Kiswah.BAND.replaceFirst("   ✦   ","\n")
     Box(Modifier.fillMaxWidth().heightIn(min=((if(wide)76 else 108)*k).dp)
         .background(Color.Black.copy(alpha=.92f)).testTag("kiswah-calligraphy-frame"),contentAlignment=Alignment.Center) {
-        Canvas(Modifier.matchParentSize()) {
-            val gold=tk.primary.copy(alpha=.80f);val inset=4.dp.toPx()
-            drawRect(gold,style=Stroke(.8.dp.toPx()))
-            drawRect(gold,topLeft=Offset(inset,inset),size=androidx.compose.ui.geometry.Size(size.width-inset*2,size.height-inset*2),style=Stroke(.45.dp.toPx()))
-            // Fine native leaf-and-vine ornaments, separate from accessible Arabic text.
-            val u=minOf(1.dp.toPx(),size.height/72f)
-            for(left in listOf(true,false)) {
-                val ox=if(left)12.dp.toPx() else size.width-12.dp.toPx()
-                val cy=size.height/2;val d=if(left)1f else -1f
-                fun x(v:Float)=ox+d*v*u
-                fun y(v:Float)=cy+v*u
-                val vine=Path().apply {
-                    moveTo(x(0f),y(-28f));cubicTo(x(17f),y(-23f),x(-5f),y(-12f),x(8f),y(-4f))
-                    cubicTo(x(24f),y(4f),x(-6f),y(13f),x(6f),y(28f))
-                }
-                drawPath(vine,gold,style=Stroke(.9.dp.toPx()))
-                for(v in listOf(-18f,-5f,10f,22f)) {
-                    val leaf=Path().apply {
-                        moveTo(x(5f),y(v));cubicTo(x(21f),y(v-10f),x(20f),y(v+8f),x(5f),y(v))
-                        cubicTo(x(-4f),y(v-9f),x(-3f),y(v-15f),x(5f),y(v))
-                    }
-                    drawPath(leaf,gold.copy(alpha=.14f));drawPath(leaf,gold,style=Stroke(.65.dp.toPx()))
-                }
-            }
-        }
-        Text(text,Modifier.fillMaxWidth().padding(horizontal=(40*k).dp,vertical=(10*k).dp).testTag("kiswah-calligraphy-band")
+        KiswahOrnamentalFrame(k,Modifier.matchParentSize())
+        Text(text,Modifier.fillMaxWidth().padding(horizontal=(40*k).dp,vertical=(15*k).dp).testTag("kiswah-calligraphy-band")
             .semantics {contentDescription=Kiswah.BAND},fontFamily=KiswahLandscapeArabic,fontSize=((if(wide)24 else 27)*k).sp,
             lineHeight=(43*k).sp,color=tk.primary,textAlign=TextAlign.Center,maxLines=if(wide)1 else 2,style=kiswahNative)
+    }
+}
+
+/** Nine-slice artwork preserves corner proportions; horizontal vines repeat instead of stretching. */
+@Composable private fun KiswahOrnamentalFrame(k:Float,modifier:Modifier) {
+    val frame=ImageBitmap.imageResource(R.drawable.kiswah_tablet_ornamental_frame)
+    Canvas(modifier.testTag("kiswah-ornamental-border")) {
+        val w=frame.width.toFloat();val h=frame.height.toFloat()
+        val left=(w*.012f).roundToInt();val right=(w*.988f).roundToInt()
+        val top=(h*.043f).roundToInt();val bottom=(h*.923f).roundToInt()
+        val corner=(w*.060f).roundToInt();val strip=(h*.130f).roundToInt()
+        val c=(22*k).dp.toPx().roundToInt();val t=(16*k).dp.toPx().roundToInt()
+        val dw=size.width.roundToInt();val dh=size.height.roundToInt()
+        fun patch(sx:Int,sy:Int,sw:Int,sh:Int,dx:Int,dy:Int,pw:Int,ph:Int) {
+            if(pw>0 && ph>0)drawImage(frame,IntOffset(sx,sy),IntSize(sw,sh),IntOffset(dx,dy),IntSize(pw,ph),filterQuality=FilterQuality.High)
+        }
+        // Equal-sized corner pieces remain square at every tablet aspect ratio.
+        patch(left,top,corner,corner,0,0,c,c)
+        patch(right-corner,top,corner,corner,dw-c,0,c,c)
+        patch(left,bottom-corner,corner,corner,0,dh-c,c,c)
+        patch(right-corner,bottom-corner,corner,corner,dw-c,dh-c,c,c)
+        val sourceWidth=right-left-2*corner
+        val count=ceil((dw-2*c).toFloat()/(sourceWidth.toFloat()/strip*t)).toInt().coerceAtLeast(1)
+        for(i in 0 until count) {
+            val x=c+(dw-2*c)*i/count;val end=c+(dw-2*c)*(i+1)/count
+            patch(left+corner,top,sourceWidth,strip,x,0,end-x,t)
+            patch(left+corner,bottom-strip,sourceWidth,strip,x,dh-t,end-x,t)
+        }
+        patch(left,top+corner,strip,bottom-top-2*corner,0,c,t,dh-2*c)
+        patch(right-strip,top+corner,strip,bottom-top-2*corner,dw-t,c,t,dh-2*c)
     }
 }
 

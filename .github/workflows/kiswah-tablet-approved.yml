@@ -90,7 +90,7 @@ jobs:
           mkdir -p keystore
           printf '%s' "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
           echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
-          echo "MIQAAT_VERSION_NAME=1.183-kiswah-tablet" >> "$GITHUB_ENV"
+          echo "MIQAAT_VERSION_NAME=1.184-kiswah-border" >> "$GITHUB_ENV"
           echo "MIQAAT_BUILD_TAG=kiswah-tablet-${GITHUB_SHA:0:12}" >> "$GITHUB_ENV"
       - name: Full regression, lint and signed packages
         env:
