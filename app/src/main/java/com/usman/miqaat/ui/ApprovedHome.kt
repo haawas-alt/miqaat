@@ -435,7 +435,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
 }
 
 @Composable
-internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeTokens, modifier: Modifier, landscape: Boolean = false, compact: Boolean = false) {
+internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeTokens, modifier: Modifier, landscape: Boolean = false, compact: Boolean = false, mockupScale: Float = 1f) {
     val quietPortrait = phonePortraitLayout()
     val prayers = listedPrayers(s)
     val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
@@ -447,16 +447,16 @@ internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeToken
         if (s.showDisliked) PrayerEngine.dislikedWindows(state.today, s).forEach { w -> Text(L10n.avoidWindow(w.start,w.end,s.use24h)) }
     } })
     Column(modifier.testTag("approved-day-timeline").clickable(role = Role.Button) { explainDay = true }.padding(horizontal = 5.dp), verticalArrangement = Arrangement.Center) {
-        Canvas(Modifier.fillMaxWidth().height(17.dp).semantics { contentDescription = Str[R.string.s_day_line] }) {
+        Canvas(Modifier.fillMaxWidth().height((17*mockupScale).dp).semantics { contentDescription = Str[R.string.s_day_line] }) {
             val step = size.width/prayers.size
             fun x(i: Int) = (if (rtl) prayers.lastIndex-i+.5f else i+.5f)*step
             val y = size.height/2
             drawLine(gold.copy(alpha = .65f), Offset(x(0),y), Offset(x(prayers.lastIndex),y), 1.dp.toPx())
             prayers.forEachIndexed { i,p ->
                 val point = Offset(x(i),y); val sel = p == active
-                if (sel) drawCircle(Brush.radialGradient(listOf(gold.copy(alpha = if (quietPortrait) .30f else .65f),Color.Transparent),point,(if (quietPortrait) 10.dp else 13.dp).toPx()),(if (quietPortrait) 10.dp else 13.dp).toPx(),point)
-                rotate(45f, point) { drawRect(gold, Offset(point.x-3.dp.toPx(),point.y-3.dp.toPx()), androidx.compose.ui.geometry.Size(6.dp.toPx(),6.dp.toPx())) }
-                if (sel) drawCircle(gold, (if (quietPortrait) 6.dp else 8.dp).toPx(), point, style = Stroke(1.dp.toPx()))
+                if (sel) drawCircle(Brush.radialGradient(listOf(gold.copy(alpha = if (quietPortrait) .30f else .65f),Color.Transparent),point,(if (quietPortrait) 10.dp else (13*mockupScale).dp).toPx()),(if (quietPortrait) 10.dp else (13*mockupScale).dp).toPx(),point)
+                rotate(45f, point) { drawRect(gold, Offset(point.x-(3*mockupScale).dp.toPx(),point.y-(3*mockupScale).dp.toPx()), androidx.compose.ui.geometry.Size((6*mockupScale).dp.toPx(),(6*mockupScale).dp.toPx())) }
+                if (sel) drawCircle(gold, (if (quietPortrait) 6.dp else (8*mockupScale).dp).toPx(), point, style = Stroke(1.dp.toPx()))
             }
             if (s.showDisliked) {
                 fun at(t: java.time.ZonedDateTime): Float {
@@ -483,7 +483,7 @@ internal fun ApprovedTimeline(state: PrayerState, s: AppSettings, tk: ThemeToken
         }
         Row(Modifier.fillMaxWidth()) { prayers.forEach { p ->
             Text(L10n.prayer(s,p), Modifier.weight(1f).testTag("approved-timeline-${p.name}"), fontFamily = if (L10n.isUrdu(s)) Amiri else if (landscape) androidx.compose.ui.text.font.FontFamily.Serif else ApprovedBody,
-                fontSize = if (compact && !L10n.isUrdu(s)) 10.sp else if (landscape && !L10n.isUrdu(s)) 13.sp else 11.sp, lineHeight = 18.sp, textAlign = TextAlign.Center, color = if (p == active) gold else tk.contentPrimary, maxLines = 1)
+                fontSize = ((if (compact && !L10n.isUrdu(s)) 10 else if (landscape && !L10n.isUrdu(s)) 13 else 11)*mockupScale).sp, lineHeight = (18*mockupScale).sp, textAlign = TextAlign.Center, color = if (p == active) gold else tk.contentPrimary, maxLines = 1)
         } }
     }
 }

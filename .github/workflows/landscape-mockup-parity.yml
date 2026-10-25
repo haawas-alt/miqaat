@@ -81,7 +81,7 @@ jobs:
         run: |
           GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*RetainedHome181Test'
           python3 -m pip install Pillow==11.3.0
-          python3 tools/verify_landscape_unchanged.py app/build/protected-baseline app/build/protected-home candidate/protected-homes-unchanged.json
+          python3 tools/verify_landscape_unchanged.py app/build/protected-baseline app/build/protected-home candidate/protected-homes-unchanged.json 4b39fabcac39cad1a3c86eb88312c356497d5a0f
       - name: Native mockup geometry, actions and retained portrait/tablet acceptance
         run: GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*PortraitPolishAcceptanceTest' --tests '*Portrait179ReviewTest' --tests '*Tablet181ReviewTest' --tests '*GalleryTabletLandscapeTest' --tests '*LandscapeMockupParityTest' --tests '*KiswahOptionOneBandTest' --tests '*DetailedGalleryAcceptanceTest' --tests '*ApprovedPhoneRefinementAcceptanceTest' --tests '*ThemeSelectionTest' --tests '*ApprovedPhoneLandscapeAcceptanceTest' --tests '*ApprovedHomeAcceptanceTest' --tests '*ApprovedQuietAcceptanceTest' --tests '*ApprovedIqamahAcceptanceTest' --tests '*IqamahCounterTest'
       - name: Render candidate landscape in the same isolated test process as baseline

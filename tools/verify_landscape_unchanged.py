@@ -13,7 +13,8 @@ import sys
 import re
 from PIL import Image, ImageChops
 
-before, after, output = map(Path, sys.argv[1:])
+before, after, output = map(Path, sys.argv[1:4])
+baseline_commit = sys.argv[4] if len(sys.argv)>4 else 'bc2e2290cf8a8eac160b0d1e0f58d157d4729be0'
 baseline = sorted(before.rglob('*.png'))
 assert baseline, 'Missing approved landscape baseline'
 results = []
@@ -74,7 +75,7 @@ for old in baseline:
         print(json.dumps(result))
     results.append(result)
 output.parent.mkdir(parents=True, exist_ok=True)
-output.write_text(json.dumps({'baseline_commit': 'bc2e2290cf8a8eac160b0d1e0f58d157d4729be0',
+output.write_text(json.dumps({'baseline_commit': baseline_commit,
                               'count': len(results), 'captures': results}, indent=2))
 failed = [r['capture'] for r in results if not r['accepted']]
 assert not failed, f'Landscape changed: {failed}'
