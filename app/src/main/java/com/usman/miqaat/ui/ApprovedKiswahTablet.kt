@@ -55,7 +55,7 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
         if(s.artTheme!=ArtTheme.MINIMAL) Image(painterResource(if(wide)R.drawable.kiswah_tablet_approved else R.drawable.kiswah_tablet_portrait_approved),
             null,Modifier.fillMaxSize().graphicsLayer(scaleX=if(L10n.isUrdu(s))-1f else 1f).testTag("kiswah-tablet-art"),contentScale=ContentScale.FillBounds)
         Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().displayCutoutPadding()
-            .padding(horizontal=(20*k).dp).padding(bottom=(16*k).dp).testTag("kiswah-tablet-approved")) {
+            .padding(horizontal=(20*k).dp).padding(bottom=((if(wide)28 else 32)*k).dp).testTag("kiswah-tablet-approved")) {
             KiswahTabletHeader(state,s,a,tk,k,wide)
             KiswahTabletBanner(s,tk,k,wide)
             Spacer(Modifier.height((14*k).dp))
@@ -70,14 +70,14 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
             }
             if(wide) Row(Modifier.weight(1f).fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy((24*k).dp)) {
                 prayers(Modifier.weight(.50f).fillMaxHeight())
-                KiswahTabletHero(state,s,tk,hero,k,compact,false,Modifier.weight(.50f).fillMaxHeight().padding(end=(190*k).dp).testTag("home-hero")) {why=hero.prayer}
+                KiswahTabletHero(state,s,tk,hero,k,compact,false,Modifier.weight(.50f).fillMaxHeight().padding(top=(12*k).dp,end=(190*k).dp).testTag("home-hero")) {why=hero.prayer}
             } else {
-                KiswahTabletHero(state,s,tk,hero,k,false,true,Modifier.weight(.40f).fillMaxWidth().testTag("home-hero")) {why=hero.prayer}
-                prayers(Modifier.weight(.60f).fillMaxWidth())
+                KiswahTabletHero(state,s,tk,hero,k,false,true,Modifier.weight(.435f).fillMaxWidth().testTag("home-hero")) {why=hero.prayer}
+                prayers(Modifier.weight(.565f).fillMaxWidth())
             }
-            ApprovedTimeline(state,s,tk,Modifier.fillMaxWidth().height(maxOf(48.dp,((if(wide)70 else 72)*k).dp)),landscape=true,mockupScale=if(wide)1.1f*k else 1.15f*k)
+            ApprovedTimeline(state,s,tk,Modifier.fillMaxWidth().height(maxOf(48.dp,((if(wide)70 else 112)*k).dp)),landscape=true,mockupScale=if(wide)1.1f*k else 1.15f*k)
             TabletContext(links,s,tk,k)
-            TabletDock(state,s,a,tk,k)
+            TabletDock(state,s,a,tk,if(wide)k else 1.2f*k,if(wide)Modifier else Modifier.heightIn(min=(112*k).dp))
         }
         if(s.nightDim && state.period==Prayer.ISHA && !state.justPassed)Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha=.22f)))
     }

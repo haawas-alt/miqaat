@@ -281,8 +281,8 @@ internal fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k
                     Row(Modifier.weight(1f,fill=false),verticalAlignment=Alignment.CenterVertically) {
                         Text(if(s.showRelative)r.relative else r.clock,Modifier.testTag("gallery-fit-clock-${r.prayer.name}"),
                             fontFamily=if(s.showRelative)tabletUi(s) else tabletDisplay(tk),fontWeight=if(kiswah)FontWeight.Normal else FontWeight.Medium,
-                            fontSize=((if(s.showRelative) (if(gallery)18 else 22) else if(gallery)36 else if(compact && kiswah)30 else if(kiswah && L10n.isUrdu(s) && s.showEndTimes)34 else if(kiswah && s.showEndTimes)42 else if(L10n.isUrdu(s) && s.showEndTimes)36 else if(compact && s.iqamahEnabled)36 else 46)*k).sp,
-                            lineHeight=((if(s.showRelative) (if(gallery)24 else 28) else if(gallery)44 else if(compact && kiswah)36 else if(kiswah && L10n.isUrdu(s) && s.showEndTimes)42 else if(kiswah && s.showEndTimes)50 else if(L10n.isUrdu(s) && s.showEndTimes)44 else if(compact && s.iqamahEnabled)44 else 54)*k).sp,
+                            fontSize=((if(s.showRelative) (if(gallery)18 else 22) else if(gallery)36 else if(compact && kiswah)30 else if(kiswah && L10n.isUrdu(s) && s.showEndTimes)32 else if(kiswah && s.showEndTimes)40 else if(L10n.isUrdu(s) && s.showEndTimes)36 else if(compact && s.iqamahEnabled)36 else 46)*k).sp,
+                            lineHeight=((if(s.showRelative) (if(gallery)24 else 28) else if(gallery)44 else if(compact && kiswah)36 else if(kiswah && L10n.isUrdu(s) && s.showEndTimes)40 else if(kiswah && s.showEndTimes)48 else if(L10n.isUrdu(s) && s.showEndTimes)44 else if(compact && s.iqamahEnabled)44 else 54)*k).sp,
                             color=if(gallery && selected)tk.accent else tk.contentPrimary,maxLines=if(s.showRelative)2 else 1,
                             style=if(s.showRelative)tabletNativeText else tabletClockText)
                         if(!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}",fontFamily=if(L10n.isUrdu(s))Amiri else tabletDisplay(tk),
@@ -317,12 +317,12 @@ private fun TabletBadge(r:RowInfo,s:AppSettings,marker:Color,k:Float) {
 }
 
 @Composable
-internal fun TabletDock(state:PrayerState,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:Float) {
+internal fun TabletDock(state:PrayerState,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:Float,modifier:Modifier=Modifier) {
     val gallery=s.theme==AppTheme.PRAYER_GALLERY
     val mode=adhkarModes(state,s).firstOrNull()?:AdhkarMode.MORNING
     val q=PrayerEngine.qibla(s)
     val bg=if(gallery)tk.background.copy(alpha=.65f) else if(s.theme==AppTheme.KISWAH)Color.Black.copy(alpha=.94f) else Color(0xFF001629).copy(alpha=.94f)
-    Row(Modifier.fillMaxWidth().heightIn(min=maxOf(56.dp,((if(gallery)56 else 68)*k).dp)).clip(RoundedCornerShape(if(gallery)36.dp else 22.dp))
+    Row(modifier.fillMaxWidth().heightIn(min=maxOf(56.dp,((if(gallery)56 else 68)*k).dp)).clip(RoundedCornerShape(if(gallery)36.dp else 22.dp))
         .background(bg).border(.7.dp,if(gallery)tk.accent else tk.outline,RoundedCornerShape(if(gallery)36.dp else 22.dp))
         .testTag("gallery-phone-footer"),verticalAlignment=Alignment.CenterVertically) {
         if(s.showQibla) TabletDockItem(Icons.Outlined.Explore,L10n.word(s,"Qibla"),L10n.iso("${q.toInt()}° ${PrayerEngine.compass(q)}"),
