@@ -1,0 +1,131 @@
+name: Celestial tablets and Azaan preview stop
+on:
+  push:
+    branches: ['feat/azaan-preview-stop']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: azaan-preview-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      MIQAAT_VISUAL_THEME: CELESTIAL_MERIDIAN
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: '17'}
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Native board geometry, text fit and controls
+        run: ./gradlew --no-daemon testGithubDebugUnitTest --tests '*CelestialTabletAcceptanceTest' --tests '*AzaanPreviewControlTest' --tests '*ApprovedHomeAcceptanceTest.tabletPortrait' --tests '*ApprovedHomeAcceptanceTest.tabletLandscape'
+      - name: Encrypt review captures
+        if: always()
+        run: python3 tools/seal_landscape_review.py app/build tools/tablet-review-public.pem sealed/azaan-previews.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: azaan-preview-renders, path: 'sealed/*.zip', retention-days: 14}
+      - name: Print assertion results
+        if: always()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as E
+          for p in Path('app/build/test-results').rglob('TEST-*.xml'):
+            r=E.parse(p).getroot()
+            print(p.name, {k:r.get(k) for k in ['tests','failures','errors','skipped']})
+            for t in r.findall('testcase'):
+              for f in t.findall('failure'): print(t.get('name'),f.get('message'))
+          PY
+  protection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: '17'}
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Render production baseline
+        run: |
+          set -euo pipefail
+          trap 'git restore --source=HEAD --worktree app/src/main' EXIT
+          git restore --source=b00254732d9c6b3db20e0a4242cc2fc157356a56 --worktree app/src/main
+          ./gradlew --no-daemon testGithubDebugUnitTest --tests '*RetainedHome181Test' --tests '*ApprovedPhoneLandscapeAcceptanceTest' --tests '*Tablet181ReviewTest'
+          mkdir -p app/build/kiswah-protected-before
+          cp -a app/build/protected-home app/build/phone-landscape app/build/tablet-polish app/build/kiswah-protected-before/
+          git restore --source=HEAD --worktree app/src/main
+          trap - EXIT
+      - name: Render candidate protected screens and compare pixels
+        run: |
+          ./gradlew --no-daemon testGithubDebugUnitTest --tests '*RetainedHome181Test' --tests '*ApprovedPhoneLandscapeAcceptanceTest' --tests '*Tablet181ReviewTest'
+          mkdir -p app/build/kiswah-protected-after
+          cp -a app/build/protected-home app/build/phone-landscape app/build/tablet-polish app/build/kiswah-protected-after/
+          python3 -m pip install Pillow==11.3.0
+          python3 - <<'PY'
+          from pathlib import Path
+          for root in ['app/build/kiswah-protected-before','app/build/kiswah-protected-after']:
+            for p in (Path(root)/'protected-home/CELESTIAL_MERIDIAN').glob('tablet-*'):
+              p.unlink()
+          PY
+          python3 tools/verify_landscape_unchanged.py app/build/kiswah-protected-before app/build/kiswah-protected-after protected-pixels.json b00254732d9c6b3db20e0a4242cc2fc157356a56
+      - name: Seal protected render evidence
+        if: always()
+        run: |
+          python3 tools/seal_landscape_review.py app/build/kiswah-protected-before tools/tablet-review-public.pem sealed/protection-before.zip
+          python3 tools/seal_landscape_review.py app/build/kiswah-protected-after tools/tablet-review-public.pem sealed/protection-after.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: protected-screen-comparison, path: 'sealed/protection-*.zip'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: protected-pixel-results, path: protected-pixels.json}
+  candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: '17'}
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Restore existing app signing identity
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_BASE64"
+          mkdir -p keystore
+          printf '%s' "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
+          echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
+          echo "MIQAAT_VERSION_NAME=1.186-azaan-preview" >> "$GITHUB_ENV"
+          echo "MIQAAT_BUILD_TAG=azaan-preview-${GITHUB_SHA:0:12}" >> "$GITHUB_ENV"
+      - name: Full regression, lint and signed packages
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          ./gradlew --no-daemon testGithubReleaseUnitTest lintGithubRelease assembleGithubRelease assemblePlayRelease bundlePlayRelease
+          python3 tools/check_forbidden_assets.py app/src/main app/build/outputs/apk/github/release/app-github-release.apk app/build/outputs/apk/play/release/app-play-release.apk app/build/outputs/bundle/playRelease/app-play-release.aab
+          mkdir -p candidate
+          cp app/build/outputs/apk/github/release/app-github-release.apk candidate/Miqaat-1.186.apk
+          cp app/build/outputs/bundle/playRelease/app-play-release.aab candidate/Miqaat-1.186.aab
+          python3 tools/check_release_integrity.py candidate/Miqaat-1.186.apk > candidate/native-integrity.json
+          BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
+          "$BT/apksigner" verify --verbose --print-certs candidate/Miqaat-1.186.apk > candidate/signature.txt
+          grep -qi 6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01 candidate/signature.txt
+          (cd candidate && sha256sum *.apk *.aab > SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        with: {name: signed-azaan-preview-candidate, path: 'candidate/*'}
+  publish:
+    needs: [render, protection, candidate]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {name: signed-azaan-preview-candidate, path: candidate}
+      - name: Publish installable testing candidate after all gates pass
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "azaan-preview-${GITHUB_SHA:0:12}" candidate/* --target "$GITHUB_SHA" --prerelease --title "Miqaat 1.186: Celestial tablets and Azaan Play/Stop" --notes "Celestial tablet Option 4 and service-state-aware Azaan Play/Stop controls. Signed with the existing app key. Candidate only; production updater unchanged. Source: $GITHUB_SHA"

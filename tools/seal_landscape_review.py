@@ -13,7 +13,7 @@ def seal(root, public_key, output):
         work=pathlib.Path(work);plain=work/'captures.zip'
         count=0
         with zipfile.ZipFile(plain,'w',compression=zipfile.ZIP_DEFLATED) as z:
-            for directory in ['celestial-tablet-review','kiswah-tablet-review','audit-screens','approved-designs','landscape-parity','phone-landscape','phone-refinement','portrait-polish','landscape-baseline','tablet-polish','protected-home','protected-baseline']:
+            for directory in ['azaan-preview-review','celestial-tablet-review','kiswah-tablet-review','audit-screens','approved-designs','landscape-parity','phone-landscape','phone-refinement','portrait-polish','landscape-baseline','tablet-polish','protected-home','protected-baseline']:
                 for p in sorted((root/directory).rglob('*')):
                     if p.is_file() and p.suffix.lower() in ['.png','.txt']:
                         z.write(p,p.relative_to(root));count+=1

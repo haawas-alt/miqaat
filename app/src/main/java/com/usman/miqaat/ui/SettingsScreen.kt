@@ -519,6 +519,7 @@ private fun TimesSection(store: SettingsStore, s: AppSettings) {
 private fun AzaanSection(store: SettingsStore, s: AppSettings) {
     val tk = screenTokens()
     val ctx = LocalContext.current
+    val playback by AzaanService.phase.collectAsState()
     val pickFile = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
         uri ?: return@rememberLauncherForActivityResult
         runCatching { ctx.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) }
@@ -539,7 +540,12 @@ private fun AzaanSection(store: SettingsStore, s: AppSettings) {
     Prayer.prayersOnly.forEach { p ->
         SettingRow("${L10n.prayer(s, p)}  ${p.arabic}", null, spokenTitle = L10n.prayer(s, p)) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                TextButton(onClick = { AzaanService.preview(ctx, p) }) { Text(Str[R.string.s_play], color = tk.accent) }
+                val playing = playback is AzaanService.Phase.Azaan && playback?.prayer == p
+                val label = Str[if (playing) R.string.s_stop else R.string.s_play]
+                TextButton(onClick = { if (playing) AzaanService.stop(ctx) else AzaanService.preview(ctx, p) },
+                    modifier = Modifier.testTag("azaan-preview-${p.name}").semantics {
+                        contentDescription = "$label ${L10n.prayer(s, p)}"
+                    }) { Text(label, color = tk.accent) }
                 Toggle(s.azaanEnabled[p] == true) { on -> store.update { it.copy(azaanEnabled = it.azaanEnabled + (p to on)) } }
             }
         }

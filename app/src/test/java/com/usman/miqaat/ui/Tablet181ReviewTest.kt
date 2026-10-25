@@ -112,6 +112,8 @@ class Tablet181ReviewTest:ComposeSupport() {
         node.children.forEach { checkInk(it,label) }
     }
     private fun capture(prefix:String) {
+        rule.mainClock.advanceTimeBy(1000)
+        rule.waitForIdle()
         scenario.onActivity { act ->
             val v=act.findViewById<View>(android.R.id.content)
             val b=Bitmap.createBitmap(v.width,v.height,Bitmap.Config.ARGB_8888);v.draw(Canvas(b))
