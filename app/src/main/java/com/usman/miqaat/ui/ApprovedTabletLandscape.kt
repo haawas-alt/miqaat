@@ -260,13 +260,13 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
         .semantics(mergeDescendants=true) { contentDescription=r.spoken }.testTag("approved-row-${r.prayer.name}")) {
         if(gallery && s.artTheme!=ArtTheme.MINIMAL) TabletGalleryArt(r.prayer.ordinal,Modifier.fillMaxWidth().weight(1f))
         Row(Modifier.fillMaxWidth().then(if(gallery && s.artTheme!=ArtTheme.MINIMAL)
-            Modifier.height(if(s.iqamahEnabled) (if(compact)84.dp else 94.dp) else (if(compact)68.dp else 84.dp)) else Modifier.weight(1f))
+            Modifier.height(if(s.iqamahEnabled) (if(compact)84.dp else 94.dp) else (if(compact && L10n.isUrdu(s))80.dp else if(compact)68.dp else 84.dp)) else Modifier.weight(1f))
             .then(if(!gallery && !selected && r.prayer!=Prayer.FAJR)Modifier.border(.4.dp,tk.divider) else Modifier)
             .padding(horizontal=((if(gallery)12 else 28)*k).dp),verticalAlignment=Alignment.CenterVertically) {
             Column(Modifier.fillMaxWidth(if(gallery).28f else .28f)) {
                 Text(r.label,Modifier.testTag("gallery-fit-label-${r.prayer.name}"),
                     fontFamily=if(L10n.isUrdu(s))Amiri else tabletDisplay(tk),fontWeight=FontWeight.Medium,
-                    fontSize=((if(gallery)24 else 32)*k).sp,lineHeight=((if(gallery)30 else 38)*k).sp,
+                    fontSize=((if(gallery && compact && L10n.isUrdu(s))20 else if(gallery)24 else 32)*k).sp,lineHeight=((if(gallery && compact && L10n.isUrdu(s))28 else if(gallery)30 else 38)*k).sp,
                     color=tk.contentPrimary,maxLines=if(L10n.isUrdu(s))2 else 1,style=tabletNativeText)
                 if(!L10n.isUrdu(s)) Text(r.arabic,Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"),fontFamily=Amiri,
                     fontSize=((if(gallery)24 else 28)*k).sp,lineHeight=((if(gallery)30 else 34)*k).sp,
@@ -288,7 +288,7 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
                     if(selected && !compactBadge) TabletBadge(r,s,marker,k)
                 }
                 if(r.small.isNotEmpty()) Text(r.small,Modifier.testTag("gallery-fit-detail-${r.prayer.name}"),fontFamily=tabletUi(s),
-                    fontSize=((if(gallery)16 else if(compact && s.iqamahEnabled)16 else 18)*k).sp,lineHeight=((if(gallery)21 else if(compact && s.iqamahEnabled)20 else 24)*k).sp,
+                    fontSize=((if(gallery)16 else if(compact && s.iqamahEnabled)16 else 18)*k).sp,lineHeight=((if(L10n.isUrdu(s))32 else if(gallery)21 else if(compact && s.iqamahEnabled)20 else 24)*k).sp,
                     color=tk.contentSecondary,maxLines=2,style=tabletNativeText)
             }
             if(r.prayer.isPrayer) Box(Modifier.width((28*k).dp).heightIn(min=48.dp).semantics {
