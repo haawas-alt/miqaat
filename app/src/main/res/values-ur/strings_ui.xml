@@ -8,17 +8,17 @@
     <string name="s_hijri_calendar">ہجری کیلنڈر</string>
     <string name="s_display_art">ڈسپلے اور آرٹ</string>
     <string name="s_test_preview">ابھی آزمائیں</string>
-    <string name="s_reliability_backup">قابلِ اعتماد اور بیک اپ</string>
+    <string name="s_reliability_backup">الارم کی کارکردگی اور بیک اپ</string>
     <string name="s_back">واپس</string>
     <string name="s_settings">ترتیبات</string>
     <string name="s_location_permission_was_not_granted_choose">مقام کی اجازت نہیں دی گئی۔ نیچے سے شہر منتخب کریں۔</string>
-    <string name="s_prayer_times_are_calculated_for_these">نماز کے اوقات انہی محلِ وقوع (کوآرڈینیٹس) کے لیے حساب کیے جاتے ہیں۔ جگہ کا نام معلوم کرنے اور جگہ تلاش کرنے کے لیے اینڈرائیڈ کا جیوکوڈر استعمال ہوتا ہے جو کوآرڈینیٹس یا تلاش کا متن گوگل کو بھیجتا ہے۔ اس کے علاوہ کچھ بھی ڈیوائس سے باہر نہیں جاتا۔</string>
+    <string name="s_prayer_times_are_calculated_for_these">نماز کے اوقات کا حساب ان جغرافیائی نقاط کے مطابق کیا جاتا ہے۔ جگہ کے نام اور مقام کی تلاش کے لیے اینڈرائیڈ کا جیوکوڈر نقاط یا تلاش کا متن اپنے فراہم کنندہ کو بھیج سکتا ہے۔ یہ درخواستیں ایپ کے ڈویلپر کو نہیں بھیجی جاتیں۔</string>
     <string name="s_time_zone_for_prayer_times">نماز کے اوقات کے لیے ٹائم زون</string>
     <string name="s_this_zone_is_several_hours_away">⚠ یہ ٹائم زون اوپر دی گئی جگہ سے کئی گھنٹے دور ہے — جب تک یہ درست نہ ہو، اوقات غلط رہیں گے۔</string>
     <string name="s_chosen_by_you_automatic_location_refresh">آپ کا منتخب کردہ · خودکار مقام کی تازہ کاری اسے نہیں بدلے گی</string>
     <string name="s_follows_the_device_while_that_is">جب تک ڈیوائس کا ٹائم زون اس جگہ کے لیے مناسب ہے، اسی پر چلتا ہے؛ مقفل کرنے کے لیے یہاں ایک منتخب کریں۔</string>
     <string name="s_use_the_tablet_s_location">ڈیوائس کا مقام استعمال کریں</string>
-    <string name="s_re_detects_each_time_the_app">ہر بار ایپ کھلنے پر دوبارہ معلوم کرتا ہے</string>
+    <string name="s_re_detects_each_time_the_app">ایپ کھلنے پر مقام تازہ کیا جاتا ہے، بشرطیکہ کم از کم 30 منٹ گزر چکے ہوں</string>
     <string name="s_detect_now">ابھی معلوم کریں</string>
     <string name="s_or_choose_a_place">یا کوئی جگہ منتخب کریں</string>
     <string name="s_search_a_suburb_or_city">علاقہ یا شہر تلاش کریں</string>
@@ -51,7 +51,7 @@
     <string name="s_off_keeps_the_file_but_shows">بند کرنے پر فائل محفوظ رہتی ہے مگر حساب شدہ اوقات دکھائے جاتے ہیں</string>
     <string name="s_calculation_method">حساب کا طریقہ</string>
     <string name="s_asr_juristic_method">عصر کا فقہی طریقہ</string>
-    <string name="s_hanafi_asr_begins_later_shadow_2">حنفی عصر دیر سے شروع ہوتی ہے (سایہ = دو مثل)</string>
+    <string name="s_hanafi_asr_begins_later_shadow_2">حنفی عصر: زوال کے سائے کے علاوہ شے کی اونچائی کا دوگنا سایہ</string>
     <string name="s_high_latitude_rule">بلند عرضِ بلد کا قاعدہ</string>
     <string name="s_only_matters_above_48_latitude">صرف 48° عرضِ بلد سے اوپر اہم ہے</string>
     <string name="s_show_end_times">اختتامی اوقات دکھائیں</string>
@@ -103,7 +103,7 @@
     <string name="s_two_recordings_are_built_in_one">دو ریکارڈنگز شامل ہیں: ایک فجر کے لیے اور ایک باقی نمازوں کے لیے۔ آپ ان میں سے کسی کو ڈیوائس پر موجود کسی بھی MP3 سے بدل سکتے ہیں۔</string>
     <string name="s_reset">ری سیٹ</string>
     <string name="s_choose">منتخب کریں ›</string>
-    <string name="s_reliability">قابلِ اعتماد</string>
+    <string name="s_reliability">الارم کی کارکردگی</string>
     <string name="s_notifications">اطلاعات</string>
     <string name="s_granted">اجازت ہے ✓</string>
     <string name="s_not_granted_fix">اجازت نہیں · درست کریں ›</string>
@@ -180,7 +180,7 @@
     <string name="s_github">گٹ ہب</string>
     <string name="s_delivered_by_google_play_miqaat_itself">گوگل پلے کے ذریعے فراہم۔ میقات خود اپ ڈیٹ کی کوئی درخواست نہیں کرتا۔</string>
     <string name="s_the_dua_and_hadith_recordings_are">دعا اور حدیث کی ریکارڈنگز ایپ کے اندر ہیں۔ ڈیوائس کی اپنی ٹیکسٹ ٹو اسپیچ صرف اس وقت استعمال ہوتی ہے جب ریکارڈنگ موجود نہ ہو۔</string>
-    <string name="s_health_log_adhk_r_counts_friday">کارکردگی کا لاگ: اذکار کی گنتی - جمعہ ٹریکر</string>
+    <string name="s_health_log_adhk_r_counts_friday">الارم کا ریکارڈ، اذکار کی گنتی اور جمعہ کی پیش رفت</string>
     <string name="s_stored_in_the_app_s_private">اس ڈیوائس پر ایپ کے نجی اسٹوریج میں محفوظ۔ اَن انسٹال کرنے پر مٹ جاتا ہے۔</string>
     <string name="s_analytics_advertising_accounts_crash_reporting">تجزیات، اشتہارات، اکاؤنٹس، کریش رپورٹنگ</string>
     <string name="s_none_there_is_no_miqaat_server">کچھ نہیں۔ میقات کا کوئی سرور نہیں۔</string>
@@ -252,7 +252,7 @@
     <string name="s_every_hadith_dhikr_dua_and_ruling">ایپ میں ہر حدیث، ذکر، دعا اور حکم اپنے ماخذ کے ساتھ ہے۔ اس مواد کے مستند علمی جائزے کا انتظار ہے؛ دستخط ہونے تک ایپ میں کچھ بھی منظور شدہ کے طور پر پیش نہیں کیا جاتا۔</string>
     <string name="s_unsigned">بغیر دستخط</string>
     <string name="s_prayer_times_are_computed_on_the">"نماز کے اوقات ڈیوائس پر اذان لائبریری (Batoul Apps، MIT لائسنس) کے ذریعے، ژاں میوس کے اعلیٰ درستگی والے فلکیاتی الگورتھم استعمال کرتے ہوئے حساب کیے جاتے ہیں۔  "</string>
-    <string name="s_no_account_no_advertising_no_analytics">کوئی اکاؤنٹ نہیں، کوئی اشتہار نہیں، کوئی تجزیات نہیں۔ نیٹ ورک صرف تین کاموں کے لیے استعمال ہوتا ہے: جگہ کے نام کی تلاش اور جگہ کی تلاش (اینڈرائیڈ کا جیوکوڈر، جو گوگل سے رابطہ کرتا ہے)، اور گٹ ہب پر اپ ڈیٹ کی جانچ۔\n\n</string>
+    <string name="s_no_account_no_advertising_no_analytics">کوئی اکاؤنٹ، اشتہار یا تجزیات نہیں۔ جگہ کے نام اور مقام کی تلاش کے لیے اینڈرائیڈ کا جیوکوڈر اپنے فراہم کنندہ سے رابطہ کر سکتا ہے۔ براہِ راست ڈاؤن لوڈ ہونے والا یہ ایڈیشن اپ ڈیٹس کے لیے گٹ ہب بھی دیکھتا ہے۔\n\n</string>
     <string name="s_one_hour_earlier">ایک گھنٹہ پہلے</string>
     <string name="s_one_hour_later">ایک گھنٹہ بعد</string>
     <string name="s_five_minutes_earlier">پانچ منٹ پہلے</string>
@@ -283,7 +283,7 @@
     <string name="s_using_the_device_s_zone">ڈیوائس کا ٹائم زون استعمال ہو رہا ہے</string>
     <string name="s_from_the_chosen_place">منتخب جگہ سے</string>
     <string name="s_convention">طریقۂ حساب</string>
-    <string name="s_hanafi_asr_begins_later_shadow_2_2">حنفی عصر دیر سے شروع ہوتی ہے (سایہ = دو مثل)</string>
+    <string name="s_hanafi_asr_begins_later_shadow_2_2">حنفی عصر: زوال کے سائے کے علاوہ شے کی اونچائی کا دوگنا سایہ</string>
     <string name="s_fix_the_time_zone_first">پہلے ٹائم زون درست کریں</string>
     <string name="s_these_look_right">یہ درست لگتے ہیں</string>
     <string name="s_calculation_convention">حساب کا طریقہ</string>
@@ -294,7 +294,7 @@
     <string name="s_finish">مکمل کریں</string>
     <string name="s_you_can_finish_now_the_reliability">آپ ابھی مکمل کر سکتے ہیں؛ قابلِ اعتماد کی فہرست ترتیبات › اذان اور الرٹ میں اور ہوم اسکرین پر اس وقت تک رہے گی جب تک سب اجازتیں مل نہ جائیں۔</string>
     <string name="s_as_salah_the_prayer">الصلاۃ، نماز</string>
-    <string name="s_one_common_form_of_the_prayer">نماز کا ایک عام طریقہ، ایک وقت میں ایک عمل، عربی الفاظ کے ساتھ، انہیں کیسے کہنا ہے اور ان کا مطلب کیا ہے۔ جہاں مسالک مختلف ہیں، نوٹ بتا دیتا ہے۔ بچوں اور نئے سیکھنے والے بڑوں، دونوں کے لیے۔</string>
+    <string name="s_one_common_form_of_the_prayer">نماز کا ایک عام طریقہ، ایک وقت میں ایک عمل، عربی الفاظ کے ساتھ، انہیں کیسے کہنا ہے اور ان کا مطلب کیا ہے۔ جہاں مسالک مختلف ہیں، نوٹ بتا دیتا ہے۔ نماز سیکھنے والوں کے لیے، مرحلہ وار رہنمائی۔</string>
     <string name="s_learn_a_complete_prayer">پوری نماز سیکھیں</string>
     <string name="s_the_words">الفاظ</string>
     <string name="s_the_twelve_texts_of_the_prayer">نماز کے بارہ متون الگ سے، دہرانے اور آہستہ رفتار کے ساتھ</string>
@@ -323,8 +323,8 @@
     <string name="s_no_compass_sensor">کمپاس سینسر نہیں</string>
     <string name="s_waiting_for_the_compass">کمپاس کا انتظار…</string>
     <string name="s_compass_unreliable_calibrate">کمپاس ناقابلِ اعتماد — کیلیبریٹ کریں</string>
-    <string name="s_compass_accuracy_low_about_15">کمپاس کی درستگی کم (تقریباً ±15°)</string>
-    <string name="s_compass_accuracy_medium_about_5">کمپاس کی درستگی درمیانی (تقریباً ±5°)</string>
+    <string name="s_compass_accuracy_low_about_15">کمپاس کی درستگی کم ہے — دھات سے دور رہ کر کیلیبریٹ کریں</string>
+    <string name="s_compass_accuracy_medium_about_5">کمپاس کی درستگی درمیانی ہے — سمت دوبارہ جانچیں</string>
     <string name="s_compass_accuracy_high">کمپاس کی درستگی زیادہ</string>
     <string name="s_qibla">قبلہ</string>
     <string name="s_no_compass_sensor_face_the_phone">کمپاس سینسر نہیں: فون کا اوپری کنارہ شمال کی طرف کریں اور قبلے کی سوئی دیکھیں۔</string>
@@ -418,7 +418,7 @@
     <string name="s_stop_azaan">اذان روکیں</string>
     <string name="s_skip">چھوڑیں ›</string>
     <string name="s_start_iqamah_now">ابھی اقامت شروع کریں ›</string>
-    <string name="s_back_to_clock">واپس گھڑی</string>
+    <string name="s_back_to_clock">گھڑی پر واپس جائیں</string>
     <string name="s_audio_playing">آواز چل رہی ہے</string>
     <string name="s_privacy">رازداری</string>
     <string name="s_about">تعارف</string>

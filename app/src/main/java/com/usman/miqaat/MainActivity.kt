@@ -104,6 +104,7 @@ class MainActivity : ComponentActivity() {
                 var settingsSection by remember { mutableStateOf<Section?>(null) }
                 var peek by remember { mutableStateOf(false) }
                 LaunchedEffect(peek) { if (peek) { delay(25_000); peek = false } }
+                var preparedLesson by rememberSaveable { mutableStateOf<com.usman.miqaat.data.Learn.Lesson?>(null) }
                 var adhkarMode by remember { mutableStateOf(com.usman.miqaat.ui.AdhkarMode.MORNING) }
                 val phase by AzaanService.phase.collectAsState()
                 val updateState by Updater.state.collectAsState()
@@ -143,10 +144,11 @@ class MainActivity : ComponentActivity() {
                         onOpenQibla = { screen = Screen.QIBLA },
                         onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
                         onOpenFriday = { screen = Screen.FRIDAY },
-                        onOpenLearn = { screen = Screen.LEARN },
+                        onOpenLearn = { preparedLesson = null; screen = Screen.LEARN },
                         updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
                         onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
-                        onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } }
+                        onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } },
+                        onPreparePrayer = { prayer -> preparedLesson = com.usman.miqaat.ui.preparationLesson(prayer); screen = Screen.LEARN }
                     )
                     Crossfade(targetState = screen, label = "screen") { s ->
                         when (s) {
@@ -154,7 +156,7 @@ class MainActivity : ComponentActivity() {
                             Screen.QIBLA -> QiblaScreen(settings) { screen = Screen.HOME }
                             Screen.ADHKAR -> AdhkarScreen(adhkarMode) { screen = Screen.HOME }
                             Screen.FRIDAY -> com.usman.miqaat.ui.FridayScreen(settings) { screen = Screen.HOME }
-                            Screen.LEARN -> com.usman.miqaat.ui.LearnScreen(settings) { screen = Screen.HOME }
+                            Screen.LEARN -> com.usman.miqaat.ui.LearnScreen(settings, startLesson = preparedLesson) { screen = Screen.HOME }
                             Screen.TIMETABLE -> TimetableScreen(settings) { screen = Screen.HOME }
                             Screen.SETTINGS -> SettingsScreen(store, settings, settingsSection) { screen = Screen.HOME }
                         }

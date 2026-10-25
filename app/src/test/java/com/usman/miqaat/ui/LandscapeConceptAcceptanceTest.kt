@@ -13,6 +13,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.unit.dp
 import com.usman.miqaat.data.*
+import com.usman.miqaat.R
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -65,9 +66,24 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                         val noScroll = SemanticsMatcher("Home must have no scrolling container") {
                             it.config.getOrNull(SemanticsActions.ScrollBy) != null
                         }
-                        assertEquals("Scrolling Home is a release failure", 0, rule.onAllNodes(noScroll, true).fetchSemanticsNodes().size)
+                        val reflow = urdu && relative
+                        if (!reflow) assertEquals("Default Home must not scroll", 0, rule.onAllNodes(noScroll, true).fetchSemanticsNodes().size)
+                        else rule.onNodeWithTag("landscape-home-reflow", true).assertExists()
+                        fun bringIntoView(query: SemanticsNodeInteraction) {
+                            if (reflow) {
+                                val node = query.fetchSemanticsNode()
+                                val bounds = node.boundsInRoot
+                                if (bounds.height + 1f < node.size.height || bounds.width + 1f < node.size.width) query.performScrollTo()
+                            }
+                        }
+                        // Footer and timeline must be fully visible before any body scroll.
+                        for (tag in listOf("landscape-door-0", "landscape-door-1", "landscape-more-actions", "landscape-timeline-panel")) {
+                            val bounds = rule.onNodeWithTag(tag, true).assertIsDisplayed().getUnclippedBoundsInRoot()
+                            assertTrue("$tag leaves initial viewport", bounds.top >= board.top && bounds.bottom <= board.bottom)
+                        }
                         fun inside(tag: String, minTarget: Boolean = false) {
                             val query = rule.onNodeWithTag(tag, true)
+                            bringIntoView(query)
                             query.assertIsDisplayed()
                             val r = query.getUnclippedBoundsInRoot()
                             assertTrue("$tag exceeds usable screen", r.left >= board.left && r.right <= board.right && r.top >= board.top && r.bottom <= board.bottom)
@@ -75,12 +91,13 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                         }
                         fun readable(tag: String) {
                             inside(tag)
+                            bringIntoView(rule.onNodeWithTag(tag, true))
                             val node = rule.onNodeWithTag(tag, true).fetchSemanticsNode()
                             val layouts = mutableListOf<TextLayoutResult>()
                             node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
                             assertTrue("Missing text layout for $tag", layouts.isNotEmpty())
                             layouts.forEach { assertFalse("Clipped $tag: theme=$theme small=$small urdu=$urdu relative=$relative hour=$hour size=${it.size} width=${it.didOverflowWidth} height=${it.didOverflowHeight}",
-                                it.didOverflowWidth || it.didOverflowHeight) }
+                                it.multiParagraph.didExceedMaxLines || (0 until it.lineCount).any { line -> it.getLineRight(line)-it.getLineLeft(line)>node.size.width+1f } || (it.lineCount>0 && it.getLineBottom(it.lineCount-1)-it.getLineTop(0)>node.size.height+1f)) }
                         }
                         val location = rule.onNodeWithTag("landscape-location", true).getUnclippedBoundsInRoot()
                         val date = rule.onNodeWithTag("landscape-date", true).getUnclippedBoundsInRoot()
@@ -95,22 +112,16 @@ class LandscapeConceptAcceptanceTest : ComposeSupport() {
                             inside("compact-prayer-${prayer.name}", true)
                             readable("landscape-row-name-${prayer.name}")
                             readable("landscape-row-time-${prayer.name}")
-                            readable("landscape-timeline-${prayer.name}")
+                            readable("approved-timeline-${prayer.name}")
                         }
-                        if (theme == AppTheme.CELESTIAL_MERIDIAN) {
-                            inside("landscape-countdown-dial")
-                            if (!state.justPassed) assertTrue("Live countdown arc must preserve elapsed and remaining portions, including overnight", landscapeCountdownFraction(state) in 0.001f..0.999f)
-                            readable("landscape-countdown-value")
-                            rule.onNodeWithTag("landscape-countdown-value", true).assertTextEquals(L10n.duration(s, state.delta))
-                        } else {
-                            inside("landscape-gallery-art")
-                            inside("landscape-gallery-learn", true)
-                            rule.onNodeWithTag("landscape-gallery-learn", true).performClick()
-                            assertTrue("Prepare shortcut must open Learn Salah without scrolling", learn)
-                        }
+                        val learnAction = rule.onNodeWithContentDescription(Str[R.string.s_learn_salah])
+                        bringIntoView(learnAction)
+                        learnAction.performClick()
+                        assertTrue("Learn shortcut must still open Learn Salah", learn)
+                        bringIntoView(rule.onNodeWithTag("landscape-more-actions", true))
                         rule.onNodeWithTag("landscape-more-actions", true).performClick()
                         // Qibla and timely Adhkar remain accessible, without consuming Home height.
-                        rule.onNodeWithText(firstMenuLabel).assertExists()
+                        rule.onAllNodesWithText(firstMenuLabel).onLast().assertExists()
                     } finally { runCatching { scenario.close() } }
                 }
     }

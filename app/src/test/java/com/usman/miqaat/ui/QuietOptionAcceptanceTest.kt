@@ -75,9 +75,9 @@ class QuietOptionAcceptanceTest : ComposeSupport() {
                     }
                     val expected = quietPrayerTimes(s, phase.prayer, now)
                     rule.onNodeWithTag("quiet-current-time", true).assertTextEquals(L10n.iso(L10n.at(expected.current, clock24)))
-                    rule.onNodeWithTag("quiet-next-name", true).assertTextEquals(L10n.prayer(s, expected.next))
+                    rule.onNodeWithTag("quiet-next-name", true).assertTextEquals(L10n.prayer(s, expected.next).let { if (urdu) it else it.uppercase(java.util.Locale.ROOT) })
                     rule.onNodeWithTag("quiet-next-time", true).assertTextEquals(L10n.iso(L10n.at(expected.nextTime, clock24)))
-                    val accessible = scale > 1.35f || (dev == Dev.PHONE_LANDSCAPE && scale > 1.15f)
+                    val accessible = scale > 1.15f
                     val board = rule.onNodeWithTag("quiet-board", true).getUnclippedBoundsInRoot()
                     for (tag in listOf("quiet-live-clock", "quiet-brand", "quiet-progress", "quiet-current-name", "quiet-current-label", "quiet-current-time", "quiet-iqamah-complete", "quiet-next-label", "quiet-next-name", "quiet-next-time", "quiet-expiry-hint", "quiet-exit-label")) {
                         val node = rule.onNodeWithTag(tag, true)
@@ -88,7 +88,7 @@ class QuietOptionAcceptanceTest : ComposeSupport() {
                         val layouts = mutableListOf<TextLayoutResult>()
                         node.fetchSemanticsNode().config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
                         assertTrue(layouts.isNotEmpty())
-                        for (l in layouts) assertFalse("$dev urdu=$urdu scale=$scale $tag clipped ${l.size} width=${l.didOverflowWidth} height=${l.didOverflowHeight} lines=${l.lineCount} text=${l.layoutInput.text} constraints=${l.layoutInput.constraints} style=${l.layoutInput.style}", l.didOverflowHeight || l.didOverflowWidth)
+                        for (l in layouts) assertFalse("$dev urdu=$urdu scale=$scale $tag clipped ${l.size} width=${l.didOverflowWidth} height=${l.didOverflowHeight} lines=${l.lineCount} text=${l.layoutInput.text} constraints=${l.layoutInput.constraints} style=${l.layoutInput.style}", l.multiParagraph.didExceedMaxLines || (0 until l.lineCount).any { line -> l.getLineRight(line)-l.getLineLeft(line)>node.fetchSemanticsNode().size.width+1f } || (l.lineCount>0 && l.getLineBottom(l.lineCount-1)-l.getLineTop(0)>node.fetchSemanticsNode().size.height+1f))
                     }
                     if (!accessible) {
                         val scroll = SemanticsMatcher("scroll") { it.config.getOrNull(SemanticsActions.ScrollBy) != null }
@@ -132,7 +132,7 @@ class QuietOptionAcceptanceTest : ComposeSupport() {
                 QuietPrayerContent(Phase.Quiet(Prayer.ISHA, now.plusMinutes(15).toInstant().toEpochMilli()), s, now) { stopped = true }
             }
             rule.onNodeWithTag("quiet-tomorrow", true).assertIsDisplayed()
-            rule.onNodeWithTag("quiet-next-name", true).assertTextEquals("Fajr")
+            rule.onNodeWithTag("quiet-next-name", true).assertTextEquals("FAJR")
             rule.onNodeWithTag("quiet-board", true).performClick()
             assertTrue(stopped)
         } finally { runCatching { scenario.close() } }

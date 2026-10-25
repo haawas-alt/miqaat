@@ -21,6 +21,7 @@ object LocationRepo {
 
     /** Offline fallback list so the app works with no network and no GPS. */
     val presets = listOf(
+        Place("Beijing, China", 39.9042, 116.4074, "Asia/Shanghai"),
         Place("Sydney, NSW", -33.87, 151.21, "Australia/Sydney"),
         Place("Lakemba, NSW", -33.92, 151.08, "Australia/Sydney"),
         Place("Parramatta, NSW", -33.82, 151.00, "Australia/Sydney"),
@@ -90,11 +91,13 @@ object LocationRepo {
         if (!hasPermission(ctx)) return null
         val lm = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val providers = listOf(LocationManager.NETWORK_PROVIDER, LocationManager.GPS_PROVIDER, LocationManager.PASSIVE_PROVIDER)
-        // Best cached fix first: instant, and tablets rarely move.
+        // A phone may have crossed countries since its last fix. Never treat a
+        // six-hour airport cache as its current position after a flight.
         val cached = providers.mapNotNull { runCatching { lm.getLastKnownLocation(it) }.getOrNull() }.maxByOrNull { it.time }
-        if (cached != null && System.currentTimeMillis() - cached.time < 6 * 3600_000L) return cached
+        if (cached != null && cachedFixUsable(System.currentTimeMillis()-cached.time)) return cached
         // Otherwise ask for one fresh fix, with a timeout.
-        val provider = providers.firstOrNull { runCatching { lm.isProviderEnabled(it) }.getOrDefault(false) } ?: return cached
+        val fallback=cached?.takeIf { cachedFixUsable(System.currentTimeMillis()-it.time,15*60_000L) }
+        val provider = providers.firstOrNull { runCatching { lm.isProviderEnabled(it) }.getOrDefault(false) } ?: return fallback
         val fresh = withTimeoutOrNull(20_000) {
             suspendCancellableCoroutine<Location?> { cont ->
                 // Main executor: the callback is a one-line resume, and nothing is leaked when the fix times out.
@@ -118,8 +121,10 @@ object LocationRepo {
                 }
             }
         }
-        return fresh ?: cached
+        return fresh ?: fallback
     }
+
+    internal fun cachedFixUsable(ageMillis:Long,maxAgeMillis:Long=2*60_000L):Boolean = ageMillis in 0..maxAgeMillis
 
     suspend fun name(ctx: Context, lat: Double, lng: Double): String? = withContext(Dispatchers.IO) {
         if (!Geocoder.isPresent()) return@withContext null
@@ -162,3 +167,4 @@ object LocationRepo {
         else -> state
     }
 }
+

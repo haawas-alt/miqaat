@@ -1,0 +1,45 @@
+{
+  "source_sha256": "f27bc7878c22abeec5a6fb2bb945349db5a08de8cf94c44116c7a7c85299bf10",
+  "frames": {
+    "portrait": {
+      "crop": [
+        330,
+        257,
+        1206,
+        597
+      ],
+      "size": [
+        876,
+        200
+      ],
+      "sha256": "3b413057502976c1985e957f0c81ba28d70c5f6112866f4881f73086c26f5ad2",
+      "edge_x_px": 56,
+      "edge_y_px": 46,
+      "source_size": [
+        876,
+        340
+      ],
+      "removed_source_rows": [
+        118,
+        258
+      ],
+      "adaptation": "Phone portrait one-phrase frame; original rails/corners retained, middle side-rail section removed"
+    },
+    "landscape": {
+      "crop": [
+        58,
+        785,
+        1479,
+        953
+      ],
+      "size": [
+        1421,
+        168
+      ],
+      "sha256": "82deaf28956df6680e1a66819b929be09087f3cf1834f99a2f3edf4eed78335c",
+      "edge_x_px": 56,
+      "edge_y_px": 38
+    }
+  },
+  "source_name": "Silver Vine Dhikr Banner Concept Sheet.png"
+}

@@ -1,0 +1,34 @@
+name: Package existing audit evidence without rebuilding
+on:
+  push:
+    branches: ['fix/audit-1.163-25-remediation']
+    paths: ['.github/workflows/audit-evidence-recovery.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Download successful exact source evidence
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 39093985409
+          name: audit-remediation-de2ef3dfb65ee3c8003a5e27b79ada430fc1834b
+          path: evidence
+      - name: Upload signed candidate and compact verification evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-verified-candidate-de2ef3d
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            evidence/candidate/
+            evidence/app/build/test-results/
+            evidence/app/build/audit-screens/remediation/
+            evidence/app/build/reports/lint-results-*.xml
+            evidence/validation.log
+            evidence/build.log

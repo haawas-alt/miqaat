@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s_iqamah_until">اقامت شروع ہونے میں</string>
+    <string name="s_iqamah_at">اقامت کا وقت</string>
+    <string name="s_iqamah_min_sec">منٹ : سیکنڈ</string>
+    <string name="s_iqamah_remaining_accessibility">اقامت شروع ہونے میں %1$d منٹ، %2$d سیکنڈ باقی ہیں</string>
+</resources>

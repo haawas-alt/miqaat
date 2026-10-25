@@ -1,31 +1,26 @@
 package com.usman.miqaat.ui
 
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.Image
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.*
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,7 +29,6 @@ import com.usman.miqaat.R
 import com.usman.miqaat.azaan.AzaanService.Phase
 import com.usman.miqaat.data.*
 import kotlinx.coroutines.delay
-import java.time.Instant
 import java.time.ZonedDateTime
 
 internal data class QuietPrayerTimes(val current: ZonedDateTime, val next: Prayer, val nextTime: ZonedDateTime)
@@ -49,9 +43,19 @@ internal fun quietPrayerTimes(s: AppSettings, prayer: Prayer, now: ZonedDateTime
     return QuietPrayerTimes(current, upcoming.next, upcoming.nextTime)
 }
 
-private val QuietGold = Color(0xFFE7CB88)
-private val QuietIvory = Color(0xFFF3EBDC)
-private val QuietSecondary = Color(0xFFC3C6BC)
+@OptIn(androidx.compose.ui.text.ExperimentalTextApi::class)
+internal val QuietBody = FontFamily(Font(R.font.nunito_sans, FontWeight.Normal,
+    variationSettings = FontVariation.Settings(FontVariation.weight(600))))
+@OptIn(androidx.compose.ui.text.ExperimentalTextApi::class)
+internal val QuietDisplay = FontFamily(Font(R.font.cormorant_garamond_medium, FontWeight.Medium,
+    variationSettings = FontVariation.Settings(FontVariation.weight(500))))
+
+internal data class QuietPalette(val background: Color, val ink: Color, val accent: Color, val secondary: Color, val panel: Color)
+internal fun quietPalette(theme: AppTheme) = if (theme == AppTheme.PRAYER_GALLERY)
+    QuietPalette(Color(0xFFF6EFE2), Color(0xFF103E37), Color(0xFF9E4027), Color(0xFF3F584E), Color(0xFFF9F2E6).copy(alpha = .88f))
+else QuietPalette(if (theme == AppTheme.KISWAH) Color(0xFF080909) else Color(0xFF03152D),
+    Color(0xFFF5ECD8), Color(0xFFE7C77E), Color(0xFFD8CFBD),
+    (if (theme == AppTheme.KISWAH) Color(0xFF10100F) else Color(0xFF061C35)).copy(alpha = .65f))
 
 @Composable
 internal fun QuietPrayerScreen(p: Phase.Quiet, onStop: () -> Unit) {
@@ -61,156 +65,177 @@ internal fun QuietPrayerScreen(p: Phase.Quiet, onStop: () -> Unit) {
     QuietPrayerContent(p, s, now, onStop)
 }
 
-/** Deterministic content also used by real-layout acceptance tests. */
+/** Native information and actions over text-free theme art. The phase remains the source of the current prayer. */
 @Composable
 internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTime, onStop: () -> Unit) {
+    if (isPhoneLandscape() && LocalDensity.current.fontScale <= 1.15f) {
+        PhoneLandscapeQuietContent(p, s, now, onStop); return
+    }
     val times = remember(s, p.prayer, now.toLocalDate(), now.hour, now.minute) { quietPrayerTimes(s, p.prayer, now) }
+    val colors = quietPalette(s.theme)
     val urdu = L10n.isUrdu(s)
-    val displayFont = if (urdu) Nastaliq else Cormorant
-    val fontScale = LocalDensity.current.fontScale
+    val accessible = LocalDensity.current.fontScale > 1.15f
+    val body = if (urdu) Amiri else QuietBody
     val remaining = ((p.endsAt - now.toInstant().toEpochMilli()).coerceAtLeast(0) + 59_999) / 60_000
-    BoxWithConstraints(Modifier.fillMaxSize().testTag("quiet-board")
-        .background(Brush.verticalGradient(listOf(Color(0xFF0D211B), Color(0xFF050E0A))))
-        .clickable(role = Role.Button, onClickLabel = Str[R.string.s_quiet_exit], onClick = onStop)
-        .safeDrawingPadding().padding(20.dp)) {
-        val short = maxHeight < 480.dp
-        val large = maxWidth >= 600.dp && !short
-        val accessible = fontScale > 1.35f || (short && fontScale > 1.15f)
-        val wide = maxWidth > maxHeight && !accessible
-        if (!wide) QuietBackdrop(Modifier.matchParentSize())
-        val header: @Composable () -> Unit = {
-            val brand: @Composable (Modifier) -> Unit = { m ->
-                Column(m, horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text("Miqaat", Modifier.fillMaxWidth().testTag("quiet-brand"), fontFamily = Cormorant, fontSize = 26.sp, lineHeight = 34.sp,
-                        textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, color = QuietGold)
-                    Text(Str[R.string.s_quiet_mode_title], Modifier.fillMaxWidth(), textAlign = TextAlign.Center,
-                        lineHeight = (if (urdu) 30 else 18).sp, fontFamily = if (urdu) Nastaliq else Nunito,
-                        fontSize = if (urdu) 12.sp else 13.sp, color = QuietSecondary)
+    BoxWithConstraints(Modifier.fillMaxSize().background(colors.background).testTag("quiet-board")
+        .clickable(role = Role.Button, onClickLabel = Str[R.string.s_quiet_exit], onClick = onStop)) {
+        val landscapeArt = maxWidth > maxHeight
+        PrayerFlowBackdrop(s, landscapeArt, Modifier.matchParentSize())
+        BoxWithConstraints(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = if (landscapeArt) 28.dp else 20.dp, vertical = 12.dp)) {
+            val short = maxHeight < 480.dp
+            val wide = maxWidth > maxHeight && !accessible
+            val tablet = maxWidth >= 600.dp
+            val compact = maxHeight < if (wide) 650.dp else 780.dp
+            val headingSize = if (short) 28f else if (wide && compact) 44f else if (tablet) 84f else if (compact) 48f else 62f
+            val clockSize = if (short) 40f else if (wide && compact) 54f else if (tablet) 128f else if (compact) 52f else 64f
+            val header: @Composable () -> Unit = {
+                val brand: @Composable (Modifier) -> Unit = { m ->
+                    Text("Miqaat", m.testTag("quiet-brand"), fontFamily = QuietDisplay, fontWeight = FontWeight.Medium,
+                        fontSize = if (short) 24.sp else 28.sp, lineHeight = 34.sp, color = colors.ink)
                 }
-            }
-            val clock: @Composable (Modifier) -> Unit = { m ->
-                Text(L10n.iso(L10n.at(now, s.use24h)), m.width(minOf(maxWidth * 0.28f, (240f * fontScale).dp))
-                    .heightIn(min = ((if (urdu) 26 else 22) * fontScale + 4).dp).testTag("quiet-live-clock"),
-                    fontFamily = displayFont, fontSize = if (urdu) 11.sp else 14.sp,
-                    lineHeight = (if (urdu) 26 else 22).sp, maxLines = 1,
-                    color = QuietSecondary, textAlign = TextAlign.End)
-            }
-            if (maxWidth < 600.dp) Column(Modifier.fillMaxWidth().padding(bottom = if (short) 6.dp else 16.dp)) {
-                clock(Modifier.fillMaxWidth()); brand(Modifier.fillMaxWidth())
-            } else Box(Modifier.fillMaxWidth().padding(bottom = if (short) 6.dp else 16.dp)) {
-                brand(Modifier.align(Alignment.TopCenter)); clock(Modifier.align(Alignment.TopEnd))
-            }
-        }
-        val hero: @Composable (Modifier) -> Unit = { modifier ->
-            Box(modifier.testTag("quiet-current-panel")) {
-                if (wide) QuietBackdrop(Modifier.matchParentSize())
-            Column(Modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = if (short) 4.dp else 20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                QuietLabel(Str[R.string.s_quiet_prayer_progress], urdu, Modifier.testTag("quiet-progress"), QuietGold)
-                Spacer(Modifier.height(if (short) 6.dp else 16.dp))
-                Text(L10n.prayer(s, p.prayer), Modifier.fillMaxWidth().testTag("quiet-current-name").semantics { heading() },
-                    fontFamily = displayFont, fontWeight = FontWeight.Bold,
-                    fontSize = (if (urdu) { if (short) 22 else if (large) 56 else 38 } else { if (short) 48 else if (large) 94 else 64 }).sp,
-                    lineHeight = (if (urdu) { if (short) 42 else if (large) 108 else 72 } else { if (short) 52 else if (large) 100 else 70 }).sp,
-                    textAlign = TextAlign.Center, color = QuietGold)
-                Spacer(Modifier.height(if (short) 4.dp else 12.dp))
-                QuietLabel(Str[R.string.s_quiet_current_azaan], urdu, Modifier.testTag("quiet-current-label"))
-                Text(L10n.iso(L10n.at(times.current, s.use24h)), Modifier.fillMaxWidth().testTag("quiet-current-time"),
-                    fontFamily = displayFont, fontSize = (if (urdu) { if (short) 18 else if (large) 44 else 30 } else { if (short) 38 else if (large) 66 else 48 }).sp,
-                    lineHeight = (if (urdu) { if (short) 34 else if (large) 88 else 58 } else { if (short) 44 else if (large) 72 else 54 }).sp,
-                    textAlign = TextAlign.Center, color = QuietIvory)
-                Spacer(Modifier.height(if (short) 6.dp else 18.dp))
-                Box(Modifier.width(32.dp).height(1.dp).background(QuietGold.copy(alpha = 0.65f)))
-                Text(Str[R.string.s_quiet_iqamah_complete], Modifier.fillMaxWidth().testTag("quiet-iqamah-complete").padding(top = if (short) 4.dp else 12.dp),
-                    fontFamily = if (urdu) Nastaliq else Nunito, fontSize = (if (urdu && short) 10 else if (urdu) 12 else 14).sp,
-                    lineHeight = (if (urdu && short) 24 else if (urdu) 30 else 20).sp,
-                    color = QuietSecondary, textAlign = TextAlign.Center)
-            }
-        }
-            }
-        val next: @Composable (Modifier) -> Unit = { modifier ->
-            Box(modifier.testTag("quiet-next-panel")
-                .border(1.dp, if (wide) Color.Transparent else QuietGold.copy(alpha = 0.30f), RoundedCornerShape(16.dp))
-                .background(if (wide) Color.Transparent else Color(0xDD0B1B14), RoundedCornerShape(16.dp))) {
-                if (wide) QuietBackdrop(Modifier.matchParentSize())
-            Column(Modifier.fillMaxWidth().then(if (wide) Modifier.fillMaxHeight() else Modifier)
-                .padding(horizontal = 16.dp, vertical = if (short) 10.dp else 20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                QuietLabel(Str[R.string.s_quiet_next_azaan], urdu, Modifier.testTag("quiet-next-label"), QuietGold)
-                val nextName: @Composable (Modifier) -> Unit = { m ->
-                    Text(L10n.prayer(s, times.next), m.testTag("quiet-next-name"),
-                    fontFamily = displayFont, fontSize = (if (urdu) { if (short) 22 else if (large) 40 else 28 } else { if (short) 40 else if (large) 64 else 30 }).sp,
-                    lineHeight = (if (urdu) { if (short) 42 else if (large) 80 else 54 } else { if (short) 46 else if (large) 70 else 36 }).sp,
-                    color = QuietGold, textAlign = TextAlign.Center)
+                val mode: @Composable (Modifier) -> Unit = { m ->
+                    QuietLabel(Str[R.string.s_quiet_mode_title], urdu, colors.accent, m, if (short) 10f else 11f)
                 }
-                val nextClock: @Composable (Modifier) -> Unit = { m ->
-                    Text(L10n.iso(L10n.at(times.nextTime, s.use24h)), m.testTag("quiet-next-time"),
-                    fontFamily = displayFont, fontSize = (if (urdu) { if (short) 20 else if (large) 38 else 26 } else { if (short) 34 else if (large) 48 else 32 }).sp,
-                    lineHeight = (if (urdu) { if (short) 38 else if (large) 76 else 50 } else { if (short) 40 else if (large) 54 else 38 }).sp,
-                    color = QuietIvory, textAlign = TextAlign.Center)
-                }
-                if (!wide && !accessible) {
-                    Spacer(Modifier.height(8.dp))
-                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                        nextName(Modifier.weight(0.40f))
-                        Box(Modifier.width(1.dp).height(36.dp).background(QuietGold.copy(alpha = 0.35f)))
-                        nextClock(Modifier.weight(0.60f))
+                val clock: @Composable (Modifier) -> Unit = { m ->
+                    Column(m, horizontalAlignment = Alignment.End) {
+                        Text(L10n.word(s, "NOW"), fontFamily = body, fontSize = 9.sp, lineHeight = if (urdu) 17.sp else 12.sp, color = colors.secondary)
+                        Text(L10n.iso(L10n.at(now, s.use24h)), Modifier.testTag("quiet-live-clock"),
+                            fontFamily = if (urdu) Amiri else QuietDisplay, fontSize = 14.sp, lineHeight = if (urdu) 26.sp else 21.sp,
+                            color = colors.ink, textAlign = TextAlign.End)
                     }
+                }
+                if (accessible) Column(Modifier.fillMaxWidth().padding(bottom = 10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    brand(Modifier); mode(Modifier.fillMaxWidth()); clock(Modifier.fillMaxWidth())
+                } else Box(Modifier.fillMaxWidth().heightIn(min = if (short) 44.dp else 56.dp)) {
+                    brand(Modifier.fillMaxWidth(.25f).align(Alignment.CenterStart))
+                    mode(Modifier.fillMaxWidth(.40f).align(Alignment.Center))
+                    clock(Modifier.fillMaxWidth(.28f).align(Alignment.CenterEnd))
+                }
+            }
+            val hero: @Composable (Modifier) -> Unit = { m ->
+                Column(m.testTag("quiet-current-panel").then(if (!accessible) Modifier.fillMaxHeight() else Modifier)
+                    .padding(horizontal = 8.dp, vertical = if (short) 2.dp else 12.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                    val status: @Composable () -> Unit = {
+                        QuietLabel(Str[R.string.s_quiet_prayer_progress], urdu, colors.accent,
+                            Modifier.fillMaxWidth().testTag("quiet-progress"), if (short) 10f else 12f)
+                    }
+                    if (wide) { status(); Spacer(Modifier.height(if (short) 2.dp else 8.dp)) }
+                    Text(p.prayer.arabic, Modifier.fillMaxWidth().testTag("quiet-current-arabic").semantics { heading() },
+                        fontFamily = if (s.theme == AppTheme.KISWAH) ReemKufi else Amiri, fontSize = headingSize.sp,
+                        lineHeight = (headingSize * 1.65f).sp, color = colors.accent, textAlign = TextAlign.Center)
+                    Text(if (urdu) L10n.prayer(s, p.prayer) else L10n.prayer(s, p.prayer).uppercase(java.util.Locale.ROOT),
+                        Modifier.fillMaxWidth().testTag("quiet-current-name"), fontFamily = if (urdu) Amiri else Cinzel,
+                        fontSize = (if (short) 12 else if (tablet) 20 else 16).sp, lineHeight = (if (urdu) 30 else if (short) 18 else 26).sp,
+                        letterSpacing = if (urdu) 0.sp else 2.sp, color = colors.ink, textAlign = TextAlign.Center)
+                    if (!wide) { Spacer(Modifier.height(if (compact) 8.dp else 18.dp)); status() }
+                    Spacer(Modifier.height(if (short) 4.dp else if (compact) 12.dp else 22.dp))
+                    QuietLabel(Str[R.string.s_quiet_current_azaan], urdu, colors.accent, Modifier.testTag("quiet-current-label"), if (short) 10f else 12f)
+                    QuietTime(times.current, s, if (urdu) (if (short) 22f else if (tablet && !compact) 64f else if (tablet) 42f else 32f) else clockSize,
+                        if (s.theme == AppTheme.PRAYER_GALLERY) colors.accent else colors.ink, Modifier.fillMaxWidth().testTag("quiet-current-time"))
+                    Text(Str[R.string.s_quiet_iqamah_complete], Modifier.fillMaxWidth().testTag("quiet-iqamah-complete"),
+                        fontFamily = body, fontSize = if (short) 11.sp else 14.sp, lineHeight = if (urdu) 28.sp else 21.sp,
+                        color = colors.secondary, textAlign = TextAlign.Center)
+                }
+            }
+            val next: @Composable (Modifier) -> Unit = { m ->
+                Box(m.testTag("quiet-next-panel"), contentAlignment = Alignment.Center) {
+                    Column(Modifier.fillMaxWidth(if (wide) .86f else 1f)
+                        .clip(RoundedCornerShape(16.dp)).background(colors.panel)
+                        .border(1.dp, colors.accent.copy(alpha = .28f), RoundedCornerShape(16.dp))
+                        .padding(horizontal = 16.dp, vertical = if (short) 8.dp else if (wide) 24.dp else 12.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally) {
+                        QuietLabel(Str[R.string.s_quiet_next_azaan], urdu, colors.secondary, Modifier.testTag("quiet-next-label"), if (short) 10f else 11f)
+                        Text(if (urdu) L10n.prayer(s, times.next) else L10n.prayer(s, times.next).uppercase(java.util.Locale.ROOT),
+                            Modifier.fillMaxWidth().testTag("quiet-next-name"), fontFamily = if (urdu) Amiri else Cinzel,
+                            fontSize = (if (urdu) 24 else if (wide) 24 else 19).sp, lineHeight = if (urdu) 42.sp else 32.sp,
+                            color = colors.ink, textAlign = TextAlign.Center)
+                        QuietTime(times.nextTime, s, if (urdu) (if (short) 22f else 28f) else if (wide) (if (short) 36f else if (compact) 52f else 72f) else if (tablet) 52f else 36f,
+                            colors.ink, Modifier.fillMaxWidth().testTag("quiet-next-time"))
+                        if (times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
+                            Text(Str[R.string.s_quiet_tomorrow], Modifier.fillMaxWidth().testTag("quiet-tomorrow"), fontFamily = body,
+                                fontSize = 12.sp, lineHeight = if (urdu) 24.sp else 18.sp, color = colors.secondary, textAlign = TextAlign.Center)
+                    }
+                }
+            }
+            val footer: @Composable () -> Unit = {
+                Column(Modifier.fillMaxWidth().padding(top = if (short) 4.dp else 12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(Str.get(R.string.s_quiet_ends_hint, remaining.toInt()), Modifier.fillMaxWidth().testTag("quiet-expiry-hint"),
+                        fontFamily = body, fontSize = if (short) 10.sp else 11.sp, lineHeight = if (urdu) 24.sp else 17.sp,
+                        color = colors.secondary, textAlign = TextAlign.Center)
+                    Row(Modifier.padding(top = 5.dp).widthIn(max = if (wide) 360.dp else 420.dp).fillMaxWidth().heightIn(min = 48.dp)
+                        .clip(RoundedCornerShape(28.dp)).background(colors.panel).border(1.dp, colors.accent.copy(alpha = .75f), RoundedCornerShape(28.dp))
+                        .testTag("quiet-return").clickable(role = Role.Button, onClick = onStop).padding(horizontal = 24.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, null, Modifier.size(18.dp), tint = colors.accent)
+                        Text(Str[R.string.s_quiet_exit], Modifier.padding(start = 10.dp).testTag("quiet-exit-label"), fontFamily = body,
+                            fontSize = 14.sp, lineHeight = if (urdu) 28.sp else 22.sp, color = colors.ink, textAlign = TextAlign.Center)
+                    }
+                }
+            }
+            Column(Modifier.fillMaxSize().then(if (accessible) Modifier.verticalScroll(rememberScrollState()).testTag("quiet-accessible") else Modifier)) {
+                header()
+                if (s.theme == AppTheme.KISWAH) KiswahBand(wide && !short)
+                if (accessible) {
+                    hero(Modifier.fillMaxWidth()); next(Modifier.fillMaxWidth()); footer()
                 } else {
-                    nextName(Modifier.fillMaxWidth())
-                    nextClock(Modifier.fillMaxWidth())
-                }
-                if (times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
-                    Text(Str[R.string.s_quiet_tomorrow], Modifier.fillMaxWidth().testTag("quiet-tomorrow"), textAlign = TextAlign.Center, fontFamily = if (urdu) Nastaliq else Nunito,
-                        fontSize = (if (urdu) 12 else 14).sp, lineHeight = (if (urdu) 30 else 20).sp, color = QuietSecondary)
-            }
-        }
-            }
-        val footer: @Composable () -> Unit = {
-            Column(Modifier.fillMaxWidth().padding(top = if (short) 4.dp else 12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(Str.get(R.string.s_quiet_ends_hint, remaining.toInt()), Modifier.fillMaxWidth().testTag("quiet-expiry-hint"), fontFamily = if (urdu) Nastaliq else Nunito,
-                    fontSize = (if (urdu) 11 else 12).sp, lineHeight = (if (urdu) 26 else 17).sp, color = QuietSecondary, textAlign = TextAlign.Center)
-                Box(Modifier.heightIn(min = 48.dp).widthIn(min = 160.dp)
-                    .border(1.dp, QuietGold.copy(alpha = 0.30f), RoundedCornerShape(24.dp))
-                    .testTag("quiet-return").clickable(role = Role.Button, onClick = onStop).padding(horizontal = 20.dp, vertical = 8.dp),
-                    contentAlignment = Alignment.Center) {
-                    Text(Str[R.string.s_quiet_exit], Modifier.fillMaxWidth().testTag("quiet-exit-label"), fontFamily = if (urdu) Nastaliq else Nunito, fontSize = (if (urdu) 13 else 14).sp,
-                        lineHeight = (if (urdu) 32 else 20).sp,
-                        color = QuietIvory, textAlign = TextAlign.Center)
+                    if (wide) Row(Modifier.weight(1f).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        hero(Modifier.weight(.60f))
+                        Box(Modifier.width(1.dp).fillMaxHeight(.65f).background(colors.accent.copy(alpha = .30f)))
+                        next(Modifier.weight(.40f))
+                    } else { hero(Modifier.weight(1f).fillMaxWidth()); next(Modifier.fillMaxWidth()) }
+                    footer()
                 }
             }
         }
-        if (accessible) Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).testTag("quiet-accessible"),
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            header(); hero(Modifier.fillMaxWidth()); next(Modifier.fillMaxWidth()); footer()
-        } else Column(Modifier.fillMaxSize()) {
-            header()
-            if (wide) Row(Modifier.weight(1f).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                hero(Modifier.weight(0.60f).fillMaxHeight())
-                Box(Modifier.width(1.dp).fillMaxHeight(0.70f).background(QuietGold.copy(alpha = 0.25f)))
-                Spacer(Modifier.width(20.dp))
-                next(Modifier.weight(0.40f).fillMaxHeight(0.85f))
-            } else {
-                hero(Modifier.weight(1f).fillMaxWidth())
-                next(Modifier.fillMaxWidth())
-            }
-            footer()
-        }
+        if (s.nightDim && p.prayer == Prayer.ISHA) Box(Modifier.matchParentSize().background(Color.Black.copy(alpha = .22f)))
     }
 }
 
 @Composable
-private fun QuietLabel(text: String, urdu: Boolean, modifier: Modifier = Modifier, tint: Color = QuietIvory) {
-    Text(if (urdu) text else text.uppercase(java.util.Locale.ROOT), modifier.fillMaxWidth(), fontFamily = if (urdu) Nastaliq else Nunito, fontWeight = FontWeight.SemiBold,
-        fontSize = (if (urdu) 12 else 12).sp, lineHeight = (if (urdu) 26 else 17).sp,
-        letterSpacing = (if (urdu) 0 else 1).sp, textAlign = TextAlign.Center, color = tint)
+internal fun QuietTime(time: ZonedDateTime, s: AppSettings, size: Float, color: Color, modifier: Modifier) {
+    val urdu = L10n.isUrdu(s)
+    val value = L10n.iso(L10n.at(time, s.use24h))
+    val suffix = PrayerEngine.suffix(time, s.use24h)
+    val styled = buildAnnotatedString {
+        append(value)
+        if (!urdu && suffix.isNotBlank()) {
+            val start = value.indexOf(suffix)
+            if (start >= 0) addStyle(SpanStyle(fontSize = (size * .36f).sp), start, start + suffix.length)
+        }
+    }
+    Text(styled, modifier, fontFamily = if (urdu) Amiri else QuietDisplay, fontWeight = FontWeight.Medium,
+        fontSize = size.sp, lineHeight = (size * if (urdu) 1.9f else 1.1f).sp, color = color, textAlign = TextAlign.Center)
 }
 
 @Composable
-private fun QuietBackdrop(modifier: Modifier) {
-    Box(modifier) {
-        Image(painterResource(R.drawable.quiet_option2_mihrab), null, Modifier.matchParentSize(),
-            contentScale = ContentScale.FillBounds, alpha = 0.72f)
-        Box(Modifier.matchParentSize().background(Color.Black.copy(alpha = 0.12f)))
+internal fun QuietLabel(text: String, urdu: Boolean, color: Color, modifier: Modifier = Modifier, size: Float = 12f) {
+    Text(if (urdu) text else text.uppercase(java.util.Locale.ROOT), modifier.fillMaxWidth(), fontFamily = if (urdu) Amiri else QuietBody,
+        fontSize = size.sp, lineHeight = (if (urdu) size * 2f else size * 1.5f).sp, letterSpacing = if (urdu) 0.sp else 1.4.sp,
+        fontWeight = FontWeight.Medium, color = color, textAlign = TextAlign.Center)
+}
+
+@Composable
+internal fun PrayerFlowBackdrop(s: AppSettings, wide: Boolean, modifier: Modifier) {
+    val colors = quietPalette(s.theme)
+    Box(modifier.background(colors.background).testTag("quiet-art-${s.theme.name}")) {
+        if (s.artTheme != ArtTheme.MINIMAL) {
+            val id = when (s.theme) {
+                AppTheme.MIQAAT -> if (wide) R.drawable.quiet_miqaat_landscape else R.drawable.approved_miqaat_arch
+                AppTheme.KISWAH -> R.drawable.approved_kiswah_silk
+                AppTheme.CELESTIAL_MERIDIAN -> R.drawable.celestial_landscape_approved
+                AppTheme.PRAYER_GALLERY -> if (wide) R.drawable.quiet_gallery_landscape else R.drawable.quiet_gallery_portrait
+            }
+            if (s.theme == AppTheme.KISWAH) Weave(Modifier.matchParentSize())
+            Image(painterResource(id), null,
+                if (s.theme == AppTheme.KISWAH) Modifier.align(Alignment.CenterEnd).fillMaxHeight().fillMaxWidth(if (wide) .32f else .24f)
+                else Modifier.matchParentSize(), contentScale = ContentScale.Crop,
+                alignment = if (s.theme == AppTheme.KISWAH) Alignment.CenterEnd else Alignment.Center)
+            Box(Modifier.matchParentSize().background(if (s.theme == AppTheme.PRAYER_GALLERY) colors.background.copy(alpha = .12f)
+                else Color(0xFF010A18).copy(alpha = if (s.theme == AppTheme.KISWAH) .18f else .28f)))
+            Box(Modifier.matchParentSize().background(Brush.verticalGradient(
+                0f to colors.background.copy(alpha = .90f), .09f to colors.background.copy(alpha = .55f),
+                .18f to Color.Transparent, .80f to Color.Transparent, 1f to colors.background.copy(alpha = .80f))))
+        }
     }
 }

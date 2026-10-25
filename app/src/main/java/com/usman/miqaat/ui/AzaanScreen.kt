@@ -75,6 +75,7 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
         val portrait = maxHeight > maxWidth
         val u = if (portrait) maxWidth / 62 else minOf(maxWidth / 100, maxHeight / 56)
         if (phase is Phase.Quiet) { QuietPrayerScreen(phase, onStop); return@BoxWithConstraints }
+        if (phase is Phase.IqamahCountdown) { IqamahPrayerScreen(phase, onStop, onSkip); return@BoxWithConstraints }
         val isAzaan = phase is Phase.Azaan
         val isIq = phase is Phase.IqamahCountdown || phase is Phase.IqamahNow
         val tk = screenTokens()
@@ -93,7 +94,6 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
                             Phase.Azaan::class -> AzaanBody(phase, u)
                             Phase.Dua::class -> DuaBody(u)
                             Phase.Iftar::class -> IftarBody(u)
-                            Phase.IqamahCountdown::class -> (phase as? Phase.IqamahCountdown)?.let { CountdownBody(it, u) }
                             Phase.IqamahNow::class -> IqamahNowBody(phase, u)
                             else -> (phase as? Phase.HadithPhase)?.let { HadithBody(it, u) }
                         }
@@ -105,7 +105,6 @@ fun AzaanScreen(phase: Phase, onStop: () -> Unit, onSkip: () -> Unit) {
     }
 }
 
-/** One measured header: status and clock reserve their own space before the step line. */
 @Composable
 private fun FlowHeader(phase: Phase, u: Dp, stacked: Boolean) {
     val tk = screenTokens()
@@ -153,7 +152,7 @@ private fun StepsBar(phase: Phase, u: Dp) {
     // Keep the active step visible when accessibility text requires horizontal scrolling.
     val scroll = rememberScrollState()
     val density = androidx.compose.ui.platform.LocalDensity.current
-    val stepWidth = maxOf(96.dp * density.fontScale, u * 9)
+    val stepWidth = maxOf(128.dp * density.fontScale, u * 12)
     LaunchedEffect(idx, stepWidth) { scroll.scrollTo(with(density) { stepWidth.roundToPx() } * idx) }
     // Step line like the approved mockups: a dot per step joined by a line, label underneath.
     Row(Modifier.fillMaxWidth().horizontalScroll(scroll).padding(vertical = 8.dp).testTag("flow-steps"), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.Top) {
@@ -204,34 +203,9 @@ private fun IftarBody(u: Dp) {
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Kicker(Str[R.string.s_rama_n_dua_at_iftar], u)
         Arabic(com.usman.miqaat.data.Ramadan.IFTAR_AR, u, size = 4.8f)
-        Translation(com.usman.miqaat.data.Ramadan.IFTAR_EN, u)
-        Source(com.usman.miqaat.data.Ramadan.IFTAR_SRC, u)
-    }
-}
-
-@Composable
-private fun CountdownBody(p: Phase.IqamahCountdown, u: Dp) {
-    val tk = screenTokens()
-    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
-    LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(200) } }
-    val total = (p.endsAt - p.startedAt).coerceAtLeast(1)
-    val leftMs = (p.endsAt - now).coerceAtLeast(0)
-    val secs = ((leftMs + 999) / 1000).toInt()
-    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Kicker(Str.get(R.string.s_iqamah_in_title, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, p.prayer)), u)
-        Box(Modifier.padding(vertical = u * 1).size(u * 26), contentAlignment = Alignment.Center) {
-            Canvas(Modifier.fillMaxSize()) {
-                val stroke = Stroke(width = size.width * 0.045f, cap = StrokeCap.Round)
-                drawArc(tk.neutralStroke, 0f, 360f, false, style = stroke)
-                drawArc(tk.primary, -90f, 360f * (leftMs / total.toFloat()), false, style = stroke)
-            }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("$secs", fontFamily = Cormorant, fontSize = (u.value * 10.5f).sp, lineHeight = (u.value * 10.5f).sp, color = tk.contentPrimary)
-                Text(Str[R.string.s_seconds_caps], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, letterSpacing = (u.value * 0.35f).sp, fontWeight = FontWeight.Bold, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f))
-            }
-        }
-        Text(Str[R.string.s_straighten_your_rows], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = tk.contentPrimary.copy(alpha = 0.9f))
-        Text(Str[R.string.s_a_al_bukh_r_723], fontFamily = Nunito, fontSize = (u.value * 1.3f).sp, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 0.6f))
+        Translation(if (L10n.uiUrdu) com.usman.miqaat.data.Ramadan.IFTAR_UR else com.usman.miqaat.data.Ramadan.IFTAR_EN, u)
+        Source(com.usman.miqaat.data.Ramadan.IFTAR_SRC +
+            (if (L10n.uiUrdu) " · " + com.usman.miqaat.data.Ramadan.IFTAR_UR_CREDIT else ""), u)
     }
 }
 

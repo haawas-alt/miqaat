@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s_iqamah_until">Until Iqamah</string>
+    <string name="s_iqamah_at">Iqamah at</string>
+    <string name="s_iqamah_min_sec">MIN : SEC</string>
+    <string name="s_iqamah_remaining_accessibility">%1$d minutes, %2$d seconds until Iqamah</string>
+</resources>

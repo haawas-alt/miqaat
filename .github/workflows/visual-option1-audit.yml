@@ -1,0 +1,108 @@
+name: Option 1 and full visual evidence
+on:
+  push:
+    branches: ['fix/gallery-option1-visual-audit']
+    paths-ignore: ['docs/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: visual-option1-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        theme: [MIQAAT, KISWAH, CELESTIAL_MERIDIAN, PRAYER_GALLERY]
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: '17'}
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Baseline Gallery before the approved status-pill change
+        if: matrix.theme == 'PRAYER_GALLERY'
+        env:
+          MIQAAT_VISUAL_AUDIT: '1'
+          MIQAAT_VISUAL_THEME: PRAYER_GALLERY
+          MIQAAT_CAPTURE_PHASE: as-is
+        run: |
+          set -euo pipefail
+          git restore --source=49427f05655e844bf501dc1c9c8233bbe14ee029 --staged --worktree app/src/main
+          ./gradlew --no-daemon testGithubDebugUnitTest --tests '*FullVisualAuditTest' 2>&1 | tee baseline.log
+          git restore --source="$GITHUB_SHA" --staged --worktree app/src/main
+      - name: Capture real UI in every viewport and both languages
+        env:
+          MIQAAT_VISUAL_AUDIT: '1'
+          MIQAAT_VISUAL_THEME: ${{ matrix.theme }}
+          MIQAAT_CAPTURE_PHASE: current
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon testGithubDebugUnitTest --tests '*FullVisualAuditTest' --rerun-tasks 2>&1 | tee visual.log
+      - name: Create indexed contact sheets without replacing raw evidence
+        if: always()
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 tools/visual_audit_boards.py
+          printf 'Source: %s\nTheme: %s\nRenderer: Robolectric native SDK 34; no emulator or physical-device claim.\nBaseline app source: 49427f05655e844bf501dc1c9c8233bbe14ee029\n' "$GITHUB_SHA" '${{ matrix.theme }}' > provenance.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: visual-index-${{ matrix.theme }}
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            app/build/visual-boards/
+            app/build/test-results/
+            provenance.txt
+            visual.log
+            baseline.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: raw-${{ matrix.theme }}-phone-portrait
+          retention-days: 30
+          path: app/build/visual-audit/**/phone-portrait/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: raw-${{ matrix.theme }}-phone-landscape
+          retention-days: 30
+          path: app/build/visual-audit/**/phone-landscape/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: raw-${{ matrix.theme }}-tablet-portrait
+          retention-days: 30
+          path: app/build/visual-audit/**/tablet-portrait/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: raw-${{ matrix.theme }}-tablet-landscape
+          retention-days: 30
+          path: app/build/visual-audit/**/tablet-landscape/
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: '17'}
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Targeted regression assertions and lint
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon testGithubDebugUnitTest --tests '*GalleryStatusBadgeTest' --tests '*DetailedGalleryAcceptanceTest' --tests '*AuditRemediationTest' --tests '*GalleryDoorPriorityTest' --tests '*LearnSequenceTest' lintGithubDebug 2>&1 | tee validation.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: option1-regression-results
+          retention-days: 30
+          path: |
+            app/build/test-results/
+            app/build/reports/
+            app/build/audit-screens/
+            validation.log

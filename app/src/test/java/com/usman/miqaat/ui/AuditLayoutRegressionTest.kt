@@ -85,7 +85,7 @@ class AuditLayoutRegressionTest : ComposeSupport() {
             try {
                 show(Dev.TABLET_LANDSCAPE, theme, rtl = true) { HomeRouter(state(s), s, actions, false) {} }
                 inside("home-hero"); inside("home-prayers")
-                if (theme == AppTheme.PRAYER_GALLERY) inside("home-time")
+                if (theme == AppTheme.PRAYER_GALLERY) inside("gallery-mobile-prayer-time")
                 capture("home__${theme.name.lowercase()}__tablet-landscape__100__ur")
             } finally { scenario.close() }
         }

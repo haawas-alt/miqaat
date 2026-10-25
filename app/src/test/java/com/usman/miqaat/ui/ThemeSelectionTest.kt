@@ -1,5 +1,6 @@
 package com.usman.miqaat.ui
 
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
 import com.usman.miqaat.data.AppTheme
@@ -26,6 +27,30 @@ class ThemeSelectionTest : ComposeSupport() {
         assertEquals(AppTheme.CELESTIAL_MERIDIAN, picked)
         rule.onNode(hasContentDescription("Prayer Gallery", substring = true)).performClick()
         assertEquals(AppTheme.PRAYER_GALLERY, picked)
+    }
+
+    @Test fun phonePickerUsesPortraitPreviewsAndKeepsCardsSelectable() {
+        var picked: AppTheme? = null
+        show(Dev.PHONE_PORTRAIT, theme=AppTheme.MIQAAT, qualifiers="w393dp-h852dp-port-xhdpi") {
+            androidx.compose.foundation.layout.Column(androidx.compose.ui.Modifier
+                .then(androidx.compose.ui.Modifier.verticalScroll(androidx.compose.foundation.rememberScrollState()))) {
+                ThemePicker(AppTheme.MIQAAT) { picked=it }
+            }
+        }
+        for (theme in AppTheme.entries) {
+            val preview=rule.onNodeWithTag("theme-preview-${theme.name}",useUnmergedTree=true)
+            preview.performScrollTo().assertIsDisplayed()
+            val bounds=preview.fetchSemanticsNode().boundsInRoot
+            assertTrue("Phone theme preview must show portrait",bounds.height>bounds.width*2f)
+            rule.onNode(hasContentDescription(theme.text,substring=true)).performClick();assertEquals(theme,picked)
+            scenario.onActivity { act ->
+                val v=act.findViewById<android.view.View>(android.R.id.content)
+                val b=android.graphics.Bitmap.createBitmap(v.width,v.height,android.graphics.Bitmap.Config.ARGB_8888)
+                v.draw(android.graphics.Canvas(b))
+                java.io.File("build/portrait-polish/${theme.name}/theme-picker-portrait.png").also { it.parentFile.mkdirs() }
+                    .outputStream().use { b.compress(android.graphics.Bitmap.CompressFormat.PNG,100,it) };b.recycle()
+            }
+        }
     }
 
     @Test fun selectionIsPersistedAndRestoredAcrossStoreInstances() {

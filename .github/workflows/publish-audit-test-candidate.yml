@@ -1,0 +1,53 @@
+name: Publish verified audit test candidate without rebuilding
+on:
+  push:
+    branches: ['fix/audit-1.163-25-remediation']
+    paths: ['.github/workflows/publish-audit-test-candidate.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 39107606299
+          name: audit-remediation-49427f05655e844bf501dc1c9c8233bbe14ee029
+          path: evidence
+      - name: Verify candidate checksums and source identity
+        run: |
+          set -euo pipefail
+          (cd evidence/candidate && sha256sum -c SHA256SUMS)
+          grep -q '^Commit: 49427f05655e844bf501dc1c9c8233bbe14ee029$' evidence/candidate/PROVENANCE.txt
+          grep -q '^Run: 39107606299$' evidence/candidate/PROVENANCE.txt
+      - name: Publish an explicitly nonproduction prerelease
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/candidate-notes.md" <<'NOTES'
+          Test candidate only. Production Play Store approval remains NO GO.
+
+          Includes the audit fixes for accessibility layouts, later-rakah basmala guidance, source and Urdu copy, contextual Adhkar doors, compass wording, and tablet portrait reading/counter layout.
+
+          Built from commit 49427f05655e844bf501dc1c9c8233bbe14ee029 in successful validation run 39107606299. Native JVM tests and signed binary checks do not certify a physical Android device matrix, 9.5/10 mockup fidelity or qualified scholarly/Urdu approval.
+
+          Still open: qualified content and posture sign-off; physical-device accessibility, alarm, audio and upgrade acceptance; exact approved-mockup acceptance; Play Console upload-key, declarations, internal-track/pre-launch and 16 KB runtime checks. See the implementation verification report in the remediation branch and draft PR 4.
+
+          For direct-download installation use Miqaat-1.164-audit.apk. The Play files are preparation artifacts, not an approved store submission. SHA256SUMS and PROVENANCE identify every binary. This prerelease does not replace the stable latest release or automatic updater tag.
+          NOTES
+          gh release create audit-remediation-39107606299 \
+            --repo "$GITHUB_REPOSITORY" \
+            --target 49427f05655e844bf501dc1c9c8233bbe14ee029 \
+            --prerelease --latest=false \
+            --title "Miqaat 1.164 audit test candidate" \
+            --notes-file "$RUNNER_TEMP/candidate-notes.md" \
+            evidence/candidate/Miqaat-1.164-audit.apk \
+            evidence/candidate/Miqaat-1.164-play.apk \
+            evidence/candidate/Miqaat-1.164-play.aab \
+            evidence/candidate/SHA256SUMS \
+            evidence/candidate/PROVENANCE.txt
