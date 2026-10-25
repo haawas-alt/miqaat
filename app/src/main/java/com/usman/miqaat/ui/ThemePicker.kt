@@ -33,6 +33,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.unit.Constraints
+import com.usman.miqaat.data.L10n
 import com.usman.miqaat.data.AppSettings
 import com.usman.miqaat.data.PrayerEngine
 import java.time.ZonedDateTime
