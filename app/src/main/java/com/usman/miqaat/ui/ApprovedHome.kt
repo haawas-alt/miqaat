@@ -118,7 +118,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
                         else DarkApprovedHero(state, s, tk, hero, Modifier.fillMaxSize(), tablet) { why = hero.prayer }
                     }
                     ApprovedTimeline(state, s, tk, Modifier.fillMaxWidth().height(if (tablet) 56.dp else 48.dp))
-                    ApprovedList(state, s, tk, a, Modifier.height(listedPrayers(s).size * (if (tablet) 100.dp else if (reflow) 82.dp else if (compactGalleryPhone) 56.dp else 60.dp)).fillMaxWidth()
+                    ApprovedList(state, s, tk, a, Modifier.height(listedPrayers(s).size * (if (tablet) 100.dp else if (reflow) 82.dp else if (gallery && L10n.isUrdu(s) && !s.showRelative && !compactGalleryPhone) (64f * androidx.compose.ui.platform.LocalDensity.current.fontScale).dp else if (compactGalleryPhone) 56.dp else 60.dp)).fillMaxWidth()
                         .then(if (gallery) Modifier.testTag("gallery-phone-fit") else Modifier)) { why = it }
                 }
                 if (!wide && !tablet) ApprovedPhoneDock(state, s, a, links, tk)
@@ -405,7 +405,7 @@ private fun ApprovedRow(r: RowInfo, s: AppSettings, tk: ThemeTokens, a: HomeActi
             Column(Modifier.weight(if (tile) 1.2f else 1.15f).padding(start = 8.dp), horizontalAlignment = Alignment.Start) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(if (s.showRelative) r.relative else r.clock, Modifier.testTag("gallery-fit-clock-${r.prayer.name}"), fontFamily = if (s.showRelative) approvedUi(s) else ApprovedDisplay,
-                        fontSize = if (s.showRelative) (if (large) 20.sp else 14.sp) else if (large) (if (compactTablet) 30.sp else 38.sp) else 25.sp, lineHeight = if (s.showRelative) (if (large) (if (compactTablet) 22.sp else 26.sp) else 18.sp) else if (large) (if (compactTablet) 36.sp else 46.sp) else 32.sp,
+                        fontSize = if (s.showRelative) (if (large) 20.sp else 14.sp) else if (large) (if (compactTablet) 30.sp else 38.sp) else if (polished && illustrated && urdu && smallPhone) 21.sp else 25.sp, lineHeight = if (s.showRelative) (if (large) (if (compactTablet) 22.sp else 26.sp) else 18.sp) else if (large) (if (compactTablet) 36.sp else 46.sp) else if (polished && illustrated && urdu && smallPhone) 30.sp else 32.sp,
                         fontWeight = if (polished && selected) FontWeight.SemiBold else FontWeight.Medium, color = tk.contentPrimary, maxLines = if (s.showRelative) 2 else 1, style = textStyle)
                     if (!s.showRelative && r.suffix.isNotEmpty()) Text(" ${r.suffix}", fontFamily = if (urdu) Amiri else ApprovedDisplay, fontSize = if (urdu) 11.sp else 12.sp, color = tk.contentPrimary, maxLines = 1)
                 }
