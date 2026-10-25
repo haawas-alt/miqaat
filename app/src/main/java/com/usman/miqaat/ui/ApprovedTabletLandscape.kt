@@ -234,6 +234,7 @@ private fun TabletGalleryArt(index:Int?,modifier:Modifier) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:Float,compact:Boolean,modifier:Modifier,gallery:Boolean,onWhy:()->Unit) {
     val selected=r.isNow||r.isNext
