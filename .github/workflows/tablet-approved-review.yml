@@ -45,7 +45,6 @@ jobs:
           PY
 
   release-validation:
-    needs: render
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:

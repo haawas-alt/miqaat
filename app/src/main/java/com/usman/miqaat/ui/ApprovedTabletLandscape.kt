@@ -174,7 +174,7 @@ private fun TabletGalleryHero(state:PrayerState,s:AppSettings,a:HomeActions,tk:T
     Row(modifier.testTag("gallery-mobile-hero").semantics(mergeDescendants=true) { contentDescription=hero.spoken;heading() },
         horizontalArrangement=Arrangement.spacedBy((20*k).dp),verticalAlignment=Alignment.CenterVertically) {
         if(s.artTheme!=ArtTheme.MINIMAL) TabletGalleryArt(null,Modifier.weight(.55f).fillMaxHeight().clip(RoundedCornerShape(10.dp)))
-        Column(Modifier.weight(.45f).fillMaxHeight().padding(vertical=(9*k).dp),verticalArrangement=Arrangement.Center) {
+        Column(Modifier.weight(.45f).fillMaxHeight().padding(vertical=((if(LocalConfiguration.current.screenHeightDp<700)3 else 9)*k).dp),verticalArrangement=Arrangement.Center) {
             Row(Modifier.weight(1f).fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) {
                 Column(Modifier.weight(.39f),horizontalAlignment=Alignment.CenterHorizontally) {
                     Text(hero.special?:hero.kickerLabel,fontFamily=if(L10n.isUrdu(s))Amiri else tabletDisplay(tk),
@@ -187,7 +187,7 @@ private fun TabletGalleryHero(state:PrayerState,s:AppSettings,a:HomeActions,tk:T
                 }
                 Box(Modifier.padding(horizontal=(10*k).dp).width(.8.dp).height((64*k).dp).background(tk.accent.copy(alpha=.6f)))
                 Column(Modifier.weight(.61f),horizontalAlignment=Alignment.CenterHorizontally) {
-                    TabletHeroClock(hero,s,tk,k,76f,"gallery-mobile-prayer-time")
+                    TabletHeroClock(hero,s,tk,k,if(LocalConfiguration.current.screenHeightDp<700)62f else 76f,"gallery-mobile-prayer-time")
                     Text(hero.status,fontFamily=tabletUi(s),fontSize=(17*k).sp,lineHeight=(24*k).sp,
                         color=tk.contentPrimary,maxLines=2,textAlign=TextAlign.Center,style=tabletNativeText)
                 }
