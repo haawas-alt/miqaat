@@ -65,7 +65,7 @@ fun ApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
         val tablet = maxWidth >= 600.dp
         val compactWide = wide && maxHeight < 700.dp
         val compactGalleryPhone = gallery && !tablet && maxHeight < 760.dp
-        val reflow = !wide && (((s.iqamahEnabled || s.showRelative) && L10n.isUrdu(s) && !tablet) || maxHeight < 700.dp || (!tablet && !gallery && maxHeight < 820.dp))
+        val reflow = !wide && (((!gallery && (s.iqamahEnabled || s.showRelative)) && L10n.isUrdu(s) && !tablet) || maxHeight < 700.dp || (!tablet && !gallery && maxHeight < 820.dp))
         Box(Modifier.fillMaxSize()) {
             if (kiswah) {
                 Weave(Modifier.fillMaxSize())

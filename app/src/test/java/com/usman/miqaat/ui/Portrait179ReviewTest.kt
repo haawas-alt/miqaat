@@ -27,6 +27,7 @@ import java.time.ZonedDateTime
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk=[34])
 class Portrait179ReviewTest : ComposeSupport() {
+    private data class Profile(val width:Int,val height:Int,val fontScale:Float,val insets:Boolean)
     @Test fun realPhoneHeightKeepsHierarchyAndActions() {
         val manager=app.getSystemService(NotificationManager::class.java)
         val exactBefore=Reliability.exactAlarmsGranted(app)
@@ -38,8 +39,9 @@ class Portrait179ReviewTest : ComposeSupport() {
             shadowOf(manager).setNotificationsEnabled(true)
             for(theme in AppTheme.entries.filter { System.getenv("MIQAAT_VISUAL_THEME").let { v -> v==null || v==it.name } })
             for(lang in Language.entries)
-            for(profile in listOf(Triple(393,852,1f),Triple(393,852,1.1f),Triple(360,800,1f))) {
-                val (w,h,scale)=profile
+            for(profile in listOf(Profile(393,852,1f,false),Profile(393,852,1f,true),
+                Profile(393,852,1.1f,false),Profile(360,800,1f,true))) {
+                val (w,h,scale,insets)=profile
                 val s=AppSettings(theme=theme,language=lang,latitude=-33.93,longitude=151.19,
                     locationName="Mascot, NSW",zoneId="Australia/Sydney",locationSet=true,setupDone=true,
                     showRelative=true,nightDim=false)
@@ -49,12 +51,12 @@ class Portrait179ReviewTest : ComposeSupport() {
                 try {
                     show(Dev.PHONE_PORTRAIT,theme,fontScale=scale,rtl=lang==Language.UR,language=lang,
                         qualifiers="w${w}dp-h${h}dp-port-xhdpi") {
-                        Box(Modifier.padding(top=24.dp,bottom=48.dp)) {
+                        Box(if(insets) Modifier.padding(top=24.dp,bottom=48.dp) else Modifier) {
                             HomeRouter(state,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{}, {}, { prepared=it }),false,{})
                         }
                     }
                     rule.mainClock.advanceTimeBy(32);rule.waitForIdle()
-                    val prefix="build/portrait-polish/${theme.name}/device-${lang.name}-$w-${(scale*100).toInt()}"
+                    val prefix="build/portrait-polish/${theme.name}/device-${lang.name}-$w-${(scale*100).toInt()}-${if(insets)"insets" else "full"}"
                     scenario.onActivity { act ->
                         val v=act.findViewById<View>(android.R.id.content)
                         val b=Bitmap.createBitmap(v.width,v.height,Bitmap.Config.ARGB_8888);v.draw(Canvas(b))
