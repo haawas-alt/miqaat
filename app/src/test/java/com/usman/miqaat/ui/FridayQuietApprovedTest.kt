@@ -1,5 +1,9 @@
 package com.usman.miqaat.ui
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.view.View
@@ -57,7 +61,11 @@ class FridayQuietApprovedTest : ComposeSupport() {
             var friday = 0; var qibla = 0; var table = 0; var settings = 0
             val actions = HomeActions({ table++ }, { settings++ }, {}, { qibla++ }, {}, { friday++ }, {}, false, {}, {})
             try {
-                show(dev, theme, language = lang, rtl = lang == Language.UR) { HomeRouter(state, s, actions, false, {}) }
+                show(dev, theme, language = lang, rtl = lang == Language.UR) {
+                    Box(if (dev == Dev.PHONE_PORTRAIT || dev == Dev.PHONE_LANDSCAPE) Modifier.padding(top = 12.dp, bottom = 20.dp) else Modifier) {
+                        HomeRouter(state, s, actions, false, {})
+                    }
+                }
                 capture(theme, dev, lang, "friday")
                 readable("friday-banner"); readable("friday-hero-time")
                 for (tag in listOf("friday-hero-kicker", "friday-hero-arabic", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
