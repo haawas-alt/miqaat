@@ -331,15 +331,15 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     WorshipText((if (s.jumuahEnabled && p.prayer == Prayer.DHUHR && times.current.dayOfWeek == java.time.DayOfWeek.FRIDAY) L10n.word(s, "Jumuʿah") else L10n.prayer(s, p.prayer)).let { if (ur) it else it.uppercase(Locale.ROOT) }, s,
                         if (short) 12f else 23f * k, c.ink, Modifier.fillMaxWidth().testTag("quiet-current-name"), true, 1)
                     QuietLabel(Str[R.string.s_quiet_prayer_progress], ur, c.accent,
-                        Modifier.padding(vertical = if (short) 2.dp else 8.dp).testTag("quiet-progress"), if (short) 9f else 12f)
+                        Modifier.padding(vertical = if (short) 0.dp else 8.dp).testTag("quiet-progress"), if (short) 9f else 12f)
                     WorshipSurface(s, Modifier.fillMaxWidth(if (tablet) .80f else .90f).padding(vertical = if (short) 0.dp else 8.dp), ornate = s.theme == AppTheme.MIQAAT || s.theme == AppTheme.KISWAH) {
                         QuietLabel(words(s, "Azaan at", "اذان کا وقت"), ur, c.accent,
-                            Modifier.padding(top = 5.dp).testTag("quiet-current-label"), if (short) 9f else 11f)
+                            Modifier.padding(top = if (short) 3.dp else 5.dp).testTag("quiet-current-label"), if (short) 9f else 11f)
                         QuietTime(times.current, s, if (ur) (if (short) 18f else 45f * k) else if (short) 32f else 96f * k,
                             if (s.theme == AppTheme.PRAYER_GALLERY) c.accent else c.ink,
                             Modifier.fillMaxWidth().testTag("quiet-current-time"))
                         WorshipText(Str[R.string.s_quiet_iqamah_complete], s, if (short) 10f else 13f, c.secondary,
-                            Modifier.fillMaxWidth().padding(bottom = 7.dp).testTag("quiet-iqamah-complete"), true, 1)
+                            Modifier.fillMaxWidth().padding(bottom = if (short) 3.dp else 7.dp).testTag("quiet-iqamah-complete"), true, 1)
                     }
                 }
             }

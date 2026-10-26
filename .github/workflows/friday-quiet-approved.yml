@@ -52,12 +52,13 @@ jobs:
       - name: Render production baseline
         run: |
           set -euo pipefail
-          trap 'git restore --source=HEAD --worktree app/src/main' EXIT
+          trap 'git restore --source=HEAD --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt' EXIT
           git restore --source=e7399d57a7e0a750f22e1e550d3f4c4f26f3263a --worktree app/src/main
+          rm app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt
           ./gradlew --no-daemon testGithubDebugUnitTest --tests '*RetainedHome181Test' --tests '*ApprovedPhoneLandscapeAcceptanceTest' --tests '*Tablet181ReviewTest'
           mkdir -p app/build/kiswah-protected-before
           cp -a app/build/protected-home app/build/phone-landscape app/build/tablet-polish app/build/kiswah-protected-before/
-          git restore --source=HEAD --worktree app/src/main
+          git restore --source=HEAD --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt
           trap - EXIT
       - name: Render candidate protected screens and compare pixels
         run: |
