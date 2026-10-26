@@ -486,7 +486,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
     val status = (if (state.justPassed) L10n.ago(s, state.delta) else L10n.inForState(s, state)).replaceFirstChar { it.uppercase() }
     val detailLabel = words(s, "View prayer details", "نماز کی تفصیل")
     BoxWithConstraints(modifier.testTag("home-hero")) {
-        val roomy = tablet && maxHeight > 390.dp
+        val roomy = tablet && maxHeight > 480.dp * LocalDensity.current.fontScale
         val tight = !tablet && maxHeight < (if (gallery) 170.dp else 210.dp) * LocalDensity.current.fontScale
         val numberSize = if (gallery) {
             if (tablet) (if (ur) 74f else 105f) else if (short) (if (ur) 34f else 45f) else (if (ur) (if (tight) 38f else 44f) else if (tight) 56f else 65f)
