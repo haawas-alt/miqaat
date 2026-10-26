@@ -485,6 +485,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
     val iqLabel = iq?.let { "${L10n.word(s, "Iqamah")} ${L10n.at(it, s.use24h)}" }
     val status = (if (state.justPassed) L10n.ago(s, state.delta) else L10n.inForState(s, state)).replaceFirstChar { it.uppercase() }
     val detailLabel = words(s, "View prayer details", "نماز کی تفصیل")
+    val detailAction = if (ur) "← $detailLabel" else "$detailLabel →"
     BoxWithConstraints(modifier.testTag("home-hero")) {
         val roomy = tablet && maxHeight > 480.dp * LocalDensity.current.fontScale
         val tight = !tablet && maxHeight < (if (gallery) 170.dp else 210.dp) * LocalDensity.current.fontScale
@@ -539,7 +540,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             if (iqLabel != null) WorshipText(iqLabel, s, if (tablet) 12f else if (short) 8f else if (tight) 9f else 10f,
                 c.secondary, Modifier.testTag("friday-hero-iqamah"), center = true, lines = 1)
             if (tablet) TextButton(onClick = onDetails, modifier = Modifier.heightIn(min = 48.dp)) {
-                WorshipText("$detailLabel →", s, 14f, c.ink, lines = 1)
+                WorshipText(detailAction, s, 14f, c.ink, lines = 1)
             } else if (gallery && !short && !tight) WorshipText("$detailLabel →", s, 10f, c.accent,
                 Modifier.padding(top = 3.dp), center = true, lines = 1)
         }
