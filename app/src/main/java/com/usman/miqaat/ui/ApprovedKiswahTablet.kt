@@ -131,7 +131,7 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
 }
 
 /** Nine-slice artwork preserves corner proportions; horizontal vines repeat instead of stretching. */
-@Composable private fun KiswahOrnamentalFrame(k:Float,modifier:Modifier) {
+@Composable internal fun KiswahOrnamentalFrame(k:Float,modifier:Modifier) {
     val frame=ImageBitmap.imageResource(R.drawable.kiswah_tablet_ornamental_frame)
     Canvas(modifier.testTag("kiswah-ornamental-border")) {
         val w=frame.width.toFloat();val h=frame.height.toFloat()
