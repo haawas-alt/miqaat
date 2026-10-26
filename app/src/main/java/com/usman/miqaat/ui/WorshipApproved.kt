@@ -98,7 +98,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
     }
 }
 
-@Composable internal fun FridayApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions) {
+@Composable internal fun FridayApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions, onClosePreview: (() -> Unit)? = null) {
     val c = quietPalette(s.theme)
     var why by remember { mutableStateOf<Prayer?>(null) }
     var more by remember { mutableStateOf(false) }
@@ -120,8 +120,11 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             .testTag("friday-home")) {
             val header: @Composable () -> Unit = {
             Row(Modifier.fillMaxWidth().height(if (tablet) 62.dp else 48.dp), verticalAlignment = Alignment.CenterVertically) {
+                if (onClosePreview != null) IconButton(onClick = onClosePreview, modifier = Modifier.size(48.dp).testTag("jummah-preview-close")) {
+                    Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = c.accent)
+                }
                 Column(Modifier.weight(1f).clickable(onClick = a.onOpenLocation)) {
-                    WorshipText(s.locationName, s, if (tablet) 21f else 14f, c.ink, lines = 1)
+                    WorshipText(if (onClosePreview != null) Str[R.string.s_jummah_preview] else s.locationName, s, if (tablet) 21f else 14f, c.ink, lines = 1)
                     WorshipText(if (L10n.isUrdu(s)) L10n.fridayDate(state.now.toLocalDate()) else state.now.format(java.time.format.DateTimeFormatter.ofPattern("EEEE, d MMMM", Locale.ENGLISH)), s, if (tablet) 14f else 11f, c.secondary, lines = 1)
                 }
                 WorshipText(L10n.at(state.now, s.use24h), s, if (tablet) 22f else 16f, c.ink, Modifier.padding(horizontal = 8.dp), lines = 1)

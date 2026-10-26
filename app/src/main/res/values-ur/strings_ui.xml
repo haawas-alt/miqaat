@@ -637,4 +637,7 @@
     <string name="s_testing_build">آزمائشی نسخہ</string>
     <string name="s_why_show_windows">نفل نماز کے مکروہ اوقات دکھائیں</string>
     <string name="s_why_hide_windows">نفل نماز کے مکروہ اوقات چھپائیں</string>
+    <string name="s_jummah_homepage">جمعہ کا ہوم صفحہ</string>
+    <string name="s_jummah_preview">جمعہ کا پیش منظر</string>
+    <string name="s_jummah_preview_detail">کسی بھی دن موجودہ تھیم میں جمعہ کا پیش منظر دیکھیں۔ نماز کی ترتیبات اور الارم تبدیل نہیں ہوں گے؛ نکلنے کے لیے واپس جائیں۔</string>
 </resources>
