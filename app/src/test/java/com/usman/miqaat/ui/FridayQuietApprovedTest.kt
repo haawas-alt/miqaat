@@ -2,6 +2,7 @@ package com.usman.miqaat.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import android.graphics.Bitmap
@@ -73,7 +74,10 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 for (i in 0..2) { readable("friday-action-title-$i"); readable("friday-action-detail-$i") }
                 rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, s.use24h))
                 for (p in Prayer.entries) {
-                    readable("friday-time-${p.name}")
+                    readable("friday-time-${p.name}"); readable("friday-detail-${p.name}")
+                    if (p == Prayer.DHUHR) rule.onNodeWithTag("friday-detail-${p.name}", true)
+                        .assertTextEquals(fridayPrayerDetail(p, state, s, dev == Dev.TABLET_PORTRAIT || dev == Dev.TABLET_LANDSCAPE))
+                    rule.onNodeWithTag("friday-time-${p.name}", true).assertTextEquals(L10n.at(state.today[p], s.use24h))
                     val bounds = rule.onNodeWithTag("approved-row-${p.name}", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Prayer row <48dp", bounds.height >= 48 * app.resources.displayMetrics.density - .5f)
                 }
@@ -84,6 +88,83 @@ class FridayQuietApprovedTest : ComposeSupport() {
             } catch (e: AssertionError) { failures += "$theme/$dev/$lang: ${e.message}" } finally { scenario.close() }
         }
         assertTrue(failures.joinToString("\n"), failures.isEmpty())
+    }
+    @Test fun relativeAnd24HourModesKeepRealClocksAndArtworkClear() {
+        val failures = mutableListOf<String>()
+        for (theme in AppTheme.entries) for (lang in Language.entries) for (dev in Dev.entries) {
+            val saved = settings(theme, lang).copy(showRelative = true)
+            val current = mutableStateOf(saved)
+            val now = ZonedDateTime.of(2026, 10, 30, 12, 15, 0, 0, saved.zone())
+            val state = PrayerEngine.state(saved, now)
+            try {
+                show(dev, theme, language = lang, rtl = lang == Language.UR) {
+                    Box(if (dev == Dev.PHONE_PORTRAIT || dev == Dev.PHONE_LANDSCAPE) Modifier.padding(top = 12.dp, bottom = 20.dp) else Modifier) {
+                        HomeRouter(state, current.value, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {})
+                    }
+                }
+                for (use24 in listOf(false, true)) {
+                    rule.runOnIdle { current.value = saved.copy(use24h = use24) }
+                    capture(theme, dev, lang, if (use24) "friday-relative24" else "friday-relative")
+                    for (tag in listOf("friday-banner", "friday-hero-kicker", "friday-hero-arabic", "friday-hero-time", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
+                    rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, use24))
+                    for (p in Prayer.entries) {
+                        readable("friday-time-${p.name}"); readable("friday-detail-${p.name}")
+                        rule.onNodeWithTag("friday-time-${p.name}", true).assertTextEquals(L10n.at(state.today[p], use24))
+                        rule.onNodeWithTag("friday-detail-${p.name}", true).assertTextEquals(L10n.relative(current.value, state.today[p], state.now))
+                    }
+                    if (theme == AppTheme.PRAYER_GALLERY) {
+                        val art = rule.onNodeWithTag("friday-gallery-vista", true).fetchSemanticsNode().boundsInRoot
+                        val hero = rule.onNodeWithTag("home-hero", true).fetchSemanticsNode().boundsInRoot
+                        assertTrue("Gallery artwork must remain above hero facts", art.bottom <= hero.top)
+                    }
+                    if (theme == AppTheme.KISWAH) rule.onAllNodesWithTag("kiswah-calligraphy-band", true).assertCountEquals(1)
+                }
+            } catch (e: AssertionError) { failures += "$theme/$dev/$lang: ${e.message}" } finally { scenario.close() }
+        }
+        assertTrue(failures.joinToString("\n"), failures.isEmpty())
+    }
+    @Test fun smallerPhonesAnd115PercentTextKeepEveryPrayerAndHeroLabelVisible() {
+        val failures = mutableListOf<String>()
+        for (theme in AppTheme.entries) for (lang in Language.entries) for (profile in listOf("small", "landscape115", "tablet115")) {
+            val s = settings(theme, lang).copy(showRelative = true, use24h = profile == "landscape115")
+            val now = ZonedDateTime.of(2026, 10, 30, 12, 15, 0, 0, s.zone())
+            val state = PrayerEngine.state(s, now)
+            val dev = when (profile) { "small" -> Dev.PHONE_PORTRAIT; "landscape115" -> Dev.PHONE_LANDSCAPE; else -> Dev.TABLET_PORTRAIT }
+            try {
+                show(dev, theme, language = lang, rtl = lang == Language.UR, fontScale = if (profile == "small") 1f else 1.15f,
+                    qualifiers = if (profile == "small") "w360dp-h760dp-port-xhdpi" else null) {
+                    Box(if (dev != Dev.TABLET_PORTRAIT) Modifier.padding(top = 12.dp, bottom = 20.dp) else Modifier) {
+                        HomeRouter(state, s, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {})
+                    }
+                }
+                capture(theme, dev, lang, "friday-$profile")
+                for (tag in listOf("friday-banner", "friday-hero-kicker", "friday-hero-arabic", "friday-hero-time", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
+                for (p in Prayer.entries) {
+                    readable("friday-time-${p.name}"); readable("friday-detail-${p.name}")
+                    val b = rule.onNodeWithTag("approved-row-${p.name}", true).fetchSemanticsNode().boundsInRoot
+                    assertTrue("Prayer touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
+                }
+            } catch (e: AssertionError) { failures += "$theme/$profile/$lang: ${e.message}" } finally { scenario.close() }
+        }
+        assertTrue(failures.joinToString("\n"), failures.isEmpty())
+    }
+    @Test fun congregationDetailsNeverClaimJumuahEndsAtAsr() {
+        for (lang in Language.entries) {
+            val s = settings(AppTheme.MIQAAT, lang)
+            val now = ZonedDateTime.of(2026, 10, 30, 12, 15, 0, 0, s.zone())
+            for (configured in listOf(true, false)) {
+                val chosen = if (configured) s else s.copy(iqamahEnabled = false)
+                val state = PrayerEngine.state(chosen, now)
+                for (tablet in listOf(true, false)) {
+                    val detail = fridayPrayerDetail(Prayer.DHUHR, state, chosen, tablet)
+                    assertFalse(detail.contains(L10n.word(chosen, "ends")))
+                    val spoken = fridayRowInfo(Prayer.DHUHR, state, chosen).spoken
+                    assertFalse(spoken.contains(", ends ") || spoken.contains("وقت کا اختتام"))
+                    if (configured) assertTrue(detail.contains(L10n.at(PrayerEngine.iqamah(chosen, state.today, Prayer.DHUHR)!!, chosen.use24h)))
+                    else assertFalse(detail.contains(L10n.at(state.today[Prayer.ASR], chosen.use24h)))
+                }
+            }
+        }
     }
     @Test fun quietBoardsKeepPhaseTimesReturnAndNativeTextInEveryOrientation() {
         val failures = mutableListOf<String>()
