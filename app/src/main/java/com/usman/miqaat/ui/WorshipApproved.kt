@@ -58,11 +58,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
     Box(modifier.background(c.background).testTag("quiet-art-${s.theme.name}")) {
         if (s.artTheme != ArtTheme.MINIMAL) {
             if (s.theme == AppTheme.PRAYER_GALLERY) {
-                val atlas = ImageBitmap.imageResource(R.drawable.tablet_gallery_atlas_181)
-                Canvas(Modifier.align(Alignment.BottomCenter).fillMaxWidth().fillMaxHeight(if (wide) .43f else .40f)) {
-                    drawImage(atlas, srcOffset = IntOffset.Zero, srcSize = IntSize(atlas.width, (atlas.height * .456f).roundToInt()),
-                        dstSize = IntSize(size.width.roundToInt(), size.height.roundToInt()), filterQuality = FilterQuality.High)
-                }
+                GalleryFridayVista(Modifier.align(Alignment.BottomCenter).fillMaxWidth().fillMaxHeight(if (wide) .43f else .40f), rounded = false)
                 Box(Modifier.matchParentSize().background(Brush.verticalGradient(0f to c.background,
                     .45f to c.background, .62f to c.background.copy(alpha = .18f), 1f to Color.Transparent)))
             } else {
@@ -410,9 +406,9 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
 }
 
 /** The same panorama used by the Gallery homepage, cropped to its frame rather than stretched. */
-@Composable private fun GalleryFridayVista(modifier: Modifier) {
+@Composable private fun GalleryFridayVista(modifier: Modifier, rounded: Boolean = true) {
     val atlas = ImageBitmap.imageResource(R.drawable.tablet_gallery_atlas_181)
-    Canvas(modifier.clip(RoundedCornerShape(14.dp))) {
+    Canvas(if (rounded) modifier.clip(RoundedCornerShape(14.dp)) else modifier) {
         val sourceHeight = atlas.height * .456f
         val aspect = size.width / size.height
         val sh = minOf(sourceHeight, atlas.width / aspect)
