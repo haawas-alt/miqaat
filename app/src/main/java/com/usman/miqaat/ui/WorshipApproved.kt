@@ -441,7 +441,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
 
 /** Native, lining numerals with smaller suffixes. Width is measured before drawing, including Urdu and 24-hour forms. */
 @Composable private fun FridayTime(time: ZonedDateTime, s: AppSettings, numberSize: Float, modifier: Modifier,
-    tag: String, color: Color, align: TextAlign = TextAlign.Center) {
+    tag: String, color: Color, align: TextAlign = TextAlign.Center, suffixRatio: Float = .55f) {
     val text = L10n.at(time, s.use24h)
     val digits = PrayerEngine.clock(time, s.use24h)
     val start = text.indexOf(digits)
@@ -456,10 +456,10 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 append(text.substring(start + digits.length))
             }
         }
-        fun style(size: Float) = TextStyle(fontFamily = worshipFont(s), fontSize = (size * .55f).sp,
+        fun style(size: Float) = TextStyle(fontFamily = worshipFont(s), fontSize = (size * suffixRatio).sp,
             lineHeight = (size * 1.2f).sp, platformStyle = PlatformTextStyle(includeFontPadding = false),
             textAlign = align, color = color)
-        val resolved = remember(text, numberSize, maxWidth, density.fontScale, density.density) {
+        val resolved = remember(text, numberSize, suffixRatio, maxWidth, density.fontScale, density.density) {
             val measured = measurer.measure(styled(numberSize), style(numberSize), softWrap = false, maxLines = 1).size.width
             val available = with(density) { maxWidth.toPx() }
             if (measured > available) numberSize * (available / measured).coerceIn(.5f, 1f) else numberSize
@@ -471,7 +471,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
 @Composable private fun FridayClock(state: PrayerState, s: AppSettings, size: Float, modifier: Modifier = Modifier) {
     val c = quietPalette(s.theme)
     FridayTime(state.heroTime, s, size, modifier, "friday-hero-time",
-        if (s.theme == AppTheme.KISWAH) c.accent else c.ink)
+        if (s.theme == AppTheme.KISWAH) c.accent else c.ink, suffixRatio = .30f)
 }
 
 @Composable private fun FridayHero(state: PrayerState, s: AppSettings, a: HomeActions,
