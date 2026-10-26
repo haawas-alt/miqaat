@@ -129,7 +129,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     Icon(Icons.Outlined.Settings, Str[R.string.s_settings], tint = c.accent)
                 }
             }
-            if (s.theme == AppTheme.KISWAH && (tablet || short)) WorshipKiswahBand(s, wide, tablet)
+            if (s.theme == AppTheme.KISWAH && !short) WorshipKiswahBand(s, wide, tablet)
             val banner: @Composable () -> Unit = {
                 WorshipSurface(s, Modifier.fillMaxWidth().heightIn(min = if (tablet) 68.dp else 44.dp)
                     .testTag("friday-banner").clickable(onClick = a.onOpenFriday)) {
@@ -204,6 +204,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(vertical = 6.dp), horizontalArrangement = Arrangement.spacedBy(if (tablet) 20.dp else 10.dp)) {
                 prayers(Modifier.weight(if (short) .48f else .47f).fillMaxHeight())
                 Column(Modifier.weight(if (short) .52f else .53f).fillMaxHeight()) {
+                    if (short && s.theme == AppTheme.KISWAH) WorshipKiswahBand(s, false, false)
                     banner()
                     hero(Modifier.weight(1f).fillMaxWidth())
                     FridayActions(s, state.now, a.onOpenFriday, short, tablet)
