@@ -183,15 +183,17 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                                 if (tablet && !L10n.isUrdu(s)) Text(if (s.jumuahEnabled && p == Prayer.DHUHR) "الجمعة" else r.arabic,
                                     fontFamily = Amiri, fontSize = 20.sp, lineHeight = 30.sp, color = c.accent)
                             }
-                            Column(horizontalAlignment = Alignment.End) {
+                            Column(Modifier.width(if (tablet) 195.dp else 105.dp), horizontalAlignment = Alignment.End) {
                                 WorshipText(if (s.showRelative) r.relative else "${r.clock} ${r.suffix}".trim(), s,
                                     if (tablet) 26f else 17f, c.ink, Modifier.testTag("friday-time-${p.name}"), lines = 1)
                                 if (tablet && s.showEndTimes) WorshipText(r.small, s, 11f, c.secondary, lines = 2)
                             }
+                            Box(Modifier.width(if (tablet) 48.dp else 35.dp), contentAlignment = Alignment.Center) {
                             if (r.isNow || r.isNext) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"),
                                 Modifier.testTag(if (r.isNow) "home-status-now" else "home-status-next")
                                     .clip(RoundedCornerShape(8.dp)).background(c.accent).padding(horizontal = 5.dp, vertical = 3.dp),
                                 fontFamily = if (L10n.isUrdu(s)) Amiri else QuietBody, fontSize = 9.sp, color = c.background)
+                            }
                             if (tablet && p.isPrayer) IconButton(onClick = { why = p }, modifier = Modifier.size(48.dp)) {
                                 Icon(Icons.Outlined.Info, words(s, "Prayer details", "نماز کی تفصیل"), tint = c.secondary, modifier = Modifier.size(22.dp))
                             }
