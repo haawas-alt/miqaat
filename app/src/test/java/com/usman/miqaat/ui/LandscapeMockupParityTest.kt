@@ -113,7 +113,8 @@ class LandscapeMockupParityTest:ComposeSupport() {
         }
     }
     private fun themes()=AppTheme.entries.filter{System.getenv("MIQAAT_VISUAL_THEME").let{only->only==null||it.name==only}}
-    private fun settings(t:AppTheme,l:Language)=AppSettings(theme=t,language=l,latitude=-33.93,longitude=151.19,locationName="Mascot, NSW",zoneId="Australia/Sydney",locationSet=true,setupDone=true)
+    // These fixtures protect the established homepage; Friday-specific routing has its own acceptance suite.
+    private fun settings(t:AppTheme,l:Language)=AppSettings(theme=t,language=l,fridayReminders=false,latitude=-33.93,longitude=151.19,locationName="Mascot, NSW",zoneId="Australia/Sydney",locationSet=true,setupDone=true)
     private fun readable(tag:String,clockSingleLine:Boolean=true) {
         val n=rule.onNodeWithTag(tag,true).assertIsDisplayed().fetchSemanticsNode();val ls=mutableListOf<TextLayoutResult>()
         n.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(ls)
