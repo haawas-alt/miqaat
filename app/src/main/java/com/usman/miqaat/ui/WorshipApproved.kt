@@ -136,7 +136,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             }
             if (s.theme == AppTheme.KISWAH && !short) WorshipKiswahBand(s, wide, tablet)
             val banner: @Composable () -> Unit = {
-                if (s.theme == AppTheme.KISWAH) Box(Modifier.fillMaxWidth().height(if (tablet) 96.dp else if (short) 44.dp else 60.dp)
+                if (s.theme == AppTheme.KISWAH) Box(Modifier.fillMaxWidth().height(if (tablet) 96.dp else if (short) 48.dp else 60.dp)
                     .background(Color.Black.copy(alpha = .85f)).testTag("friday-banner").clickable(onClick = a.onOpenFriday), contentAlignment = Alignment.Center) {
                     KiswahOrnamentalFrame(if (tablet) .65f else .35f, Modifier.matchParentSize())
                     Column(Modifier.fillMaxWidth().padding(horizontal = if (tablet) 32.dp else 20.dp, vertical = if (tablet) 15.dp else 9.dp),
@@ -146,7 +146,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                         if (tablet) WorshipText(words(s, "A day for prayer, remembrance and reflection", "نماز، ذکر اور غور و فکر کا دن"),
                             s, 13f, c.ink, Modifier.fillMaxWidth(), true, 1)
                     }
-                } else WorshipSurface(s, Modifier.fillMaxWidth().heightIn(min = if (tablet) 68.dp else 44.dp)
+                } else WorshipSurface(s, Modifier.fillMaxWidth().heightIn(min = if (tablet) 68.dp else 48.dp)
                     .testTag("friday-banner").clickable(onClick = a.onOpenFriday)) {
                     WorshipText(words(s, "JUMUʿAH · الجمعة", "جمعہ · الجمعة"), s, if (tablet) 25f else 18f, c.accent,
                         Modifier.fillMaxWidth().padding(top = 5.dp), true, 1)
@@ -159,21 +159,21 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 val jum = s.jumuahEnabled && h.prayer == Prayer.DHUHR
                 Column(m.testTag("home-hero").padding(horizontal = 10.dp, vertical = if (short) 0.dp else 4.dp),
                     horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                    WorshipText(h.kickerLabel, s, if (tablet) 16f else 11f, c.secondary, center = true, lines = 1)
+                    WorshipText(h.kickerLabel, s, if (tablet) 16f else if (short) 10f else 11f, c.secondary, Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
                     Text(if (jum) "الجمعة" else h.arabic, Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
-                        fontSize = (if (tablet) 54 else if (short) 29 else 34).sp,
-                        lineHeight = (if (tablet) 80 else if (short) 43 else 49).sp, color = c.accent)
-                    if (!L10n.isUrdu(s)) WorshipText(h.label.uppercase(Locale.ROOT), s, if (tablet) 23f else 15f, c.ink, center = true, lines = 1)
+                        fontSize = (if (tablet) 54 else if (short) 24 else 34).sp,
+                        lineHeight = (if (tablet) 80 else if (short) 34 else 49).sp, color = c.accent)
+                    if (!L10n.isUrdu(s)) WorshipText(h.label.uppercase(Locale.ROOT), s, if (tablet) 23f else if (short) 12f else 15f, c.ink, Modifier.testTag("friday-hero-name"), center = true, lines = 1)
                     WorshipText(if (s.showRelative) L10n.relative(s, state.heroTime, state.now) else L10n.at(state.heroTime, s.use24h), s,
-                        if (L10n.isUrdu(s)) (if (tablet) 38f else 23f) else if (tablet) 66f else if (short) 36f else 43f, c.ink,
+                        if (L10n.isUrdu(s)) (if (tablet) 38f else 23f) else if (tablet) 66f else if (short) 32f else 43f, c.ink,
                         Modifier.testTag("friday-hero-time").clickable(onClick = a.onToggleRelative), true, 1)
-                    WorshipSurface(s, Modifier.padding(vertical = 3.dp)) {
-                        WorshipText(h.status, s, if (tablet) 17f else 12f, c.accent, Modifier.padding(horizontal = 14.dp, vertical = 3.dp), true, 1)
+                    WorshipSurface(s, Modifier.padding(vertical = if (short) 1.dp else 3.dp)) {
+                        WorshipText(h.status, s, if (tablet) 17f else if (short) 10f else 12f, c.accent, Modifier.padding(horizontal = 14.dp, vertical = if (short) 2.dp else 3.dp).testTag("friday-hero-status"), true, 1)
                     }
                     val iq = PrayerEngine.iqamah(s, state.today, h.prayer)
                     if (jum || iq != null) WorshipText(listOfNotNull(if (jum) words(s, "Masjid time", "مسجد کا وقت") else null,
                         iq?.let { "${L10n.word(s, "Iqamah")} ${L10n.at(it, s.use24h)}" }).joinToString(" · "), s,
-                        if (tablet) 15f else 11f, c.secondary, center = true, lines = 1)
+                        if (tablet) 15f else if (short) 9f else 11f, c.secondary, Modifier.testTag("friday-hero-iqamah"), center = true, lines = 1)
                     if (tablet) TextButton(onClick = { why = h.prayer }) {
                         WorshipText(words(s, "View prayer details →", "نماز کی تفصیل ←"), s, 16f, c.ink, lines = 1)
                     }
@@ -259,8 +259,8 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     if (i == 1) SalawatBeads(if (s.theme == AppTheme.PRAYER_GALLERY) c.ink else c.accent, Modifier.size(if (tablet) 27.dp else 18.dp))
                     else Icon(item.first, null, Modifier.size(if (tablet) 25.dp else 18.dp), tint = c.accent)
                     Column {
-                        WorshipText(item.second, s, if (tablet) 17f else 12f, c.ink, lines = 1)
-                        WorshipText(item.third, s, if (tablet) 11f else 9f, c.secondary, lines = 1)
+                        WorshipText(item.second, s, if (tablet) 17f else 12f, c.ink, Modifier.testTag("friday-action-title-$i"), lines = 1)
+                        WorshipText(item.third, s, if (tablet) 11f else 9f, c.secondary, Modifier.testTag("friday-action-detail-$i"), lines = 1)
                     }
                 }
             }

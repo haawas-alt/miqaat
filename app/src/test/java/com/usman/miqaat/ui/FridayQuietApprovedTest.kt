@@ -60,6 +60,9 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 show(dev, theme, language = lang, rtl = lang == Language.UR) { HomeRouter(state, s, actions, false, {}) }
                 capture(theme, dev, lang, "friday")
                 readable("friday-banner"); readable("friday-hero-time")
+                for (tag in listOf("friday-hero-kicker", "friday-hero-arabic", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
+                if (lang == Language.EN) readable("friday-hero-name")
+                for (i in 0..2) { readable("friday-action-title-$i"); readable("friday-action-detail-$i") }
                 rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, s.use24h))
                 for (p in Prayer.entries) {
                     readable("friday-time-${p.name}")
