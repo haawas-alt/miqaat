@@ -75,6 +75,8 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, s.use24h))
                 for (p in Prayer.entries) {
                     readable("friday-time-${p.name}"); readable("friday-detail-${p.name}")
+                    if (p == Prayer.DHUHR) rule.onNodeWithTag("friday-detail-${p.name}", true)
+                        .assertTextEquals(fridayPrayerDetail(p, state, s, dev == Dev.TABLET_PORTRAIT || dev == Dev.TABLET_LANDSCAPE))
                     rule.onNodeWithTag("friday-time-${p.name}", true).assertTextEquals(L10n.at(state.today[p], s.use24h))
                     val bounds = rule.onNodeWithTag("approved-row-${p.name}", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Prayer row <48dp", bounds.height >= 48 * app.resources.displayMetrics.density - .5f)
@@ -145,6 +147,22 @@ class FridayQuietApprovedTest : ComposeSupport() {
             } catch (e: AssertionError) { failures += "$theme/$profile/$lang: ${e.message}" } finally { scenario.close() }
         }
         assertTrue(failures.joinToString("\n"), failures.isEmpty())
+    }
+    @Test fun congregationDetailsNeverClaimJumuahEndsAtAsr() {
+        for (lang in Language.entries) {
+            val s = settings(AppTheme.MIQAAT, lang)
+            val now = ZonedDateTime.of(2026, 10, 30, 12, 15, 0, 0, s.zone())
+            for (configured in listOf(true, false)) {
+                val chosen = if (configured) s else s.copy(iqamahEnabled = false)
+                val state = PrayerEngine.state(chosen, now)
+                for (tablet in listOf(true, false)) {
+                    val detail = fridayPrayerDetail(Prayer.DHUHR, state, chosen, tablet)
+                    assertFalse(detail.contains(L10n.word(chosen, "ends")))
+                    if (configured) assertTrue(detail.contains(L10n.at(PrayerEngine.iqamah(chosen, state.today, Prayer.DHUHR)!!, chosen.use24h)))
+                    else assertFalse(detail.contains(L10n.at(state.today[Prayer.ASR], chosen.use24h)))
+                }
+            }
+        }
     }
     @Test fun quietBoardsKeepPhaseTimesReturnAndNativeTextInEveryOrientation() {
         val failures = mutableListOf<String>()

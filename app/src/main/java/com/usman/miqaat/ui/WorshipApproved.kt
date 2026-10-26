@@ -132,7 +132,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = c.accent)
                 }
                 Column(Modifier.weight(1f).clickable(onClick = a.onOpenLocation)) {
-                    WorshipText(if (onClosePreview != null) Str[R.string.s_jummah_preview] else s.locationName, s, if (tablet) 21f else 14f, c.ink, lines = 1)
+                    WorshipText(if (onClosePreview != null) words(s, "Jumuʿah preview", "جمعہ کا پیش منظر") else s.locationName, s, if (tablet) 21f else 14f, c.ink, lines = 1)
                     WorshipText(if (L10n.isUrdu(s)) L10n.fridayDate(state.now.toLocalDate()) else state.now.format(java.time.format.DateTimeFormatter.ofPattern("EEEE, d MMMM", Locale.ENGLISH)), s, if (tablet) 14f else 11f, c.secondary, lines = 1)
                 }
                 WorshipText(L10n.at(state.now, s.use24h), s, if (tablet) 22f else 16f, c.ink, Modifier.padding(horizontal = 8.dp), lines = 1)
@@ -184,7 +184,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                                 FridayTime(state.today[p], s, if (tablet) 29f else 21f,
                                     Modifier.fillMaxWidth(), "friday-time-${p.name}", c.ink, TextAlign.End)
                                 if (s.showRelative || s.showEndTimes) WorshipText(
-                                    if (s.showRelative) L10n.relative(s, state.today[p], state.now) else if (tablet) r.small else r.small.substringBefore(" · "),
+                                    if (s.showRelative) L10n.relative(s, state.today[p], state.now) else fridayPrayerDetail(p, state, s, tablet),
                                     s, if (tablet) 12f else if (L10n.isUrdu(s)) 8.5f else 9f, c.secondary,
                                     Modifier.testTag("friday-detail-${p.name}"), lines = if (tablet) 2 else 1)
                             }
@@ -231,6 +231,17 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
         }
         if (s.nightDim && state.period == Prayer.ISHA) Box(Modifier.matchParentSize().background(Color.Black.copy(alpha = .22f)))
     }
+}
+
+/** A congregation has a configured start, not an end at Asr. Keep other prayer-window details. */
+internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, tablet: Boolean): String {
+    if (p == Prayer.DHUHR && s.jumuahEnabled) {
+        val iq = PrayerEngine.iqamah(s, state.today, p)
+        return if (iq != null) "${L10n.word(s, "Iqamah")} ${L10n.at(iq, s.use24h)}"
+            else words(s, "Masjid azaan time", "مسجد میں اذان کا وقت")
+    }
+    val small = galleryRowInfo(p, state, s).small
+    return if (tablet) small else small.substringBefore(" · ")
 }
 
 @Composable private fun FridayActions(s: AppSettings, now: ZonedDateTime, onOpen: () -> Unit, short: Boolean, tablet: Boolean) {
@@ -491,11 +502,17 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
         val tight = !tablet && maxHeight < (if (gallery) 170.dp else 210.dp) * LocalDensity.current.fontScale
         val numberSize = if (gallery) {
             if (tablet) (if (ur) 74f else 105f) else if (short) (if (ur) 34f else 45f) else (if (ur) (if (tight) 38f else 44f) else if (tight) 56f else 65f)
-        } else if (tablet) (if (ur) (if (roomy) 98f else 76f) else if (roomy) 142f else 110f)
-        else if (short) (if (ur) (if (s.theme == AppTheme.KISWAH) 40f else 48f) else if (s.theme == AppTheme.KISWAH) 52f else 64f) else if (tight) (if (ur) 44f else 56f) else (if (ur) 64f else 82f)
+        } else if (tablet) (if (ur) (if (roomy) 98f else 76f) else if (roomy) 154f else 122f)
+        else if (short) (if (ur) (if (s.theme == AppTheme.KISWAH) 40f else 48f) else if (s.theme == AppTheme.KISWAH) 68f else 72f) else if (tight) (if (ur) 44f else 56f) else (if (ur) 64f else 82f)
         val base = Modifier.fillMaxSize().clip(RoundedCornerShape(if (tablet) 24.dp else 18.dp))
             .then(if (gallery) Modifier.background(c.panel.copy(alpha = 1f)).border(.8.dp, c.accent.copy(alpha = .22f), RoundedCornerShape(if (tablet) 24.dp else 18.dp))
-                else if (s.theme == AppTheme.CELESTIAL_MERIDIAN) Modifier.background(c.background.copy(alpha = .72f)) else Modifier)
+                else if (s.theme == AppTheme.CELESTIAL_MERIDIAN) Modifier.drawBehind {
+                    // Fade to the original artwork in every direction; no rectangular panel edge.
+                    drawRect(Brush.radialGradient(
+                        listOf(c.background.copy(alpha = .72f), c.background.copy(alpha = .40f), Color.Transparent),
+                        center = Offset(size.width * .5f, size.height * .48f),
+                        radius = maxOf(size.width, size.height) * .62f))
+                } else Modifier)
             .clickable(role = Role.Button, onClickLabel = detailLabel, onClick = onDetails)
         Column(base.padding(horizontal = if (tablet) 18.dp else 8.dp, vertical = if (short) 2.dp else if (tight) 4.dp else 6.dp),
             horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
@@ -515,17 +532,17 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             }
             // Gallery's editorial portrait composition places the clock beside the prayer name.
             // Landscape keeps a compact stack beneath a separate framed garden panorama.
-            if (gallery && !short) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                names(Modifier.weight(.40f))
-                FridayClock(state, s, numberSize, Modifier.weight(.60f).clickable(onClick = a.onToggleRelative))
+            if (gallery && !short) Row(Modifier.fillMaxWidth().padding(horizontal = if (tablet) 28.dp else 16.dp), verticalAlignment = Alignment.CenterVertically) {
+                names(Modifier.weight(.43f))
+                FridayClock(state, s, numberSize, Modifier.weight(.57f).clickable(onClick = a.onToggleRelative))
             } else {
                 if (!tablet) Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text(if (s.jumuahEnabled && h.prayer == Prayer.DHUHR) "الجمعة" else h.arabic,
                         Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
                         fontSize = (if (short || tight) 24 else 34).sp, lineHeight = (if (short || tight) 34 else 48).sp, color = c.accent, maxLines = 1)
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        if (!ur) WorshipText(h.label.uppercase(Locale.ROOT), s, if (short) 12f else 14f, c.ink, Modifier.testTag("friday-hero-name"), lines = 1)
                         if (short) WorshipText(h.kickerLabel, s, 9f, c.secondary, Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
+                        if (!ur) WorshipText(h.label.uppercase(Locale.ROOT), s, if (short) 12f else 14f, c.ink, Modifier.testTag("friday-hero-name"), lines = 1)
                     }
                 } else names(Modifier.fillMaxWidth())
                 FridayClock(state, s, numberSize, Modifier.fillMaxWidth().clickable(onClick = a.onToggleRelative))
