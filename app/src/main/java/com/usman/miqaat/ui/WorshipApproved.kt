@@ -509,7 +509,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         val roomy = tablet && maxHeight > 480.dp * LocalDensity.current.fontScale
         val tight = !tablet && maxHeight < (if (gallery) 170.dp else 210.dp) * LocalDensity.current.fontScale
         val numberSize = if (gallery) {
-            if (tablet) (if (ur) 74f else 105f) else if (short) (if (ur) 34f else 45f) else (if (ur) (if (tight) 38f else 44f) else if (tight) 56f else 65f)
+            if (tablet) (if (ur) 80f else 115f) else if (short) (if (ur) 40f else 56f) else (if (ur) (if (tight) 38f else 44f) else if (tight) 56f else 65f)
         } else if (tablet) (if (ur) (if (roomy) 98f else 76f) else if (roomy) 154f else 122f)
         else if (short) (if (ur) (if (s.theme == AppTheme.KISWAH) 40f else 48f) else if (s.theme == AppTheme.KISWAH) 68f else 72f) else if (tight) (if (ur) 44f else 56f) else (if (ur) 64f else 82f)
         // Reserve full native label heights before growing a compact landscape clock.
