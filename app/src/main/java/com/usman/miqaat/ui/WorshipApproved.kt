@@ -136,7 +136,17 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             }
             if (s.theme == AppTheme.KISWAH && !short) WorshipKiswahBand(s, wide, tablet)
             val banner: @Composable () -> Unit = {
-                WorshipSurface(s, Modifier.fillMaxWidth().heightIn(min = if (tablet) 68.dp else 44.dp)
+                if (s.theme == AppTheme.KISWAH) Box(Modifier.fillMaxWidth().height(if (tablet) 96.dp else if (short) 44.dp else 60.dp)
+                    .background(Color.Black.copy(alpha = .85f)).testTag("friday-banner").clickable(onClick = a.onOpenFriday), contentAlignment = Alignment.Center) {
+                    KiswahOrnamentalFrame(if (tablet) .65f else .35f, Modifier.matchParentSize())
+                    Column(Modifier.fillMaxWidth().padding(horizontal = if (tablet) 32.dp else 20.dp, vertical = if (tablet) 15.dp else 9.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally) {
+                        WorshipText(words(s, "JUMUʿAH · الجمعة", "جمعہ · الجمعة"), s, if (tablet) 23f else if (short) 14f else 18f,
+                            c.accent, Modifier.fillMaxWidth(), true, 1)
+                        if (tablet) WorshipText(words(s, "A day for prayer, remembrance and reflection", "نماز، ذکر اور غور و فکر کا دن"),
+                            s, 13f, c.ink, Modifier.fillMaxWidth(), true, 1)
+                    }
+                } else WorshipSurface(s, Modifier.fillMaxWidth().heightIn(min = if (tablet) 68.dp else 44.dp)
                     .testTag("friday-banner").clickable(onClick = a.onOpenFriday)) {
                     WorshipText(words(s, "JUMUʿAH · الجمعة", "جمعہ · الجمعة"), s, if (tablet) 25f else 18f, c.accent,
                         Modifier.fillMaxWidth().padding(top = 5.dp), true, 1)
