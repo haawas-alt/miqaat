@@ -106,6 +106,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
         val tablet = minOf(maxWidth, maxHeight) >= 600.dp
         val short = wide && !tablet
         val compact = !tablet || maxHeight < 700.dp
+        val viewportHeight = maxHeight
         val smallPortrait = !tablet && !wide && maxHeight < 840.dp
         if (s.theme != AppTheme.PRAYER_GALLERY || short) WorshipBackdrop(s, wide, Modifier.matchParentSize())
         Column(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = if (tablet) 22.dp else 10.dp)
@@ -160,7 +161,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 val h = heroInfo(state, s, null)
                 val jum = s.jumuahEnabled && h.prayer == Prayer.DHUHR
                 if (s.theme == AppTheme.PRAYER_GALLERY) GalleryFridayHero(state, s, a, tablet, short, m) { why = h.prayer }
-                else Column(m.testTag("home-hero").padding(horizontal = 10.dp, vertical = if (short || smallPortrait) 0.dp else 4.dp),
+                else Column(m.testTag("home-hero").then(if (s.theme == AppTheme.CELESTIAL_MERIDIAN) Modifier.clip(RoundedCornerShape(18.dp)).background(c.panel.copy(alpha = .55f)) else Modifier).padding(horizontal = 10.dp, vertical = if (short || smallPortrait) 0.dp else 4.dp),
                     horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                     WorshipText(h.kickerLabel, s, if (tablet) 16f else if (short || smallPortrait) 10f else 11f, c.secondary, Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
                     Text(if (jum) "الجمعة" else h.arabic, Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
@@ -227,7 +228,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 prayers(Modifier.weight(if (short) .48f else .47f).fillMaxHeight())
                 Column(Modifier.weight(if (short) .52f else .53f).fillMaxHeight()) {
                     if (short) header()
-                    if (s.theme == AppTheme.PRAYER_GALLERY && tablet) GalleryFridayVista(Modifier.fillMaxWidth().height((maxHeight * .22f).coerceAtMost(180.dp)))
+                    if (s.theme == AppTheme.PRAYER_GALLERY && tablet) GalleryFridayVista(Modifier.fillMaxWidth().height((viewportHeight * .22f).coerceAtMost(180.dp)))
                     banner()
                     hero(Modifier.weight(1f).fillMaxWidth())
                     FridayActions(s, state.now, a.onOpenFriday, short, tablet)

@@ -28,6 +28,28 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: friday-quiet-test-results, path: app/build/test-results/}
+      - name: Prepare public demo screenshot boards
+        if: success()
+        run: |
+          python3 -m pip install Pillow==11.3.0
+          python3 tools/friday_review_boards.py
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with: {name: friday-quiet-demo-screenshots, path: public-review/}
+      - name: Publish only public demo app screenshots for review
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          REVIEW_BRANCH="ci-friday-review/${GITHUB_SHA:0:12}"
+          git config user.name "ci"
+          git config user.email "ci@users.noreply.github.com"
+          git checkout --orphan "$REVIEW_BRANCH"
+          git rm -rq --cached .
+          git add public-review/*.jpg public-review/SOURCE.txt
+          git commit -m "Public demo Friday and quiet screenshots for ${GITHUB_SHA:0:12}"
+          git push origin "HEAD:refs/heads/$REVIEW_BRANCH"
       - name: Print assertion results
         if: always()
         run: |

@@ -27,7 +27,7 @@ import java.time.ZonedDateTime
 @Config(sdk = [34])
 class FridayQuietApprovedTest : ComposeSupport() {
     private fun settings(theme: AppTheme, lang: Language) = AppSettings(theme = theme, language = lang,
-        latitude = -33.93, longitude = 151.19, locationName = "Gledswood Hills, NSW", zoneId = "Australia/Sydney",
+        latitude = -33.93, longitude = 151.19, locationName = "Mascot, NSW", zoneId = "Australia/Sydney",
         locationSet = true, setupDone = true, jumuahEnabled = true, jumuahMinutes = 13 * 60 + 15,
         jumuahIqamahMinutes = 13 * 60 + 30, iqamahEnabled = true)
     private fun readable(tag: String) {
