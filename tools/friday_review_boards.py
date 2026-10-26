@@ -17,5 +17,8 @@ for theme,title in [('MIQAAT','Miqaat'),('KISWAH','Kiswah'),('CELESTIAL_MERIDIAN
         d.text((1240,1250),'Controlled demo settings · Mascot, NSW',font=font(24),fill='#e1c27a')
         d.text((1240,1290),'Engine-calculated times · English / Urdu verified',font=font(20),fill='#bdc9d8')
         d.text((1240,1330),'Source '+os.environ['GITHUB_SHA'][:12],font=font(20),fill='#bdc9d8')
-        board.resize((1600,1067),Image.Resampling.LANCZOS).save(out/(theme+'-'+kind+'.jpg'),quality=89)
+        board.resize((1600,1067),Image.Resampling.LANCZOS).save(out/(theme+'-'+kind+'.jpg'),quality=92)
+        if kind != 'quiet':
+            for dev in ['phone-portrait','phone-landscape','tablet-portrait','tablet-landscape']:
+                Image.open(root/theme/(dev+'-EN-'+kind+'.png')).convert('RGB').save(out/(theme+'-'+dev+'-'+kind+'.jpg'),quality=94,subsampling=0)
 (out/'SOURCE.txt').write_text(os.environ['GITHUB_SHA']+'\nPublic app demo captures only; no live user data.\n')

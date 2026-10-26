@@ -29,7 +29,7 @@ jobs:
         if: always()
         with: {name: friday-quiet-test-results, path: app/build/test-results/}
       - name: Prepare public demo screenshot boards
-        if: success()
+        if: always()
         run: |
           python3 -m pip install Pillow==11.3.0
           python3 tools/friday_review_boards.py
@@ -37,7 +37,7 @@ jobs:
         if: success()
         with: {name: friday-quiet-demo-screenshots, path: public-review/}
       - name: Publish only public demo app screenshots for review
-        if: success()
+        if: always() && hashFiles('public-review/SOURCE.txt') != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
