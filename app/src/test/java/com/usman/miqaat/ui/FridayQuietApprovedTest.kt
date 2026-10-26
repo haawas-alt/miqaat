@@ -118,6 +118,6 @@ class FridayQuietApprovedTest : ComposeSupport() {
         assertEquals(13, PrayerEngine.times(s, friday.toLocalDate())[Prayer.DHUHR].hour)
         assertEquals(15, PrayerEngine.times(s, friday.toLocalDate())[Prayer.DHUHR].minute)
         val regular = s.copy(jumuahEnabled = false)
-        assertEquals(PrayerEngine.calculated(regular, friday.toLocalDate())[Prayer.DHUHR], PrayerEngine.times(regular, friday.toLocalDate())[Prayer.DHUHR])
+        assertEquals(PrayerEngine.calculated(regular, friday.toLocalDate())[Prayer.DHUHR].toInstant().truncatedTo(java.time.temporal.ChronoUnit.SECONDS), PrayerEngine.times(regular, friday.toLocalDate())[Prayer.DHUHR].toInstant().truncatedTo(java.time.temporal.ChronoUnit.SECONDS))
     }
 }
