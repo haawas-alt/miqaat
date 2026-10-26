@@ -158,6 +158,8 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 for (tablet in listOf(true, false)) {
                     val detail = fridayPrayerDetail(Prayer.DHUHR, state, chosen, tablet)
                     assertFalse(detail.contains(L10n.word(chosen, "ends")))
+                    val spoken = fridayRowInfo(Prayer.DHUHR, state, chosen).spoken
+                    assertFalse(spoken.contains(", ends ") || spoken.contains("وقت کا اختتام"))
                     if (configured) assertTrue(detail.contains(L10n.at(PrayerEngine.iqamah(chosen, state.today, Prayer.DHUHR)!!, chosen.use24h)))
                     else assertFalse(detail.contains(L10n.at(state.today[Prayer.ASR], chosen.use24h)))
                 }
