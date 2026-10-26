@@ -79,7 +79,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
     val c = quietPalette(s.theme)
     val full = if (!wide && !tablet) Kiswah.BAND.substringBefore("   ✦   ") else Kiswah.BAND
     val text = if (!wide && tablet) full.replaceFirst("   ✦   ", "\n") else full
-    Box(Modifier.fillMaxWidth().height(if (tablet && !wide) 88.dp else if (tablet) 68.dp else 54.dp)
+    Box(Modifier.fillMaxWidth().height(if (tablet && !wide) 88.dp else if (tablet) 68.dp else if (wide) 48.dp else 54.dp)
         .background(Color.Black.copy(alpha = .9f)), contentAlignment = Alignment.Center) {
         KiswahOrnamentalFrame(if (tablet) .75f else .45f, Modifier.matchParentSize())
         Text(text, Modifier.fillMaxWidth().padding(horizontal = if (tablet) 28.dp else 18.dp, vertical = 12.dp)
@@ -149,8 +149,8 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                         fontSize = (if (tablet) 54 else if (short) 29 else 34).sp,
                         lineHeight = (if (tablet) 80 else if (short) 43 else 49).sp, color = c.accent)
                     if (!L10n.isUrdu(s)) WorshipText(h.label.uppercase(Locale.ROOT), s, if (tablet) 23f else 15f, c.ink, center = true, lines = 1)
-                    WorshipText(if (s.showRelative) L10n.relative(s, state.heroTime, state.now) else "${h.clock} ${h.suffix}".trim(), s,
-                        if (tablet) 66f else if (short) 36f else 43f, c.ink,
+                    WorshipText(if (s.showRelative) L10n.relative(s, state.heroTime, state.now) else L10n.at(state.heroTime, s.use24h), s,
+                        if (L10n.isUrdu(s)) (if (tablet) 38f else 23f) else if (tablet) 66f else if (short) 36f else 43f, c.ink,
                         Modifier.testTag("friday-hero-time").clickable(onClick = a.onToggleRelative), true, 1)
                     WorshipSurface(s, Modifier.padding(vertical = 3.dp)) {
                         WorshipText(h.status, s, if (tablet) 17f else 12f, c.accent, Modifier.padding(horizontal = 14.dp, vertical = 3.dp), true, 1)
@@ -176,7 +176,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                             verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(if (tablet) 10.dp else 5.dp)) {
                             if (s.theme == AppTheme.CELESTIAL_MERIDIAN) Canvas(Modifier.width(16.dp).fillMaxHeight()) {
                                 drawLine(c.accent.copy(alpha = .6f), Offset(size.width / 2, 0f), Offset(size.width / 2, size.height), 1.dp.toPx())
-                                drawCircle(if (selected || r.done) c.accent else c.background, if (selected) 5.dp.toPx() else 3.dp.toPx())
+                                drawCircle(if (selected || r.done || p == Prayer.SUNRISE && !state.today[p].isAfter(state.now)) c.accent else c.background, if (selected) 5.dp.toPx() else 3.dp.toPx())
                             }
                             Column(Modifier.weight(1f)) {
                                 WorshipText(r.label, s, if (tablet) 22f else 15f, c.ink, lines = 1)
@@ -279,7 +279,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
         val k = if (tablet) (if (wide) maxHeight.value / 800f else maxWidth.value / 800f).coerceIn(.72f, 1.2f) else .70f
         WorshipBackdrop(s, wide, Modifier.matchParentSize())
         Column(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = if (tablet) 28.dp else 14.dp, vertical = if (short) 4.dp else 10.dp)) {
-            Row(Modifier.fillMaxWidth().height(if (short) 42.dp else 52.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth().height(if (short) 36.dp else 52.dp), verticalAlignment = Alignment.CenterVertically) {
                 WorshipText("Miqaat", s, if (tablet) 28f else 23f, c.ink, Modifier.weight(1f).testTag("quiet-brand"), lines = 1)
                 WorshipSurface(s, Modifier.weight(1.2f)) {
                     QuietLabel(Str[R.string.s_quiet_mode_title], ur, c.accent, Modifier.padding(vertical = 5.dp), if (tablet) 11f else 9f)
@@ -299,7 +299,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     Text(if (s.jumuahEnabled && p.prayer == Prayer.DHUHR && times.current.dayOfWeek == java.time.DayOfWeek.FRIDAY) "الجمعة" else p.prayer.arabic,
                         Modifier.fillMaxWidth().testTag("quiet-current-arabic").semantics { heading() },
                         fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
-                        fontSize = (if (short) 30f else 66f * k).sp, lineHeight = (if (short) 44f else 100f * k).sp,
+                        fontSize = (if (short) 24f else 66f * k).sp, lineHeight = (if (short) 34f else 100f * k).sp,
                         color = c.accent, textAlign = TextAlign.Center)
                     WorshipText(if (ur) L10n.prayer(s, p.prayer) else L10n.prayer(s, p.prayer).uppercase(Locale.ROOT), s,
                         if (short) 12f else 23f * k, c.ink, Modifier.fillMaxWidth().testTag("quiet-current-name"), true, 1)
@@ -308,7 +308,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     WorshipSurface(s, Modifier.fillMaxWidth(if (tablet) .80f else .90f).padding(vertical = if (short) 0.dp else 8.dp)) {
                         QuietLabel(words(s, "Azaan at", "اذان کا وقت"), ur, c.accent,
                             Modifier.padding(top = 5.dp).testTag("quiet-current-label"), if (short) 9f else 11f)
-                        QuietTime(times.current, s, if (ur) (if (short) 24f else 45f * k) else if (short) 42f else 96f * k,
+                        QuietTime(times.current, s, if (ur) (if (short) 20f else 45f * k) else if (short) 32f else 96f * k,
                             if (s.theme == AppTheme.PRAYER_GALLERY) c.accent else c.ink,
                             Modifier.fillMaxWidth().testTag("quiet-current-time"))
                         WorshipText(Str[R.string.s_quiet_iqamah_complete], s, if (short) 10f else 13f, c.secondary,

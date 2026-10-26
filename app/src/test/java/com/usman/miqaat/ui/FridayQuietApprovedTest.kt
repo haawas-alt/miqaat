@@ -50,6 +50,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
         File(path.path + ".txt").writeText(rule.onRoot(true).printToString(100))
     }
     @Test fun fridayBoardsFitEngineFactsAndActionsAcrossEveryThemeAndDevice() {
+        val failures = mutableListOf<String>()
         for (theme in AppTheme.entries) for (lang in Language.entries) for (dev in Dev.entries) {
             val s = settings(theme, lang); val now = ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, s.zone())
             val state = PrayerEngine.state(s, now)
@@ -69,10 +70,12 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 rule.onNodeWithTag("friday-action-1", true).performClick(); assertEquals(2, friday)
                 rule.onNodeWithTag("friday-action-2", true).performClick(); assertEquals(3, friday)
                 rule.onNodeWithContentDescription(if (lang == Language.UR) "قبلہ" else "Qibla").performClick(); assertEquals(1, qibla)
-            } finally { scenario.close() }
+            } catch (e: AssertionError) { failures += "$theme/$dev/$lang: ${e.message}" } finally { scenario.close() }
         }
+        assertTrue(failures.joinToString("\n"), failures.isEmpty())
     }
     @Test fun quietBoardsKeepPhaseTimesReturnAndNativeTextInEveryOrientation() {
+        val failures = mutableListOf<String>()
         for (theme in AppTheme.entries) for (lang in Language.entries) for (dev in Dev.entries) {
             val s = settings(theme, lang); val now = ZonedDateTime.of(2026, 10, 30, 19, 24, 0, 0, s.zone())
             val phase = Phase.Quiet(Prayer.MAGHRIB, now.plusMinutes(10).toInstant().toEpochMilli())
@@ -85,8 +88,9 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 rule.onNodeWithTag("quiet-next-time", true).assertTextEquals(L10n.iso(L10n.at(times.nextTime, s.use24h)))
                 rule.onNodeWithTag("quiet-return", true).performClick(); assertEquals(1, stops)
                 rule.onNodeWithTag("quiet-board", true).performClick(); assertEquals(2, stops)
-            } finally { scenario.close() }
+            } catch (e: AssertionError) { failures += "$theme/$dev/$lang: ${e.message}" } finally { scenario.close() }
         }
+        assertTrue(failures.joinToString("\n"), failures.isEmpty())
     }
     @Test fun fridayDoesNotChangeTheConfiguredPrayerEngineOrOtherDays() {
         val s = settings(AppTheme.MIQAAT, Language.EN)
