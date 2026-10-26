@@ -511,7 +511,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                     drawRect(Brush.radialGradient(
                         listOf(c.background.copy(alpha = .72f), c.background.copy(alpha = .40f), Color.Transparent),
                         center = Offset(size.width * .5f, size.height * .48f),
-                        radius = maxOf(size.width, size.height) * .62f))
+                        radius = minOf(size.width, size.height) * .48f))
                 } else Modifier)
             .clickable(role = Role.Button, onClickLabel = detailLabel, onClick = onDetails)
         Column(base.padding(horizontal = if (tablet) 18.dp else 8.dp, vertical = if (short) 2.dp else if (tight) 4.dp else 6.dp),
