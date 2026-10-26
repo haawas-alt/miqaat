@@ -31,8 +31,15 @@ import java.util.Locale
 import kotlin.math.roundToInt
 
 /** Approved Friday and quiet compositions. Only native text/actions carry prayer facts. */
-internal fun fridayHomepageActive(s: AppSettings, now: ZonedDateTime) =
-    s.fridayReminders && now.dayOfWeek == java.time.DayOfWeek.FRIDAY && PrayerEngine.isJumuahWindow(s, now)
+internal fun fridayHomepageActive(s: AppSettings, now: ZonedDateTime): Boolean {
+    if (!s.fridayReminders) return false
+    val local = now.withZoneSameInstant(s.zone())
+    if (local.dayOfWeek != java.time.DayOfWeek.FRIDAY) return false
+    // UI day-boundaries use the engine's published second, never incidental subsecond Date precision.
+    val maghrib = PrayerEngine.times(s, local.toLocalDate(), s.zone())[Prayer.MAGHRIB]
+        .toInstant().truncatedTo(java.time.temporal.ChronoUnit.SECONDS)
+    return local.toInstant().isBefore(maghrib)
+}
 
 private fun worshipFont(s: AppSettings) = if (L10n.isUrdu(s)) Amiri else FontFamily.Serif
 private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) ur else en
