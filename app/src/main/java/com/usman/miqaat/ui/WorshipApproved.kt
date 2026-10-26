@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.*
@@ -12,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.ContentScale
@@ -29,6 +31,9 @@ import java.util.Locale
 import kotlin.math.roundToInt
 
 /** Approved Friday and quiet compositions. Only native text/actions carry prayer facts. */
+internal fun fridayHomepageActive(s: AppSettings, now: ZonedDateTime) =
+    s.fridayReminders && now.dayOfWeek == java.time.DayOfWeek.FRIDAY && PrayerEngine.isJumuahWindow(s, now)
+
 private fun worshipFont(s: AppSettings) = if (L10n.isUrdu(s)) Amiri else FontFamily.Serif
 private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) ur else en
 
@@ -39,10 +44,10 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
         textAlign = if (center) TextAlign.Center else TextAlign.Start, maxLines = lines)
 }
 
-@Composable private fun WorshipSurface(s: AppSettings, modifier: Modifier = Modifier, selected: Boolean = false,
+@Composable private fun WorshipSurface(s: AppSettings, modifier: Modifier = Modifier, selected: Boolean = false, ornate: Boolean = false,
     content: @Composable ColumnScope.() -> Unit) {
     val c = quietPalette(s.theme)
-    val shape = RoundedCornerShape(14.dp)
+    val shape = if (ornate) CutCornerShape(10.dp) else RoundedCornerShape(14.dp)
     Column(modifier.clip(shape).background(if (selected) c.accent.copy(alpha = .22f) else c.panel)
         .border(if (selected) 1.dp else .6.dp, c.accent.copy(alpha = if (selected) .85f else .32f), shape), content = content)
 }
@@ -170,7 +175,11 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                         val r = galleryRowInfo(p, state, s)
                         val selected = r.isNow || r.isNext && listedPrayers(s).none { galleryRowInfo(it, state, s).isNow }
                         Row(Modifier.fillMaxWidth().weight(1f).heightIn(min = 48.dp)
-                            .background(if (selected) c.accent.copy(alpha = .21f) else Color.Transparent)
+                            .then(if (selected) Modifier.clip(RoundedCornerShape(12.dp)).background(Brush.horizontalGradient(
+                                if (s.theme == AppTheme.PRAYER_GALLERY) listOf(Color(0xFFD5E3CE), Color(0xFFE7EDDC))
+                                else listOf(Color(0xFF735226).copy(alpha = .88f), Color(0xFF34291E).copy(alpha = .88f))))
+                                .border(.8.dp, c.accent.copy(alpha = .8f), RoundedCornerShape(12.dp)) else Modifier)
+                            .drawBehind { drawLine(c.accent.copy(alpha = .12f), Offset(8.dp.toPx(), size.height), Offset(size.width - 8.dp.toPx(), size.height), 1f) }
                             .testTag("approved-row-${p.name}").semantics(mergeDescendants = true) { contentDescription = r.spoken }
                             .clickable { why = p }.padding(horizontal = if (tablet) 14.dp else 8.dp),
                             verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(if (tablet) 10.dp else 5.dp)) {
@@ -232,12 +241,13 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
         horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         listOf(Triple(Icons.Outlined.MenuBook, words(s, "Al-Kahf", "سورۃ الکہف"), words(s, if (kahf) "Read this Friday ✓" else "Mark as read", if (kahf) "پڑھ لی ✓" else "پڑھنے کا اندراج")),
             Triple(Icons.Outlined.FavoriteBorder, words(s, "Salawat", "درود شریف"), words(s, "$salawat this Friday", "اس جمعہ: $salawat")),
-            Triple(Icons.Outlined.NotificationsNone, words(s, "Friday", "جمعہ"), words(s, "Reminders", "یاد دہانیاں"))).forEachIndexed { i, item ->
+            Triple(Icons.Outlined.CalendarMonth, words(s, "Friday", "جمعہ"), words(s, "Reminders", "یاد دہانیاں"))).forEachIndexed { i, item ->
             WorshipSurface(s, Modifier.weight(1f).fillMaxHeight().testTag("friday-action-$i")
                 .clickable(role = Role.Button, onClick = onOpen)) {
                 Row(Modifier.fillMaxSize().padding(horizontal = if (tablet) 10.dp else 5.dp), verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                    if (tablet) Icon(item.first, null, Modifier.size(25.dp), tint = c.accent)
+                    if (i == 1) SalawatBeads(if (s.theme == AppTheme.PRAYER_GALLERY) c.ink else c.accent, Modifier.size(if (tablet) 27.dp else 18.dp))
+                    else Icon(item.first, null, Modifier.size(if (tablet) 25.dp else 18.dp), tint = c.accent)
                     Column {
                         WorshipText(item.second, s, if (tablet) 17f else 12f, c.ink, lines = 1)
                         WorshipText(item.third, s, if (tablet) 11f else 9f, c.secondary, lines = 1)
@@ -251,16 +261,17 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
 @Composable private fun FridayDock(s: AppSettings, state: PrayerState, a: HomeActions, tablet: Boolean) {
     val c = quietPalette(s.theme)
     val mode = adhkarModes(state, s).firstOrNull() ?: AdhkarMode.MORNING
-    Row(Modifier.fillMaxWidth().height(if (tablet) 66.dp else 50.dp).padding(vertical = 3.dp).background(c.panel),
+    Row(Modifier.fillMaxWidth().height(if (tablet) 66.dp else 56.dp).padding(vertical = 3.dp).background(c.panel),
         horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
-        val items: List<Triple<androidx.compose.ui.graphics.vector.ImageVector, String, () -> Unit>> = listOf(Triple(Icons.Outlined.Explore, L10n.word(s, "Qibla"), a.onOpenQibla),
-            Triple(Icons.Outlined.MenuBook, words(s, "Adhkar", "اذکار"), { a.onOpenAdhkar(mode) }),
-            Triple(Icons.Outlined.School, words(s, "Learn", "سیکھیں"), a.onOpenLearn),
+        val items: List<Triple<androidx.compose.ui.graphics.vector.ImageVector, String, () -> Unit>> = listOfNotNull(if (s.showQibla) Triple(Icons.Outlined.Explore, L10n.word(s, "Qibla"), a.onOpenQibla) else null,
+            if (s.adhkarEnabled) Triple(Icons.Outlined.MenuBook, words(s, "Adhkar", "اذکار"), { a.onOpenAdhkar(mode) }) else null,
+            Triple(Icons.Outlined.MenuBook, words(s, "Learn", "سیکھیں"), a.onOpenLearn),
             Triple(Icons.Outlined.CalendarMonth, words(s, "Timetable", "اوقات"), a.onOpenTimetable))
         items.forEach { (icon, label, action) ->
             Column(Modifier.weight(1f).fillMaxHeight().clickable(role = Role.Button, onClick = action),
                 horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                Icon(icon, label, Modifier.size(if (tablet) 25.dp else 20.dp), tint = c.accent)
+                if (label == words(s, "Adhkar", "اذکار")) SalawatBeads(c.accent, Modifier.size(if (tablet) 25.dp else 20.dp).semantics { contentDescription = label })
+                else Icon(icon, label, Modifier.size(if (tablet) 25.dp else 20.dp), tint = c.accent)
                 WorshipText(label, s, if (tablet) 15f else 10f, c.ink, center = true, lines = 1)
             }
         }
@@ -281,7 +292,8 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
         WorshipBackdrop(s, wide, Modifier.matchParentSize())
         Column(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = if (tablet) 28.dp else 14.dp, vertical = if (short) 4.dp else 10.dp)) {
             Row(Modifier.fillMaxWidth().height(if (short) 36.dp else 52.dp), verticalAlignment = Alignment.CenterVertically) {
-                WorshipText("Miqaat", s, if (tablet) 28f else 23f, c.ink, Modifier.weight(1f).testTag("quiet-brand"), lines = 1)
+                Text("Miqaat", Modifier.weight(1f).testTag("quiet-brand"), fontFamily = FontFamily.Serif,
+                    fontSize = (if (tablet) 28 else 23).sp, lineHeight = (if (tablet) 35 else 29).sp, color = c.ink, maxLines = 1)
                 WorshipSurface(s, Modifier.weight(1.2f)) {
                     QuietLabel(Str[R.string.s_quiet_mode_title], ur, c.accent, Modifier.padding(vertical = 5.dp), if (tablet) 11f else 9f)
                 }
@@ -293,23 +305,27 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 Column(m.testTag("quiet-current-panel").padding(horizontal = 8.dp), horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center) {
                     if (s.theme == AppTheme.CELESTIAL_MERIDIAN && !short) Canvas(Modifier.fillMaxWidth(.70f).height(24.dp)) {
-                        drawLine(c.accent.copy(alpha = .6f), Offset(0f, size.height * .75f), Offset(size.width, size.height * .25f), 1.dp.toPx())
-                        for (i in 0..4) drawCircle(c.accent, if (i == 2) 4.dp.toPx() else 2.dp.toPx(),
-                            Offset(size.width * i / 4, size.height * (.75f - i * .125f)))
+                        val path = Path().apply { moveTo(0f, size.height * .8f); quadraticBezierTo(size.width / 2, -size.height * .5f, size.width, size.height * .8f) }
+                        drawPath(path, c.accent.copy(alpha = .65f), style = androidx.compose.ui.graphics.drawscope.Stroke(1.dp.toPx()))
+                        for (i in 0..4) {
+                            val x = i / 4f; val at = Offset(size.width * x, size.height * (.15f + 2.6f * (x - .5f) * (x - .5f)))
+                            if (i == 2) drawCircle(c.accent.copy(alpha = .15f), 9.dp.toPx(), at)
+                            drawCircle(c.accent, if (i == 2) 4.dp.toPx() else 2.dp.toPx(), at)
+                        }
                     }
                     Text(if (s.jumuahEnabled && p.prayer == Prayer.DHUHR && times.current.dayOfWeek == java.time.DayOfWeek.FRIDAY) "الجمعة" else p.prayer.arabic,
                         Modifier.fillMaxWidth().testTag("quiet-current-arabic").semantics { heading() },
                         fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
                         fontSize = (if (short) 24f else 66f * k).sp, lineHeight = (if (short) 34f else 100f * k).sp,
                         color = c.accent, textAlign = TextAlign.Center)
-                    WorshipText(if (ur) L10n.prayer(s, p.prayer) else L10n.prayer(s, p.prayer).uppercase(Locale.ROOT), s,
+                    WorshipText((if (s.jumuahEnabled && p.prayer == Prayer.DHUHR && times.current.dayOfWeek == java.time.DayOfWeek.FRIDAY) L10n.word(s, "Jumuʿah") else L10n.prayer(s, p.prayer)).let { if (ur) it else it.uppercase(Locale.ROOT) }, s,
                         if (short) 12f else 23f * k, c.ink, Modifier.fillMaxWidth().testTag("quiet-current-name"), true, 1)
                     QuietLabel(Str[R.string.s_quiet_prayer_progress], ur, c.accent,
                         Modifier.padding(vertical = if (short) 2.dp else 8.dp).testTag("quiet-progress"), if (short) 9f else 12f)
-                    WorshipSurface(s, Modifier.fillMaxWidth(if (tablet) .80f else .90f).padding(vertical = if (short) 0.dp else 8.dp)) {
+                    WorshipSurface(s, Modifier.fillMaxWidth(if (tablet) .80f else .90f).padding(vertical = if (short) 0.dp else 8.dp), ornate = s.theme == AppTheme.MIQAAT || s.theme == AppTheme.KISWAH) {
                         QuietLabel(words(s, "Azaan at", "اذان کا وقت"), ur, c.accent,
                             Modifier.padding(top = 5.dp).testTag("quiet-current-label"), if (short) 9f else 11f)
-                        QuietTime(times.current, s, if (ur) (if (short) 20f else 45f * k) else if (short) 32f else 96f * k,
+                        QuietTime(times.current, s, if (ur) (if (short) 18f else 45f * k) else if (short) 32f else 96f * k,
                             if (s.theme == AppTheme.PRAYER_GALLERY) c.accent else c.ink,
                             Modifier.fillMaxWidth().testTag("quiet-current-time"))
                         WorshipText(Str[R.string.s_quiet_iqamah_complete], s, if (short) 10f else 13f, c.secondary,
@@ -319,7 +335,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             }
             val next: @Composable (Modifier) -> Unit = { m ->
                 Box(m.testTag("quiet-next-panel"), contentAlignment = Alignment.Center) {
-                    WorshipSurface(s, Modifier.fillMaxWidth(if (wide) .95f else 1f)) {
+                    WorshipSurface(s, Modifier.fillMaxWidth(if (wide) .95f else 1f), ornate = s.theme == AppTheme.MIQAAT || s.theme == AppTheme.KISWAH) {
                         QuietLabel(Str[R.string.s_quiet_next_azaan], ur, c.secondary,
                             Modifier.padding(top = if (short) 6.dp else 14.dp).testTag("quiet-next-label"), if (short) 9f else 11f)
                         WorshipText(if (ur) L10n.prayer(s, times.next) else L10n.prayer(s, times.next).uppercase(Locale.ROOT), s,
@@ -359,5 +375,18 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             }
         }
         if (s.nightDim && p.prayer == Prayer.ISHA) Box(Modifier.matchParentSize().background(Color.Black.copy(alpha = .22f)))
+    }
+}
+
+@Composable private fun SalawatBeads(color: Color, modifier: Modifier) {
+    Canvas(modifier) {
+        val radius = size.minDimension * .32f
+        for (i in 0..11) {
+            val angle = i * Math.PI / 6
+            drawCircle(color, size.minDimension * .055f,
+                Offset(size.width / 2 + radius * kotlin.math.cos(angle).toFloat(), size.height * .4f + radius * kotlin.math.sin(angle).toFloat()))
+        }
+        drawLine(color, Offset(size.width / 2, size.height * .73f), Offset(size.width / 2, size.height * .92f), size.minDimension * .055f)
+        drawCircle(color, size.minDimension * .06f, Offset(size.width / 2, size.height * .94f))
     }
 }

@@ -95,6 +95,11 @@ class FridayQuietApprovedTest : ComposeSupport() {
     @Test fun fridayDoesNotChangeTheConfiguredPrayerEngineOrOtherDays() {
         val s = settings(AppTheme.MIQAAT, Language.EN)
         val friday = ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, s.zone())
+        assertTrue(fridayHomepageActive(s, friday))
+        assertFalse(fridayHomepageActive(s.copy(fridayReminders = false), friday))
+        assertFalse(fridayHomepageActive(s, friday.minusDays(1)))
+        assertFalse(fridayHomepageActive(s, PrayerEngine.times(s, friday.toLocalDate())[Prayer.MAGHRIB]))
+        assertFalse(fridayHomepageActive(s, friday.plusDays(1)))
         assertEquals(13, PrayerEngine.times(s, friday.toLocalDate())[Prayer.DHUHR].hour)
         assertEquals(15, PrayerEngine.times(s, friday.toLocalDate())[Prayer.DHUHR].minute)
         val regular = s.copy(jumuahEnabled = false)
