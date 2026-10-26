@@ -7,7 +7,7 @@ def font(n):
     try:return ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',n)
     except OSError:return ImageFont.load_default(size=n)
 for theme,title in [('MIQAAT','Miqaat'),('KISWAH','Kiswah'),('CELESTIAL_MERIDIAN','Celestial Meridian'),('PRAYER_GALLERY','Prayer Gallery')]:
-    for kind in ['friday','quiet']:
+    for kind in ['friday','friday-relative','quiet']:
         board=Image.new('RGB',(2400,1600),'#151b25');d=ImageDraw.Draw(board)
         d.text((25,15),title+' — '+kind.title()+' · actual app captures',font=font(38),fill='#f8f1df')
         for dev,x,y,w,h in [('tablet-landscape',25,115,1150,720),('phone-landscape',25,935,1150,535),('tablet-portrait',1230,115,640,1024),('phone-portrait',1900,115,465,1008)]:
