@@ -1,7 +1,7 @@
 name: Approved Friday and quiet screens
 on:
   push:
-    branches: ['feat/friday-quiet-approved']
+    branches: ['feat/friday-quiet-approved', 'feat/jummah-preview']
   workflow_dispatch:
 permissions:
   contents: write
@@ -18,7 +18,7 @@ jobs:
         with: {distribution: temurin, java-version: '17'}
       - uses: gradle/actions/setup-gradle@v4
       - name: Native board geometry, text fit and controls
-        run: ./gradlew --no-daemon testGithubDebugUnitTest --tests '*FridayQuietApprovedTest' --tests '*ApprovedQuietAcceptanceTest' --tests '*ApprovedPhoneLandscapeAcceptanceTest'
+        run: ./gradlew --no-daemon testGithubDebugUnitTest --tests '*JummahPreviewLaunchTest' --tests '*FridayQuietApprovedTest' --tests '*ApprovedQuietAcceptanceTest' --tests '*ApprovedPhoneLandscapeAcceptanceTest'
       - name: Encrypt review captures
         if: always()
         run: python3 tools/seal_landscape_review.py app/build tools/friday-review-public.pem sealed/friday-quiets.zip
@@ -74,13 +74,13 @@ jobs:
       - name: Render production baseline
         run: |
           set -euo pipefail
-          trap 'git restore --source=HEAD --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt' EXIT
+          trap 'git restore --source=HEAD --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt app/src/test/java/com/usman/miqaat/ui/JummahPreviewLaunchTest.kt' EXIT
           git restore --source=e7399d57a7e0a750f22e1e550d3f4c4f26f3263a --worktree app/src/main
-          rm app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt
+          rm app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt app/src/test/java/com/usman/miqaat/ui/JummahPreviewLaunchTest.kt
           ./gradlew --no-daemon testGithubDebugUnitTest --tests '*RetainedHome181Test' --tests '*ApprovedPhoneLandscapeAcceptanceTest' --tests '*Tablet181ReviewTest'
           mkdir -p app/build/kiswah-protected-before
           cp -a app/build/protected-home app/build/phone-landscape app/build/tablet-polish app/build/kiswah-protected-before/
-          git restore --source=HEAD --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt
+          git restore --source=HEAD --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt app/src/test/java/com/usman/miqaat/ui/JummahPreviewLaunchTest.kt
           trap - EXIT
       - name: Render candidate protected screens and compare pixels
         run: |
@@ -123,7 +123,7 @@ jobs:
           mkdir -p keystore
           printf '%s' "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
           echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
-          echo "MIQAAT_VERSION_NAME=1.187-friday-quiet" >> "$GITHUB_ENV"
+          echo "MIQAAT_VERSION_NAME=1.188-friday-quiet" >> "$GITHUB_ENV"
           echo "MIQAAT_BUILD_TAG=friday-quiet-${GITHUB_SHA:0:12}" >> "$GITHUB_ENV"
       - name: Full regression, lint and signed packages
         env:
@@ -132,11 +132,11 @@ jobs:
           ./gradlew --no-daemon testGithubReleaseUnitTest lintGithubRelease assembleGithubRelease assemblePlayRelease bundlePlayRelease
           python3 tools/check_forbidden_assets.py app/src/main app/build/outputs/apk/github/release/app-github-release.apk app/build/outputs/apk/play/release/app-play-release.apk app/build/outputs/bundle/playRelease/app-play-release.aab
           mkdir -p candidate
-          cp app/build/outputs/apk/github/release/app-github-release.apk candidate/Miqaat-1.187.apk
-          cp app/build/outputs/bundle/playRelease/app-play-release.aab candidate/Miqaat-1.187.aab
-          python3 tools/check_release_integrity.py candidate/Miqaat-1.187.apk > candidate/native-integrity.json
+          cp app/build/outputs/apk/github/release/app-github-release.apk candidate/Miqaat-1.188.apk
+          cp app/build/outputs/bundle/playRelease/app-play-release.aab candidate/Miqaat-1.188.aab
+          python3 tools/check_release_integrity.py candidate/Miqaat-1.188.apk > candidate/native-integrity.json
           BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
-          "$BT/apksigner" verify --verbose --print-certs candidate/Miqaat-1.187.apk > candidate/signature.txt
+          "$BT/apksigner" verify --verbose --print-certs candidate/Miqaat-1.188.apk > candidate/signature.txt
           grep -qi 6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01 candidate/signature.txt
           (cd candidate && sha256sum *.apk *.aab > SHA256SUMS)
       - name: Print full regression results
@@ -167,4 +167,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "friday-quiet-${GITHUB_SHA:0:12}" candidate/* --target "$GITHUB_SHA" --prerelease --title "Miqaat 1.187: Friday homepages and quiet screens" --notes "Responsive Friday homepages and approved quiet compositions for all four themes. Real prayer engine, local Friday progress and existing signing identity retained. Signed with the existing app key. Candidate only; production updater unchanged. Source: $GITHUB_SHA"
+          gh release create "friday-quiet-${GITHUB_SHA:0:12}" candidate/* --target "$GITHUB_SHA" --prerelease --title "Miqaat 1.188: Friday homepages and quiet screens" --notes "Responsive Friday homepages and approved quiet compositions for all four themes. Real prayer engine, local Friday progress and existing signing identity retained. Signed with the existing app key. Candidate only; production updater unchanged. Source: $GITHUB_SHA"
