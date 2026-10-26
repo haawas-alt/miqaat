@@ -498,7 +498,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             .clickable(role = Role.Button, onClickLabel = detailLabel, onClick = onDetails)
         Column(base.padding(horizontal = if (tablet) 18.dp else 8.dp, vertical = if (short) 2.dp else if (tight) 4.dp else 6.dp),
             horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-            WorshipText(h.kickerLabel, s, if (tablet) 13f else if (short || tight) 9f else 10f, c.secondary,
+            if (!short) WorshipText(h.kickerLabel, s, if (tablet) 13f else if (tight) 9f else 10f, c.secondary,
                 Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
             val names: @Composable (Modifier) -> Unit = { m ->
                 val arabicSize = if (gallery) (if (tablet) 38 else if (short) 20 else 30)
@@ -522,7 +522,10 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     Text(if (s.jumuahEnabled && h.prayer == Prayer.DHUHR) "الجمعة" else h.arabic,
                         Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
                         fontSize = (if (short || tight) 24 else 34).sp, lineHeight = (if (short || tight) 34 else 48).sp, color = c.accent, maxLines = 1)
-                    if (!ur) WorshipText(h.label.uppercase(Locale.ROOT), s, if (short) 12f else 14f, c.ink, Modifier.testTag("friday-hero-name"), lines = 1)
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        if (!ur) WorshipText(h.label.uppercase(Locale.ROOT), s, if (short) 12f else 14f, c.ink, Modifier.testTag("friday-hero-name"), lines = 1)
+                        if (short) WorshipText(h.kickerLabel, s, 9f, c.secondary, Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
+                    }
                 } else names(Modifier.fillMaxWidth())
                 FridayClock(state, s, numberSize, Modifier.fillMaxWidth().clickable(onClick = a.onToggleRelative))
             }
