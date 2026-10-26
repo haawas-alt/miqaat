@@ -159,7 +159,8 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             val hero: @Composable (Modifier) -> Unit = { m ->
                 val h = heroInfo(state, s, null)
                 val jum = s.jumuahEnabled && h.prayer == Prayer.DHUHR
-                Column(m.testTag("home-hero").padding(horizontal = 10.dp, vertical = if (short || smallPortrait) 0.dp else 4.dp),
+                if (s.theme == AppTheme.PRAYER_GALLERY) GalleryFridayHero(state, s, a, tablet, short, m) { why = h.prayer }
+                else Column(m.testTag("home-hero").padding(horizontal = 10.dp, vertical = if (short || smallPortrait) 0.dp else 4.dp),
                     horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                     WorshipText(h.kickerLabel, s, if (tablet) 16f else if (short || smallPortrait) 10f else 11f, c.secondary, Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
                     Text(if (jum) "الجمعة" else h.arabic, Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
@@ -234,10 +235,10 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             } else {
                 if (s.theme == AppTheme.PRAYER_GALLERY) GalleryFridayVista(Modifier.fillMaxWidth().height(if (tablet) 180.dp else if (smallPortrait) 60.dp else 92.dp))
                 banner()
-                hero(Modifier.fillMaxWidth().weight(if (tablet) .43f else 1f))
+                hero(Modifier.fillMaxWidth().weight(if (tablet) (if (s.theme == AppTheme.KISWAH) .49f else .43f) else 1f))
                 FridayActions(s, state.now, a.onOpenFriday, false, tablet)
                 Spacer(Modifier.height(6.dp))
-                prayers(if (tablet) Modifier.fillMaxWidth().weight(.57f) else Modifier.fillMaxWidth().height((if (smallPortrait) 48 else 54).dp * listedPrayers(s).size))
+                prayers(if (tablet) Modifier.fillMaxWidth().weight(if (s.theme == AppTheme.KISWAH) .51f else .57f) else Modifier.fillMaxWidth().height((if (smallPortrait) 48 else 54).dp * listedPrayers(s).size))
             }
             FridayDock(s, state, a, tablet)
         }
@@ -415,5 +416,46 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
         val sw = minOf(atlas.width.toFloat(), sh * aspect)
         drawImage(atlas, srcOffset = IntOffset(((atlas.width - sw) / 2).roundToInt(), ((sourceHeight - sh) / 2).roundToInt()),
             srcSize = IntSize(sw.roundToInt(), sh.roundToInt()), dstSize = IntSize(size.width.roundToInt(), size.height.roundToInt()), filterQuality = FilterQuality.High)
+    }
+}
+
+/** Gallery keeps its approved editorial hierarchy: names together, time and countdown beside each other. */
+@Composable private fun GalleryFridayHero(state: PrayerState, s: AppSettings, a: HomeActions,
+    tablet: Boolean, short: Boolean, modifier: Modifier, onDetails: () -> Unit) {
+    val c = quietPalette(s.theme)
+    val h = heroInfo(state, s, null)
+    val jum = s.jumuahEnabled && h.prayer == Prayer.DHUHR
+    val ur = L10n.isUrdu(s)
+    Column(modifier.testTag("home-hero").padding(horizontal = 8.dp, vertical = 4.dp),
+        horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        WorshipText(h.kickerLabel, s, if (tablet) 13f else 10f, c.secondary,
+            Modifier.testTag("friday-hero-kicker"), true, 1)
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+            if (!ur) WorshipText(h.label.uppercase(Locale.ROOT), s, if (tablet) 21f else 15f, c.ink,
+                Modifier.padding(end = 10.dp).testTag("friday-hero-name"), true, 1)
+            Text(if (jum) "الجمعة" else h.arabic, Modifier.testTag("friday-hero-arabic"), fontFamily = Amiri,
+                fontSize = (if (tablet) 29 else 23).sp, lineHeight = (if (tablet) 43 else 34).sp, color = c.accent)
+        }
+        val clock: @Composable (Modifier) -> Unit = { m ->
+            WorshipText(if (s.showRelative) L10n.relative(s, state.heroTime, state.now) else L10n.at(state.heroTime, s.use24h),
+                s, if (ur) (if (tablet) 30f else 20f) else if (tablet) 49f else if (short) 32f else 39f,
+                c.ink, m.testTag("friday-hero-time").clickable(onClick = a.onToggleRelative), true, 1)
+        }
+        val detail: @Composable (Modifier) -> Unit = { m ->
+            Column(m, horizontalAlignment = Alignment.CenterHorizontally) {
+                WorshipText(h.status, s, if (tablet) 13f else 10f, c.accent,
+                    Modifier.testTag("friday-hero-status"), true, 1)
+                val iq = PrayerEngine.iqamah(s, state.today, h.prayer)
+                if (jum || iq != null) WorshipText(listOfNotNull(if (jum) words(s, "Masjid time", "مسجد کا وقت") else null,
+                    iq?.let { "${L10n.word(s, "Iqamah")} ${L10n.at(it, s.use24h)}" }).joinToString(" · "),
+                    s, if (tablet) 11f else 9f, c.secondary, Modifier.testTag("friday-hero-iqamah"), true, 1)
+            }
+        }
+        if (tablet) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            clock(Modifier.weight(1f)); detail(Modifier.weight(1.15f))
+        } else { clock(Modifier.fillMaxWidth()); detail(Modifier.fillMaxWidth()) }
+        if (tablet) TextButton(onClick = onDetails, modifier = Modifier.heightIn(min = 48.dp)) {
+            WorshipText(words(s, "View prayer details →", "نماز کی تفصیل ←"), s, 14f, c.ink, lines = 1)
+        }
     }
 }
