@@ -4,10 +4,13 @@ on:
     branches: ['ci/quiet-review-pdf']
 permissions:
   contents: write
+concurrency:
+  group: quiet-pdf-review
+  cancel-in-progress: true
 jobs:
   pdf:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       APP_SOURCE: 4324408bfd601b7195a8a14e5d926ad4b56d858e
     steps:
@@ -27,13 +30,13 @@ jobs:
           from pypdf import PdfReader
           sha=os.environ['APP_SOURCE'];base=f"https://raw.githubusercontent.com/haawas-alt/miqaat/ci-friday-review/{sha[:12]}/public-review/"
           root=Path('review');root.mkdir(exist_ok=True)
-          for attempt in range(30):
+          for attempt in range(60):
            try:
             source=urllib.request.urlopen(base+'SOURCE.txt',timeout=30).read().decode()
             assert source.splitlines()[0]==sha
             break
            except Exception:
-            if attempt==29:raise
+            if attempt==59:raise
             time.sleep(20)
           (root/'SOURCE.txt').write_text(source)
           themes=[('MIQAAT','MA / Miqaat'),('KISWAH','KA / Kiswah'),('CELESTIAL_MERIDIAN','CA / Celestial Meridian'),('PRAYER_GALLERY','GA / Prayer Gallery')]
@@ -53,7 +56,7 @@ jobs:
           def draw(path,x,y,w,h):
            im=Image.open(path).convert('RGB');iw,ih=im.size;k=min(w/iw,h/ih);dw,dh=iw*k,ih*k
            im.thumbnail((2400,3000));b=io.BytesIO();im.save(b,format='JPEG',quality=92,optimize=True);b.seek(0)
-           c.drawImage(ImageReader(b),x+(w-dw)/2,y+(h-dh)/2,dw,dh)
+           c.drawImage(ImageReader(b),x+(w-dw)/2,y+(h-dh),dw,dh)
           def page(title,height):
            c.setPageSize((1200,height));c.setFillColorRGB(.035,.05,.075);c.rect(0,0,1200,height,fill=1,stroke=0)
            c.setFillColorRGB(.96,.93,.86);c.setFont('Helvetica-Bold',28);c.drawString(30,height-44,title)
