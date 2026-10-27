@@ -87,4 +87,18 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "quiet-review-${APP_SOURCE:0:12}" Miqaat-Quiet-Screens-Corrected.pdf review-page-*.jpg --target "$APP_SOURCE" --prerelease --title "Corrected quiet screens - phone and tablet" --notes "Actual native captures from source $APP_SOURCE. Eight-page PDF covering four themes, phone/tablet portrait and landscape. Screenshot review only; production unchanged."
+          TAG="quiet-review-${APP_SOURCE:0:12}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" Miqaat-Quiet-Screens-Corrected.pdf review-page-*.jpg --clobber
+          else
+            gh release create "$TAG" Miqaat-Quiet-Screens-Corrected.pdf review-page-*.jpg --target "$APP_SOURCE" --prerelease --title "Corrected quiet screens - phone and tablet" --notes "Actual native captures from source $APP_SOURCE. Eight-page screenshot PDF. Production unchanged."
+          fi
+      - name: Publish rendered pages for visual inspection
+        run: |
+          git config user.name ci
+          git config user.email ci@users.noreply.github.com
+          git checkout --orphan "ci/quiet-pdf-pages-${APP_SOURCE:0:12}"
+          git rm -rq --cached .
+          git add review-page-*.jpg
+          git commit -m "Rendered corrected quiet-screen PDF pages"
+          git push origin "HEAD:refs/heads/ci/quiet-pdf-pages-${APP_SOURCE:0:12}"
