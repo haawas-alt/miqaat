@@ -1,0 +1,90 @@
+name: Corrected quiet screenshot PDF
+on:
+  push:
+    branches: ['ci/quiet-review-pdf']
+permissions:
+  contents: write
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      APP_SOURCE: f8ff6cf4c179ba96725315a23ca6c5aa8aa64aca
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install Pillow==11.3.0 reportlab pypdf
+      - name: Fetch final native captures and build screenshot PDF
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor
+          import os,time,urllib.request,io
+          from PIL import Image
+          from reportlab.pdfgen import canvas
+          from reportlab.lib.utils import ImageReader
+          from pypdf import PdfReader
+          sha=os.environ['APP_SOURCE'];base=f"https://raw.githubusercontent.com/haawas-alt/miqaat/ci-friday-review/{sha[:12]}/public-review/"
+          root=Path('review');root.mkdir(exist_ok=True)
+          for attempt in range(30):
+           try:
+            source=urllib.request.urlopen(base+'SOURCE.txt',timeout=30).read().decode()
+            assert source.splitlines()[0]==sha
+            break
+           except Exception:
+            if attempt==29:raise
+            time.sleep(20)
+          (root/'SOURCE.txt').write_text(source)
+          themes=[('MIQAAT','MA / Miqaat'),('KISWAH','KA / Kiswah'),('CELESTIAL_MERIDIAN','CA / Celestial Meridian'),('PRAYER_GALLERY','GA / Prayer Gallery')]
+          names=[f'{t}-{d}-sanctuary.jpg' for t,_ in themes for d in ['phone-portrait','tablet-portrait','phone-landscape','tablet-landscape']]
+          def download(n):
+           for attempt in range(5):
+            try:
+             data=urllib.request.urlopen(base+n,timeout=60).read();(root/n).write_bytes(data)
+             im=Image.open(root/n);assert im.width>500 and im.height>500
+             return
+            except Exception:
+             if attempt==4:raise
+             time.sleep(3)
+          with ThreadPoolExecutor(max_workers=6) as pool:list(pool.map(download,names))
+          out=Path('Miqaat-Quiet-Screens-Corrected.pdf')
+          c=canvas.Canvas(str(out),pageCompression=1);c.setTitle('Miqaat - corrected quiet screens');c.setAuthor('Miqaat')
+          def draw(path,x,y,w,h):
+           im=Image.open(path).convert('RGB');iw,ih=im.size;k=min(w/iw,h/ih);dw,dh=iw*k,ih*k
+           im.thumbnail((2400,3000));b=io.BytesIO();im.save(b,format='JPEG',quality=92,optimize=True);b.seek(0)
+           c.drawImage(ImageReader(b),x+(w-dw)/2,y+(h-dh)/2,dw,dh)
+          def page(title,height):
+           c.setPageSize((1200,height));c.setFillColorRGB(.035,.05,.075);c.rect(0,0,1200,height,fill=1,stroke=0)
+           c.setFillColorRGB(.96,.93,.86);c.setFont('Helvetica-Bold',28);c.drawString(30,height-44,title)
+           c.setFillColorRGB(.72,.77,.83);c.setFont('Helvetica',14);c.drawString(30,height-70,'Actual Android cloud captures | Corrected MA, KA, CA and GA quiet-screen implementation')
+          def label(t,x,y):
+           c.setFillColorRGB(.86,.77,.55);c.setFont('Helvetica-Bold',16);c.drawString(x,y,t)
+          def finish():
+           c.setFillColorRGB(.72,.77,.83);c.setFont('Helvetica',12)
+           c.drawString(30,44,'Controlled demo: 7:35 PM | Maghrib 7:20 PM | Next Isha 8:35 PM | Quiet time remaining 10 minutes')
+           c.drawString(30,26,'Testing candidate 1.191 | Source '+sha[:12]+' | Phone and tablet; physical-device acceptance pending')
+           c.drawString(30,10,'Actual screens only. The approved generated concepts are not embedded in this fallback screenshot PDF.')
+           c.drawRightString(1170,26,str(c.getPageNumber())+' / 8');c.showPage()
+          for theme,title in themes:
+           page(title+' / Portrait',1550);label('PHONE',30,1440);label('TABLET',510,1440)
+           draw(root/f'{theme}-phone-portrait-sanctuary.jpg',30,80,440,1330)
+           draw(root/f'{theme}-tablet-portrait-sanctuary.jpg',510,80,660,1330);finish()
+           page(title+' / Landscape',1700);label('TABLET LANDSCAPE',30,1590)
+           draw(root/f'{theme}-tablet-landscape-sanctuary.jpg',30,850,1140,710)
+           label('PHONE LANDSCAPE',30,810);draw(root/f'{theme}-phone-landscape-sanctuary.jpg',30,80,1140,710);finish()
+          c.save();r=PdfReader(str(out));assert len(r.pages)==8;assert sum(len(p.images) for p in r.pages)==16
+          print('Verified eight pages and sixteen actual screenshots:',sha)
+          PY
+      - name: Render every PDF page
+        run: |
+          if ! command -v pdftoppm >/dev/null; then sudo apt-get update && sudo apt-get install -y poppler-utils; fi
+          pdftoppm -jpeg -scale-to 1400 Miqaat-Quiet-Screens-Corrected.pdf review-page
+          test "$(find . -maxdepth 1 -name 'review-page-*.jpg' | wc -l)" -eq 8
+      - uses: actions/upload-artifact@v4
+        with: {name: corrected-quiet-screen-pdf, path: Miqaat-Quiet-Screens-Corrected.pdf, retention-days: 30}
+      - name: Publish PDF and page previews
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "quiet-review-${APP_SOURCE:0:12}" Miqaat-Quiet-Screens-Corrected.pdf review-page-*.jpg --target "$APP_SOURCE" --prerelease --title "Corrected quiet screens - phone and tablet" --notes "Actual native captures from source $APP_SOURCE. Eight-page PDF covering four themes, phone/tablet portrait and landscape. Screenshot review only; production unchanged."
