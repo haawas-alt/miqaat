@@ -18,7 +18,7 @@ jobs:
         with: {distribution: temurin, java-version: '17'}
       - uses: gradle/actions/setup-gradle@v4
       - name: Native board geometry, text fit and controls
-        run: ./gradlew --no-daemon testGithubDebugUnitTest --tests '*SanctuaryQuietMockupTest' --tests '*JummahPreviewLaunchTest' --tests '*FridayQuietApprovedTest' --tests '*ApprovedQuietAcceptanceTest' --tests '*ApprovedPhoneLandscapeAcceptanceTest'
+        run: ./gradlew --no-daemon testGithubDebugUnitTest --tests '*SanctuaryQuietMockupTest' --tests '*QuietOptionAcceptanceTest' --tests '*JummahPreviewLaunchTest' --tests '*FridayQuietApprovedTest' --tests '*ApprovedQuietAcceptanceTest' --tests '*ApprovedPhoneLandscapeAcceptanceTest'
       - name: Encrypt review captures
         if: always()
         run: python3 tools/seal_landscape_review.py app/build tools/friday-review-public.pem sealed/friday-quiets.zip
@@ -68,13 +68,14 @@ jobs:
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
-        with: {fetch-depth: 0}
+        with: {fetch-depth: 1}
       - uses: actions/setup-java@v4
         with: {distribution: temurin, java-version: '17'}
       - uses: gradle/actions/setup-gradle@v4
       - name: Render production baseline
         run: |
           set -euo pipefail
+          git fetch --no-tags --depth=1 origin 3139e5a3805df3d6075919875f435691883b8752
           trap 'git restore --source=HEAD --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt app/src/test/java/com/usman/miqaat/ui/JummahPreviewLaunchTest.kt app/src/test/java/com/usman/miqaat/ui/ApprovedPhoneLandscapeAcceptanceTest.kt' EXIT
           git restore --source=3139e5a3805df3d6075919875f435691883b8752 --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/ApprovedPhoneLandscapeAcceptanceTest.kt
           rm app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt app/src/test/java/com/usman/miqaat/ui/JummahPreviewLaunchTest.kt
