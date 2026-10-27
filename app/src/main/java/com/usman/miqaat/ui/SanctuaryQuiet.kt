@@ -47,6 +47,7 @@ private val SanctuaryArabic = FontFamily(Font(R.font.amiri_bold))
             val tablet = minOf(maxWidth, maxHeight) >= 600.dp
             val short = wide && !tablet
             val w = maxWidth; val h = maxHeight
+            val headerHeight = if(short) 30.dp else if(tablet) 52.dp else 42.dp
             val art = when(s.theme) {
                 AppTheme.MIQAAT -> if(wide) R.drawable.sanctuary_miqaat_land else R.drawable.sanctuary_miqaat_port
                 AppTheme.KISWAH -> if(wide) R.drawable.sanctuary_kiswah_land else R.drawable.sanctuary_kiswah_port
@@ -54,13 +55,12 @@ private val SanctuaryArabic = FontFamily(Font(R.font.amiri_bold))
                 AppTheme.PRAYER_GALLERY -> if(wide) R.drawable.sanctuary_gallery_land else R.drawable.sanctuary_gallery_port
             }
             Box(Modifier.matchParentSize().testTag("quiet-art-${s.theme.name}")) {
-                if(s.artTheme != ArtTheme.MINIMAL) Image(painterResource(art), null, Modifier.matchParentSize(), contentScale = ContentScale.FillBounds)
+                if(s.artTheme != ArtTheme.MINIMAL) Image(painterResource(art), null, Modifier.matchParentSize().then(if(!wide && s.theme==AppTheme.KISWAH) Modifier.padding(top=headerHeight) else Modifier), contentScale = ContentScale.FillBounds)
             }
             if(s.theme == AppTheme.KISWAH) Box(Modifier.fillMaxWidth().height(h * .035f).offset(y = h * .062f)
                 .testTag("quiet-sanctuary-ornament").semantics { contentDescription = word("Gold embroidered ornament", "سنہری کڑھائی") })
             fun region(x: Float,y: Float,width: Float,height: Float) = Modifier.offset(x = w*x,y = h*y).width(w*width).height(h*height)
-            val headerHeight = if(short) 30.dp else if(tablet) 52.dp else 42.dp
-            Row(Modifier.fillMaxWidth().height(headerHeight).padding(horizontal = w*.04f), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth().height(headerHeight).padding(horizontal = w*(if(wide).04f else .075f)), verticalAlignment = Alignment.CenterVertically) {
                 SanctuaryText("Miqaat",s,if(tablet) 29f else 23f,ink,Modifier.weight(1f).fillMaxHeight().testTag("quiet-brand"),FontFamily.Serif,TextAlign.Start)
                 SanctuaryText(Str[R.string.s_quiet_mode_title].uppercase(Locale.ROOT),s,if(tablet) 12f else 9f,ink,
                     Modifier.weight(1.2f).fillMaxHeight().testTag("quiet-mode-label"),Cinzel)
