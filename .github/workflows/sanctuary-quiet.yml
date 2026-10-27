@@ -125,7 +125,7 @@ jobs:
           mkdir -p keystore
           printf '%s' "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
           echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
-          echo "MIQAAT_VERSION_NAME=1.191-sanctuary" >> "$GITHUB_ENV"
+          echo "MIQAAT_VERSION_NAME=1.192-sanctuary" >> "$GITHUB_ENV"
           echo "MIQAAT_BUILD_TAG=sanctuary-quiet-${GITHUB_SHA:0:12}" >> "$GITHUB_ENV"
       - name: Full regression, lint and signed packages
         env:
@@ -134,11 +134,11 @@ jobs:
           ./gradlew --no-daemon testGithubReleaseUnitTest lintGithubRelease assembleGithubRelease assemblePlayRelease bundlePlayRelease
           python3 tools/check_forbidden_assets.py app/src/main app/build/outputs/apk/github/release/app-github-release.apk app/build/outputs/apk/play/release/app-play-release.apk app/build/outputs/bundle/playRelease/app-play-release.aab
           mkdir -p candidate
-          cp app/build/outputs/apk/github/release/app-github-release.apk candidate/Miqaat-1.191.apk
-          cp app/build/outputs/bundle/playRelease/app-play-release.aab candidate/Miqaat-1.191.aab
-          python3 tools/check_release_integrity.py candidate/Miqaat-1.191.apk > candidate/native-integrity.json
+          cp app/build/outputs/apk/github/release/app-github-release.apk candidate/Miqaat-1.192.apk
+          cp app/build/outputs/bundle/playRelease/app-play-release.aab candidate/Miqaat-1.192.aab
+          python3 tools/check_release_integrity.py candidate/Miqaat-1.192.apk > candidate/native-integrity.json
           BT="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
-          "$BT/apksigner" verify --verbose --print-certs candidate/Miqaat-1.191.apk > candidate/signature.txt
+          "$BT/apksigner" verify --verbose --print-certs candidate/Miqaat-1.192.apk > candidate/signature.txt
           grep -qi 6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01 candidate/signature.txt
           (cd candidate && sha256sum *.apk *.aab > SHA256SUMS)
       - name: Print full regression results
@@ -169,4 +169,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "sanctuary-quiet-${GITHUB_SHA:0:12}" candidate/* --target "$GITHUB_SHA" --prerelease --title "Miqaat 1.191: approved A sanctuary quiet screens" --notes "Approved MA, KA, CA and GA sanctuary quiet compositions for all four themes, phone and tablet in both orientations. Native live prayer facts and existing signing identity retained. Signed with the existing app key. Candidate only; production updater unchanged. Source: $GITHUB_SHA"
+          gh release create "sanctuary-quiet-${GITHUB_SHA:0:12}" candidate/* --target "$GITHUB_SHA" --prerelease --title "Miqaat 1.192: sanctuary mockup fidelity corrections" --notes "Approved MA, KA, CA and GA sanctuary quiet compositions for all four themes, phone and tablet in both orientations. Native live prayer facts and existing signing identity retained. Signed with the existing app key. Candidate only; production updater unchanged. Source: $GITHUB_SHA"

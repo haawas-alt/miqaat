@@ -57,6 +57,13 @@ class SanctuaryQuietMockupTest:ComposeSupport() {
                 rule.onNodeWithTag("quiet-next-time",true).assertTextEquals(L10n.iso(L10n.at(times.nextTime,use24)))
                 val current=rule.onNodeWithTag("quiet-current-panel",true).fetchSemanticsNode().boundsInRoot
                 val next=rule.onNodeWithTag("quiet-next-panel",true).fetchSemanticsNode().boundsInRoot
+                val currentClock=rule.onNodeWithTag("quiet-current-time",true).fetchSemanticsNode().boundsInRoot
+                val caption=rule.onNodeWithTag("quiet-iqamah-complete",true).fetchSemanticsNode().boundsInRoot
+                assertTrue("Caption must clear clock",caption.top>=currentClock.bottom-1f)
+                val clockLabel=rule.onNodeWithTag("quiet-current-label",true).fetchSemanticsNode().boundsInRoot
+                assertTrue("Azaan label must clear clock",clockLabel.bottom<=currentClock.top+1f)
+                if(dev.label.contains("portrait")) assertTrue("Caption must clear next composition",caption.bottom<next.top)
+
                 assertTrue("Sanctuary panels overlap",current.right<=next.left || current.bottom<=next.top)
                 val ret=rule.onNodeWithTag("quiet-return",true)
                 assertTrue("Return target under48dp",ret.fetchSemanticsNode().boundsInRoot.height>=48*app.resources.displayMetrics.density-.5f)
