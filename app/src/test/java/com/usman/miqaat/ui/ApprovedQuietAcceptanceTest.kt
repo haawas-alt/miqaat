@@ -69,7 +69,10 @@ class ApprovedQuietAcceptanceTest : ComposeSupport() {
                     assertFalse("$theme/$name/$lang $tag clipped '${l.layoutInput.text}': ${node.size} vs $w,$h", l.multiParagraph.didExceedMaxLines || w>node.size.width+1f || h>node.size.height+1f)
                 }
             }
-            if (theme == AppTheme.KISWAH) {
+            if (theme == AppTheme.KISWAH && scale <= 1.15f) {
+                rule.onNodeWithTag("quiet-sanctuary-ornament", true).assertExists()
+            }
+            if (theme == AppTheme.KISWAH && scale > 1.15f) {
                 val band = rule.onNodeWithTag("kiswah-calligraphy-band", true)
                 if (scale > 1.15f) band.performScrollTo()
                 val cfg=app.resources.configuration
