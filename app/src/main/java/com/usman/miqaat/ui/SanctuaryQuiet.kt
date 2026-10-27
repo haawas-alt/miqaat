@@ -55,7 +55,7 @@ private val SanctuaryArabic = FontFamily(Font(R.font.sanctuary_arabic))
                 AppTheme.PRAYER_GALLERY -> if(wide) R.drawable.sanctuary_gallery_land else R.drawable.sanctuary_gallery_port
             }
             Box(Modifier.matchParentSize().testTag("quiet-art-${s.theme.name}")) {
-                if(s.artTheme != ArtTheme.MINIMAL) Image(painterResource(art), null, Modifier.matchParentSize().then(if(!wide && s.theme==AppTheme.KISWAH) Modifier.padding(top=headerHeight) else if(!wide && gallery) Modifier.padding(top=h*.06f) else Modifier), contentScale = ContentScale.FillBounds)
+                if(s.artTheme != ArtTheme.MINIMAL) Image(painterResource(art), null, Modifier.matchParentSize().then(if(!wide && s.theme==AppTheme.KISWAH) Modifier.padding(top=headerHeight) else if(!wide && gallery) Modifier.padding(top=h*.08f) else Modifier), contentScale = ContentScale.FillBounds)
             }
             if(s.theme == AppTheme.KISWAH) Box(Modifier.fillMaxWidth().height(h * .035f).offset(y = h * .062f)
                 .testTag("quiet-sanctuary-ornament").semantics { contentDescription = word("Gold embroidered ornament", "سنہری کڑھائی") })
@@ -69,7 +69,7 @@ private val SanctuaryArabic = FontFamily(Font(R.font.sanctuary_arabic))
             }
             val currentSize = if(wide) (if(short) h.value*.19f else h.value*.18f) else h.value*.105f
             val nextSize = currentSize*.85f
-            val currentRegion = if(wide) region(.065f,.10f,.46f,.70f) else region(.10f,.075f,.80f,.33f)
+            val currentRegion = if(wide) region(.065f,if(s.theme==AppTheme.KISWAH).13f else .10f,.46f,.70f) else region(.10f,.075f,.80f,.33f)
             BoxWithConstraints(currentRegion.testTag("quiet-current-panel")) {
                 val ph=maxHeight
                 fun row(y:Float,height:Float) = Modifier.offset(y=ph*y).fillMaxWidth().height(ph*height)
@@ -101,7 +101,7 @@ private val SanctuaryArabic = FontFamily(Font(R.font.sanctuary_arabic))
                 val relative=if(!ur && untilNext>0 && untilNext%60==0L) "In ${untilNext/60} ${if(untilNext==60L)"hour" else "hours"}"
                     else L10n.relative(s,times.nextTime,now).replaceFirstChar {it.uppercase()}
                 SanctuaryText(relative,s,nextSize*.18f,ink,
-                    row(if(gallery && !wide || celestial && wide).93f else .90f,if(gallery && !wide || celestial && wide).07f else .09f).testTag("quiet-next-relative"),FontFamily.Serif)
+                    row(if(gallery && !wide).87f else if(celestial && wide).93f else .90f,if(gallery && !wide || celestial && wide).07f else .09f).testTag("quiet-next-relative"),FontFamily.Serif)
                 if(times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
                     SanctuaryText(Str[R.string.s_quiet_tomorrow],s,nextSize*.12f,ink,row(.98f,.08f).testTag("quiet-tomorrow"),FontFamily.Serif)
             }
