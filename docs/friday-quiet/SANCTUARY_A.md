@@ -11,3 +11,9 @@ Validation includes exact demo-clock fixtures, English/Urdu, 12/24h, current/nex
 ## Arabic font metrics
 
 `sanctuary_arabic.ttf` derives from the bundled Amiri Bold, with original glyph outlines, shaping and license metadata retained. Its family name is Miqaat Quiet Arabic. Vertical metrics are 820/-380 units rather than the broad Quranic mark envelope of the source font. This font is used only for the seven unvocalised Arabic prayer headings; Urdu body text and arbitrary content retain Amiri. The compact envelope includes the actual heading ascenders/descenders and prevents large invisible font leading from shrinking the selected headings.
+
+## Reference correction pass
+
+The sanctuary now uses isolated static Cormorant instances: Medium for native body/header text and Bold lining/tabular numerals for clocks. The clock subset retains numeral shaping and original font licensing metadata; its renamed family and compact vertical metrics are restricted to Latin time strings. Urdu retains Amiri. Fonts are isolated from home-screen variable-font resolution.
+
+Native dividers, header ornaments, crescent/arch motifs, Gallery's terracotta progress ribbon, and theme-specific footers follow the A compositions. Portrait artwork scales in its drawing layer, anchored at the top, rather than requesting a layout height that its parent constrains. The progress bar represents configured quiet time remaining. Native text size is searched against the actual measured width and height instead of applying a single proportional estimate.
