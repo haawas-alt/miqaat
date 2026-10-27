@@ -24,7 +24,7 @@ import com.usman.miqaat.data.*
 import java.time.ZonedDateTime
 import java.util.Locale
 
-private val SanctuaryArabic = FontFamily(Font(R.font.layla_thuluth))
+private val SanctuaryArabic = FontFamily(Font(R.font.amiri_bold))
 
 /** Live native facts over the approved A sanctuary artwork. No prayer fact is baked into art. */
 @Composable internal fun SanctuaryQuietContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTime, onStop: () -> Unit) {
@@ -69,36 +69,37 @@ private val SanctuaryArabic = FontFamily(Font(R.font.layla_thuluth))
             }
             val currentSize = if(wide) (if(short) h.value*.19f else h.value*.18f) else h.value*.105f
             val nextSize = currentSize*.85f
-            val currentRegion = if(wide) region(.065f,.12f,.46f,.70f) else region(.10f,.075f,.80f,.33f)
+            val currentRegion = if(wide) region(.065f,.10f,.46f,.70f) else region(.10f,.075f,.80f,.33f)
             BoxWithConstraints(currentRegion.testTag("quiet-current-panel")) {
                 val ph=maxHeight
                 fun row(y:Float,height:Float) = Modifier.offset(y=ph*y).fillMaxWidth().height(ph*height)
-                SanctuaryText(if(jumuah) "الجمعة" else p.prayer.arabic,s,currentSize*.69f,ink,
+                SanctuaryText(if(jumuah) "الجمعة" else p.prayer.arabic,s,currentSize*1.10f,ink,
                     row(.0f,.28f).testTag("quiet-current-arabic").semantics { heading() },SanctuaryArabic)
-                SanctuaryText(if(jumuah) L10n.word(s,"Jumuʿah").uppercase(Locale.ROOT) else name(p.prayer),s,currentSize*.24f,ink,
+                SanctuaryText(if(jumuah) L10n.word(s,"Jumuʿah").uppercase(Locale.ROOT) else name(p.prayer),s,currentSize*.28f,ink,
                     row(.28f,.12f).testTag("quiet-current-name"),Cinzel)
                 SanctuaryText(Str[R.string.s_quiet_prayer_progress].uppercase(Locale.ROOT),s,currentSize*.135f,if(gallery)c.accent else ink,
                     row(.41f,.10f).testTag("quiet-progress"),Cinzel)
                 SanctuaryText(word("AZAAN AT","اذان کا وقت"),s,currentSize*.12f,ink,row(.53f,.07f).testTag("quiet-current-label"),Cinzel)
-                SanctuaryClock(times.current,s,currentSize,ink,row(.60f,.29f).testTag("quiet-current-time"))
+                SanctuaryClock(times.current,s,currentSize*1.6f,ink,row(.58f,.33f).testTag("quiet-current-time"))
                 SanctuaryText(Str[R.string.s_quiet_iqamah_complete],s,currentSize*.15f,ink,
-                    row(.89f,.10f).testTag("quiet-iqamah-complete"),FontFamily.Serif)
+                    row(.91f,.09f).testTag("quiet-iqamah-complete"),FontFamily.Serif)
             }
             val nextX = when(s.theme) { AppTheme.KISWAH -> .595f; AppTheme.CELESTIAL_MERIDIAN -> .645f; else -> .625f }
-            val nextWidth = if(s.theme == AppTheme.KISWAH) .25f else .25f
-            val nextRegion = if(wide) region(nextX,.30f,nextWidth,.49f) else region(.23f,.565f,.54f,.285f)
+            val nextWidth = .25f
+            val nextTop = if(s.theme == AppTheme.KISWAH || s.theme == AppTheme.CELESTIAL_MERIDIAN) .32f else .28f
+            val nextRegion = if(wide) region(nextX,nextTop,nextWidth,.49f) else region(.23f,.565f,.54f,.285f)
             BoxWithConstraints(nextRegion.testTag("quiet-next-panel")) {
                 val ph=maxHeight
                 fun row(y:Float,height:Float)=Modifier.offset(y=ph*y).fillMaxWidth().height(ph*height)
                 SanctuaryText(Str[R.string.s_quiet_next_azaan].uppercase(Locale.ROOT),s,nextSize*.14f,ink,row(0f,.10f).testTag("quiet-next-label"),Cinzel)
-                SanctuaryText(times.next.arabic,s,nextSize*.66f,ink,row(.12f,.26f).testTag("quiet-next-arabic"),SanctuaryArabic)
-                SanctuaryText(name(times.next),s,nextSize*.25f,ink,row(.38f,.12f).testTag("quiet-next-name"),Cinzel)
-                SanctuaryClock(times.nextTime,s,nextSize,ink,row(.52f,.31f).testTag("quiet-next-time"))
+                SanctuaryText(times.next.arabic,s,nextSize*.95f,ink,row(.12f,.26f).testTag("quiet-next-arabic"),SanctuaryArabic)
+                SanctuaryText(name(times.next),s,nextSize*.25f,ink,row(.36f,.11f).testTag("quiet-next-name"),Cinzel)
+                SanctuaryClock(times.nextTime,s,nextSize*1.6f,ink,row(.49f,.40f).testTag("quiet-next-time"))
                 val untilNext=java.time.Duration.between(now,times.nextTime).toMinutes()
                 val relative=if(!ur && untilNext>0 && untilNext%60==0L) "In ${untilNext/60} ${if(untilNext==60L)"hour" else "hours"}"
                     else L10n.relative(s,times.nextTime,now).replaceFirstChar {it.uppercase()}
                 SanctuaryText(relative,s,nextSize*.18f,ink,
-                    row(.84f,.14f).testTag("quiet-next-relative"),FontFamily.Serif)
+                    row(.90f,.09f).testTag("quiet-next-relative"),FontFamily.Serif)
                 if(times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
                     SanctuaryText(Str[R.string.s_quiet_tomorrow],s,nextSize*.12f,ink,row(.98f,.08f).testTag("quiet-tomorrow"),FontFamily.Serif)
             }
@@ -154,7 +155,7 @@ private val SanctuaryArabic = FontFamily(Font(R.font.layla_thuluth))
         getTextLayoutResult { out -> layout?.let {out.add(it);true} ?: false }
     },contentAlignment=Alignment.Center) {
         fun style(fs:Float)=TextStyle(fontFamily=if(ur && family!=SanctuaryArabic)Amiri else family,fontSize=fs.sp,
-            lineHeight=(fs*(if(ur)1.65f else 1.3f)).sp,platformStyle=PlatformTextStyle(includeFontPadding=false),
+            lineHeight=(fs*(if(family==SanctuaryArabic)1f else if(ur)1.65f else 1.3f)).sp,letterSpacing=if(!ur && family==Cinzel)(fs*.18f).sp else 0.sp,platformStyle=PlatformTextStyle(includeFontPadding=false),
             textAlign=align,textDirection=if(ur)TextDirection.ContentOrRtl else TextDirection.ContentOrLtr,color=color)
         val fitted=remember(value,size,maxWidth,maxHeight,density.fontScale) {
             val m=measurer.measure(value,style(size),softWrap=false,maxLines=1).size
@@ -180,7 +181,7 @@ private val SanctuaryArabic = FontFamily(Font(R.font.layla_thuluth))
             }
         }
         fun style(fs:Float)=TextStyle(fontFamily=if(L10n.isUrdu(s))Amiri else QuietDisplay,fontSize=(fs*.31f).sp,
-            lineHeight=(fs*1.1f).sp,platformStyle=PlatformTextStyle(includeFontPadding=false),textAlign=TextAlign.Center,color=color)
+            fontFeatureSettings="'lnum' 1, 'tnum' 1",lineHeight=(fs*(if(L10n.isUrdu(s))1.5f else 1f)).sp,platformStyle=PlatformTextStyle(includeFontPadding=false),textAlign=TextAlign.Center,color=color)
         val fitted=remember(text,size,maxWidth,maxHeight,density.fontScale) {
             val m=measurer.measure(annotated(size),style(size),softWrap=false,maxLines=1).size
             minOf(1f,with(density){maxWidth.toPx()}/m.width.coerceAtLeast(1),with(density){maxHeight.toPx()}/m.height.coerceAtLeast(1))*size

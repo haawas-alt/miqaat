@@ -133,7 +133,10 @@ class ApprovedPhoneLandscapeAcceptanceTest:ComposeSupport() {
                 val tags=if(kind=="iqamah")listOf("iqamah-brand","iqamah-mode","iqamah-live-clock","iqamah-location","iqamah-prayer-arabic","iqamah-prayer-name","iqamah-until","iqamah-seconds","iqamah-unit","iqamah-at-label","iqamah-at-time","iqamah-reminder","iqamah-source","iqamah-hint","iqamah-start-label","iqamah-dismiss-label")+(0..3).map{"iqamah-stage-$it"}
                     else listOf("quiet-brand","quiet-live-clock","quiet-progress","quiet-current-arabic","quiet-current-name","quiet-current-label","quiet-current-time","quiet-iqamah-complete","quiet-next-label","quiet-next-name","quiet-next-time","quiet-expiry-hint","quiet-exit-label")
                 tags.forEach{readable(it)}
-                if(t==AppTheme.KISWAH)rule.onNodeWithTag("kiswah-calligraphy-band",true).assertIsDisplayed().assertContentDescriptionEquals(Kiswah.BAND)
+                if(t==AppTheme.KISWAH) {
+                    if(kind=="iqamah") rule.onNodeWithTag("kiswah-calligraphy-band",true).assertIsDisplayed().assertContentDescriptionEquals(Kiswah.BAND)
+                    else rule.onNodeWithTag("quiet-sanctuary-ornament",true).assertExists()
+                }
                 if(kind=="iqamah") {
                     rule.onNodeWithTag("iqamah-seconds",true).assertTextEquals("03:00")
                     rule.onNodeWithTag("iqamah-at-time",true).assertTextEquals(L10n.iso(L10n.at(now.plusMinutes(3),s.use24h)))

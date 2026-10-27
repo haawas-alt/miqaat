@@ -75,13 +75,13 @@ jobs:
       - name: Render production baseline
         run: |
           set -euo pipefail
-          trap 'git restore --source=HEAD --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt app/src/test/java/com/usman/miqaat/ui/JummahPreviewLaunchTest.kt' EXIT
-          git restore --source=3139e5a3805df3d6075919875f435691883b8752 --worktree app/src/main
+          trap 'git restore --source=HEAD --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt app/src/test/java/com/usman/miqaat/ui/JummahPreviewLaunchTest.kt app/src/test/java/com/usman/miqaat/ui/ApprovedPhoneLandscapeAcceptanceTest.kt' EXIT
+          git restore --source=3139e5a3805df3d6075919875f435691883b8752 --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/ApprovedPhoneLandscapeAcceptanceTest.kt
           rm app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt app/src/test/java/com/usman/miqaat/ui/JummahPreviewLaunchTest.kt
           ./gradlew --no-daemon testGithubDebugUnitTest --tests '*RetainedHome181Test' --tests '*ApprovedPhoneLandscapeAcceptanceTest' --tests '*Tablet181ReviewTest'
           mkdir -p app/build/kiswah-protected-before
           cp -a app/build/protected-home app/build/phone-landscape app/build/tablet-polish app/build/kiswah-protected-before/
-          git restore --source=HEAD --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt app/src/test/java/com/usman/miqaat/ui/JummahPreviewLaunchTest.kt
+          git restore --source=HEAD --worktree app/src/main app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt app/src/test/java/com/usman/miqaat/ui/JummahPreviewLaunchTest.kt app/src/test/java/com/usman/miqaat/ui/ApprovedPhoneLandscapeAcceptanceTest.kt
           trap - EXIT
       - name: Render candidate protected screens and compare pixels
         run: |
