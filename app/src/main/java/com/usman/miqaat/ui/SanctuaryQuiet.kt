@@ -106,10 +106,13 @@ private val SanctuaryCaps = Cinzel
         BoxWithConstraints(region(nx-nextW/2,nextY,nextW,nextH).testTag("quiet-next-panel")) {
             val ph=maxHeight
             fun row(y:Float,hh:Float)=Modifier.offset(y=ph*y).fillMaxWidth().height(ph*hh)
+            if(gallery)Box(row(-.22f,.12f),contentAlignment=Alignment.Center) {
+                SanctuaryIcon("star",Color(0xFFC39345),Modifier.fillMaxHeight().aspectRatio(1f))
+            }
             SanctuaryText(Str[R.string.s_quiet_next_azaan].uppercase(Locale.ROOT),s,ph.value*.047f,secondary,row(0f,.09f).testTag("quiet-next-label"),SanctuaryCaps)
             if(gallery)SanctuaryDivider(secondary,row(.10f,.025f))
             SanctuaryText(times.next.arabic,s,ph.value*.35f,ink,row(.14f,.28f).testTag("quiet-next-arabic"),SanctuaryArabic,gold=!gallery)
-            SanctuaryText(name(times.next),s,ph.value*.075f,ink,row(.425f,.10f).testTag("quiet-next-name"),SanctuaryCaps)
+            SanctuaryText(name(times.next),s,ph.value*.075f,ink,row(if(times.next==Prayer.ISHA).37f else .425f,.10f).testTag("quiet-next-name"),SanctuaryCaps)
             if(!gallery && !celestial)SanctuaryDivider(ink,row(.50f,.025f).padding(horizontal=maxWidth*.15f))
             val stack=wide && s.theme==AppTheme.MIQAAT && !s.use24h && !ur
             SanctuaryClock(times.nextTime,s,ink,row(if(gallery || celestial || !wide || stack).53f else .59f,if(stack).42f else .29f).testTag("quiet-next-time"),gold=!gallery,stack=stack)
