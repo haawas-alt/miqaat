@@ -49,7 +49,7 @@ class SanctuaryQuietMockupTest:ComposeSupport() {
                 File(path.path+".txt").writeText(rule.onRoot(true).printToString(100))
                 for(tag in listOf("quiet-brand","quiet-live-clock","quiet-current-arabic","quiet-current-name","quiet-progress","quiet-current-label","quiet-current-time","quiet-iqamah-complete","quiet-next-label","quiet-next-arabic","quiet-next-name","quiet-next-time","quiet-next-relative","quiet-expiry-hint","quiet-exit-label"))readable(tag)
                 val progress=rule.onNodeWithTag("quiet-duration-progress",true).fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.ProgressBarRangeInfo].current
-                assertEquals("Quiet progress must reflect elapsed configured duration",1f/3f,progress,.001f)
+                assertEquals("Quiet countdown must reflect remaining configured duration",2f/3f,progress,.001f)
                 if(lang==Language.EN) rule.onNodeWithTag("quiet-next-relative",true).assertTextEquals("In 1 hour")
                 val times=quietPrayerTimes(s,p.prayer,now)
                 assertEquals(Prayer.ISHA,times.next)
