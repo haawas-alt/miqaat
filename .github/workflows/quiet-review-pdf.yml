@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      APP_SOURCE: f8ff6cf4c179ba96725315a23ca6c5aa8aa64aca
+      APP_SOURCE: 4324408bfd601b7195a8a14e5d926ad4b56d858e
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
