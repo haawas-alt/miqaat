@@ -23,6 +23,7 @@ fun HomeRouter(state: PrayerState, settings: AppSettings, a: HomeActions, showLa
     when {
         showLarge -> LargeHome(state, settings, onLargeTap)
         largeFont -> AccessibleHome(state, settings, a)
+        fridayHomepageActive(settings, state.now) && (portrait || cfg.screenHeightDp >= 405) -> FridayApprovedHome(state, settings, a)
         !portrait && cfg.screenHeightDp < 500 -> PhoneLandscapeHome(state, settings, a)
         else -> ApprovedHome(state, settings, a)
     }

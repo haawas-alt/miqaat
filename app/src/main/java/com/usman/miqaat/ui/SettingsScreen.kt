@@ -667,6 +667,8 @@ private fun IqamahSection(store: SettingsStore, s: AppSettings) {
 private fun TestSection(store: SettingsStore, s: AppSettings) {
     val tk = screenTokens()
     val ctx = LocalContext.current
+    var jummahPreview by rememberSaveable { mutableStateOf(false) }
+    if (jummahPreview) JummahHomepagePreview(s) { jummahPreview = false }
     Heading(Str[R.string.s_test_preview], Str[R.string.s_run_any_part_of_the_experience])
     Text(Str[R.string.s_theme], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
     // Same action as Display & art, but as a compact chip row: the large theme cards belong to Display & art only.
@@ -707,6 +709,9 @@ private fun TestSection(store: SettingsStore, s: AppSettings) {
     SettingRow(Str[R.string.s_quiet_screen], if (s.quietMinutes <= 0) Str[R.string.s_quiet_test_detail_off] else Str.get(R.string.s_quiet_test_detail, s.quietMinutes)) { GoldButton(Str[R.string.s_show]) { AzaanService.testQuiet(ctx, Prayer.MAGHRIB) } }
     Spacer(Modifier.height(14.dp))
     Text(Str[R.string.s_home_screen_modes], fontFamily = Cormorant, fontSize = 24.sp, color = tk.contentPrimary)
+    SettingRow(Str[R.string.s_jummah_homepage], Str[R.string.s_jummah_preview_detail]) {
+        Box(Modifier.testTag("jummah-preview-launch")) { GoldButton(Str[R.string.s_preview]) { jummahPreview = true } }
+    }
     SettingRow(Str[R.string.s_rama_n_mode], Str[R.string.s_force_it_on_to_see_suhoor]) {
         Chips(RamadanMode.entries.map { it.text }, RamadanMode.entries.indexOf(s.ramadanMode)) { i -> store.update { it.copy(ramadanMode = RamadanMode.entries[i]) } }
     }

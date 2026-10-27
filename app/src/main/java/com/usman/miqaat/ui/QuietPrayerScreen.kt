@@ -68,8 +68,8 @@ internal fun QuietPrayerScreen(p: Phase.Quiet, onStop: () -> Unit) {
 /** Native information and actions over text-free theme art. The phase remains the source of the current prayer. */
 @Composable
 internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTime, onStop: () -> Unit) {
-    if (isPhoneLandscape() && LocalDensity.current.fontScale <= 1.15f) {
-        PhoneLandscapeQuietContent(p, s, now, onStop); return
+    if (LocalDensity.current.fontScale <= 1.15f) {
+        ApprovedQuietContent(p, s, now, onStop); return
     }
     val times = remember(s, p.prayer, now.toLocalDate(), now.hour, now.minute) { quietPrayerTimes(s, p.prayer, now) }
     val colors = quietPalette(s.theme)

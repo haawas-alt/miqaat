@@ -637,4 +637,7 @@
     <string name="s_testing_build">Testing build</string>
     <string name="s_why_show_windows">Show times to avoid voluntary prayer</string>
     <string name="s_why_hide_windows">Hide times to avoid voluntary prayer</string>
+    <string name="s_jummah_homepage">Jummah homepage</string>
+    <string name="s_jummah_preview">Jummah preview</string>
+    <string name="s_jummah_preview_detail">Preview Friday in your current theme, on any day. Your prayer settings and alarms stay unchanged; press Back to leave.</string>
 </resources>

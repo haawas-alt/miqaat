@@ -26,7 +26,7 @@ android {
         minSdk = 26
         targetSdk = 36
         // CI stamps the GitHub run number so every build is newer than the last
-        val run = (System.getenv("GITHUB_RUN_NUMBER") ?: "0").toInt()
+        val run = (System.getenv("MIQAAT_RELEASE_NUMBER") ?: System.getenv("GITHUB_RUN_NUMBER") ?: "0").toInt()
         // Independent validation workflows restart their run numbers. Release CI supplies
         // one epoch-based version code so a testing candidate cannot downgrade an installed build.
         versionCode = (System.getenv("MIQAAT_VERSION_CODE")?.toInt() ?: (100 + run)).also {
