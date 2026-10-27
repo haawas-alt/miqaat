@@ -76,24 +76,24 @@ private val SanctuaryCaps = Cinzel
             Box(Modifier.weight(1f).height(.6.dp).background(secondary.copy(alpha=.7f)))
         }
         val cx=if(!wide).5f else if(kiswah).28f else if(gallery).35f else .33f
-        val currentY=if(wide)if(kiswah).16f else .12f else if(kiswah).105f else .075f
+        val currentY=if(wide)if(kiswah).16f else .12f else if(kiswah).105f else if(celestial).055f else if(gallery).075f else .060f
         val currentH=if(wide)if(gallery).52f else .68f else if(gallery).315f else .325f
         val currentW=if(wide).46f else .76f
         BoxWithConstraints(region(cx-currentW/2,currentY,currentW,currentH).testTag("quiet-current-panel")) {
             val ph=maxHeight
             fun row(y:Float,hh:Float)=Modifier.offset(y=ph*y).fillMaxWidth().height(ph*hh)
             SanctuaryText(if(jumuah)"الجمعة" else p.prayer.arabic,s,ph.value*.43f,ink,row(0f,.31f).testTag("quiet-current-arabic").semantics{heading()},SanctuaryArabic,gold=!gallery)
-            SanctuaryText(if(jumuah)L10n.word(s,"Jumuʿah").uppercase(Locale.ROOT)else name(p.prayer),s,ph.value*.085f,ink,row(.315f,.085f).testTag("quiet-current-name"),SanctuaryCaps)
-            if(!gallery && !celestial)SanctuaryDivider(ink,row(.425f,.035f).padding(horizontal=maxWidth*.23f))
+            SanctuaryText(if(jumuah)L10n.word(s,"Jumuʿah").uppercase(Locale.ROOT)else name(p.prayer),s,ph.value*.085f,ink,row(if(wide && s.theme==AppTheme.MIQAAT).26f else .315f,.085f).testTag("quiet-current-name"),SanctuaryCaps)
+            if(!gallery && !celestial)SanctuaryDivider(ink,row(if(wide && s.theme==AppTheme.MIQAAT).38f else .425f,.035f).padding(horizontal=maxWidth*.23f))
             val ribbon=if(gallery)Modifier.background(Color(0xFFA44825),RoundedCornerShape(30.dp))else Modifier
-            Box(row(if(gallery).455f else .49f,.065f),contentAlignment=Alignment.Center) {
+            Box(row(if(gallery).455f else if(wide && s.theme==AppTheme.MIQAAT).42f else .49f,.065f),contentAlignment=Alignment.Center) {
                 SanctuaryText(Str[R.string.s_quiet_prayer_progress].uppercase(Locale.ROOT),s,ph.value*.047f,if(gallery)Color(0xFFFFF2DA)else ink,
                     Modifier.fillMaxWidth(if(gallery).75f else 1f).fillMaxHeight().then(ribbon).testTag("quiet-progress"),SanctuaryCaps)
             }
-            SanctuaryText(word("AZAAN AT","اذان کا وقت"),s,ph.value*.043f,secondary,row(if(gallery).59f else .61f,.06f).testTag("quiet-current-label"),SanctuaryCaps)
+            SanctuaryText(word("AZAAN AT","اذان کا وقت"),s,ph.value*.043f,secondary,row(if(gallery).59f else if(wide && s.theme==AppTheme.MIQAAT).52f else .61f,.06f).testTag("quiet-current-label"),SanctuaryCaps)
             val stack=wide && s.theme==AppTheme.MIQAAT && !s.use24h && !ur
-            SanctuaryClock(times.current,s,ink,row(if(gallery).665f else .68f,if(stack).35f else .265f).testTag("quiet-current-time"),gold=!gallery,stack=stack)
-            SanctuaryText(Str[R.string.s_quiet_iqamah_complete],s,ph.value*.055f,secondary,row(if(stack)1.035f else .955f,.065f).testTag("quiet-iqamah-complete"),SanctuaryDisplay,italic=gallery)
+            SanctuaryClock(times.current,s,ink,row(if(gallery).665f else if(stack).60f else .68f,if(stack).35f else .265f).testTag("quiet-current-time"),gold=!gallery,stack=stack)
+            SanctuaryText(Str[R.string.s_quiet_iqamah_complete],s,ph.value*.055f,secondary,row(if(stack).96f else .955f,.065f).testTag("quiet-iqamah-complete"),SanctuaryDisplay,italic=gallery)
         }
         val nx=if(!wide).5f else if(kiswah).707f else if(celestial).766f else .748f
         val nextY=if(wide)if(kiswah).32f else if(celestial).34f else .28f else if(gallery).55f else .585f
@@ -108,10 +108,10 @@ private val SanctuaryCaps = Cinzel
             SanctuaryText(name(times.next),s,ph.value*.075f,ink,row(.425f,.10f).testTag("quiet-next-name"),SanctuaryCaps)
             if(!gallery && !celestial)SanctuaryDivider(ink,row(.55f,.025f).padding(horizontal=maxWidth*.15f))
             val stack=wide && s.theme==AppTheme.MIQAAT && !s.use24h && !ur
-            SanctuaryClock(times.nextTime,s,ink,row(if(gallery || celestial).54f else .59f,if(stack).35f else .29f).testTag("quiet-next-time"),gold=!gallery,stack=stack)
+            SanctuaryClock(times.nextTime,s,ink,row(if(gallery || celestial || !wide || stack).53f else .59f,if(stack).42f else .29f).testTag("quiet-next-time"),gold=!gallery,stack=stack)
             val mins=java.time.Duration.between(now,times.nextTime).toMinutes()
             val relative=if(!ur && mins>0 && mins%60==0L)"In ${mins/60} ${if(mins==60L)"hour" else "hours"}"else L10n.relative(s,times.nextTime,now).replaceFirstChar{it.uppercase()}
-            SanctuaryText(relative,s,ph.value*.065f,secondary,row(if(stack).96f else .90f,.08f).testTag("quiet-next-relative"),SanctuaryDisplay,italic=gallery)
+            SanctuaryText(relative,s,ph.value*.065f,secondary,row(if(stack).96f else .87f,.08f).testTag("quiet-next-relative"),SanctuaryDisplay,italic=gallery)
             if(times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
                 SanctuaryText(Str[R.string.s_quiet_tomorrow],s,ph.value*.04f,secondary,row(.96f,.05f).testTag("quiet-tomorrow"),SanctuaryDisplay)
         }
