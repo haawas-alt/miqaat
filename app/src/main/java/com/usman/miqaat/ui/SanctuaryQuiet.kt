@@ -24,7 +24,7 @@ import com.usman.miqaat.data.*
 import java.time.ZonedDateTime
 import java.util.Locale
 
-private val SanctuaryArabic = FontFamily(Font(R.font.amiri_bold))
+private val SanctuaryArabic = FontFamily(Font(R.font.sanctuary_arabic))
 
 /** Live native facts over the approved A sanctuary artwork. No prayer fact is baked into art. */
 @Composable internal fun SanctuaryQuietContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTime, onStop: () -> Unit) {
@@ -55,7 +55,7 @@ private val SanctuaryArabic = FontFamily(Font(R.font.amiri_bold))
                 AppTheme.PRAYER_GALLERY -> if(wide) R.drawable.sanctuary_gallery_land else R.drawable.sanctuary_gallery_port
             }
             Box(Modifier.matchParentSize().testTag("quiet-art-${s.theme.name}")) {
-                if(s.artTheme != ArtTheme.MINIMAL) Image(painterResource(art), null, Modifier.matchParentSize().then(if(!wide && s.theme==AppTheme.KISWAH) Modifier.padding(top=headerHeight) else Modifier), contentScale = ContentScale.FillBounds)
+                if(s.artTheme != ArtTheme.MINIMAL) Image(painterResource(art), null, Modifier.matchParentSize().then(if(!wide && s.theme==AppTheme.KISWAH) Modifier.padding(top=headerHeight) else if(!wide && gallery) Modifier.padding(top=h*.06f) else Modifier), contentScale = ContentScale.FillBounds)
             }
             if(s.theme == AppTheme.KISWAH) Box(Modifier.fillMaxWidth().height(h * .035f).offset(y = h * .062f)
                 .testTag("quiet-sanctuary-ornament").semantics { contentDescription = word("Gold embroidered ornament", "سنہری کڑھائی") })
@@ -74,7 +74,7 @@ private val SanctuaryArabic = FontFamily(Font(R.font.amiri_bold))
                 val ph=maxHeight
                 fun row(y:Float,height:Float) = Modifier.offset(y=ph*y).fillMaxWidth().height(ph*height)
                 SanctuaryText(if(jumuah) "الجمعة" else p.prayer.arabic,s,currentSize*1.10f,ink,
-                    row(.0f,.28f).testTag("quiet-current-arabic").semantics { heading() },SanctuaryArabic)
+                    row(-.035f,.33f).testTag("quiet-current-arabic").semantics { heading() },SanctuaryArabic)
                 SanctuaryText(if(jumuah) L10n.word(s,"Jumuʿah").uppercase(Locale.ROOT) else name(p.prayer),s,currentSize*.28f,ink,
                     row(.28f,.12f).testTag("quiet-current-name"),Cinzel)
                 SanctuaryText(Str[R.string.s_quiet_prayer_progress].uppercase(Locale.ROOT),s,currentSize*.135f,if(gallery)c.accent else ink,
@@ -87,19 +87,21 @@ private val SanctuaryArabic = FontFamily(Font(R.font.amiri_bold))
             val nextX = when(s.theme) { AppTheme.KISWAH -> .595f; AppTheme.CELESTIAL_MERIDIAN -> .645f; else -> .625f }
             val nextWidth = .25f
             val nextTop = if(s.theme == AppTheme.KISWAH || s.theme == AppTheme.CELESTIAL_MERIDIAN) .32f else .28f
-            val nextRegion = if(wide) region(nextX,nextTop,nextWidth,.49f) else region(.23f,.565f,.54f,.285f)
+            val celestial = s.theme==AppTheme.CELESTIAL_MERIDIAN
+            val nextRegion = if(wide) region(nextX,nextTop,nextWidth,if(gallery || celestial).44f else .49f)
+                else if(gallery) region(.23f,.535f,.54f,.25f) else region(.23f,.565f,.54f,.285f)
             BoxWithConstraints(nextRegion.testTag("quiet-next-panel")) {
                 val ph=maxHeight
                 fun row(y:Float,height:Float)=Modifier.offset(y=ph*y).fillMaxWidth().height(ph*height)
                 SanctuaryText(Str[R.string.s_quiet_next_azaan].uppercase(Locale.ROOT),s,nextSize*.14f,ink,row(0f,.10f).testTag("quiet-next-label"),Cinzel)
-                SanctuaryText(times.next.arabic,s,nextSize*.95f,ink,row(.12f,.26f).testTag("quiet-next-arabic"),SanctuaryArabic)
-                SanctuaryText(name(times.next),s,nextSize*.25f,ink,row(.36f,.11f).testTag("quiet-next-name"),Cinzel)
-                SanctuaryClock(times.nextTime,s,nextSize*1.6f,ink,row(.49f,.40f).testTag("quiet-next-time"))
+                SanctuaryText(times.next.arabic,s,nextSize*.95f,ink,row(if(gallery && !wide).20f else if(celestial && wide).18f else .10f,if(gallery && !wide).24f else .28f).testTag("quiet-next-arabic"),SanctuaryArabic)
+                SanctuaryText(name(times.next),s,nextSize*.25f,ink,row(if(gallery && !wide).44f else if(celestial && wide).46f else .36f,.10f).testTag("quiet-next-name"),Cinzel)
+                SanctuaryClock(times.nextTime,s,nextSize*1.6f,ink,row(if(gallery && !wide).54f else if(celestial && wide).58f else .49f,if(gallery && !wide).38f else if(celestial && wide).36f else .40f).testTag("quiet-next-time"))
                 val untilNext=java.time.Duration.between(now,times.nextTime).toMinutes()
                 val relative=if(!ur && untilNext>0 && untilNext%60==0L) "In ${untilNext/60} ${if(untilNext==60L)"hour" else "hours"}"
                     else L10n.relative(s,times.nextTime,now).replaceFirstChar {it.uppercase()}
                 SanctuaryText(relative,s,nextSize*.18f,ink,
-                    row(.90f,.09f).testTag("quiet-next-relative"),FontFamily.Serif)
+                    row(if(gallery && !wide || celestial && wide).93f else .90f,if(gallery && !wide || celestial && wide).07f else .09f).testTag("quiet-next-relative"),FontFamily.Serif)
                 if(times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
                     SanctuaryText(Str[R.string.s_quiet_tomorrow],s,nextSize*.12f,ink,row(.98f,.08f).testTag("quiet-tomorrow"),FontFamily.Serif)
             }
@@ -109,11 +111,14 @@ private val SanctuaryArabic = FontFamily(Font(R.font.amiri_bold))
                 verticalArrangement=Arrangement.Center) {
                 val hint=word("Quiet mode ends in $remaining min","خاموش موڈ $remaining منٹ میں ختم ہوگا")
                 val returnButton:@Composable (Modifier)->Unit={m->
-                    Box(m.heightIn(min=48.dp).clip(RoundedCornerShape(30.dp)).background(if(gallery)c.ink else c.background.copy(alpha=.55f))
-                        .border(1.dp,if(gallery)c.accent else ink.copy(alpha=.8f),RoundedCornerShape(30.dp))
-                        .testTag("quiet-return").clickable(role=Role.Button,onClick=onStop).padding(horizontal=10.dp),contentAlignment=Alignment.Center) {
-                        SanctuaryText(Str[R.string.s_quiet_exit],s,if(tablet)18f else 13f,if(gallery)c.background else ink,
-                            Modifier.fillMaxSize().testTag("quiet-exit-label"),FontFamily.Serif)
+                    Box(m.heightIn(min=48.dp).testTag("quiet-return").clickable(role=Role.Button,onClick=onStop),contentAlignment=Alignment.Center) {
+                        // The visual phone pill follows the mockup; its native touch target remains 48dp.
+                        Box(Modifier.fillMaxWidth().height(if(tablet)48.dp else 36.dp).clip(RoundedCornerShape(30.dp))
+                            .background(if(gallery)c.ink else c.background.copy(alpha=.55f))
+                            .border(1.dp,if(gallery)c.accent else ink.copy(alpha=.8f),RoundedCornerShape(30.dp)).padding(horizontal=10.dp),contentAlignment=Alignment.Center) {
+                            SanctuaryText(Str[R.string.s_quiet_exit],s,if(tablet)18f else 13f,if(gallery)c.background else ink,
+                                Modifier.fillMaxSize().testTag("quiet-exit-label"),FontFamily.Serif)
+                        }
                     }
                 }
                 if(wide || tablet) Row(Modifier.fillMaxSize(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(18.dp)) {

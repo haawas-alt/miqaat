@@ -38,7 +38,7 @@ class SanctuaryQuietMockupTest:ComposeSupport() {
         val failures=mutableListOf<String>()
         for(theme in AppTheme.entries)for(lang in Language.entries)for(dev in Dev.entries)for(use24 in listOf(false,true)) {
             val s=AppSettings(theme=theme,language=lang,latitude=-33.93,longitude=151.19,locationName="Mascot, NSW",zoneId="Australia/Sydney",locationSet=true,setupDone=true,
-                use24h=use24,useOverrides=true,overrides=mapOf("2026-10-27" to listOf(287,357,765,981,1160,1235)))
+                quietMinutes=15,use24h=use24,useOverrides=true,overrides=mapOf("2026-10-27" to listOf(287,357,765,981,1160,1235)))
             val now=ZonedDateTime.of(2026,10,27,19,35,0,0,s.zone())
             val p=Phase.Quiet(Prayer.MAGHRIB,now.plusMinutes(10).toInstant().toEpochMilli());var stopped=0
             try {
@@ -48,6 +48,9 @@ class SanctuaryQuietMockupTest:ComposeSupport() {
                 scenario.onActivity {a->val v=a.findViewById<View>(android.R.id.content);val b=Bitmap.createBitmap(v.width,v.height,Bitmap.Config.ARGB_8888);v.draw(Canvas(b));path.outputStream().use{b.compress(Bitmap.CompressFormat.PNG,100,it)};b.recycle()}
                 File(path.path+".txt").writeText(rule.onRoot(true).printToString(100))
                 for(tag in listOf("quiet-brand","quiet-live-clock","quiet-current-arabic","quiet-current-name","quiet-progress","quiet-current-label","quiet-current-time","quiet-iqamah-complete","quiet-next-label","quiet-next-arabic","quiet-next-name","quiet-next-time","quiet-next-relative","quiet-expiry-hint","quiet-exit-label"))readable(tag)
+                val progress=rule.onNodeWithTag("quiet-duration-progress",true).fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.ProgressBarRangeInfo].current
+                assertEquals("Quiet progress must reflect elapsed configured duration",1f/3f,progress,.001f)
+                if(lang==Language.EN) rule.onNodeWithTag("quiet-next-relative",true).assertTextEquals("In 1 hour")
                 val times=quietPrayerTimes(s,p.prayer,now)
                 assertEquals(Prayer.ISHA,times.next)
                 rule.onNodeWithTag("quiet-current-time",true).assertTextEquals(L10n.iso(L10n.at(times.current,use24)))
