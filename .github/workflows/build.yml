@@ -30,6 +30,14 @@ jobs:
           if [ -z "$KEYSTORE_BASE64" ]; then echo "KEYSTORE_BASE64 secret is not set"; exit 1; fi
           mkdir -p keystore && echo "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
           echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
+          # Production numbering continues after the separately tested 1.190 candidate.
+          # Build run 164 maps to release 190; later runs continue monotonically.
+          if [ "$GITHUB_REF" = "refs/heads/main" ]; then
+            RELEASE_NUMBER=$((GITHUB_RUN_NUMBER + 26))
+            echo "MIQAAT_RELEASE_NUMBER=$RELEASE_NUMBER" >> "$GITHUB_ENV"
+            echo "MIQAAT_VERSION_NAME=1.$RELEASE_NUMBER" >> "$GITHUB_ENV"
+            echo "MIQAAT_BUILD_TAG=v1.$RELEASE_NUMBER" >> "$GITHUB_ENV"
+          fi
 
       # Gates, in order: unit tests → lint (accessibility + correctness errors fail the build) →
       # release builds for both editions (github APK with updater, play AAB + APK without).
@@ -189,6 +197,7 @@ jobs:
       - name: Restore artifact metadata
         run: |
           echo "VERSION_CODE=$(cat Miqaat.versionCode)" >> "$GITHUB_ENV"
+          echo "RELEASE_NUMBER=$((GITHUB_RUN_NUMBER + 26))" >> "$GITHUB_ENV"
           echo "SHA=$(cat Miqaat.apk.sha256)" >> "$GITHUB_ENV"
           echo "SHA_PLAY=$(cat Miqaat-play.aab.sha256)" >> "$GITHUB_ENV"
           { echo "NOTES<<EOF"; git log -5 --pretty=format:'- %s'; echo; echo "EOF"; } >> "$GITHUB_ENV"
@@ -220,8 +229,8 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
-          git tag -a "v1.${{ github.run_number }}" -m "Miqaat build ${{ github.run_number }} · sha256 ${{ env.SHA }}" "${{ github.sha }}"
-          git push origin "v1.${{ github.run_number }}"
+          git tag -a "v1.${{ env.RELEASE_NUMBER }}" -m "Miqaat build ${{ github.run_number }} · sha256 ${{ env.SHA }}" "${{ github.sha }}"
+          git push origin "v1.${{ env.RELEASE_NUMBER }}"
           # 'latest' is a moving pointer for the in-app updater; keep it on the commit that was actually built.
           git tag -f latest "${{ github.sha }}"
           git push -f origin latest
@@ -230,10 +239,10 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.${{ github.run_number }}
-          name: Miqaat 1.${{ github.run_number }}
+          tag_name: v1.${{ env.RELEASE_NUMBER }}
+          name: Miqaat 1.${{ env.RELEASE_NUMBER }}
           body: |
-            build=${{ github.run_number }}
+            build=${{ env.RELEASE_NUMBER }}
             version_code=${{ env.VERSION_CODE }}
             commit=${{ github.sha }}
 
@@ -260,11 +269,11 @@ jobs:
           tag_name: latest
           name: Miqaat (latest build)
           body: |
-            build=${{ github.run_number }}
+            build=${{ env.RELEASE_NUMBER }}
             version_code=${{ env.VERSION_CODE }}
             commit=${{ github.sha }}
 
-            Pointer to the newest build, used by the in-app updater. The permanent copy of this exact build is release `v1.${{ github.run_number }}`.
+            Pointer to the newest build, used by the in-app updater. The permanent copy of this exact build is release `v1.${{ env.RELEASE_NUMBER }}`.
 
             SHA-256 `${{ env.SHA }}` · built from `${{ github.sha }}` by GitHub Actions
           files: |
