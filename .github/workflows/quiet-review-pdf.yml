@@ -93,12 +93,23 @@ jobs:
           else
             gh release create "$TAG" Miqaat-Quiet-Screens-Corrected.pdf review-page-*.jpg --target "$APP_SOURCE" --prerelease --title "Corrected quiet screens - phone and tablet" --notes "Actual native captures from source $APP_SOURCE. Eight-page screenshot PDF. Production unchanged."
           fi
+      - name: Prepare portable page inspection data
+        run: |
+          python - <<'PY'
+          import base64
+          from pathlib import Path
+          root=Path('inspect');root.mkdir(exist_ok=True)
+          for p in sorted(Path('.').glob('review-page-*.jpg')):
+              data=base64.b64encode(p.read_bytes()).decode()
+              for n,start in enumerate(range(0,len(data),60000)):
+                  (root/f'{p.stem}-{n:02}.txt').write_text(data[start:start+60000])
+          PY
       - name: Publish rendered pages for visual inspection
         run: |
           git config user.name ci
           git config user.email ci@users.noreply.github.com
-          git checkout --orphan "ci/quiet-pdf-pages-${APP_SOURCE:0:12}"
+          git checkout --orphan "ci/quiet-pdf-inspect-${APP_SOURCE:0:12}"
           git rm -rq --cached .
-          git add review-page-*.jpg
+          git add review-page-*.jpg inspect/
           git commit -m "Rendered corrected quiet-screen PDF pages"
-          git push origin "HEAD:refs/heads/ci/quiet-pdf-pages-${APP_SOURCE:0:12}"
+          git push origin "HEAD:refs/heads/ci/quiet-pdf-inspect-${APP_SOURCE:0:12}"
