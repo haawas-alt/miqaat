@@ -134,9 +134,16 @@ private val SanctuaryCaps = Cinzel
         val fw=maxWidth;val fh=maxHeight;val stacked=!wide && !gallery && (!tablet || kiswah)
         val bg=if(gallery)Color(0xFFF6EBD7)else Color(0xFF041022).copy(alpha=if(kiswah).12f else .7f)
         val shape=RoundedCornerShape(if(gallery)0.dp else 40.dp)
-        val rail=if(gallery)Modifier.fillMaxSize().background(bg)else Modifier.padding(horizontal=fw*.04f,vertical=if(stacked)0.dp else fh*.15f).fillMaxSize().background(bg,shape).then(if(!kiswah && !celestial)Modifier.border(.6.dp,secondary.copy(alpha=.55f),shape)else Modifier)
+        val rail=if(gallery)Modifier.fillMaxSize().background(bg)else if(stacked)
+            Modifier.offset(x=fw*.04f).width(fw*.92f).height(fh*.43f).background(if(kiswah || celestial)Color.Transparent else bg,shape)
+                .then(if(!kiswah && !celestial)Modifier.border(.6.dp,secondary.copy(alpha=.55f),shape)else Modifier)
+            else Modifier.padding(horizontal=fw*.04f,vertical=fh*.15f).fillMaxSize().background(bg,shape)
+                .then(if(!kiswah && !celestial)Modifier.border(.6.dp,secondary.copy(alpha=.55f),shape)else Modifier)
         Box(rail)
-        val returnW=if(stacked)fw*(if(kiswah).65f else .46f)else fw*(if(gallery).23f else .22f)
+        val returnFraction=if(stacked)if(kiswah)if(tablet).52f else .70f else .46f
+            else if(wide)if(kiswah).205f else if(celestial || gallery).18f else .16f
+            else if(gallery && !tablet).41f else if(gallery || celestial).26f else .30f
+        val returnW=fw*returnFraction
         val buttonX=if(stacked)(fw-returnW)/2 else fw-returnW-fw*.035f
         val buttonY=if(stacked)fh*.48f else 0.dp
         Box(Modifier.offset(x=buttonX,y=buttonY).width(returnW).height(maxOf(48.dp,if(stacked)fh*.45f else fh)).testTag("quiet-return").clickable(role=Role.Button,onClick=onStop),contentAlignment=Alignment.Center) {
@@ -152,9 +159,10 @@ private val SanctuaryCaps = Cinzel
         Row(Modifier.offset(x=fw*.05f,y=if(stacked)0.dp else fh*.13f).width(available).height(if(stacked)fh*.45f else fh*.74f),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(if(tablet)14.dp else 7.dp)) {
             if(gallery)SanctuaryRing(progress,ink,Modifier.height(if(stacked)fh*.34f else fh*.58f).aspectRatio(1f))
             else SanctuaryIcon(if(kiswah)"arch"else"moon",ink,Modifier.height(if(stacked)fh*.27f else fh*.5f).aspectRatio(1f))
-            val inline=(!celestial && !kiswah && (!gallery || wide))
-            if(inline && !gallery)SanctuaryProgress(progress,ink,Modifier.weight(.43f).height(if(tablet)7.dp else 4.dp))
-            Column(Modifier.weight(if(inline && !gallery).57f else 1f),verticalArrangement=Arrangement.Center) {
+            val inline=(!celestial && (!kiswah || wide) && (!gallery || wide))
+            val barWeight=if(kiswah).60f else .255f
+            if(inline && !gallery)SanctuaryProgress(progress,ink,Modifier.weight(barWeight).height(if(tablet)7.dp else 4.dp))
+            Column(Modifier.weight(if(inline && !gallery)1f-barWeight else 1f),verticalArrangement=Arrangement.Center) {
                 SanctuaryText(hint,s,if(tablet)18f else if(wide)12f else 10f,if(gallery)ink else secondary,Modifier.fillMaxWidth().height(if(tablet)27.dp else 17.dp).testTag("quiet-expiry-hint"),SanctuaryDisplay,if(inline)TextAlign.Start else TextAlign.Center)
                 if(!inline)SanctuaryProgress(progress,if(gallery)ink else Color(0xFFF6D18B),Modifier.fillMaxWidth().height(if(tablet)7.dp else 4.dp))
             }
@@ -205,7 +213,7 @@ private val SanctuaryCaps = Cinzel
             fontWeight=if(family==SanctuaryDisplay)FontWeight.Medium else FontWeight.Normal,fontStyle=if(italic)FontStyle.Italic else FontStyle.Normal,
             lineHeight=(fs*(if(ur && family!=SanctuaryArabic)1.4f else 1f)).sp,
             letterSpacing=if(!ur && family==SanctuaryCaps)(fs*.22f).sp else 0.sp,
-            platformStyle=PlatformTextStyle(includeFontPadding=false),textAlign=align,textDirection=if(ur)TextDirection.ContentOrRtl else TextDirection.ContentOrLtr,
+            fontFeatureSettings=if(family==SanctuaryDisplay)"'lnum' 1"else null,platformStyle=PlatformTextStyle(includeFontPadding=false),textAlign=align,textDirection=if(ur)TextDirection.ContentOrRtl else TextDirection.ContentOrLtr,
             textGeometricTransform=if(family==SanctuaryArabic)TextGeometricTransform(scaleX=1.15f)else null,color=color)
         val fitted=remember(value,size,maxWidth,maxHeight,density.fontScale){
             var low=1f;var high=size
