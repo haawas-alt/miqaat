@@ -26,13 +26,10 @@ import java.time.ZonedDateTime
 import java.util.Locale
 import kotlin.math.*
 
+private val SanctuaryClockFace = FontFamily(Font(R.font.sanctuary_clock,FontWeight.Bold))
 private val SanctuaryArabic = FontFamily(Font(R.font.sanctuary_arabic))
-@OptIn(ExperimentalTextApi::class)
-private val SanctuaryDisplay = FontFamily(Font(R.font.cormorant_garamond_medium,FontWeight.Bold,
-    variationSettings=FontVariation.Settings(FontVariation.weight(700))))
-@OptIn(ExperimentalTextApi::class)
-private val SanctuaryCaps = FontFamily(Font(R.font.cinzel,FontWeight.Normal,
-    variationSettings=FontVariation.Settings(FontVariation.weight(500))))
+private val SanctuaryDisplay = FontFamily(Font(R.font.sanctuary_display,FontWeight.Medium))
+private val SanctuaryCaps = Cinzel
 
 /** Coordinates follow the selected A compositions; all prayer facts and controls remain native. */
 @Composable internal fun SanctuaryQuietContent(p:Phase.Quiet,s:AppSettings,now:ZonedDateTime,onStop:()->Unit) {
@@ -61,7 +58,7 @@ private val SanctuaryCaps = FontFamily(Font(R.font.cinzel,FontWeight.Normal,
         }
         Box(Modifier.matchParentSize().clip(RoundedCornerShape(0.dp)).testTag("quiet-art-${s.theme.name}")) {
             if(s.artTheme!=ArtTheme.MINIMAL) Image(painterResource(art),null,
-                Modifier.fillMaxWidth().height(if(wide)h else h*1.055f).offset(y=if(!wide && kiswah)h*.055f else if(!wide && gallery)h*.025f else 0.dp),contentScale=ContentScale.FillBounds)
+                Modifier.fillMaxWidth().height(if(wide)h else h*(if(gallery)1.10f else 1.055f)).offset(y=if(!wide && kiswah)h*.055f else 0.dp),contentScale=ContentScale.FillBounds)
         }
         if(kiswah)Box(region(0f,if(wide).062f else .055f,1f,.04f).testTag("quiet-sanctuary-ornament").semantics{contentDescription=word("Gold embroidered ornament","سنہری کڑھائی")})
         // Header follows each reference: mode below the portrait brand row, with fine rules.
@@ -95,8 +92,8 @@ private val SanctuaryCaps = FontFamily(Font(R.font.cinzel,FontWeight.Normal,
             }
             SanctuaryText(word("AZAAN AT","اذان کا وقت"),s,ph.value*.043f,secondary,row(if(gallery).59f else .61f,.06f).testTag("quiet-current-label"),SanctuaryCaps)
             val stack=wide && s.theme==AppTheme.MIQAAT && !s.use24h && !ur
-            SanctuaryClock(times.current,s,ink,row(if(gallery).665f else .68f,if(stack).30f else .245f).testTag("quiet-current-time"),gold=!gallery,stack=stack)
-            SanctuaryText(Str[R.string.s_quiet_iqamah_complete],s,ph.value*.055f,secondary,row(if(stack).975f else .935f,.065f).testTag("quiet-iqamah-complete"),SanctuaryDisplay,italic=gallery)
+            SanctuaryClock(times.current,s,ink,row(if(gallery).665f else .68f,if(stack).35f else .265f).testTag("quiet-current-time"),gold=!gallery,stack=stack)
+            SanctuaryText(Str[R.string.s_quiet_iqamah_complete],s,ph.value*.055f,secondary,row(if(stack)1.035f else .955f,.065f).testTag("quiet-iqamah-complete"),SanctuaryDisplay,italic=gallery)
         }
         val nx=if(!wide).5f else if(kiswah).707f else if(celestial).766f else .748f
         val nextY=if(wide)if(kiswah).32f else if(celestial).34f else .28f else if(gallery).55f else .585f
@@ -111,14 +108,14 @@ private val SanctuaryCaps = FontFamily(Font(R.font.cinzel,FontWeight.Normal,
             SanctuaryText(name(times.next),s,ph.value*.075f,ink,row(.425f,.10f).testTag("quiet-next-name"),SanctuaryCaps)
             if(!gallery && !celestial)SanctuaryDivider(ink,row(.55f,.025f).padding(horizontal=maxWidth*.15f))
             val stack=wide && s.theme==AppTheme.MIQAAT && !s.use24h && !ur
-            SanctuaryClock(times.nextTime,s,ink,row(if(gallery || celestial).54f else .59f,if(stack).32f else .27f).testTag("quiet-next-time"),gold=!gallery,stack=stack)
+            SanctuaryClock(times.nextTime,s,ink,row(if(gallery || celestial).54f else .59f,if(stack).35f else .29f).testTag("quiet-next-time"),gold=!gallery,stack=stack)
             val mins=java.time.Duration.between(now,times.nextTime).toMinutes()
             val relative=if(!ur && mins>0 && mins%60==0L)"In ${mins/60} ${if(mins==60L)"hour" else "hours"}"else L10n.relative(s,times.nextTime,now).replaceFirstChar{it.uppercase()}
-            SanctuaryText(relative,s,ph.value*.065f,secondary,row(if(stack).92f else .87f,.08f).testTag("quiet-next-relative"),SanctuaryDisplay,italic=gallery)
+            SanctuaryText(relative,s,ph.value*.065f,secondary,row(if(stack).96f else .90f,.08f).testTag("quiet-next-relative"),SanctuaryDisplay,italic=gallery)
             if(times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))
                 SanctuaryText(Str[R.string.s_quiet_tomorrow],s,ph.value*.04f,secondary,row(.96f,.05f).testTag("quiet-tomorrow"),SanctuaryDisplay)
         }
-        val footerH=maxOf(h*(if(wide).105f else .095f),if(wide || tablet && !kiswah)56.dp else 100.dp)
+        val footerH=maxOf(h*(if(gallery).068f else if(wide).105f else .095f),if(gallery || wide || tablet && !kiswah)56.dp else 100.dp)
         SanctuaryFooter(s,remaining,progress,wide,tablet,ink,secondary,Modifier.offset(y=h-footerH).fillMaxWidth().height(footerH),onStop)
         if(s.nightDim && p.prayer==Prayer.ISHA)Box(Modifier.matchParentSize().background(Color.Black.copy(alpha=.22f)))
     }
@@ -130,7 +127,7 @@ private val SanctuaryCaps = FontFamily(Font(R.font.cinzel,FontWeight.Normal,
     val gallery=s.theme==AppTheme.PRAYER_GALLERY;val kiswah=s.theme==AppTheme.KISWAH;val celestial=s.theme==AppTheme.CELESTIAL_MERIDIAN
     val ur=L10n.isUrdu(s);val hint=if(ur)"خاموش موڈ $remaining منٹ میں ختم ہوگا"else "Quiet mode ends in $remaining min"
     BoxWithConstraints(modifier.testTag("quiet-sanctuary-footer")) {
-        val fw=maxWidth;val fh=maxHeight;val stacked=!wide && (!tablet || kiswah)
+        val fw=maxWidth;val fh=maxHeight;val stacked=!wide && !gallery && (!tablet || kiswah)
         val bg=if(gallery)Color(0xFFF6EBD7)else Color(0xFF041022).copy(alpha=if(kiswah).12f else .7f)
         val shape=RoundedCornerShape(if(gallery)0.dp else 40.dp)
         val rail=if(gallery)Modifier.fillMaxSize().background(bg)else Modifier.padding(horizontal=fw*.04f,vertical=if(stacked)0.dp else fh*.15f).fillMaxSize().background(bg,shape).then(if(!kiswah && !celestial)Modifier.border(.6.dp,secondary.copy(alpha=.55f),shape)else Modifier)
@@ -201,7 +198,7 @@ private val SanctuaryCaps = FontFamily(Font(R.font.cinzel,FontWeight.Normal,
     var layout by remember{mutableStateOf<TextLayoutResult?>(null)}
     BoxWithConstraints(modifier.semantics{text=AnnotatedString(value);getTextLayoutResult{out->layout?.let{out.add(it);true}?:false}},contentAlignment=Alignment.Center) {
         fun style(fs:Float)=TextStyle(fontFamily=if(ur && family!=SanctuaryArabic)Amiri else family,fontSize=fs.sp,
-            fontWeight=if(family==SanctuaryDisplay)FontWeight.Bold else FontWeight.Normal,fontStyle=if(italic)FontStyle.Italic else FontStyle.Normal,
+            fontWeight=if(family==SanctuaryDisplay)FontWeight.Medium else FontWeight.Normal,fontStyle=if(italic)FontStyle.Italic else FontStyle.Normal,
             lineHeight=(fs*(if(ur && family!=SanctuaryArabic)1.4f else 1f)).sp,
             letterSpacing=if(!ur && family==SanctuaryCaps)(fs*.22f).sp else 0.sp,
             platformStyle=PlatformTextStyle(includeFontPadding=false),textAlign=align,textDirection=if(ur)TextDirection.ContentOrRtl else TextDirection.ContentOrLtr,color=color)
@@ -227,8 +224,8 @@ private val SanctuaryCaps = FontFamily(Font(R.font.cinzel,FontWeight.Normal,
                 }
             }
         }
-        fun style(fs:Float)=TextStyle(fontFamily=if(ur)Amiri else SanctuaryDisplay,fontWeight=if(ur)FontWeight.Normal else FontWeight.Bold,
-            fontSize=(fs*.30f).sp,fontFeatureSettings="'lnum' 1, 'tnum' 1",lineHeight=(fs*(if(ur)1.35f else .95f)).sp,
+        fun style(fs:Float)=TextStyle(fontFamily=if(ur)Amiri else SanctuaryClockFace,fontWeight=if(ur)FontWeight.Normal else FontWeight.Bold,
+            fontSize=(fs*.30f).sp,fontFeatureSettings="'lnum' 1, 'tnum' 1",lineHeight=(fs*(if(ur)1.35f else .85f)).sp,
             platformStyle=PlatformTextStyle(includeFontPadding=false),textAlign=TextAlign.Center,color=color)
         val size=maxHeight.value*(if(stack)1.05f else 1.30f)
         val fitted=remember(full,size,maxWidth,maxHeight,density.fontScale,stack){val m=measurer.measure(annotated(size),style(size),softWrap=false,maxLines=if(stack)2 else 1).size;minOf(1f,with(density){maxWidth.toPx()}/m.width.coerceAtLeast(1),with(density){maxHeight.toPx()}/m.height.coerceAtLeast(1))*size}
