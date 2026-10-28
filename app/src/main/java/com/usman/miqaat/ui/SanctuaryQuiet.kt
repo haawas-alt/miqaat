@@ -106,7 +106,7 @@ private val SanctuaryCaps = Cinzel
         }
         val nx=if(!wide).5f else if(kiswah).707f else if(celestial).766f else .748f
         val nextY=if(wide)if(kiswah).30f else if(celestial).34f else .28f else if(gallery).55f else if(kport).56f else .585f
-        val nextH=if(wide)if(celestial).42f else .50f else if(gallery).245f else .29f
+        val nextH=if(wide)if(celestial).42f else .50f else if(gallery).245f else if(celestial).26f else .29f
         val nextW=if(wide).245f else if(!tablet && (kiswah || celestial)).46f else .50f
         BoxWithConstraints(region(nx-nextW/2,nextY,nextW,nextH).testTag("quiet-next-panel")) {
             val ph=maxHeight
