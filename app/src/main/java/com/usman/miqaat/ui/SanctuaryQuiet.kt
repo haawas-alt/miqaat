@@ -64,8 +64,8 @@ private val SanctuaryCaps = Cinzel
                 Image(painterResource(art),null,
                 Modifier.fillMaxSize().graphicsLayer {
                     transformOrigin=TransformOrigin(.5f,0f)
-                    scaleY=if(kport).90f else 1f
-                    translationY=if(wide || celestial)0f else (h*if(kiswah).055f else if(gallery).025f else .035f).toPx()
+                    scaleY=if(!wide && celestial)1.08f else 1f
+                    translationY=if(wide || celestial)0f else (h*if(kiswah).015f else if(gallery).025f else .035f).toPx()
                 },contentScale=ContentScale.FillBounds)
             }
         }
