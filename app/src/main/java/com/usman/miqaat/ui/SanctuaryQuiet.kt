@@ -99,7 +99,7 @@ private val SanctuaryCaps = Cinzel
                 SanctuaryText(Str[R.string.s_quiet_prayer_progress].uppercase(Locale.ROOT),s,ph.value*.047f,if(gallery)Color(0xFFFFF2DA)else ink,
                     Modifier.fillMaxWidth(if(gallery).54f else 1f).fillMaxHeight().then(ribbon).testTag("quiet-progress"),SanctuaryCaps)
             }
-            SanctuaryText(word("AZAAN AT","اذان کا وقت"),s,ph.value*.043f,secondary,row(if(gallery).55f else if(kport).54f else if(celestial).535f else if(wide && s.theme==AppTheme.MIQAAT).52f else if(wide && kiswah).55f else .59f,.06f).testTag("quiet-current-label"),SanctuaryCaps)
+            SanctuaryText(word("AZAAN AT","اذان کا وقت"),s,ph.value*.043f,secondary,row(if(gallery).55f else if(kport).54f else if(celestial).535f else if(wide && s.theme==AppTheme.MIQAAT).49f else if(wide && kiswah).55f else .59f,.06f).testTag("quiet-current-label"),SanctuaryCaps)
             val stack=wide && s.theme==AppTheme.MIQAAT && !s.use24h && !ur
             SanctuaryClock(times.current,s,ink,row(if(gallery)if(wide).64f else .62f else if(stack).56f else if(kport).61f else if(wide && kiswah).625f else if(wide || celestial).61f else .66f,if(stack).35f else if(kport).23f else if(gallery && wide).275f else .265f).testTag("quiet-current-time"),gold=!gallery,stack=stack)
             SanctuaryCaption(Str[R.string.s_quiet_iqamah_complete],s,ph.value*.055f,secondary,row(if(kport).85f else if(stack).91f else if(wide && kiswah).90f else if(gallery && wide).9225f else if(gallery || celestial || wide).89f else .935f,.065f).testTag("quiet-iqamah-complete"),rules=gallery,italic=gallery)
