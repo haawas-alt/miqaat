@@ -100,6 +100,7 @@ class MainActivity : ComponentActivity() {
                     androidx.compose.ui.platform.LocalLayoutDirection provides
                         if (settings.language == com.usman.miqaat.data.Language.UR) androidx.compose.ui.unit.LayoutDirection.Rtl else androidx.compose.ui.unit.LayoutDirection.Ltr
                 ) {
+                var fridaySection by rememberSaveable { mutableStateOf<String?>(null) }
                 var screen by rememberSaveable { mutableStateOf(Screen.HOME) }
                 var settingsSection by remember { mutableStateOf<Section?>(null) }
                 var peek by remember { mutableStateOf(false) }
@@ -143,19 +144,21 @@ class MainActivity : ComponentActivity() {
                         onOpenLocation = { settingsSection = Section.LOCATION; screen = Screen.SETTINGS },
                         onOpenQibla = { screen = Screen.QIBLA },
                         onOpenAdhkar = { m -> adhkarMode = m; screen = Screen.ADHKAR },
-                        onOpenFriday = { screen = Screen.FRIDAY },
+                        onOpenFriday = { fridaySection = null; screen = Screen.FRIDAY },
                         onOpenLearn = { preparedLesson = null; screen = Screen.LEARN },
                         updateAvailable = updateState is Updater.State.Available || updateState is Updater.State.Ready,
                         onOpenAbout = { settingsSection = Section.ABOUT; screen = Screen.SETTINGS },
                         onToggleRelative = { store.update { it.copy(showRelative = !it.showRelative) } },
-                        onPreparePrayer = { prayer -> preparedLesson = com.usman.miqaat.ui.preparationLesson(prayer); screen = Screen.LEARN }
+                        onPreparePrayer = { prayer -> preparedLesson = com.usman.miqaat.ui.preparationLesson(prayer); screen = Screen.LEARN },
+                        onOpenKahf = { fridaySection = "kahf"; screen = Screen.FRIDAY },
+                        onOpenSalawat = { fridaySection = "salawat"; screen = Screen.FRIDAY }
                     )
                     Crossfade(targetState = screen, label = "screen") { s ->
                         when (s) {
                             Screen.HOME -> com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek) { peek = true }
                             Screen.QIBLA -> QiblaScreen(settings) { screen = Screen.HOME }
                             Screen.ADHKAR -> AdhkarScreen(adhkarMode) { screen = Screen.HOME }
-                            Screen.FRIDAY -> com.usman.miqaat.ui.FridayScreen(settings) { screen = Screen.HOME }
+                            Screen.FRIDAY -> com.usman.miqaat.ui.FridayScreen(settings, initialSection = fridaySection) { screen = Screen.HOME }
                             Screen.LEARN -> com.usman.miqaat.ui.LearnScreen(settings, startLesson = preparedLesson) { screen = Screen.HOME }
                             Screen.TIMETABLE -> TimetableScreen(settings) { screen = Screen.HOME }
                             Screen.SETTINGS -> SettingsScreen(store, settings, settingsSection) { screen = Screen.HOME }

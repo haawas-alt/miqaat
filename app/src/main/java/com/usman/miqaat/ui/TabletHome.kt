@@ -95,7 +95,9 @@ class HomeActions(
     val onOpenTimetable: () -> Unit, val onOpenSettings: () -> Unit, val onOpenLocation: () -> Unit,
     val onOpenQibla: () -> Unit, val onOpenAdhkar: (AdhkarMode) -> Unit, val onOpenFriday: () -> Unit, val onOpenLearn: () -> Unit,
     val updateAvailable: Boolean, val onOpenAbout: () -> Unit, val onToggleRelative: () -> Unit,
-    val onPreparePrayer: (Prayer) -> Unit = { onOpenLearn() }
+    val onPreparePrayer: (Prayer) -> Unit = { onOpenLearn() },
+    val onOpenKahf: () -> Unit = onOpenFriday,
+    val onOpenSalawat: () -> Unit = onOpenFriday
 )
 
 internal enum class DoorKind { OTHER, ADHKAR }

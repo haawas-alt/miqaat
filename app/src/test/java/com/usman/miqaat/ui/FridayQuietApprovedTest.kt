@@ -64,14 +64,14 @@ class FridayQuietApprovedTest : ComposeSupport() {
             try {
                 show(dev, theme, language = lang, rtl = lang == Language.UR) {
                     Box(if (dev == Dev.PHONE_PORTRAIT || dev == Dev.PHONE_LANDSCAPE) Modifier.padding(top = 12.dp, bottom = 20.dp) else Modifier) {
-                        HomeRouter(state, s, actions, false, {})
+                        androidx.compose.runtime.CompositionLocalProvider(LocalFridayRevealFrame provides 1f) { HomeRouter(state, s, actions, false, {}) }
                     }
                 }
                 capture(theme, dev, lang, "friday")
                 readable("friday-banner"); readable("friday-hero-time")
                 for (tag in listOf("friday-hero-kicker", "friday-hero-arabic", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
                 if (lang == Language.EN) readable("friday-hero-name")
-                for (i in 0..2) { readable("friday-action-title-$i"); readable("friday-action-detail-$i") }
+                for (i in 0..1) { readable("friday-action-title-$i"); readable("friday-action-detail-$i") }
                 rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, s.use24h))
                 for (p in Prayer.entries) {
                     readable("friday-time-${p.name}"); readable("friday-detail-${p.name}")
@@ -83,7 +83,6 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 }
                 rule.onNodeWithTag("friday-action-0", true).performClick(); assertEquals(1, friday)
                 rule.onNodeWithTag("friday-action-1", true).performClick(); assertEquals(2, friday)
-                rule.onNodeWithTag("friday-action-2", true).performClick(); assertEquals(3, friday)
                 rule.onNodeWithContentDescription(if (lang == Language.UR) "قبلہ" else "Qibla").performClick(); assertEquals(1, qibla)
             } catch (e: AssertionError) { failures += "$theme/$dev/$lang: ${e.message}" } finally { scenario.close() }
         }
@@ -99,7 +98,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
             try {
                 show(dev, theme, language = lang, rtl = lang == Language.UR) {
                     Box(if (dev == Dev.PHONE_PORTRAIT || dev == Dev.PHONE_LANDSCAPE) Modifier.padding(top = 12.dp, bottom = 20.dp) else Modifier) {
-                        HomeRouter(state, current.value, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {})
+                        androidx.compose.runtime.CompositionLocalProvider(LocalFridayRevealFrame provides 1f) { HomeRouter(state, current.value, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {}) }
                     }
                 }
                 for (use24 in listOf(false, true)) {
@@ -112,7 +111,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                         rule.onNodeWithTag("friday-time-${p.name}", true).assertTextEquals(L10n.at(state.today[p], use24))
                         rule.onNodeWithTag("friday-detail-${p.name}", true).assertTextEquals(L10n.relative(current.value, state.today[p], state.now))
                     }
-                    if (theme == AppTheme.PRAYER_GALLERY) {
+                    if (theme == AppTheme.MIQAAT) {
                         val art = rule.onNodeWithTag("friday-gallery-vista", true).fetchSemanticsNode().boundsInRoot
                         val hero = rule.onNodeWithTag("home-hero", true).fetchSemanticsNode().boundsInRoot
                         assertTrue("Gallery artwork must remain above hero facts", art.bottom <= hero.top)
@@ -134,7 +133,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 show(dev, theme, language = lang, rtl = lang == Language.UR, fontScale = if (profile == "small") 1f else 1.15f,
                     qualifiers = if (profile == "small") "w360dp-h760dp-port-xhdpi" else null) {
                     Box(if (dev != Dev.TABLET_PORTRAIT) Modifier.padding(top = 12.dp, bottom = 20.dp) else Modifier) {
-                        HomeRouter(state, s, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {})
+                        androidx.compose.runtime.CompositionLocalProvider(LocalFridayRevealFrame provides 1f) { HomeRouter(state, s, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {}) }
                     }
                 }
                 capture(theme, dev, lang, "friday-$profile")

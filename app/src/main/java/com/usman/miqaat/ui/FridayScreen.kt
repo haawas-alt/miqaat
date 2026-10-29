@@ -34,6 +34,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.usman.miqaat.R
@@ -54,8 +56,13 @@ import java.time.temporal.TemporalAdjusters
 
 /** The Friday routine: Sūrat al-Kahf, ṣalawāt, the hour of acceptance, and the day's sunnahs. */
 @Composable
-fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
+fun FridayScreen(settings: AppSettings, initialSection: String? = null, onBack: () -> Unit) {
     val tk = screenTokens()
+    val scroll = rememberScrollState()
+    var salawatY by remember { mutableIntStateOf(0) }
+    androidx.compose.runtime.LaunchedEffect(initialSection, salawatY) {
+        if (initialSection == "salawat" && salawatY > 0) scroll.scrollTo(salawatY)
+    }
     val ctx = LocalContext.current
     val prefs = remember { ctx.getSharedPreferences("miqaat_friday", Context.MODE_PRIVATE) }
     val today = LocalDate.now(settings.zone())
@@ -73,7 +80,7 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
         val compact = maxWidth < 900.dp
         if (tk.art == ArtStyle.CELESTIAL || tk.art == ArtStyle.GALLERY) ThemedBackdrop(maxHeight > maxWidth, Modifier.fillMaxSize(), scrim = 0.7f) else GirihLattice(Modifier.fillMaxSize(), tile = 120f, alpha = 0.07f)
         androidx.compose.runtime.CompositionLocalProvider(LocalK provides (if (compact) 1f else 1.35f)) {
-        Column(Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState()).padding(horizontal = if (compact) 16.dp else 32.dp, vertical = 12.dp)) {
+        Column(Modifier.fillMaxSize().statusBarsPadding().verticalScroll(scroll).padding(horizontal = if (compact) 16.dp else 32.dp, vertical = 12.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
                 Column {
@@ -90,7 +97,7 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
                         Text(if (kahf) "" else Str[R.string.s_from_thursday_maghrib_to_friday_maghrib], fontFamily = Nunito, fontSize = (12 * LocalK.current).sp, color = tk.contentSecondary)
                     }
                 }
-                Card(m, L10n.t("Ṣalawāt", "درود شریف"), "الصلاة على النبي ﷺ", if (L10n.uiUrdu) "“${Ramadan.SALAWAT_NOTE_UR}” (اقتباس) · ${Ramadan.SALAWAT_SRC_UR}" else "\"Increase your ṣalawāt upon me on Friday\" · ${Ramadan.SALAWAT_SRC}") {
+                Card(m.onGloballyPositioned { salawatY = it.positionInParent().y.toInt() }, L10n.t("Ṣalawāt", "درود شریف"), "الصلاة على النبي ﷺ", if (L10n.uiUrdu) "“${Ramadan.SALAWAT_NOTE_UR}” (اقتباس) · ${Ramadan.SALAWAT_SRC_UR}" else "\"Increase your ṣalawāt upon me on Friday\" · ${Ramadan.SALAWAT_SRC}") {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                         Box(Modifier.size(64.dp).clip(CircleShape).background(tk.primary).clickable { salawat++; prefs.edit().putInt("salawat_$weekKey", salawat).apply() }, contentAlignment = Alignment.Center) {
                             Text("$salawat", fontFamily = Cormorant, fontSize = (26 * LocalK.current).sp, color = tk.onPrimary)

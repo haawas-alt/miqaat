@@ -26,6 +26,7 @@ internal fun jummahPreviewTime(s: AppSettings, now: ZonedDateTime): ZonedDateTim
 
 @Composable
 internal fun JummahHomepagePreview(saved: AppSettings, onClose: () -> Unit) {
+    var fridaySection by rememberSaveable { mutableStateOf<String?>(null) }
     var destination by rememberSaveable { mutableStateOf("home") }
     var relative by rememberSaveable { mutableStateOf(saved.showRelative) }
     var mode by remember { mutableStateOf(AdhkarMode.MORNING) }
@@ -39,7 +40,7 @@ internal fun JummahHomepagePreview(saved: AppSettings, onClose: () -> Unit) {
         when (destination) {
             "qibla" -> QiblaScreen(saved, onBack = back)
             "adhkar" -> AdhkarScreen(mode, onBack = back)
-            "friday" -> FridayScreen(saved, onBack = back)
+            "friday" -> FridayScreen(saved, initialSection = fridaySection, onBack = back)
             "learn" -> LearnScreen(saved, onBack = back)
             "timetable" -> TimetableScreen(saved, onBack = back)
             else -> FridayApprovedHome(state, s, HomeActions(
@@ -47,10 +48,12 @@ internal fun JummahHomepagePreview(saved: AppSettings, onClose: () -> Unit) {
                 onOpenSettings = onClose, onOpenLocation = onClose,
                 onOpenQibla = { destination = "qibla" },
                 onOpenAdhkar = { mode = it; destination = "adhkar" },
-                onOpenFriday = { destination = "friday" },
+                onOpenFriday = { fridaySection = null; destination = "friday" },
                 onOpenLearn = { destination = "learn" },
                 updateAvailable = false, onOpenAbout = onClose,
-                onToggleRelative = { relative = !relative }
+                onToggleRelative = { relative = !relative },
+                onOpenKahf = { fridaySection = "kahf"; destination = "friday" },
+                onOpenSalawat = { fridaySection = "salawat"; destination = "friday" }
             ), onClosePreview = onClose)
         }
     }
