@@ -45,7 +45,7 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
     val tk=ThemeTokenSets.kiswah.copy(background=Color(0xFF030303),primary=Color(0xFFFFD078),
         outline=Color(0xFFB18C40),contentPrimary=Color(0xFFF5F0E3),contentSecondary=Color(0xFFD8D2C6))
     val hero=heroInfo(state,s,kicker(state,s))
-    val links=doors(state,s,a)
+    val links=doors(state,s,a).filterNot { state.now.dayOfWeek!=java.time.DayOfWeek.FRIDAY && (it.label.contains("Jumu",true)||it.label.contains("جمع")) }
     var why by remember { mutableStateOf<Prayer?>(null) }
     why?.let { p ->
         val day=if(p==state.next && state.nextTime.toLocalDate().isAfter(state.today.date))PrayerEngine.times(s,state.nextTime.toLocalDate()) else state.today
@@ -63,12 +63,15 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
             KiswahTabletBanner(s,tk,k,wide)
             Spacer(Modifier.height((14*k).dp))
             val prayers:@Composable (Modifier)->Unit={ m ->
-                Column(m.clip(RoundedCornerShape(12.dp)).background(Color.Black.copy(alpha=.88f))
+                BoxWithConstraints(m) {
+                val rowScale=minOf(k,maxHeight.value/listedPrayers(s).size/76f).coerceAtLeast(.55f)
+                Column(Modifier.fillMaxSize().clip(RoundedCornerShape(12.dp)).background(Color.Black.copy(alpha=.88f))
                     .border(.7.dp,tk.outline.copy(alpha=.65f),RoundedCornerShape(12.dp)).testTag("home-prayers")) {
                     listedPrayers(s).forEach { p ->
                         val row=galleryRowInfo(p,state,s).let { r -> r.copy(isNext=p==state.next) }
-                        TabletPrayer(row,s,a,tk,k,compact,Modifier.fillMaxWidth().weight(1f),false) {why=p}
+                        TabletPrayer(row,s,a,tk,rowScale,true,Modifier.fillMaxWidth().weight(1f),false) {why=p}
                     }
+                }
                 }
             }
             if(wide) Row(Modifier.weight(1f).fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy((24*k).dp)) {
@@ -91,7 +94,7 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
         Row(m.heightIn(min=48.dp).clip(RoundedCornerShape(16.dp)).clickable(role=Role.Button,onClick=a.onOpenLocation)
             .semantics(mergeDescendants=true) {contentDescription=Str.get(R.string.s_a11y_location,L10n.iso(L10n.place(s.locationName)))},verticalAlignment=Alignment.CenterVertically) {
             Icon(Icons.Outlined.LocationOn,null,Modifier.size((27*k).dp),tint=tk.primary)
-            Text(L10n.place(s.locationName),Modifier.padding(start=(10*k).dp),fontFamily=kiswahUi(s),fontSize=(23*k).sp,
+            Text(if(s.locationName.equals("Current location",true)) String.format(java.util.Locale.ROOT,"%.3f, %.3f",s.latitude,s.longitude) else L10n.place(s.locationName),Modifier.padding(start=(10*k).dp),fontFamily=kiswahUi(s),fontSize=(23*k).sp,
                 color=tk.contentPrimary,maxLines=1,style=kiswahNative)
         }
     }
@@ -172,7 +175,7 @@ private fun kiswahUi(s:AppSettings)=if(L10n.isUrdu(s))Amiri else FontFamily.Seri
         TabletHeroClock(hero,s,tk.copy(contentPrimary=tk.primary),k,if(compact)90f else if(portrait)128f else 116f,"approved-hero-clock")
         Row(Modifier.fillMaxWidth().padding(horizontal=(12*k).dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.Center) {
             Box(Modifier.size((8*k).dp).background(if(state.justPassed)Color(0xFF64DAC5)else tk.primary,RoundedCornerShape(10.dp)))
-            val status=hero.status
+            val status=hero.status.replace(" · ","\n")
             Text(status,Modifier.padding(start=(9*k).dp).testTag("kiswah-tablet-status"),fontFamily=kiswahUi(s),fontSize=((if(compact)16 else 19)*k).sp,
                 lineHeight=(28*k).sp,color=tk.contentPrimary,maxLines=2,textAlign=TextAlign.Center,style=kiswahNative)
         }
