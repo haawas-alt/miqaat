@@ -64,12 +64,19 @@ jobs:
         if: always()
         with:
           name: signed-candidate-${{ github.run_id }}
+          path: candidate/
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-friday-review-${{ github.run_id }}
+          path: app/build/friday-quiet-review/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-reports-${{ github.run_id }}
           path: |
-            candidate/
             app/build/reports/
             app/build/test-results/
-            app/build/kiswah-tablet-review/
-            app/build/friday-quiet-review/
-            app/build/friday-option2-review/
           if-no-files-found: error
-
