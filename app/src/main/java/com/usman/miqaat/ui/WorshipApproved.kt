@@ -213,12 +213,12 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             } else {
                 if (s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(if (tablet) 150.dp else if (smallPortrait) 60.dp else 76.dp))
                 banner()
-                val idealHeroHeight = if (tablet) (viewportHeight * (if (s.theme == AppTheme.PRAYER_GALLERY) .24f else .29f)).coerceIn(if (s.theme == AppTheme.PRAYER_GALLERY) 250.dp else 290.dp, if (s.theme == AppTheme.PRAYER_GALLERY) 320.dp else 380.dp)
-                    else if (s.theme == AppTheme.PRAYER_GALLERY) (if (smallPortrait) 162.dp else 194.dp)
+                val idealHeroHeight = if (tablet) (viewportHeight * (if (s.theme == AppTheme.MIQAAT) .24f else .29f)).coerceIn(if (s.theme == AppTheme.MIQAAT) 250.dp else 290.dp, if (s.theme == AppTheme.MIQAAT) 320.dp else 380.dp)
+                    else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 162.dp else 194.dp)
                     else if (s.theme == AppTheme.KISWAH) (if (smallPortrait) 194.dp else 232.dp)
                     else (if (smallPortrait) 204.dp else 244.dp)
                 val mastheadHeight = (if (s.theme == AppTheme.KISWAH) (if (tablet) 112.dp else 72.dp) else if (tablet) 44.dp else 40.dp) * typeScale
-                val artHeight = if (s.theme == AppTheme.PRAYER_GALLERY) (if (tablet) 150.dp else if (smallPortrait) 60.dp else 76.dp) else 0.dp
+                val artHeight = if (s.theme == AppTheme.MIQAAT) (if (tablet) 150.dp else if (smallPortrait) 60.dp else 76.dp) else 0.dp
                 val chrome = (if (tablet) 62.dp else 48.dp) + mastheadHeight + artHeight +
                     (if (tablet) 87.dp else 63.dp) + 6.dp + (if (tablet) 66.dp else 56.dp)
                 val heroHeight = (idealHeroHeight * typeScale).coerceAtMost((safeHeight - chrome - 48.dp * listedPrayers(s).size).coerceAtLeast(140.dp))
