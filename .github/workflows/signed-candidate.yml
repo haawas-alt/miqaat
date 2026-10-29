@@ -1,7 +1,7 @@
 name: Signed candidate validation
 on:
   push:
-    branches: ['fix/kiswah-tablet-clipping']
+    branches: ['fix/run158-audit-remediation']
     paths: ['.github/workflows/signed-candidate.yml', 'app/**']
   workflow_dispatch:
 permissions:
@@ -26,7 +26,7 @@ jobs:
           mkdir -p keystore
           printf '%s' "$KEYSTORE_BASE64" | base64 -d > keystore/miqaat.jks
           echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
-          echo "MIQAAT_VERSION_NAME=1.192-tablet-fix" >> "$GITHUB_ENV"
+          echo "MIQAAT_VERSION_NAME=1.89-mockup-fit" >> "$GITHUB_ENV"
           echo "MIQAAT_BUILD_TAG=audit-candidate-${GITHUB_SHA:0:12}" >> "$GITHUB_ENV"
       - name: Build and inspect signed testing candidate
         env:
@@ -68,5 +68,6 @@ jobs:
             candidate/
             app/build/reports/
             app/build/test-results/
+            app/build/kiswah-tablet-review/
           if-no-files-found: error
 
