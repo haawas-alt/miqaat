@@ -213,7 +213,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             } else {
                 if (s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(if (tablet) 150.dp else if (smallPortrait) 60.dp else 76.dp))
                 banner()
-                val idealHeroHeight = if (tablet) (viewportHeight * (if (s.theme == AppTheme.MIQAAT) .24f else .29f)).coerceIn(if (s.theme == AppTheme.MIQAAT) 250.dp else 290.dp, if (s.theme == AppTheme.MIQAAT) 320.dp else 380.dp)
+                val idealHeroHeight = if (tablet && s.theme == AppTheme.MIQAAT) (viewportHeight * .31f).coerceIn(360.dp, 440.dp) else if (tablet) (viewportHeight * (if (s.theme == AppTheme.MIQAAT) .24f else .29f)).coerceIn(if (s.theme == AppTheme.MIQAAT) 250.dp else 290.dp, if (s.theme == AppTheme.MIQAAT) 320.dp else 380.dp)
                     else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 162.dp else 194.dp)
                     else if (s.theme == AppTheme.KISWAH) (if (smallPortrait) 194.dp else 232.dp)
                     else (if (smallPortrait) 204.dp else 244.dp)
