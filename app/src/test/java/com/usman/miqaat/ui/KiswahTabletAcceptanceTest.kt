@@ -58,7 +58,7 @@ class KiswahTabletAcceptanceTest:ComposeSupport() {
                     rule.waitForIdle();capture("${c.name}-${lang.name}")
                     rule.onNodeWithTag("kiswah-tablet-approved",true).assertIsDisplayed()
                     rule.onNodeWithTag("kiswah-calligraphy-band",true).assertContentDescriptionEquals(Kiswah.BAND)
-                    rule.onNodeWithTag("kiswah-tablet-status",true).assertTextEquals(heroInfo(st,s,null).status.replace(" · ","\\n"))
+                    rule.onNodeWithTag("kiswah-tablet-status",true).assertTextEquals(heroInfo(st,s,null).status.replace(" · ",10.toChar().toString()))
                     val root=rule.onRoot(true).fetchSemanticsNode()
                     checkInk(root,"${c.name}/$lang")
                     val hero=rule.onNodeWithTag("home-hero",true).fetchSemanticsNode().boundsInRoot
