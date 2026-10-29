@@ -416,12 +416,16 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         } else if (tablet) (if (ur) (if (roomy) 98f else 76f) else if (roomy) 154f else 122f)
         else if (short) (if (ur) (if (s.theme == AppTheme.KISWAH) 40f else 48f) else if (s.theme == AppTheme.KISWAH) 68f else 72f) else if (tight) (if (ur) 44f else 56f) else (if (ur) 64f else 82f)
         // Reserve full native label heights before growing a compact landscape clock.
-        val fittedNumberSize = if (short) {
-            val scale = LocalDensity.current.fontScale
-            val labels = 34f + (if (ur) 16.2f else 11.25f) +
-                (if (iqLabel == null) 0f else if (ur) 14.4f else 10f) + 4f
-            minOf(numberSize, (((maxHeight.value - 4f) / scale - labels) / 1.2f).coerceAtLeast(28f))
-        } else numberSize
+        val scale = LocalDensity.current.fontScale
+        // Budget every native text line before allocating the display clock. Garden art
+        // makes MA2's available hero shorter, especially with Iqamah and Urdu enabled.
+        val arabicLine = if (tablet) (if (roomy) 84f else 58.8f) else if (short || tight) 34f else 48f
+        val nameLine = if (tablet && !ur) 25f else 0f
+        val kickerLine = if (short) 0f else if (tablet) (if (ur) 23.4f else 16.25f) else if (ur) 18f else 12.5f
+        val statusLine = if (tablet) (if (ur) 27f else 18.75f) + 6f else (if (ur) 20f else 14f) + 6f
+        val iqamahLine = if (iqLabel == null) 0f else if (tablet) (if (ur) 21.6f else 15f) else if (ur) 18f else 12.5f
+        val reserved = arabicLine + nameLine + kickerLine + statusLine + iqamahLine + 16f
+        val fittedNumberSize = minOf(numberSize, ((maxHeight.value / scale - reserved) / 1.2f).coerceAtLeast(20f))
         val base = Modifier.fillMaxSize().clip(RoundedCornerShape(if (tablet) 24.dp else 18.dp))
             .then(if (gallery) Modifier.background(c.panel.copy(alpha = 1f)).border(.8.dp, c.accent.copy(alpha = .22f), RoundedCornerShape(if (tablet) 24.dp else 18.dp))
                 else if (s.theme == AppTheme.CELESTIAL_MERIDIAN) Modifier.drawBehind {
