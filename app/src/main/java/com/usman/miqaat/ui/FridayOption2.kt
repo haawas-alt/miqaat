@@ -87,7 +87,7 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
     Canvas(modifier.testTag("friday-mihrab-reveal")) {
         if (intensity <= 0f || s.artTheme == ArtTheme.MINIMAL) return@Canvas
         val h=size.height
-        val w=minOf(size.width, h * 1.12f)
+        val w=minOf(size.width, h * 1.8f)
         val inset=(size.width-w)/2f
         val arch=Path().apply {
             moveTo(inset+w*.09f,h*.97f); lineTo(inset+w*.09f,h*.47f)
