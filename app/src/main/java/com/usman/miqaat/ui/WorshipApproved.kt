@@ -268,10 +268,10 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                 Row(Modifier.fillMaxSize().padding(horizontal = if (tablet) 10.dp else 5.dp), verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                     if (i == 1) SalawatBeads(if (s.theme == AppTheme.PRAYER_GALLERY) c.ink else c.accent, Modifier.size(if (tablet) 27.dp else 18.dp))
-                    else Icon(item.first, null, Modifier.size(if (tablet) 25.dp else 18.dp), tint = c.accent)
+                    else Icon(item.first, null, Modifier.size(if (tablet) 25.dp else 18.dp), tint = if(s.theme == AppTheme.MIQAAT) Color.White else c.accent)
                     Column {
                         WorshipText(item.second, s, if (tablet) 17f else 12f, if(s.theme == AppTheme.MIQAAT) Color.White else c.ink, Modifier.testTag("friday-action-title-$i"), lines = 1)
-                        WorshipText(item.third, s, if (tablet) 11f else 9f, c.secondary, Modifier.testTag("friday-action-detail-$i"), lines = 1)
+                        WorshipText(item.third, s, if (tablet) 11f else 9f, if(s.theme == AppTheme.MIQAAT) Color(0xFFF5EBD8) else c.secondary, Modifier.testTag("friday-action-detail-$i"), lines = 1)
                     }
                 }
             }
@@ -402,8 +402,8 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         // Budget every native text line before allocating the display clock. Garden art
         // makes MA2's available hero shorter, especially with Iqamah and Urdu enabled.
         val arabicLine = if (tablet) (if (roomy) 84f else 58.8f) else if (short || tight) 34f else 48f
-        val nameLine = if (tablet && !ur) 25f else 0f
-        val kickerLine = if (short) 0f else if (tablet) (if (ur) 23.4f else 16.25f) else if (ur) 18f else 12.5f
+        val nameLine = if (ur) 0f else if (tablet) 25f else if (short) 15f else 17.5f
+        val kickerLine = if (short) (if (ur) 16.2f else 11.25f) else if (tablet) (if (ur) 23.4f else 16.25f) else if (ur) 18f else 12.5f
         val statusLine = if (tablet) (if (ur) 27f else 18.75f) + 6f else (if (ur) 20f else 14f) + 6f
         val iqamahLine = if (iqLabel == null) 0f else if (tablet) (if (ur) 21.6f else 15f) else if (ur) 18f else 12.5f
         val reserved = arabicLine + nameLine + kickerLine + statusLine + iqamahLine + 16f
