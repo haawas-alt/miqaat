@@ -46,7 +46,7 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
 @Composable internal fun FridayOption2Backdrop(s: AppSettings, wide: Boolean, modifier: Modifier) {
     val c = fridayOption2Palette(s.theme)
     Box(modifier.background(c.background).testTag("friday-option2-art-${s.theme.name}")) {
-        if (s.artTheme != ArtTheme.MINIMAL) {
+        if (s.artTheme != ArtTheme.MINIMAL && s.theme != AppTheme.MIQAAT) {
             val art = when (s.theme) {
                 AppTheme.MIQAAT -> if (wide) R.drawable.sanctuary_gallery_land else R.drawable.sanctuary_gallery_port
                 AppTheme.KISWAH -> if (wide) R.drawable.kiswah_tablet_approved else R.drawable.kiswah_tablet_portrait_approved
@@ -86,18 +86,20 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
     val gold = if(s.theme == AppTheme.MIQAAT) Color(0xFFB98A43) else Color(0xFFE7C77E)
     Canvas(modifier.testTag("friday-mihrab-reveal")) {
         if (intensity <= 0f || s.artTheme == ArtTheme.MINIMAL) return@Canvas
-        val w=size.width; val h=size.height
+        val h=size.height
+        val w=minOf(size.width, h * 1.12f)
+        val inset=(size.width-w)/2f
         val arch=Path().apply {
-            moveTo(w*.09f,h*.97f); lineTo(w*.09f,h*.47f)
-            cubicTo(w*.09f,h*.23f,w*.36f,h*.16f,w*.5f,h*.025f)
-            cubicTo(w*.64f,h*.16f,w*.91f,h*.23f,w*.91f,h*.47f)
-            lineTo(w*.91f,h*.97f)
+            moveTo(inset+w*.09f,h*.97f); lineTo(inset+w*.09f,h*.47f)
+            cubicTo(inset+w*.09f,h*.26f,inset+w*.37f,h*.13f,inset+w*.5f,h*.025f)
+            cubicTo(inset+w*.63f,h*.13f,inset+w*.91f,h*.26f,inset+w*.91f,h*.47f)
+            lineTo(inset+w*.91f,h*.97f)
         }
         for ((width, opacity) in listOf(22f to .025f, 12f to .05f, 6f to .12f, 2f to .85f))
             drawPath(arch, gold.copy(alpha=intensity*opacity), style=Stroke(width=width*density))
         // Small stationary geometric lights emphasize the arch without obscuring the prayer facts.
         for (side in listOf(.09f,.91f)) for (level in listOf(.48f,.70f,.91f)) {
-            val x=w*side; val y=h*level; val r=3*density
+            val x=inset+w*side; val y=h*level; val r=3*density
             drawLine(gold.copy(alpha=intensity*.7f),Offset(x-r,y),Offset(x+r,y),density)
             drawLine(gold.copy(alpha=intensity*.7f),Offset(x,y-r),Offset(x,y+r),density)
         }
