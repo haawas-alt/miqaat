@@ -50,8 +50,8 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
             val art = when (s.theme) {
                 AppTheme.MIQAAT -> if (wide) R.drawable.sanctuary_gallery_land else R.drawable.sanctuary_gallery_port
                 AppTheme.KISWAH -> if (wide) R.drawable.kiswah_tablet_approved else R.drawable.kiswah_tablet_portrait_approved
-                AppTheme.CELESTIAL_MERIDIAN -> R.drawable.celestial_landscape_approved
-                AppTheme.PRAYER_GALLERY -> if (wide) R.drawable.quiet_miqaat_landscape else R.drawable.approved_miqaat_arch
+                AppTheme.CELESTIAL_MERIDIAN -> R.drawable.friday_celestial_hero
+                AppTheme.PRAYER_GALLERY -> R.drawable.friday_gallery_hero
             }
             Image(painterResource(art), null, Modifier.fillMaxSize(), contentScale=ContentScale.Crop)
             Box(Modifier.fillMaxSize().background(Brush.verticalGradient(
