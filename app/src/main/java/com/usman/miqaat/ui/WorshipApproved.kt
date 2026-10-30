@@ -268,9 +268,10 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         listOf(Triple(Icons.Outlined.MenuBook, words(s, "Al-Kahf", "سورۃ الکہف"), words(s, if (kahf) "Read this Friday ✓" else "Mark as read", if (kahf) "پڑھ لی ✓" else "پڑھنے کا اندراج")),
             Triple(Icons.Outlined.FavoriteBorder, words(s, "Salawat", "درود شریف"), words(s, "$salawat this Friday", "اس جمعہ: $salawat"))).forEachIndexed { i, item ->
             WorshipSurface(s, Modifier.weight(1f).fillMaxHeight().background(if(s.theme == AppTheme.MIQAAT) (if(i==0) Color(0xFF145440) else Color(0xFFB24926)) else Color.Transparent, RoundedCornerShape(10.dp)).testTag("friday-action-$i")
+                .border(if (s.theme == AppTheme.MIQAAT) 0.dp else 1.dp, c.accent.copy(alpha=.85f), RoundedCornerShape(10.dp))
                 .clickable(role = Role.Button, onClick = if (i == 0) a.onOpenKahf else a.onOpenSalawat), fill=if(s.theme == AppTheme.MIQAAT) (if(i==0) Color(0xFF145440) else Color(0xFFB24926)) else c.background.copy(alpha=.8f)) {
                 Row(Modifier.fillMaxSize().padding(horizontal = if (tablet) 10.dp else 5.dp), verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
                     if (i == 1) SalawatBeads(if (s.theme == AppTheme.MIQAAT) Color.White else if (s.theme == AppTheme.PRAYER_GALLERY) c.ink else c.accent, Modifier.size(if (tablet) 27.dp else 18.dp))
                     else Icon(item.first, null, Modifier.size(if (tablet) 25.dp else 18.dp), tint = if(s.theme == AppTheme.MIQAAT) Color.White else c.accent)
                     Column {
@@ -456,7 +457,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                         if (!ur) WorshipText(h.label.uppercase(Locale.ROOT), s, if (short) 12f else 14f, c.ink, Modifier.testTag("friday-hero-name"), lines = 1)
                     }
                 } else names(Modifier.fillMaxWidth())
-                FridayClock(state, s, fittedNumberSize, Modifier.fillMaxWidth().clickable(onClick = a.onToggleRelative))
+                FridayClock(state, s, fittedNumberSize, Modifier.fillMaxWidth(if (tablet) .68f else .82f).clickable(onClick = a.onToggleRelative))
             }
             Row(Modifier.clip(RoundedCornerShape(24.dp)).background(c.accent.copy(alpha = if (gallery) .07f else .10f))
                 .padding(horizontal = if (tablet) 18.dp else 12.dp, vertical = if (short) 0.dp else if (tight) 2.dp else 3.dp),
