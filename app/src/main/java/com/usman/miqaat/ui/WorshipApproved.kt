@@ -210,7 +210,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 prayers(Modifier.weight(if (short) .48f else .47f).fillMaxHeight())
                 Column(Modifier.weight(if (short) .52f else .53f).fillMaxHeight()) {
                     if (short) header()
-                    if (short && s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(36.dp))
+                    if (short && s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(16.dp))
                     if (short) banner()
                     hero(Modifier.weight(1f).fillMaxWidth())
                     FridayActions(s, state.now, a, short, tablet)
@@ -338,7 +338,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
 /** One compact Friday masthead. Kiswah combines its Friday label and dhikr in one embroidered frame. */
 @Composable private fun FridayMasthead(s: AppSettings, tablet: Boolean, wide: Boolean, onOpen: () -> Unit) {
     val c=fridayOption2Palette(s.theme)
-    Box(Modifier.fillMaxWidth().height(if(tablet) 48.dp else 38.dp)
+    Box(Modifier.fillMaxWidth().height(if(tablet) 48.dp else if(wide) 24.dp else 38.dp)
         .background(if(s.theme==AppTheme.MIQAAT) Color(0xFF194B3C) else c.background.copy(alpha=.92f))
         .border(.8.dp, Color(0xFFE7C77E), RoundedCornerShape(8.dp)).testTag("friday-banner")
         .clickable(role=Role.Button,onClick=onOpen),contentAlignment=Alignment.Center) {
