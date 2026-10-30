@@ -69,6 +69,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 }
                 capture(theme, dev, lang, "friday")
                 readable("friday-banner"); readable("friday-hero-time")
+                if (rule.onAllNodesWithTag("friday-hero-day", true).fetchSemanticsNodes().isNotEmpty()) readable("friday-hero-day")
                 for (tag in listOf("friday-hero-kicker", "friday-hero-arabic", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
                 if (lang == Language.EN) readable("friday-hero-name")
                 for (i in 0..1) { readable("friday-action-title-$i"); readable("friday-action-detail-$i") }
@@ -104,6 +105,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     }
                 }
                 capture(theme,dev,lang,"friday-$label")
+                if (rule.onAllNodesWithTag("friday-hero-day", true).fetchSemanticsNodes().isNotEmpty()) readable("friday-hero-day")
                 for (tag in listOf("friday-banner","friday-hero-arabic","friday-hero-time","friday-hero-status","friday-hero-iqamah")) readable(tag)
                 for (i in 0..1) {
                     readable("friday-action-title-$i"); readable("friday-action-detail-$i")
