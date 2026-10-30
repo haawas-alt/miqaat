@@ -202,12 +202,16 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     }
                 }
             }
+            if (wide && tablet) {
+                if (s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(72.dp))
+                banner()
+            }
             if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(vertical = 6.dp), horizontalArrangement = Arrangement.spacedBy(if (tablet) 20.dp else 10.dp)) {
                 prayers(Modifier.weight(if (short) .48f else .47f).fillMaxHeight())
                 Column(Modifier.weight(if (short) .52f else .53f).fillMaxHeight()) {
                     if (short) header()
-                    if (s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(if (tablet) (viewportHeight * .20f).coerceAtMost(160.dp) else 36.dp))
-                    banner()
+                    if (short && s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(36.dp))
+                    if (short) banner()
                     hero(Modifier.weight(1f).fillMaxWidth())
                     FridayActions(s, state.now, a, short, tablet)
                 }
@@ -402,7 +406,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         val scale = LocalDensity.current.fontScale
         // Budget every native text line before allocating the display clock. Garden art
         // makes MA2's available hero shorter, especially with Iqamah and Urdu enabled.
-        val arabicLine = if (tablet) (if (roomy) 84f else 58.8f) else if (short || tight) 34f else 48f
+        val arabicLine = if (tablet) (if (roomy) 98f else 67.2f) else if (short || tight) 34f else 48f
         val nameLine = if (ur) 0f else if (tablet) 25f else if (short) 15f else 17.5f
         val kickerLine = if (short) (if (ur) 16.2f else 11.25f) else if (tablet) (if (ur) 23.4f else 16.25f) else if (ur) 18f else 12.5f
         val statusLine = if (tablet) (if (ur) 27f else 18.75f) + 6f else (if (ur) 20f else 14f) + 6f
@@ -427,7 +431,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                 Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
             val names: @Composable (Modifier) -> Unit = { m ->
                 val arabicSize = if (gallery) (if (tablet) 38 else if (short) 20 else 30)
-                    else if (tablet) (if (roomy) 60 else 42) else if (short) 24 else if (smallPortrait) 28 else 38
+                    else if (tablet) (if (roomy) 70 else 48) else if (short) 24 else if (smallPortrait) 28 else 38
                 Column(m, horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(if (s.jumuahEnabled && h.prayer == Prayer.DHUHR) "الجمعة" else h.arabic,
                         Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
