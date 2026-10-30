@@ -203,20 +203,20 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 }
             }
             if (wide && tablet) {
-                if (s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(72.dp))
+                if (s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(72.dp))
                 banner()
             }
             if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(vertical = 6.dp), horizontalArrangement = Arrangement.spacedBy(if (tablet) 20.dp else 10.dp)) {
                 prayers(Modifier.weight(if (short) .48f else .47f).fillMaxHeight())
                 Column(Modifier.weight(if (short) .52f else .53f).fillMaxHeight()) {
                     if (short) header()
-                    if (short && s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(16.dp))
+                    if (short && s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(16.dp))
                     if (short) banner()
                     hero(Modifier.weight(1f).fillMaxWidth())
                     FridayActions(s, state.now, a, short, tablet)
                 }
             } else {
-                if (s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(if (tablet) 80.dp else if (smallPortrait) 60.dp else 76.dp))
+                if (s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(if (tablet) 80.dp else if (smallPortrait) 60.dp else 76.dp))
                 banner()
                 val idealHeroHeight = if (tablet) (viewportHeight * .44f).coerceIn(440.dp, 600.dp)
                     else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 250.dp else 320.dp)
@@ -473,4 +473,8 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
 
         }
     }
+}
+
+@Composable private fun FridayMiqaatHeader(modifier: Modifier) {
+    Image(painterResource(R.drawable.friday_miqaat_header), null, modifier.clip(RoundedCornerShape(8.dp)), contentScale = ContentScale.Crop, alignment = Alignment.BottomCenter)
 }
