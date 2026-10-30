@@ -84,24 +84,13 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
     }
     val intensity = frame?.coerceIn(0f,1f) ?: if (still) .28f else alpha.value
     val gold = if(s.theme == AppTheme.MIQAAT) Color(0xFFB98A43) else Color(0xFFE7C77E)
-    Canvas(modifier.testTag("friday-mihrab-reveal")) {
-        if (intensity <= 0f || s.artTheme == ArtTheme.MINIMAL) return@Canvas
-        val h=size.height
-        val w=minOf(size.width, h * 1.8f)
-        val inset=(size.width-w)/2f
-        val arch=Path().apply {
-            moveTo(inset+w*.09f,h*.97f); lineTo(inset+w*.09f,h*.47f)
-            cubicTo(inset+w*.09f,h*.26f,inset+w*.37f,h*.13f,inset+w*.5f,h*.025f)
-            cubicTo(inset+w*.63f,h*.13f,inset+w*.91f,h*.26f,inset+w*.91f,h*.47f)
-            lineTo(inset+w*.91f,h*.97f)
-        }
-        for ((width, opacity) in listOf(22f to .025f, 12f to .05f, 6f to .12f, 2f to .85f))
-            drawPath(arch, gold.copy(alpha=intensity*opacity), style=Stroke(width=width*density))
-        // Small stationary geometric lights emphasize the arch without obscuring the prayer facts.
-        for (side in listOf(.09f,.91f)) for (level in listOf(.48f,.70f,.91f)) {
-            val x=inset+w*side; val y=h*level; val r=3*density
-            drawLine(gold.copy(alpha=intensity*.7f),Offset(x-r,y),Offset(x+r,y),density)
-            drawLine(gold.copy(alpha=intensity*.7f),Offset(x,y-r),Offset(x,y+r),density)
-        }
+    val heroArt = when(s.theme) {
+        AppTheme.MIQAAT -> R.drawable.friday_miqaat_hero
+        AppTheme.KISWAH -> R.drawable.friday_kiswah_hero
+        AppTheme.CELESTIAL_MERIDIAN -> R.drawable.friday_celestial_hero
+        AppTheme.PRAYER_GALLERY -> R.drawable.friday_gallery_hero
     }
+    if (s.artTheme != ArtTheme.MINIMAL) Image(painterResource(heroArt), null,
+        modifier.testTag("friday-mihrab-reveal"), contentScale=ContentScale.FillBounds,
+        alpha=if(still) 1f else .78f + .22f * intensity)
 }

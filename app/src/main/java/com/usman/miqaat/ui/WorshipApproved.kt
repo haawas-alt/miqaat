@@ -57,11 +57,11 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
         textAlign = if (center) TextAlign.Center else TextAlign.Start, maxLines = lines)
 }
 
-@Composable private fun WorshipSurface(s: AppSettings, modifier: Modifier = Modifier, selected: Boolean = false, ornate: Boolean = false,
+@Composable private fun WorshipSurface(s: AppSettings, modifier: Modifier = Modifier, selected: Boolean = false, ornate: Boolean = false, fill: Color? = null,
     content: @Composable ColumnScope.() -> Unit) {
     val c = fridayOption2Palette(s.theme)
     val shape = if (ornate) CutCornerShape(10.dp) else RoundedCornerShape(14.dp)
-    Column(modifier.clip(shape).background(if (selected) c.accent.copy(alpha = .22f) else c.panel)
+    Column(modifier.clip(shape).background(fill ?: if (selected) c.accent.copy(alpha = .22f) else c.panel)
         .border(if (selected) 1.dp else .6.dp, c.accent.copy(alpha = if (selected) .85f else .32f), shape), content = content)
 }
 
@@ -175,6 +175,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                                 drawLine(c.accent.copy(alpha = .6f), Offset(size.width / 2, 0f), Offset(size.width / 2, size.height), 1.dp.toPx())
                                 drawCircle(if (selected || r.done || p == Prayer.SUNRISE && !state.today[p].isAfter(state.now)) c.accent else c.background, if (selected) 5.dp.toPx() else 3.dp.toPx())
                             }
+                            Icon(if (p == Prayer.FAJR || p == Prayer.ISHA) Icons.Outlined.DarkMode else if (p == Prayer.ASR) Icons.Outlined.WbTwilight else Icons.Outlined.WbSunny, null, Modifier.size(if (tablet) 24.dp else 18.dp), tint=c.accent)
                             Column(Modifier.weight(1f)) {
                                 WorshipText(r.label, s, if (tablet) 24f else 17f, c.ink, lines = 1)
                                 if (tablet && !L10n.isUrdu(s)) Text(if (s.jumuahEnabled && p == Prayer.DHUHR) "الجمعة" else r.arabic,
@@ -214,9 +215,9 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 if (s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(if (tablet) 150.dp else if (smallPortrait) 60.dp else 76.dp))
                 banner()
                 val idealHeroHeight = if (tablet && s.theme == AppTheme.MIQAAT) (viewportHeight * .31f).coerceIn(360.dp, 440.dp) else if (tablet) (viewportHeight * (if (s.theme == AppTheme.MIQAAT) .24f else .29f)).coerceIn(if (s.theme == AppTheme.MIQAAT) 250.dp else 290.dp, if (s.theme == AppTheme.MIQAAT) 320.dp else 380.dp)
-                    else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 162.dp else 194.dp)
-                    else if (s.theme == AppTheme.KISWAH) (if (smallPortrait) 194.dp else 232.dp)
-                    else (if (smallPortrait) 204.dp else 244.dp)
+                    else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 250.dp else 320.dp)
+                    else if (s.theme == AppTheme.KISWAH) (if (smallPortrait) 250.dp else 320.dp)
+                    else (if (smallPortrait) 250.dp else 320.dp)
                 val mastheadHeight = (if (s.theme == AppTheme.KISWAH) (if (tablet) 112.dp else 72.dp) else if (tablet) 44.dp else 40.dp) * typeScale
                 val artHeight = if (s.theme == AppTheme.MIQAAT) (if (tablet) 150.dp else if (smallPortrait) 60.dp else 76.dp) else 0.dp
                 val chrome = (if (tablet) 62.dp else 48.dp) + mastheadHeight + artHeight +
@@ -262,14 +263,14 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         listOf(Triple(Icons.Outlined.MenuBook, words(s, "Al-Kahf", "سورۃ الکہف"), words(s, if (kahf) "Read this Friday ✓" else "Mark as read", if (kahf) "پڑھ لی ✓" else "پڑھنے کا اندراج")),
             Triple(Icons.Outlined.FavoriteBorder, words(s, "Salawat", "درود شریف"), words(s, "$salawat this Friday", "اس جمعہ: $salawat"))).forEachIndexed { i, item ->
-            WorshipSurface(s, Modifier.weight(1f).fillMaxHeight().testTag("friday-action-$i")
-                .clickable(role = Role.Button, onClick = if (i == 0) a.onOpenKahf else a.onOpenSalawat)) {
+            WorshipSurface(s, Modifier.weight(1f).fillMaxHeight().background(if(s.theme == AppTheme.MIQAAT) (if(i==0) Color(0xFF145440) else Color(0xFFB24926)) else Color.Transparent, RoundedCornerShape(10.dp)).testTag("friday-action-$i")
+                .clickable(role = Role.Button, onClick = if (i == 0) a.onOpenKahf else a.onOpenSalawat), fill=if(s.theme == AppTheme.MIQAAT) (if(i==0) Color(0xFF145440) else Color(0xFFB24926)) else c.background.copy(alpha=.8f)) {
                 Row(Modifier.fillMaxSize().padding(horizontal = if (tablet) 10.dp else 5.dp), verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                     if (i == 1) SalawatBeads(if (s.theme == AppTheme.PRAYER_GALLERY) c.ink else c.accent, Modifier.size(if (tablet) 27.dp else 18.dp))
                     else Icon(item.first, null, Modifier.size(if (tablet) 25.dp else 18.dp), tint = c.accent)
                     Column {
-                        WorshipText(item.second, s, if (tablet) 17f else 12f, c.ink, Modifier.testTag("friday-action-title-$i"), lines = 1)
+                        WorshipText(item.second, s, if (tablet) 17f else 12f, if(s.theme == AppTheme.MIQAAT) Color.White else c.ink, Modifier.testTag("friday-action-title-$i"), lines = 1)
                         WorshipText(item.third, s, if (tablet) 11f else 9f, c.secondary, Modifier.testTag("friday-action-detail-$i"), lines = 1)
                     }
                 }
@@ -331,33 +332,14 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
 
 /** One compact Friday masthead. Kiswah combines its Friday label and dhikr in one embroidered frame. */
 @Composable private fun FridayMasthead(s: AppSettings, tablet: Boolean, wide: Boolean, onOpen: () -> Unit) {
-    val c = fridayOption2Palette(s.theme)
-    val short = wide && !tablet
-    val typeScale = LocalDensity.current.fontScale
-    if (s.theme == AppTheme.KISWAH) {
-        val tall = tablet && !wide
-        Box(Modifier.fillMaxWidth().height((if (tall) 112.dp else if (tablet) 86.dp else if (short) 56.dp else 72.dp) * if (short) 1f else typeScale)
-            .background(Color.Black.copy(alpha = .90f)).testTag("friday-banner")
-            .clickable(role = Role.Button, onClick = onOpen), contentAlignment = Alignment.Center) {
-            KiswahOrnamentalFrame(if (tablet) .65f else .35f, Modifier.matchParentSize())
-            Column(Modifier.fillMaxWidth().padding(horizontal = if (tablet) 32.dp else 20.dp, vertical = if (short) 6.dp else 8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                WorshipText(words(s, "FRIDAY · الجمعة", "جمعہ · الجمعة"), s,
-                    if (tablet) 19f else if (short) 11f else 15f, c.accent, center = true, lines = 1)
-                Text(if (tablet && wide) Kiswah.BAND else Kiswah.BAND.substringBefore("   ✦   "),
-                    Modifier.fillMaxWidth().testTag("kiswah-calligraphy-band"), fontFamily = KiswahLandscapeArabic,
-                    fontSize = (if (tablet) 15 else if (short) 9 else 13).sp, lineHeight = (if (tablet) 23 else if (short) 13 else 21).sp,
-                    color = c.ink, textAlign = TextAlign.Center, maxLines = 1)
-            }
-        }
-    } else Row(Modifier.fillMaxWidth().height((if (short && s.theme == AppTheme.PRAYER_GALLERY) 28.dp else if (tablet) 44.dp else 40.dp) * if (short) 1f else typeScale)
-        .testTag("friday-banner").clickable(role = Role.Button, onClick = onOpen).padding(horizontal = 12.dp),
-        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-        HorizontalDivider(Modifier.weight(1f), color = c.accent.copy(alpha = .4f))
-        Text(words(s, "FRIDAY · الجمعة", "جمعہ · الجمعة"), fontFamily = worshipFont(s),
-            fontSize = (if (tablet) 18 else if (short) 12 else 15).sp, color = c.accent,
-            lineHeight = (if (tablet) 30 else 25).sp, maxLines = 1)
-        HorizontalDivider(Modifier.weight(1f), color = c.accent.copy(alpha = .4f))
+    val c=fridayOption2Palette(s.theme)
+    Box(Modifier.fillMaxWidth().height(if(tablet) 48.dp else 38.dp)
+        .background(if(s.theme==AppTheme.MIQAAT) Color(0xFF194B3C) else c.background.copy(alpha=.92f))
+        .border(.8.dp, Color(0xFFE7C77E), RoundedCornerShape(8.dp)).testTag("friday-banner")
+        .clickable(role=Role.Button,onClick=onOpen),contentAlignment=Alignment.Center) {
+        Text(Kiswah.BAND,Modifier.padding(horizontal=10.dp).testTag("kiswah-calligraphy-band"),fontFamily=Amiri,
+            fontSize=(if(tablet) 18 else 12).sp,lineHeight=(if(tablet) 30 else 24).sp,
+            color=Color(0xFFF0D89D),textAlign=TextAlign.Center,maxLines=1)
     }
 }
 
@@ -401,7 +383,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     val c = fridayOption2Palette(s.theme)
     val h = heroInfo(state, s, null)
     val ur = L10n.isUrdu(s)
-    val gallery = false // Option 2 uses a centred mihrab hero in every theme.
+    val gallery = false // Native live facts over reference-derived hero art.
     val iq = PrayerEngine.iqamah(s, state.today, h.prayer)
     // The status line is the single countdown. Extra metadata only appears when there is real iqamah data.
     val iqLabel = iq?.let { "${L10n.word(s, "Iqamah")} ${L10n.at(it, s.use24h)}" }
@@ -459,7 +441,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                 names(Modifier.weight(.43f))
                 FridayClock(state, s, fittedNumberSize, Modifier.weight(.57f).clickable(onClick = a.onToggleRelative))
             } else {
-                if (!tablet) Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                if (!tablet) Column(horizontalAlignment=Alignment.CenterHorizontally) {
                     Text(if (s.jumuahEnabled && h.prayer == Prayer.DHUHR) "الجمعة" else h.arabic,
                         Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
                         fontSize = (if (short || tight) 24 else 34).sp, lineHeight = (if (short || tight) 34 else 48).sp, color = c.accent, maxLines = 1)
