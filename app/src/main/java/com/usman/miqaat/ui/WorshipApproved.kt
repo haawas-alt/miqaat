@@ -212,21 +212,21 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     FridayActions(s, state.now, a, short, tablet)
                 }
             } else {
-                if (s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(if (tablet) 150.dp else if (smallPortrait) 60.dp else 76.dp))
+                if (s.theme == AppTheme.MIQAAT) GalleryFridayVista(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(if (tablet) 80.dp else if (smallPortrait) 60.dp else 76.dp))
                 banner()
-                val idealHeroHeight = if (tablet && s.theme == AppTheme.MIQAAT) (viewportHeight * .31f).coerceIn(360.dp, 440.dp) else if (tablet) (viewportHeight * (if (s.theme == AppTheme.MIQAAT) .24f else .29f)).coerceIn(if (s.theme == AppTheme.MIQAAT) 250.dp else 290.dp, if (s.theme == AppTheme.MIQAAT) 320.dp else 380.dp)
+                val idealHeroHeight = if (tablet) (viewportHeight * .44f).coerceIn(440.dp, 600.dp)
                     else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 250.dp else 320.dp)
                     else if (s.theme == AppTheme.KISWAH) (if (smallPortrait) 250.dp else 320.dp)
                     else (if (smallPortrait) 250.dp else 320.dp)
-                val mastheadHeight = (if (s.theme == AppTheme.KISWAH) (if (tablet) 112.dp else 72.dp) else if (tablet) 44.dp else 40.dp) * typeScale
-                val artHeight = if (s.theme == AppTheme.MIQAAT) (if (tablet) 150.dp else if (smallPortrait) 60.dp else 76.dp) else 0.dp
+                val mastheadHeight = if(tablet) 48.dp else 38.dp
+                val artHeight = if (s.theme == AppTheme.MIQAAT) (if (tablet) 80.dp else if (smallPortrait) 60.dp else 76.dp) else 0.dp
                 val chrome = (if (tablet) 62.dp else 48.dp) + mastheadHeight + artHeight +
                     (if (tablet) 87.dp else 63.dp) + 6.dp + (if (tablet) 66.dp else 56.dp)
-                val heroHeight = (idealHeroHeight * typeScale).coerceAtMost((safeHeight - chrome - 48.dp * listedPrayers(s).size).coerceAtLeast(140.dp))
+                val heroHeight = (idealHeroHeight * typeScale).coerceAtMost((safeHeight - chrome - (if(tablet) 64.dp * typeScale else 48.dp) * listedPrayers(s).size).coerceAtLeast(140.dp))
                 hero(Modifier.fillMaxWidth().height(heroHeight).padding(vertical = if (tablet) 10.dp else 4.dp))
                 FridayActions(s, state.now, a, false, tablet)
                 Spacer(Modifier.height(6.dp))
-                prayers(Modifier.fillMaxWidth().weight(1f))
+                prayers(Modifier.fillMaxWidth().then(if(tablet) Modifier.height(64.dp * typeScale * listedPrayers(s).size) else Modifier.weight(1f)))
             }
             FridayDock(s, state, a, tablet)
         }
