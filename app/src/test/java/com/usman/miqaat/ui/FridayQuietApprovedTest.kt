@@ -88,6 +88,35 @@ class FridayQuietApprovedTest : ComposeSupport() {
         }
         assertTrue(failures.joinToString("\n"), failures.isEmpty())
     }
+    @Test fun approvedMockupViewportSizesKeepFactsAndActionsReadable() {
+        val profiles = listOf(
+            Triple(Dev.PHONE_PORTRAIT, "w375dp-h812dp-port-xhdpi", "approved375x812"),
+            Triple(Dev.PHONE_LANDSCAPE, "w812dp-h375dp-land-xhdpi", "approved812x375"),
+            Triple(Dev.TABLET_PORTRAIT, "w768dp-h1024dp-port-xhdpi", "approved768x1024"))
+        val failures = mutableListOf<String>()
+        for (theme in AppTheme.entries) for (lang in Language.entries) for ((dev, qualifiers, label) in profiles) {
+            val s = settings(theme, lang)
+            val state = PrayerEngine.state(s, ZonedDateTime.of(2026,10,30,11,47,0,0,s.zone()))
+            try {
+                show(dev, theme, language=lang, rtl=lang==Language.UR, qualifiers=qualifiers) {
+                    androidx.compose.runtime.CompositionLocalProvider(LocalFridayRevealFrame provides 1f) {
+                        HomeRouter(state,s,HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}),false,{})
+                    }
+                }
+                capture(theme,dev,lang,"friday-$label")
+                for (tag in listOf("friday-banner","friday-hero-arabic","friday-hero-time","friday-hero-status","friday-hero-iqamah")) readable(tag)
+                for (i in 0..1) {
+                    readable("friday-action-title-$i"); readable("friday-action-detail-$i")
+                    val bounds=rule.onNodeWithTag("friday-action-$i",true).fetchSemanticsNode().boundsInRoot
+                    assertTrue("Friday shortcut <48dp",bounds.height>=48*app.resources.displayMetrics.density-.5f)
+                }
+                for (p in Prayer.entries) { readable("friday-time-${p.name}"); readable("friday-detail-${p.name}") }
+            } catch(e: AssertionError) { failures += "$theme/$lang/$label: ${e.message}" }
+            finally { scenario.close() }
+        }
+        assertTrue(failures.joinToString("\n"),failures.isEmpty())
+    }
+
     @Test fun relativeAnd24HourModesKeepRealClocksAndArtworkClear() {
         val failures = mutableListOf<String>()
         for (theme in AppTheme.entries) for (lang in Language.entries) for (dev in Dev.entries) {
