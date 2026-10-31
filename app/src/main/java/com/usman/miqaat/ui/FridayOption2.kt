@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
@@ -92,7 +93,7 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
     }
     if (s.artTheme != ArtTheme.MINIMAL) Box(modifier.testTag("friday-mihrab-reveal")) {
         Image(painterResource(heroArt), null, Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.Crop, alignment = Alignment.TopCenter,
             alpha = if (still) 1f else .78f + .22f * intensity)
     }
 }
