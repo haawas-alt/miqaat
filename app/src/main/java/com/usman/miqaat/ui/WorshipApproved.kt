@@ -171,10 +171,6 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                             .testTag("approved-row-${p.name}").semantics(mergeDescendants = true) { contentDescription = r.spoken }
                             .clickable { why = p }.padding(horizontal = if (tablet) 14.dp else 8.dp),
                             verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(if (tablet) 10.dp else 5.dp)) {
-                            if (s.theme == AppTheme.CELESTIAL_MERIDIAN) Canvas(Modifier.width(16.dp).fillMaxHeight()) {
-                                drawLine(c.accent.copy(alpha = .6f), Offset(size.width / 2, 0f), Offset(size.width / 2, size.height), 1.dp.toPx())
-                                drawCircle(if (selected || r.done || p == Prayer.SUNRISE && !state.today[p].isAfter(state.now)) c.accent else c.background, if (selected) 5.dp.toPx() else 3.dp.toPx())
-                            }
                             Icon(if (p == Prayer.FAJR || p == Prayer.ISHA) Icons.Outlined.DarkMode else if (p == Prayer.ASR) Icons.Outlined.WbTwilight else Icons.Outlined.WbSunny, null, Modifier.size(if (tablet) 24.dp else 18.dp), tint=c.accent)
                             Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 WorshipText(r.label, s, if (tablet) 20f else if (short) 15f else 17f, c.ink, lines = 1)
@@ -217,14 +213,14 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     FridayActions(s, state.now, a, short, tablet)
                 }
             } else {
-                if (s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(if (tablet) 80.dp else if (smallPortrait) 60.dp else 76.dp))
+                if (s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(if (tablet) 80.dp else if (smallPortrait) 44.dp else 48.dp))
                 banner()
                 val idealHeroHeight = if (tablet) (viewportHeight * .44f).coerceIn(440.dp, 600.dp)
                     else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 250.dp else 320.dp)
                     else if (s.theme == AppTheme.KISWAH) (if (smallPortrait) 250.dp else 320.dp)
                     else (if (smallPortrait) 250.dp else 320.dp)
                 val mastheadHeight = if(tablet) 48.dp else 38.dp
-                val artHeight = if (s.theme == AppTheme.MIQAAT) (if (tablet) 80.dp else if (smallPortrait) 60.dp else 76.dp) else 0.dp
+                val artHeight = if (s.theme == AppTheme.MIQAAT) (if (tablet) 80.dp else if (smallPortrait) 44.dp else 48.dp) else 0.dp
                 val chrome = (if (tablet) 62.dp else 48.dp) + mastheadHeight + artHeight +
                     (if (tablet) 87.dp else 63.dp) + 6.dp + (if (tablet) 66.dp else 56.dp)
                 val heroHeight = (idealHeroHeight * typeScale).coerceAtMost((safeHeight - chrome - (if(tablet) (if (L10n.isUrdu(s)) 64.dp else 52.dp) * typeScale else 48.dp) * listedPrayers(s).size).coerceAtLeast(140.dp))
@@ -416,7 +412,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         val statusLine = if (tablet) (if (ur) 27f else 18.75f) + 6f else (if (ur) 20f else 14f) + 6f
         val iqamahLine = if (iqLabel == null) 0f else if (tablet) (if (ur) 21.6f else 15f) else if (ur) 18f else 12.5f
         val fridayLine = if (maxHeight > 250.dp * scale) (if (ur) 25.2f else 17.5f) else 0f
-        val reserved = (if (fridayLine > 0f) 26f else 0f) + fridayLine + arabicLine + nameLine + kickerLine + statusLine + iqamahLine + (if (!tablet && !short) 44f else 16f)
+        val reserved = (if (fridayLine > 0f) 26f else 0f) + fridayLine + arabicLine + nameLine + kickerLine + statusLine + iqamahLine + (if (!tablet && !short && s.theme != AppTheme.MIQAAT) 44f else 16f)
         val fittedNumberSize = minOf(numberSize, ((maxHeight.value / scale - reserved) / 1.28f).coerceAtLeast(20f))
         val base = Modifier.fillMaxSize().clip(RoundedCornerShape(if (tablet) 24.dp else 18.dp))
             .then(if (gallery) Modifier.background(c.panel.copy(alpha = 1f)).border(.8.dp, c.accent.copy(alpha = .22f), RoundedCornerShape(if (tablet) 24.dp else 18.dp))
