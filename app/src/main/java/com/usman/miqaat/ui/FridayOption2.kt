@@ -16,6 +16,9 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
@@ -93,6 +96,17 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
         AppTheme.PRAYER_GALLERY -> R.drawable.friday_gallery_hero
     }
     if (s.artTheme != ArtTheme.MINIMAL) Box(modifier.testTag("friday-mihrab-reveal")) {
+        // Continue the courtyard floor beneath the uniformly scaled architecture.
+        if (artworkOverride != null) {
+            val scene = ImageBitmap.imageResource(heroArt)
+            Canvas(Modifier.fillMaxSize()) {
+                val floorHeight = (scene.height * .12f).toInt().coerceAtLeast(1)
+                drawImage(scene, srcOffset = IntOffset(0, scene.height - floorHeight),
+                    srcSize = IntSize(scene.width, floorHeight),
+                    dstSize = IntSize(size.width.toInt(), size.height.toInt()),
+                    alpha = if (still) 1f else .78f + .22f * intensity)
+            }
+        }
         Image(painterResource(heroArt), null, Modifier.fillMaxSize(),
             contentScale = if (artworkOverride != null) ContentScale.FillWidth else ContentScale.Crop, alignment = Alignment.TopCenter,
             alpha = if (still) 1f else .78f + .22f * intensity)
