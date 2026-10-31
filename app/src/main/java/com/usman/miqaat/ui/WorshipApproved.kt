@@ -226,11 +226,11 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 val artHeight = if (s.theme == AppTheme.MIQAAT) (if (tablet) 80.dp else if (smallPortrait) 60.dp else 76.dp) else 0.dp
                 val chrome = (if (tablet) 62.dp else 48.dp) + mastheadHeight + artHeight +
                     (if (tablet) 87.dp else 63.dp) + 6.dp + (if (tablet) 66.dp else 56.dp)
-                val heroHeight = (idealHeroHeight * typeScale).coerceAtMost((safeHeight - chrome - (if(tablet) 52.dp * typeScale else 48.dp) * listedPrayers(s).size).coerceAtLeast(140.dp))
+                val heroHeight = (idealHeroHeight * typeScale).coerceAtMost((safeHeight - chrome - (if(tablet) (if (L10n.isUrdu(s)) 64.dp else 52.dp) * typeScale else 48.dp) * listedPrayers(s).size).coerceAtLeast(140.dp))
                 hero(Modifier.fillMaxWidth().height(heroHeight).padding(vertical = if (tablet) 10.dp else 4.dp))
                 FridayActions(s, state.now, a, false, tablet)
                 Spacer(Modifier.height(6.dp))
-                prayers(Modifier.fillMaxWidth().then(if(tablet) Modifier.height(52.dp * typeScale * listedPrayers(s).size) else Modifier.weight(1f)))
+                prayers(Modifier.fillMaxWidth().then(if(tablet) Modifier.height((if (L10n.isUrdu(s)) 64.dp else 52.dp) * typeScale * listedPrayers(s).size) else Modifier.weight(1f)))
             }
             FridayDock(s, state, a, tablet)
         }
