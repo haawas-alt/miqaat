@@ -407,7 +407,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         val scale = LocalDensity.current.fontScale
         // Budget every native text line before allocating the display clock. Garden art
         // makes MA2's available hero shorter, especially with Iqamah and Urdu enabled.
-        val arabicLine = if (tablet) (if (roomy) 98f else 67.2f) else if (short || tight) 34f else 48f
+        val arabicLine = if (tablet) (if (roomy) 112f else 89.6f) else if (short || tight) 34f else 61.6f
         val nameLine = if (ur) 0f else if (tablet) 25f else if (short) 15f else 17.5f
         val kickerLine = if (short) (if (ur) 16.2f else 11.25f) else if (tablet) (if (ur) 23.4f else 16.25f) else if (ur) 18f else 12.5f
         val statusLine = if (tablet) (if (ur) 27f else 18.75f) + 6f else (if (ur) 20f else 14f) + 6f
@@ -432,7 +432,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                 Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
             val names: @Composable (Modifier) -> Unit = { m ->
                 val arabicSize = if (gallery) (if (tablet) 38 else if (short) 20 else 30)
-                    else if (tablet) (if (roomy) 70 else 48) else if (short) 24 else if (smallPortrait) 28 else 38
+                    else if (tablet) (if (roomy) 80 else 64) else if (short) 24 else if (smallPortrait) 28 else 38
                 Column(m, horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(if (s.jumuahEnabled && h.prayer == Prayer.DHUHR) "الجمعة" else h.arabic,
                         Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
@@ -451,7 +451,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                 if (!tablet) Column(horizontalAlignment=Alignment.CenterHorizontally) {
                     Text(if (s.jumuahEnabled && h.prayer == Prayer.DHUHR) "الجمعة" else h.arabic,
                         Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
-                        fontSize = (if (short || tight) 24 else 34).sp, lineHeight = (if (short || tight) 34 else 48).sp, color = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent, maxLines = 1)
+                        fontSize = (if (short || tight) 24 else 44).sp, lineHeight = (if (short || tight) 34f else 61.6f).sp, color = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent, maxLines = 1)
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         if (short) WorshipText(h.kickerLabel, s, 9f, c.secondary, Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
                         if (!ur) WorshipText(h.label.uppercase(Locale.ROOT), s, if (short) 12f else 14f, c.ink, Modifier.testTag("friday-hero-name"), lines = 1)
