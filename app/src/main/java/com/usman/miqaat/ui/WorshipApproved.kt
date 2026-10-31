@@ -177,11 +177,11 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                             }
                             Icon(if (p == Prayer.FAJR || p == Prayer.ISHA) Icons.Outlined.DarkMode else if (p == Prayer.ASR) Icons.Outlined.WbTwilight else Icons.Outlined.WbSunny, null, Modifier.size(if (tablet) 24.dp else 18.dp), tint=c.accent)
                             Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                WorshipText(r.label, s, if (tablet) 20f else 17f, c.ink, lines = 1)
+                                WorshipText(r.label, s, if (tablet) 20f else if (short) 15f else 17f, c.ink, lines = 1)
                                 if (tablet && !L10n.isUrdu(s)) Text(if (s.jumuahEnabled && p == Prayer.DHUHR) "الجمعة" else r.arabic,
                                     fontFamily = Amiri, fontSize = 18.sp, lineHeight = 27.sp, color = c.accent)
                             }
-                            Column(Modifier.width(if (tablet) 205.dp else 128.dp), horizontalAlignment = Alignment.End) {
+                            Column(Modifier.width(if (tablet) 205.dp else if (short) 112.dp else 128.dp), horizontalAlignment = Alignment.End) {
                                 FridayTime(state.today[p], s, if (tablet) 29f else 21f,
                                     Modifier.fillMaxWidth(), "friday-time-${p.name}", c.ink, TextAlign.End)
                                 if (s.showRelative || s.showEndTimes) WorshipText(
@@ -207,8 +207,8 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 banner()
             }
             if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(vertical = 6.dp), horizontalArrangement = Arrangement.spacedBy(if (tablet) 20.dp else 10.dp)) {
-                prayers(Modifier.weight(if (short) .48f else .47f).fillMaxHeight())
-                Column(Modifier.weight(if (short) .52f else .53f).fillMaxHeight()) {
+                prayers(Modifier.weight(if (short) .40f else .40f).fillMaxHeight())
+                Column(Modifier.weight(if (short) .60f else .60f).fillMaxHeight()) {
                     if (short) header()
                     if (short && s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(16.dp))
                     if (short) banner()
