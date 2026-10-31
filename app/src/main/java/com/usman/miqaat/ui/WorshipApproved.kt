@@ -368,7 +368,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
             }
         }
         fun style(size: Float) = TextStyle(fontFamily = worshipFont(s), fontSize = (size * suffixRatio).sp,
-            lineHeight = (size * 1.2f).sp, platformStyle = PlatformTextStyle(includeFontPadding = false),
+            lineHeight = (size * if (tag == "friday-hero-time") 1.28f else 1.2f).sp, platformStyle = PlatformTextStyle(includeFontPadding = false),
             textAlign = align, color = color)
         val resolved = remember(text, numberSize, suffixRatio, maxWidth, density.fontScale, density.density) {
             val measured = measurer.measure(styled(numberSize), style(numberSize), softWrap = false, maxLines = 1).size.width
@@ -415,7 +415,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         val iqamahLine = if (iqLabel == null) 0f else if (tablet) (if (ur) 21.6f else 15f) else if (ur) 18f else 12.5f
         val fridayLine = if (maxHeight > 250.dp * scale) (if (ur) 25.2f else 17.5f) else 0f
         val reserved = (if (fridayLine > 0f) 26f else 0f) + fridayLine + arabicLine + nameLine + kickerLine + statusLine + iqamahLine + (if (!tablet && !short) 44f else 16f)
-        val fittedNumberSize = minOf(numberSize, ((maxHeight.value / scale - reserved) / 1.2f).coerceAtLeast(20f))
+        val fittedNumberSize = minOf(numberSize, ((maxHeight.value / scale - reserved) / 1.28f).coerceAtLeast(20f))
         val base = Modifier.fillMaxSize().clip(RoundedCornerShape(if (tablet) 24.dp else 18.dp))
             .then(if (gallery) Modifier.background(c.panel.copy(alpha = 1f)).border(.8.dp, c.accent.copy(alpha = .22f), RoundedCornerShape(if (tablet) 24.dp else 18.dp))
                 else if (s.theme == AppTheme.CELESTIAL_MERIDIAN) Modifier.drawBehind {
