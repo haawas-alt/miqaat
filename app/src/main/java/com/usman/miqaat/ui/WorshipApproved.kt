@@ -339,7 +339,9 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         .background(if(s.theme==AppTheme.MIQAAT) Color(0xFF194B3C) else c.background.copy(alpha=.92f))
         .border(.8.dp, Color(0xFFE7C77E), RoundedCornerShape(8.dp)).testTag("friday-banner")
         .clickable(role=Role.Button,onClick=onOpen),contentAlignment=Alignment.Center) {
-        Text(if (s.theme == AppTheme.MIQAAT && !L10n.isUrdu(s)) "✦   SubhanAllah   ✦   Alhamdulillah   ✦   Allahu Akbar   ✦" else Kiswah.BAND,Modifier.padding(horizontal=10.dp).testTag("kiswah-calligraphy-band"),fontFamily=Amiri,
+        if (s.theme != AppTheme.MIQAAT) KiswahOrnamentalFrame(
+            if (tablet) .60f else .35f, Modifier.matchParentSize())
+        Text(if (s.theme == AppTheme.MIQAAT && !L10n.isUrdu(s)) "✦   SubhanAllah   ✦   Alhamdulillah   ✦   Allahu Akbar   ✦" else Kiswah.BAND,Modifier.padding(horizontal=10.dp).testTag("kiswah-calligraphy-band"),fontFamily=if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
             fontSize=(if(tablet) 18 else 12).sp,lineHeight=(if(tablet) 30 else 24).sp,
             color=Color(0xFFF0D89D),textAlign=TextAlign.Center,maxLines=1)
     }
