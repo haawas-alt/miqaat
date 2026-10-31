@@ -94,7 +94,7 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
     }
     if (s.artTheme != ArtTheme.MINIMAL) Box(modifier.testTag("friday-mihrab-reveal")) {
         Image(painterResource(heroArt), null, Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop, alignment = Alignment.TopCenter,
+            contentScale = if (artworkOverride != null) ContentScale.FillWidth else ContentScale.Crop, alignment = Alignment.TopCenter,
             alpha = if (still) 1f else .78f + .22f * intensity)
     }
 }
