@@ -375,7 +375,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
             val available = with(density) { maxWidth.toPx() }
             if (measured > available) numberSize * (available / measured).coerceIn(.5f, 1f) else numberSize
         }
-        Text(styled(resolved), Modifier.fillMaxWidth().testTag(tag), style = style(resolved), maxLines = 1)
+        Text(styled(resolved), Modifier.fillMaxWidth().testTag(tag), style = style(resolved), softWrap = false, maxLines = 1)
     }
 }
 
@@ -400,7 +400,9 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     BoxWithConstraints(modifier.testTag("home-hero")) {
         val roomy = tablet && maxHeight > 480.dp * LocalDensity.current.fontScale
         val tight = !tablet && maxHeight < (if (gallery) 170.dp else 210.dp) * LocalDensity.current.fontScale
-        val numberSize = if (gallery) {
+        val numberSize = if (wide && tablet && s.theme == AppTheme.PRAYER_GALLERY) {
+            if (ur) 62f else 80f
+        } else if (gallery) {
             if (tablet) (if (ur) 80f else 115f) else if (short) (if (ur) 40f else 56f) else (if (ur) (if (tight) 38f else 44f) else if (tight) 56f else 65f)
         } else if (tablet) (if (ur) (if (roomy) 98f else 76f) else if (roomy) 154f else 122f)
         else if (short) (if (ur) (if (s.theme == AppTheme.KISWAH) 40f else 48f) else if (s.theme == AppTheme.KISWAH) 68f else 72f) else if (tight) (if (ur) 44f else 56f) else (if (ur) 64f else 82f)
