@@ -103,7 +103,8 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
                 val floorHeight = (scene.height * .12f).toInt().coerceAtLeast(1)
                 drawImage(scene, srcOffset = IntOffset(0, scene.height - floorHeight),
                     srcSize = IntSize(scene.width, floorHeight),
-                    dstSize = IntSize(size.width.toInt(), size.height.toInt()),
+                    dstOffset = IntOffset(0, (size.width * scene.height / scene.width).toInt()),
+                    dstSize = IntSize(size.width.toInt(), (size.height - size.width * scene.height / scene.width).toInt().coerceAtLeast(1)),
                     alpha = if (still) 1f else .78f + .22f * intensity)
             }
         }
