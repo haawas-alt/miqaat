@@ -260,7 +260,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     val key = now.toLocalDate().toString()
     val kahf = prefs.getBoolean("kahf_$key", false)
     val salawat = prefs.getInt("salawat_$key", 0)
-    Row(Modifier.fillMaxWidth().padding(top = if (short) 0.dp else 5.dp).height(if (tablet) 64.dp else 52.dp),
+    Row(Modifier.fillMaxWidth().wrapContentWidth(Alignment.CenterHorizontally).widthIn(max = if (tablet) 460.dp else 380.dp).padding(top = if (short) 0.dp else 5.dp).height(if (tablet) 64.dp else 52.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         listOf(Triple(Icons.Outlined.MenuBook, words(s, "Al-Kahf", "سورۃ الکہف"), words(s, if (kahf) "Read this Friday ✓" else "Mark as read", if (kahf) "پڑھ لی ✓" else "پڑھنے کا اندراج")),
             Triple(Icons.Outlined.FavoriteBorder, words(s, "Salawat", "درود شریف"), words(s, "$salawat this Friday", "اس جمعہ: $salawat"))).forEachIndexed { i, item ->
