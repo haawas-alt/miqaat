@@ -155,7 +155,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             if (!short) header()
             val banner: @Composable () -> Unit = { FridayMasthead(s, tablet, wide, a.onOpenFriday) }
             val hero: @Composable (Modifier) -> Unit = { m ->
-                FridayHero(state, s, a, tablet, short, smallPortrait, m) { why = state.hero }
+                FridayHero(state, s, a, tablet, short, smallPortrait, wide, m) { why = state.hero }
             }
             val prayers: @Composable (Modifier) -> Unit = { m ->
                 WorshipSurface(s, m.background(c.background.copy(alpha = .72f), RoundedCornerShape(14.dp)).testTag("home-prayers")) {
@@ -208,7 +208,8 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             }
             if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(vertical = 6.dp), horizontalArrangement = Arrangement.spacedBy(if (tablet) 20.dp else 10.dp)) {
                 prayers(Modifier.weight(if (short) .40f else .40f).fillMaxHeight())
-                Column(Modifier.weight(if (short) .60f else .60f).fillMaxHeight()) {
+                if (s.theme == AppTheme.PRAYER_GALLERY) Spacer(Modifier.weight(.16f))
+                Column(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) .44f else .60f).fillMaxHeight()) {
                     if (short) header()
                     if (short && s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(16.dp))
                     if (short) banner()
@@ -385,7 +386,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
 }
 
 @Composable private fun FridayHero(state: PrayerState, s: AppSettings, a: HomeActions,
-    tablet: Boolean, short: Boolean, smallPortrait: Boolean, modifier: Modifier, onDetails: () -> Unit) {
+    tablet: Boolean, short: Boolean, smallPortrait: Boolean, wide: Boolean, modifier: Modifier, onDetails: () -> Unit) {
     val c = fridayOption2Palette(s.theme)
     val h = heroInfo(state, s, null)
     val ur = L10n.isUrdu(s)
@@ -425,7 +426,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                         radius = minOf(size.width, size.height) * .48f))
                 } else Modifier)
             .clickable(role = Role.Button, onClickLabel = detailLabel, onClick = onDetails)
-        FridayMihrabReveal(s, Modifier.matchParentSize())
+        if (!(wide && s.theme == AppTheme.PRAYER_GALLERY)) FridayMihrabReveal(s, Modifier.matchParentSize())
         Column(base.padding(horizontal = if (tablet) 18.dp else 8.dp, vertical = if (short) 2.dp else if (tight) 4.dp else 6.dp),
             horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             if (!short) WorshipText(h.kickerLabel, s, if (tablet) 13f else if (tight) 9f else 10f, c.secondary,

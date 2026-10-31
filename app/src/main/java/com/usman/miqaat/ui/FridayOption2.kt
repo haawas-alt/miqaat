@@ -54,7 +54,8 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
                 AppTheme.CELESTIAL_MERIDIAN -> R.drawable.friday_celestial_hero
                 AppTheme.PRAYER_GALLERY -> R.drawable.friday_gallery_hero
             }
-            Image(painterResource(art), null, Modifier.fillMaxSize(), contentScale=ContentScale.Crop)
+            if (wide && s.theme == AppTheme.PRAYER_GALLERY) FridayMihrabReveal(s, Modifier.fillMaxSize(), R.drawable.friday_gallery_landscape)
+            else Image(painterResource(art), null, Modifier.fillMaxSize(), contentScale=ContentScale.Crop)
             Box(Modifier.fillMaxSize().background(Brush.verticalGradient(
                 0f to c.background.copy(alpha=.78f), .20f to c.background.copy(alpha=.32f),
                 .65f to c.background.copy(alpha=.16f), 1f to c.background.copy(alpha=.66f))))
@@ -66,7 +67,7 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
  * Lifecycle cancellation stops work in the background; quiet mode never composes this component.
  * Reduced-motion users get a static fine outline, without pulses or moving particles.
  */
-@Composable internal fun FridayMihrabReveal(s: AppSettings, modifier: Modifier) {
+@Composable internal fun FridayMihrabReveal(s: AppSettings, modifier: Modifier, artworkOverride: Int? = null) {
     val frame = LocalFridayRevealFrame.current
     val still = reduceMotion()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
@@ -85,7 +86,7 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
     }
     val intensity = frame?.coerceIn(0f,1f) ?: if (still) .28f else alpha.value
     val gold = if(s.theme == AppTheme.MIQAAT) Color(0xFFB98A43) else Color(0xFFE7C77E)
-    val heroArt = when(s.theme) {
+    val heroArt = artworkOverride ?: when(s.theme) {
         AppTheme.MIQAAT -> R.drawable.friday_miqaat_hero
         AppTheme.KISWAH -> R.drawable.friday_kiswah_hero
         AppTheme.CELESTIAL_MERIDIAN -> R.drawable.friday_celestial_hero
