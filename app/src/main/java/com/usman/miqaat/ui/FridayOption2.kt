@@ -6,7 +6,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -91,7 +90,7 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
         AppTheme.CELESTIAL_MERIDIAN -> R.drawable.friday_celestial_hero
         AppTheme.PRAYER_GALLERY -> R.drawable.friday_gallery_hero
     }
-    if (s.artTheme != ArtTheme.MINIMAL) BoxWithConstraints(modifier.testTag("friday-mihrab-reveal")) {
+    if (s.artTheme != ArtTheme.MINIMAL) Box(modifier.testTag("friday-mihrab-reveal")) {
         Image(painterResource(heroArt), null, Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
             alpha = if (still) 1f else .78f + .22f * intensity)
