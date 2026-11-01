@@ -152,7 +152,15 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 }
             }
             }
-            if (!short) header()
+            // MA2's location and clock sit in the ivory sky above its skyline, as on
+            // the approved board; a separate solid header strip broke that composition.
+            if (!short && s.theme == AppTheme.MIQAAT) {
+                val skylineHeight = if (wide) 72.dp else if (tablet) 80.dp else if (smallPortrait) 44.dp else 48.dp
+                Box(Modifier.fillMaxWidth().height((if (tablet) 62.dp else 48.dp) + skylineHeight)) {
+                    FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").matchParentSize())
+                    header()
+                }
+            } else if (!short) header()
             val banner: @Composable () -> Unit = { FridayMasthead(s, tablet, wide, a.onOpenFriday) }
             val hero: @Composable (Modifier) -> Unit = { m ->
                 FridayHero(state, s, a, tablet, short, smallPortrait, wide, m) { why = state.hero }
@@ -199,7 +207,6 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 }
             }
             if (wide && tablet) {
-                if (s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(72.dp))
                 banner()
             }
             if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(vertical = 6.dp), horizontalArrangement = Arrangement.spacedBy(if (tablet) 20.dp else 10.dp)) {
@@ -213,7 +220,6 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     FridayActions(s, state.now, a, short, tablet)
                 }
             } else {
-                if (s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(if (tablet) 80.dp else if (smallPortrait) 44.dp else 48.dp))
                 banner()
                 val idealHeroHeight = if (tablet) (viewportHeight * .44f).coerceIn(440.dp, 600.dp)
                     else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 250.dp else 320.dp)
@@ -429,8 +435,6 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         if (!(wide && s.theme == AppTheme.PRAYER_GALLERY)) FridayMihrabReveal(s, Modifier.matchParentSize())
         Column(base.padding(horizontal = if (tablet) 18.dp else 8.dp, vertical = if (short) 2.dp else if (tight) 4.dp else 6.dp),
             horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-            if (!short) WorshipText(h.kickerLabel, s, if (tablet) 13f else if (tight) 9f else 10f, c.secondary,
-                Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
             val names: @Composable (Modifier) -> Unit = { m ->
                 val arabicSize = if (gallery) (if (tablet) 38 else if (short) 20 else 30)
                     else if (tablet) (if (roomy) 80 else 64) else if (short) 24 else if (smallPortrait) 28 else 38
@@ -438,6 +442,8 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                     Text(if (s.jumuahEnabled && h.prayer == Prayer.DHUHR) "الجمعة" else h.arabic,
                         Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
                         fontSize = arabicSize.sp, lineHeight = (arabicSize * 1.4f).sp, color = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent, maxLines = 1)
+                    WorshipText(h.kickerLabel, s, if (tablet) 13f else 10f, c.secondary,
+                        Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
                     if (!ur) WorshipText(h.label, s,
                         if (tablet) 20f else if (short) 11f else 13f, c.ink,
                         Modifier.testTag("friday-hero-name"), center = true, lines = 1)
@@ -454,7 +460,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                         Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
                         fontSize = (if (short || tight) 24 else 44).sp, lineHeight = (if (short || tight) 34f else 61.6f).sp, color = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent, maxLines = 1)
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        if (short) WorshipText(h.kickerLabel, s, 9f, c.secondary, Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
+                        WorshipText(h.kickerLabel, s, if (short || tight) 9f else 10f, c.secondary, Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
                         if (!ur) WorshipText(h.label, s, if (short) 12f else 14f, c.ink, Modifier.testTag("friday-hero-name"), lines = 1)
                     }
                 } else names(Modifier.fillMaxWidth())
