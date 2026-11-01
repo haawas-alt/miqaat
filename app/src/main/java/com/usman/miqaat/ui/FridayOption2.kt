@@ -54,7 +54,7 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
                 AppTheme.CELESTIAL_MERIDIAN -> R.drawable.friday_celestial_hero
                 AppTheme.PRAYER_GALLERY -> R.drawable.friday_gallery_hero
             }
-            if (wide && s.theme == AppTheme.PRAYER_GALLERY) FridayMihrabReveal(s, Modifier.fillMaxSize(), R.drawable.friday_gallery_landscape)
+            if (wide && s.theme == AppTheme.PRAYER_GALLERY) FridayMihrabReveal(s, Modifier.fillMaxSize().graphicsLayer { scaleX = if (L10n.isUrdu(s)) -1f else 1f }, R.drawable.friday_gallery_landscape)
             else Image(painterResource(art), null, Modifier.fillMaxSize(), contentScale=ContentScale.Crop)
             Box(Modifier.fillMaxSize().background(Brush.verticalGradient(
                 0f to c.background.copy(alpha=.78f), .20f to c.background.copy(alpha=.32f),

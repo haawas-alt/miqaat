@@ -173,7 +173,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                             verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(if (tablet) 10.dp else 5.dp)) {
                             Icon(if (p == Prayer.FAJR || p == Prayer.ISHA) Icons.Outlined.DarkMode else if (p == Prayer.ASR) Icons.Outlined.WbTwilight else Icons.Outlined.WbSunny, null, Modifier.size(if (tablet) 24.dp else 18.dp), tint=c.accent)
                             Column(Modifier.weight(1f), horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center) {
-                                WorshipText(r.label, s, if (tablet) 20f else if (short) 15f else 17f, c.ink, lines = 1)
+                                WorshipText(r.label, s, if (tablet && wide) 16f else if (tablet) 20f else if (short) 15f else 17f, c.ink, lines = 1)
                                 if (tablet && !L10n.isUrdu(s)) Text(if (s.jumuahEnabled && p == Prayer.DHUHR) "الجمعة" else r.arabic,
                                     fontFamily = Amiri, fontSize = 18.sp, lineHeight = 27.sp, color = c.accent)
                             }
