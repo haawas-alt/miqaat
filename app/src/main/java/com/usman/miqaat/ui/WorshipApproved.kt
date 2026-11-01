@@ -433,7 +433,11 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                 } else Modifier)
             .clickable(role = Role.Button, onClickLabel = detailLabel, onClick = onDetails)
         if (!(wide && s.theme == AppTheme.PRAYER_GALLERY)) FridayMihrabReveal(s, Modifier.matchParentSize())
-        Column(base.padding(horizontal = if (tablet) 18.dp else 8.dp, vertical = if (short) 2.dp else if (tight) 4.dp else 6.dp),
+        // Kiswah's medallion panel occupies the right quarter of the painting.
+        // Centre live facts in the actual mihrab opening, including in Urdu;
+        // physical artwork placement is independent of text reading direction.
+        Column(base.absolutePadding(right = if (s.theme == AppTheme.KISWAH) maxWidth * .24f else 0.dp)
+            .padding(horizontal = if (tablet) 18.dp else 8.dp, vertical = if (short) 2.dp else if (tight) 4.dp else 6.dp),
             horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             val names: @Composable (Modifier) -> Unit = { m ->
                 val arabicSize = if (gallery) (if (tablet) 38 else if (short) 20 else 30)
