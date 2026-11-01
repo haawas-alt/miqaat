@@ -438,7 +438,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                     Text(if (s.jumuahEnabled && h.prayer == Prayer.DHUHR) "الجمعة" else h.arabic,
                         Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
                         fontSize = arabicSize.sp, lineHeight = (arabicSize * 1.4f).sp, color = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent, maxLines = 1)
-                    if (!ur) WorshipText(h.label.uppercase(Locale.ROOT), s,
+                    if (!ur) WorshipText(h.label, s,
                         if (tablet) 20f else if (short) 11f else 13f, c.ink,
                         Modifier.testTag("friday-hero-name"), center = true, lines = 1)
                 }
@@ -455,15 +455,14 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                         fontSize = (if (short || tight) 24 else 44).sp, lineHeight = (if (short || tight) 34f else 61.6f).sp, color = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent, maxLines = 1)
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         if (short) WorshipText(h.kickerLabel, s, 9f, c.secondary, Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
-                        if (!ur) WorshipText(h.label.uppercase(Locale.ROOT), s, if (short) 12f else 14f, c.ink, Modifier.testTag("friday-hero-name"), lines = 1)
+                        if (!ur) WorshipText(h.label, s, if (short) 12f else 14f, c.ink, Modifier.testTag("friday-hero-name"), lines = 1)
                     }
                 } else names(Modifier.fillMaxWidth())
                 FridayClock(state, s, fittedNumberSize, Modifier.fillMaxWidth(if (tablet) .68f else .82f).clickable(onClick = a.onToggleRelative))
             }
-            Row(Modifier.clip(RoundedCornerShape(24.dp)).background(c.accent.copy(alpha = if (gallery) .07f else .10f))
+            Row(Modifier
                 .padding(horizontal = if (tablet) 18.dp else 12.dp, vertical = if (short) 0.dp else if (tight) 2.dp else 3.dp),
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                Icon(Icons.Outlined.Schedule, null, Modifier.size(if (tablet) 17.dp else 12.dp), tint = c.accent)
                 WorshipText(status, s, if (tablet) 15f else if (short) 9f else if (tight) 10f else 11f, c.accent,
                     Modifier.testTag("friday-hero-status"), center = true, lines = 1)
             }
