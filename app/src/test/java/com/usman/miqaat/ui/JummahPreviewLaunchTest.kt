@@ -26,7 +26,7 @@ class JummahPreviewLaunchTest : ComposeSupport() {
                 rule.onNode(hasText(Str[R.string.s_preview]) and hasAnyAncestor(hasTestTag("jummah-preview-launch")))
                     .performScrollTo().performClick()
                 rule.onNodeWithTag("friday-home", true).assertIsDisplayed()
-                rule.onNodeWithTag("friday-hero-name", true).assertTextEquals("JUMUʿAH")
+                rule.onNodeWithTag("friday-hero-name", true).assertTextEquals("Jumuʿah")
                 assertEquals(s, app.settings.value)
                 rule.onNodeWithTag("friday-hero-time", true).performClick()
                 assertEquals("Relative toggle must remain preview-local", s, app.settings.value)
