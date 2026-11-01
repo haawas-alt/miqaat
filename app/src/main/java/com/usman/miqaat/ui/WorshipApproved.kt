@@ -181,17 +181,17 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                             verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(if (tablet) 10.dp else 5.dp)) {
                             Icon(if (p == Prayer.FAJR || p == Prayer.ISHA) Icons.Outlined.DarkMode else if (p == Prayer.ASR) Icons.Outlined.WbTwilight else Icons.Outlined.WbSunny, null, Modifier.size(if (tablet) 24.dp else 18.dp), tint=c.accent)
                             Column(Modifier.weight(1f), horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center) {
-                                WorshipText(r.label, s, if (tablet && wide) 16f else if (tablet) 20f else if (short) 15f else 17f, c.ink, lines = 1)
+                                WorshipText(r.label, s, if (tablet) 17f else if (short) 14f else 15f, c.ink, lines = 1)
                                 if (tablet && !L10n.isUrdu(s)) Text(if (s.jumuahEnabled && p == Prayer.DHUHR) "الجمعة" else r.arabic,
-                                    fontFamily = Amiri, fontSize = 18.sp, lineHeight = 27.sp, color = c.accent)
+                                    fontFamily = Amiri, fontSize = 14.sp, lineHeight = 21.sp, color = c.accent)
                             }
-                            Column(Modifier.width(if (tablet && wide) 170.dp else if (tablet) 205.dp else if (short) 112.dp else 128.dp), horizontalAlignment = Alignment.End) {
-                                FridayTime(state.today[p], s, if (tablet) 29f else 21f,
-                                    Modifier.fillMaxWidth(), "friday-time-${p.name}", c.ink, TextAlign.End)
+                            Column(Modifier.width(if (tablet && wide) 170.dp else if (tablet) 205.dp else if (short) 112.dp else 128.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                                FridayTime(state.today[p], s, if (tablet) 22f else 18f,
+                                    Modifier.fillMaxWidth(), "friday-time-${p.name}", c.ink, TextAlign.Center)
                                 if (s.showRelative || s.showEndTimes) WorshipText(
                                     if (s.showRelative) L10n.relative(s, state.today[p], state.now) else fridayPrayerDetail(p, state, s, tablet),
-                                    s, if (tablet) 12f else if (L10n.isUrdu(s)) 8.5f else 9f, c.secondary,
-                                    Modifier.testTag("friday-detail-${p.name}"), lines = if (tablet) 2 else 1)
+                                    s, if (tablet) 11f else if (L10n.isUrdu(s)) 8.5f else 9f, c.secondary,
+                                    Modifier.testTag("friday-detail-${p.name}"), center = true, lines = if (tablet) 2 else 1)
                             }
                             Box(Modifier.width(if (tablet) 48.dp else 35.dp), contentAlignment = Alignment.Center) {
                             if (r.isNow || r.isNext) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"),
@@ -365,7 +365,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         fun styled(size: Float) = buildAnnotatedString {
             if (start < 0) append(text) else {
                 append(text.substring(0, start))
-                withStyle(SpanStyle(fontSize = size.sp, fontFamily = if (tag == "friday-hero-time") FontFamily.Serif else QuietDisplay,
+                withStyle(SpanStyle(fontSize = size.sp, fontFamily = if (tag.startsWith("friday-")) FontFamily.Serif else QuietDisplay,
                     fontWeight = if (tag == "friday-hero-time") FontWeight.Bold else FontWeight.Normal,
                     fontFeatureSettings = "'lnum' 1, 'tnum' 1")) { append(digits) }
                 append(text.substring(start + digits.length))
