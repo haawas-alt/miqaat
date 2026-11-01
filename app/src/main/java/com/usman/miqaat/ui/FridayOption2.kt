@@ -47,7 +47,9 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
 @Composable internal fun FridayOption2Backdrop(s: AppSettings, wide: Boolean, modifier: Modifier) {
     val c = fridayOption2Palette(s.theme)
     Box(modifier.background(c.background).testTag("friday-option2-art-${s.theme.name}")) {
-        if (s.artTheme != ArtTheme.MINIMAL && s.theme != AppTheme.MIQAAT) {
+        // Keep the pointed arch in the hero only. Repeating the complete painting
+        // behind the timetable introduced a second arch and a visible scene boundary.
+        if (s.artTheme != ArtTheme.MINIMAL && s.theme != AppTheme.MIQAAT && s.theme != AppTheme.CELESTIAL_MERIDIAN) {
             val art = when (s.theme) {
                 AppTheme.MIQAAT -> if (wide) R.drawable.sanctuary_gallery_land else R.drawable.sanctuary_gallery_port
                 AppTheme.KISWAH -> if (wide) R.drawable.kiswah_tablet_approved else R.drawable.kiswah_tablet_portrait_approved

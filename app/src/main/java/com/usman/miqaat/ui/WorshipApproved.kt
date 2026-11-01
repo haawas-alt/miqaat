@@ -155,7 +155,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             // MA2's location and clock sit in the ivory sky above its skyline, as on
             // the approved board; a separate solid header strip broke that composition.
             if (!short && s.theme == AppTheme.MIQAAT) {
-                val skylineHeight = if (wide) 72.dp else if (tablet) 80.dp else if (smallPortrait) 44.dp else 48.dp
+                val skylineHeight = if (wide) 100.dp else if (tablet) 80.dp else if (smallPortrait) 44.dp else 48.dp
                 Box(Modifier.fillMaxWidth().height((if (tablet) 62.dp else 48.dp) + skylineHeight)) {
                     FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").matchParentSize())
                     header()
@@ -214,7 +214,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 if (s.theme == AppTheme.PRAYER_GALLERY) Spacer(Modifier.weight(.20f))
                 Column(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) .44f else .60f).fillMaxHeight()) {
                     if (short) header()
-                    if (short && s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(16.dp))
+                    if (short && s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(32.dp))
                     if (short) banner()
                     hero(Modifier.weight(1f).fillMaxWidth())
                     FridayActions(s, state.now, a, short, tablet)
