@@ -123,6 +123,11 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
         val typeScale = density.fontScale
         val safeHeight = maxHeight - with(density) { (WindowInsets.safeDrawing.getTop(density) + WindowInsets.safeDrawing.getBottom(density)).toDp() }
         val smallPortrait = !tablet && !wide && maxHeight < 800.dp
+        // Urdu rows have two native lines too; 56dp fits their measured line
+        // heights without taking the display clock's space at larger font scales.
+        val tabletPrayerRowHeight = if (L10n.isUrdu(s)) {
+            if (s.theme == AppTheme.MIQAAT) 56.dp else 64.dp
+        } else 52.dp
         FridayOption2Backdrop(s, wide, Modifier.matchParentSize())
         Column(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = if (tablet) 22.dp else 10.dp)
             .testTag("friday-home")) {
@@ -271,10 +276,10 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 val artHeight = if (s.theme == AppTheme.MIQAAT) (if (tablet) 80.dp else if (smallPortrait) 44.dp else 48.dp) else 0.dp
                 val chrome = (if (tablet) 62.dp else 48.dp) + mastheadHeight + artHeight +
                     (if (tablet) 87.dp else 63.dp) + 6.dp + (if (tablet) 66.dp else 56.dp)
-                val heroHeight = (idealHeroHeight * typeScale).coerceAtMost((safeHeight - chrome - (if(tablet) (if (L10n.isUrdu(s)) 64.dp else 52.dp) * typeScale else 48.dp) * listedPrayers(s).size).coerceAtLeast(140.dp))
+                val heroHeight = (idealHeroHeight * typeScale).coerceAtMost((safeHeight - chrome - (if(tablet) tabletPrayerRowHeight * typeScale else 48.dp) * listedPrayers(s).size).coerceAtLeast(140.dp))
                 hero(Modifier.fillMaxWidth().height(heroHeight + (if (tablet) 69.dp else 57.dp)).padding(vertical = if (tablet) 10.dp else 4.dp))
                 Spacer(Modifier.height(6.dp))
-                prayers(Modifier.fillMaxWidth().then(if(tablet) Modifier.height((if (L10n.isUrdu(s)) 64.dp else 52.dp) * typeScale * listedPrayers(s).size) else Modifier.weight(1f)))
+                prayers(Modifier.fillMaxWidth().then(if(tablet) Modifier.height(tabletPrayerRowHeight * typeScale * listedPrayers(s).size) else Modifier.weight(1f)))
             }
             FridayDock(s, state, a, tablet)
         }
@@ -482,6 +487,8 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     BoxWithConstraints(modifier.testTag("home-hero")) {
         val roomy = tablet && maxHeight > 480.dp * LocalDensity.current.fontScale
         val tight = !tablet && maxHeight < (if (gallery) 170.dp else 210.dp) * LocalDensity.current.fontScale
+        val compactMiqaatTablet = s.theme == AppTheme.MIQAAT && tablet && maxHeight < 360.dp * LocalDensity.current.fontScale
+        val tabletArabicSize = if (compactMiqaatTablet) 44 else if (roomy) 80 else 64
         val numberSize = if (s.theme == AppTheme.MIQAAT) {
             // MA2 keeps the same display hierarchy in both languages. The clock
             // measurer fits the translated suffix instead of pre-shrinking Urdu.
@@ -496,13 +503,13 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         val scale = LocalDensity.current.fontScale
         // Budget every native text line before allocating the display clock. Garden art
         // makes MA2's available hero shorter, especially with Iqamah and Urdu enabled.
-        val arabicLine = if (tablet) (if (roomy) 112f else 89.6f) else if (short || tight) 34f else 61.6f
+        val arabicLine = if (tablet) tabletArabicSize * 1.4f else if (short || tight) 34f else 61.6f
         val nameLine = if (ur) 0f else if (tablet) 25f else if (short) 15f else 17.5f
         val kickerLine = if (s.theme == AppTheme.MIQAAT) 0f else if (short) (if (ur) 16.2f else 11.25f) else if (tablet) (if (ur) 23.4f else 16.25f) else if (ur) 18f else 12.5f
         val statusLine = if (tablet) (if (ur) 27f else 18.75f) + 6f else (if (ur) 20f else 14f) + 6f
         val iqamahLine = if (iqLabel == null) 0f else if (tablet) (if (ur) 21.6f else 15f) else if (ur) 18f else 12.5f
         val fridayLine = if (maxHeight > 250.dp * scale) (if (ur) 25.2f else 17.5f) else 0f
-        val reserved = (if (fridayLine > 0f) 26f else 0f) + fridayLine + arabicLine + nameLine + kickerLine + statusLine + iqamahLine + (if (!tablet && !short && s.theme != AppTheme.MIQAAT) 44f else 16f)
+        val reserved = (if (fridayLine > 0f && s.theme != AppTheme.MIQAAT) 26f else 0f) + fridayLine + arabicLine + nameLine + kickerLine + statusLine + iqamahLine + (if (!tablet && !short && s.theme != AppTheme.MIQAAT) 44f else 16f)
         val fittedNumberSize = minOf(numberSize, ((maxHeight.value / scale - reserved) / 1.28f).coerceAtLeast(20f))
         val base = Modifier.fillMaxSize().clip(RoundedCornerShape(if (tablet) 24.dp else 18.dp))
             .then(if (gallery) Modifier.background(c.panel.copy(alpha = 1f)).border(.8.dp, c.accent.copy(alpha = .22f), RoundedCornerShape(if (tablet) 24.dp else 18.dp))
@@ -522,7 +529,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
             horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             val names: @Composable (Modifier) -> Unit = { m ->
                 val arabicSize = if (gallery) (if (tablet) 38 else if (short) 20 else 30)
-                    else if (tablet) (if (roomy) 80 else 64) else if (short) 24 else if (smallPortrait) 28 else 38
+                    else if (tablet) tabletArabicSize else if (short) 24 else if (smallPortrait) 28 else 38
                 Column(m, horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(if (s.jumuahEnabled && h.prayer == Prayer.DHUHR) "الجمعة" else h.arabic,
                         Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,

@@ -4,6 +4,9 @@ on:
     branches: ['feat/friday-option2']
     paths: ['.github/workflows/signed-candidate.yml', 'app/**']
   workflow_dispatch:
+concurrency:
+  group: signed-friday-candidate-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:

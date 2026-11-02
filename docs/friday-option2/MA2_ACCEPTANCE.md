@@ -36,3 +36,17 @@ Native review also confirmed the new geometric band ends drew outside their boun
 Added a MA2-only 115% matrix covering all four layouts, EN/UR and 12/24h with the same fact, clipping and 48dp assertions. The focused preview runs this matrix for fast feedback; the signed-candidate workflow still runs the entire suite and all release gates.
 
 The focused MA2 matrix also captures normal-font 12h in all four layouts and both languages (in addition to the complete 115% 12/24h matrix). Review can therefore use current normal-font native captures without waiting for signed packaging. Superseded focused preview jobs cancel automatically; the full signed gate remains separate.
+
+## Current native review follow-up
+
+The 579ae3d focused 115% matrix passed (run 41422657924). Native captures still showed
+an undersized tablet portrait display clock, especially in Urdu: the table reserved
+64dp per Urdu row and the hero reserved an additional 26sp without rendering that gap.
+MA2 now uses 56dp Urdu tablet rows (still above the 48dp minimum), a smaller Arabic
+heading in a constrained tablet hero, and reserves the actual Friday line height.
+All text, real Iqamah/end metadata and existing clipping/touch assertions remain.
+This needs new native confirmation before acceptance.
+
+The afternoon glyph is distinct from the noon sun and the English countdown now
+reads as one sentence. Signed validation cancels superseded branch runs going
+forward; only the latest candidate is relevant for delivery.
