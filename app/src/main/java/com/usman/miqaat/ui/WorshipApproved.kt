@@ -512,8 +512,10 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         val nameLine = if (ur) 0f else if (tablet) 25f else if (short) 15f else 17.5f
         val kickerLine = if (s.theme == AppTheme.MIQAAT) 0f else if (short) (if (ur) 16.2f else 11.25f) else if (tablet) (if (ur) 23.4f else 16.25f) else if (ur) 18f else 12.5f
         val statusLine = if (tablet) (if (ur) 27f else 18.75f) + 6f else (if (ur) 20f else 14f) + 6f
-        val iqamahLine = if (iqLabel == null) 0f else if (tablet) (if (ur) 21.6f else 15f) else if (ur) 18f else 12.5f
-        val fridayLine = if (maxHeight > 250.dp * scale) (if (ur) 25.2f else 17.5f) else 0f
+        val compactMiqaatFooter = s.theme == AppTheme.MIQAAT && maxHeight <= 250.dp * scale
+        val iqamahLine = if (iqLabel == null || compactMiqaatFooter) 0f else if (tablet) (if (ur) 21.6f else 15f) else if (ur) 18f else 12.5f
+        val fridayLine = if (compactMiqaatFooter) (if (ur) 18f else 12.5f)
+            else if (maxHeight > 250.dp * scale) (if (ur) 25.2f else 17.5f) else 0f
         val reserved = (if (fridayLine > 0f && s.theme != AppTheme.MIQAAT) 26f else 0f) + fridayLine + arabicLine + nameLine + kickerLine + statusLine + iqamahLine + (if (!tablet && !short && s.theme != AppTheme.MIQAAT) 44f else 16f)
         val fittedNumberSize = minOf(numberSize, ((maxHeight.value / scale - reserved) / 1.28f).coerceAtLeast(20f))
         val base = Modifier.fillMaxSize().clip(RoundedCornerShape(if (tablet) 24.dp else 18.dp))
@@ -573,10 +575,22 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                     s, if (tablet) 15f else if (short) 9f else if (tight) 10f else 11f, c.accent,
                     Modifier.testTag("friday-hero-status"), center = true, lines = 1)
             }
-            if (iqLabel != null) WorshipText(iqLabel, s, if (tablet) 12f else if (short) 8f else if (tight) 9f else 10f,
-                c.secondary, Modifier.testTag("friday-hero-iqamah"), center = true, lines = 1)
-            if (fridayLine > 0f) WorshipText(words(s, "◇ ── Friday ── ◇", "◇ ── جمعہ ── ◇"), s, 14f, c.accent,
-                Modifier.testTag("friday-hero-day"), center = true, lines = 1)
+            if (compactMiqaatFooter) {
+                // Keep Friday visible without dropping a real congregation fact.
+                // A shared line fits the compact mihrab instead of adding another row.
+                Row(verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    WorshipText(words(s, "◇ Friday ◇", "◇ جمعہ ◇"), s, 10f, c.accent,
+                        Modifier.testTag("friday-hero-day"), center = true, lines = 1)
+                    if (iqLabel != null) WorshipText(iqLabel, s, if (short) 8f else 10f,
+                        c.secondary, Modifier.testTag("friday-hero-iqamah"), center = true, lines = 1)
+                }
+            } else {
+                if (iqLabel != null) WorshipText(iqLabel, s, if (tablet) 12f else if (short) 8f else if (tight) 9f else 10f,
+                    c.secondary, Modifier.testTag("friday-hero-iqamah"), center = true, lines = 1)
+                if (fridayLine > 0f) WorshipText(words(s, "◇ ── Friday ── ◇", "◇ ── جمعہ ── ◇"), s, 14f, c.accent,
+                    Modifier.testTag("friday-hero-day"), center = true, lines = 1)
+            }
 
         }
     }

@@ -257,7 +257,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 for (tag in listOf("home-status-now", "home-status-next")) {
                     if (rule.onAllNodesWithTag(tag, true).fetchSemanticsNodes().isNotEmpty()) readable(tag)
                 }
-                if (rule.onAllNodesWithTag("friday-hero-day", true).fetchSemanticsNodes().isNotEmpty()) readable("friday-hero-day")
+                readable("friday-hero-day")
                 rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, use24))
                 for (p in Prayer.entries) {
                     readable("friday-time-${p.name}"); readable("friday-detail-${p.name}")
