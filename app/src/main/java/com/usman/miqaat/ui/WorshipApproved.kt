@@ -166,26 +166,27 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 // One scene contains the live hero and its two shortcuts, as on
                 // the approved boards. Painting separate hero-only rectangles cut
                 // the courtyard off immediately above the buttons.
-                Box(m) {
+                BoxWithConstraints(m) {
                     if (!(wide && s.theme == AppTheme.PRAYER_GALLERY))
                         FridayMihrabReveal(s, Modifier.matchParentSize())
                     Column(Modifier.fillMaxSize()) {
                         FridayHero(state, s, a, tablet, short, smallPortrait, wide,
                             Modifier.weight(1f).fillMaxWidth()) { why = state.hero }
-                        FridayActions(s, state.now, a, short, tablet)
+                        FridayActions(s, state.now, a, short, tablet,
+                            if (s.theme == AppTheme.KISWAH) Modifier.absolutePadding(right = maxWidth * .24f) else Modifier)
                     }
                 }
             }
             val prayers: @Composable (Modifier) -> Unit = { m ->
-                WorshipSurface(s, m.background(c.background.copy(alpha = .72f), RoundedCornerShape(14.dp)).testTag("home-prayers")) {
+                WorshipSurface(s, m.background(c.background.copy(alpha = .72f), RoundedCornerShape(6.dp)).testTag("home-prayers")) {
                     listedPrayers(s).forEach { p ->
                         val r = fridayRowInfo(p, state, s)
                         val selected = r.isNow || r.isNext && listedPrayers(s).none { galleryRowInfo(it, state, s).isNow }
                         Row(Modifier.fillMaxWidth().weight(1f).heightIn(min = 48.dp)
-                            .then(if (selected) Modifier.clip(RoundedCornerShape(12.dp)).background(Brush.horizontalGradient(
+                            .then(if (selected) Modifier.clip(RoundedCornerShape(4.dp)).background(Brush.horizontalGradient(
                                 if (s.theme == AppTheme.MIQAAT) listOf(Color(0xFFD5E3CE), Color(0xFFE7EDDC))
                                 else listOf(Color(0xFF735226).copy(alpha = .88f), Color(0xFF34291E).copy(alpha = .88f))))
-                                .border(.8.dp, c.accent.copy(alpha = .8f), RoundedCornerShape(12.dp)) else Modifier)
+                                .border(.8.dp, c.accent.copy(alpha = .8f), RoundedCornerShape(4.dp)) else Modifier)
                             .drawBehind { drawLine(c.accent.copy(alpha = .12f), Offset(8.dp.toPx(), size.height), Offset(size.width - 8.dp.toPx(), size.height), 1f) }
                             .testTag("approved-row-${p.name}").semantics(mergeDescendants = true) { contentDescription = r.spoken }
                             .clickable { why = p }.padding(horizontal = if (tablet) 14.dp else 8.dp),
@@ -269,13 +270,13 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     return if (tablet) small else small.substringBefore(" · ")
 }
 
-@Composable private fun FridayActions(s: AppSettings, now: ZonedDateTime, a: HomeActions, short: Boolean, tablet: Boolean) {
+@Composable private fun FridayActions(s: AppSettings, now: ZonedDateTime, a: HomeActions, short: Boolean, tablet: Boolean, modifier: Modifier = Modifier) {
     val c = fridayOption2Palette(s.theme)
     val prefs = LocalContext.current.getSharedPreferences("miqaat_friday", Context.MODE_PRIVATE)
     val key = now.toLocalDate().toString()
     val kahf = prefs.getBoolean("kahf_$key", false)
     val salawat = prefs.getInt("salawat_$key", 0)
-    Row(Modifier.fillMaxWidth().wrapContentWidth(Alignment.CenterHorizontally).widthIn(max = if (tablet) 460.dp else 380.dp).padding(top = if (short) 0.dp else 5.dp).height(if (tablet) 64.dp else 52.dp),
+    Row(modifier.fillMaxWidth().wrapContentWidth(Alignment.CenterHorizontally).widthIn(max = if (tablet) 460.dp else 380.dp).padding(top = if (short) 0.dp else 5.dp).height(if (tablet) 64.dp else 52.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         listOf(Triple(Icons.Outlined.MenuBook, words(s, "Al-Kahf", "سورۃ الکہف"), words(s, if (kahf) "Read this Friday ✓" else "Mark as read", if (kahf) "پڑھ لی ✓" else "پڑھنے کا اندراج")),
             Triple(Icons.Outlined.FavoriteBorder, words(s, "Salawat", "درود شریف"), words(s, "$salawat this Friday", "اس جمعہ: $salawat"))).forEachIndexed { i, item ->
