@@ -68,7 +68,7 @@ The user rejected the simple star-ended banner as unlike the approved embroidery
 and marked the portrait/landscape hero composition. Passing layout/build tests
 was insufficient. KA2 remains active; do not start CA2 yet.
 
-Correction: replace simplified star caps with three-tone native vector traces of
+Correction: replace simplified star caps with native vector traces retaining the original quantized gold/shadow palette of
 the text-free embroidery from the approved board's tablet banner. Source bounds
 are left (1003,164)-(1051,212), right (1468,164)-(1516,212), in the 1536x1024
 reference. Caps stay square and physically left/right in both languages; native
@@ -79,3 +79,26 @@ and stack the Arabic heading below the kicker in landscape too. Preserve engine
 facts, countdown semantics, actions and all prior clipping/48dp assertions.
 
 These corrections require fresh screenshots and validation before delivery.
+
+
+### Current correction validation
+
+Application source: `dfe5ddf25488f92193c554878ab3c42fec8ef4c6`.
+Focused native run `41509396530` passed all 24 layout/language/font/clock
+profiles and the live countdown tick. It also checks square embroidery caps and
+keeps live Arabic glyphs between the physical caps in both EN/UR. Manual review
+covered all 24 current-source renders, with enlarged approved/native border
+comparison on page 7 of `libfile_08d7907f0f98819190fdb0d06ff35176` (version 3).
+Full signed gate `41509396797` is in progress. Do not deliver the previous APK
+as this corrected build. No user acceptance or 100% fidelity score is implied.
+
+
+The enlarged PDF also exposed a portrait-specific art distortion: a complete
+landscape painting had been squeezed into the portrait hero, leaving a narrow
+arch and oversized right strip. Portrait now draws the existing arch crop and
+complete embroidery strip independently (15% phone, 20% tablet); the hero text
+centre follows the arch peak. Landscape keeps its existing artwork split.
+The English PM suffix is restored to 60% of the clock size and phone shortcut
+labels/icons enlarged while keeping secondary facts and 48dp targets. The same
+8s/5min lifecycle/reduced-motion envelope controls both native image patches.
+This additional composition batch needs fresh captures and signed validation.

@@ -99,7 +99,7 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
 }
 
 @Composable internal fun KiswahFridayHero(state: PrayerState, s: AppSettings, a: HomeActions,
-    tablet: Boolean, short: Boolean, modifier: Modifier, onDetails: ()->Unit) {
+    tablet: Boolean, short: Boolean, wide: Boolean, modifier: Modifier, onDetails: ()->Unit) {
     val h=heroInfo(state,s,null);val ur=L10n.isUrdu(s);val c=fridayOption2Palette(s.theme)
     val iq=PrayerEngine.iqamah(s,state.today,h.prayer)
     val now=LocalKiswahFridayNow.current?:state.now
@@ -133,7 +133,8 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
         // pushed oversized bold numerals across the arch's embroidered rails.
         val clockSize=minOf(if(tablet)94f else if(short)52f else 64f,
             ((maxHeight.value*.88f-9f)/scale-fixed).div(1.28f).coerceAtLeast(12f))
-        Column(Modifier.fillMaxSize().absolutePadding(right=maxWidth*.24f)
+        Column(Modifier.fillMaxSize().absolutePadding(left=if(wide)0.dp else maxWidth*.07f,
+            right=maxWidth*(if(wide).24f else if(tablet).20f else .15f))
             .padding(top=maxHeight*.12f,bottom=5.dp)
             .padding(horizontal=if(tablet)12.dp else 6.dp)
             .clickable(role=Role.Button,onClickLabel=detail,onClick=onDetails),
@@ -144,7 +145,7 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
             Box(Modifier.height((clockSize*1.28f*scale).dp).fillMaxWidth(),contentAlignment=Alignment.Center) {
                 FridayTime(state.heroTime,s,clockSize,Modifier.fillMaxWidth()
                     .padding(horizontal=if(tablet)24.dp else 20.dp).clickable(onClick=a.onToggleRelative),
-                    "friday-hero-time",c.ink,suffixRatio=if(ur).24f else .43f)
+                    "friday-hero-time",c.ink,suffixRatio=if(ur).24f else .60f)
             }
             label(countdown,countSize,"friday-hero-countdown",c.ink,FontFamily.Serif)
             Box(if(!ur)Modifier.testTag("friday-hero-name") else Modifier) {

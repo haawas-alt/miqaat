@@ -16,6 +16,10 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
+import kotlin.math.roundToInt
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
@@ -74,7 +78,8 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
  * Reduced-motion users get a static fine outline, without pulses or moving particles.
  */
 @Composable internal fun FridayMihrabReveal(s: AppSettings, modifier: Modifier, artworkOverride: Int? = null,
-    artworkContentScale: ContentScale = if (artworkOverride != null) ContentScale.FillWidth else ContentScale.Crop) {
+    artworkContentScale: ContentScale = if (artworkOverride != null) ContentScale.FillWidth else ContentScale.Crop,
+    kiswahPortraitPanel: Float? = null) {
     val frame = LocalFridayRevealFrame.current
     val still = reduceMotion()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
@@ -100,8 +105,25 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
         AppTheme.PRAYER_GALLERY -> R.drawable.friday_gallery_hero
     }
     if (s.artTheme != ArtTheme.MINIMAL) Box(modifier.testTag("friday-mihrab-reveal")) {
-        Image(painterResource(heroArt), null, Modifier.fillMaxSize(),
-            contentScale = artworkContentScale, alignment = Alignment.TopCenter,
-            alpha = if (still) 1f else .78f + .22f * intensity)
+        val opacity=if(still)1f else .78f+.22f*intensity
+        if(s.theme==AppTheme.KISWAH && kiswahPortraitPanel!=null) {
+            val art=ImageBitmap.imageResource(heroArt)
+            Canvas(Modifier.fillMaxSize().testTag("kiswah-portrait-artwork")) {
+                val w=size.width.roundToInt();val height=size.height.roundToInt()
+                val split=(w*(1f-kiswahPortraitPanel)).roundToInt()
+                val top=(height*.04f).roundToInt()
+                val left=(art.width*100f/1536f).roundToInt()
+                val end=(art.width*1040f/1536f).roundToInt()
+                val strip=(art.width*.75f).roundToInt()
+                drawRect(Color(0xFF030404))
+                // The approved portrait arch is broad; do not squash the complete
+                // landscape painting into it. Preserve the embroidery as its own strip.
+                drawImage(art,IntOffset(left,0),IntSize(end-left,art.height),
+                    IntOffset(0,top),IntSize(split,height-top),alpha=opacity,filterQuality=FilterQuality.High)
+                drawImage(art,IntOffset(strip,0),IntSize(art.width-strip,art.height),
+                    IntOffset(split,0),IntSize(w-split,height),alpha=opacity,filterQuality=FilterQuality.High)
+            }
+        } else Image(painterResource(heroArt), null, Modifier.fillMaxSize(),
+            contentScale = artworkContentScale, alignment = Alignment.TopCenter,alpha=opacity)
     }
 }
