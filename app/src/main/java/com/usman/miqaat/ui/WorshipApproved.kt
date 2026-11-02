@@ -131,11 +131,22 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 if (onClosePreview != null) IconButton(onClick = onClosePreview, modifier = Modifier.size(48.dp).testTag("jummah-preview-close")) {
                     Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = c.accent)
                 }
+                if (s.theme == AppTheme.MIQAAT) {
+                    WorshipText(if (onClosePreview != null) words(s, "Jumuʿah preview", "جمعہ کا پیش منظر") else s.locationName,
+                        s, if (tablet) 18f else 12f, c.ink,
+                        Modifier.weight(.8f).clickable(onClick = a.onOpenLocation), lines = 1)
+                    Column(Modifier.weight(1.2f), horizontalAlignment = Alignment.CenterHorizontally) {
+                        WorshipText(if (L10n.isUrdu(s)) L10n.fridayDate(state.now.toLocalDate()) else state.now.format(java.time.format.DateTimeFormatter.ofPattern("EEEE, d MMMM", Locale.ENGLISH)),
+                            s, if (tablet) 13f else 10f, c.ink, center = true, lines = 1)
+                        WorshipText(L10n.at(state.now, s.use24h), s, if (tablet) 22f else 16f, c.ink, center = true, lines = 1)
+                    }
+                } else {
                 Column(Modifier.weight(1f).clickable(onClick = a.onOpenLocation)) {
                     WorshipText(if (onClosePreview != null) words(s, "Jumuʿah preview", "جمعہ کا پیش منظر") else s.locationName, s, if (tablet) 21f else 14f, c.ink, lines = 1)
                     WorshipText(if (L10n.isUrdu(s)) L10n.fridayDate(state.now.toLocalDate()) else state.now.format(java.time.format.DateTimeFormatter.ofPattern("EEEE, d MMMM", Locale.ENGLISH)), s, if (tablet) 14f else 11f, c.secondary, lines = 1)
                 }
                 WorshipText(L10n.at(state.now, s.use24h), s, if (tablet) 22f else 16f, c.ink, Modifier.padding(horizontal = 8.dp), lines = 1)
+                }
                 Box {
                     IconButton(onClick = { more = true }, modifier = Modifier.size(48.dp)) {
                         Icon(if (contextLinks.any { it.warn }) Icons.Outlined.WarningAmber else Icons.Outlined.MoreVert,
