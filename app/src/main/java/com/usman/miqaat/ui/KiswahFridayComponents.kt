@@ -117,7 +117,8 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
         val compact=short || maxHeight<(if(tablet)360.dp else 250.dp)*scale
         val arabicSize=if(short)24f else if(tablet && !compact)54f else 38f
         Column(Modifier.fillMaxSize().absolutePadding(right=maxWidth*.24f)
-            .padding(horizontal=if(tablet)12.dp else 6.dp,vertical=if(short)1.dp else 5.dp)
+            .padding(top=maxHeight*.12f, bottom=if(short)1.dp else 5.dp)
+            .padding(horizontal=if(tablet)12.dp else 6.dp)
             .clickable(role=Role.Button,onClickLabel=detail,onClick=onDetails),
             horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             if(short) Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {

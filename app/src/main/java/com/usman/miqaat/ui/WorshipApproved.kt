@@ -235,6 +235,12 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                                 Prayer.ISHA -> Icons.Outlined.DarkMode
                                 Prayer.SUNRISE, Prayer.MAGHRIB -> Icons.Outlined.WbTwilight
                                 else -> Icons.Outlined.WbSunny
+                            } else if (s.theme == AppTheme.KISWAH) when(p) {
+                                Prayer.FAJR, Prayer.ISHA -> Icons.Outlined.DarkMode
+                                Prayer.DHUHR -> Icons.Outlined.Mosque
+                                Prayer.ASR -> Icons.Outlined.LocationCity
+                                Prayer.MAGHRIB -> Icons.Outlined.WbTwilight
+                                else -> Icons.Outlined.WbSunny
                             } else if (p == Prayer.FAJR || p == Prayer.ISHA) Icons.Outlined.DarkMode else if (p == Prayer.ASR) Icons.Outlined.WbTwilight else Icons.Outlined.WbSunny,
                                 null, Modifier.size(if (tablet) 24.dp else 18.dp), tint = if (s.theme == AppTheme.MIQAAT) Color(0xFFE66C20) else c.accent)
                             Column(Modifier.weight(1f), horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center) {
@@ -297,7 +303,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 Spacer(Modifier.height(6.dp))
                 prayers(Modifier.fillMaxWidth().then(if(tablet) Modifier.height(tabletPrayerRowHeight * typeScale * listedPrayers(s).size) else Modifier.weight(1f)))
             }
-            FridayDock(s, state, a, tablet)
+            FridayDock(s, state, a, tablet, wide)
         }
         if (s.nightDim && state.period == Prayer.ISHA) Box(Modifier.matchParentSize().background(Color.Black.copy(alpha = .22f)))
     }
@@ -350,7 +356,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     }
 }
 
-@Composable private fun FridayDock(s: AppSettings, state: PrayerState, a: HomeActions, tablet: Boolean) {
+@Composable private fun FridayDock(s: AppSettings, state: PrayerState, a: HomeActions, tablet: Boolean, wide: Boolean) {
     val c = fridayOption2Palette(s.theme)
     val mode = adhkarModes(state, s).firstOrNull() ?: AdhkarMode.MORNING
     val iconColor = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent
@@ -358,15 +364,21 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
         val items: List<Triple<androidx.compose.ui.graphics.vector.ImageVector, String, () -> Unit>> = listOfNotNull(if (s.showQibla) Triple(Icons.Outlined.Explore, L10n.word(s, "Qibla"), a.onOpenQibla) else null,
             if (s.adhkarEnabled) Triple(Icons.Outlined.MenuBook, words(s, "Adhkar", "اذکار"), { a.onOpenAdhkar(mode) }) else null,
-            Triple(Icons.Outlined.MenuBook, words(s, "Learn", "سیکھیں"), a.onOpenLearn),
+            Triple(if(s.theme==AppTheme.KISWAH) Icons.Outlined.School else Icons.Outlined.MenuBook, words(s, "Learn", "سیکھیں"), a.onOpenLearn),
             Triple(Icons.Outlined.CalendarMonth, words(s, "Timetable", "اوقات"), a.onOpenTimetable))
         items.forEach { (icon, label, action) ->
-            Column(Modifier.weight(1f).fillMaxHeight().clickable(role = Role.Button, onClick = action),
-                horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                if (label == words(s, "Adhkar", "اذکار")) SalawatBeads(iconColor, Modifier.size(if (tablet) 25.dp else 20.dp).semantics { contentDescription = label })
+            val inline = s.theme == AppTheme.KISWAH && (tablet || wide)
+            val itemModifier = Modifier.weight(1f).fillMaxHeight().clickable(role = Role.Button, onClick = action)
+            val content: @Composable () -> Unit = {
+                if (label == words(s, "Adhkar", "اذکار") && s.theme != AppTheme.KISWAH)
+                    SalawatBeads(iconColor, Modifier.size(if (tablet) 25.dp else 20.dp).semantics { contentDescription = label })
                 else Icon(icon, label, Modifier.size(if (tablet) 25.dp else 20.dp), tint = iconColor)
                 WorshipText(label, s, if (tablet) 15f else 10f, c.ink, center = true, lines = 1)
             }
+            if (inline) Row(itemModifier, verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) { content() }
+            else Column(itemModifier, horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) { content() }
         }
     }
 }
