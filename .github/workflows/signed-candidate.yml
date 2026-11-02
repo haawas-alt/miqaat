@@ -28,12 +28,20 @@ jobs:
           echo "MIQAAT_VERSION_CODE=$(date +%s)" >> "$GITHUB_ENV"
           echo "MIQAAT_VERSION_NAME=1.193-friday-option2" >> "$GITHUB_ENV"
           echo "MIQAAT_BUILD_TAG=audit-candidate-${GITHUB_SHA:0:12}" >> "$GITHUB_ENV"
+      - name: Native tests and review captures
+        run: ./gradlew --no-daemon testGithubReleaseUnitTest
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-friday-review-${{ github.run_id }}
+          path: app/build/friday-quiet-review/
+          if-no-files-found: error
       - name: Build and inspect signed testing candidate
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         run: |
           set -euo pipefail
-          ./gradlew --no-daemon testGithubReleaseUnitTest lintGithubRelease assembleGithubRelease assemblePlayRelease bundlePlayRelease
+          ./gradlew --no-daemon lintGithubRelease assembleGithubRelease assemblePlayRelease bundlePlayRelease
           python3 tools/check_forbidden_assets.py app/src/main app/build/outputs/apk/github/release/app-github-release.apk app/build/outputs/apk/play/release/app-play-release.apk app/build/outputs/bundle/playRelease/app-play-release.aab
           mkdir -p candidate
           cp app/build/outputs/apk/github/release/app-github-release.apk candidate/Miqaat.apk
@@ -66,12 +74,6 @@ jobs:
           name: signed-candidate-${{ github.run_id }}
           path: candidate/
           if-no-files-found: warn
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: native-friday-review-${{ github.run_id }}
-          path: app/build/friday-quiet-review/
-          if-no-files-found: error
       - uses: actions/upload-artifact@v4
         if: always()
         with:
