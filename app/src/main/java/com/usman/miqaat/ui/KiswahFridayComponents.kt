@@ -1,5 +1,6 @@
 package com.usman.miqaat.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -7,11 +8,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.painterResource
+import com.usman.miqaat.R
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
@@ -40,38 +44,37 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
         Color(0xFF050606), Color(0xFF0D0F0E), Color(0xFF030404)))))
 }
 
-/** Native notched embroidery, with proportional end motifs instead of floral box corners. */
+/** Text-free embroidery caps traced from the approved KA2 board, with live native dhikr. */
 @Composable internal fun KiswahFridayBanner(tablet: Boolean, wide: Boolean, modifier: Modifier) {
-    Box(modifier.background(Color(0xFF050606))) {
+    BoxWithConstraints(modifier.background(Color(0xFF050606))) {
+        val cap=maxHeight
         Canvas(Modifier.matchParentSize().clip(RectangleShape)) {
-            val h = size.height; val notch = min(h * .31f, size.width * .06f)
-            fun outline(inset: Float): Path = Path().apply {
-                moveTo(notch, inset); lineTo(size.width-notch, inset)
-                lineTo(size.width-notch*.42f, h*.23f); lineTo(size.width-inset, h*.5f)
-                lineTo(size.width-notch*.42f, h*.77f); lineTo(size.width-notch, h-inset)
-                lineTo(notch, h-inset); lineTo(notch*.42f, h*.77f)
-                lineTo(inset, h*.5f); lineTo(notch*.42f, h*.23f); close()
-            }
-            drawPath(outline(1.dp.toPx()), KiswahFridayGold, style=Stroke(.8.dp.toPx()))
-            drawPath(outline(3.dp.toPx()), KiswahFridayGold.copy(alpha=.6f), style=Stroke(.45.dp.toPx()))
-            for (right in listOf(false,true)) {
-                val center = Offset(if(right) size.width-notch else notch, h/2)
-                val radius = h*.20f
-                for (rotation in listOf(0f,45f)) {
-                    val star = Path()
-                    for(i in 0..4) {
-                        val angle = Math.toRadians((rotation+i*90).toDouble())
-                        val point = Offset(center.x+radius*cos(angle).toFloat(),center.y+radius*sin(angle).toFloat())
-                        if(i==0) star.moveTo(point.x,point.y) else star.lineTo(point.x,point.y)
-                    }
-                    drawPath(star,KiswahFridayGold.copy(alpha=.8f),style=Stroke(.6.dp.toPx()))
+            val h=size.height
+            // The reference has curved embroidered shoulders and double gold rails.
+            for(y in listOf(h*.045f,h*.955f))
+                drawLine(KiswahFridayGold,Offset(h*.88f,y),Offset(size.width-h*.88f,y),.85.dp.toPx())
+            for(y in listOf(h*.075f,h*.925f))
+                drawLine(KiswahFridayGold.copy(alpha=.45f),Offset(h*.88f,y),Offset(size.width-h*.88f,y),.4.dp.toPx())
+            var x=h
+            while(x<size.width-h) {
+                val vine=Path().apply {
+                    moveTo(x,h*.5f)
+                    cubicTo(x-h*.35f,h*.1f,x+h*.55f,h*.03f,x+h*.4f,h*.48f)
+                    cubicTo(x+h*.65f,h*.97f,x-h*.25f,h*.9f,x,h*.5f)
+                    moveTo(x+h*.12f,h*.5f)
+                    cubicTo(x+h*.6f,h*.08f,x+h*.9f,h*.91f,x+h*.12f,h*.5f)
                 }
-                drawCircle(KiswahFridayGold,h*.026f,center)
+                drawPath(vine,KiswahFridayGold.copy(alpha=.065f),style=Stroke(.55.dp.toPx()))
+                x+=h*.8f
             }
         }
-        KiswahFridayFitText(KISWAH_FRIDAY_DHIKR, if(tablet) 18f else if(wide) 13f else 12f,
-            Amiri, KiswahFridayGold, Modifier.fillMaxSize().padding(horizontal=if(tablet) 32.dp else 22.dp)
-                , lineRatio=1.75f, tag="kiswah-calligraphy-band")
+        Image(painterResource(R.drawable.ka2_banner_left),null,
+            Modifier.align(AbsoluteAlignment.CenterLeft).size(cap).testTag("kiswah-banner-left-embroidery"))
+        Image(painterResource(R.drawable.ka2_banner_right),null,
+            Modifier.align(AbsoluteAlignment.CenterRight).size(cap).testTag("kiswah-banner-right-embroidery"))
+        KiswahFridayFitText(KISWAH_FRIDAY_DHIKR,if(tablet)21f else 15f,
+            Amiri,Color(0xFFF6E4B2),Modifier.fillMaxSize().padding(horizontal=cap),
+            lineRatio=1.75f,tag="kiswah-calligraphy-band")
     }
 }
 
@@ -115,37 +118,45 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
     BoxWithConstraints(modifier.testTag("home-hero")) {
         val scale=LocalDensity.current.fontScale
         val compact=short || maxHeight<(if(tablet)360.dp else 250.dp)*scale
-        val arabicSize=if(short)24f else if(tablet && !compact)54f else 38f
+        val arabicSize=if(short)20f else if(tablet && !compact)48f else 34f
+        val kickerSize=if(short)8f else if(tablet)13f else 11f
+        val countSize=if(tablet)26f else if(short)13f else 20f
+        val daySize=if(compact) { if(short)8f else 10f } else if(tablet)14f else 12f
+        val iqSize=if(compact) { if(short)7.5f else 9f } else if(tablet)11f else 9f
+        val statusLine=if(short) { if(ur)16f else 12f } else if(ur)20f else 16f
+        val bodyLine=if(ur)1.8f else 1.25f
+        val fixed=kickerSize*bodyLine+arabicSize*1.8f+countSize*1.25f+statusLine+
+            if(compact) maxOf(daySize*bodyLine,if(iq!=null)iqSize*bodyLine else 0f)
+            else daySize*bodyLine+if(iq!=null)iqSize*bodyLine else 0f
+        // One centred stack: the old weighted clock created large empty gaps and
+        // pushed oversized bold numerals across the arch's embroidered rails.
+        val clockSize=minOf(if(tablet)94f else if(short)52f else 64f,
+            ((maxHeight.value*.88f-5f)/scale-fixed).div(1.28f).coerceAtLeast(12f))
         Column(Modifier.fillMaxSize().absolutePadding(right=maxWidth*.24f)
-            .padding(top=maxHeight*.12f, bottom=if(short)1.dp else 5.dp)
+            .padding(top=maxHeight*.12f,bottom=5.dp)
             .padding(horizontal=if(tablet)12.dp else 6.dp)
             .clickable(role=Role.Button,onClickLabel=detail,onClick=onDetails),
             horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
-            if(short) Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-                label(kicker,9f,"friday-hero-kicker",c.ink)
-                label(if(s.jumuahEnabled && h.prayer==Prayer.DHUHR)"الجمعة" else h.arabic,arabicSize,"friday-hero-arabic",c.accent,Amiri)
-            } else {
-                label(kicker,if(tablet)13f else 11f,"friday-hero-kicker")
-                label(if(s.jumuahEnabled && h.prayer==Prayer.DHUHR)"الجمعة" else h.arabic,arabicSize,"friday-hero-arabic",c.accent,Amiri)
-            }
-            BoxWithConstraints(Modifier.weight(1f).fillMaxWidth(),contentAlignment=Alignment.Center) {
-                val nominal=if(tablet)122f else if(short)68f else 82f
-                val fitted=minOf(nominal,(maxHeight.value/scale/1.28f).coerceAtLeast(12f))
-                FridayTime(state.heroTime,s,fitted,Modifier.fillMaxWidth().padding(horizontal=if(tablet)16.dp else 12.dp).clickable(onClick=a.onToggleRelative),
+            label(kicker,kickerSize,"friday-hero-kicker")
+            label(if(s.jumuahEnabled && h.prayer==Prayer.DHUHR)"الجمعة" else h.arabic,
+                arabicSize,"friday-hero-arabic",c.accent,Amiri)
+            Box(Modifier.height((clockSize*1.28f*scale).dp).fillMaxWidth(),contentAlignment=Alignment.Center) {
+                FridayTime(state.heroTime,s,clockSize,Modifier.fillMaxWidth()
+                    .padding(horizontal=if(tablet)24.dp else 20.dp).clickable(onClick=a.onToggleRelative),
                     "friday-hero-time",c.ink,suffixRatio=if(ur).24f else .43f)
             }
-            label(countdown,if(tablet)26f else if(short)15f else 21f,"friday-hero-countdown",c.ink,FontFamily.Serif)
+            label(countdown,countSize,"friday-hero-countdown",c.ink,FontFamily.Serif)
             Box(if(!ur)Modifier.testTag("friday-hero-name") else Modifier) {
-            Text(until,Modifier.testTag("friday-hero-status"),
-                fontFamily=if(ur)Amiri else FontFamily.Serif,fontSize=(if(tablet)13f else if(short)9f else 11f).sp,
-                lineHeight=(if(ur)20f else 16f).sp,color=c.ink,textAlign=TextAlign.Center,maxLines=1,softWrap=false)
+                Text(until,Modifier.testTag("friday-hero-status"),fontFamily=if(ur)Amiri else FontFamily.Serif,
+                    fontSize=(if(tablet)13f else if(short)8f else 11f).sp,lineHeight=statusLine.sp,
+                    color=c.ink,textAlign=TextAlign.Center,maxLines=1,softWrap=false)
             }
             if(compact) Row(horizontalArrangement=Arrangement.spacedBy(6.dp),verticalAlignment=Alignment.CenterVertically) {
-                label(if(ur)"◇ جمعہ ◇" else "◇ Friday ◇",if(short)9f else 10f,"friday-hero-day",c.accent)
-                if(iq!=null)label("${L10n.word(s,"Iqamah")} ${L10n.at(iq,s.use24h)}",if(short)8f else 9f,"friday-hero-iqamah",c.secondary)
+                label(if(ur)"◇ جمعہ ◇" else "◇ Friday ◇",daySize,"friday-hero-day",c.accent)
+                if(iq!=null)label("${L10n.word(s,"Iqamah")} ${L10n.at(iq,s.use24h)}",iqSize,"friday-hero-iqamah",c.secondary)
             } else {
-                if(iq!=null)label("${L10n.word(s,"Iqamah")} ${L10n.at(iq,s.use24h)}",if(tablet)11f else 9f,"friday-hero-iqamah",c.secondary)
-                label(if(ur)"◇ ── جمعہ ── ◇" else "◇ ── Friday ── ◇",if(tablet)14f else 12f,"friday-hero-day",c.accent)
+                if(iq!=null)label("${L10n.word(s,"Iqamah")} ${L10n.at(iq,s.use24h)}",iqSize,"friday-hero-iqamah",c.secondary)
+                label(if(ur)"◇ ── جمعہ ── ◇" else "◇ ── Friday ── ◇",daySize,"friday-hero-day",c.accent)
             }
         }
     }

@@ -276,6 +276,11 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 readable("kiswah-calligraphy-band")
                 if(theme==AppTheme.KISWAH) {
                     for(tag in listOf("kiswah-header-location","kiswah-header-date","kiswah-header-day","kiswah-header-clock")) readable(tag)
+                    val left=rule.onNodeWithTag("kiswah-banner-left-embroidery",true).fetchSemanticsNode().boundsInRoot
+                    val right=rule.onNodeWithTag("kiswah-banner-right-embroidery",true).fetchSemanticsNode().boundsInRoot
+                    val text=rule.onNodeWithTag("kiswah-calligraphy-band",true).fetchSemanticsNode().boundsInRoot
+                    assertTrue("KA2 embroidery caps must retain their square reference proportions",kotlin.math.abs(left.width-left.height)<1f && kotlin.math.abs(right.width-right.height)<1f)
+                    assertTrue("KA2 dhikr must stay between the physical embroidery caps in EN and UR",left.right<=text.left+1f && text.right<=right.left+1f)
                     readable("friday-hero-countdown")
                     rule.onNodeWithTag("friday-hero-countdown",true).assertTextEquals("01:28:00")
                 }

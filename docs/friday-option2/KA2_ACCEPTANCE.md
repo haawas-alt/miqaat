@@ -60,3 +60,22 @@ claim. No production promotion. Keep CA2 and GA2 unchanged until this batch is
 validated and delivered. The current native implementation and signed testing
 build are validated; the next implementation theme is CA2. User acceptance of
 the reference comparison is not implied by passing tests.
+
+
+## Reopened visual review - user marked PDF mismatch
+
+The user rejected the simple star-ended banner as unlike the approved embroidery,
+and marked the portrait/landscape hero composition. Passing layout/build tests
+was insufficient. KA2 remains active; do not start CA2 yet.
+
+Correction: replace simplified star caps with three-tone native vector traces of
+the text-free embroidery from the approved board's tablet banner. Source bounds
+are left (1003,164)-(1051,212), right (1468,164)-(1516,212), in the 1536x1024
+reference. Caps stay square and physically left/right in both languages; native
+Arabic remains live and independently readable. Restore faint interlaced banner
+texture and cream lettering. Make the display clock regular serif with a smaller
+nominal size; replace the weight-expanded clock with one centred content stack,
+and stack the Arabic heading below the kicker in landscape too. Preserve engine
+facts, countdown semantics, actions and all prior clipping/48dp assertions.
+
+These corrections require fresh screenshots and validation before delivery.

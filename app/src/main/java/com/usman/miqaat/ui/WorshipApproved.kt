@@ -522,7 +522,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
             if (start < 0) append(text) else {
                 append(text.substring(0, start))
                 withStyle(SpanStyle(fontSize = size.sp, fontFamily = if (tag.startsWith("friday-")) FontFamily.Serif else QuietDisplay,
-                    fontWeight = if (tag == "friday-hero-time" || emphasized) FontWeight.Bold else FontWeight.Normal,
+                    fontWeight = if ((tag == "friday-hero-time" && s.theme != AppTheme.KISWAH) || emphasized) FontWeight.Bold else FontWeight.Normal,
                     fontFeatureSettings = "'lnum' 1, 'tnum' 1")) { append(digits) }
                 append(text.substring(start + digits.length))
             }

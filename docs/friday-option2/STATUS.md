@@ -1,6 +1,13 @@
 # Friday option 2 implementation — testing only
 
-## Current user decision - 3 November 2026, Sydney
+## Active visual correction - 3 November 2026, Sydney
+
+The user marked the delivered KA2 PDF and rejected the simplified Arabic banner
+border and hero composition. KA2 is active again; CA2/GA2 must wait. The previous
+source remains a tested baseline, not visual acceptance. See the reopened review
+in `KA2_ACCEPTANCE.md`. New embroidery/typography corrections await validation.
+
+## Earlier user decision - 3 November 2026, Sydney
 
 The user accepted MA2 as-is after reviewing its comparison PDF and explicitly
 asked to stop spending time on MA2 and start the next theme. Freeze MA2 at
