@@ -402,8 +402,30 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
             if (L10n.isUrdu(s)) "سُبْحَانَ اللَّهِ   ✦   الْحَمْدُ لِلَّهِ   ✦   اللَّهُ أَكْبَرُ"
             else "✦   SubhanAllah   ✦   Alhamdulillah   ✦   Allahu Akbar   ✦"
         } else Kiswah.BAND
-        Text(dhikr,Modifier.padding(horizontal=10.dp).testTag("kiswah-calligraphy-band"),fontFamily=if (miqaat && !L10n.isUrdu(s)) FontFamily.Serif else if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
-            fontSize=(if (miqaat && !L10n.isUrdu(s)) (if (tablet) 16 else 11) else if(tablet) 18 else 12).sp,lineHeight=(if(tablet) 30 else if(wide) 20 else 24).sp,
+        if (miqaat) {
+            val measurer = rememberTextMeasurer()
+            val density = LocalDensity.current
+            val nominal = (if (!L10n.isUrdu(s)) (if (tablet) 16 else 11) else if (tablet) 18 else 12).toFloat()
+            val bandStyle = TextStyle(fontFamily = if (L10n.isUrdu(s)) Amiri else FontFamily.Serif,
+                fontSize = nominal.sp, lineHeight = (if (tablet) 30 else if (wide) 20 else 24).sp,
+                color = Color(0xFFF0D89D), textAlign = TextAlign.Center)
+            BoxWithConstraints(Modifier.fillMaxSize().padding(horizontal = 10.dp), contentAlignment = Alignment.Center) {
+                val fitted = remember(dhikr, nominal, maxWidth, density.fontScale, density.density) {
+                    val available = with(density) { (maxWidth - 2.dp).toPx() }.coerceAtLeast(1f)
+                    var size = nominal
+                    repeat(4) {
+                        val layout = measurer.measure(dhikr, bandStyle.copy(fontSize = size.sp), softWrap = false, maxLines = 1)
+                        val width = maxOf(layout.size.width.toFloat(), layout.getLineRight(0) - layout.getLineLeft(0))
+                        if (width > available) size *= (available / width) * .99f
+                    }
+                    size
+                }
+                Text(dhikr, Modifier.testTag("kiswah-calligraphy-band"),
+                    style = bandStyle.copy(fontSize = fitted.sp), softWrap = false, maxLines = 1)
+            }
+        } else Text(dhikr, Modifier.padding(horizontal=10.dp).testTag("kiswah-calligraphy-band"),
+            fontFamily=if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
+            fontSize=(if(tablet) 18 else 12).sp,lineHeight=(if(tablet) 30 else if(wide) 20 else 24).sp,
             color=Color(0xFFF0D89D),textAlign=TextAlign.Center,maxLines=1)
     }
 }
