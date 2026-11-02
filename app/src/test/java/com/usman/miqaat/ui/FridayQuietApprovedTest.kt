@@ -233,7 +233,8 @@ class FridayQuietApprovedTest : ComposeSupport() {
     }
     @Test fun miqaat115PercentKeepsEveryLayoutReadableInBothClockFormats() {
         val failures = mutableListOf<String>()
-        for (lang in Language.entries) for (dev in Dev.entries) for (use24 in listOf(false, true)) {
+        for (lang in Language.entries) for (dev in Dev.entries) for (use24 in listOf(false, true))
+            for (fontScale in if (use24) listOf(1.15f) else listOf(1f, 1.15f)) {
             val s = settings(AppTheme.MIQAAT, lang).copy(use24h = use24)
             val state = PrayerEngine.state(s, ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, s.zone()))
             val qualifiers = when (dev) {
@@ -244,12 +245,12 @@ class FridayQuietApprovedTest : ComposeSupport() {
             }
             try {
                 show(dev, AppTheme.MIQAAT, language = lang, rtl = lang == Language.UR,
-                    fontScale = 1.15f, qualifiers = qualifiers) {
+                    fontScale = fontScale, qualifiers = qualifiers) {
                     androidx.compose.runtime.CompositionLocalProvider(LocalFridayRevealFrame provides 1f) {
                         HomeRouter(state, s, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {})
                     }
                 }
-                capture(AppTheme.MIQAAT, dev, lang, "friday-matrix115-${if (use24) "24" else "12"}")
+                capture(AppTheme.MIQAAT, dev, lang, "friday-matrix${(fontScale * 100).toInt()}-${if (use24) "24" else "12"}")
                 for (tag in listOf("friday-banner", "friday-hero-arabic", "friday-hero-kicker", "friday-hero-time", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
                 if (lang == Language.EN) readable("friday-hero-name")
                 if (rule.onAllNodesWithTag("friday-hero-day", true).fetchSemanticsNodes().isNotEmpty()) readable("friday-hero-day")
@@ -265,7 +266,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     val b = rule.onNodeWithTag("friday-action-$i", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("MA2 shortcut touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
                 }
-            } catch (e: AssertionError) { failures += "MA2/$dev/$lang/115%/${if (use24) 24 else 12}h: ${e.message}" }
+            } catch (e: AssertionError) { failures += "MA2/$dev/$lang/${(fontScale * 100).toInt()}%/${if (use24) 24 else 12}h: ${e.message}" }
             finally { scenario.close() }
         }
         assertTrue(failures.joinToString("\n"), failures.isEmpty())

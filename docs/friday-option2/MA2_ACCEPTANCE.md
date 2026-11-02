@@ -34,3 +34,5 @@ No claim of completion or percentage follows from a passing build.
 Run 41419322663 failed two assertions: Urdu tablet hero clock was 983px wide inside a 979px node. Assertions remain unchanged. Fix fits the shaped string iteratively with a two-dp inset, and reduces only the Urdu translated suffix ratio while keeping the display number hierarchy. English MA2's PM remains reference-sized.
 Native review also confirmed the new geometric band ends drew outside their bounds; the Canvas is now explicitly clipped.
 Added a MA2-only 115% matrix covering all four layouts, EN/UR and 12/24h with the same fact, clipping and 48dp assertions. The focused preview runs this matrix for fast feedback; the signed-candidate workflow still runs the entire suite and all release gates.
+
+The focused MA2 matrix also captures normal-font 12h in all four layouts and both languages (in addition to the complete 115% 12/24h matrix). Review can therefore use current normal-font native captures without waiting for signed packaging. Superseded focused preview jobs cancel automatically; the full signed gate remains separate.

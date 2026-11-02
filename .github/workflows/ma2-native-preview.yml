@@ -7,6 +7,9 @@ on:
       - 'app/src/main/java/com/usman/miqaat/ui/WorshipApproved.kt'
       - 'app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt'
   workflow_dispatch:
+concurrency:
+  group: ma2-native-preview-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
@@ -20,7 +23,7 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v4
-      - name: MA2 native 115 percent matrix - all layouts languages and clocks
+      - name: MA2 native normal and 115 percent matrix - all layouts languages and clocks
         run: ./gradlew --no-daemon testGithubReleaseUnitTest --tests 'com.usman.miqaat.ui.FridayQuietApprovedTest.miqaat115PercentKeepsEveryLayoutReadableInBothClockFormats'
       - uses: actions/upload-artifact@v4
         if: always()
