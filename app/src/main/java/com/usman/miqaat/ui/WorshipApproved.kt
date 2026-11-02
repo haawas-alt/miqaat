@@ -163,7 +163,18 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
             } else if (!short) header()
             val banner: @Composable () -> Unit = { FridayMasthead(s, tablet, wide, a.onOpenFriday) }
             val hero: @Composable (Modifier) -> Unit = { m ->
-                FridayHero(state, s, a, tablet, short, smallPortrait, wide, m) { why = state.hero }
+                // One scene contains the live hero and its two shortcuts, as on
+                // the approved boards. Painting separate hero-only rectangles cut
+                // the courtyard off immediately above the buttons.
+                Box(m) {
+                    if (!(wide && s.theme == AppTheme.PRAYER_GALLERY))
+                        FridayMihrabReveal(s, Modifier.matchParentSize())
+                    Column(Modifier.fillMaxSize()) {
+                        FridayHero(state, s, a, tablet, short, smallPortrait, wide,
+                            Modifier.weight(1f).fillMaxWidth()) { why = state.hero }
+                        FridayActions(s, state.now, a, short, tablet)
+                    }
+                }
             }
             val prayers: @Composable (Modifier) -> Unit = { m ->
                 WorshipSurface(s, m.background(c.background.copy(alpha = .72f), RoundedCornerShape(14.dp)).testTag("home-prayers")) {
@@ -217,7 +228,6 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     if (short && s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(32.dp))
                     if (short) banner()
                     hero(Modifier.weight(1f).fillMaxWidth())
-                    FridayActions(s, state.now, a, short, tablet)
                 }
             } else {
                 banner()
@@ -230,8 +240,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 val chrome = (if (tablet) 62.dp else 48.dp) + mastheadHeight + artHeight +
                     (if (tablet) 87.dp else 63.dp) + 6.dp + (if (tablet) 66.dp else 56.dp)
                 val heroHeight = (idealHeroHeight * typeScale).coerceAtMost((safeHeight - chrome - (if(tablet) (if (L10n.isUrdu(s)) 64.dp else 52.dp) * typeScale else 48.dp) * listedPrayers(s).size).coerceAtLeast(140.dp))
-                hero(Modifier.fillMaxWidth().height(heroHeight).padding(vertical = if (tablet) 10.dp else 4.dp))
-                FridayActions(s, state.now, a, false, tablet)
+                hero(Modifier.fillMaxWidth().height(heroHeight + (if (tablet) 69.dp else 57.dp)).padding(vertical = if (tablet) 10.dp else 4.dp))
                 Spacer(Modifier.height(6.dp))
                 prayers(Modifier.fillMaxWidth().then(if(tablet) Modifier.height((if (L10n.isUrdu(s)) 64.dp else 52.dp) * typeScale * listedPrayers(s).size) else Modifier.weight(1f)))
             }
@@ -432,7 +441,6 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                         radius = minOf(size.width, size.height) * .48f))
                 } else Modifier)
             .clickable(role = Role.Button, onClickLabel = detailLabel, onClick = onDetails)
-        if (!(wide && s.theme == AppTheme.PRAYER_GALLERY)) FridayMihrabReveal(s, Modifier.matchParentSize())
         // Kiswah's medallion panel occupies the right quarter of the painting.
         // Centre live facts in the actual mihrab opening, including in Urdu;
         // physical artwork placement is independent of text reading direction.
