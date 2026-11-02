@@ -188,7 +188,13 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 // the courtyard off immediately above the buttons.
                 BoxWithConstraints(m) {
                     val artworkPanelInset = if (s.theme == AppTheme.KISWAH) maxWidth * .24f else 0.dp
-                    if (!(wide && s.theme == AppTheme.PRAYER_GALLERY))
+                    if (s.theme == AppTheme.MIQAAT) {
+                        // Recover the composition from each approved viewport rather
+                        // than cropping a generic outdoor painting into the phone arch.
+                        FridayMihrabReveal(s, Modifier.matchParentSize(),
+                            if (!wide && !tablet) R.drawable.friday_miqaat_phone_v2 else R.drawable.friday_miqaat_scene_v2,
+                            artworkContentScale = ContentScale.Crop)
+                    } else if (!(wide && s.theme == AppTheme.PRAYER_GALLERY))
                         FridayMihrabReveal(s, Modifier.matchParentSize())
                     Column(Modifier.fillMaxSize()) {
                         FridayHero(state, s, a, tablet, short, smallPortrait, wide,

@@ -69,7 +69,8 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
  * Lifecycle cancellation stops work in the background; quiet mode never composes this component.
  * Reduced-motion users get a static fine outline, without pulses or moving particles.
  */
-@Composable internal fun FridayMihrabReveal(s: AppSettings, modifier: Modifier, artworkOverride: Int? = null) {
+@Composable internal fun FridayMihrabReveal(s: AppSettings, modifier: Modifier, artworkOverride: Int? = null,
+    artworkContentScale: ContentScale = if (artworkOverride != null) ContentScale.FillWidth else ContentScale.Crop) {
     val frame = LocalFridayRevealFrame.current
     val still = reduceMotion()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
@@ -96,7 +97,7 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
     }
     if (s.artTheme != ArtTheme.MINIMAL) Box(modifier.testTag("friday-mihrab-reveal")) {
         Image(painterResource(heroArt), null, Modifier.fillMaxSize(),
-            contentScale = if (artworkOverride != null) ContentScale.FillWidth else ContentScale.Crop, alignment = Alignment.TopCenter,
+            contentScale = artworkContentScale, alignment = Alignment.TopCenter,
             alpha = if (still) 1f else .78f + .22f * intensity)
     }
 }
