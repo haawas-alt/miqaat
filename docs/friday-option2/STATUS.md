@@ -7,8 +7,13 @@ asked to stop spending time on MA2 and start the next theme. Freeze MA2 at
 `1d57ba517354e4f2b3b7bfd8cee02abdf2e6fe13`. Both focused native run
 `41430245994` and full signed gate `41430245963` succeeded.
 
-Active theme: **KA2 (Kiswah)** in all four phone/tablet orientations. CA2 and
-GA2 follow afterwards. See `KA2_ACCEPTANCE.md`. Historic MA2 residuals do not
+KA2 native implementation and signed testing validation are complete at
+`77549fc66107c9548c86b3199110e72932697521`: focused run `41500671146`, MA2
+regression `41500671211` and signed gate `41500671223` all passed. The seven-page
+comparison and exact-source APK retain real facts and 48dp targets; this is not an
+exact-pixel fidelity or production-promotion claim. See `KA2_ACCEPTANCE.md`.
+Next theme: **CA2**, then GA2. The user requested foreground work; the Friday
+hourly automation is paused. Historic MA2 residuals do not
 block this transition and must not trigger more MA2 styling changes.
 
 User approved MA2 / KA2 / CA2 / GA2 responsive mockups on 30 October 2026 (Sydney).

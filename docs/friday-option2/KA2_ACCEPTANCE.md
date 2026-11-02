@@ -30,3 +30,33 @@ the display clock, real HH:MM:SS and until/since wording, visible Friday/Iqamah,
 black cloth outside the hero, a darker selected table row and single-bordered
 actions. All existing MA2 assertions remain in the reusable review matrix.
 A separate KA2 matrix and live-tick test must pass before any completion claim.
+
+## Foreground verification - 3 November 2026, Sydney
+
+Implementation source: `77549fc66107c9548c86b3199110e72932697521`.
+The user requested completion in the active session rather than hourly checks;
+the Friday automation is paused. Do not restart it without a new instruction.
+
+Completed changes include the live seconds countdown, four-phrase native banner,
+cream display clock, black/gold timetable, distinct prayer/navigation icons,
+inline landscape/tablet navigation, pin/date/Friday header and the complete
+right-hand embroidery panel in every viewport. The new header is included in
+the strict glyph-clipping matrix; its 115% Urdu tablet overflow was corrected
+without removing or weakening assertions.
+
+- KA2 focused run `41500671146`: passed, all 24 profiles and live-tick test.
+- MA2 regression run `41500671211`: passed; accepted MA2 styling is unchanged.
+- Full signed candidate run `41500671223`: passed; release lint/APK/AAB, bundle, signing, permissions and 16KB alignment checks passed.
+- JUnit totals: 191 tests, 186 passed, 5 opt-in legacy export tests skipped, 0 failures/errors.
+- Testing APK SHA-256: `60f961ea5fc437a8cf59a5e476f963f7e9698ab24ebd0407f77a518b1869bd5f`.
+- Certificate verified against `6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01`.
+- Current comparison identity: `libfile_08d7907f0f98819190fdb0d06ff35176`.
+
+Native captures use controlled Mascot prayer settings, not the reference's
+illustrative Makkah data. Functional Iqamah/end metadata and 48dp rows require
+responsive spacing; the banner ornament is native geometry. These captures
+support a reviewable implementation, not a numerical or exact-pixel fidelity
+claim. No production promotion. Keep CA2 and GA2 unchanged until this batch is
+validated and delivered. The current native implementation and signed testing
+build are validated; the next implementation theme is CA2. User acceptance of
+the reference comparison is not implied by passing tests.
