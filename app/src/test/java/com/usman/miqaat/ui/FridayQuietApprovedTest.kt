@@ -275,6 +275,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 capture(theme, dev, lang, "friday-matrix${(fontScale * 100).toInt()}-${if (use24) "24" else "12"}")
                 readable("kiswah-calligraphy-band")
                 if(theme==AppTheme.KISWAH) {
+                    for(tag in listOf("kiswah-header-location","kiswah-header-date","kiswah-header-day","kiswah-header-clock")) readable(tag)
                     readable("friday-hero-countdown")
                     rule.onNodeWithTag("friday-hero-countdown",true).assertTextEquals("01:28:00")
                 }

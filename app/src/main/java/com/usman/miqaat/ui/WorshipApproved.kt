@@ -136,7 +136,26 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 if (onClosePreview != null) IconButton(onClick = onClosePreview, modifier = Modifier.size(48.dp).testTag("jummah-preview-close")) {
                     Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = c.accent)
                 }
-                if (s.theme == AppTheme.MIQAAT) {
+                if (s.theme == AppTheme.KISWAH) {
+                    Row(Modifier.weight(1f).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation),
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Outlined.LocationOn, null, Modifier.size(if(tablet) 18.dp else 13.dp), tint = c.accent)
+                        Spacer(Modifier.width(3.dp))
+                        Column(Modifier.weight(1f)) {
+                            WorshipText(if(onClosePreview != null) words(s,"Jumuʿah preview","جمعہ کا پیش منظر") else s.locationName,
+                                s,if(tablet) 16f else 11f,c.ink,Modifier.testTag("kiswah-header-location"),lines=1)
+                            WorshipText(if(L10n.isUrdu(s)) L10n.fridayDate(state.now.toLocalDate()) else
+                                state.now.format(java.time.format.DateTimeFormatter.ofPattern("d MMMM yyyy",Locale.ENGLISH)),
+                                s,if(tablet) 11f else 9f,c.secondary,Modifier.testTag("kiswah-header-date"),lines=1)
+                        }
+                    }
+                    Column(Modifier.width(if(tablet) 160.dp else 100.dp),horizontalAlignment=Alignment.CenterHorizontally) {
+                        WorshipText(words(s,"Friday","جمعہ"),s,if(tablet) 13f else 10f,c.accent,
+                            Modifier.testTag("kiswah-header-day"),center=true,lines=1)
+                        WorshipText(L10n.at(state.now,s.use24h),s,if(tablet) 19f else 13f,c.ink,
+                            Modifier.testTag("kiswah-header-clock"),center=true,lines=1)
+                    }
+                } else if (s.theme == AppTheme.MIQAAT) {
                     Row(Modifier.weight(.8f).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation),
                         verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Outlined.LocationOn, null, Modifier.size(if (tablet) 18.dp else 14.dp), tint = c.ink)
@@ -203,7 +222,8 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                             },
                             artworkContentScale = ContentScale.Crop)
                     } else if (!(wide && s.theme == AppTheme.PRAYER_GALLERY))
-                        FridayMihrabReveal(s, Modifier.matchParentSize())
+                        FridayMihrabReveal(s, Modifier.matchParentSize(),
+                            artworkContentScale = if(s.theme == AppTheme.KISWAH) ContentScale.FillBounds else ContentScale.Crop)
                     Column(Modifier.fillMaxSize()) {
                         FridayHero(state, s, a, tablet, short, smallPortrait, wide,
                             Modifier.weight(1f).fillMaxWidth()) { why = state.hero }
