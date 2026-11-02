@@ -155,7 +155,11 @@ class MainActivity : ComponentActivity() {
                     )
                     Crossfade(targetState = screen, label = "screen") { s ->
                         when (s) {
-                            Screen.HOME -> com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek) { peek = true }
+                            Screen.HOME -> if(settings.theme == com.usman.miqaat.data.AppTheme.KISWAH) {
+                                androidx.compose.runtime.CompositionLocalProvider(com.usman.miqaat.ui.LocalKiswahFridayNow provides now) {
+                                    com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek) { peek = true }
+                                }
+                            } else com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek) { peek = true }
                             Screen.QIBLA -> QiblaScreen(settings) { screen = Screen.HOME }
                             Screen.ADHKAR -> AdhkarScreen(adhkarMode) { screen = Screen.HOME }
                             Screen.FRIDAY -> com.usman.miqaat.ui.FridayScreen(settings, initialSection = fridaySection) { screen = Screen.HOME }

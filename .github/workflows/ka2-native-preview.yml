@@ -1,0 +1,43 @@
+name: KA2 native preview
+on:
+  push:
+    branches: ['feat/friday-option2']
+    paths:
+      - '.github/workflows/ka2-native-preview.yml'
+      - 'app/src/main/java/com/usman/miqaat/ui/WorshipApproved.kt'
+      - 'app/src/main/java/com/usman/miqaat/ui/FridayOption2.kt'
+      - 'app/src/main/java/com/usman/miqaat/ui/KiswahFridayComponents.kt'
+      - 'app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt'
+  workflow_dispatch:
+concurrency:
+  group: ka2-native-preview-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  ka2-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: KA2 native normal and 115 percent matrix - all layouts languages and clocks
+        run: ./gradlew --no-daemon testGithubReleaseUnitTest --tests 'com.usman.miqaat.ui.FridayQuietApprovedTest.kiswah115PercentKeepsEveryLayoutReadableInBothClockFormats' --tests 'com.usman.miqaat.ui.FridayQuietApprovedTest.kiswahCountdownUsesLiveTickWithoutReplacingEngineFacts'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ka2-native-preview-${{ github.run_id }}
+          path: app/build/friday-quiet-review/KISWAH/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ka2-preview-reports-${{ github.run_id }}
+          path: |
+            app/build/test-results/
+            app/build/reports/tests/
+          if-no-files-found: error

@@ -1,4 +1,9 @@
-# MA2 reference acceptance — active theme only
+# MA2 reference acceptance — accepted by user
+
+**3 November 2026, Sydney:** user accepted MA2 as-is and requested the next
+theme. Accepted source: `1d57ba517354e4f2b3b7bfd8cee02abdf2e6fe13`, focused run
+`41430245994` and full signed gate `41430245963` both passed. Preserve MA2.
+The historic gaps below are a record, not an active correction queue. KA2 is active.
 
 Baseline: 2e7d92932b13b55d2ddc4c95a1c1866287f3333d; signed validation run 41409526373 succeeded.
 Reviewed full native English captures: approved375x812, approved812x375, approved768x1024, tablet-landscape.

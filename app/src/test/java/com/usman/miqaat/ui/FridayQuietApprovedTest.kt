@@ -232,10 +232,32 @@ class FridayQuietApprovedTest : ComposeSupport() {
         assertEquals(PrayerEngine.calculated(regular, friday.toLocalDate())[Prayer.DHUHR].toInstant().truncatedTo(java.time.temporal.ChronoUnit.SECONDS), PrayerEngine.times(regular, friday.toLocalDate())[Prayer.DHUHR].toInstant().truncatedTo(java.time.temporal.ChronoUnit.SECONDS))
     }
     @Test fun miqaat115PercentKeepsEveryLayoutReadableInBothClockFormats() {
+        assertFridayReviewMatrix(AppTheme.MIQAAT)
+    }
+    @Test fun kiswah115PercentKeepsEveryLayoutReadableInBothClockFormats() {
+        assertFridayReviewMatrix(AppTheme.KISWAH)
+    }
+    @Test fun kiswahCountdownUsesLiveTickWithoutReplacingEngineFacts() {
+        val s=settings(AppTheme.KISWAH,Language.EN)
+        val now=ZonedDateTime.of(2026,10,30,11,47,0,0,s.zone())
+        val state=PrayerEngine.state(s,now)
+        val tick=mutableStateOf(now)
+        show(Dev.PHONE_PORTRAIT,AppTheme.KISWAH,language=Language.EN) {
+            androidx.compose.runtime.CompositionLocalProvider(LocalKiswahFridayNow provides tick.value,
+                LocalFridayRevealFrame provides 1f) {
+                HomeRouter(state,s,HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}),false,{})
+            }
+        }
+        rule.onNodeWithTag("friday-hero-countdown",true).assertTextEquals("01:28:00")
+        rule.runOnIdle { tick.value=now.plusSeconds(1) }
+        rule.onNodeWithTag("friday-hero-countdown",true).assertTextEquals("01:27:59")
+        rule.onNodeWithTag("friday-hero-time",true).assertTextEquals(L10n.at(state.heroTime,false))
+    }
+    private fun assertFridayReviewMatrix(theme: AppTheme) {
         val failures = mutableListOf<String>()
         for (lang in Language.entries) for (dev in Dev.entries) for (use24 in listOf(false, true))
             for (fontScale in if (use24) listOf(1.15f) else listOf(1f, 1.15f)) {
-            val s = settings(AppTheme.MIQAAT, lang).copy(use24h = use24)
+            val s = settings(theme, lang).copy(use24h = use24)
             val state = PrayerEngine.state(s, ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, s.zone()))
             val qualifiers = when (dev) {
                 Dev.PHONE_PORTRAIT -> "w375dp-h812dp-port-xhdpi"
@@ -244,14 +266,18 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 Dev.TABLET_LANDSCAPE -> "w1280dp-h800dp-land-xhdpi"
             }
             try {
-                show(dev, AppTheme.MIQAAT, language = lang, rtl = lang == Language.UR,
+                show(dev, theme, language = lang, rtl = lang == Language.UR,
                     fontScale = fontScale, qualifiers = qualifiers) {
                     androidx.compose.runtime.CompositionLocalProvider(LocalFridayRevealFrame provides 1f) {
                         HomeRouter(state, s, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {})
                     }
                 }
-                capture(AppTheme.MIQAAT, dev, lang, "friday-matrix${(fontScale * 100).toInt()}-${if (use24) "24" else "12"}")
+                capture(theme, dev, lang, "friday-matrix${(fontScale * 100).toInt()}-${if (use24) "24" else "12"}")
                 readable("kiswah-calligraphy-band")
+                if(theme==AppTheme.KISWAH) {
+                    readable("friday-hero-countdown")
+                    rule.onNodeWithTag("friday-hero-countdown",true).assertTextEquals("01:28:00")
+                }
                 for (tag in listOf("friday-banner", "friday-hero-arabic", "friday-hero-kicker", "friday-hero-time", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
                 if (lang == Language.EN) readable("friday-hero-name")
                 for (tag in listOf("home-status-now", "home-status-next")) {
@@ -263,14 +289,14 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     readable("friday-time-${p.name}"); readable("friday-detail-${p.name}")
                     rule.onNodeWithTag("friday-time-${p.name}", true).assertTextEquals(L10n.at(state.today[p], use24))
                     val b = rule.onNodeWithTag("approved-row-${p.name}", true).fetchSemanticsNode().boundsInRoot
-                    assertTrue("MA2 prayer touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
+                    assertTrue("${theme.name} prayer touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
                 }
                 for (i in 0..1) {
                     readable("friday-action-title-$i"); readable("friday-action-detail-$i")
                     val b = rule.onNodeWithTag("friday-action-$i", true).fetchSemanticsNode().boundsInRoot
-                    assertTrue("MA2 shortcut touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
+                    assertTrue("${theme.name} shortcut touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
                 }
-            } catch (e: AssertionError) { failures += "MA2/$dev/$lang/${(fontScale * 100).toInt()}%/${if (use24) 24 else 12}h: ${e.message}" }
+            } catch (e: AssertionError) { failures += "${theme.name}/$dev/$lang/${(fontScale * 100).toInt()}%/${if (use24) 24 else 12}h: ${e.message}" }
             finally { scenario.close() }
         }
         assertTrue(failures.joinToString("\n"), failures.isEmpty())

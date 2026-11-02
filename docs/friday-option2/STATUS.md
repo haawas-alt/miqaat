@@ -1,5 +1,16 @@
 # Friday option 2 implementation — testing only
 
+## Current user decision - 3 November 2026, Sydney
+
+The user accepted MA2 as-is after reviewing its comparison PDF and explicitly
+asked to stop spending time on MA2 and start the next theme. Freeze MA2 at
+`1d57ba517354e4f2b3b7bfd8cee02abdf2e6fe13`. Both focused native run
+`41430245994` and full signed gate `41430245963` succeeded.
+
+Active theme: **KA2 (Kiswah)** in all four phone/tablet orientations. CA2 and
+GA2 follow afterwards. See `KA2_ACCEPTANCE.md`. Historic MA2 residuals do not
+block this transition and must not trigger more MA2 styling changes.
+
 User approved MA2 / KA2 / CA2 / GA2 responsive mockups on 30 October 2026 (Sydney).
 Phone portrait, phone landscape and tablet portrait; retain tablet landscape.
 
