@@ -253,6 +253,9 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 capture(AppTheme.MIQAAT, dev, lang, "friday-matrix${(fontScale * 100).toInt()}-${if (use24) "24" else "12"}")
                 for (tag in listOf("friday-banner", "friday-hero-arabic", "friday-hero-kicker", "friday-hero-time", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
                 if (lang == Language.EN) readable("friday-hero-name")
+                for (tag in listOf("home-status-now", "home-status-next")) {
+                    if (rule.onAllNodesWithTag(tag, true).fetchSemanticsNodes().isNotEmpty()) readable(tag)
+                }
                 if (rule.onAllNodesWithTag("friday-hero-day", true).fetchSemanticsNodes().isNotEmpty()) readable("friday-hero-day")
                 rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, use24))
                 for (p in Prayer.entries) {

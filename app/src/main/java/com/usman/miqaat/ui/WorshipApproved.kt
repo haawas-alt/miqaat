@@ -235,11 +235,12 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                                     s, if (tablet) 11f else if (L10n.isUrdu(s)) 8.5f else 9f, c.secondary,
                                     Modifier.testTag("friday-detail-${p.name}"), center = true, lines = if (tablet) 2 else 1)
                             }
-                            Box(Modifier.width(if (tablet) 48.dp else 35.dp), contentAlignment = Alignment.Center) {
+                            Box(Modifier.width((if (tablet) 48.dp else 35.dp) * if (s.theme == AppTheme.MIQAAT) typeScale else 1f), contentAlignment = Alignment.Center) {
                             if (r.isNow || r.isNext) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"),
                                 Modifier.testTag(if (r.isNow) "home-status-now" else "home-status-next")
                                     .clip(RoundedCornerShape(8.dp)).background(c.accent).padding(horizontal = 5.dp, vertical = 3.dp),
-                                fontFamily = if (L10n.isUrdu(s)) Amiri else QuietBody, fontSize = 9.sp, color = c.background)
+                                fontFamily = if (L10n.isUrdu(s)) Amiri else QuietBody, fontSize = 9.sp, color = c.background,
+                                maxLines = if (s.theme == AppTheme.MIQAAT) 1 else Int.MAX_VALUE, softWrap = s.theme != AppTheme.MIQAAT)
                             }
                             if (tablet && p.isPrayer) IconButton(onClick = { why = p }, modifier = Modifier.size(48.dp)) {
                                 Icon(Icons.Outlined.Info, words(s, "Prayer details", "نماز کی تفصیل"), tint = c.secondary, modifier = Modifier.size(22.dp))
