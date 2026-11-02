@@ -400,6 +400,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
             if (tablet) .60f else .35f, Modifier.matchParentSize())
         val dhikr = if (miqaat) {
             if (L10n.isUrdu(s)) "سُبْحَانَ اللَّهِ   ✦   الْحَمْدُ لِلَّهِ   ✦   اللَّهُ أَكْبَرُ"
+            else if (!tablet && !wide) "✦ SubhanAllah ✦ Alhamdulillah ✦ Allahu Akbar ✦"
             else "✦   SubhanAllah   ✦   Alhamdulillah   ✦   Allahu Akbar   ✦"
         } else Kiswah.BAND
         if (miqaat) {
