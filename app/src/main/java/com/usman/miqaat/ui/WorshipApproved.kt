@@ -209,7 +209,9 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                             .testTag("approved-row-${p.name}").semantics(mergeDescendants = true) { contentDescription = r.spoken }
                             .clickable { why = p }.padding(horizontal = if (tablet) 14.dp else 8.dp),
                             verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(if (tablet) 10.dp else 5.dp)) {
-                            Icon(if (s.theme == AppTheme.MIQAAT) when (p) {
+                            if (s.theme == AppTheme.MIQAAT && p == Prayer.ASR) {
+                                MiqaatFridayAsrIcon(Color(0xFFE66C20), Modifier.size(if (tablet) 24.dp else 18.dp))
+                            } else Icon(if (s.theme == AppTheme.MIQAAT) when (p) {
                                 Prayer.ISHA -> Icons.Outlined.DarkMode
                                 Prayer.SUNRISE, Prayer.MAGHRIB -> Icons.Outlined.WbTwilight
                                 else -> Icons.Outlined.WbSunny
@@ -555,7 +557,8 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                 if (s.theme == AppTheme.MIQAAT) WorshipText(if (ur) h.kickerLabel else h.kickerLabel.lowercase(Locale.ENGLISH).replaceFirstChar { it.uppercase() }, s,
                     if (tablet) 15f else if (short) 9f else if (tight) 10f else 11f, c.ink,
                     Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
-                WorshipText(status, s, if (tablet) 15f else if (short) 9f else if (tight) 10f else 11f, c.accent,
+                WorshipText(if (s.theme == AppTheme.MIQAAT && !ur) status.replaceFirstChar { it.lowercase() } else status,
+                    s, if (tablet) 15f else if (short) 9f else if (tight) 10f else 11f, c.accent,
                     Modifier.testTag("friday-hero-status"), center = true, lines = 1)
             }
             if (iqLabel != null) WorshipText(iqLabel, s, if (tablet) 12f else if (short) 8f else if (tight) 9f else 10f,
