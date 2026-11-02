@@ -1,6 +1,18 @@
 # Friday option 2 implementation — testing only
 
-## Active visual correction - 3 November 2026, Sydney
+## Current KA2 corrected testing delivery - 3 November 2026, Sydney
+
+Source `4a584944a52fd72099a5248e6941bc0ceed5d19b` passed focused KA2 run
+`41512793270`, MA2 regression `41512793439`, and full signed gate `41512793769`.
+The reference-traced embroidery, regular clock, stacked landscape heading,
+portrait arch crop/clock alignment, PM ratio and phone shortcut sizing are in
+the verified APK. The 8-page comparison and exact-source APK are delivered;
+see the final delivery section of `KA2_ACCEPTANCE.md` for hashes and identities.
+This is testing delivery, not user visual acceptance, a 100% fidelity score,
+or production promotion. MA2 is frozen and CA2/GA2 unchanged. No hourly tasks.
+
+
+## Previous visual correction request - 3 November 2026, Sydney
 
 The user marked the delivered KA2 PDF and rejected the simplified Arabic banner
 border and hero composition. KA2 is active again; CA2/GA2 must wait. The previous

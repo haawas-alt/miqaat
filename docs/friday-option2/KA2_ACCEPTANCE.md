@@ -102,3 +102,26 @@ The English PM suffix is restored to 60% of the clock size and phone shortcut
 labels/icons enlarged while keeping secondary facts and 48dp targets. The same
 8s/5min lifecycle/reduced-motion envelope controls both native image patches.
 This additional composition batch needs fresh captures and signed validation.
+
+
+## Corrected testing delivery - 3 November 2026, Sydney
+
+Application source `4a584944a52fd72099a5248e6941bc0ceed5d19b` is verified.
+KA2 run `41512793270`, MA2 regression `41512793439`, and full signed gate
+`41512793769` all passed. JUnit: 191 total, 186 passed, 5 opt-in legacy
+screenshot/audit exports skipped, 0 failures/errors. Release lint, both APKs,
+Play AAB, bundle/signing/permissions/16KB alignment checks passed.
+
+Corrected APK SHA-256:
+`442a360b0a7b651e4409fc8b2c95be3fdc603cad5baa17e97d356063985139f2`.
+Existing certificate verified:
+`6285b269623127c3e2f0e87a5967f3fe143414c97371de3284d3489984541b01`.
+
+Comparison `libfile_08d7907f0f98819190fdb0d06ff35176`, version 5, has the
+reference/native embroidery close-up on page 7 and verified build evidence on
+page 8. Corrected APK: `libfile_52f56f3baef08191bfc90cff438de5a3`, named
+`Miqaat-KA2-Test-4a58494.apk`. The earlier 77549fc APK is not this correction.
+
+This records a verified testing delivery, not user visual acceptance or an
+exact-pixel fidelity claim. MA2 remains frozen; CA2/GA2 remain unchanged.
+The hourly Friday automation remains paused as explicitly requested.
