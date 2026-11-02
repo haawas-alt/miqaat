@@ -251,6 +251,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     }
                 }
                 capture(AppTheme.MIQAAT, dev, lang, "friday-matrix${(fontScale * 100).toInt()}-${if (use24) "24" else "12"}")
+                readable("kiswah-calligraphy-band")
                 for (tag in listOf("friday-banner", "friday-hero-arabic", "friday-hero-kicker", "friday-hero-time", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
                 if (lang == Language.EN) readable("friday-hero-name")
                 for (tag in listOf("home-status-now", "home-status-next")) {

@@ -398,7 +398,11 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         if (miqaat) MiqaatDhikrEnds(Modifier.matchParentSize())
         if (s.theme != AppTheme.MIQAAT) KiswahOrnamentalFrame(
             if (tablet) .60f else .35f, Modifier.matchParentSize())
-        Text(if (s.theme == AppTheme.MIQAAT && !L10n.isUrdu(s)) "✦   SubhanAllah   ✦   Alhamdulillah   ✦   Allahu Akbar   ✦" else Kiswah.BAND,Modifier.padding(horizontal=10.dp).testTag("kiswah-calligraphy-band"),fontFamily=if (miqaat && !L10n.isUrdu(s)) FontFamily.Serif else if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
+        val dhikr = if (miqaat) {
+            if (L10n.isUrdu(s)) "سُبْحَانَ اللَّهِ   ✦   الْحَمْدُ لِلَّهِ   ✦   اللَّهُ أَكْبَرُ"
+            else "✦   SubhanAllah   ✦   Alhamdulillah   ✦   Allahu Akbar   ✦"
+        } else Kiswah.BAND
+        Text(dhikr,Modifier.padding(horizontal=10.dp).testTag("kiswah-calligraphy-band"),fontFamily=if (miqaat && !L10n.isUrdu(s)) FontFamily.Serif else if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
             fontSize=(if (miqaat && !L10n.isUrdu(s)) (if (tablet) 16 else 11) else if(tablet) 18 else 12).sp,lineHeight=(if(tablet) 30 else if(wide) 20 else 24).sp,
             color=Color(0xFFF0D89D),textAlign=TextAlign.Center,maxLines=1)
     }
