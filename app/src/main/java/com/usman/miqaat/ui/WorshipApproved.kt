@@ -427,7 +427,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         // makes MA2's available hero shorter, especially with Iqamah and Urdu enabled.
         val arabicLine = if (tablet) (if (roomy) 112f else 89.6f) else if (short || tight) 34f else 61.6f
         val nameLine = if (ur) 0f else if (tablet) 25f else if (short) 15f else 17.5f
-        val kickerLine = if (short) (if (ur) 16.2f else 11.25f) else if (tablet) (if (ur) 23.4f else 16.25f) else if (ur) 18f else 12.5f
+        val kickerLine = if (s.theme == AppTheme.MIQAAT) 0f else if (short) (if (ur) 16.2f else 11.25f) else if (tablet) (if (ur) 23.4f else 16.25f) else if (ur) 18f else 12.5f
         val statusLine = if (tablet) (if (ur) 27f else 18.75f) + 6f else (if (ur) 20f else 14f) + 6f
         val iqamahLine = if (iqLabel == null) 0f else if (tablet) (if (ur) 21.6f else 15f) else if (ur) 18f else 12.5f
         val fridayLine = if (maxHeight > 250.dp * scale) (if (ur) 25.2f else 17.5f) else 0f
@@ -456,7 +456,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                     Text(if (s.jumuahEnabled && h.prayer == Prayer.DHUHR) "الجمعة" else h.arabic,
                         Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
                         fontSize = arabicSize.sp, lineHeight = (arabicSize * 1.4f).sp, color = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent, maxLines = 1)
-                    WorshipText(h.kickerLabel, s, if (tablet) 13f else 10f, c.secondary,
+                    if (s.theme != AppTheme.MIQAAT) WorshipText(h.kickerLabel, s, if (tablet) 13f else 10f, c.secondary,
                         Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
                     if (!ur) WorshipText(h.label, s,
                         if (tablet) 20f else if (short) 11f else 13f, c.ink,
@@ -474,7 +474,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                         Modifier.testTag("friday-hero-arabic"), fontFamily = if (s.theme == AppTheme.KISWAH) KiswahLandscapeArabic else Amiri,
                         fontSize = (if (short || tight) 24 else 44).sp, lineHeight = (if (short || tight) 34f else 61.6f).sp, color = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent, maxLines = 1)
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        WorshipText(h.kickerLabel, s, if (short || tight) 9f else 10f, c.secondary, Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
+                        if (s.theme != AppTheme.MIQAAT) WorshipText(h.kickerLabel, s, if (short || tight) 9f else 10f, c.secondary, Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
                         if (!ur) WorshipText(h.label, s, if (short) 12f else 14f, c.ink, Modifier.testTag("friday-hero-name"), lines = 1)
                     }
                 } else names(Modifier.fillMaxWidth())
@@ -483,6 +483,9 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
             Row(Modifier
                 .padding(horizontal = if (tablet) 18.dp else 12.dp, vertical = if (short) 0.dp else if (tight) 2.dp else 3.dp),
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                if (s.theme == AppTheme.MIQAAT) WorshipText(h.kickerLabel, s,
+                    if (tablet) 15f else if (short) 9f else if (tight) 10f else 11f, c.ink,
+                    Modifier.testTag("friday-hero-kicker"), center = true, lines = 1)
                 WorshipText(status, s, if (tablet) 15f else if (short) 9f else if (tight) 10f else 11f, c.accent,
                     Modifier.testTag("friday-hero-status"), center = true, lines = 1)
             }
