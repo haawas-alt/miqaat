@@ -150,9 +150,9 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                         }
                     }
                     Column(Modifier.width(if(tablet) 160.dp else 100.dp),horizontalAlignment=Alignment.CenterHorizontally) {
-                        WorshipText(words(s,"Friday","جمعہ"),s,if(tablet) 13f else 10f,c.accent,
+                        WorshipText(words(s,"Friday","جمعہ"),s,if(tablet) (if(L10n.isUrdu(s)) 11f else 13f) else 10f,c.accent,
                             Modifier.testTag("kiswah-header-day"),center=true,lines=1)
-                        WorshipText(L10n.at(state.now,s.use24h),s,if(tablet) 19f else 13f,c.ink,
+                        WorshipText(L10n.at(state.now,s.use24h),s,if(tablet) (if(L10n.isUrdu(s)) 17f else 19f) else 13f,c.ink,
                             Modifier.testTag("kiswah-header-clock"),center=true,lines=1)
                     }
                 } else if (s.theme == AppTheme.MIQAAT) {

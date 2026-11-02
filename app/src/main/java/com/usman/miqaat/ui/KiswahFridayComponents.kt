@@ -131,7 +131,7 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
             BoxWithConstraints(Modifier.weight(1f).fillMaxWidth(),contentAlignment=Alignment.Center) {
                 val nominal=if(tablet)122f else if(short)68f else 82f
                 val fitted=minOf(nominal,(maxHeight.value/scale/1.28f).coerceAtLeast(12f))
-                FridayTime(state.heroTime,s,fitted,Modifier.fillMaxWidth().clickable(onClick=a.onToggleRelative),
+                FridayTime(state.heroTime,s,fitted,Modifier.fillMaxWidth().padding(horizontal=if(tablet)16.dp else 12.dp).clickable(onClick=a.onToggleRelative),
                     "friday-hero-time",c.ink,suffixRatio=if(ur).24f else .43f)
             }
             label(countdown,if(tablet)26f else if(short)15f else 21f,"friday-hero-countdown",c.ink,FontFamily.Serif)
