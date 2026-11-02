@@ -187,12 +187,20 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 // the approved boards. Painting separate hero-only rectangles cut
                 // the courtyard off immediately above the buttons.
                 BoxWithConstraints(m) {
-                    val artworkPanelInset = if (s.theme == AppTheme.KISWAH) maxWidth * .24f else 0.dp
+                    val artworkPanelInset = when {
+                        s.theme == AppTheme.KISWAH -> maxWidth * .24f
+                        s.theme == AppTheme.MIQAAT && wide -> maxWidth * .30f
+                        else -> 0.dp
+                    }
                     if (s.theme == AppTheme.MIQAAT) {
                         // Recover the composition from each approved viewport rather
                         // than cropping a generic outdoor painting into the phone arch.
                         FridayMihrabReveal(s, Modifier.matchParentSize(),
-                            if (!wide && !tablet) R.drawable.friday_miqaat_phone_v2 else R.drawable.friday_miqaat_scene_v2,
+                            when {
+                                wide -> R.drawable.friday_miqaat_landscape_v2
+                                !tablet -> R.drawable.friday_miqaat_phone_v2
+                                else -> R.drawable.friday_miqaat_scene_v2
+                            },
                             artworkContentScale = ContentScale.Crop)
                     } else if (!(wide && s.theme == AppTheme.PRAYER_GALLERY))
                         FridayMihrabReveal(s, Modifier.matchParentSize())
@@ -560,7 +568,11 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         // Kiswah's medallion panel occupies the right quarter of the painting.
         // Centre live facts in the actual mihrab opening, including in Urdu;
         // physical artwork placement is independent of text reading direction.
-        Column(base.absolutePadding(right = if (s.theme == AppTheme.KISWAH) maxWidth * .24f else 0.dp)
+        Column(base.absolutePadding(right = when {
+            s.theme == AppTheme.KISWAH -> maxWidth * .24f
+            s.theme == AppTheme.MIQAAT && wide -> maxWidth * .30f
+            else -> 0.dp
+        })
             .padding(horizontal = if (tablet) 18.dp else 8.dp, vertical = if (short) 2.dp else if (tight) 4.dp else 6.dp),
             horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             val names: @Composable (Modifier) -> Unit = { m ->
