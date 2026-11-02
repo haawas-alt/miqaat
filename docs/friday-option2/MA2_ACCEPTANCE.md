@@ -28,3 +28,9 @@ The reference contains phone portrait, phone landscape and tablet portrait. Tabl
 
 KA2/CA2/GA2 are frozen until MA2 is visually accepted. No assertion changes, no production promotion.
 No claim of completion or percentage follows from a passing build.
+
+## Follow-up from actual d6d218f captures
+
+Run 41419322663 failed two assertions: Urdu tablet hero clock was 983px wide inside a 979px node. Assertions remain unchanged. Fix fits the shaped string iteratively with a two-dp inset, and reduces only the Urdu translated suffix ratio while keeping the display number hierarchy. English MA2's PM remains reference-sized.
+Native review also confirmed the new geometric band ends drew outside their bounds; the Canvas is now explicitly clipped.
+Added a MA2-only 115% matrix covering all four layouts, EN/UR and 12/24h with the same fact, clipping and 48dp assertions. The focused preview runs this matrix for fast feedback; the signed-candidate workflow still runs the entire suite and all release gates.

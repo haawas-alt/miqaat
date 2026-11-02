@@ -398,7 +398,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
 
 /** Gold geometric end panels from MA2's narrow green dhikr strip. */
 @Composable private fun MiqaatDhikrEnds(modifier: Modifier) {
-    Canvas(modifier) {
+    Canvas(modifier.clip(RectangleShape)) {
         val step = 8.dp.toPx()
         val endWidth = minOf(size.width * .12f, 62.dp.toPx())
         val gold = Color(0xFFE7C77E).copy(alpha = .42f)
@@ -442,10 +442,18 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         fun style(size: Float) = TextStyle(fontFamily = worshipFont(s), fontSize = (size * suffixRatio).sp,
             lineHeight = (size * if (tag == "friday-hero-time") 1.28f else 1.2f).sp, platformStyle = PlatformTextStyle(includeFontPadding = false),
             textAlign = align, color = color)
-        val resolved = remember(text, numberSize, suffixRatio, emphasized, maxWidth, density.fontScale, density.density) {
+        val resolved = remember(text, numberSize, suffixRatio, emphasized, maxWidth, density.fontScale, density.density, s.theme) {
             val measured = measurer.measure(styled(numberSize), style(numberSize), softWrap = false, maxLines = 1).size.width
-            val available = with(density) { maxWidth.toPx() }
-            if (measured > available) numberSize * (available / measured).coerceIn(.5f, 1f) else numberSize
+            // Urdu suffix shaping and pixel rounding are not exactly linear in sp.
+            // Leave MA2 a two-dp inset and remeasure the fitted string, rather than
+            // assuming that one proportional resize guarantees a visible glyph fit.
+            val available = with(density) { maxWidth.toPx() - if (s.theme == AppTheme.MIQAAT) 2.dp.toPx() else 0f }
+            var fitted = if (measured > available) numberSize * (available / measured).coerceIn(.5f, 1f) else numberSize
+            if (s.theme == AppTheme.MIQAAT) repeat(4) {
+                val width = measurer.measure(styled(fitted), style(fitted), softWrap = false, maxLines = 1).size.width
+                if (width > available) fitted *= (available / width) * .995f
+            }
+            fitted
         }
         Text(styled(resolved), Modifier.fillMaxWidth().testTag(tag), style = style(resolved), softWrap = false, maxLines = 1)
     }
@@ -454,7 +462,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
 @Composable private fun FridayClock(state: PrayerState, s: AppSettings, size: Float, modifier: Modifier = Modifier) {
     val c = fridayOption2Palette(s.theme)
     FridayTime(state.heroTime, s, size, modifier, "friday-hero-time",
-        if (s.theme == AppTheme.KISWAH) c.accent else c.ink, suffixRatio = if (s.theme == AppTheme.MIQAAT) .43f else .30f)
+        if (s.theme == AppTheme.KISWAH) c.accent else c.ink, suffixRatio = if (s.theme == AppTheme.MIQAAT) (if (L10n.isUrdu(s)) .24f else .43f) else .30f)
 }
 
 @Composable private fun FridayHero(state: PrayerState, s: AppSettings, a: HomeActions,
