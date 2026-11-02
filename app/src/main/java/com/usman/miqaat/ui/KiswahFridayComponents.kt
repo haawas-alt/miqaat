@@ -64,7 +64,7 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
                     moveTo(x+h*.12f,h*.5f)
                     cubicTo(x+h*.6f,h*.08f,x+h*.9f,h*.91f,x+h*.12f,h*.5f)
                 }
-                drawPath(vine,KiswahFridayGold.copy(alpha=.065f),style=Stroke(.55.dp.toPx()))
+                drawPath(vine,KiswahFridayGold.copy(alpha=.02f),style=Stroke(.35.dp.toPx()))
                 x+=h*.8f
             }
         }
@@ -113,7 +113,8 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
     @Composable fun label(value:String,size:Float,tag:String,color:Color=c.ink,font:FontFamily=if(ur)Amiri else FontFamily.Serif) {
         Text(value,Modifier.testTag(tag),fontFamily=font,fontSize=size.sp,
             lineHeight=(size*if(font==Amiri)1.8f else 1.25f).sp,color=color,
-            textAlign=TextAlign.Center,maxLines=1,softWrap=false)
+            textAlign=TextAlign.Center,maxLines=1,softWrap=false,
+            style=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false)))
     }
     BoxWithConstraints(modifier.testTag("home-hero")) {
         val scale=LocalDensity.current.fontScale
@@ -131,7 +132,7 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
         // One centred stack: the old weighted clock created large empty gaps and
         // pushed oversized bold numerals across the arch's embroidered rails.
         val clockSize=minOf(if(tablet)94f else if(short)52f else 64f,
-            ((maxHeight.value*.88f-5f)/scale-fixed).div(1.28f).coerceAtLeast(12f))
+            ((maxHeight.value*.88f-9f)/scale-fixed).div(1.28f).coerceAtLeast(12f))
         Column(Modifier.fillMaxSize().absolutePadding(right=maxWidth*.24f)
             .padding(top=maxHeight*.12f,bottom=5.dp)
             .padding(horizontal=if(tablet)12.dp else 6.dp)
