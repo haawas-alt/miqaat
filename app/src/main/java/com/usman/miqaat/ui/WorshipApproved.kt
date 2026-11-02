@@ -132,9 +132,13 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = c.accent)
                 }
                 if (s.theme == AppTheme.MIQAAT) {
-                    WorshipText(if (onClosePreview != null) words(s, "Jumuʿah preview", "جمعہ کا پیش منظر") else s.locationName,
-                        s, if (tablet) 18f else 12f, c.ink,
-                        Modifier.weight(.8f).clickable(onClick = a.onOpenLocation), lines = 1)
+                    Row(Modifier.weight(.8f).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation),
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Outlined.LocationOn, null, Modifier.size(if (tablet) 18.dp else 14.dp), tint = c.ink)
+                        Spacer(Modifier.width(3.dp))
+                        WorshipText(if (onClosePreview != null) words(s, "Jumuʿah preview", "جمعہ کا پیش منظر") else s.locationName,
+                            s, if (tablet) 18f else 12f, c.ink, Modifier.weight(1f), lines = 1)
+                    }
                     Column(Modifier.weight(1.2f), horizontalAlignment = Alignment.CenterHorizontally) {
                         WorshipText(if (L10n.isUrdu(s)) L10n.fridayDate(state.now.toLocalDate()) else state.now.format(java.time.format.DateTimeFormatter.ofPattern("EEEE, d MMMM", Locale.ENGLISH)),
                             s, if (tablet) 13f else 10f, c.ink, center = true, lines = 1)
@@ -159,7 +163,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     }
                 }
                 IconButton(onClick = a.onOpenSettings, modifier = Modifier.size(48.dp)) {
-                    Icon(Icons.Outlined.Settings, Str[R.string.s_settings], tint = c.accent)
+                    Icon(Icons.Outlined.Settings, Str[R.string.s_settings], tint = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent)
                 }
             }
             }
@@ -244,8 +248,14 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 prayers(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) .36f else .40f).fillMaxHeight())
                 if (s.theme == AppTheme.PRAYER_GALLERY) Spacer(Modifier.weight(.20f))
                 Column(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) .44f else .60f).fillMaxHeight()) {
-                    if (short) header()
-                    if (short && s.theme == AppTheme.MIQAAT) FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").fillMaxWidth().height(32.dp))
+                    if (short && s.theme == AppTheme.MIQAAT) {
+                        // Reuse the existing 48+32dp budget as one panorama. A separate
+                        // 32dp crop sliced the minarets off and left a solid header strip.
+                        Box(Modifier.fillMaxWidth().height(80.dp)) {
+                            FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").matchParentSize())
+                            header()
+                        }
+                    } else if (short) header()
                     if (short) banner()
                     hero(Modifier.weight(1f).fillMaxWidth())
                 }
@@ -462,7 +472,11 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     BoxWithConstraints(modifier.testTag("home-hero")) {
         val roomy = tablet && maxHeight > 480.dp * LocalDensity.current.fontScale
         val tight = !tablet && maxHeight < (if (gallery) 170.dp else 210.dp) * LocalDensity.current.fontScale
-        val numberSize = if (wide && tablet && s.theme == AppTheme.PRAYER_GALLERY) {
+        val numberSize = if (s.theme == AppTheme.MIQAAT) {
+            // MA2 keeps the same display hierarchy in both languages. The clock
+            // measurer fits the translated suffix instead of pre-shrinking Urdu.
+            if (tablet) (if (roomy) 154f else 122f) else if (short) 72f else if (tight) 56f else 82f
+        } else if (wide && tablet && s.theme == AppTheme.PRAYER_GALLERY) {
             if (ur) 62f else 80f
         } else if (gallery) {
             if (tablet) (if (ur) 80f else 115f) else if (short) (if (ur) 40f else 56f) else (if (ur) (if (tight) 38f else 44f) else if (tight) 56f else 65f)

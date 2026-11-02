@@ -13,15 +13,15 @@ The reference contains phone portrait, phone landscape and tablet portrait. Tabl
 | Terracotta navigation icons | Forest green navigation icons, preserving callbacks and target sizes | Four native layouts |
 | Moon for Fajr and inconsistent daytime symbols | Orange sun/twilight sequence; moon retained for Isha | Four native layouts |
 | Plain thick dhikr strip, lacking reference end geometry | Narrower MA2 strip, serif English labels, gold geometric ends | English/Urdu and 115% glyph fit |
-| Small PM suffix and uppercase Next Prayer | MA2 suffix proportion and sentence-case kicker; width fitter retained | 12/24h, Urdu, 115% fit |
+| Urdu clock pre-shrunk despite available room; small PM suffix and uppercase Next Prayer | Same MA2 display hierarchy in EN/UR, revised suffix proportion and sentence-case kicker; width fitter retained | 12/24h, Urdu, 115% fit |
 | Active prayer time has same weight as other times | Bold active MA2 time | Changing current/next state |
 | Review captures only published after APK/AAB validation | Upload full native captures immediately after all unit tests; signing/lint/integrity gates remain | Workflow success |
 
 ## Material remaining differences — not accepted as finished
 
 - Phone landscape header remains in the hero column. Full-width header, six 48dp rows and dock cannot share 375dp height without changing the composition. Do not fake or shrink touch bounds.
-- Phone landscape skyline crops tall architecture. Resolve from actual layout geometry, not by stretching art.
-- Header location pin and reference header icon arrangement remain different; retain the real alert control.
+- Phone landscape's existing 48+32dp header budget is now one painted 80dp panorama. This removes the isolated 32dp crop; inspect native minaret fit before acceptance.
+- Header location pin restored within a 48dp clickable location row; settings uses MA2 green. Real alert control remains, unlike the illustrative reference clock icon.
 - Hero painting remains a reconstruction, with different courtyard/arch geometry from the approved artwork.
 - Arabic/Latin/clock spacing and portrait proportions still need reference verification after this batch.
 - Additional real Iqamah/end metadata and tablet bilingual names remain intentionally visible; their alignment must be reviewed.
