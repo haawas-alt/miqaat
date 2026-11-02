@@ -167,13 +167,14 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 // the approved boards. Painting separate hero-only rectangles cut
                 // the courtyard off immediately above the buttons.
                 BoxWithConstraints(m) {
+                    val artworkPanelInset = if (s.theme == AppTheme.KISWAH) maxWidth * .24f else 0.dp
                     if (!(wide && s.theme == AppTheme.PRAYER_GALLERY))
                         FridayMihrabReveal(s, Modifier.matchParentSize())
                     Column(Modifier.fillMaxSize()) {
                         FridayHero(state, s, a, tablet, short, smallPortrait, wide,
                             Modifier.weight(1f).fillMaxWidth()) { why = state.hero }
                         FridayActions(s, state.now, a, short, tablet,
-                            if (s.theme == AppTheme.KISWAH) Modifier.absolutePadding(right = maxWidth * .24f) else Modifier)
+                            Modifier.absolutePadding(right = artworkPanelInset))
                     }
                 }
             }
