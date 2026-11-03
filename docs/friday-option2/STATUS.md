@@ -6,6 +6,13 @@ User asked to move on from KA2 and complete CA2 in this session, with at least
 99.90% mockup fidelity. No scheduling. Preserve MA2/KA2; see `CA2_ACCEPTANCE.md`.
 A numerical fidelity claim requires evidence, not passing layout tests alone.
 
+CA2 first review candidate is source `7dfdcab906886689e828d13a46574665c590a1f6`.
+Focused 32-profile/live-tick run `41554830390` and full signed gate `41554830363`
+passed (188 tests passed, 5 opt-in audits skipped). The 8-page comparison shows
+remaining landscape-header, table-density, footer-outline and artwork differences.
+99.90% similarity is not established; this is a testing review candidate.
+See `CA2_ACCEPTANCE.md` for package hash and validation evidence.
+
 ## Current KA2 corrected testing delivery - 3 November 2026, Sydney
 
 Source `4a584944a52fd72099a5248e6941bc0ceed5d19b` passed focused KA2 run
