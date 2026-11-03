@@ -53,21 +53,14 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
                     .graphicsLayer{scaleX=if(L10n.isUrdu(s))-1f else 1f},R.drawable.friday_gallery_landscape,ContentScale.FillBounds)
                 Box(Modifier.matchParentSize().background(Brush.verticalGradient(0f to Color(0xFF03152D).copy(alpha=.40f),.25f to Color.Transparent,1f to Color(0xFF03152D).copy(alpha=.15f))))
             } else {
-                // Continue the courtyard with a subtle perspective grid. Stretching
-                // the last strip of the painting turned reflections into tall pillars.
+                // Continue only the blue central courtyard texture. Excluding the
+                // side lanterns prevents stretched gold pillars behind the timetable.
+                val art=ImageBitmap.imageResource(R.drawable.friday_gallery_hero)
                 Canvas(Modifier.fillMaxSize()) {
-                    drawRect(Brush.verticalGradient(0f to Color(0xFF03152D),.42f to Color(0xFF03152D),.60f to Color(0xFF102C40),1f to Color(0xFF04162B)))
-                    val horizon=size.height*.40f
-                    val grid=Color(0xFF58768A).copy(alpha=.20f)
-                    for(i in -4..14) {
-                        val endX=size.width*i/10f
-                        val startX=size.width*.5f+(endX-size.width*.5f)*.15f
-                        drawLine(grid,Offset(startX,horizon),Offset(endX,size.height),.6.dp.toPx())
-                    }
-                    for(i in 1..14) {
-                        val f=i/14f;val y=horizon+(size.height-horizon)*f*f
-                        drawLine(grid,Offset(0f,y),Offset(size.width,y),.6.dp.toPx())
-                    }
+                    val top=(size.height*.40f).roundToInt()
+                    drawImage(art,IntOffset(art.width/3,art.height*3/4),IntSize(art.width/3,art.height/4),
+                        IntOffset(0,top),IntSize(size.width.roundToInt(),size.height.roundToInt()-top),alpha=.70f,filterQuality=FilterQuality.High)
+                    drawRect(Brush.verticalGradient(0f to Color(0xFF03152D),.40f to Color(0xFF03152D).copy(alpha=.75f),.65f to Color(0xFF03152D).copy(alpha=.60f),1f to Color(0xFF03152D).copy(alpha=.55f)))
                 }
             }
         }
