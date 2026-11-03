@@ -95,8 +95,10 @@ internal const val CELESTIAL_FRIDAY_DHIKR="سُبْحَانَ اللَّهِ   �
         val relative=if(short)12f else if(tablet)21f else 17f
         val metadata=if(short)7.5f else if(tablet)11f else 9f
         val day=if(short)9f else if(tablet)16f else 13f
-        val line=if(ur)1.6f else 1.25f
-        val fixed=ar*1.6f+kicker*line+relative*line+metadata*line+day*line+8f
+        // Amiri glyph extents exceed its requested line height at small sizes.
+        // Reserve their measured ascent/descent before fitting the display clock.
+        val line=if(ur)1.8f else 1.25f
+        val fixed=ar*1.8f+kicker*line+relative*line+metadata*line+day*line+12f
         val size=min(if(tablet)100f else if(short)56f else 68f,((maxHeight.value*.90f-6f)/scale-fixed).div(1.28f).coerceAtLeast(14f))
         Column(Modifier.fillMaxSize().padding(top=maxHeight*.08f,bottom=4.dp).padding(horizontal=if(tablet)24.dp else 12.dp)
             .clickable(role=Role.Button,onClick=onDetails),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
