@@ -270,16 +270,23 @@ class FridayQuietApprovedTest : ComposeSupport() {
     @Test fun galleryKeeps32ProfilesReadable() { assertFridayReviewMatrix(AppTheme.PRAYER_GALLERY) }
     @Test fun galleryCountdownUsesLiveTickWithoutReplacingFacts() {
         val s=settings(AppTheme.PRAYER_GALLERY,Language.EN)
-        val now=ZonedDateTime.of(2026,10,30,11,47,0,0,s.zone());val state=PrayerEngine.state(s,now);val tick=mutableStateOf(now)
+        val now=ZonedDateTime.of(2026,10,30,11,47,0,0,s.zone());val state=PrayerEngine.state(s,now);val tick=mutableStateOf(now);val current=mutableStateOf(state)
         show(Dev.PHONE_PORTRAIT,AppTheme.PRAYER_GALLERY,language=Language.EN) {
             androidx.compose.runtime.CompositionLocalProvider(LocalGalleryFridayNow provides tick.value,LocalFridayRevealFrame provides 1f) {
-                HomeRouter(state,s,HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}),false,{})
+                HomeRouter(current.value,s,HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}),false,{})
             }
         }
         rule.onNodeWithTag("friday-hero-status",true).assertTextEquals("in 1h 28m 00s")
         rule.runOnIdle { tick.value=now.plusSeconds(1) }
         rule.onNodeWithTag("friday-hero-status",true).assertTextEquals("in 1h 27m 59s")
         rule.onNodeWithTag("friday-hero-time",true).assertTextEquals(L10n.at(state.heroTime,false))
+        val passedAt=state.heroTime.plusMinutes(1)
+        val passed=PrayerEngine.state(s,passedAt)
+        assertTrue("fixture must enter the current-prayer state",passed.justPassed)
+        rule.runOnIdle { current.value=passed;tick.value=passedAt }
+        rule.onNodeWithTag("friday-hero-kicker",true).assertTextEquals("Prayer Time")
+        rule.onNodeWithTag("friday-hero-status",true).assertTextEquals("0h 1m 00s ago")
+        rule.onNodeWithTag("friday-hero-time",true).assertTextEquals(L10n.at(passed.heroTime,false))
     }
     private fun assertFridayReviewMatrix(theme: AppTheme) {
         val failures = mutableListOf<String>()

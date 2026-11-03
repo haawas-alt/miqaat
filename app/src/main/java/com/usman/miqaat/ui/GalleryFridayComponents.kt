@@ -129,7 +129,7 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
         Column(Modifier.fillMaxSize().padding(top=maxHeight*.08f,bottom=4.dp).padding(horizontal=if(tablet)24.dp else 12.dp)
             .clickable(role=Role.Button,onClick=onDetails),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             label(if(s.jumuahEnabled && info.prayer==Prayer.DHUHR)"الجمعة" else info.arabic,ar,"friday-hero-arabic",c.accent,true)
-            label(if(ur)info.kickerLabel else "Next Prayer",kicker,"friday-hero-kicker")
+            label(if(ur)info.kickerLabel else info.kickerLabel.lowercase(Locale.ENGLISH).split(" ").joinToString(" "){it.replaceFirstChar{ch->ch.uppercase()}},kicker,"friday-hero-kicker")
             Box(Modifier.height((size*1.28f*scale).dp).fillMaxWidth(),contentAlignment=Alignment.Center) {
                 FridayTime(state.heroTime,s,size,Modifier.fillMaxWidth().padding(horizontal=12.dp).clickable(onClick=a.onToggleRelative),"friday-hero-time",c.ink,suffixRatio=if(ur).24f else .48f)
             }
