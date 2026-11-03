@@ -51,6 +51,10 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
 @Composable internal fun FridayOption2Backdrop(s: AppSettings, wide: Boolean, modifier: Modifier) {
     val c = fridayOption2Palette(s.theme)
     Box(modifier.background(c.background).testTag("friday-option2-art-${s.theme.name}")) {
+        if(s.theme==AppTheme.PRAYER_GALLERY) {
+            GalleryFridayBackdrop(s,wide,Modifier.fillMaxSize())
+            return@Box
+        }
         if(s.theme==AppTheme.CELESTIAL_MERIDIAN) {
             CelestialFridayBackdrop(Modifier.fillMaxSize(),s.artTheme==ArtTheme.MINIMAL)
             return@Box

@@ -1,6 +1,12 @@
 # Friday option 2 implementation — testing only
 
-## Active theme: CA2
+## Active theme: GA2
+
+The user moved on from the CA2 review build and requested the next theme.
+GA2 / Prayer Gallery is active in this session without scheduling.
+MA2, KA2 and CA2 remain frozen; see `GA2_ACCEPTANCE.md`.
+
+## Previous theme: CA2 review delivery
 
 User asked to move on from KA2 and complete CA2 in this session, with at least
 99.90% mockup fidelity. No scheduling. Preserve MA2/KA2; see `CA2_ACCEPTANCE.md`.

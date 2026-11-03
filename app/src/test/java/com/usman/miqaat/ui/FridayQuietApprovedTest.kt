@@ -267,10 +267,24 @@ class FridayQuietApprovedTest : ComposeSupport() {
         rule.onNodeWithTag("friday-hero-status",true).assertTextEquals("in 1h 27m 59s")
         rule.onNodeWithTag("friday-hero-time",true).assertTextEquals(L10n.at(state.heroTime,false))
     }
+    @Test fun galleryKeeps32ProfilesReadable() { assertFridayReviewMatrix(AppTheme.PRAYER_GALLERY) }
+    @Test fun galleryCountdownUsesLiveTickWithoutReplacingFacts() {
+        val s=settings(AppTheme.PRAYER_GALLERY,Language.EN)
+        val now=ZonedDateTime.of(2026,10,30,11,47,0,0,s.zone());val state=PrayerEngine.state(s,now);val tick=mutableStateOf(now)
+        show(Dev.PHONE_PORTRAIT,AppTheme.PRAYER_GALLERY,language=Language.EN) {
+            androidx.compose.runtime.CompositionLocalProvider(LocalGalleryFridayNow provides tick.value,LocalFridayRevealFrame provides 1f) {
+                HomeRouter(state,s,HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}),false,{})
+            }
+        }
+        rule.onNodeWithTag("friday-hero-status",true).assertTextEquals("in 1h 28m 00s")
+        rule.runOnIdle { tick.value=now.plusSeconds(1) }
+        rule.onNodeWithTag("friday-hero-status",true).assertTextEquals("in 1h 27m 59s")
+        rule.onNodeWithTag("friday-hero-time",true).assertTextEquals(L10n.at(state.heroTime,false))
+    }
     private fun assertFridayReviewMatrix(theme: AppTheme) {
         val failures = mutableListOf<String>()
         for (lang in Language.entries) for (dev in Dev.entries) for (use24 in listOf(false, true))
-            for (fontScale in if (use24 && theme!=AppTheme.CELESTIAL_MERIDIAN) listOf(1.15f) else listOf(1f, 1.15f)) {
+            for (fontScale in if (use24 && theme!=AppTheme.CELESTIAL_MERIDIAN && theme!=AppTheme.PRAYER_GALLERY) listOf(1.15f) else listOf(1f, 1.15f)) {
             val s = settings(theme, lang).copy(use24h = use24)
             val state = PrayerEngine.state(s, ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, s.zone()))
             val qualifiers = when (dev) {
@@ -290,6 +304,11 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 readable("kiswah-calligraphy-band")
                 if(theme==AppTheme.CELESTIAL_MERIDIAN) {
                     for(tag in listOf("celestial-header-location","celestial-header-date","celestial-header-day","celestial-header-clock","celestial-banner-left","celestial-banner-right")) readable(tag)
+                }
+                if(theme==AppTheme.PRAYER_GALLERY) {
+                    for(tag in listOf("gallery-header-location","gallery-header-date","gallery-header-day","gallery-header-clock","gallery-home-tab")) readable(tag)
+                    val band=rule.onNodeWithTag("kiswah-calligraphy-band",true)
+                    if(lang==Language.EN)band.assertTextContains("La ilaha illallah",substring=true)
                 }
                 if(theme==AppTheme.KISWAH) {
                     for(tag in listOf("kiswah-header-location","kiswah-header-date","kiswah-header-day","kiswah-header-clock")) readable(tag)

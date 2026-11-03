@@ -163,6 +163,10 @@ class MainActivity : ComponentActivity() {
                                 androidx.compose.runtime.CompositionLocalProvider(com.usman.miqaat.ui.LocalCelestialFridayNow provides now) {
                                     com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek) { peek = true }
                                 }
+                            } else if(settings.theme == com.usman.miqaat.data.AppTheme.PRAYER_GALLERY) {
+                                androidx.compose.runtime.CompositionLocalProvider(com.usman.miqaat.ui.LocalGalleryFridayNow provides now) {
+                                    com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek) { peek = true }
+                                }
                             } else com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek) { peek = true }
                             Screen.QIBLA -> QiblaScreen(settings) { screen = Screen.HOME }
                             Screen.ADHKAR -> AdhkarScreen(adhkarMode) { screen = Screen.HOME }
