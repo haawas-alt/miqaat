@@ -53,11 +53,21 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
                     .graphicsLayer{scaleX=if(L10n.isUrdu(s))-1f else 1f},R.drawable.friday_gallery_landscape,ContentScale.FillBounds)
                 Box(Modifier.matchParentSize().background(Brush.verticalGradient(0f to Color(0xFF03152D).copy(alpha=.40f),.25f to Color.Transparent,1f to Color(0xFF03152D).copy(alpha=.15f))))
             } else {
-                val art=ImageBitmap.imageResource(R.drawable.friday_gallery_hero)
+                // Continue the courtyard with a subtle perspective grid. Stretching
+                // the last strip of the painting turned reflections into tall pillars.
                 Canvas(Modifier.fillMaxSize()) {
-                    val top=(size.height*.40f).roundToInt()
-                    drawImage(art,IntOffset(0,(art.height*.78f).roundToInt()),IntSize(art.width,(art.height*.22f).roundToInt()),IntOffset(0,top),IntSize(size.width.roundToInt(),size.height.roundToInt()-top),alpha=.72f,filterQuality=FilterQuality.High)
-                    drawRect(Brush.verticalGradient(0f to Color(0xFF03152D),.38f to Color(0xFF03152D),.65f to Color(0xFF03152D).copy(alpha=.30f),1f to Color(0xFF03152D).copy(alpha=.15f)))
+                    drawRect(Brush.verticalGradient(0f to Color(0xFF03152D),.42f to Color(0xFF03152D),.60f to Color(0xFF102C40),1f to Color(0xFF04162B)))
+                    val horizon=size.height*.40f
+                    val grid=Color(0xFF58768A).copy(alpha=.20f)
+                    for(i in -4..14) {
+                        val endX=size.width*i/10f
+                        val startX=size.width*.5f+(endX-size.width*.5f)*.15f
+                        drawLine(grid,Offset(startX,horizon),Offset(endX,size.height),.6.dp.toPx())
+                    }
+                    for(i in 1..14) {
+                        val f=i/14f;val y=horizon+(size.height-horizon)*f*f
+                        drawLine(grid,Offset(0f,y),Offset(size.width,y),.6.dp.toPx())
+                    }
                 }
             }
         }
@@ -69,7 +79,12 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
     val ur=L10n.isUrdu(s);val dhikr=if(ur)GALLERY_DHIKR_AR else GALLERY_DHIKR_EN
     BoxWithConstraints(modifier.background(Color(0xFF03152D))) {
         Canvas(Modifier.matchParentSize()) {
-            drawImage(art,IntOffset.Zero,IntSize(art.width,60),IntOffset.Zero,IntSize(size.width.roundToInt(),size.height.roundToInt()),alpha=.78f,filterQuality=FilterQuality.High)
+            // Use only the two geometric side strips; the central pointed arch
+            // belongs below the banner and must not repeat behind its live text.
+            val half=(size.width/2f).roundToInt();val h=size.height.roundToInt()
+            drawImage(art,IntOffset.Zero,IntSize(600,60),IntOffset.Zero,IntSize(half,h),alpha=.78f,filterQuality=FilterQuality.High)
+            drawImage(art,IntOffset(art.width-600,0),IntSize(600,60),IntOffset(half,0),IntSize(size.width.roundToInt()-half,h),alpha=.78f,filterQuality=FilterQuality.High)
+            drawRect(Color(0xFF03152D).copy(alpha=.45f))
             drawLine(galleryGold,Offset(0f,1.dp.toPx()),Offset(size.width,1.dp.toPx()),.6.dp.toPx())
             drawLine(galleryGold,Offset(0f,size.height-1.dp.toPx()),Offset(size.width,size.height-1.dp.toPx()),.6.dp.toPx())
         }

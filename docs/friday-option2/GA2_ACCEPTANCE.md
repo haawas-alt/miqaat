@@ -23,3 +23,13 @@ prayer/action targets and all prior-theme assertions, then run the signed gate.
 The short landscape keeps its header over the scene to fit six 48dp rows; it
 cannot reproduce the illustrative global header at the same time. Keep this
 limitation explicit in the comparison report; do not invent a 99.90% score.
+
+## First native review corrections
+
+Source 15929d4534c823ea6e2647259e8602ecf7be4a39 / focused run 41575685838
+caught four English landscape NEXT-chip clips and one Urdu 115% Sunrise-detail
+clip. The subsequent batch widens the status chip and facts column and gives
+the landscape table 33% rather than 30% of the row. No assertions are weakened.
+Actual renders also exposed a repeated arch peak inside the patterned banner
+and vertically stretched floor reflections. The banner now samples only the
+side geometry and the portrait backdrop uses a subtle native perspective floor.
