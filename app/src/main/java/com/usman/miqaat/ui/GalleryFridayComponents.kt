@@ -109,15 +109,19 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
     }
     BoxWithConstraints(modifier.testTag("home-hero")) {
         val scale=LocalDensity.current.fontScale
-        val ar=if(short){if(ur)20f else 24f}else if(tablet)64f else 48f
-        val kicker=if(short)8f else if(tablet)15f else 12f
-        val relative=if(short)11f else if(tablet)21f else 17f
-        val metadata=if(short)7.5f else if(tablet)11f else 9f
-        val day=if(short)9f else if(tablet)16f else 13f
+        // Reflow the taller Urdu labels before shrinking the main clock. At 115%
+        // a fixed six-line stack otherwise made the clock smaller than its countdown.
+        val compactUrdu=ur && maxHeight.value/scale<300f
+        val compactFooter=short||compactUrdu
+        val ar=if(short){if(ur)20f else 24f}else if(compactUrdu){if(tablet)40f else 36f}else if(tablet)64f else 48f
+        val kicker=if(short)8f else if(compactUrdu){if(tablet)12f else 10f}else if(tablet)15f else 12f
+        val relative=if(short)11f else if(compactUrdu){if(tablet)17f else 14f}else if(tablet)21f else 17f
+        val metadata=if(short)7.5f else if(compactUrdu){if(tablet)10f else 8.5f}else if(tablet)11f else 9f
+        val day=if(short)9f else if(compactUrdu){if(tablet)12f else 11f}else if(tablet)16f else 13f
         // Amiri glyph extents exceed its requested line height at small sizes.
         // Reserve their measured ascent/descent before fitting the display clock.
         val line=if(ur)1.8f else 1.25f
-        val fixed=ar*1.8f+kicker*line+relative*line+(if(short)maxOf(metadata,day) else metadata+day)*line+12f
+        val fixed=ar*1.8f+kicker*line+relative*line+(if(compactFooter)maxOf(metadata,day) else metadata+day)*line+12f
         val size=min(if(tablet)88f else if(short)56f else 68f,((maxHeight.value*.90f-6f)/scale-fixed).div(1.28f).coerceAtLeast(14f))
         Column(Modifier.fillMaxSize().padding(top=maxHeight*.08f,bottom=4.dp).padding(horizontal=if(tablet)24.dp else 12.dp)
             .clickable(role=Role.Button,onClick=onDetails),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
@@ -129,7 +133,7 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
             label(countdown,relative,"friday-hero-status")
             val facts:@Composable ()->Unit={Box(if(!ur)Modifier.testTag("friday-hero-name") else Modifier) {label(iqText,metadata,"friday-hero-iqamah",c.secondary)}}
             val friday:@Composable ()->Unit={label(if(ur)"── ◇ جمعہ ◇ ──" else "── ◇ Friday ◇ ──",day,"friday-hero-day",c.accent)}
-            if(short)Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(6.dp)){friday();facts()}
+            if(compactFooter)Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(6.dp)){friday();facts()}
             else {facts();friday()}
         }
     }

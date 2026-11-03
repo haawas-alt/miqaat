@@ -316,6 +316,13 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     for(tag in listOf("gallery-header-location","gallery-header-date","gallery-header-day","gallery-header-clock","gallery-home-tab")) readable(tag)
                     val band=rule.onNodeWithTag("kiswah-calligraphy-band",true)
                     if(lang==Language.EN)band.assertTextContains("La ilaha illallah",substring=true)
+                    val clockLayouts=mutableListOf<TextLayoutResult>();val statusLayouts=mutableListOf<TextLayoutResult>()
+                    rule.onNodeWithTag("friday-hero-time",true).fetchSemanticsNode().config[SemanticsActions.GetTextLayoutResult].action?.invoke(clockLayouts)
+                    rule.onNodeWithTag("friday-hero-status",true).fetchSemanticsNode().config[SemanticsActions.GetTextLayoutResult].action?.invoke(statusLayouts)
+                    val clockStyle=clockLayouts.single().layoutInput
+                    val digits=clockStyle.text.spanStyles.map{it.item.fontSize.value}.filter{it.isFinite()}.maxOrNull()?:clockStyle.style.fontSize.value
+                    val countdown=statusLayouts.single().layoutInput.style.fontSize.value
+                    assertTrue("GA2 main clock must remain larger than the countdown ($digits / $countdown sp)",digits>=countdown*1.5f)
                 }
                 if(theme==AppTheme.KISWAH) {
                     for(tag in listOf("kiswah-header-location","kiswah-header-date","kiswah-header-day","kiswah-header-clock")) readable(tag)
