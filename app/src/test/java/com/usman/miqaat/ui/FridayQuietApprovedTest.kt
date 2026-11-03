@@ -253,10 +253,24 @@ class FridayQuietApprovedTest : ComposeSupport() {
         rule.onNodeWithTag("friday-hero-countdown",true).assertTextEquals("01:27:59")
         rule.onNodeWithTag("friday-hero-time",true).assertTextEquals(L10n.at(state.heroTime,false))
     }
+    @Test fun celestialKeeps32ProfilesReadable() { assertFridayReviewMatrix(AppTheme.CELESTIAL_MERIDIAN) }
+    @Test fun celestialCountdownUsesLiveTickWithoutReplacingFacts() {
+        val s=settings(AppTheme.CELESTIAL_MERIDIAN,Language.EN)
+        val now=ZonedDateTime.of(2026,10,30,11,47,0,0,s.zone());val state=PrayerEngine.state(s,now);val tick=mutableStateOf(now)
+        show(Dev.PHONE_PORTRAIT,AppTheme.CELESTIAL_MERIDIAN,language=Language.EN) {
+            androidx.compose.runtime.CompositionLocalProvider(LocalCelestialFridayNow provides tick.value,LocalFridayRevealFrame provides 1f) {
+                HomeRouter(state,s,HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}),false,{})
+            }
+        }
+        rule.onNodeWithTag("friday-hero-status",true).assertTextEquals("in 1h 28m 00s")
+        rule.runOnIdle { tick.value=now.plusSeconds(1) }
+        rule.onNodeWithTag("friday-hero-status",true).assertTextEquals("in 1h 27m 59s")
+        rule.onNodeWithTag("friday-hero-time",true).assertTextEquals(L10n.at(state.heroTime,false))
+    }
     private fun assertFridayReviewMatrix(theme: AppTheme) {
         val failures = mutableListOf<String>()
         for (lang in Language.entries) for (dev in Dev.entries) for (use24 in listOf(false, true))
-            for (fontScale in if (use24) listOf(1.15f) else listOf(1f, 1.15f)) {
+            for (fontScale in if (use24 && theme!=AppTheme.CELESTIAL_MERIDIAN) listOf(1.15f) else listOf(1f, 1.15f)) {
             val s = settings(theme, lang).copy(use24h = use24)
             val state = PrayerEngine.state(s, ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, s.zone()))
             val qualifiers = when (dev) {
@@ -274,6 +288,9 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 }
                 capture(theme, dev, lang, "friday-matrix${(fontScale * 100).toInt()}-${if (use24) "24" else "12"}")
                 readable("kiswah-calligraphy-band")
+                if(theme==AppTheme.CELESTIAL_MERIDIAN) {
+                    for(tag in listOf("celestial-header-location","celestial-header-date","celestial-header-day","celestial-header-clock","celestial-banner-left","celestial-banner-right")) readable(tag)
+                }
                 if(theme==AppTheme.KISWAH) {
                     for(tag in listOf("kiswah-header-location","kiswah-header-date","kiswah-header-day","kiswah-header-clock")) readable(tag)
                     val left=rule.onNodeWithTag("kiswah-banner-left-embroidery",true).fetchSemanticsNode().boundsInRoot

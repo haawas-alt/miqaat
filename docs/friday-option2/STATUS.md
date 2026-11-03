@@ -1,5 +1,11 @@
 # Friday option 2 implementation — testing only
 
+## Active theme: CA2
+
+User asked to move on from KA2 and complete CA2 in this session, with at least
+99.90% mockup fidelity. No scheduling. Preserve MA2/KA2; see `CA2_ACCEPTANCE.md`.
+A numerical fidelity claim requires evidence, not passing layout tests alone.
+
 ## Current KA2 corrected testing delivery - 3 November 2026, Sydney
 
 Source `4a584944a52fd72099a5248e6941bc0ceed5d19b` passed focused KA2 run
