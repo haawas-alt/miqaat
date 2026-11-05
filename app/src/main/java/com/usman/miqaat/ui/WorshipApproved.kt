@@ -213,7 +213,8 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 }
             } else if(short && s.theme==AppTheme.MIQAAT) {
                 Box(Modifier.fillMaxWidth().height(48.dp)) {
-                    FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").matchParentSize())
+                    // Keep live header facts over the ivory sky on shallow screens.
+                    FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").matchParentSize(), Alignment.TopCenter)
                     header()
                 }
             } else header()
@@ -716,7 +717,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     }
 }
 
-@Composable private fun FridayMiqaatHeader(modifier: Modifier) {
-    Image(painterResource(R.drawable.friday_miqaat_header), null, modifier.clip(RoundedCornerShape(8.dp)), contentScale = ContentScale.Crop, alignment = Alignment.BottomCenter)
+@Composable private fun FridayMiqaatHeader(modifier: Modifier, alignment: Alignment = Alignment.BottomCenter) {
+    Image(painterResource(R.drawable.friday_miqaat_header), null, modifier.clip(RoundedCornerShape(8.dp)), contentScale = ContentScale.Crop, alignment = alignment)
 }
 
