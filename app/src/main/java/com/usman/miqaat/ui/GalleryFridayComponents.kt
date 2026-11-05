@@ -27,6 +27,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
@@ -49,7 +52,7 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
         if(s.artTheme!=ArtTheme.MINIMAL) {
             if(wide) {
                 val tablet=minOf(maxWidth,maxHeight)>=600.dp
-                FridayMihrabReveal(s,Modifier.fillMaxSize().padding(top=if(tablet)108.dp else 48.dp,bottom=if(tablet)40.dp else 28.dp)
+                FridayMihrabReveal(s,Modifier.fillMaxSize().padding(top=(if(tablet)62.dp else 48.dp)+fridayBandHeight(s.theme,tablet,true,LocalDensity.current.fontScale),bottom=fridayDockHeight(tablet,true))
                     .graphicsLayer{scaleX=if(L10n.isUrdu(s))-1f else 1f},R.drawable.friday_gallery_landscape,ContentScale.FillBounds)
                 Box(Modifier.matchParentSize().background(Brush.verticalGradient(0f to Color(0xFF03152D).copy(alpha=.40f),.25f to Color.Transparent,1f to Color(0xFF03152D).copy(alpha=.15f))))
             } else {
@@ -85,11 +88,14 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
             val measurer=rememberTextMeasurer();val density=LocalDensity.current
             val nominal=if(tablet)18f else if(ur)13f else 12f
             val base=TextStyle(fontFamily=if(ur)Amiri else FontFamily.Serif,fontSize=nominal.sp,lineHeight=(nominal*if(ur)1.8f else 1.25f).sp,color=Color(0xFFF8E7BE),textAlign=TextAlign.Center,platformStyle=PlatformTextStyle(includeFontPadding=false))
+            fun styled(size:Float)=buildAnnotatedString {
+                for(ch in dhikr)if(ch=='♦'||ch=='◆')withStyle(SpanStyle(color=galleryGold,fontSize=(size*.55f).sp)){append(ch)} else append(ch)
+            }
             val fitted=remember(maxWidth,density.fontScale,density.density,nominal,dhikr) {
                 val available=with(density){(maxWidth-2.dp).toPx()}.coerceAtLeast(1f);var value=nominal
-                repeat(4){val l=measurer.measure(dhikr,base.copy(fontSize=value.sp),maxLines=1,softWrap=false);val width=maxOf(l.size.width.toFloat(),l.getLineRight(0)-l.getLineLeft(0));if(width>available)value*=available/width*.99f};value
+                repeat(4){val l=measurer.measure(styled(value),base.copy(fontSize=value.sp),maxLines=1,softWrap=false);val width=maxOf(l.size.width.toFloat(),l.getLineRight(0)-l.getLineLeft(0));if(width>available)value*=available/width*.99f};value
             }
-            Text(dhikr,Modifier.testTag("kiswah-calligraphy-band"),style=base.copy(fontSize=fitted.sp),maxLines=1,softWrap=false)
+            Text(styled(fitted),Modifier.testTag("kiswah-calligraphy-band"),style=base.copy(fontSize=fitted.sp),maxLines=1,softWrap=false)
         }
     }
 }
@@ -143,7 +149,7 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
     val c=fridayOption2Palette(s.theme);val ur=L10n.isUrdu(s)
     val mode=adhkarModes(state,s).firstOrNull()?:AdhkarMode.MORNING
     val inline=tablet||wide
-    Row(Modifier.fillMaxWidth().height(if(tablet)66.dp else 56.dp).padding(vertical=3.dp)
+    Row(Modifier.fillMaxWidth().height(fridayDockHeight(tablet,wide)).padding(vertical=3.dp)
         .background(c.background.copy(alpha=.92f),androidx.compose.foundation.shape.RoundedCornerShape(14.dp))
         .border(.7.dp,c.secondary.copy(alpha=.4f),androidx.compose.foundation.shape.RoundedCornerShape(14.dp)),
         verticalAlignment=Alignment.CenterVertically) {

@@ -5,6 +5,9 @@ on:
     paths:
       - '.github/workflows/ma2-native-preview.yml'
       - 'app/src/main/java/com/usman/miqaat/ui/WorshipApproved.kt'
+      - 'app/src/main/res/drawable/ma2_banner_*.xml'
+      - 'app/src/main/java/com/usman/miqaat/ui/FridayOption2.kt'
+      - 'app/src/main/java/com/usman/miqaat/ui/FridayLayoutMetrics.kt'
       - 'app/src/test/java/com/usman/miqaat/ui/FridayQuietApprovedTest.kt'
   workflow_dispatch:
 concurrency:

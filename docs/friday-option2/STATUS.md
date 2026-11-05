@@ -1,5 +1,11 @@
 # Friday option 2 implementation — testing only
 
+## Active: all four themes reopened - 6 November 2026, Sydney
+
+The user requested all remaining visual gaps be fixed. MA2/KA2/CA2/GA2 are
+reopened together; earlier freeze notes are historical. See `ALL_THEMES_PARITY.md`.
+
+
 ## Current GA2 testing delivery - 5 November 2026, Sydney
 
 The user moved on from the CA2 review build and requested the next theme.

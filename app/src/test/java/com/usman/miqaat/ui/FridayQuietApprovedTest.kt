@@ -32,7 +32,13 @@ class FridayQuietApprovedTest : ComposeSupport() {
         locationSet = true, setupDone = true, jumuahEnabled = true, jumuahMinutes = 13 * 60 + 15,
         jumuahIqamahMinutes = 13 * 60 + 30, iqamahEnabled = true)
     private fun readable(tag: String) {
-        val q = rule.onNodeWithTag(tag, true); q.assertIsDisplayed()
+        val q = rule.onNodeWithTag(tag, true)
+        if(rule.onAllNodesWithTag("friday-prayer-scroll",true).fetchSemanticsNodes().isNotEmpty()) {
+            if(tag.startsWith("friday-time-")||tag.startsWith("friday-detail-"))
+                rule.onNodeWithTag("approved-row-${tag.substringAfterLast('-')}",true).performScrollTo()
+            else if(tag.startsWith("home-status-"))q.performScrollTo()
+        }
+        q.assertIsDisplayed()
         val n = q.fetchSemanticsNode(); val root = rule.onRoot().fetchSemanticsNode().boundsInRoot; val b = n.boundsInRoot
         assertTrue("$tag outside root $b / $root", b.left >= root.left && b.right <= root.right && b.top >= root.top && b.bottom <= root.bottom)
         val layouts = mutableListOf<TextLayoutResult>()
@@ -291,7 +297,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
     private fun assertFridayReviewMatrix(theme: AppTheme) {
         val failures = mutableListOf<String>()
         for (lang in Language.entries) for (dev in Dev.entries) for (use24 in listOf(false, true))
-            for (fontScale in if (use24 && theme!=AppTheme.CELESTIAL_MERIDIAN && theme!=AppTheme.PRAYER_GALLERY) listOf(1.15f) else listOf(1f, 1.15f)) {
+            for (fontScale in listOf(1f, 1.15f)) {
             val s = settings(theme, lang).copy(use24h = use24)
             val state = PrayerEngine.state(s, ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, s.zone()))
             val qualifiers = when (dev) {
@@ -308,6 +314,13 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     }
                 }
                 capture(theme, dev, lang, "friday-matrix${(fontScale * 100).toInt()}-${if (use24) "24" else "12"}")
+                if(dev==Dev.PHONE_LANDSCAPE||dev==Dev.TABLET_LANDSCAPE) {
+                    val banner=rule.onNodeWithTag("friday-banner",true).fetchSemanticsNode().boundsInRoot
+                    val home=rule.onNodeWithTag("friday-home",true).fetchSemanticsNode().boundsInRoot
+                    val hero=rule.onNodeWithTag("home-hero",true).fetchSemanticsNode().boundsInRoot
+                    assertTrue("${theme.name} banner must span the whole home",kotlin.math.abs(banner.left-home.left)<1f&&kotlin.math.abs(banner.right-home.right)<1f)
+                    assertTrue("${theme.name} banner must precede the hero",banner.bottom<=hero.top+1f)
+                }
                 readable("kiswah-calligraphy-band")
                 if(theme==AppTheme.CELESTIAL_MERIDIAN) {
                     for(tag in listOf("celestial-header-location","celestial-header-date","celestial-header-day","celestial-header-clock","celestial-banner-left","celestial-banner-right")) readable(tag)
@@ -316,13 +329,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     for(tag in listOf("gallery-header-location","gallery-header-date","gallery-header-day","gallery-header-clock","gallery-home-tab")) readable(tag)
                     val band=rule.onNodeWithTag("kiswah-calligraphy-band",true)
                     if(lang==Language.EN)band.assertTextContains("La ilaha illallah",substring=true)
-                    val clockLayouts=mutableListOf<TextLayoutResult>();val statusLayouts=mutableListOf<TextLayoutResult>()
-                    rule.onNodeWithTag("friday-hero-time",true).fetchSemanticsNode().config[SemanticsActions.GetTextLayoutResult].action?.invoke(clockLayouts)
-                    rule.onNodeWithTag("friday-hero-status",true).fetchSemanticsNode().config[SemanticsActions.GetTextLayoutResult].action?.invoke(statusLayouts)
-                    val clockStyle=clockLayouts.single().layoutInput
-                    val digits=clockStyle.text.spanStyles.map{it.item.fontSize.value}.filter{it.isFinite()}.maxOrNull()?:clockStyle.style.fontSize.value
-                    val countdown=statusLayouts.single().layoutInput.style.fontSize.value
-                    assertTrue("GA2 main clock must remain larger than the countdown ($digits / $countdown sp)",digits>=countdown*1.5f)
+
                 }
                 if(theme==AppTheme.KISWAH) {
                     for(tag in listOf("kiswah-header-location","kiswah-header-date","kiswah-header-day","kiswah-header-clock")) readable(tag)
@@ -334,6 +341,13 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     readable("friday-hero-countdown")
                     rule.onNodeWithTag("friday-hero-countdown",true).assertTextEquals("01:28:00")
                 }
+                    val clockLayouts=mutableListOf<TextLayoutResult>();val statusLayouts=mutableListOf<TextLayoutResult>()
+                    rule.onNodeWithTag("friday-hero-time",true).fetchSemanticsNode().config[SemanticsActions.GetTextLayoutResult].action?.invoke(clockLayouts)
+                    rule.onNodeWithTag(if(theme==AppTheme.KISWAH)"friday-hero-countdown" else "friday-hero-status",true).fetchSemanticsNode().config[SemanticsActions.GetTextLayoutResult].action?.invoke(statusLayouts)
+                    val clockStyle=clockLayouts.single().layoutInput
+                    val digits=clockStyle.text.spanStyles.map{it.item.fontSize.value}.filter{it.isFinite()}.maxOrNull()?:clockStyle.style.fontSize.value
+                    val countdown=statusLayouts.single().layoutInput.style.fontSize.value
+                    assertTrue("${theme.name} main clock must remain larger than the countdown ($digits / $countdown sp)",digits>=countdown*1.5f)
                 for (tag in listOf("friday-banner", "friday-hero-arabic", "friday-hero-kicker", "friday-hero-time", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
                 if (lang == Language.EN) readable("friday-hero-name")
                 for (tag in listOf("home-status-now", "home-status-next")) {

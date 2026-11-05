@@ -37,13 +37,16 @@ private val celestialGold=Color(0xFFE7C77E)
 internal const val CELESTIAL_FRIDAY_DHIKR="سُبْحَانَ اللَّهِ   ◆   الْحَمْدُ لِلَّهِ   ◆   لَا إِلَٰهَ إِلَّا اللَّهُ   ◆   اللَّهُ أَكْبَرُ"
 
 @Composable internal fun CelestialFridayBackdrop(modifier:Modifier,minimal:Boolean) {
-    Box(modifier.background(Color(0xFF03152D))) {
+    BoxWithConstraints(modifier.background(Color(0xFF03152D))) {
+        val headerHeight=if(minOf(maxWidth,maxHeight)>=600.dp)62.dp else 48.dp
         if(!minimal) {
             val art=ImageBitmap.imageResource(R.drawable.friday_celestial_hero)
             Canvas(Modifier.fillMaxSize()) {
-                val w=size.width.roundToInt();val h=size.height.roundToInt();val sky=(h*.34f).roundToInt()
-                drawImage(art,IntOffset.Zero,IntSize(art.width,(art.height*.22f).roundToInt()),IntOffset.Zero,IntSize(w,sky),alpha=.62f,filterQuality=FilterQuality.High)
-                drawImage(art,IntOffset(0,(art.height*.76f).roundToInt()),IntSize(art.width,(art.height*.24f).roundToInt()),IntOffset(0,sky),IntSize(w,h-sky),alpha=.40f,filterQuality=FilterQuality.High)
+                val w=size.width.roundToInt();val h=size.height.roundToInt();val sky=headerHeight.toPx().roundToInt();val half=w/2
+                // These two star-only strips exclude the central gold arch peak.
+                drawImage(art,IntOffset.Zero,IntSize(600,90),IntOffset.Zero,IntSize(half,sky),alpha=.62f,filterQuality=FilterQuality.High)
+                drawImage(art,IntOffset(art.width-600,0),IntSize(600,90),IntOffset(half,0),IntSize(w-half,sky),alpha=.62f,filterQuality=FilterQuality.High)
+                drawImage(art,IntOffset(art.width/3,art.height*3/4),IntSize(art.width/3,art.height/4),IntOffset(0,sky),IntSize(w,h-sky),alpha=.40f,filterQuality=FilterQuality.High)
                 drawRect(Brush.verticalGradient(listOf(Color(0xFF03152D).copy(alpha=.10f),Color(0xFF03152D).copy(alpha=.65f))))
             }
         }
@@ -57,8 +60,12 @@ internal const val CELESTIAL_FRIDAY_DHIKR="سُبْحَانَ اللَّهِ   �
             val h=size.height
             for(y in listOf(h*.12f,h*.88f))drawLine(celestialGold,Offset(h*.8f,y),Offset(size.width-h*.8f,y),.75.dp.toPx())
             val comet=Path().apply{moveTo(h*1.1f,h*.86f);cubicTo(size.width*.22f,h*.30f,size.width*.26f,h*.17f,size.width*.36f,h*.13f)}
-            drawPath(comet,celestialGold.copy(alpha=.12f),style=Stroke(4.dp.toPx()))
-            drawPath(comet,celestialGold.copy(alpha=.8f),style=Stroke(.65.dp.toPx()))
+            drawPath(comet,celestialGold.copy(alpha=.08f),style=Stroke(6.dp.toPx()))
+            drawPath(comet,celestialGold.copy(alpha=.20f),style=Stroke(2.dp.toPx()))
+            drawPath(comet,celestialGold.copy(alpha=.85f),style=Stroke(.6.dp.toPx()))
+            val tail=Path().apply{moveTo(size.width-h,h*.85f);cubicTo(size.width*.86f,h*.34f,size.width*.80f,h*.17f,size.width*.68f,h*.12f)}
+            drawPath(tail,celestialGold.copy(alpha=.07f),style=Stroke(5.dp.toPx()))
+            drawPath(tail,celestialGold.copy(alpha=.70f),style=Stroke(.5.dp.toPx()))
         }
         Image(painterResource(R.drawable.ca2_banner_left),null,Modifier.align(AbsoluteAlignment.CenterLeft).size(cap).testTag("celestial-banner-left"))
         Image(painterResource(R.drawable.ca2_banner_right),null,Modifier.align(AbsoluteAlignment.CenterRight).size(cap).testTag("celestial-banner-right"))
@@ -90,26 +97,32 @@ internal const val CELESTIAL_FRIDAY_DHIKR="سُبْحَانَ اللَّهِ   �
     }
     BoxWithConstraints(modifier.testTag("home-hero")) {
         val scale=LocalDensity.current.fontScale
-        val ar=if(short){if(ur)22f else 28f}else if(tablet)64f else 48f
-        val kicker=if(short)9f else if(tablet)15f else 12f
-        val relative=if(short)12f else if(tablet)21f else 17f
-        val metadata=if(short)7.5f else if(tablet)11f else 9f
-        val day=if(short)9f else if(tablet)16f else 13f
+        // Reflow the taller Urdu labels before shrinking the main clock. At 115%
+        // a fixed six-line stack otherwise made the clock smaller than its countdown.
+        val compactUrdu=ur && maxHeight.value/scale<300f
+        val compactFooter=short||compactUrdu
+        val ar=if(short){if(ur)20f else 24f}else if(compactUrdu){if(tablet)40f else 36f}else if(tablet)64f else 48f
+        val kicker=if(short)8f else if(compactUrdu){if(tablet)12f else 10f}else if(tablet)15f else 12f
+        val relative=if(short)11f else if(compactUrdu){if(tablet)17f else 14f}else if(tablet)21f else 17f
+        val metadata=if(short)7.5f else if(compactUrdu){if(tablet)10f else 8.5f}else if(tablet)11f else 9f
+        val day=if(short)9f else if(compactUrdu){if(tablet)12f else 11f}else if(tablet)16f else 13f
         // Amiri glyph extents exceed its requested line height at small sizes.
         // Reserve their measured ascent/descent before fitting the display clock.
         val line=if(ur)1.8f else 1.25f
-        val fixed=ar*1.8f+kicker*line+relative*line+metadata*line+day*line+12f
+        val fixed=ar*1.8f+kicker*line+relative*line+(if(compactFooter)maxOf(metadata,day) else metadata+day)*line+12f
         val size=min(if(tablet)100f else if(short)56f else 68f,((maxHeight.value*.90f-6f)/scale-fixed).div(1.28f).coerceAtLeast(14f))
         Column(Modifier.fillMaxSize().padding(top=maxHeight*.08f,bottom=4.dp).padding(horizontal=if(tablet)24.dp else 12.dp)
             .clickable(role=Role.Button,onClick=onDetails),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             label(if(s.jumuahEnabled && info.prayer==Prayer.DHUHR)"الجمعة" else info.arabic,ar,"friday-hero-arabic",c.ink,true)
-            label(if(ur)info.kickerLabel else info.kickerLabel.lowercase(Locale.ENGLISH).replaceFirstChar{it.uppercase()},kicker,"friday-hero-kicker")
+            label(if(ur)info.kickerLabel else info.kickerLabel.lowercase(Locale.ENGLISH).split(" ").joinToString(" "){it.replaceFirstChar{ch->ch.uppercase()}},kicker,"friday-hero-kicker")
             Box(Modifier.height((size*1.28f*scale).dp).fillMaxWidth(),contentAlignment=Alignment.Center) {
                 FridayTime(state.heroTime,s,size,Modifier.fillMaxWidth().padding(horizontal=12.dp).clickable(onClick=a.onToggleRelative),"friday-hero-time",c.ink,suffixRatio=if(ur).24f else .60f)
             }
             label(countdown,relative,"friday-hero-status")
-            Box(if(!ur)Modifier.testTag("friday-hero-name") else Modifier) {label(iqText,metadata,"friday-hero-iqamah",c.secondary)}
-            label(if(ur)"── ◇ جمعہ ◇ ──" else "── ◇ Friday ◇ ──",day,"friday-hero-day",c.accent)
+            val facts:@Composable ()->Unit={Box(if(!ur)Modifier.testTag("friday-hero-name") else Modifier) {label(iqText,metadata,"friday-hero-iqamah",c.secondary)}}
+            val friday:@Composable ()->Unit={label(if(ur)"── ◇ جمعہ ◇ ──" else "── ◇ Friday ◇ ──",day,"friday-hero-day",c.accent)}
+            if(compactFooter)Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(6.dp)){friday();facts()}
+            else {facts();friday()}
         }
     }
 }

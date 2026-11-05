@@ -64,7 +64,7 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
                     moveTo(x+h*.12f,h*.5f)
                     cubicTo(x+h*.6f,h*.08f,x+h*.9f,h*.91f,x+h*.12f,h*.5f)
                 }
-                drawPath(vine,KiswahFridayGold.copy(alpha=.02f),style=Stroke(.35.dp.toPx()))
+                drawPath(vine,KiswahFridayGold.copy(alpha=.07f),style=Stroke(.45.dp.toPx()))
                 x+=h*.8f
             }
         }
@@ -72,7 +72,7 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
             Modifier.align(AbsoluteAlignment.CenterLeft).size(cap).testTag("kiswah-banner-left-embroidery"))
         Image(painterResource(R.drawable.ka2_banner_right),null,
             Modifier.align(AbsoluteAlignment.CenterRight).size(cap).testTag("kiswah-banner-right-embroidery"))
-        KiswahFridayFitText(KISWAH_FRIDAY_DHIKR,if(tablet)21f else 15f,
+        KiswahFridayFitText(KISWAH_FRIDAY_DHIKR,if(tablet)21f else if(wide)13f else 15f,
             Amiri,Color(0xFFF6E4B2),Modifier.fillMaxSize().padding(horizontal=cap),
             lineRatio=1.75f,tag="kiswah-calligraphy-band")
     }
@@ -108,7 +108,7 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
     val until=if(ur) {
         if(state.justPassed) "${h.label} کے بعد" else "${if(state.heroTime.toLocalDate()!=state.now.toLocalDate()) "کل " else ""}${h.label} تک"
     } else "${if(state.justPassed) "since" else "until"} ${h.label}${if(!state.justPassed && state.heroTime.toLocalDate()!=state.now.toLocalDate()) " · tomorrow" else ""}"
-    val kicker=if(ur)h.kickerLabel else h.kickerLabel.lowercase(Locale.ENGLISH).replaceFirstChar{it.uppercase()}
+    val kicker=if(ur)h.kickerLabel else h.kickerLabel.lowercase(Locale.ENGLISH).split(" ").joinToString(" "){it.replaceFirstChar{ch->ch.uppercase()}}
     val detail=if(ur)"نماز کی تفصیل" else "View prayer details"
     @Composable fun label(value:String,size:Float,tag:String,color:Color=c.ink,font:FontFamily=if(ur)Amiri else FontFamily.Serif) {
         Text(value,Modifier.testTag(tag),fontFamily=font,fontSize=size.sp,

@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/ca2-native-preview.yml'
       - 'app/src/main/java/com/usman/miqaat/ui/WorshipApproved.kt'
+      - 'app/src/main/java/com/usman/miqaat/ui/FridayLayoutMetrics.kt'
       - 'app/src/main/java/com/usman/miqaat/ui/FridayOption2.kt'
       - 'app/src/main/java/com/usman/miqaat/ui/CelestialFridayComponents.kt'
       - 'app/src/main/res/drawable/ca2_banner_*.xml'
