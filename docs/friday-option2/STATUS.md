@@ -1,12 +1,21 @@
 # Friday option 2 implementation — testing only
 
-## Active: all four themes reopened - 6 November 2026, Sydney
+## Current: four-theme corrected testing delivery - 6 November 2026, Sydney
 
-The user requested all remaining visual gaps be fixed. MA2/KA2/CA2/GA2 are
-reopened together; earlier freeze notes are historical. See `ALL_THEMES_PARITY.md`.
+MA2, KA2, CA2 and GA2 are corrected together at app source
+`4f867dfd854cfb2c6168220879d0d6845c80a6cb`. Full signed gate `42077814071`
+passed: 190 tests passed, 5 expected opt-in skips, zero failures/errors, including
+all four 32-profile matrices and the quiet regression. Release integrity checks
+passed and the downloaded APK matches the source/run provenance, checksums and
+established certificate. See `ALL_THEMES_PARITY.md` for fixes and package hashes.
 
+The combined 22-page latest comparison and exact-source APK replace the earlier
+per-theme testing delivery as the current review pair. The report shows remaining
+responsive/illustration differences; no 99.90% numerical fidelity claim is made.
+Earlier freeze notes below are historical and superseded by the user's request
+to fix all four themes. No scheduling or production promotion.
 
-## Current GA2 testing delivery - 5 November 2026, Sydney
+## Historical GA2 testing delivery - 5 November 2026, Sydney
 
 The user moved on from the CA2 review build and requested the next theme.
 GA2 / Prayer Gallery is active in this session without scheduling.
@@ -32,7 +41,7 @@ remaining landscape-header, table-density, footer-outline and artwork difference
 99.90% similarity is not established; this is a testing review candidate.
 See `CA2_ACCEPTANCE.md` for package hash and validation evidence.
 
-## Current KA2 corrected testing delivery - 3 November 2026, Sydney
+## Historical KA2 corrected testing delivery - 3 November 2026, Sydney
 
 Source `4a584944a52fd72099a5248e6941bc0ceed5d19b` passed focused KA2 run
 `41512793270`, MA2 regression `41512793439`, and full signed gate `41512793769`.
