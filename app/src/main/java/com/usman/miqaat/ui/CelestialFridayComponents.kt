@@ -59,11 +59,11 @@ internal const val CELESTIAL_FRIDAY_DHIKR="سُبْحَانَ اللَّهِ   �
         Canvas(Modifier.matchParentSize()) {
             val h=size.height
             for(y in listOf(h*.12f,h*.88f))drawLine(celestialGold,Offset(h*.8f,y),Offset(size.width-h*.8f,y),.75.dp.toPx())
-            val comet=Path().apply{moveTo(h*1.1f,h*.86f);cubicTo(size.width*.22f,h*.30f,size.width*.26f,h*.17f,size.width*.36f,h*.13f)}
+            val comet=Path().apply{moveTo(h*1.1f,h*.18f);cubicTo(size.width*.22f,h*.08f,size.width*.26f,h*.10f,size.width*.36f,h*.12f)}
             drawPath(comet,celestialGold.copy(alpha=.08f),style=Stroke(6.dp.toPx()))
             drawPath(comet,celestialGold.copy(alpha=.20f),style=Stroke(2.dp.toPx()))
             drawPath(comet,celestialGold.copy(alpha=.85f),style=Stroke(.6.dp.toPx()))
-            val tail=Path().apply{moveTo(size.width-h,h*.85f);cubicTo(size.width*.86f,h*.34f,size.width*.80f,h*.17f,size.width*.68f,h*.12f)}
+            val tail=Path().apply{moveTo(size.width-h,h*.82f);cubicTo(size.width*.86f,h*.92f,size.width*.80f,h*.90f,size.width*.68f,h*.88f)}
             drawPath(tail,celestialGold.copy(alpha=.07f),style=Stroke(5.dp.toPx()))
             drawPath(tail,celestialGold.copy(alpha=.70f),style=Stroke(.5.dp.toPx()))
         }
