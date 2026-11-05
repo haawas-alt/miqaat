@@ -1,10 +1,17 @@
 # Friday option 2 implementation — testing only
 
-## Active theme: GA2
+## Current GA2 testing delivery - 5 November 2026, Sydney
 
 The user moved on from the CA2 review build and requested the next theme.
 GA2 / Prayer Gallery is active in this session without scheduling.
 MA2, KA2 and CA2 remain frozen; see `GA2_ACCEPTANCE.md`.
+
+GA2 source `53234ea3f7ff8602a4d9c1e66342477c1d28ea42` passed focused run
+`41578218125` and full signed gate `41578218209`: 190 tests passed, 5 expected
+opt-in tests skipped. All three earlier-theme focused regressions passed.
+The signed APK and 9-page comparison are the current review delivery.
+The report discloses remaining illustration/layout differences; 99.90% visual
+similarity has not been established. See `GA2_ACCEPTANCE.md` for package hashes.
 
 ## Previous theme: CA2 review delivery
 
