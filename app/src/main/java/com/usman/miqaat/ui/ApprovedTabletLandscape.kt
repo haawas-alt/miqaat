@@ -310,7 +310,7 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
                 }
                 if(r.small.isNotEmpty()) Text(r.small,Modifier
                     .then(if(L10n.isUrdu(s))Modifier.heightIn(min=if(!gallery&&compact)20.dp else 34.dp)
-                        else if(s.theme==AppTheme.KISWAH&&!compact)Modifier.heightIn(min=25.dp) else Modifier)
+                        else if(s.theme==AppTheme.KISWAH&&!compact)Modifier.requiredHeight(25.dp) else Modifier)
                     .testTag("gallery-fit-detail-${r.prayer.name}"),fontFamily=tabletUi(s),
                     fontSize=((if(L10n.isUrdu(s)) (if(fontScale>1.05f)13.5f else 15f) else if(gallery || (s.theme==AppTheme.KISWAH && compact))16f else if(compact && s.iqamahEnabled)16f else 18f)*k).sp,
                     lineHeight=((if(L10n.isUrdu(s))22 else if(gallery)21 else if((s.theme==AppTheme.KISWAH && compact)||(compact && s.iqamahEnabled))20 else 24)*k).sp,
