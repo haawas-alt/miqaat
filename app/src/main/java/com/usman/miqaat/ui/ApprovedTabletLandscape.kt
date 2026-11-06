@@ -46,6 +46,7 @@ private val tabletMiqaatDisplay=FontFamily(Font(R.font.cormorant_garamond_medium
 private fun tabletDisplay(tk:ThemeTokens)=if(tk.dark)tabletMiqaatDisplay else ApprovedDisplay
 
 private val tabletNativeText=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false))
+private val tabletUrduText=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=true))
 private val tabletClockText=tabletNativeText.copy(fontFeatureSettings="'lnum' 1, 'tnum' 1")
 private fun tabletUi(s:AppSettings)=if(L10n.isUrdu(s)) Amiri else ApprovedBody
 
@@ -280,8 +281,8 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
             Column(Modifier.fillMaxWidth(if(gallery).28f else .28f)) {
                 Text(r.label,Modifier.testTag("gallery-fit-label-${r.prayer.name}"),
                     fontFamily=if(L10n.isUrdu(s))Amiri else tabletDisplay(tk),fontWeight=FontWeight.Medium,
-                    fontSize=((if(gallery && compact && L10n.isUrdu(s))20 else if(gallery)24 else 32)*k).sp,lineHeight=((if(gallery && compact && L10n.isUrdu(s))28 else if(gallery)30 else 38)*k).sp,
-                    color=tk.contentPrimary,maxLines=if(L10n.isUrdu(s))2 else 1,style=tabletNativeText)
+                    fontSize=((if(gallery && compact && L10n.isUrdu(s))19 else if(gallery)24 else 32)*k).sp,lineHeight=((if(gallery && compact && L10n.isUrdu(s))26 else if(gallery)30 else 38)*k).sp,
+                    color=tk.contentPrimary,maxLines=if(L10n.isUrdu(s))2 else 1,style=if(L10n.isUrdu(s))tabletUrduText else tabletNativeText)
                 if(!L10n.isUrdu(s)) Text(r.arabic,Modifier.testTag("gallery-fit-arabic-${r.prayer.name}"),
                     fontFamily=if(s.theme==AppTheme.KISWAH)ReemKufi else Amiri,
                     fontSize=((if(gallery)24 else if(s.theme==AppTheme.KISWAH)24 else 28)*k).sp,
@@ -307,7 +308,7 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
                 if(r.small.isNotEmpty()) Text(r.small,Modifier.testTag("gallery-fit-detail-${r.prayer.name}"),fontFamily=tabletUi(s),
                     fontSize=((if(gallery || (s.theme==AppTheme.KISWAH && compact))16 else if(compact && s.iqamahEnabled)16 else 18)*k).sp,
                     lineHeight=((if(L10n.isUrdu(s))32 else if(gallery)21 else if((s.theme==AppTheme.KISWAH && compact)||(compact && s.iqamahEnabled))20 else 24)*k).sp,
-                    color=tk.contentSecondary,maxLines=2,style=tabletNativeText)
+                    color=tk.contentSecondary,maxLines=2,style=if(L10n.isUrdu(s))tabletUrduText else tabletNativeText)
             }
             if(r.prayer.isPrayer) Box(Modifier.width((28*k).dp).heightIn(min=48.dp).semantics {
                 contentDescription=if(r.azaanOn)L10n.t("Azaan enabled","اذان فعال ہے") else L10n.t("Azaan off","اذان بند ہے")
