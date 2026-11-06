@@ -308,12 +308,12 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
                     }
                     if(selected && (!compactBadge || L10n.isUrdu(s))) TabletBadge(r,s,marker,k)
                 }
-                if(r.small.isNotEmpty()) Text(r.small,Modifier
+                if(r.small.isNotEmpty()) Text(r.small,Modifier.fillMaxWidth()
                     .then(if(L10n.isUrdu(s))Modifier.heightIn(min=if(!gallery&&compact)20.dp else 34.dp)
                         else if(s.theme==AppTheme.KISWAH&&!compact)Modifier.requiredHeight(if(fontScale>1.05f)27.dp else 25.dp) else Modifier)
                     .testTag("gallery-fit-detail-${r.prayer.name}"),fontFamily=tabletUi(s),
-                    fontSize=((if(L10n.isUrdu(s)) (if(gallery)15f else 10.25f) else if(gallery || (s.theme==AppTheme.KISWAH && compact))16f else if(compact && s.iqamahEnabled)16f else 18f)*k).sp,
-                    lineHeight=((if(L10n.isUrdu(s)) (if(gallery)22 else 15) else if(gallery)21 else if((s.theme==AppTheme.KISWAH && compact)||(compact && s.iqamahEnabled))20 else 24)*k).sp,
+                    fontSize=((if(L10n.isUrdu(s)) (if(fontScale>1.05f)13.5f else 15f) else if(gallery || (s.theme==AppTheme.KISWAH && compact))16f else if(compact && s.iqamahEnabled)16f else 18f)*k).sp,
+                    lineHeight=((if(L10n.isUrdu(s))22 else if(gallery)21 else if((s.theme==AppTheme.KISWAH && compact)||(compact && s.iqamahEnabled))20 else 24)*k).sp,
                     color=tk.contentSecondary,maxLines=2,style=tabletNativeText)
             }
             if(r.prayer.isPrayer) Box(Modifier.width((28*k).dp).heightIn(min=48.dp).semantics {
