@@ -1,19 +1,23 @@
 # Friday option 2 implementation — testing only
 
-## Current: four-theme corrected testing delivery - 6 November 2026, Sydney
+## Current: refined four-theme testing delivery - 6 November 2026, Sydney
 
-MA2, KA2, CA2 and GA2 are corrected together at app source
-`4f867dfd854cfb2c6168220879d0d6845c80a6cb`. Full signed gate `42077814071`
-passed: 190 tests passed, 5 expected opt-in skips, zero failures/errors, including
-all four 32-profile matrices and the quiet regression. Release integrity checks
-passed and the downloaded APK matches the source/run provenance, checksums and
-established certificate. See `ALL_THEMES_PARITY.md` for fixes and package hashes.
+All four themes are refined at app source `b34211cfd70e294611eb161db05eaba88158e4a2`.
+Full signed gate `42138646437` passed: 190 tests passed, 5 expected
+opt-in skips, zero failures/errors. All four final-source focused runs passed
+32 profiles each, including explicit no-scroll, complete six-row visibility and
+non-overlapping 48dp targets at the approved phone landscape size.
 
-The combined 22-page latest comparison and exact-source APK replace the earlier
-per-theme testing delivery as the current review pair. The report shows remaining
-responsive/illustration differences; no 99.90% numerical fidelity claim is made.
-Earlier freeze notes below are historical and superseded by the user's request
-to fix all four themes. No scheduling or production promotion.
+KA2 arch proportions, Arabic/clock hierarchy, native shortcut gradients, selected
+row gold, navigation glyphs, MA2 skyline and portrait shortcut/floor spacing are
+updated together. Compact landscape navigation is under the hero; smaller usable
+heights retain scroll fallback. Signed package provenance, SHA-256 and the
+established certificate were verified after download. See `ALL_THEMES_PARITY.md`.
+
+The latest combined 22-page comparison and exact-source APK are the current
+review pair. A 9.9/10 visual score is not inferred from tests; the report shows
+actual reference/native pairs and the responsive adaptation. No scheduling or
+production promotion. Earlier deliveries and freeze notes below are historical.
 
 ## Historical GA2 testing delivery - 5 November 2026, Sydney
 
