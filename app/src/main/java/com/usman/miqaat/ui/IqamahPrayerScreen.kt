@@ -78,11 +78,11 @@ internal fun IqamahPrayerContent(p: Phase.IqamahCountdown, s: AppSettings, now: 
                     lineHeight = (size * if (urdu) 1.9f else 1.5f).sp, color = color, textAlign = TextAlign.Center)
             }
             val prayer: @Composable () -> Unit = {
-                Text(p.prayer.arabic, Modifier.fillMaxWidth().testTag("iqamah-prayer-arabic").semantics { heading() },
+                Text(L10n.prayerArabic(s, p.prayer, target.toLocalDate()), Modifier.fillMaxWidth().testTag("iqamah-prayer-arabic").semantics { heading() },
                     fontFamily = if (s.theme == AppTheme.KISWAH) ReemKufi else Amiri,
                     fontSize = (if (roomy) 84 else if (wide) 64 else if (tablet) 68 else 42).sp,
                     lineHeight = (if (roomy) 124 else if (wide) 92 else if (tablet) 100 else 64).sp, color = colors.accent, textAlign = TextAlign.Center)
-                Text(if (urdu) L10n.prayer(s, p.prayer) else L10n.prayer(s, p.prayer).uppercase(Locale.ROOT),
+                Text(L10n.prayer(s, p.prayer, target.toLocalDate()).let { if (urdu) it else it.uppercase(Locale.ROOT) },
                     Modifier.fillMaxWidth().testTag("iqamah-prayer-name"), fontFamily = if (urdu) Amiri else Cinzel,
                     fontSize = (if (roomy) 22 else if (wide || tablet) 19 else 15).sp, lineHeight = if (roomy) (if (urdu) 42.sp else 32.sp) else if (urdu) 30.sp else 24.sp,
                     letterSpacing = if (urdu) 0.sp else 2.sp, color = colors.ink, textAlign = TextAlign.Center)

@@ -90,7 +90,8 @@ object AzaanScheduler {
             // Truthfully inexact: Android may deliver this minutes late. The UI shows a warning while this is the case.
             am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, whenMs, fire)
         }
-        val label = "${next.prayer.english} ${if (next.iqamah) "iqamah" else if (next.reminder) "reminder" else "azaan"}" + (if (canExact) "" else " (approximate)") + (if (s.zoneNeedsReview) " (zone unverified)" else "")
+        val prayerName = com.usman.miqaat.data.L10n.prayer(s.copy(language = com.usman.miqaat.data.Language.EN), next.prayer, next.at.toLocalDate())
+        val label = "$prayerName ${if (next.iqamah) "iqamah" else if (next.reminder) "reminder" else "azaan"}" + (if (canExact) "" else " (approximate)") + (if (s.zoneNeedsReview) " (zone unverified)" else "")
         com.usman.miqaat.data.Health.setPlanned(ctx, whenMs, label)
         Log.i(TAG, "Scheduled $label at ${next.at}")
     }

@@ -86,9 +86,9 @@ internal fun PhoneLandscapeIqamahContent(p:Phase.IqamahCountdown,s:AppSettings,n
                 BoxWithConstraints(Modifier.weight(.56f).fillMaxHeight().padding(start=12.dp)) {
                     val paired=urdu||maxHeight<255.dp
                     val prayer:@Composable (Modifier)->Unit={m ->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
-                        Text(p.prayer.arabic,Modifier.fillMaxWidth().testTag("iqamah-prayer-arabic").semantics{heading()},fontFamily=if(s.theme==AppTheme.KISWAH)ReemKufi else Amiri,
+                        Text(L10n.prayerArabic(s,p.prayer,target.toLocalDate()),Modifier.fillMaxWidth().testTag("iqamah-prayer-arabic").semantics{heading()},fontFamily=if(s.theme==AppTheme.KISWAH)ReemKufi else Amiri,
                             fontSize=32.sp,lineHeight=46.sp,color=c.accent,textAlign=TextAlign.Center)
-                        Text(if(urdu)L10n.prayer(s,p.prayer)else L10n.prayer(s,p.prayer).uppercase(Locale.ROOT),Modifier.fillMaxWidth().testTag("iqamah-prayer-name"),
+                        Text(L10n.prayer(s,p.prayer,target.toLocalDate()).let{if(urdu)it else it.uppercase(Locale.ROOT)},Modifier.fillMaxWidth().testTag("iqamah-prayer-name"),
                             fontFamily=if(urdu)Amiri else Cinzel,fontSize=11.sp,lineHeight=if(urdu)22.sp else 17.sp,color=c.ink,textAlign=TextAlign.Center)
                     }}
                     val schedule:@Composable (Modifier)->Unit={m ->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
@@ -134,9 +134,9 @@ internal fun PhoneLandscapeQuietContent(p:Phase.Quiet,s:AppSettings,now:ZonedDat
                 Row(Modifier.weight(.70f).fillMaxHeight().testTag("quiet-current-panel"),verticalAlignment=Alignment.CenterVertically) {
                     Column(Modifier.weight(.50f),horizontalAlignment=Alignment.CenterHorizontally) {
                         QuietLabel(Str[R.string.s_quiet_prayer_progress],urdu,c.accent,Modifier.testTag("quiet-progress"),9f)
-                        Text(p.prayer.arabic,Modifier.fillMaxWidth().testTag("quiet-current-arabic").semantics{heading()},
+                        Text(L10n.prayerArabic(s,p.prayer,times.current.toLocalDate()),Modifier.fillMaxWidth().testTag("quiet-current-arabic").semantics{heading()},
                             fontFamily=if(s.theme==AppTheme.KISWAH)ReemKufi else Amiri,fontSize=38.sp,lineHeight=58.sp,color=c.accent,textAlign=TextAlign.Center)
-                        Text(if(urdu)L10n.prayer(s,p.prayer)else L10n.prayer(s,p.prayer).uppercase(Locale.ROOT),Modifier.fillMaxWidth().testTag("quiet-current-name"),
+                        Text(L10n.prayer(s,p.prayer,times.current.toLocalDate()).let{if(urdu)it else it.uppercase(Locale.ROOT)},Modifier.fillMaxWidth().testTag("quiet-current-name"),
                             fontFamily=if(urdu)Amiri else Cinzel,fontSize=12.sp,lineHeight=if(urdu)24.sp else 19.sp,color=c.ink,textAlign=TextAlign.Center)
                     }
                     Column(Modifier.weight(.50f),horizontalAlignment=Alignment.CenterHorizontally) {
@@ -149,7 +149,7 @@ internal fun PhoneLandscapeQuietContent(p:Phase.Quiet,s:AppSettings,now:ZonedDat
                 Box(Modifier.width(1.dp).fillMaxHeight(.65f).background(c.accent.copy(alpha=.35f)))
                 Column(Modifier.weight(.30f).testTag("quiet-next-panel"),horizontalAlignment=Alignment.CenterHorizontally) {
                     QuietLabel(Str[R.string.s_quiet_next_azaan],urdu,c.secondary,Modifier.testTag("quiet-next-label"),9f)
-                    Text(if(urdu)L10n.prayer(s,times.next)else L10n.prayer(s,times.next).uppercase(Locale.ROOT),Modifier.fillMaxWidth().testTag("quiet-next-name"),
+                    Text(L10n.prayer(s,times.next,times.nextTime.toLocalDate()).let{if(urdu)it else it.uppercase(Locale.ROOT)},Modifier.fillMaxWidth().testTag("quiet-next-name"),
                         fontFamily=if(urdu)Amiri else Cinzel,fontSize=15.sp,lineHeight=if(urdu)30.sp else 23.sp,color=c.ink,textAlign=TextAlign.Center)
                     QuietTime(times.nextTime,s,if(urdu)21f else 33f,c.ink,Modifier.fillMaxWidth().testTag("quiet-next-time"))
                     if(times.nextTime.toLocalDate().isAfter(now.withZoneSameInstant(s.zone()).toLocalDate()))Text(Str[R.string.s_quiet_tomorrow],

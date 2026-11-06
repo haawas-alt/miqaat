@@ -107,6 +107,14 @@ object L10n {
 
     fun prayer(s: AppSettings, p: Prayer): String = if (isUrdu(s)) urPrayer.getValue(p) else p.english
 
+    /** Date-aware prayer name: Friday Dhuhr is Jumuʿah only when the setting is enabled. */
+    fun prayer(s: AppSettings, p: Prayer, date: java.time.LocalDate): String =
+        if (PrayerEngine.isJumuah(s, p, date)) word(s, "Jumuʿah") else prayer(s, p)
+
+    /** Arabic prayer name paired with [prayer] on homes and the live azaan screen. */
+    fun prayerArabic(s: AppSettings, p: Prayer, date: java.time.LocalDate): String =
+        if (PrayerEngine.isJumuah(s, p, date)) "الْجُمُعَة" else p.arabic
+
     fun date(s: AppSettings, t: ZonedDateTime): String =
         if (isUrdu(s)) "${urDays[t.dayOfWeek.name]}، ${t.dayOfMonth} ${urGreg[t.monthValue - 1]} ${t.year}"
         else t.format(DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.ENGLISH))

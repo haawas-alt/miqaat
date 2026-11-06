@@ -37,6 +37,10 @@ data class PrayerState(
 
 object PrayerEngine {
 
+    /** Dhuhr is presented and scheduled as Jumuʿah only for an enabled Friday. */
+    fun isJumuah(settings: AppSettings, prayer: Prayer, date: LocalDate): Boolean =
+        settings.jumuahEnabled && prayer == Prayer.DHUHR && date.dayOfWeek == java.time.DayOfWeek.FRIDAY
+
     /** Wall-clock time on a date: minutes from midnight as people read them, correct across DST changes. */
     fun at(date: LocalDate, zone: ZoneId, minutes: Int): ZonedDateTime =
         date.atTime(java.time.LocalTime.ofSecondOfDay((minutes.coerceIn(0, 1439) * 60).toLong())).atZone(zone)
@@ -46,7 +50,7 @@ object PrayerEngine {
         val comps = DateComponents(date.year, date.monthValue, date.dayOfMonth)
         val pt = PrayerTimes(coords, comps, settings.calculationParameters())
         fun z(d: java.util.Date) = ZonedDateTime.ofInstant(Instant.ofEpochMilli(d.time), zone)
-        val dhuhr = if (settings.jumuahEnabled && date.dayOfWeek == java.time.DayOfWeek.FRIDAY)
+        val dhuhr = if (isJumuah(settings, Prayer.DHUHR, date))
             at(date, zone, settings.jumuahMinutes) else z(pt.dhuhr)
         val calc = mapOf(
             Prayer.FAJR to z(pt.fajr),
@@ -273,7 +277,7 @@ object PrayerEngine {
             val idx = 6 + Prayer.prayersOnly.indexOf(p)
             if (ov != null && ov.size > idx) return at(day.date, day[p].zone, ov[idx])
         }
-        if (p == Prayer.DHUHR && settings.jumuahEnabled && day.date.dayOfWeek == java.time.DayOfWeek.FRIDAY)
+        if (isJumuah(settings, p, day.date))
             return at(day.date, day[p].zone, settings.jumuahIqamahMinutes)
         if (settings.iqamahIsFixed[p] == true) {
             val fixed = at(day.date, day[p].zone, settings.iqamahFixed[p] ?: 0)

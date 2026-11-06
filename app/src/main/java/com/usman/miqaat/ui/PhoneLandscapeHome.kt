@@ -313,8 +313,8 @@ private fun PhoneLandscapePrayer(r:RowInfo,s:AppSettings,a:HomeActions,modifier:
         // One shared label column for every prayer, not six content-dependent offsets.
         val labelWidth=with(density) {
             listedPrayers(s).maxOf { p ->
-                val label=if(p==Prayer.DHUHR&&s.jumuahEnabled)L10n.word(s,"Jumuʿah")else L10n.prayer(s,p)
-                maxOf(measure.measure(label,TextStyle(fontFamily=if(urdu)Amiri else serif,fontSize=labelSize)).size.width.toDp(),
+                val labels=if(p==Prayer.DHUHR)listOf(L10n.prayer(s,p),L10n.word(s,"Jumuʿah"))else listOf(L10n.prayer(s,p))
+                maxOf(labels.maxOf { label -> measure.measure(label,TextStyle(fontFamily=if(urdu)Amiri else serif,fontSize=labelSize)).size.width.toDp() },
                     if(urdu)0.dp else measure.measure(p.arabic,TextStyle(fontFamily=rowArabicFont,fontWeight=rowArabicWeight,fontSize=arabicSize)).size.width.toDp())
             }+1.dp
         }

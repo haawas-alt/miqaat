@@ -20,8 +20,7 @@ internal data class RowInfo(
 internal fun rowInfo(p: Prayer, state: PrayerState, s: AppSettings): RowInfo {
     val t = state.today[p]
     val urdu = L10n.isUrdu(s)
-    val isFri = state.now.dayOfWeek == java.time.DayOfWeek.FRIDAY && s.jumuahEnabled
-    val label = if (isFri && p == Prayer.DHUHR) L10n.word(s, "Jumuʿah") else L10n.prayer(s, p)
+    val label = L10n.prayer(s, p, state.today.date)
     val passed = !t.isAfter(state.now)
     val isNow = p == state.hero && state.justPassed
     val isNext = p == state.next && !state.justPassed && t == state.heroTime
@@ -38,7 +37,7 @@ internal fun rowInfo(p: Prayer, state: PrayerState, s: AppSettings): RowInfo {
     ).joinToString("  ·  ")
     val azaanOn = s.azaanEnabled[p] == true
     val spoken = L10n.spokenRow(s, label, p, t, state.now, isNow, isNext, done, iq, endT, !azaanOn && p.isPrayer)
-    return RowInfo(p, label, p.arabic, clock, suffix, rel, small, isNow, isNext, done, azaanOn, spoken)
+    return RowInfo(p, label, L10n.prayerArabic(s, p, state.today.date), clock, suffix, rel, small, isNow, isNext, done, azaanOn, spoken)
 }
 
 internal data class HeroInfo(
@@ -47,8 +46,8 @@ internal data class HeroInfo(
 )
 
 internal fun heroInfo(state: PrayerState, s: AppSettings, special: String?): HeroInfo {
-    val isFri = state.now.dayOfWeek == java.time.DayOfWeek.FRIDAY && s.jumuahEnabled
-    val label = if (isFri && state.hero == Prayer.DHUHR) L10n.word(s, "Jumuʿah") else L10n.prayer(s, state.hero)
+    val heroDate = state.heroTime.toLocalDate()
+    val label = L10n.prayer(s, state.hero, heroDate)
     val clock = PrayerEngine.clock(state.heroTime, s.use24h)
     val suffix = PrayerEngine.suffix(state.heroTime, s.use24h)
     val status = buildString {
@@ -57,7 +56,7 @@ internal fun heroInfo(state: PrayerState, s: AppSettings, special: String?): Her
     }
     val kicker = Str[if (state.justPassed) R.string.s_home_prayer_now else R.string.s_home_next_prayer]
     val spoken = "${special?.let { "$it. " } ?: ""}$kicker. $label, $clock $suffix, $status"
-    return HeroInfo(kicker, special, label, state.hero.arabic, clock, suffix, status, state.justPassed, spoken, state.hero)
+    return HeroInfo(kicker, special, label, L10n.prayerArabic(s, state.hero, heroDate), clock, suffix, status, state.justPassed, spoken, state.hero)
 }
 
 /** Progress of the fast in Ramaḍān, 0..1 between Fajr and Maghrib, or null when it is not a fasting-day daytime. */

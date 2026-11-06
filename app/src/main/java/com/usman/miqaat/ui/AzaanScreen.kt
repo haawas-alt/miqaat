@@ -111,10 +111,11 @@ private fun FlowHeader(phase: Phase, u: Dp, stacked: Boolean) {
     val st = com.usman.miqaat.MiqaatApp.instance.settings.value
     var tm by remember { mutableStateOf(java.time.ZonedDateTime.now(st.zone())) }
     LaunchedEffect(st.zoneId) { while (true) { tm = java.time.ZonedDateTime.now(st.zone()); delay(15_000) } }
+    val prayerName = L10n.prayer(st, phase.prayer, tm.toLocalDate())
     val status = when (phase) {
-        is Phase.Azaan -> Str.get(R.string.s_x_azaan_playing, L10n.prayer(st, phase.prayer))
-        is Phase.IqamahCountdown, is Phase.IqamahNow -> Str.get(R.string.s_prayer_iqamah, L10n.prayer(st, phase.prayer))
-        else -> Str.get(R.string.s_prayer_after_azaan, L10n.prayer(st, phase.prayer))
+        is Phase.Azaan -> Str.get(R.string.s_x_azaan_playing, prayerName)
+        is Phase.IqamahCountdown, is Phase.IqamahNow -> Str.get(R.string.s_prayer_iqamah, prayerName)
+        else -> Str.get(R.string.s_prayer_after_azaan, prayerName)
     }
     val tag: @Composable (Modifier) -> Unit = { m ->
         Text(status, fontFamily = Nunito, fontSize = maxOf(13f, u.value * 1.3f).sp,
@@ -175,12 +176,14 @@ private fun StepsBar(phase: Phase, u: Dp) {
 @Composable
 private fun AzaanBody(phase: Phase, u: Dp) {
     val tk = screenTokens()
+    val st = com.usman.miqaat.MiqaatApp.instance.settings.value
+    val date = java.time.LocalDate.now(st.zone())
     Column(Modifier.fillMaxSize().padding(top = u * 3), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Text("ٱللَّٰهُ أَكْبَرُ", fontFamily = Amiri, fontSize = (u.value * 7f).sp, lineHeight = (u.value * 10.5f).sp, color = tk.arabicText, textAlign = TextAlign.Center)
-        Text(Str.get(R.string.s_prayer_azaan_title, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer)),
+        Text(Str.get(R.string.s_prayer_azaan_title, L10n.prayer(st, phase.prayer, date)),
             fontFamily = Cormorant, fontSize = maxOf(20f, u.value * 2.6f).sp, color = tk.contentPrimary,
             textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth().padding(top = u * 1).testTag("flow-prayer-title"))
-        Text(phase.prayer.arabic, fontFamily = Amiri, fontSize = (u.value * 2.6f).sp, color = tk.arabicText, textAlign = TextAlign.Center)
+        Text(L10n.prayerArabic(st, phase.prayer, date), fontFamily = Amiri, fontSize = (u.value * 2.6f).sp, color = tk.arabicText, textAlign = TextAlign.Center)
         Wave(Modifier.padding(top = u * 4).width(u * 22).height(u * 8))
         Text(Str[R.string.s_hayya_ala_al_h_come_to], fontFamily = Nunito, fontSize = (u.value * 1.6f).sp, letterSpacing = (u.value * 0.1f).sp, color = tk.contentSecondary, modifier = Modifier.padding(top = u * 3))
     }
@@ -212,8 +215,10 @@ private fun IftarBody(u: Dp) {
 @Composable
 private fun IqamahNowBody(phase: Phase, u: Dp) {
     val tk = screenTokens()
+    val st = com.usman.miqaat.MiqaatApp.instance.settings.value
+    val date = java.time.LocalDate.now(st.zone())
     Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Kicker(L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, phase.prayer), u)
+        Kicker(L10n.prayer(st, phase.prayer, date), u)
         Text("الإقامة", fontFamily = Amiri, fontSize = (u.value * 9f).sp, lineHeight = (u.value * 10f).sp, color = tk.arabicText)
         Text("قَدْ قَامَتِ الصَّلاَةُ", fontFamily = Amiri, fontSize = (u.value * 4.2f).sp, lineHeight = (u.value * 6f).sp, color = tk.accent)
         Text(Str[R.string.s_the_prayer_has_begun], fontFamily = Cormorant, fontSize = (u.value * 2.4f).sp, color = tk.contentPrimary.copy(alpha = 0.9f), modifier = Modifier.padding(top = u * 0.6f))
@@ -223,8 +228,10 @@ private fun IqamahNowBody(phase: Phase, u: Dp) {
 @Composable
 private fun HadithBody(p: Phase.HadithPhase, u: Dp) {
     val tk = screenTokens()
+    val st = com.usman.miqaat.MiqaatApp.instance.settings.value
+    val date = java.time.LocalDate.now(st.zone())
     Column(Modifier.fillMaxSize().padding(horizontal = u * 9), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Kicker(Str.get(R.string.s_hadith_after_prayer, L10n.prayer(com.usman.miqaat.MiqaatApp.instance.settings.value, p.prayer)) + " · " + L10n.source(p.hadith.source), u)
+        Kicker(Str.get(R.string.s_hadith_after_prayer, L10n.prayer(st, p.prayer, date)) + " · " + L10n.source(p.hadith.source), u)
         val long = p.hadith.arabic.length > 110
         val narrative = p.hadith.id in com.usman.miqaat.data.HadithLibrary.narrativeFraming   // text already names the speaker ("a man said to the Prophet"), so no second "The Messenger said:"
         val qudsi = p.hadith.id in com.usman.miqaat.data.HadithLibrary.qudsiFraming

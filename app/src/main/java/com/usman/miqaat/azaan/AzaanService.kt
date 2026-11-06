@@ -403,13 +403,13 @@ class AzaanService : Service() {
         val suhoor = note?.startsWith("Suhoor") == true
         val st = (application as MiqaatApp).settings.value
         val ur = com.usman.miqaat.data.L10n.isUrdu(st)
-        val name = com.usman.miqaat.data.L10n.prayer(st, prayer)
+        val name = com.usman.miqaat.data.L10n.prayer(st, prayer, java.time.LocalDate.now(st.zone()))
         val title = when {
             suhoor -> if (ur) "سحری" else "Suhoor"
             note != null -> if (ur) "جمعہ" else "Jumuʿah"
-            else -> if (ur) "$name میں چند منٹ باقی" else "${prayer.english} in a few minutes"
+            else -> if (ur) "$name میں چند منٹ باقی" else "$name in a few minutes"
         }
-        val text = note ?: if (ur) "$name کی نماز کی تیاری کریں" else "Prepare for ${prayer.english} prayer"
+        val text = note ?: if (ur) "$name کی نماز کی تیاری کریں" else "Prepare for $name prayer"
         val n = NotificationCompat.Builder(this, if (suhoor) MiqaatApp.CHANNEL_AZAAN else MiqaatApp.CHANNEL_SILENT)
             .setSmallIcon(R.drawable.ic_launcher_monochrome)
             .setContentTitle(title)
@@ -441,6 +441,10 @@ class AzaanService : Service() {
 
     private fun buildNotification(prayer: Prayer): Notification {
         val wake = needsWakeUp()
+        val st = (application as MiqaatApp).settings.value
+        val date = java.time.LocalDate.now(st.zone())
+        val name = com.usman.miqaat.data.L10n.prayer(st, prayer, date)
+        val arabic = com.usman.miqaat.data.L10n.prayerArabic(st, prayer, date)
         val full = PendingIntent.getActivity(this, 0,
             Intent(this, AzaanActivity::class.java).putExtra(AzaanScheduler.EXTRA_PRAYER, prayer.name),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
@@ -448,8 +452,8 @@ class AzaanService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         val b = NotificationCompat.Builder(this, if (wake) MiqaatApp.CHANNEL_AZAAN else MiqaatApp.CHANNEL_AZAAN_QUIET)
             .setSmallIcon(R.drawable.ic_launcher_monochrome)
-            .setContentTitle("${prayer.english} azaan  ·  ${prayer.arabic}")
-            .setContentText("It is time for ${prayer.english} prayer")
+            .setContentTitle("$name azaan  ·  $arabic")
+            .setContentText(if (com.usman.miqaat.data.L10n.isUrdu(st)) "$name کی نماز کا وقت ہے" else "It is time for $name prayer")
             .setCategory(if (wake) NotificationCompat.CATEGORY_ALARM else NotificationCompat.CATEGORY_SERVICE)
             .setPriority(if (wake) NotificationCompat.PRIORITY_MAX else NotificationCompat.PRIORITY_LOW)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)

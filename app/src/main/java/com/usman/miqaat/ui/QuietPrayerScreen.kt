@@ -121,10 +121,10 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                             Modifier.fillMaxWidth().testTag("quiet-progress"), if (short) 10f else 12f)
                     }
                     if (wide) { status(); Spacer(Modifier.height(if (short) 2.dp else 8.dp)) }
-                    Text(p.prayer.arabic, Modifier.fillMaxWidth().testTag("quiet-current-arabic").semantics { heading() },
+                    Text(L10n.prayerArabic(s, p.prayer, times.current.toLocalDate()), Modifier.fillMaxWidth().testTag("quiet-current-arabic").semantics { heading() },
                         fontFamily = if (s.theme == AppTheme.KISWAH) ReemKufi else Amiri, fontSize = headingSize.sp,
                         lineHeight = (headingSize * 1.65f).sp, color = colors.accent, textAlign = TextAlign.Center)
-                    Text(if (urdu) L10n.prayer(s, p.prayer) else L10n.prayer(s, p.prayer).uppercase(java.util.Locale.ROOT),
+                    Text(L10n.prayer(s, p.prayer, times.current.toLocalDate()).let { if (urdu) it else it.uppercase(java.util.Locale.ROOT) },
                         Modifier.fillMaxWidth().testTag("quiet-current-name"), fontFamily = if (urdu) Amiri else Cinzel,
                         fontSize = (if (short) 12 else if (tablet) 20 else 16).sp, lineHeight = (if (urdu) 30 else if (short) 18 else 26).sp,
                         letterSpacing = if (urdu) 0.sp else 2.sp, color = colors.ink, textAlign = TextAlign.Center)
@@ -146,7 +146,7 @@ internal fun QuietPrayerContent(p: Phase.Quiet, s: AppSettings, now: ZonedDateTi
                         .padding(horizontal = 16.dp, vertical = if (short) 8.dp else if (wide) 24.dp else 12.dp),
                         horizontalAlignment = Alignment.CenterHorizontally) {
                         QuietLabel(Str[R.string.s_quiet_next_azaan], urdu, colors.secondary, Modifier.testTag("quiet-next-label"), if (short) 10f else 11f)
-                        Text(if (urdu) L10n.prayer(s, times.next) else L10n.prayer(s, times.next).uppercase(java.util.Locale.ROOT),
+                        Text(L10n.prayer(s, times.next, times.nextTime.toLocalDate()).let { if (urdu) it else it.uppercase(java.util.Locale.ROOT) },
                             Modifier.fillMaxWidth().testTag("quiet-next-name"), fontFamily = if (urdu) Amiri else Cinzel,
                             fontSize = (if (urdu) 24 else if (wide) 24 else 19).sp, lineHeight = if (urdu) 42.sp else 32.sp,
                             color = colors.ink, textAlign = TextAlign.Center)

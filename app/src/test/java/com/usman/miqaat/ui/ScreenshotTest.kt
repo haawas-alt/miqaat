@@ -71,7 +71,7 @@ class ScreenshotTest : ComposeSupport() {
             shot("timetable", d, t) { s, _ -> TimetableScreen(s) {} }
             shot("qibla", d, t) { s, _ -> QiblaScreen(s) {} }
             shot("adhkar-morning", d, t) { _, _ -> AdhkarScreen(AdhkarMode.MORNING) {} }
-            shot("friday", d, t) { s, _ -> FridayScreen(s) {} }
+            shot("friday", d, t) { s, _ -> FridayScreen(s.copy(jumuahEnabled = true, iqamahEnabled = true)) {} }
             shot("learn", d, t) { s, _ -> LearnScreen(s) {} }
             shot("azaan", d, t) { _, _ -> com.usman.miqaat.ui.AzaanScreen(AzaanService.Phase.Azaan(Prayer.DHUHR, false), {}, {}) }
             shot("iqamah", d, t) { _, _ -> com.usman.miqaat.ui.AzaanScreen(AzaanService.Phase.IqamahCountdown(Prayer.DHUHR, System.currentTimeMillis(), System.currentTimeMillis() + 300_000), {}, {}) }

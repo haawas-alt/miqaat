@@ -3,6 +3,7 @@ package com.usman.miqaat
 import com.usman.miqaat.data.AppSettings
 import com.usman.miqaat.data.Prayer
 import com.usman.miqaat.data.PrayerEngine
+import com.usman.miqaat.data.L10n
 import com.usman.miqaat.data.decodeOverrides
 import com.usman.miqaat.data.encodeOverrides
 import org.junit.Assert.assertEquals
@@ -30,8 +31,22 @@ class PrayerEngineTest {
 
     @Test fun fridayUsesJumuahTime() {
         val fri = LocalDate.of(2026, 10, 2)
-        val t = PrayerEngine.times(s.copy(jumuahEnabled = true, jumuahMinutes = 13 * 60 + 15), fri)
+        val enabled = s.copy(jumuahEnabled = true, jumuahMinutes = 13 * 60 + 15)
+        val t = PrayerEngine.times(enabled, fri)
         assertEquals(13, t[Prayer.DHUHR].hour); assertEquals(15, t[Prayer.DHUHR].minute)
+        assertTrue(PrayerEngine.isJumuah(enabled, Prayer.DHUHR, fri))
+        assertEquals("Jumuʿah", L10n.prayer(enabled, Prayer.DHUHR, fri))
+        assertEquals("الْجُمُعَة", L10n.prayerArabic(enabled, Prayer.DHUHR, fri))
+    }
+
+    @Test fun jumuahNameAndFixedTimeNeverLeakIntoOtherDays() {
+        val enabled = s.copy(jumuahEnabled = true, jumuahMinutes = 13 * 60 + 15)
+        val saturday = LocalDate.of(2026, 10, 3)
+        assertFalse(PrayerEngine.isJumuah(enabled, Prayer.DHUHR, saturday))
+        assertEquals("Dhuhr", L10n.prayer(enabled, Prayer.DHUHR, saturday))
+        assertEquals(Prayer.DHUHR.arabic, L10n.prayerArabic(enabled, Prayer.DHUHR, saturday))
+        assertFalse(PrayerEngine.isJumuah(enabled, Prayer.ASR, LocalDate.of(2026, 10, 2)))
+        assertTrue(PrayerEngine.times(enabled, saturday)[Prayer.DHUHR].minute != 15 || PrayerEngine.times(enabled, saturday)[Prayer.DHUHR].hour != 13)
     }
 
     @Test fun fixedIqamahNeverBeforeAzaan() {
