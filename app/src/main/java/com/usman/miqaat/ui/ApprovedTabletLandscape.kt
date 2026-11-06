@@ -278,8 +278,8 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
             .then(if(!gallery && !selected && r.prayer!=Prayer.FAJR)Modifier.border(.4.dp,tk.divider) else Modifier)
             .padding(horizontal=((if(gallery)12 else 28)*k).dp),verticalAlignment=Alignment.CenterVertically) {
             Column(Modifier.fillMaxWidth(if(gallery).28f else .28f)) {
-                Text(r.label,Modifier.then(if(L10n.isUrdu(s))Modifier.heightIn(min=if(gallery&&compact)68.dp else (72*k).dp) else Modifier)
-                    .testTag("gallery-fit-label-${r.prayer.name}"),
+                Text(r.label,Modifier.testTag("gallery-fit-label-${r.prayer.name}")
+                    .then(if(L10n.isUrdu(s))Modifier.heightIn(min=if(gallery&&compact)68.dp else (72*k).dp) else Modifier),
                     fontFamily=if(L10n.isUrdu(s))Amiri else tabletDisplay(tk),fontWeight=FontWeight.Medium,
                     fontSize=((if(gallery && compact && L10n.isUrdu(s))19 else if(L10n.isUrdu(s))26 else if(gallery)24 else 32)*k).sp,
                     lineHeight=((if(L10n.isUrdu(s))32 else if(gallery)30 else 38)*k).sp,
@@ -306,8 +306,8 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
                     }
                     if(selected && (!compactBadge || L10n.isUrdu(s))) TabletBadge(r,s,marker,k)
                 }
-                if(r.small.isNotEmpty()) Text(r.small,Modifier.then(if(L10n.isUrdu(s))Modifier.heightIn(min=34.dp) else Modifier)
-                    .testTag("gallery-fit-detail-${r.prayer.name}"),fontFamily=tabletUi(s),
+                if(r.small.isNotEmpty()) Text(r.small,Modifier.testTag("gallery-fit-detail-${r.prayer.name}")
+                    .then(if(L10n.isUrdu(s))Modifier.heightIn(min=34.dp) else Modifier),fontFamily=tabletUi(s),
                     fontSize=((if(L10n.isUrdu(s))15 else if(gallery || (s.theme==AppTheme.KISWAH && compact))16 else if(compact && s.iqamahEnabled)16 else 18)*k).sp,
                     lineHeight=((if(L10n.isUrdu(s))22 else if(gallery)21 else if((s.theme==AppTheme.KISWAH && compact)||(compact && s.iqamahEnabled))20 else 24)*k).sp,
                     color=tk.contentSecondary,maxLines=2,style=tabletNativeText)
