@@ -167,7 +167,7 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
             Spacer(Modifier.width(.5.dp).fillMaxHeight(.45f).background(c.secondary.copy(alpha=.65f)))
             val item=Modifier.weight(1f).fillMaxHeight().clickable(role=Role.Button,onClick=action)
             val content:@Composable ()->Unit={
-                Icon(icon,label,Modifier.size(if(tablet)30.dp else 24.dp),tint=c.ink)
+                Icon(icon,label,Modifier.size(if(!tablet&&wide&&ur)20.dp else if(tablet)30.dp else 24.dp),tint=c.ink)
                 Text(label,fontFamily=if(ur)Amiri else FontFamily.Serif,fontSize=(if(tablet)16 else if(wide&&ur)10 else 11).sp,
                     lineHeight=(if(tablet){if(ur)27f else 18.75f}else if(ur)18f else 13.75f).sp,color=c.ink,maxLines=1)
             }

@@ -249,6 +249,17 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                             Modifier.weight(1f).fillMaxWidth()) { why = state.hero }
                         FridayActions(s, state.now, a, short, tablet,
                             Modifier.absolutePadding(left=if(s.theme==AppTheme.KISWAH && !wide && !tablet)12.dp else 0.dp,right = artworkPanelInset))
+                        if(!wide && s.artTheme!=ArtTheme.MINIMAL) {
+                            // Keep the actions beside the Friday facts, with a visible
+                            // courtyard below them rather than a large gap above.
+                            val floor=when(s.theme) {
+                                AppTheme.CELESTIAL_MERIDIAN -> if(tablet).08f else .025f
+                                AppTheme.PRAYER_GALLERY -> if(tablet).06f else .025f
+                                AppTheme.MIQAAT -> .02f
+                                else -> 0f
+                            }
+                            Spacer(Modifier.height(maxHeight*floor))
+                        }
                     }
                 }
             }
@@ -425,8 +436,8 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
             val itemModifier = Modifier.weight(1f).fillMaxHeight().clickable(role = Role.Button, onClick = action)
             val content: @Composable () -> Unit = {
                 if (label == words(s, "Adhkar", "اذکار") && s.theme != AppTheme.KISWAH)
-                    SalawatBeads(iconColor, Modifier.size(if (tablet) 30.dp else 24.dp).semantics { contentDescription = label })
-                else Icon(icon, label, Modifier.size(if (tablet) 30.dp else 24.dp), tint = iconColor)
+                    SalawatBeads(iconColor, Modifier.size(if(!tablet && wide && L10n.isUrdu(s))20.dp else if (tablet)30.dp else 24.dp).semantics { contentDescription = label })
+                else Icon(icon, label, Modifier.size(if(!tablet && wide && L10n.isUrdu(s))20.dp else if (tablet)30.dp else 24.dp), tint = iconColor)
                 WorshipText(label, s, if (tablet) 16f else if(wide && L10n.isUrdu(s))10f else 11f, c.ink, center = true, lines = 1)
             }
             if (inline) Row(itemModifier, verticalAlignment = Alignment.CenterVertically,
@@ -735,7 +746,15 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
             // positions avoid the live location, central clock and action icons.
             fun palm(x:Int,y:Int,sw:Int,sh:Int,at:Float) {
                 val dh=(h*.88f).roundToInt();val dw=(dh*sw.toFloat()/sh).roundToInt()
-                drawImage(art,IntOffset(x,y),IntSize(sw,sh),IntOffset((w*at).roundToInt(),h-dh),IntSize(dw,dh),filterQuality=FilterQuality.High)
+                val left=(w*at).roundToInt();val top=h-dh
+                val bounds=androidx.compose.ui.geometry.Rect(left.toFloat(),top.toFloat(),(left+dw).toFloat(),h.toFloat())
+                drawContext.canvas.saveLayer(bounds,Paint())
+                drawImage(art,IntOffset(x,y),IntSize(sw,sh),IntOffset(left,top),IntSize(dw,dh),filterQuality=FilterQuality.High)
+                drawRect(Brush.horizontalGradient(0f to Color.Transparent,.18f to Color.Black,.82f to Color.Black,1f to Color.Transparent,
+                    startX=left.toFloat(),endX=(left+dw).toFloat()),Offset(left.toFloat(),top.toFloat()),androidx.compose.ui.geometry.Size(dw.toFloat(),dh.toFloat()),blendMode=BlendMode.DstIn)
+                drawRect(Brush.verticalGradient(0f to Color.Transparent,.25f to Color.Black,1f to Color.Black,
+                    startY=top.toFloat(),endY=h.toFloat()),Offset(left.toFloat(),top.toFloat()),androidx.compose.ui.geometry.Size(dw.toFloat(),dh.toFloat()),blendMode=BlendMode.DstIn)
+                drawContext.canvas.restore()
             }
             palm(270,410,280,314,.25f)
             palm(1670,370,390,354,.77f)
