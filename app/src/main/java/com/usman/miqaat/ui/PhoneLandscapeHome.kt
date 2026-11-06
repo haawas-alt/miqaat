@@ -178,7 +178,7 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
         val kiswah=s.theme==AppTheme.KISWAH
         val heroStyle=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),shadow=if(gallery||kiswah)null else Shadow(Color.Black.copy(alpha=.85f),Offset(0f,1.5f),4f))
         val microKiswah=kiswah && maxHeight<150.dp
-        val retainKiswahStack=kiswah && !urdu && LocalConfiguration.current.screenHeightDp>=390 && maxHeight>=160.dp
+        val retainKiswahStack=kiswah && !urdu
         val paired=!retainKiswahStack && maxHeight<if(urdu)215.dp else if(s.theme==AppTheme.KISWAH)186.dp else 190.dp
         val compact=maxHeight<215.dp
         val tiny=maxHeight<175.dp
