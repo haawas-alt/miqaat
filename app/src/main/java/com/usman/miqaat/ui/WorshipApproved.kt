@@ -427,7 +427,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                 if (label == words(s, "Adhkar", "اذکار") && s.theme != AppTheme.KISWAH)
                     SalawatBeads(iconColor, Modifier.size(if (tablet) 30.dp else 24.dp).semantics { contentDescription = label })
                 else Icon(icon, label, Modifier.size(if (tablet) 30.dp else 24.dp), tint = iconColor)
-                WorshipText(label, s, if (tablet) 16f else if(short && L10n.isUrdu(s))10f else 11f, c.ink, center = true, lines = 1)
+                WorshipText(label, s, if (tablet) 16f else if(wide && L10n.isUrdu(s))10f else 11f, c.ink, center = true, lines = 1)
             }
             if (inline) Row(itemModifier, verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) { content() }
