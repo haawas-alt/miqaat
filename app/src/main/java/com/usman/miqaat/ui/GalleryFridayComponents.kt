@@ -117,7 +117,7 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
         val scale=LocalDensity.current.fontScale
         // Reflow the taller Urdu labels before shrinking the main clock. At 115%
         // a fixed six-line stack otherwise made the clock smaller than its countdown.
-        val compactUrdu=ur && maxHeight.value/scale<300f
+        val compactUrdu=ur && maxHeight.value/scale<360f
         val compactFooter=short||compactUrdu
         val ar=if(short){if(ur)20f else 24f}else if(compactUrdu){if(tablet)40f else 36f}else if(tablet)68f else 52f
         val kicker=if(short)8f else if(compactUrdu){if(tablet)12f else 10f}else if(tablet)17f else 14f

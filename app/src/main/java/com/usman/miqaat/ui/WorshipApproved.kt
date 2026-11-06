@@ -213,7 +213,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     header()
                 }
             } else if(short && s.theme==AppTheme.MIQAAT) {
-                Box(Modifier.fillMaxWidth().height(48.dp)) {
+                Box(Modifier.fillMaxWidth().height(58.dp)) {
                     // Fit the shallow panorama so the skyline stays below live header facts.
                     FridayMiqaatHeader(Modifier.testTag("friday-gallery-vista").matchParentSize(), Alignment.BottomCenter, ContentScale.FillBounds)
                     header()
@@ -340,7 +340,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                     if(tablet)80.dp else if(smallPortrait)44.dp else 48.dp
                 } else 0.dp
                 val dockHeight = fridayDockHeight(tablet,wide)
-                val shortcutsHeight = if(tablet)61.dp else 57.dp
+                val shortcutsHeight = if(tablet){if(L10n.isUrdu(s))69.dp else 61.dp}else 57.dp
                 val prayerMinimum = (if(tablet)tabletPrayerRowHeight*typeScale else 48.dp)*listedPrayers(s).size
                 val availableHero = (safeHeight-headerHeight-mastheadHeight-dockHeight-6.dp-prayerMinimum)
                     .coerceAtLeast(140.dp+shortcutsHeight)
@@ -380,7 +380,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     val key = now.toLocalDate().toString()
     val kahf = prefs.getBoolean("kahf_$key", false)
     val salawat = prefs.getInt("salawat_$key", 0)
-    Row(modifier.fillMaxWidth().wrapContentWidth(Alignment.CenterHorizontally).widthIn(max = if (tablet) 420.dp else if(short)360.dp else 300.dp).padding(top = if (short) 0.dp else 5.dp).height(if (tablet) 56.dp else 52.dp),
+    Row(modifier.fillMaxWidth().wrapContentWidth(Alignment.CenterHorizontally).widthIn(max = if (tablet) 420.dp else if(short)360.dp else 300.dp).padding(top = if (short) 0.dp else 5.dp).height(if (tablet) {if(L10n.isUrdu(s))64.dp else 56.dp} else 52.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         listOf(Triple(Icons.Filled.MenuBook, words(s, "Al-Kahf", "سورۃ الکہف"), words(s, if (kahf) "Read this Friday ✓" else "Mark as read", if (kahf) "پڑھ لی ✓" else "پڑھنے کا اندراج")),
             Triple(Icons.Outlined.FavoriteBorder, words(s, "Salawat", "درود شریف"), words(s, "$salawat this Friday", "اس جمعہ: $salawat"))).forEachIndexed { i, item ->
@@ -726,6 +726,20 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
 }
 
 @Composable private fun FridayMiqaatHeader(modifier: Modifier, alignment: Alignment = Alignment.BottomCenter, scale:ContentScale = ContentScale.Crop) {
-    Image(painterResource(R.drawable.friday_miqaat_header), null, modifier.clip(RoundedCornerShape(8.dp)), contentScale = scale, alignment = alignment)
+    if(scale==ContentScale.FillBounds) {
+        val art=ImageBitmap.imageResource(R.drawable.friday_miqaat_header)
+        Canvas(modifier.clip(RoundedCornerShape(8.dp))) {
+            val w=size.width.roundToInt();val h=size.height.roundToInt()
+            drawImage(art,dstSize=IntSize(w,h),filterQuality=FilterQuality.High)
+            // Preserve the palms' proportions in the shallow panorama. Their
+            // positions avoid the live location, central clock and action icons.
+            fun palm(x:Int,y:Int,sw:Int,sh:Int,at:Float) {
+                val dh=(h*.88f).roundToInt();val dw=(dh*sw.toFloat()/sh).roundToInt()
+                drawImage(art,IntOffset(x,y),IntSize(sw,sh),IntOffset((w*at).roundToInt(),h-dh),IntSize(dw,dh),filterQuality=FilterQuality.High)
+            }
+            palm(270,410,280,314,.25f)
+            palm(1670,370,390,354,.77f)
+        }
+    } else Image(painterResource(R.drawable.friday_miqaat_header), null, modifier.clip(RoundedCornerShape(8.dp)), contentScale = scale, alignment = alignment)
 }
 
