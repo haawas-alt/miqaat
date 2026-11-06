@@ -225,6 +225,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                 // the approved boards. Painting separate hero-only rectangles cut
                 // the courtyard off immediately above the buttons.
                 BoxWithConstraints(m) {
+                    val artworkHeight=maxHeight
                     val artworkPanelInset = when {
                         s.theme == AppTheme.KISWAH -> maxWidth * (if(wide) .24f else if(tablet) .20f else .15f)
                         s.theme == AppTheme.MIQAAT && wide -> maxWidth * .30f
@@ -258,7 +259,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                                 AppTheme.MIQAAT -> .02f
                                 else -> 0f
                             }
-                            Spacer(Modifier.height(maxHeight*floor))
+                            Spacer(Modifier.height(artworkHeight*floor))
                         }
                     }
                 }
