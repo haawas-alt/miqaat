@@ -14,12 +14,10 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -102,14 +100,20 @@ internal fun PhoneLandscapePeriodArt(index:Int,modifier:Modifier) {
 /** Keep decorative scene edges out of the live hero typography without cutting off the artwork. */
 @Composable
 private fun LandscapePainting(resource:Int,theme:AppTheme,modifier:Modifier) {
-    if(theme==AppTheme.CELESTIAL_MERIDIAN) {
-        Image(painterResource(resource),null,modifier,contentScale=ContentScale.FillBounds)
-        return
-    }
     val bitmap=ImageBitmap.imageResource(resource)
     Canvas(modifier) {
-        val source=if(theme==AppTheme.PRAYER_GALLERY)listOf(0f,.08f,.65f,1f)else if(theme==AppTheme.MIQAAT)listOf(0f,.565f,1f)else listOf(0f,.80f,1f)
-        val target=if(theme==AppTheme.PRAYER_GALLERY)listOf(0f,.08f,.75f,1f)else if(theme==AppTheme.MIQAAT)listOf(0f,.59f,1f)else listOf(0f,.86f,1f)
+        val source=when(theme) {
+            AppTheme.PRAYER_GALLERY->listOf(0f,.08f,.65f,1f)
+            AppTheme.MIQAAT->listOf(0f,.565f,1f)
+            AppTheme.CELESTIAL_MERIDIAN->listOf(0f,.64f,1f)
+            else->listOf(0f,.80f,1f)
+        }
+        val target=when(theme) {
+            AppTheme.PRAYER_GALLERY->listOf(0f,.08f,.80f,1f)
+            AppTheme.MIQAAT->listOf(0f,.62f,1f)
+            AppTheme.CELESTIAL_MERIDIAN->listOf(0f,.70f,1f)
+            else->listOf(0f,.86f,1f)
+        }
         val sourceY=if(theme==AppTheme.MIQAAT)listOf(0f,.60f,.80f,1f)else listOf(0f,1f)
         val targetY=if(theme==AppTheme.MIQAAT)listOf(0f,.60f,.72f,1f)else listOf(0f,1f)
         for(i in 0 until source.lastIndex)for(j in 0 until sourceY.lastIndex) {

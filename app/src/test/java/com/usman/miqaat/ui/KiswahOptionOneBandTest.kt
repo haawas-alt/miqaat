@@ -38,7 +38,8 @@ class KiswahOptionOneBandTest : ComposeSupport() {
                     }
                 }
                 val border=rule.onNodeWithTag("kiswah-band-ornament",true).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-                assertEquals(if(wide)1421f/168f else 876f/200f,border.width/border.height,.03f)
+                if(wide) assertTrue("Landscape band must match the shallow approved banner",border.width/border.height in 14f..20f)
+                else assertEquals(876f/200f,border.width/border.height,.03f)
                 scenario.onActivity { act ->
                     val v=act.findViewById<View>(android.R.id.content)
                     val bitmap=Bitmap.createBitmap(v.width,v.height,Bitmap.Config.ARGB_8888)
@@ -73,8 +74,8 @@ class KiswahOptionOneBandTest : ComposeSupport() {
                     Box(Modifier.width(if(wide)844.dp else 390.dp).padding(8.dp)) { KiswahOptionOneBand(wide) }
                 }
                 val ornament=rule.onNodeWithTag("kiswah-band-ornament",true).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-                val approvedAspect=if(wide)1421f/168f else 876f/200f
-                assertEquals("The approved frame must not be flattened",approvedAspect,ornament.width/ornament.height,.03f)
+                if(wide) assertTrue("Landscape frame must keep the approved shallow proportion",ornament.width/ornament.height in 14f..20f)
+                else assertEquals("Portrait frame aspect changed",876f/200f,ornament.width/ornament.height,.03f)
                 val node=rule.onNodeWithTag("kiswah-calligraphy-band",true).fetchSemanticsNode()
                 val layouts=mutableListOf<TextLayoutResult>()
                 node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)

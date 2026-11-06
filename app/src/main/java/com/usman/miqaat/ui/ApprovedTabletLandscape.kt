@@ -33,12 +33,11 @@ import androidx.compose.ui.unit.*
 import com.usman.miqaat.R
 import com.usman.miqaat.data.*
 
-/** Only the two approved tablet landscape boards opt in. Every other home keeps its renderer. */
+/** All four approved themes use the purpose-built tablet landscape board. */
 @Composable
 internal fun approvedTabletLandscape(s: AppSettings): Boolean {
     val c=LocalConfiguration.current
-    return c.orientation==Configuration.ORIENTATION_LANDSCAPE && minOf(c.screenWidthDp,c.screenHeightDp)>=600 &&
-        s.theme in listOf(AppTheme.MIQAAT,AppTheme.PRAYER_GALLERY)
+    return c.orientation==Configuration.ORIENTATION_LANDSCAPE && minOf(c.screenWidthDp,c.screenHeightDp)>=600
 }
 
 @OptIn(androidx.compose.ui.text.ExperimentalTextApi::class)
@@ -54,6 +53,7 @@ private fun tabletUi(s:AppSettings)=if(L10n.isUrdu(s)) Amiri else ApprovedBody
 internal fun ApprovedTabletLandscapeHome(state:PrayerState,s:AppSettings,a:HomeActions) {
     val tk=ThemeTokenSets.of(s.theme)
     val gallery=s.theme==AppTheme.PRAYER_GALLERY
+    val kiswah=s.theme==AppTheme.KISWAH
     val hero=heroInfo(state,s,kicker(state,s))
     val links=doors(state,s,a)
     var why by remember { mutableStateOf<Prayer?>(null) }
@@ -65,11 +65,19 @@ internal fun ApprovedTabletLandscapeHome(state:PrayerState,s:AppSettings,a:HomeA
     BoxWithConstraints(Modifier.fillMaxSize().clipToBounds().background(tk.background).testTag("approved-home")) {
         val k=(maxWidth.value/1280f).coerceIn(.72f,1.35f)
         val compact=maxHeight<700.dp
-        if(s.artTheme!=ArtTheme.MINIMAL) Image(painterResource(if(gallery) R.drawable.tablet_gallery_paper_181 else R.drawable.tablet_miqaat_181),
-            null,Modifier.fillMaxSize().graphicsLayer(scaleX=if(!gallery && L10n.isUrdu(s))-1f else 1f).testTag("tablet-approved-art"),contentScale=ContentScale.FillBounds)
+        val artwork=when(s.theme) {
+            AppTheme.MIQAAT->R.drawable.tablet_miqaat_181
+            AppTheme.KISWAH->R.drawable.home_kiswah_v172
+            AppTheme.CELESTIAL_MERIDIAN->R.drawable.home_celestial_v172
+            AppTheme.PRAYER_GALLERY->R.drawable.tablet_gallery_paper_181
+        }
+        if(s.artTheme!=ArtTheme.MINIMAL) Image(painterResource(artwork),null,Modifier.fillMaxSize()
+            .graphicsLayer(scaleX=if(s.theme==AppTheme.MIQAAT && L10n.isUrdu(s))-1f else 1f)
+            .testTag("tablet-approved-art"),contentScale=ContentScale.FillBounds)
         Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().displayCutoutPadding()
             .padding(horizontal=(24*k).dp).padding(bottom=((if(gallery)12 else 16)*k).dp).testTag("tablet-approved-${s.theme.name}")) {
             TabletHeader(state,s,a,tk,k)
+            if(kiswah) KiswahOptionOneBand(wide=true)
             if(gallery) {
                 val seasonal=fastProgress(state,s)!=null || tarawihLine(state,s)!=null
                 Column(Modifier.weight(1f).fillMaxWidth(),verticalArrangement=Arrangement.spacedBy((9*k).dp)) {
@@ -89,8 +97,13 @@ internal fun ApprovedTabletLandscapeHome(state:PrayerState,s:AppSettings,a:HomeA
             } else {
                 Row(Modifier.weight(1f).fillMaxWidth().padding(top=(8*k).dp).testTag("home-prayers"),
                     horizontalArrangement=Arrangement.spacedBy((12*k).dp)) {
+                    val panel=when(s.theme) {
+                        AppTheme.KISWAH->Color(0xFF050504)
+                        AppTheme.CELESTIAL_MERIDIAN->Color(0xFF03152B)
+                        else->Color(0xFF001629)
+                    }
                     Column(Modifier.weight(.51f).fillMaxHeight().clip(RoundedCornerShape(12.dp))
-                        .background(Color(0xFF001629).copy(alpha=.94f)).border(.8.dp,tk.outline.copy(alpha=.8f),RoundedCornerShape(12.dp))) {
+                        .background(panel.copy(alpha=.94f)).border(.8.dp,tk.outline.copy(alpha=.8f),RoundedCornerShape(12.dp))) {
                         listedPrayers(s).forEach { p -> TabletPrayer(galleryRowInfo(p,state,s),s,a,tk,k,compact,
                             Modifier.weight(1f).fillMaxWidth(),false) { why=p } }
                     }
@@ -144,13 +157,14 @@ private fun TabletHeader(state:PrayerState,s:AppSettings,a:HomeActions,tk:ThemeT
 
 @Composable
 private fun TabletMiqaatHero(state:PrayerState,s:AppSettings,tk:ThemeTokens,hero:HeroInfo,k:Float,modifier:Modifier,onDetails:()->Unit) {
+    val kiswah=s.theme==AppTheme.KISWAH
     Column(modifier.padding(bottom=(56*k).dp).semantics(mergeDescendants=true) { contentDescription=hero.spoken;heading() },
         horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
         Text(hero.special?:hero.kickerLabel,fontFamily=tabletUi(s),fontSize=(17*k).sp,lineHeight=(22*k).sp,
             letterSpacing=if(L10n.isUrdu(s))0.sp else 2.sp,color=tk.primary,textAlign=TextAlign.Center,maxLines=2,style=tabletNativeText)
-        Text(hero.arabic,Modifier.testTag("approved-hero-arabic"),fontFamily=Amiri,fontSize=(64*k).sp,lineHeight=(84*k).sp,
+        Text(hero.arabic,Modifier.testTag("approved-hero-arabic"),fontFamily=if(kiswah)ReemKufi else Amiri,fontSize=((if(kiswah)58 else 64)*k).sp,lineHeight=((if(kiswah)72 else 84)*k).sp,
             color=tk.primary,fontWeight=FontWeight.Bold,style=tabletNativeText)
-        if(!L10n.isUrdu(s)) Text(hero.label.uppercase(),fontFamily=tabletDisplay(tk),fontSize=(28*k).sp,lineHeight=(34*k).sp,
+        if(!L10n.isUrdu(s)) Text(hero.label.uppercase(),fontFamily=if(kiswah)Cinzel else tabletDisplay(tk),fontSize=(28*k).sp,lineHeight=(34*k).sp,
             letterSpacing=2.sp,color=tk.contentPrimary,maxLines=1,style=tabletNativeText)
         Spacer(Modifier.height((6*k).dp))
         TabletHeroClock(hero,s,tk,k,88f,"approved-hero-clock")

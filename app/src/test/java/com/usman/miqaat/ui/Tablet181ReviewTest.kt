@@ -38,7 +38,7 @@ class Tablet181ReviewTest:ComposeSupport() {
             shadowOf(app).grantPermissions(Manifest.permission.POST_NOTIFICATIONS)
             ShadowAlarmManager.setCanScheduleExactAlarms(true)
             shadowOf(manager).setNotificationsEnabled(true)
-            for(theme in listOf(AppTheme.MIQAAT,AppTheme.PRAYER_GALLERY).filter {
+            for(theme in AppTheme.entries.filter {
                 System.getenv("MIQAAT_VISUAL_THEME").let { v->v==null||v==it.name } })
             for(lang in Language.entries)
             for(c in listOf(Case("mockup"),Case("small",960,600),Case("font110",scale=1.1f),
@@ -73,7 +73,7 @@ class Tablet181ReviewTest:ComposeSupport() {
                     val hero=rule.onNodeWithTag("home-hero",true).fetchSemanticsNode().boundsInRoot
                     val fajr=rule.onNodeWithTag("approved-row-FAJR",true).fetchSemanticsNode().boundsInRoot
                     val timeline=rule.onNodeWithTag("approved-day-timeline",true).fetchSemanticsNode().boundsInRoot
-                    if(theme==AppTheme.MIQAAT) assertTrue("Miqaat prayer panel and hero share a horizontal board",
+                    if(theme!=AppTheme.PRAYER_GALLERY) assertTrue("Dark-theme prayer panel and hero share a horizontal board",
                         if(lang==Language.EN)fajr.right<=hero.left else fajr.left>=hero.right)
                     else {
                         val asr=rule.onNodeWithTag("approved-row-ASR",true).fetchSemanticsNode().boundsInRoot
@@ -85,6 +85,11 @@ class Tablet181ReviewTest:ComposeSupport() {
                     rule.onNodeWithContentDescription(Str[R.string.s_learn_salah]).performClick();assertEquals(1,learn)
                     rule.onNodeWithContentDescription(Str[R.string.s_monthly_timetable]).performClick();assertEquals(1,timetable)
                     rule.onNodeWithTag("approved-row-FAJR",true).performClick();assertEquals(1,toggles)
+                    if(theme==AppTheme.KISWAH) {
+                        val frame=rule.onNodeWithTag("kiswah-calligraphy-frame",true).fetchSemanticsNode().boundsInRoot
+                        assertTrue("Kiswah embroidery must retain approved visual weight",frame.height>=48*app.resources.displayMetrics.density-.1f)
+                        rule.onNodeWithTag("kiswah-calligraphy-band",true).assertIsDisplayed()
+                    }
                     if(theme==AppTheme.PRAYER_GALLERY) {
                         rule.onNodeWithText(if(lang==Language.UR)"نماز کی تیاری" else "Prepare for ${heroInfo(state,s,null).label}",useUnmergedTree=true).performClick()
                         assertEquals(state.hero,prepared)

@@ -57,13 +57,13 @@ jobs:
           name: tablet-design-${{ matrix.theme }}-${{ github.run_attempt }}
           path: early/*.zip
           retention-days: 7
-      - name: Capture approved phone landscape baseline before portrait changes
+      - name: Capture pre-fix phone landscape baseline
         shell: bash
         run: |
           set -euo pipefail
           trap 'git restore --source=HEAD --worktree app/src/main' EXIT
-          git restore --source=bc2e2290cf8a8eac160b0d1e0f58d157d4729be0 --worktree app/src/main
-          GITHUB_SHA=bc2e2290cf8a8eac160b0d1e0f58d157d4729be0 ./gradlew --no-daemon testGithubDebugUnitTest --tests '*ApprovedPhoneLandscapeAcceptanceTest'
+          git restore --source=753a2c1fa0597a910a430151d898f129c3594c7e --worktree app/src/main
+          GITHUB_SHA=753a2c1fa0597a910a430151d898f129c3594c7e ./gradlew --no-daemon testGithubDebugUnitTest --tests '*ApprovedPhoneLandscapeAcceptanceTest'
           cp -a app/build/phone-landscape app/build/landscape-baseline
           git restore --source=HEAD --worktree app/src/main
           trap - EXIT
@@ -77,7 +77,7 @@ jobs:
           cp -a app/build/protected-home app/build/protected-baseline
           git restore --source=HEAD --worktree app/src/main
           trap - EXIT
-      - name: Require phone portrait, tablet portrait and deferred tablet themes unchanged
+      - name: Require phone and tablet portrait homes unchanged
         run: |
           GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*RetainedHome181Test'
           python3 -m pip install Pillow==11.3.0
@@ -86,10 +86,21 @@ jobs:
         run: GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*PortraitPolishAcceptanceTest' --tests '*Portrait179ReviewTest' --tests '*Tablet181ReviewTest' --tests '*GalleryTabletLandscapeTest' --tests '*LandscapeMockupParityTest' --tests '*KiswahOptionOneBandTest' --tests '*DetailedGalleryAcceptanceTest' --tests '*ApprovedPhoneRefinementAcceptanceTest' --tests '*ThemeSelectionTest' --tests '*ApprovedPhoneLandscapeAcceptanceTest' --tests '*ApprovedHomeAcceptanceTest' --tests '*ApprovedQuietAcceptanceTest' --tests '*ApprovedIqamahAcceptanceTest' --tests '*IqamahCounterTest'
       - name: Render candidate landscape in the same isolated test process as baseline
         run: GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*ApprovedPhoneLandscapeAcceptanceTest'
-      - name: Require all phone landscape captures to match approved version
+      - name: Measure phone landscape revision against pre-fix native captures
         run: |
           python3 -m pip install Pillow==11.3.0
-          python3 tools/verify_landscape_unchanged.py app/build/landscape-baseline app/build/phone-landscape candidate/landscape-unchanged.json
+          python3 tools/compare_visual_revision.py app/build/landscape-baseline app/build/phone-landscape candidate/visual-diff.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: visual-comparison-${{ matrix.theme }}-${{ github.run_attempt }}
+          retention-days: 30
+          path: |
+            app/build/landscape-baseline/${{ matrix.theme }}/
+            app/build/phone-landscape/${{ matrix.theme }}/
+            app/build/tablet-polish/${{ matrix.theme }}/
+            candidate/visual-diff.json
+            candidate/visual-diff.jpg
       # Public artifacts contain ciphertext only. The reviewer private key is never
       # placed in source, runner environment, logs or uploaded artifacts.
       - name: Encrypt captures for private visual audit

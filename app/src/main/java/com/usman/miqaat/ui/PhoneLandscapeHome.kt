@@ -81,15 +81,14 @@ internal fun PhoneLandscapeHome(state: PrayerState, s: AppSettings, a: HomeActio
                     } else LandscapeHomeHero(hero,state,s,Modifier.weight(.38f).fillMaxHeight(),a.onToggleRelative){why=hero.prayer}
                 }
               }
-                if(!shortKiswah) Box(Modifier.fillMaxWidth().height(if(s.theme==AppTheme.KISWAH)if(urdu)39.dp else 35.dp else if(LocalConfiguration.current.screenHeightDp>=390)52.dp else 40.dp).testTag("landscape-timeline-panel")) {ApprovedTimeline(state,s,tk,Modifier.fillMaxSize().padding(start=if(LocalConfiguration.current.screenWidthDp>=840)36.dp else 0.dp,end=if(LocalConfiguration.current.screenWidthDp>=840)136.dp else 0.dp),landscape=true)}
+                if(!shortKiswah) Box(Modifier.fillMaxWidth().height(if(s.theme==AppTheme.KISWAH)if(urdu)39.dp else 35.dp else if(LocalConfiguration.current.screenHeightDp>=390)52.dp else 40.dp).testTag("landscape-timeline-panel")) {ApprovedTimeline(state,s,tk,Modifier.fillMaxSize(),landscape=true)}
                 val qibla=if(s.showQibla)links.firstOrNull()else null
                 val adhkar=links.firstOrNull{it.kind==DoorKind.ADHKAR}
                 val warning=links.firstOrNull{it.warn}
-                Row(Modifier.fillMaxWidth().padding(end=44.dp).heightIn(min=48.dp).testTag("landscape-context-actions"),horizontalArrangement=Arrangement.spacedBy(12.dp),verticalAlignment=Alignment.CenterVertically) {
-                    if(qibla!=null)LandscapeHomeDoor(qibla.label,Icons.Outlined.Explore,s,Modifier.weight(.25f).testTag("landscape-door-0"),footer=true,onClick={qibla.onClick?.invoke()})
-                    LandscapeHomeDoor(adhkar?.label?:L10n.t("Adhkar","اذکار"),Icons.Outlined.MenuBook,s,Modifier.weight(.24f).testTag("landscape-door-1"),footer=true,onClick={if(adhkar!=null)adhkar.onClick?.invoke()else a.onOpenAdhkar(AdhkarMode.MORNING)})
-                    Spacer(Modifier.weight(.13f))
-                    Box(Modifier.weight(.38f)) {
+                Row(Modifier.fillMaxWidth().heightIn(min=48.dp).testTag("landscape-context-actions"),horizontalArrangement=Arrangement.spacedBy(12.dp),verticalAlignment=Alignment.CenterVertically) {
+                    if(qibla!=null)LandscapeHomeDoor(qibla.label,Icons.Outlined.Explore,s,Modifier.weight(.27f).testTag("landscape-door-0"),footer=true,onClick={qibla.onClick?.invoke()})
+                    LandscapeHomeDoor(adhkar?.label?:L10n.t("Adhkar","اذکار"),Icons.Outlined.MenuBook,s,Modifier.weight(.28f).testTag("landscape-door-1"),footer=true,onClick={if(adhkar!=null)adhkar.onClick?.invoke()else a.onOpenAdhkar(AdhkarMode.MORNING)})
+                    Box(Modifier.weight(.45f)) {
                         LandscapeHomeDoor(if(warning!=null)L10n.t("Alerts need attention · Fix","انتباہات پر توجہ دیں · درست کریں")else L10n.t("More actions","مزید اختیارات"),
                             if(warning!=null)Icons.Outlined.WarningAmber else Icons.Outlined.MoreHoriz,s,
                             Modifier.fillMaxWidth().testTag("landscape-more-actions").semantics{contentDescription=warning?.label?:L10n.word(s,"More actions")},warn=warning!=null,footer=true,onClick={more=true})
@@ -175,7 +174,7 @@ private fun FittedLandscapeLine(text:androidx.compose.ui.text.AnnotatedString,mo
 @Composable
 private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modifier:Modifier,onToggle:()->Unit,onDetails:()->Unit) {
     val c=quietPalette(s.theme);val urdu=L10n.isUrdu(s);val gallery=s.theme==AppTheme.PRAYER_GALLERY
-    BoxWithConstraints(modifier.testTag("landscape-authored-hero").padding(end=if(gallery)40.dp else if(s.theme==AppTheme.KISWAH)44.dp else 0.dp),contentAlignment=Alignment.Center) {
+    BoxWithConstraints(modifier.testTag("landscape-authored-hero").padding(end=if(gallery)22.dp else if(s.theme==AppTheme.KISWAH)28.dp else 0.dp),contentAlignment=Alignment.Center) {
         val kiswah=s.theme==AppTheme.KISWAH
         val heroStyle=TextStyle(platformStyle=PlatformTextStyle(includeFontPadding=false),shadow=if(gallery||kiswah)null else Shadow(Color.Black.copy(alpha=.85f),Offset(0f,1.5f),4f))
         val microKiswah=kiswah && maxHeight<150.dp
@@ -204,7 +203,7 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
             if(hero.suffix.isNotBlank()) {val start=heroClock.indexOf(hero.suffix);if(start>=0)addStyle(SpanStyle(fontSize=14.sp,baselineShift=BaselineShift(.2f)),start,start+hero.suffix.length)}
         },Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.wrapContentHeight(unbounded=true)).testTag("landscape-hero-clock").clickable(role=Role.Button,onClick=onToggle),style=if(kiswah)heroStyle.copy(brush=Kiswah.goldText)else heroStyle,fontFamily=if(urdu)Amiri else if(kiswah)Cinzel else ApprovedDisplay,fontWeight=if(kiswah)FontWeight.Normal else FontWeight.Bold,
             fontSize=if(microKiswah)if(urdu)20.sp else 30.sp else if(urdu)25.sp else if(compactKiswah)if(tiny)38.sp else if(largeDisplay)64.sp else 58.sp else if(compact)40.sp else if(largeDisplay)64.sp else 62.sp,lineHeight=if(microKiswah)if(urdu)30.sp else 34.sp else if(urdu)if(paired)38.sp else 45.sp else if(compactKiswah)if(tiny)42.sp else 54.sp else if(compact)49.sp else 66.sp,letterSpacing=if(urdu)0.sp else if(kiswah)(-1).sp else 1.4.sp,color=if(kiswah)Color.Unspecified else if(gallery)c.accent else c.ink,textAlign=TextAlign.Center)}}
-        val galleryExtraInset=if(gallery&&maxWidth>=250.dp)60.dp else 0.dp
+        val galleryExtraInset=if(gallery&&maxWidth>=250.dp)16.dp else 0.dp
         Box(Modifier.fillMaxSize().padding(end=galleryExtraInset),contentAlignment=Alignment.Center) {
         Column(Modifier.widthIn(max=244.dp).fillMaxWidth().fillMaxHeight(),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             val kicker:@Composable (Modifier)->Unit={m->Box(m.then(if(urdu||paired)Modifier else Modifier.height(if(compactKiswah)if(largeDisplay)16.dp else 14.5.dp else if(largeDisplay)18.dp else 16.dp)),contentAlignment=Alignment.Center) {

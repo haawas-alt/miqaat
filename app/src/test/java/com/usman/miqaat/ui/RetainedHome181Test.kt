@@ -17,7 +17,7 @@ import org.robolectric.shadows.ShadowAlarmManager
 import java.io.File
 import java.time.ZonedDateTime
 
-/** Same isolated capture process before/after: phones, tablet portrait, and deferred tablet themes. */
+/** Same isolated capture process before/after: phone and tablet portrait homes. */
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk=[34])
@@ -33,8 +33,7 @@ class RetainedHome181Test:ComposeSupport() {
             shadowOf(manager).setNotificationsEnabled(true)
             for(theme in AppTheme.entries.filter { System.getenv("MIQAAT_VISUAL_THEME").let { v->v==null||v==it.name } })
             for(lang in Language.entries)
-            for(dev in listOf(Dev.PHONE_PORTRAIT,Dev.TABLET_PORTRAIT,Dev.TABLET_LANDSCAPE)) {
-                if(dev==Dev.TABLET_LANDSCAPE && theme in listOf(AppTheme.MIQAAT,AppTheme.PRAYER_GALLERY))continue
+            for(dev in listOf(Dev.PHONE_PORTRAIT,Dev.TABLET_PORTRAIT)) {
                 for(relative in if(dev==Dev.PHONE_PORTRAIT)listOf(false,true)else listOf(false)) {
                     val s=AppSettings(theme=theme,language=lang,latitude=-33.93,longitude=151.19,locationName="Mascot, NSW",
                         zoneId="Australia/Sydney",locationSet=true,setupDone=true,showRelative=relative,nightDim=false)

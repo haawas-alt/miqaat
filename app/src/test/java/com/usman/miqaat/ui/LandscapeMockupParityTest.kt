@@ -150,6 +150,12 @@ class LandscapeMockupParityTest:ComposeSupport() {
                 val grid=rule.onNodeWithTag("home-prayers",true).fetchSemanticsNode().boundsInRoot
                 val hero=rule.onNodeWithTag("landscape-authored-hero",true).fetchSemanticsNode().boundsInRoot
                 assertTrue("Reference grid/hero ratio drifted",grid.width/(grid.width+hero.width) in .61f.. .63f)
+                val footer=rule.onNodeWithTag("landscape-context-actions",true).fetchSemanticsNode().boundsInRoot
+                assertTrue("Landscape actions must use the full composition width",footer.width/board.width>=.94f)
+                if(t==AppTheme.KISWAH) {
+                    val frame=rule.onNodeWithTag("kiswah-calligraphy-frame",true).fetchSemanticsNode().boundsInRoot
+                    assertTrue("Kiswah banner lost its approved visual weight",frame.height/board.height in .12f.. .17f)
+                }
                 for(p in listedPrayers(s))for(k in listOf("name","time","detail"))readable("landscape-row-$k-${p.name}")
                 if(l==Language.EN)for(p in listedPrayers(s)) {
                     val name=rule.onNodeWithTag("landscape-row-name-${p.name}",true).fetchSemanticsNode().boundsInRoot
@@ -173,8 +179,8 @@ class LandscapeMockupParityTest:ComposeSupport() {
                 if(device=="reference"&&l==Language.EN) {
                     val first=rule.onNodeWithTag("approved-timeline-FAJR",true).fetchSemanticsNode().boundsInRoot
                     val last=rule.onNodeWithTag("approved-timeline-ISHA",true).fetchSemanticsNode().boundsInRoot
-                    assertTrue("Timeline first stop drifted from approved composition",(first.center.x-board.left)/board.width in .11f.. .15f)
-                    assertTrue("Timeline last stop extends past the approved Isha position",(last.center.x-board.left)/board.width in .75f.. .82f)
+                    assertTrue("Timeline first stop drifted from approved composition",(first.center.x-board.left)/board.width in .07f.. .11f)
+                    assertTrue("Timeline last stop drifted from approved composition",(last.center.x-board.left)/board.width in .89f.. .94f)
                     val clock=ink("landscape-hero-clock")
                     assertTrue("Hero clock lost the approved visual hierarchy",clock.height/board.height in .12f.. .23f)
                 }
