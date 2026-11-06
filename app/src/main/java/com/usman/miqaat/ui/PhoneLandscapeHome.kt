@@ -187,7 +187,7 @@ private fun LandscapeHomeHero(hero:HeroInfo,state:PrayerState,s:AppSettings,modi
         // These display fonts reserve much more ascent/descent than the six prayer
         // names use. Center their complete native text in optical slots; never clip
         // glyphs or spend the details button's independent 48dp touch target.
-        val arabicSlot=if(microKiswah)28.dp else if(s.theme==AppTheme.KISWAH)if(tiny)30.dp else if(compact)if(largeDisplay)40.dp else 38.dp else 54.dp else if(compact)38.dp else 54.dp
+        val arabicSlot=if(microKiswah)30.dp else if(s.theme==AppTheme.KISWAH)if(tiny)32.dp else if(compact)if(largeDisplay)45.dp else 43.dp else 57.dp else if(compact)38.dp else 54.dp
         val clockSlot=if(microKiswah)36.dp else if(compactKiswah)if(tiny)40.dp else 54.dp else if(compact)48.dp else if(largeDisplay)70.dp else 66.dp
         val name:@Composable (Modifier)->Unit={m->Column(m,horizontalAlignment=Alignment.CenterHorizontally) {
             Box(Modifier.fillMaxWidth().then(if(urdu)Modifier else Modifier.height(arabicSlot)),contentAlignment=Alignment.Center) {
