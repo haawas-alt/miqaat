@@ -52,7 +52,7 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
         if(s.artTheme!=ArtTheme.MINIMAL) {
             if(wide) {
                 val tablet=minOf(maxWidth,maxHeight)>=600.dp
-                FridayMihrabReveal(s,Modifier.fillMaxSize().padding(top=(if(tablet)62.dp else 48.dp)+fridayBandHeight(s.theme,tablet,true,LocalDensity.current.fontScale),bottom=fridayDockHeight(tablet,true))
+                FridayMihrabReveal(s,Modifier.fillMaxSize().padding(top=(if(tablet)62.dp else 48.dp)+fridayBandHeight(s.theme,tablet,true,LocalDensity.current.fontScale),bottom=if(tablet)fridayDockHeight(tablet,true) else 0.dp)
                     .graphicsLayer{scaleX=if(L10n.isUrdu(s))-1f else 1f},R.drawable.friday_gallery_landscape,ContentScale.FillBounds)
                 Box(Modifier.matchParentSize().background(Brush.verticalGradient(0f to Color(0xFF03152D).copy(alpha=.40f),.25f to Color.Transparent,1f to Color(0xFF03152D).copy(alpha=.15f))))
             } else {
@@ -119,16 +119,16 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
         // a fixed six-line stack otherwise made the clock smaller than its countdown.
         val compactUrdu=ur && maxHeight.value/scale<300f
         val compactFooter=short||compactUrdu
-        val ar=if(short){if(ur)20f else 24f}else if(compactUrdu){if(tablet)40f else 36f}else if(tablet)64f else 48f
-        val kicker=if(short)8f else if(compactUrdu){if(tablet)12f else 10f}else if(tablet)15f else 12f
-        val relative=if(short)11f else if(compactUrdu){if(tablet)17f else 14f}else if(tablet)21f else 17f
+        val ar=if(short){if(ur)20f else 24f}else if(compactUrdu){if(tablet)40f else 36f}else if(tablet)68f else 52f
+        val kicker=if(short)8f else if(compactUrdu){if(tablet)12f else 10f}else if(tablet)17f else 14f
+        val relative=if(short)11f else if(compactUrdu){if(tablet)17f else 14f}else if(tablet)20f else 16f
         val metadata=if(short)7.5f else if(compactUrdu){if(tablet)10f else 8.5f}else if(tablet)11f else 9f
-        val day=if(short)9f else if(compactUrdu){if(tablet)12f else 11f}else if(tablet)16f else 13f
+        val day=if(short)9f else if(compactUrdu){if(tablet)12f else 11f}else if(tablet)17f else 14f
         // Amiri glyph extents exceed its requested line height at small sizes.
         // Reserve their measured ascent/descent before fitting the display clock.
         val line=if(ur)1.8f else 1.25f
         val fixed=ar*1.8f+kicker*line+relative*line+(if(compactFooter)maxOf(metadata,day) else metadata+day)*line+12f
-        val size=min(if(tablet)88f else if(short)56f else 68f,((maxHeight.value*.90f-6f)/scale-fixed).div(1.28f).coerceAtLeast(14f))
+        val size=min(if(tablet)80f else if(short)56f else 66f,((maxHeight.value*.90f-6f)/scale-fixed).div(1.28f).coerceAtLeast(14f))
         Column(Modifier.fillMaxSize().padding(top=maxHeight*.08f,bottom=4.dp).padding(horizontal=if(tablet)24.dp else 12.dp)
             .clickable(role=Role.Button,onClick=onDetails),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             label(if(s.jumuahEnabled && info.prayer==Prayer.DHUHR)"الجمعة" else info.arabic,ar,"friday-hero-arabic",c.accent,true)
@@ -148,15 +148,15 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
 @Composable internal fun GalleryFridayDock(s:AppSettings,state:PrayerState,a:HomeActions,tablet:Boolean,wide:Boolean) {
     val c=fridayOption2Palette(s.theme);val ur=L10n.isUrdu(s)
     val mode=adhkarModes(state,s).firstOrNull()?:AdhkarMode.MORNING
-    val inline=tablet||wide
+    val inline=tablet
     Row(Modifier.fillMaxWidth().height(fridayDockHeight(tablet,wide)).padding(vertical=3.dp)
         .background(c.background.copy(alpha=.92f),androidx.compose.foundation.shape.RoundedCornerShape(14.dp))
         .border(.7.dp,c.secondary.copy(alpha=.4f),androidx.compose.foundation.shape.RoundedCornerShape(14.dp)),
         verticalAlignment=Alignment.CenterVertically) {
         Box(Modifier.weight(1f).fillMaxHeight().testTag("gallery-home-tab").clickable(role=Role.Tab,onClick={})
             .semantics{selected=true;contentDescription=if(ur)"ہوم" else "Home"},contentAlignment=Alignment.Center) {
-            Canvas(Modifier.size(48.dp)){drawCircle(Brush.radialGradient(listOf(c.accent.copy(alpha=.5f),Color.Transparent)),radius=size.minDimension*.5f)}
-            Icon(Icons.Filled.Home,null,Modifier.size(if(tablet)28.dp else 25.dp),tint=c.ink)
+            Canvas(Modifier.size(48.dp)){drawCircle(Brush.radialGradient(listOf(c.accent.copy(alpha=.65f),Color.Transparent)),radius=size.minDimension*.5f)}
+            Icon(Icons.Filled.Home,null,Modifier.size(if(tablet)32.dp else 28.dp),tint=c.ink)
         }
         val items=listOfNotNull(
             if(s.showQibla)Triple(Icons.Outlined.Explore,if(ur)"قبلہ" else "Qibla",a.onOpenQibla) else null,
@@ -164,12 +164,12 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
             Triple(Icons.Outlined.AutoStories,if(ur)"سیکھیں" else "Learn",a.onOpenLearn),
             Triple(Icons.Outlined.CalendarMonth,if(ur)"اوقات" else "Timetable",a.onOpenTimetable))
         items.forEach { (icon,label,action)->
-            Spacer(Modifier.width(.5.dp).fillMaxHeight(.45f).background(c.secondary.copy(alpha=.5f)))
+            Spacer(Modifier.width(.5.dp).fillMaxHeight(.45f).background(c.secondary.copy(alpha=.65f)))
             val item=Modifier.weight(1f).fillMaxHeight().clickable(role=Role.Button,onClick=action)
             val content:@Composable ()->Unit={
-                Icon(icon,label,Modifier.size(if(tablet)25.dp else 20.dp),tint=c.ink)
-                Text(label,fontFamily=if(ur)Amiri else FontFamily.Serif,fontSize=(if(tablet)15 else 10).sp,
-                    lineHeight=(if(tablet){if(ur)27f else 18.75f}else if(ur)18f else 12.5f).sp,color=c.ink,maxLines=1)
+                Icon(icon,label,Modifier.size(if(tablet)30.dp else 24.dp),tint=c.ink)
+                Text(label,fontFamily=if(ur)Amiri else FontFamily.Serif,fontSize=(if(tablet)16 else if(wide&&ur)10 else 11).sp,
+                    lineHeight=(if(tablet){if(ur)27f else 18.75f}else if(ur)18f else 13.75f).sp,color=c.ink,maxLines=1)
             }
             if(inline)Row(item,verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(if(tablet)8.dp else 5.dp,Alignment.CenterHorizontally)){content()}
             else Column(item,horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center){content()}

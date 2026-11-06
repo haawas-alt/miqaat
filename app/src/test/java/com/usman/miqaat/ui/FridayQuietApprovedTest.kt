@@ -321,6 +321,19 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     assertTrue("${theme.name} banner must span the whole home",kotlin.math.abs(banner.left-home.left)<1f&&kotlin.math.abs(banner.right-home.right)<1f)
                     assertTrue("${theme.name} banner must precede the hero",banner.bottom<=hero.top+1f)
                 }
+                if(dev==Dev.PHONE_LANDSCAPE) {
+                    rule.onAllNodesWithTag("friday-prayer-scroll",true).assertCountEquals(0)
+                    val viewport=rule.onNodeWithTag("friday-prayer-viewport",true).fetchSemanticsNode().boundsInRoot
+                    var previousBottom=viewport.top
+                    for(p in Prayer.entries) {
+                        val row=rule.onNodeWithTag("approved-row-${p.name}",true)
+                        row.assertIsDisplayed()
+                        val bounds=row.fetchSemanticsNode().boundsInRoot
+                        assertTrue("${theme.name} $p must be wholly visible without scrolling",bounds.top>=viewport.top-.5f&&bounds.bottom<=viewport.bottom+.5f)
+                        assertTrue("${theme.name} adjacent prayer targets must not overlap",bounds.top>=previousBottom-.5f)
+                        previousBottom=bounds.bottom
+                    }
+                }
                 readable("kiswah-calligraphy-band")
                 if(theme==AppTheme.CELESTIAL_MERIDIAN) {
                     for(tag in listOf("celestial-header-location","celestial-header-date","celestial-header-day","celestial-header-clock","celestial-banner-left","celestial-banner-right")) readable(tag)

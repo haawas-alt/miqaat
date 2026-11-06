@@ -126,8 +126,10 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
                 drawRect(Color(0xFF030404))
                 // The approved portrait arch is broad; do not squash the complete
                 // landscape painting into it. Preserve the embroidery as its own strip.
+                val archHeight=height-top
+                val archWidth=minOf(split,((end-left).toFloat()/art.height*archHeight).roundToInt())
                 drawImage(art,IntOffset(left,0),IntSize(end-left,art.height),
-                    IntOffset(0,top),IntSize(split,height-top),alpha=opacity,filterQuality=FilterQuality.High)
+                    IntOffset((split-archWidth)/2,top),IntSize(archWidth,archHeight),alpha=opacity,filterQuality=FilterQuality.High)
                 drawImage(art,IntOffset(strip,0),IntSize(art.width-strip,art.height),
                     IntOffset(split,0),IntSize(w-split,height),alpha=opacity,filterQuality=FilterQuality.High)
             }
