@@ -46,6 +46,16 @@ jobs:
             [ "$attempt" -lt 3 ] || exit 1
           done
           test -f "$ANDROID_HOME/ndk/28.2.13676358/build/cmake/android.toolchain.cmake"
+      - name: Capture Friday phone and tablet matrix
+        env:
+          MIQAAT_FRIDAY_AUDIT: '1'
+        run: GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*FridayVisualAuditTest'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: friday-audit-${{ matrix.theme }}-${{ github.run_attempt }}
+          path: app/build/friday-audit/${{ matrix.theme }}/
+          retention-days: 30
       - name: Early tablet and portrait design review renders
         run: GITHUB_SHA=$(git rev-parse HEAD) ./gradlew --no-daemon testGithubDebugUnitTest --tests '*PortraitPolishAcceptanceTest.portraitDesignReview' --tests '*Portrait179ReviewTest' --tests '*ThemeSelectionTest.phonePickerUsesPortraitPreviewsAndKeepsCardsSelectable' --tests '*Tablet181ReviewTest'
       - name: Seal early portrait review
