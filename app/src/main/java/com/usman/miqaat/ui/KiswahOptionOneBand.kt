@@ -37,11 +37,10 @@ internal fun KiswahOptionOneBand(wide: Boolean) {
     val measure = rememberTextMeasurer()
     BoxWithConstraints(Modifier.fillMaxWidth().padding(vertical = if (landscape) 0.dp else 5.dp)
         .testTag("kiswah-calligraphy-frame").background(Color(0xFF060605)), contentAlignment = Alignment.Center) {
-        // Phones keep the approved artwork's 1421:168 proportion. Tablet landscape uses
-        // a capped banner so the six prayer rows retain their full touch targets.
-        val phoneLandscape = landscape && configuration.screenHeightDp < 500
-        val height = if (phoneLandscape || !landscape) maxWidth * (bitmap.height.toFloat() / bitmap.width)
-            else (configuration.screenHeightDp * .13f).dp.coerceIn(48.dp, 64.dp)
+        // The landscape mockup uses a shallow stitched banner; portrait keeps the
+        // source artwork ratio. Clamp by viewport height so the vines never collapse.
+        val height = if (landscape) (configuration.screenHeightDp * .13f).dp.coerceIn(48.dp, 64.dp)
+            else maxWidth * (bitmap.height.toFloat() / bitmap.width)
         val rail = if (landscape) height * (38f / bitmap.height) else maxWidth * (46f / bitmap.width)
         val clearance = rail + if (landscape) 3.dp else 4.dp
         val text = if (landscape) Kiswah.BAND else Kiswah.BAND.substringBefore("   ✦   ")

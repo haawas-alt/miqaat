@@ -277,7 +277,7 @@ class LandscapeMockupParityTest:ComposeSupport() {
                     val frame=rule.onNodeWithTag("kiswah-calligraphy-frame",true).fetchSemanticsNode().boundsInRoot
                     val density=app.resources.displayMetrics.density
                     val text=ink("kiswah-calligraphy-band")
-                    val rail=frame.width*38f/1421f
+                    val rail=frame.height*38f/168f
                     // The approved image itself contains gold thread in the vine rail.
                     // Test actual Arabic ink clearance, rather than treating that gold as text.
                     assertTrue("Arabic touches top silver vine",text.top>=frame.top+rail+2*density)

@@ -74,7 +74,7 @@ class KiswahOptionOneBandTest : ComposeSupport() {
                     Box(Modifier.width(if(wide)844.dp else 390.dp).padding(8.dp)) { KiswahOptionOneBand(wide) }
                 }
                 val ornament=rule.onNodeWithTag("kiswah-band-ornament",true).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-                if(wide) assertEquals("Landscape frame aspect changed",1421f/168f,ornament.width/ornament.height,.03f)
+                if(wide) assertTrue("Landscape frame must keep the approved shallow proportion",ornament.width/ornament.height in 14f..20f)
                 else assertEquals("Portrait frame aspect changed",876f/200f,ornament.width/ornament.height,.03f)
                 val node=rule.onNodeWithTag("kiswah-calligraphy-band",true).fetchSemanticsNode()
                 val layouts=mutableListOf<TextLayoutResult>()
