@@ -305,7 +305,8 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
                     if(selected && !compactBadge) TabletBadge(r,s,marker,k)
                 }
                 if(r.small.isNotEmpty()) Text(r.small,Modifier.testTag("gallery-fit-detail-${r.prayer.name}"),fontFamily=tabletUi(s),
-                    fontSize=((if(gallery)16 else if(compact && s.iqamahEnabled)16 else 18)*k).sp,lineHeight=((if(L10n.isUrdu(s))32 else if(gallery)21 else if(compact && s.iqamahEnabled)20 else 24)*k).sp,
+                    fontSize=((if(gallery || (s.theme==AppTheme.KISWAH && compact))16 else if(compact && s.iqamahEnabled)16 else 18)*k).sp,
+                    lineHeight=((if(L10n.isUrdu(s))32 else if(gallery)21 else if((s.theme==AppTheme.KISWAH && compact)||(compact && s.iqamahEnabled))20 else 24)*k).sp,
                     color=tk.contentSecondary,maxLines=2,style=tabletNativeText)
             }
             if(r.prayer.isPrayer) Box(Modifier.width((28*k).dp).heightIn(min=48.dp).semantics {
