@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
@@ -258,6 +259,7 @@ private fun TabletGalleryArt(index:Int?,modifier:Modifier) {
 @Composable
 private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:Float,compact:Boolean,modifier:Modifier,gallery:Boolean,onWhy:()->Unit) {
     val selected=r.isNow||r.isNext
+    val fontScale=LocalDensity.current.fontScale
     val shape=RoundedCornerShape(if(gallery)10.dp else 11.dp)
     val marker=if(r.isNow)Color(0xFF0A8279) else if(gallery)Color(0xFFFFCF70) else tk.primary
     val accent=if(gallery)tk.accent else tk.primary
@@ -279,7 +281,7 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
             .padding(horizontal=((if(gallery)12 else 28)*k).dp),verticalAlignment=Alignment.CenterVertically) {
             Column(Modifier.fillMaxWidth(if(gallery).28f else .28f)) {
                 Text(r.label,Modifier.testTag("gallery-fit-label-${r.prayer.name}")
-                    .then(if(L10n.isUrdu(s))Modifier.heightIn(min=(72*k).dp) else Modifier),
+                    .then(if(L10n.isUrdu(s))Modifier.heightIn(min=if(gallery&&compact)72.dp else (72*k).dp) else Modifier),
                     fontFamily=if(L10n.isUrdu(s))Amiri else tabletDisplay(tk),fontWeight=FontWeight.Medium,
                     fontSize=((if(gallery && compact && L10n.isUrdu(s))19 else if(L10n.isUrdu(s))26 else if(gallery)24 else 32)*k).sp,
                     lineHeight=((if(L10n.isUrdu(s))32 else if(gallery)30 else 38)*k).sp,
@@ -308,7 +310,7 @@ private fun TabletPrayer(r:RowInfo,s:AppSettings,a:HomeActions,tk:ThemeTokens,k:
                 }
                 if(r.small.isNotEmpty()) Text(r.small,Modifier.testTag("gallery-fit-detail-${r.prayer.name}")
                     .then(if(L10n.isUrdu(s))Modifier.heightIn(min=if(!gallery&&compact)20.dp else 34.dp) else Modifier),fontFamily=tabletUi(s),
-                    fontSize=((if(L10n.isUrdu(s))15 else if(gallery || (s.theme==AppTheme.KISWAH && compact))16 else if(compact && s.iqamahEnabled)16 else 18)*k).sp,
+                    fontSize=((if(L10n.isUrdu(s)) (if(fontScale>1.05f)13.5f else 15f) else if(gallery || (s.theme==AppTheme.KISWAH && compact))16f else if(compact && s.iqamahEnabled)16f else 18f)*k).sp,
                     lineHeight=((if(L10n.isUrdu(s))22 else if(gallery)21 else if((s.theme==AppTheme.KISWAH && compact)||(compact && s.iqamahEnabled))20 else 24)*k).sp,
                     color=tk.contentSecondary,maxLines=2,style=tabletNativeText)
             }
