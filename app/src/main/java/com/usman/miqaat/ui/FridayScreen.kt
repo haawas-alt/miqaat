@@ -87,7 +87,7 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
                 IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = tk.contentPrimary) }
                 Column {
                     Text(Str[R.string.s_jumu_ah], fontFamily = tk.fontDisplay, fontSize = (34 * LocalK.current).sp, color = tk.contentPrimary, lineHeight = (36 * LocalK.current).sp)
-                    Text(if (L10n.uiUrdu) L10n.fridayDate(friday) else "يوم الجمعة  ·  ${friday.dayOfMonth} ${friday.month.name.lowercase().replaceFirstChar { it.uppercase() }}", fontFamily = tk.fontArabic, fontSize = (20 * LocalK.current).sp, color = tk.accent)
+                    Text(if (L10n.uiUrdu) L10n.fridayDate(friday) else "يوم الجمعة  ·  ${friday.dayOfMonth} ${friday.month.name.lowercase().replaceFirstChar { it.uppercase() }}", fontFamily = if (L10n.uiUrdu) uiFont(settings) else Amiri, fontSize = (20 * LocalK.current).sp, color = tk.accent)
                 }
             }
             Text(Str[R.string.s_the_best_day_on_which_the], fontFamily = tk.fontDisplay, fontSize = (18 * LocalK.current).sp, color = tk.contentSecondary,
@@ -95,10 +95,14 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
 
             val cards: @Composable (Modifier) -> Unit = { m ->
                 Card(m, Str[R.string.s_s_rat_al_kahf], "سورة الكهف", if (L10n.uiUrdu) "“${Ramadan.KAHF_NOTE_UR}” · ${Ramadan.KAHF_SRC_UR}" else "\"Whoever reads Sūrat al-Kahf on Friday, a light shines for him between the two Fridays\" · ${Ramadan.KAHF_SRC}") {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    val action: @Composable () -> Unit = {
                         Pill(if (kahf) Str[R.string.s_read_this_friday] else Str[R.string.s_mark_as_read], kahf) { kahf = !kahf; prefs.edit().putBoolean("kahf_$weekKey", kahf).apply() }
-                        Text(if (kahf) "" else Str[R.string.s_from_thursday_maghrib_to_friday_maghrib], fontFamily = tk.fontUi, fontSize = (12 * LocalK.current).sp, color = tk.contentSecondary)
                     }
+                    val window: @Composable () -> Unit = {
+                        Text(if (kahf) "" else Str[R.string.s_from_thursday_maghrib_to_friday_maghrib], modifier = Modifier.fillMaxWidth(), fontFamily = if (L10n.uiUrdu) uiFont(settings) else tk.fontUi, fontSize = (12 * LocalK.current).sp, color = tk.contentSecondary)
+                    }
+                    if (L10n.uiUrdu) Column(verticalArrangement = Arrangement.spacedBy(6.dp)) { action(); window() }
+                    else Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) { action(); window() }
                 }
                 Card(m, L10n.t("Ṣalawāt", "درود شریف"), "الصلاة على النبي ﷺ", if (L10n.uiUrdu) "“${Ramadan.SALAWAT_NOTE_UR}” (اقتباس) · ${Ramadan.SALAWAT_SRC_UR}" else "\"Increase your ṣalawāt upon me on Friday\" · ${Ramadan.SALAWAT_SRC}") {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
@@ -106,7 +110,7 @@ fun FridayScreen(settings: AppSettings, onBack: () -> Unit) {
                             Text("$salawat", fontFamily = tk.fontDisplay, fontSize = (26 * LocalK.current).sp, color = tk.onPrimary)
                         }
                         Column {
-                            Text("اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", fontFamily = tk.fontArabic, fontSize = (20 * LocalK.current).sp, color = tk.arabicText)
+                            Text("اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", fontFamily = Amiri, fontSize = (20 * LocalK.current).sp, color = tk.arabicText)
                             Text(Str[R.string.s_tap_the_circle_for_each_one], fontFamily = tk.fontUi, fontSize = (12 * LocalK.current).sp, color = tk.contentSecondary)
                         }
                     }
@@ -167,7 +171,7 @@ private fun Card(m: Modifier, title: String, arabic: String, source: String, con
     Column(m.clip(RoundedCornerShape(tk.cornerMedium)).background(tk.surface.copy(alpha = if (tk.dark) .88f else .94f))
         .border(1.dp, tk.outline.copy(alpha = .65f), RoundedCornerShape(tk.cornerMedium)).padding(if (compact) 10.dp else 16.dp)) {
         Text(title.uppercase(), fontFamily = tk.fontUi, fontSize = (11 * LocalK.current).sp, letterSpacing = 1.4.sp, fontWeight = FontWeight.Bold, color = tk.accent)
-        Text(arabic, fontFamily = tk.fontArabic, fontSize = (24 * LocalK.current).sp, lineHeight = (32 * LocalK.current).sp, color = tk.arabicText)
+        Text(arabic, fontFamily = Amiri, fontSize = (24 * LocalK.current).sp, lineHeight = (32 * LocalK.current).sp, color = tk.arabicText)
         Text(source, fontFamily = tk.fontUi, fontSize = (12 * LocalK.current).sp, color = tk.contentSecondary, lineHeight = (16 * LocalK.current).sp, modifier = Modifier.padding(bottom = if (compact) 6.dp else 12.dp))
         content()
     }
