@@ -210,7 +210,9 @@ class LandscapeMockupParityTest:ComposeSupport() {
     @Test fun relativeTimeFooterIsPinnedOnBeijingPhone() {
         for(t in themes())for(hour in listOf(14,17,22)) {
             val s=settings(t,Language.EN).copy(showRelative=true,latitude=39.95,longitude=116.27,zoneId="Asia/Shanghai",locationName=when(hour){22->"Xi Cheng Qu, Bei Jing Shi";17->"Chao Yang Qu, Bei Jing Shi";else->"Hai Dian Qu, Bei Jing Shi"})
-            app.settings.update{s};val st=PrayerEngine.state(s,ZonedDateTime.of(2026,10,23,hour,when(hour){22->4;17->27;else->35},0,0,s.zone()))
+            // Keep this legacy landscape contract on a normal weekday. Friday is
+            // intentionally routed to the separately approved Option 2 composition.
+            app.settings.update{s};val st=PrayerEngine.state(s,ZonedDateTime.of(2026,10,22,hour,when(hour){22->4;17->27;else->35},0,0,s.zone()))
             try {
                 show(Dev.PHONE_LANDSCAPE,t,qualifiers="w891dp-h411dp-land-xhdpi") {
                     Box(Modifier.padding(start=36.dp,bottom=12.dp)){HomeRouter(st,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{})}
@@ -334,4 +336,5 @@ class LandscapeMockupParityTest:ComposeSupport() {
         }
     }
 }
+
 
