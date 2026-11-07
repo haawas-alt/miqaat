@@ -15,6 +15,20 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
+/** Four small diamonds used by the approved MA2 header instead of a square grid. */
+@Composable internal fun Ma2FridayGridIcon(color: Color, modifier: Modifier) {
+    Canvas(modifier) {
+        val u=size.minDimension
+        val r=u*.14f
+        listOf(Offset(u*.31f,u*.31f),Offset(u*.69f,u*.31f),Offset(u*.31f,u*.69f),Offset(u*.69f,u*.69f)).forEach { c ->
+            val diamond=Path().apply {
+                moveTo(c.x,c.y-r);lineTo(c.x+r,c.y);lineTo(c.x,c.y+r);lineTo(c.x-r,c.y);close()
+            }
+            drawPath(diamond,color,style=Stroke(u*.075f,cap=StrokeCap.Round))
+        }
+    }
+}
+
 /** Distinct MA2 prayer symbols, drawn to match the approved gold line-art set. */
 @Composable internal fun Ma2FridayPrayerIcon(prayer: Prayer, color: Color, modifier: Modifier) {
     Canvas(modifier) {

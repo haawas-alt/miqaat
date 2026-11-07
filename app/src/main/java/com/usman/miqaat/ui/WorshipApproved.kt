@@ -203,14 +203,14 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 }
                 WorshipText(L10n.at(state.now, s.use24h), s, if (tablet) 22f else 16f, c.ink, Modifier.padding(horizontal = 8.dp), lines = 1)
                 }
+                if(s.theme==AppTheme.PRAYER_GALLERY) IconButton(onClick=a.onOpenSettings,modifier=Modifier.size(if(tablet)48.dp else 44.dp)) {
+                    Icon(Icons.Outlined.Settings,Str[R.string.s_settings],Modifier.size(if(tablet)24.dp else 22.dp),tint=c.accent)
+                }
                 if (s.theme == AppTheme.MIQAAT || s.theme == AppTheme.PRAYER_GALLERY) Box {
                     IconButton(onClick = { more = true }, modifier = Modifier.size(if(s.theme==AppTheme.PRAYER_GALLERY&&!tablet)44.dp else 48.dp)) {
-                        Icon(when (s.theme) {
-                            AppTheme.MIQAAT -> Icons.Outlined.AccessTime
-                            AppTheme.PRAYER_GALLERY -> Icons.Outlined.GridView
-                            else -> Icons.Outlined.MoreVert
-                        }, words(s, "More actions and alerts", "مزید اختیارات اور انتباہات"),
-                            Modifier.size(if(s.theme==AppTheme.PRAYER_GALLERY) { if(tablet)22.dp else 20.dp } else 24.dp), tint = c.accent)
+                        if(s.theme==AppTheme.PRAYER_GALLERY) Ma2FridayGridIcon(c.accent,Modifier.size(if(tablet)22.dp else 20.dp)
+                            .semantics { contentDescription=words(s,"More actions and alerts","مزید اختیارات اور انتباہات") })
+                        else Icon(Icons.Outlined.AccessTime,words(s,"More actions and alerts","مزید اختیارات اور انتباہات"),Modifier.size(24.dp),tint=c.accent)
                     }
                     DropdownMenu(expanded = more, onDismissRequest = { more = false }) {
                         contextLinks.forEach { link -> DropdownMenuItem(text = { Text(link.label) }, onClick = {
@@ -218,9 +218,9 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                         }) }
                     }
                 }
-                IconButton(onClick = a.onOpenSettings, modifier = Modifier.size(if(s.theme==AppTheme.PRAYER_GALLERY&&!tablet)44.dp else 48.dp)) {
+                if(s.theme!=AppTheme.PRAYER_GALLERY) IconButton(onClick = a.onOpenSettings, modifier = Modifier.size(48.dp)) {
                     Icon(Icons.Outlined.Settings, Str[R.string.s_settings],
-                        Modifier.size(if(s.theme==AppTheme.PRAYER_GALLERY) { if(tablet)24.dp else 22.dp } else 24.dp),
+                        Modifier.size(24.dp),
                         tint = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent)
                 }
             }
@@ -448,7 +448,8 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                     horizontalArrangement = Arrangement.spacedBy(if(tablet)11.dp else 9.dp, Alignment.CenterHorizontally)) {
                     if (i == 1 && s.theme == AppTheme.PRAYER_GALLERY) Ma2FridaySalawatIcon(c.accent, Modifier.size(if(tablet)31.dp else 25.dp))
                     else if (i == 1) SalawatBeads(if (s.theme == AppTheme.MIQAAT) Color.White else c.accent, Modifier.size(if (tablet) 29.dp else 23.dp))
-                    else Icon(item.first, null, Modifier.size(if (tablet) 28.dp else 23.dp), tint = if(s.theme == AppTheme.MIQAAT) Color.White else c.accent)
+                    else Icon(if(s.theme==AppTheme.PRAYER_GALLERY)Icons.Outlined.MenuBook else item.first, null,
+                        Modifier.size(if (tablet) 28.dp else 23.dp), tint = if(s.theme == AppTheme.MIQAAT) Color.White else c.accent)
                     WorshipText(item.second, s,
                         if (tablet) 17f else if (s.theme == AppTheme.MIQAAT) 15f else 14f,
                         if(s.theme == AppTheme.MIQAAT) Color.White else c.ink,
