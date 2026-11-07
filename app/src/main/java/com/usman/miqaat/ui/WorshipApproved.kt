@@ -348,26 +348,29 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 }
             }
             if (wide) banner()
-            if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(vertical = if(tablet)6.dp else 0.dp), horizontalArrangement = Arrangement.spacedBy(if (tablet) 20.dp else 10.dp)) {
-                prayers(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) (if(tablet).40f else .33f) else .40f).fillMaxHeight())
-                if (s.theme == AppTheme.PRAYER_GALLERY) Spacer(Modifier.weight(if(tablet).16f else .23f))
-                Column(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) .44f else .60f).fillMaxHeight()) {
+            if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(vertical = if(tablet)6.dp else 0.dp), horizontalArrangement = Arrangement.spacedBy(if (tablet) 16.dp else 8.dp)) {
+                // The approved boards devote roughly two thirds of landscape to
+                // artwork and live hero facts. Keep the timetable deliberately
+                // subordinate instead of allowing its utility rows to dominate.
+                prayers(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) (if(tablet).35f else .31f) else .35f).fillMaxHeight())
+                if (s.theme == AppTheme.PRAYER_GALLERY) Spacer(Modifier.weight(if(tablet).14f else .18f))
+                Column(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) (if(tablet).51f else .51f) else .65f).fillMaxHeight()) {
                     hero(Modifier.weight(1f).fillMaxWidth())
                     if(short) FridayDock(s, state, a, tablet, wide)
                 }
             } else {
                 banner()
-                val idealHeroHeight = if (tablet) (viewportHeight * .44f).coerceIn(440.dp, 600.dp)
-                    else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 250.dp else 320.dp)
-                    else if (s.theme == AppTheme.KISWAH) (if (smallPortrait) 250.dp else 320.dp)
-                    else if(s.theme == AppTheme.PRAYER_GALLERY) (if(smallPortrait)240.dp else 288.dp)
-                    else (if (smallPortrait) 240.dp else 300.dp)
+                val idealHeroHeight = if (tablet) (viewportHeight * .48f).coerceIn(460.dp, 640.dp)
+                    else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 264.dp else 342.dp)
+                    else if (s.theme == AppTheme.KISWAH) (if (smallPortrait) 270.dp else 350.dp)
+                    else if(s.theme == AppTheme.PRAYER_GALLERY) (if(smallPortrait)260.dp else 330.dp)
+                    else (if (smallPortrait) 258.dp else 334.dp)
                 val mastheadHeight = fridayBandHeight(s.theme,tablet,wide,typeScale)
                 val headerHeight = (if(tablet)62.dp else 48.dp) + if(s.theme==AppTheme.MIQAAT) {
                     if(tablet)80.dp else if(smallPortrait)44.dp else 48.dp
                 } else 0.dp
                 val dockHeight = fridayDockHeight(tablet,wide)
-                val shortcutsHeight = if(tablet){if(L10n.isUrdu(s))69.dp else 61.dp}else 57.dp
+                val shortcutsHeight = if(tablet){if(L10n.isUrdu(s))76.dp else 70.dp}else 66.dp
                 val prayerMinimum = (if(tablet)tabletPrayerRowHeight*typeScale else 48.dp)*listedPrayers(s).size
                 val availableHero = (safeHeight-headerHeight-mastheadHeight-dockHeight-6.dp-prayerMinimum)
                     .coerceAtLeast(140.dp+shortcutsHeight)
@@ -407,8 +410,11 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     val key = now.toLocalDate().toString()
     val kahf = prefs.getBoolean("kahf_$key", false)
     val salawat = prefs.getInt("salawat_$key", 0)
-    Row(modifier.fillMaxWidth().wrapContentWidth(Alignment.CenterHorizontally).widthIn(max = if (tablet) 420.dp else if(short)360.dp else 300.dp).padding(top = if (short) 0.dp else 5.dp).height(if (tablet) {if(L10n.isUrdu(s))64.dp else 56.dp} else 52.dp),
-        horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+    Row(modifier.fillMaxWidth().wrapContentWidth(Alignment.CenterHorizontally)
+        .widthIn(max = if (tablet) 500.dp else if(short)420.dp else 354.dp)
+        .padding(top = if (short) 0.dp else 6.dp)
+        .height(if (tablet) {if(L10n.isUrdu(s))72.dp else 66.dp} else 60.dp),
+        horizontalArrangement = Arrangement.spacedBy(if(tablet)12.dp else 9.dp)) {
         listOf(Triple(Icons.Filled.MenuBook, words(s, "Al-Kahf", "سورۃ الکہف"), words(s, if (kahf) "Read this Friday ✓" else "Mark as read", if (kahf) "پڑھ لی ✓" else "پڑھنے کا اندراج")),
             Triple(Icons.Outlined.FavoriteBorder, words(s, "Salawat", "درود شریف"), words(s, "$salawat this Friday", "اس جمعہ: $salawat"))).forEachIndexed { i, item ->
             WorshipSurface(s, Modifier.weight(1f).fillMaxHeight().background(Brush.verticalGradient(
@@ -417,14 +423,16 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                 .border(if (s.theme == AppTheme.MIQAAT) 0.dp else 1.25.dp, c.accent.copy(alpha=.95f), RoundedCornerShape(10.dp))
                 .clickable(role = Role.Button, onClick = a.onOpenFriday), fill=Color.Transparent,
                 framed = s.theme != AppTheme.MIQAAT && s.theme != AppTheme.KISWAH && s.theme != AppTheme.CELESTIAL_MERIDIAN && s.theme != AppTheme.PRAYER_GALLERY, cornerRadius = if (s.theme == AppTheme.MIQAAT || s.theme == AppTheme.KISWAH || s.theme == AppTheme.CELESTIAL_MERIDIAN || s.theme == AppTheme.PRAYER_GALLERY) 10.dp else 14.dp) {
-                Row(Modifier.fillMaxSize().padding(horizontal = if (tablet) 10.dp else 5.dp), verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
-                    if (i == 1) SalawatBeads(if (s.theme == AppTheme.MIQAAT) Color.White else c.accent, Modifier.size(if (tablet) 29.dp else 23.dp))
-                    else Icon(item.first, null, Modifier.size(if (tablet) 28.dp else 23.dp), tint = if(s.theme == AppTheme.MIQAAT) Color.White else c.accent)
-                    Column {
-                        WorshipText(item.second, s, if (tablet) 17f else if((s.theme==AppTheme.KISWAH || s.theme==AppTheme.CELESTIAL_MERIDIAN || s.theme==AppTheme.PRAYER_GALLERY))14f else 12f, if(s.theme == AppTheme.MIQAAT) Color.White else c.ink, Modifier.testTag("friday-action-title-$i"), lines = 1)
-                        WorshipText(item.third, s, if (tablet) 11f else if((s.theme==AppTheme.KISWAH || s.theme==AppTheme.CELESTIAL_MERIDIAN || s.theme==AppTheme.PRAYER_GALLERY))8.5f else 9f, if(s.theme == AppTheme.MIQAAT) Color(0xFFF5EBD8) else c.secondary, Modifier.testTag("friday-action-detail-$i"), lines = 1)
-                    }
+                Row(Modifier.fillMaxSize().padding(horizontal = if (tablet) 14.dp else 9.dp)
+                    .semantics { contentDescription = "${item.second}. ${item.third}" },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(if(tablet)11.dp else 9.dp, Alignment.CenterHorizontally)) {
+                    if (i == 1) SalawatBeads(if (s.theme == AppTheme.MIQAAT) Color.White else c.accent, Modifier.size(if (tablet) 34.dp else 28.dp))
+                    else Icon(item.first, null, Modifier.size(if (tablet) 33.dp else 28.dp), tint = if(s.theme == AppTheme.MIQAAT) Color.White else c.accent)
+                    WorshipText(item.second, s,
+                        if (tablet) 19f else if(s.theme==AppTheme.KISWAH || s.theme==AppTheme.CELESTIAL_MERIDIAN || s.theme==AppTheme.PRAYER_GALLERY)16f else 15f,
+                        if(s.theme == AppTheme.MIQAAT) Color.White else c.ink,
+                        Modifier.testTag("friday-action-title-$i"), lines = 1)
                 }
             }
         }
@@ -777,4 +785,5 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         }
     } else Image(painterResource(R.drawable.friday_miqaat_header), null, modifier.clip(RoundedCornerShape(8.dp)), contentScale = scale, alignment = alignment)
 }
+
 
