@@ -67,7 +67,7 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
             if(wide) {
                 val tablet=minOf(maxWidth,maxHeight)>=600.dp
                 FridayMihrabReveal(s,Modifier.fillMaxSize().padding(top=(if(tablet)62.dp else 48.dp)+fridayBandHeight(s.theme,tablet,true,LocalDensity.current.fontScale),bottom=if(tablet)fridayDockHeight(tablet,true) else 0.dp)
-                    .graphicsLayer{scaleX=if(L10n.isUrdu(s))-1f else 1f},R.drawable.friday_gallery_landscape,ContentScale.FillBounds)
+                    .graphicsLayer{scaleX=if(L10n.isUrdu(s))-1f else 1f},R.drawable.friday_gallery_landscape,ContentScale.Crop)
                 Box(Modifier.matchParentSize().background(Brush.verticalGradient(0f to Color(0xFF03152D).copy(alpha=.40f),.25f to Color.Transparent,1f to Color(0xFF03152D).copy(alpha=.15f))))
             } else {
                 // Continue only the blue central courtyard texture. Excluding the
