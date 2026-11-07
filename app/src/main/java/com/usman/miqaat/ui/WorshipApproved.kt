@@ -446,7 +446,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                     .semantics { contentDescription = "${item.second}. ${item.third}" },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(if(tablet)11.dp else 9.dp, Alignment.CenterHorizontally)) {
-                    if (i == 1 && s.theme == AppTheme.PRAYER_GALLERY) Ma2FridaySalawatIcon(c.accent, Modifier.size(if(tablet)31.dp else 25.dp))
+                    if (i == 1 && s.theme == AppTheme.PRAYER_GALLERY) Ma2FridaySalawatIcon(c.accent, Modifier.size(if(tablet)33.dp else 27.dp))
                     else if (i == 1) SalawatBeads(if (s.theme == AppTheme.MIQAAT) Color.White else c.accent, Modifier.size(if (tablet) 29.dp else 23.dp))
                     else Icon(if(s.theme==AppTheme.PRAYER_GALLERY)Icons.Outlined.MenuBook else item.first, null,
                         Modifier.size(if (tablet) 28.dp else 23.dp), tint = if(s.theme == AppTheme.MIQAAT) Color.White else c.accent)

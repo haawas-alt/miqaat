@@ -113,12 +113,10 @@ import kotlin.math.sin
                 drawCircle(color,bead,Offset(cx+px,cy+py))
             }
         }
-        val rotation=Math.toRadians(-32.0)
-        beadLoop(size.width*.58f,size.height*.40f,u*.23f,u*.34f,rotation,18,u*.043f)
-        // Two joining beads lead into the small loop, rather than the long
-        // tassel used by the earlier approximation.
-        drawCircle(color,u*.045f,Offset(size.width*.38f,size.height*.67f))
-        drawCircle(color,u*.045f,Offset(size.width*.32f,size.height*.72f))
-        beadLoop(size.width*.25f,size.height*.79f,u*.09f,u*.14f,rotation,8,u*.043f)
+        val rotation=Math.toRadians(-34.0)
+        beadLoop(size.width*.60f,size.height*.37f,u*.25f,u*.37f,rotation,21,u*.037f)
+        // A short beaded neck joins the clearly readable lower loop.
+        drawCircle(color,u*.038f,Offset(size.width*.37f,size.height*.67f))
+        beadLoop(size.width*.25f,size.height*.80f,u*.115f,u*.165f,rotation,10,u*.037f)
     }
 }
