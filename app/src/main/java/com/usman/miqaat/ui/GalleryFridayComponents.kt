@@ -47,6 +47,20 @@ private val galleryGold=Color(0xFFE7C77E)
 private const val GALLERY_DHIKR_EN="SubhanAllah   ♦   Alhamdulillah   ♦   La ilaha illallah   ♦   Allahu Akbar"
 private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   الْحَمْدُ لِلَّهِ   ◆   لَا إِلَٰهَ إِلَّا اللَّهُ   ◆   اللَّهُ أَكْبَرُ"
 
+/** MA2 portrait keeps a little more of the approved side architecture than Crop. */
+@Composable internal fun Ma2FridayPortraitArtwork(modifier:Modifier) {
+    val art=ImageBitmap.imageResource(R.drawable.friday_gallery_hero)
+    Canvas(modifier) {
+        val destinationAspect=size.width/size.height
+        val cropWidth=(art.height*destinationAspect*1.10f).coerceAtMost(art.width.toFloat())
+        val cropHeight=(cropWidth/destinationAspect).coerceAtMost(art.height.toFloat())
+        val sourceWidth=if(cropHeight<art.height) (cropHeight*destinationAspect*1.10f).coerceAtMost(art.width.toFloat()) else cropWidth
+        val left=((art.width-sourceWidth)/2f).roundToInt()
+        drawImage(art,IntOffset(left,0),IntSize(sourceWidth.roundToInt(),art.height),IntOffset.Zero,
+            IntSize(size.width.roundToInt(),size.height.roundToInt()),filterQuality=FilterQuality.High)
+    }
+}
+
 @Composable internal fun GalleryFridayBackdrop(s:AppSettings,wide:Boolean,modifier:Modifier) {
     BoxWithConstraints(modifier.background(Color(0xFF03152D))) {
         if(s.artTheme!=ArtTheme.MINIMAL) {
@@ -119,7 +133,7 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
         // a fixed six-line stack otherwise made the clock smaller than its countdown.
         val compactUrdu=ur && maxHeight.value/scale<360f
         val compactFooter=short||compactUrdu
-        val ar=if(short){if(ur)23f else 28f}else if(compactUrdu){if(tablet)44f else 39f}else if(tablet)74f else 58f
+        val ar=if(short){if(ur)25f else 30f}else if(compactUrdu){if(tablet)47f else 42f}else if(tablet)78f else 62f
         val kicker=if(short)9f else if(compactUrdu){if(tablet)13f else 11f}else if(tablet)18f else 15f
         val relative=if(short)12f else if(compactUrdu){if(tablet)18f else 15f}else if(tablet)21f else 17f
         val metadata=if(short)7.5f else if(compactUrdu){if(tablet)10f else 8.5f}else if(tablet)11f else 9f
@@ -128,8 +142,8 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
         // Reserve their measured ascent/descent before fitting the display clock.
         val line=if(ur)1.8f else 1.25f
         val fixed=ar*1.8f+kicker*line+relative*line+(if(compactFooter)maxOf(metadata,day) else metadata+day)*line+12f
-        val size=min(if(tablet)92f else if(short)64f else 76f,((maxHeight.value*.91f-6f)/scale-fixed).div(1.28f).coerceAtLeast(16f))
-        Column(Modifier.fillMaxSize().padding(top=maxHeight*.08f,bottom=4.dp).padding(horizontal=if(tablet)24.dp else 12.dp)
+        val size=min(if(tablet)96f else if(short)68f else 81f,((maxHeight.value*.94f-6f)/scale-fixed).div(1.28f).coerceAtLeast(16f))
+        Column(Modifier.fillMaxSize().padding(top=if(short)0.dp else maxHeight*.055f,bottom=if(short)2.dp else 4.dp).padding(horizontal=if(tablet)24.dp else 12.dp)
             .clickable(role=Role.Button,onClick=onDetails),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             label(if(s.jumuahEnabled && info.prayer==Prayer.DHUHR)"الجمعة" else info.arabic,ar,"friday-hero-arabic",c.accent,true)
             label(if(ur)info.kickerLabel else info.kickerLabel.lowercase(Locale.ENGLISH).split(" ").joinToString(" "){it.replaceFirstChar{ch->ch.uppercase()}},kicker,"friday-hero-kicker")
