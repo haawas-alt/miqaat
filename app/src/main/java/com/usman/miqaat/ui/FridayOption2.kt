@@ -113,7 +113,10 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
         AppTheme.PRAYER_GALLERY -> R.drawable.friday_gallery_hero
     }
     if (s.artTheme != ArtTheme.MINIMAL) Box(modifier.testTag("friday-mihrab-reveal")) {
-        val opacity=if(still)1f else .78f+.22f*intensity
+        // The approved boards use the artwork at full exposure. The reveal may
+        // add a restrained shimmer, but must never dim the base scene enough to
+        // flatten its gold highlights or make the Friday screen look muddy.
+        val opacity=if(still)1f else .96f+.04f*intensity
         if(s.theme==AppTheme.KISWAH && kiswahPortraitPanel!=null) {
             val art=ImageBitmap.imageResource(heroArt)
             Canvas(Modifier.fillMaxSize().testTag("kiswah-portrait-artwork")) {
@@ -137,3 +140,4 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
             contentScale = artworkContentScale, alignment = Alignment.TopCenter,alpha=opacity)
     }
 }
+
