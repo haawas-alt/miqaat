@@ -203,7 +203,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 }
                 WorshipText(L10n.at(state.now, s.use24h), s, if (tablet) 22f else 16f, c.ink, Modifier.padding(horizontal = 8.dp), lines = 1)
                 }
-                Box {
+                if (s.theme == AppTheme.MIQAAT || s.theme == AppTheme.PRAYER_GALLERY) Box {
                     IconButton(onClick = { more = true }, modifier = Modifier.size(48.dp)) {
                         Icon(when (s.theme) {
                             AppTheme.MIQAAT -> Icons.Outlined.AccessTime
@@ -328,13 +328,6 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                                 FridayTime(state.today[p], s, if (tablet) 22f else 18f,
                                     Modifier.fillMaxWidth(), "friday-time-${p.name}", c.ink, TextAlign.Center, emphasized = selected && s.theme == AppTheme.MIQAAT)
                             }
-                            Box(Modifier.width((if (tablet) 48.dp else if(short && s.theme==AppTheme.PRAYER_GALLERY)35.dp else 35.dp) * if (s.theme == AppTheme.MIQAAT || s.theme == AppTheme.KISWAH || s.theme == AppTheme.CELESTIAL_MERIDIAN || s.theme == AppTheme.PRAYER_GALLERY) typeScale else 1f), contentAlignment = Alignment.Center) {
-                            if (r.isNow || r.isNext) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"),
-                                Modifier.testTag(if (r.isNow) "home-status-now" else "home-status-next")
-                                    .clip(RoundedCornerShape(8.dp)).background(c.accent).padding(horizontal = 5.dp, vertical = 3.dp),
-                                fontFamily = if (L10n.isUrdu(s)) Amiri else QuietBody, fontSize = 9.sp, color = c.background,
-                                maxLines = if (s.theme == AppTheme.MIQAAT || s.theme == AppTheme.KISWAH || s.theme == AppTheme.CELESTIAL_MERIDIAN || s.theme == AppTheme.PRAYER_GALLERY) 1 else Int.MAX_VALUE, softWrap = s.theme != AppTheme.MIQAAT && s.theme != AppTheme.KISWAH && s.theme != AppTheme.CELESTIAL_MERIDIAN && s.theme != AppTheme.PRAYER_GALLERY)
-                            }
                         }
                     }
                     }
@@ -343,19 +336,30 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
             }
             if (wide) banner()
             if (wide) Row(Modifier.weight(1f).fillMaxWidth().padding(vertical = if(tablet)6.dp else 0.dp), horizontalArrangement = Arrangement.spacedBy(if (tablet) 20.dp else 10.dp)) {
-                prayers(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) (if(tablet).40f else .33f) else .40f).fillMaxHeight())
-                if (s.theme == AppTheme.PRAYER_GALLERY) Spacer(Modifier.weight(if(tablet).16f else .23f))
-                Column(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) .44f else .60f).fillMaxHeight()) {
+                val prayerWeight = when (s.theme) {
+                    AppTheme.KISWAH -> .40f
+                    AppTheme.PRAYER_GALLERY -> if (tablet) .35f else .31f
+                    else -> .35f
+                }
+                val gallerySpacer = if (s.theme == AppTheme.PRAYER_GALLERY) if (tablet) .14f else .18f else 0f
+                prayers(Modifier.weight(prayerWeight).fillMaxHeight())
+                if (gallerySpacer > 0f) Spacer(Modifier.weight(gallerySpacer))
+                Column(Modifier.weight(1f - prayerWeight - gallerySpacer).fillMaxHeight()) {
                     hero(Modifier.weight(1f).fillMaxWidth())
                     if(short) FridayDock(s, state, a, tablet, wide)
                 }
             } else {
                 banner()
-                val idealHeroHeight = if (tablet) (viewportHeight * .44f).coerceIn(440.dp, 600.dp)
-                    else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 250.dp else 320.dp)
-                    else if (s.theme == AppTheme.KISWAH) (if (smallPortrait) 250.dp else 320.dp)
-                    else if(s.theme == AppTheme.PRAYER_GALLERY) (if(smallPortrait)240.dp else 288.dp)
-                    else (if (smallPortrait) 240.dp else 300.dp)
+                val idealHeroHeight = if (tablet) (viewportHeight * when (s.theme) {
+                    AppTheme.MIQAAT, AppTheme.KISWAH -> .47f
+                    AppTheme.CELESTIAL_MERIDIAN -> .48f
+                    AppTheme.PRAYER_GALLERY -> .46f
+                    else -> .46f
+                }).coerceIn(450.dp, 620.dp)
+                    else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 264.dp else 342.dp)
+                    else if (s.theme == AppTheme.KISWAH) (if (smallPortrait) 270.dp else 350.dp)
+                    else if(s.theme == AppTheme.PRAYER_GALLERY) (if(smallPortrait)260.dp else 330.dp)
+                    else (if (smallPortrait) 258.dp else 334.dp)
                 val mastheadHeight = fridayBandHeight(s.theme,tablet,wide,typeScale)
                 val headerHeight = (if(tablet)62.dp else 48.dp) + if(s.theme==AppTheme.MIQAAT) {
                     if(tablet)80.dp else if(smallPortrait)44.dp else 48.dp
