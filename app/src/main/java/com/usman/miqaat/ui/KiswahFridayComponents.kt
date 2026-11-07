@@ -103,9 +103,9 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
             Modifier.align(AbsoluteAlignment.CenterLeft).size(cap).testTag("kiswah-banner-left-embroidery"))
         Image(painterResource(R.drawable.ka2_banner_right),null,
             Modifier.align(AbsoluteAlignment.CenterRight).size(cap).testTag("kiswah-banner-right-embroidery"))
-        KiswahFridayFitText(KISWAH_FRIDAY_DHIKR,if(tablet)21f else if(wide)13.5f else 16f,
-            KiswahLandscapeArabic,Color(0xFFF6E4B2),Modifier.fillMaxSize().padding(horizontal=cap*1.02f),
-            lineRatio=1.48f,tag="kiswah-calligraphy-band")
+        KiswahFridayFitText(KISWAH_FRIDAY_DHIKR,if(tablet)24f else if(wide)15f else 18f,
+            KiswahLandscapeArabic,Color(0xFFF6E4B2),Modifier.fillMaxSize().padding(horizontal=cap*.92f),
+            lineRatio=1.55f,tag="kiswah-calligraphy-band")
     }
 }
 
