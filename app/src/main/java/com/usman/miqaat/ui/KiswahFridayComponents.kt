@@ -103,9 +103,9 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
             Modifier.align(AbsoluteAlignment.CenterLeft).size(cap).testTag("kiswah-banner-left-embroidery"))
         Image(painterResource(R.drawable.ka2_banner_right),null,
             Modifier.align(AbsoluteAlignment.CenterRight).size(cap).testTag("kiswah-banner-right-embroidery"))
-        KiswahFridayFitText(KISWAH_FRIDAY_DHIKR,if(tablet)22f else if(wide)13f else 16f,
-            Amiri,Color(0xFFF6E4B2),Modifier.fillMaxSize().padding(horizontal=cap),
-            lineRatio=1.75f,tag="kiswah-calligraphy-band")
+        KiswahFridayFitText(KISWAH_FRIDAY_DHIKR,if(tablet)24f else if(wide)15f else 18f,
+            KiswahLandscapeArabic,Color(0xFFF6E4B2),Modifier.fillMaxSize().padding(horizontal=cap*.92f),
+            lineRatio=1.55f,tag="kiswah-calligraphy-band")
     }
 }
 
@@ -150,10 +150,10 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
     BoxWithConstraints(modifier.testTag("home-hero")) {
         val scale=LocalDensity.current.fontScale
         val compact=short || maxHeight<(if(tablet)360.dp else 250.dp)*scale
-        val arabicSize=if(short)20f else if(tablet && !compact)54f else if(ur)34f else 40f
-        val kickerSize=if(short)8f else if(tablet)13f else 11f
-        val countSize=if(tablet)23f else if(short)13f else 20f
-        val daySize=if(compact) { if(short)8f else 10f } else if(tablet)14f else 12f
+        val arabicSize=if(short)24f else if(tablet && !compact)64f else if(ur)40f else 48f
+        val kickerSize=if(short)9f else if(tablet)15f else 12f
+        val countSize=if(tablet)26f else if(short)15f else 22f
+        val daySize=if(compact) { if(short)9f else 11f } else if(tablet)16f else 13f
         val iqSize=if(compact) { if(short)7.5f else 9f } else if(tablet)11f else 9f
         val statusLine=if(short) { if(ur)16f else 12f } else if(ur)20f else 16f
         val bodyLine=if(ur)1.8f else 1.25f
@@ -162,11 +162,11 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
             else daySize*bodyLine+if(iq!=null)iqSize*bodyLine else 0f
         // One centred stack: the old weighted clock created large empty gaps and
         // pushed oversized bold numerals across the arch's embroidered rails.
-        val clockSize=minOf(if(tablet)82f else if(short)52f else 62f,
-            ((maxHeight.value*.88f-9f)/scale-fixed).div(1.28f).coerceAtLeast(12f))
+        val clockSize=minOf(if(tablet)94f else if(short)62f else 72f,
+            ((maxHeight.value*.91f-7f)/scale-fixed).div(1.28f).coerceAtLeast(14f))
         Column(Modifier.fillMaxSize().absolutePadding(left=0.dp,
             right=maxWidth*(if(wide).24f else if(tablet).20f else .15f))
-            .padding(top=maxHeight*.08f,bottom=5.dp)
+            .padding(top=maxHeight*.045f,bottom=4.dp)
             .padding(horizontal=if(tablet)12.dp else 6.dp)
             .clickable(role=Role.Button,onClickLabel=detail,onClick=onDetails),
             horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
@@ -194,3 +194,4 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
         }
     }
 }
+
