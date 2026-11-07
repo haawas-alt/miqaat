@@ -101,17 +101,17 @@ internal const val CELESTIAL_FRIDAY_DHIKR="سُبْحَانَ اللَّهِ   �
         // a fixed six-line stack otherwise made the clock smaller than its countdown.
         val compactUrdu=ur && maxHeight.value/scale<360f
         val compactFooter=short||compactUrdu
-        val ar=if(short){if(ur)20f else 24f}else if(compactUrdu){if(tablet)40f else 36f}else if(tablet)68f else 52f
-        val kicker=if(short)8f else if(compactUrdu){if(tablet)12f else 10f}else if(tablet)17f else 14f
-        val relative=if(short)11f else if(compactUrdu){if(tablet)17f else 14f}else if(tablet)20f else 16f
+        val ar=if(short){if(ur)23f else 28f}else if(compactUrdu){if(tablet)44f else 39f}else if(tablet)74f else 58f
+        val kicker=if(short)9f else if(compactUrdu){if(tablet)13f else 11f}else if(tablet)18f else 15f
+        val relative=if(short)12f else if(compactUrdu){if(tablet)18f else 15f}else if(tablet)21f else 17f
         val metadata=if(short)7.5f else if(compactUrdu){if(tablet)10f else 8.5f}else if(tablet)11f else 9f
         val day=if(short)9f else if(compactUrdu){if(tablet)12f else 11f}else if(tablet)17f else 14f
         // Amiri glyph extents exceed its requested line height at small sizes.
         // Reserve their measured ascent/descent before fitting the display clock.
         val line=if(ur)1.8f else 1.25f
         val fixed=ar*1.8f+kicker*line+relative*line+(if(compactFooter)maxOf(metadata,day) else metadata+day)*line+12f
-        val size=min(if(tablet)84f else if(short)56f else 66f,((maxHeight.value*.90f-6f)/scale-fixed).div(1.28f).coerceAtLeast(14f))
-        Column(Modifier.fillMaxSize().padding(top=maxHeight*.08f,bottom=4.dp).padding(horizontal=if(tablet)24.dp else 12.dp)
+        val size=min(if(tablet)96f else if(short)64f else 76f,((maxHeight.value*.93f-5f)/scale-fixed).div(1.28f).coerceAtLeast(16f))
+        Column(Modifier.fillMaxSize().padding(top=maxHeight*.045f,bottom=3.dp).padding(horizontal=if(tablet)20.dp else 10.dp)
             .clickable(role=Role.Button,onClick=onDetails),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             label(if(s.jumuahEnabled && info.prayer==Prayer.DHUHR)"الجمعة" else info.arabic,ar,"friday-hero-arabic",c.ink,true)
             label(if(ur)info.kickerLabel else info.kickerLabel.lowercase(Locale.ENGLISH).split(" ").joinToString(" "){it.replaceFirstChar{ch->ch.uppercase()}},kicker,"friday-hero-kicker")
@@ -126,3 +126,4 @@ internal const val CELESTIAL_FRIDAY_DHIKR="سُبْحَانَ اللَّهِ   �
         }
     }
 }
+
