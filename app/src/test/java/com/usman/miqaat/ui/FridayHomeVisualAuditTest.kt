@@ -22,6 +22,8 @@ import java.time.ZonedDateTime
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk = [34])
 class FridayHomeVisualAuditTest : ComposeSupport() {
+    private data class ApprovedViewport(val label: String, val qualifiers: String)
+
     @Test fun captureFridayHomeMatrix() {
         assumeTrue(System.getenv("MIQAAT_FRIDAY_HOME_AUDIT") == "1")
         val theme = AppTheme.valueOf(System.getenv("MIQAAT_VISUAL_THEME") ?: "MIQAAT")
@@ -30,7 +32,18 @@ class FridayHomeVisualAuditTest : ComposeSupport() {
         val now = ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, zone)
         val actions = HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {})
 
-        for (dev in Dev.entries) for (language in Language.entries) {
+        // Capture at the approved boards' native aspect ratios. The regular
+        // regression matrix intentionally uses Pixel profiles, but those are not
+        // valid evidence for pixel/geometry comparison with these 390x844 and
+        // 768x1024 reference canvases.
+        val approvedViewports = listOf(
+            ApprovedViewport("phone-portrait", "w390dp-h844dp-port-xhdpi"),
+            ApprovedViewport("phone-landscape", "w844dp-h390dp-land-xhdpi"),
+            ApprovedViewport("tablet-portrait", "w768dp-h1024dp-port-xhdpi"),
+            ApprovedViewport("tablet-landscape", "w1024dp-h768dp-land-xhdpi")
+        )
+
+        for (dev in approvedViewports) for (language in Language.entries) {
             val settings = AppSettings(
                 theme = theme,
                 language = language,
@@ -49,11 +62,12 @@ class FridayHomeVisualAuditTest : ComposeSupport() {
             app.settings.update { settings }
             val state = PrayerEngine.state(settings, now)
             show(
-                dev,
+                Dev.PHONE_PORTRAIT,
                 theme,
                 fontScale = if (language == Language.UR) 1.15f else 1f,
                 rtl = language == Language.UR,
-                language = language
+                language = language,
+                qualifiers = dev.qualifiers
             ) { HomeRouter(state, settings, actions, false) {} }
 
             val file = File(out, "friday-home__${dev.label}__${language.name.lowercase()}.png")
@@ -68,3 +82,4 @@ class FridayHomeVisualAuditTest : ComposeSupport() {
         }
     }
 }
+
