@@ -1,0 +1,139 @@
+package com.usman.miqaat.ui
+
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
+import kotlin.math.roundToInt
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
+import com.usman.miqaat.R
+import com.usman.miqaat.data.*
+import kotlinx.coroutines.delay
+
+/** Deterministic peak frame for native review capture; never enabled by the production router. */
+internal val LocalFridayRevealFrame = staticCompositionLocalOf<Float?> { null }
+internal const val FRIDAY_REVEAL_PERIOD_MS = 300_000L
+internal const val FRIDAY_REVEAL_DURATION_MS = 8_000L
+internal fun fridayRevealEnvelope(elapsedMillis: Long): Float {
+    val phase = Math.floorMod(elapsedMillis, FRIDAY_REVEAL_PERIOD_MS)
+    return when {
+        phase < 1_000 -> phase / 1_000f
+        phase < 7_000 -> 1f
+        phase < FRIDAY_REVEAL_DURATION_MS -> (FRIDAY_REVEAL_DURATION_MS - phase) / 1_000f
+        else -> 0f
+    }
+}
+
+/** Friday-only palette. Weekday and quiet-mode token sets are deliberately untouched. */
+internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) {
+    AppTheme.MIQAAT -> QuietPalette(Color(0xFFF6EFE2), Color(0xFF103E37), Color(0xFF9E4027), Color(0xFF3F584E), Color(0xFFF9F2E6).copy(alpha=.90f))
+    AppTheme.KISWAH -> quietPalette(theme)
+    else -> QuietPalette(Color(0xFF03152D), Color(0xFFF5ECD8), Color(0xFFE7C77E), Color(0xFFD8CFBD), Color(0xFF061C35).copy(alpha=.72f))
+}
+
+@Composable internal fun FridayOption2Backdrop(s: AppSettings, wide: Boolean, modifier: Modifier) {
+    val c = fridayOption2Palette(s.theme)
+    Box(modifier.background(c.background).testTag("friday-option2-art-${s.theme.name}")) {
+        if(s.theme==AppTheme.PRAYER_GALLERY) {
+            GalleryFridayBackdrop(s,wide,Modifier.fillMaxSize())
+            return@Box
+        }
+        if(s.theme==AppTheme.CELESTIAL_MERIDIAN) {
+            CelestialFridayBackdrop(Modifier.fillMaxSize(),s.artTheme==ArtTheme.MINIMAL)
+            return@Box
+        }
+        if(s.theme == AppTheme.KISWAH) {
+            KiswahFridayBackdrop(Modifier.fillMaxSize())
+            return@Box
+        }
+        // Keep the pointed arch in the hero only. Repeating the complete painting
+        // behind the timetable introduced a second arch and a visible scene boundary.
+        if (s.artTheme != ArtTheme.MINIMAL && s.theme != AppTheme.MIQAAT && s.theme != AppTheme.CELESTIAL_MERIDIAN) {
+            val art = when (s.theme) {
+                AppTheme.MIQAAT -> if (wide) R.drawable.sanctuary_gallery_land else R.drawable.sanctuary_gallery_port
+                AppTheme.KISWAH -> if (wide) R.drawable.kiswah_tablet_approved else R.drawable.kiswah_tablet_portrait_approved
+                AppTheme.CELESTIAL_MERIDIAN -> R.drawable.friday_celestial_hero
+                AppTheme.PRAYER_GALLERY -> R.drawable.friday_gallery_hero
+            }
+            if (wide && s.theme == AppTheme.PRAYER_GALLERY) FridayMihrabReveal(s, Modifier.fillMaxSize().graphicsLayer { scaleX = if (L10n.isUrdu(s)) -1f else 1f }, R.drawable.friday_gallery_landscape)
+            else Image(painterResource(art), null, Modifier.fillMaxSize(), contentScale=ContentScale.Crop)
+            Box(Modifier.fillMaxSize().background(Brush.verticalGradient(
+                0f to c.background.copy(alpha=.78f), .20f to c.background.copy(alpha=.32f),
+                .65f to c.background.copy(alpha=.16f), 1f to c.background.copy(alpha=.66f))))
+        }
+    }
+}
+
+/** One calm 8-second light reveal per five minutes while the home is visible.
+ * Lifecycle cancellation stops work in the background; quiet mode never composes this component.
+ * Reduced-motion users get a static fine outline, without pulses or moving particles.
+ */
+@Composable internal fun FridayMihrabReveal(s: AppSettings, modifier: Modifier, artworkOverride: Int? = null,
+    artworkContentScale: ContentScale = if (artworkOverride != null) ContentScale.FillWidth else ContentScale.Crop,
+    kiswahPortraitPanel: Float? = null) {
+    val frame = LocalFridayRevealFrame.current
+    val still = reduceMotion()
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    val alpha = remember { Animatable(0f) }
+    LaunchedEffect(lifecycle, still, frame, s.theme) {
+        if (still || frame != null) return@LaunchedEffect
+        lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            while (true) {
+                alpha.snapTo(0f)
+                alpha.animateTo(1f, tween(1_000))
+                delay(6_000)
+                alpha.animateTo(0f, tween(1_000))
+                delay(FRIDAY_REVEAL_PERIOD_MS - FRIDAY_REVEAL_DURATION_MS)
+            }
+        }
+    }
+    val intensity = frame?.coerceIn(0f,1f) ?: if (still) .28f else alpha.value
+    val gold = if(s.theme == AppTheme.MIQAAT) Color(0xFFB98A43) else Color(0xFFE7C77E)
+    val heroArt = artworkOverride ?: when(s.theme) {
+        AppTheme.MIQAAT -> R.drawable.friday_miqaat_hero
+        AppTheme.KISWAH -> R.drawable.friday_kiswah_hero
+        AppTheme.CELESTIAL_MERIDIAN -> R.drawable.friday_celestial_hero
+        AppTheme.PRAYER_GALLERY -> R.drawable.friday_gallery_hero
+    }
+    if (s.artTheme != ArtTheme.MINIMAL) Box(modifier.testTag("friday-mihrab-reveal")) {
+        val opacity=if(still)1f else .78f+.22f*intensity
+        if(s.theme==AppTheme.KISWAH && kiswahPortraitPanel!=null) {
+            val art=ImageBitmap.imageResource(heroArt)
+            Canvas(Modifier.fillMaxSize().testTag("kiswah-portrait-artwork")) {
+                val w=size.width.roundToInt();val height=size.height.roundToInt()
+                val split=(w*(1f-kiswahPortraitPanel)).roundToInt()
+                val top=(height*.04f).roundToInt()
+                val left=(art.width*100f/1536f).roundToInt()
+                val end=(art.width*1040f/1536f).roundToInt()
+                val strip=(art.width*.75f).roundToInt()
+                drawRect(Color(0xFF030404))
+                // The approved portrait arch is broad; do not squash the complete
+                // landscape painting into it. Preserve the embroidery as its own strip.
+                val archHeight=height-top
+                val archWidth=minOf(split,((end-left).toFloat()/art.height*archHeight).roundToInt())
+                drawImage(art,IntOffset(left,0),IntSize(end-left,art.height),
+                    IntOffset((split-archWidth)/2,top),IntSize(archWidth,archHeight),alpha=opacity,filterQuality=FilterQuality.High)
+                drawImage(art,IntOffset(strip,0),IntSize(art.width-strip,art.height),
+                    IntOffset(split,0),IntSize(w-split,height),alpha=opacity,filterQuality=FilterQuality.High)
+            }
+        } else Image(painterResource(heroArt), null, Modifier.fillMaxSize(),
+            contentScale = artworkContentScale, alignment = Alignment.TopCenter,alpha=opacity)
+    }
+}
