@@ -105,7 +105,22 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
     }
 }
 
+/**
+ * MA2 and GA2 were originally wired to each other's approved Friday artwork.
+ * Translate only at the Friday composition boundary so ordinary-day screens,
+ * persisted theme selection, and prayer data retain their established identity.
+ */
+internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme) {
+    AppTheme.MIQAAT -> AppTheme.PRAYER_GALLERY
+    AppTheme.PRAYER_GALLERY -> AppTheme.MIQAAT
+    else -> theme
+}
+
 @Composable internal fun FridayApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions, onClosePreview: (() -> Unit)? = null) {
+    FridayApprovedVisualHome(state, s.copy(theme = fridayApprovedVisualTheme(s.theme)), a, onClosePreview)
+}
+
+@Composable private fun FridayApprovedVisualHome(state: PrayerState, s: AppSettings, a: HomeActions, onClosePreview: (() -> Unit)? = null) {
     val c = fridayOption2Palette(s.theme)
     var why by remember { mutableStateOf<Prayer?>(null) }
     var more by remember { mutableStateOf(false) }
