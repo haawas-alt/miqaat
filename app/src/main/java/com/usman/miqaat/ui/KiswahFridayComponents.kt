@@ -15,6 +15,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.imageResource
 import com.usman.miqaat.R
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
@@ -38,6 +39,36 @@ internal val LocalKiswahFridayNow = staticCompositionLocalOf<ZonedDateTime?> { n
 
 /** The four phrases in the approved KA2 banner; no legacy weekday banner text. */
 internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   الْحَمْدُ لِلَّهِ   لَا إِلَٰهَ إِلَّا اللَّهُ   اللَّهُ أَكْبَرُ"
+
+/** Nine-slice artwork keeps the approved embroidered corners square on every aspect ratio. */
+@Composable internal fun KiswahOrnamentalFrame(k: Float, modifier: Modifier) {
+    val frame = ImageBitmap.imageResource(R.drawable.kiswah_tablet_ornamental_frame)
+    Canvas(modifier.testTag("kiswah-ornamental-border")) {
+        val w = frame.width.toFloat(); val h = frame.height.toFloat()
+        val left = (w * .012f).roundToInt(); val right = (w * .988f).roundToInt()
+        val top = (h * .043f).roundToInt(); val bottom = (h * .923f).roundToInt()
+        val corner = (w * .060f).roundToInt(); val strip = (h * .130f).roundToInt()
+        val c = (32 * k).dp.toPx().roundToInt(); val t = (22 * k).dp.toPx().roundToInt()
+        val dw = size.width.roundToInt(); val dh = size.height.roundToInt()
+        fun patch(sx: Int, sy: Int, sw: Int, sh: Int, dx: Int, dy: Int, pw: Int, ph: Int) {
+            if (pw > 0 && ph > 0) drawImage(frame, IntOffset(sx, sy), IntSize(sw, sh),
+                IntOffset(dx, dy), IntSize(pw, ph), filterQuality = FilterQuality.High)
+        }
+        patch(left, top, corner, corner, 0, 0, c, c)
+        patch(right - corner, top, corner, corner, dw - c, 0, c, c)
+        patch(left, bottom - corner, corner, corner, 0, dh - c, c, c)
+        patch(right - corner, bottom - corner, corner, corner, dw - c, dh - c, c, c)
+        val sourceWidth = right - left - 2 * corner
+        val count = ceil((dw - 2 * c).toFloat() / (sourceWidth.toFloat() / strip * t)).toInt().coerceAtLeast(1)
+        for (i in 0 until count) {
+            val x = c + (dw - 2 * c) * i / count; val end = c + (dw - 2 * c) * (i + 1) / count
+            patch(left + corner, top, sourceWidth, strip, x, 0, end - x, t)
+            patch(left + corner, bottom - strip, sourceWidth, strip, x, dh - t, end - x, t)
+        }
+        patch(left, top + corner, strip, bottom - top - 2 * corner, 0, c, t, dh - 2 * c)
+        patch(right - strip, top + corner, strip, bottom - top - 2 * corner, dw - t, c, t, dh - 2 * c)
+    }
+}
 
 @Composable internal fun KiswahFridayBackdrop(modifier: Modifier) {
     Box(modifier.background(Brush.linearGradient(listOf(Color(0xFF030404), Color(0xFF101211),

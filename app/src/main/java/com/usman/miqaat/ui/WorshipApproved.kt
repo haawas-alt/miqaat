@@ -400,7 +400,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                 if(s.theme==AppTheme.MIQAAT) { if(i==0)listOf(Color(0xFF246B50),Color(0xFF0D4133)) else listOf(Color(0xFFC86538),Color(0xFF9E3F24)) }
                 else listOf(c.accent.copy(alpha=.18f),c.background.copy(alpha=.96f))),RoundedCornerShape(10.dp)).testTag("friday-action-$i")
                 .border(if (s.theme == AppTheme.MIQAAT) 0.dp else 1.25.dp, c.accent.copy(alpha=.95f), RoundedCornerShape(10.dp))
-                .clickable(role = Role.Button, onClick = if (i == 0) a.onOpenKahf else a.onOpenSalawat), fill=Color.Transparent,
+                .clickable(role = Role.Button, onClick = a.onOpenFriday), fill=Color.Transparent,
                 framed = s.theme != AppTheme.MIQAAT && s.theme != AppTheme.KISWAH && s.theme != AppTheme.CELESTIAL_MERIDIAN && s.theme != AppTheme.PRAYER_GALLERY, cornerRadius = if (s.theme == AppTheme.MIQAAT || s.theme == AppTheme.KISWAH || s.theme == AppTheme.CELESTIAL_MERIDIAN || s.theme == AppTheme.PRAYER_GALLERY) 10.dp else 14.dp) {
                 Row(Modifier.fillMaxSize().padding(horizontal = if (tablet) 10.dp else 5.dp), verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
