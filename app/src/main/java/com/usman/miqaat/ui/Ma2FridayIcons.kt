@@ -99,31 +99,26 @@ import kotlin.math.sin
     }
 }
 
-/** MA2's approved tasbih: an elongated beaded loop with a curved tail and tassel. */
+/** MA2's approved tasbih: a tilted large loop joined to a small lower-left loop. */
 @Composable internal fun Ma2FridaySalawatIcon(color: Color, modifier: Modifier) {
     Canvas(modifier) {
         val u = size.minDimension
-        val cx = size.width * .52f
-        val cy = size.height * .43f
-        val rotation = Math.toRadians(-27.0)
-        for (i in 0 until 18) {
-            val angle = i * 2.0 * PI / 18.0
-            val x = cos(angle).toFloat() * u * .27f
-            val y = sin(angle).toFloat() * u * .38f
-            val rx = x * cos(rotation).toFloat() - y * sin(rotation).toFloat()
-            val ry = x * sin(rotation).toFloat() + y * cos(rotation).toFloat()
-            drawCircle(color, u * .045f, Offset(cx + rx, cy + ry))
+        fun beadLoop(cx:Float,cy:Float,rx:Float,ry:Float,rotation:Double,count:Int,bead:Float) {
+            for(i in 0 until count) {
+                val angle=i*2.0*PI/count
+                val x=cos(angle).toFloat()*rx
+                val y=sin(angle).toFloat()*ry
+                val px=x*cos(rotation).toFloat()-y*sin(rotation).toFloat()
+                val py=x*sin(rotation).toFloat()+y*cos(rotation).toFloat()
+                drawCircle(color,bead,Offset(cx+px,cy+py))
+            }
         }
-        val path = Path().apply {
-            moveTo(cx - u * .18f, cy + u * .30f)
-            cubicTo(cx - u * .27f, cy + u * .48f, cx - u * .40f, cy + u * .54f, cx - u * .36f, cy + u * .72f)
-        }
-        drawPath(path, color, style = Stroke(u * .055f, cap = StrokeCap.Round))
-        drawCircle(color, u * .055f, Offset(cx - u * .36f, cy + u * .78f))
-        line@ run {
-            val top = Offset(cx - u * .36f, cy + u * .83f)
-            drawLine(color, top, Offset(top.x - u * .07f, top.y + u * .12f), u * .04f, StrokeCap.Round)
-            drawLine(color, top, Offset(top.x + u * .07f, top.y + u * .12f), u * .04f, StrokeCap.Round)
-        }
+        val rotation=Math.toRadians(-32.0)
+        beadLoop(size.width*.58f,size.height*.40f,u*.23f,u*.34f,rotation,18,u*.043f)
+        // Two joining beads lead into the small loop, rather than the long
+        // tassel used by the earlier approximation.
+        drawCircle(color,u*.045f,Offset(size.width*.38f,size.height*.67f))
+        drawCircle(color,u*.045f,Offset(size.width*.32f,size.height*.72f))
+        beadLoop(size.width*.25f,size.height*.79f,u*.09f,u*.14f,rotation,8,u*.043f)
     }
 }
