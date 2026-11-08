@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.view.View
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.text.TextLayoutResult
@@ -49,6 +50,11 @@ class FridayQuietApprovedTest : ComposeSupport() {
             assertFalse("$tag clipped ${l.layoutInput.text} $w/$h vs ${n.size}", l.multiParagraph.didExceedMaxLines || w > n.size.width + 1f || h > n.size.height + 1f)
         }
     }
+    private fun actionProgress(i: Int) {
+        val state = rule.onNodeWithTag("friday-action-$i", true).fetchSemanticsNode()
+            .config.getOrNull(SemanticsProperties.StateDescription)
+        assertTrue("Friday shortcut progress must remain accessible", !state.isNullOrBlank())
+    }
     private fun capture(theme: AppTheme, dev: Dev, lang: Language, kind: String) {
         rule.mainClock.advanceTimeBy(1000); rule.waitForIdle()
         val path = File("build/friday-quiet-review/${theme.name}/${dev.label}-${lang.name}-$kind.png")
@@ -78,7 +84,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 if (rule.onAllNodesWithTag("friday-hero-day", true).fetchSemanticsNodes().isNotEmpty()) readable("friday-hero-day")
                 for (tag in listOf("friday-hero-kicker", "friday-hero-arabic", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
                 if (lang == Language.EN) readable("friday-hero-name")
-                for (i in 0..1) { readable("friday-action-title-$i"); readable("friday-action-detail-$i") }
+                for (i in 0..1) { readable("friday-action-title-$i"); actionProgress(i) }
                 rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, s.use24h))
                 for (p in Prayer.entries) {
                     readable("friday-time-${p.name}"); readable("friday-detail-${p.name}")
@@ -114,7 +120,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 if (rule.onAllNodesWithTag("friday-hero-day", true).fetchSemanticsNodes().isNotEmpty()) readable("friday-hero-day")
                 for (tag in listOf("friday-banner","friday-hero-arabic","friday-hero-time","friday-hero-status","friday-hero-iqamah")) readable(tag)
                 for (i in 0..1) {
-                    readable("friday-action-title-$i"); readable("friday-action-detail-$i")
+                    readable("friday-action-title-$i"); actionProgress(i)
                     val bounds=rule.onNodeWithTag("friday-action-$i",true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Friday shortcut <48dp",bounds.height>=48*app.resources.displayMetrics.density-.5f)
                 }
@@ -375,7 +381,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     assertTrue("${theme.name} prayer touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
                 }
                 for (i in 0..1) {
-                    readable("friday-action-title-$i"); readable("friday-action-detail-$i")
+                    readable("friday-action-title-$i"); actionProgress(i)
                     val b = rule.onNodeWithTag("friday-action-$i", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("${theme.name} shortcut touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
                 }
