@@ -243,7 +243,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
                             artworkContentScale = ContentScale.Crop)
                     } else if (!(wide && s.theme == AppTheme.PRAYER_GALLERY))
                         FridayMihrabReveal(s, Modifier.matchParentSize(),
-                            artworkContentScale = if(s.theme == AppTheme.KISWAH || (s.theme==AppTheme.CELESTIAL_MERIDIAN && wide)) ContentScale.FillBounds else ContentScale.Crop,
+                            artworkContentScale = if(s.theme==AppTheme.CELESTIAL_MERIDIAN && wide) ContentScale.FillBounds else ContentScale.Crop,
                             kiswahPortraitPanel = if(s.theme==AppTheme.KISWAH && !wide) { if(tablet).20f else .15f } else null)
                     Column(Modifier.fillMaxSize()) {
                         FridayHero(state, s, a, tablet, short, smallPortrait, wide,
