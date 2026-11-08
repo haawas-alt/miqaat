@@ -412,6 +412,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
             Triple(Icons.Outlined.FavoriteBorder, words(s, "Salawat", "درود شریف"), words(s, "$salawat this Friday", "اس جمعہ: $salawat"))).forEachIndexed { i, item ->
             WorshipSurface(s, Modifier.weight(1f).fillMaxHeight().background(Brush.verticalGradient(
                 if(s.theme==AppTheme.MIQAAT) { if(i==0)listOf(Color(0xFF246B50),Color(0xFF0D4133)) else listOf(Color(0xFFC86538),Color(0xFF9E3F24)) }
+                else if(s.theme==AppTheme.KISWAH) listOf(Color(0xFF17140D),Color(0xFF050606))
                 else listOf(c.accent.copy(alpha=.18f),c.background.copy(alpha=.96f))),RoundedCornerShape(10.dp)).testTag("friday-action-$i")
                 .border(if (s.theme == AppTheme.MIQAAT) 0.dp else 1.25.dp, c.accent.copy(alpha=.95f), RoundedCornerShape(10.dp))
                 .clickable(role = Role.Button, onClick = if (i == 0) a.onOpenKahf else a.onOpenSalawat)
@@ -788,4 +789,5 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         }
     } else Image(painterResource(R.drawable.friday_miqaat_header), null, modifier.clip(RoundedCornerShape(8.dp)), contentScale = scale, alignment = alignment)
 }
+
 
