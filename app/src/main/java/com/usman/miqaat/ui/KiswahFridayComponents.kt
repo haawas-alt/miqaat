@@ -38,6 +38,12 @@ internal val LocalKiswahFridayNow = staticCompositionLocalOf<ZonedDateTime?> { n
 
 /** The four phrases in the approved KA2 banner; no legacy weekday banner text. */
 internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   الْحَمْدُ لِلَّهِ   لَا إِلَٰهَ إِلَّا اللَّهُ   اللَّهُ أَكْبَرُ"
+private val KISWAH_FRIDAY_PHRASES = listOf(
+    "اللَّهُ أَكْبَرُ",
+    "لَا إِلَٰهَ إِلَّا اللَّهُ",
+    "الْحَمْدُ لِلَّهِ",
+    "سُبْحَانَ اللَّهِ",
+)
 
 @Composable internal fun KiswahFridayBackdrop(modifier: Modifier) {
     Box(modifier.background(Brush.linearGradient(listOf(Color(0xFF030404), Color(0xFF101211),
@@ -46,7 +52,8 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
 
 /** Text-free embroidery caps traced from the approved KA2 board, with live native dhikr. */
 @Composable internal fun KiswahFridayBanner(tablet: Boolean, wide: Boolean, modifier: Modifier) {
-    BoxWithConstraints(modifier.background(Color(0xFF050606))) {
+    val horizontalInset=if(wide && !tablet)48.dp else if(tablet)12.dp else 6.dp
+    BoxWithConstraints(modifier.padding(horizontal=horizontalInset).background(Color(0xFF050606))) {
         val cap=maxHeight
         Canvas(Modifier.matchParentSize().clip(RectangleShape)) {
             val h=size.height
@@ -72,9 +79,24 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
             Modifier.align(AbsoluteAlignment.CenterLeft).size(cap).testTag("kiswah-banner-left-embroidery"))
         Image(painterResource(R.drawable.ka2_banner_right),null,
             Modifier.align(AbsoluteAlignment.CenterRight).size(cap).testTag("kiswah-banner-right-embroidery"))
-        KiswahFridayFitText(KISWAH_FRIDAY_DHIKR,if(tablet)22f else if(wide)13f else 16f,
-            Amiri,Color(0xFFF6E4B2),Modifier.fillMaxSize().padding(horizontal=cap),
-            lineRatio=1.75f,tag="kiswah-calligraphy-band")
+        Row(
+            Modifier.fillMaxSize().padding(horizontal=cap + if (wide && !tablet) 4.dp else 2.dp)
+                .testTag("kiswah-calligraphy-band"),
+            horizontalArrangement=Arrangement.SpaceEvenly,
+            verticalAlignment=Alignment.CenterVertically,
+        ) {
+            KISWAH_FRIDAY_PHRASES.forEachIndexed { index, phrase ->
+                KiswahFridayFitText(
+                    value=phrase,
+                    nominal=if(tablet)22f else if(wide)17f else 16f,
+                    font=Amiri,
+                    color=Color(0xFFF6E4B2),
+                    modifier=Modifier.weight(if(index==1)1.35f else 1f).fillMaxHeight(),
+                    lineRatio=1.55f,
+                    tag="kiswah-calligraphy-phrase-$index",
+                )
+            }
+        }
     }
 }
 
@@ -163,3 +185,5 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
         }
     }
 }
+
+
