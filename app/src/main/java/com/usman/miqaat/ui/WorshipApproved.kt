@@ -323,7 +323,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                             } else if (s.theme == AppTheme.MIQAAT && p == Prayer.ASR) {
                                 MiqaatFridayAsrIcon(Color(0xFFE66C20), Modifier.size(if (tablet) 24.dp else 18.dp))
                             } else if (s.theme == AppTheme.KISWAH && p == Prayer.ASR) {
-                                MiqaatFridayAsrIcon(c.accent, Modifier.size(if (tablet) 24.dp else 18.dp))
+                                KiswahFridayAsrIcon(c.accent, Modifier.size(if (tablet) 24.dp else 18.dp))
                             } else Icon(if (s.theme == AppTheme.MIQAAT) when (p) {
                                 Prayer.ISHA -> Icons.Outlined.DarkMode
                                 Prayer.SUNRISE, Prayer.MAGHRIB -> Icons.Outlined.WbTwilight
