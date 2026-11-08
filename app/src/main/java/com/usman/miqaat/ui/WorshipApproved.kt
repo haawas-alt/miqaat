@@ -404,7 +404,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     val key = now.toLocalDate().toString()
     val kahf = prefs.getBoolean("kahf_$key", false)
     val salawat = prefs.getInt("salawat_$key", 0)
-    Row(modifier.fillMaxWidth().wrapContentWidth(Alignment.CenterHorizontally).widthIn(max = if (tablet) 420.dp else if(short)360.dp else 300.dp).padding(top = if (short) 0.dp else 5.dp).height(if (tablet) {if(L10n.isUrdu(s))64.dp else 56.dp} else 52.dp),
+    Row(modifier.fillMaxWidth().wrapContentWidth(Alignment.CenterHorizontally).widthIn(max = if (tablet) 420.dp else if(short)360.dp else 300.dp).padding(top = if (short) 0.dp else 5.dp).height(if (tablet) {if(L10n.isUrdu(s))64.dp else 56.dp} else 48.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         listOf(Triple(Icons.Filled.MenuBook, words(s, "Al-Kahf", "سورۃ الکہف"), words(s, if (kahf) "Read this Friday ✓" else "Mark as read", if (kahf) "پڑھ لی ✓" else "پڑھنے کا اندراج")),
             Triple(Icons.Outlined.FavoriteBorder, words(s, "Salawat", "درود شریف"), words(s, "$salawat this Friday", "اس جمعہ: $salawat"))).forEachIndexed { i, item ->
@@ -412,16 +412,14 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                 if(s.theme==AppTheme.MIQAAT) { if(i==0)listOf(Color(0xFF246B50),Color(0xFF0D4133)) else listOf(Color(0xFFC86538),Color(0xFF9E3F24)) }
                 else listOf(c.accent.copy(alpha=.18f),c.background.copy(alpha=.96f))),RoundedCornerShape(10.dp)).testTag("friday-action-$i")
                 .border(if (s.theme == AppTheme.MIQAAT) 0.dp else 1.25.dp, c.accent.copy(alpha=.95f), RoundedCornerShape(10.dp))
-                .clickable(role = Role.Button, onClick = if (i == 0) a.onOpenKahf else a.onOpenSalawat), fill=Color.Transparent,
+                .clickable(role = Role.Button, onClick = if (i == 0) a.onOpenKahf else a.onOpenSalawat)
+                .semantics { stateDescription = item.third }, fill=Color.Transparent,
                 framed = s.theme != AppTheme.MIQAAT && s.theme != AppTheme.KISWAH && s.theme != AppTheme.CELESTIAL_MERIDIAN && s.theme != AppTheme.PRAYER_GALLERY, cornerRadius = if (s.theme == AppTheme.MIQAAT || s.theme == AppTheme.KISWAH || s.theme == AppTheme.CELESTIAL_MERIDIAN || s.theme == AppTheme.PRAYER_GALLERY) 10.dp else 14.dp) {
                 Row(Modifier.fillMaxSize().padding(horizontal = if (tablet) 10.dp else 5.dp), verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
                     if (i == 1) SalawatBeads(if (s.theme == AppTheme.MIQAAT) Color.White else c.accent, Modifier.size(if (tablet) 29.dp else 23.dp))
                     else Icon(item.first, null, Modifier.size(if (tablet) 28.dp else 23.dp), tint = if(s.theme == AppTheme.MIQAAT) Color.White else c.accent)
-                    Column {
-                        WorshipText(item.second, s, if (tablet) 17f else if((s.theme==AppTheme.KISWAH || s.theme==AppTheme.CELESTIAL_MERIDIAN || s.theme==AppTheme.PRAYER_GALLERY))14f else 12f, if(s.theme == AppTheme.MIQAAT) Color.White else c.ink, Modifier.testTag("friday-action-title-$i"), lines = 1)
-                        WorshipText(item.third, s, if (tablet) 11f else if((s.theme==AppTheme.KISWAH || s.theme==AppTheme.CELESTIAL_MERIDIAN || s.theme==AppTheme.PRAYER_GALLERY))8.5f else 9f, if(s.theme == AppTheme.MIQAAT) Color(0xFFF5EBD8) else c.secondary, Modifier.testTag("friday-action-detail-$i"), lines = 1)
-                    }
+                    WorshipText(item.second, s, if (tablet) 17f else if((s.theme==AppTheme.KISWAH || s.theme==AppTheme.CELESTIAL_MERIDIAN || s.theme==AppTheme.PRAYER_GALLERY))14f else 12f, if(s.theme == AppTheme.MIQAAT) Color.White else c.ink, Modifier.testTag("friday-action-title-$i"), lines = 1)
                 }
             }
         }
