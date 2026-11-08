@@ -105,7 +105,19 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
     }
 }
 
+/** User-confirmed approved PDF identity: p.4 is MA2 and p.1 is GA2.
+ * Change only Friday presentation; stored theme and weekday routing remain intact. */
+internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme) {
+    AppTheme.MIQAAT -> AppTheme.PRAYER_GALLERY
+    AppTheme.PRAYER_GALLERY -> AppTheme.MIQAAT
+    else -> theme
+}
+
 @Composable internal fun FridayApprovedHome(state: PrayerState, s: AppSettings, a: HomeActions, onClosePreview: (() -> Unit)? = null) {
+    FridayApprovedVisualHome(state, s.copy(theme = fridayApprovedVisualTheme(s.theme)), a, onClosePreview)
+}
+
+@Composable private fun FridayApprovedVisualHome(state: PrayerState, s: AppSettings, a: HomeActions, onClosePreview: (() -> Unit)? = null) {
     val c = fridayOption2Palette(s.theme)
     var why by remember { mutableStateOf<Prayer?>(null) }
     var more by remember { mutableStateOf(false) }
