@@ -150,7 +150,7 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
     BoxWithConstraints(modifier.testTag("home-hero")) {
         val scale=LocalDensity.current.fontScale
         val compact=short || maxHeight<(if(tablet)360.dp else 250.dp)*scale
-        val arabicSize=if(short)24f else if(tablet && !compact)64f else if(ur)40f else 48f
+        val arabicSize=if(short)24f else if(tablet && !compact)52f else if(ur)38f else 44f
         val kickerSize=if(short)9f else if(tablet)15f else 12f
         val countSize=if(tablet)26f else if(short)15f else 22f
         val daySize=if(compact) { if(short)9f else 11f } else if(tablet)16f else 13f
@@ -162,7 +162,7 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
             else daySize*bodyLine+if(iq!=null)iqSize*bodyLine else 0f
         // One centred stack: the old weighted clock created large empty gaps and
         // pushed oversized bold numerals across the arch's embroidered rails.
-        val clockSize=minOf(if(tablet)94f else if(short)62f else 72f,
+        val clockSize=minOf(if(tablet)76f else if(short)56f else 66f,
             ((maxHeight.value*.90f-8f)/scale-fixed).div(1.28f).coerceAtLeast(14f))
         Column(Modifier.fillMaxSize().absolutePadding(left=0.dp,
             right=maxWidth*(if(wide).24f else if(tablet).20f else .15f))
@@ -172,7 +172,7 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
             horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             label(kicker,kickerSize,"friday-hero-kicker")
             label(if(s.jumuahEnabled && h.prayer==Prayer.DHUHR)"الجمعة" else h.arabic,
-                arabicSize,"friday-hero-arabic",c.accent,Amiri)
+                arabicSize,"friday-hero-arabic",c.accent,KiswahLandscapeArabic)
             Box(Modifier.height((clockSize*1.28f*scale).dp).fillMaxWidth(),contentAlignment=Alignment.Center) {
                 FridayTime(state.heroTime,s,clockSize,Modifier.fillMaxWidth()
                     .padding(horizontal=if(tablet)24.dp else 20.dp).clickable(onClick=a.onToggleRelative),
@@ -194,5 +194,6 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
         }
     }
 }
+
 
 
