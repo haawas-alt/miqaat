@@ -301,7 +301,8 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                                 MiqaatFridayAsrIcon(Color(0xFFE66C20), Modifier.size(if (tablet) 24.dp else 18.dp))
                             } else Icon(if (s.theme == AppTheme.MIQAAT) when (p) {
                                 Prayer.ISHA -> Icons.Outlined.DarkMode
-                                Prayer.SUNRISE, Prayer.MAGHRIB -> Icons.Outlined.WbTwilight
+                                Prayer.SUNRISE -> Icons.Outlined.WbTwilight
+                                Prayer.MAGHRIB -> Icons.Outlined.WbSunny
                                 else -> Icons.Outlined.WbSunny
                             } else if (s.theme == AppTheme.KISWAH) when(p) {
                                 Prayer.FAJR, Prayer.ISHA -> Icons.Outlined.DarkMode
@@ -310,7 +311,8 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                                 Prayer.MAGHRIB -> Icons.Outlined.WbTwilight
                                 else -> Icons.Outlined.WbSunny
                             } else if(s.theme==AppTheme.CELESTIAL_MERIDIAN || s.theme==AppTheme.PRAYER_GALLERY) when(p) {
-                                Prayer.FAJR,Prayer.ASR,Prayer.MAGHRIB -> Icons.Outlined.WbTwilight
+                                Prayer.FAJR,Prayer.MAGHRIB -> Icons.Outlined.WbTwilight
+                                Prayer.ASR -> Icons.Outlined.WbCloudy
                                 Prayer.ISHA -> Icons.Outlined.DarkMode
                                 else -> Icons.Outlined.WbSunny
                             } else if (p == Prayer.FAJR || p == Prayer.ISHA) Icons.Outlined.DarkMode else if (p == Prayer.ASR) Icons.Outlined.WbTwilight else Icons.Outlined.WbSunny,
@@ -465,14 +467,28 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
 
 @Composable private fun SalawatBeads(color: Color, modifier: Modifier) {
     Canvas(modifier) {
-        val radius = size.minDimension * .32f
-        for (i in 0..11) {
-            val angle = i * Math.PI / 6
-            drawCircle(color, size.minDimension * .055f,
-                Offset(size.width / 2 + radius * kotlin.math.cos(angle).toFloat(), size.height * .4f + radius * kotlin.math.sin(angle).toFloat()))
+        // The approved Salawat mark is a narrow, slanted tasbih with a lower-left
+        // tail. Use one geometry at every CTA and dock size so the silhouette stays
+        // distinct from the circular progress indicator used elsewhere.
+        val unit = size.minDimension
+        val tilt = Math.PI / 5
+        val ct = kotlin.math.cos(tilt).toFloat()
+        val st = kotlin.math.sin(tilt).toFloat()
+        val cx = size.width * .56f
+        val cy = size.height * .39f
+        val rx = unit * .17f
+        val ry = unit * .28f
+        for (i in 0 until 20) {
+            val angle = i * Math.PI / 10
+            val x = rx * kotlin.math.cos(angle).toFloat()
+            val y = ry * kotlin.math.sin(angle).toFloat()
+            drawCircle(color, unit * .039f, Offset(cx + x * ct - y * st, cy + x * st + y * ct))
         }
-        drawLine(color, Offset(size.width / 2, size.height * .73f), Offset(size.width / 2, size.height * .92f), size.minDimension * .055f)
-        drawCircle(color, size.minDimension * .06f, Offset(size.width / 2, size.height * .94f))
+        val knot = Offset(cx - ry * st, cy + ry * ct)
+        val tail = Offset(size.width * .25f, size.height * .91f)
+        drawLine(color, knot, tail, unit * .045f)
+        drawCircle(color, unit * .056f, knot)
+        drawCircle(color, unit * .05f, tail)
     }
 }
 
