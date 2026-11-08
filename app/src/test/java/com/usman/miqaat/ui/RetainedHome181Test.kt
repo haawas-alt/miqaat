@@ -33,8 +33,7 @@ class RetainedHome181Test:ComposeSupport() {
             shadowOf(manager).setNotificationsEnabled(true)
             for(theme in AppTheme.entries.filter { System.getenv("MIQAAT_VISUAL_THEME").let { v->v==null||v==it.name } })
             for(lang in Language.entries)
-            for(dev in listOf(Dev.PHONE_PORTRAIT,Dev.TABLET_PORTRAIT,Dev.TABLET_LANDSCAPE)) {
-                if(dev==Dev.TABLET_LANDSCAPE && theme in listOf(AppTheme.MIQAAT,AppTheme.PRAYER_GALLERY))continue
+            for(dev in Dev.entries) {
                 for(relative in if(dev==Dev.PHONE_PORTRAIT)listOf(false,true)else listOf(false)) {
                     val s=AppSettings(theme=theme,language=lang,latitude=-33.93,longitude=151.19,locationName="Mascot, NSW",
                         zoneId="Australia/Sydney",locationSet=true,setupDone=true,showRelative=relative,nightDim=false)
@@ -43,6 +42,7 @@ class RetainedHome181Test:ComposeSupport() {
                     try {
                         show(dev,theme,rtl=lang==Language.UR,language=lang) { HomeRouter(state,s,HomeActions({}, {}, {}, {}, {}, {}, {},false,{},{}),false,{}) }
                         rule.mainClock.advanceTimeBy(32);rule.waitForIdle()
+                        rule.onNodeWithTag("friday-banner", true).assertDoesNotExist()
                         val prefix="build/protected-home/${theme.name}/${dev.label}-${lang.name}-${if(relative)"relative" else "clock"}"
                         scenario.onActivity { act ->
                             val v=act.findViewById<View>(android.R.id.content);val b=Bitmap.createBitmap(v.width,v.height,Bitmap.Config.ARGB_8888);v.draw(Canvas(b))
