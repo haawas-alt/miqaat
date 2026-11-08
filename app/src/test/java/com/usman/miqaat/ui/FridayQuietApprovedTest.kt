@@ -148,7 +148,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                         rule.onNodeWithTag("friday-time-${p.name}", true).assertTextEquals(L10n.at(state.today[p], use24))
                         rule.onNodeWithTag("friday-detail-${p.name}", true).assertTextEquals(L10n.relative(current.value, state.today[p], state.now))
                     }
-                    if (theme == AppTheme.MIQAAT) {
+                    if (theme == AppTheme.PRAYER_GALLERY) {
                         val art = rule.onNodeWithTag("friday-gallery-vista", true).fetchSemanticsNode().boundsInRoot
                         val hero = rule.onNodeWithTag("home-hero", true).fetchSemanticsNode().boundsInRoot
                         assertTrue("Gallery artwork must remain above hero facts", art.bottom <= hero.top)
@@ -275,9 +275,9 @@ class FridayQuietApprovedTest : ComposeSupport() {
     }
     @Test fun galleryKeeps32ProfilesReadable() { assertFridayReviewMatrix(AppTheme.PRAYER_GALLERY) }
     @Test fun galleryCountdownUsesLiveTickWithoutReplacingFacts() {
-        val s=settings(AppTheme.PRAYER_GALLERY,Language.EN)
+        val s=settings(AppTheme.MIQAAT,Language.EN)
         val now=ZonedDateTime.of(2026,10,30,11,47,0,0,s.zone());val state=PrayerEngine.state(s,now);val tick=mutableStateOf(now);val current=mutableStateOf(state)
-        show(Dev.PHONE_PORTRAIT,AppTheme.PRAYER_GALLERY,language=Language.EN) {
+        show(Dev.PHONE_PORTRAIT,AppTheme.MIQAAT,language=Language.EN) {
             androidx.compose.runtime.CompositionLocalProvider(LocalGalleryFridayNow provides tick.value,LocalFridayRevealFrame provides 1f) {
                 HomeRouter(current.value,s,HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}),false,{})
             }
@@ -338,7 +338,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 if(theme==AppTheme.CELESTIAL_MERIDIAN) {
                     for(tag in listOf("celestial-header-location","celestial-header-date","celestial-header-day","celestial-header-clock","celestial-banner-left","celestial-banner-right")) readable(tag)
                 }
-                if(theme==AppTheme.PRAYER_GALLERY) {
+                if(theme==AppTheme.MIQAAT) {
                     for(tag in listOf("gallery-header-location","gallery-header-date","gallery-header-day","gallery-header-clock","gallery-home-tab")) readable(tag)
                     val band=rule.onNodeWithTag("kiswah-calligraphy-band",true)
                     if(lang==Language.EN)band.assertTextContains("La ilaha illallah",substring=true)
