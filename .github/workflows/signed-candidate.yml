@@ -1,7 +1,7 @@
 name: Signed candidate validation
 on:
   push:
-    branches: ['feat/friday-option2']
+    branches: ['feat/friday-option2', 'recovery/jumuah-one-day-20261108']
     paths: ['.github/workflows/signed-candidate.yml', 'app/**']
   workflow_dispatch:
 concurrency:
@@ -39,6 +39,12 @@ jobs:
           name: native-friday-review-${{ github.run_id }}
           path: app/build/friday-quiet-review/
           if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: protected-standard-home-${{ github.run_id }}
+          path: app/build/protected-home/
+          if-no-files-found: warn
       - name: Build and inspect signed testing candidate
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
