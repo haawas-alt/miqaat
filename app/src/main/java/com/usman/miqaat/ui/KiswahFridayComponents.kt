@@ -143,7 +143,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
         val compact=short || maxHeight<(if(tablet)360.dp else 250.dp)*scale
         // The approved landscape arch gives the Arabic name roughly one and a
         // half times the vertical share of the previous native render.
-        val arabicSize=if(short)30f else if(tablet && !compact)54f else if(ur)34f else 40f
+        val arabicSize=if(short) { if(ur)24f else 30f } else if(tablet && !compact)54f else if(ur)34f else 40f
         val kickerSize=if(short)8f else if(tablet)13f else 11f
         val countSize=if(tablet)23f else if(short)13f else 20f
         val daySize=if(compact) { if(short)8f else 10f } else if(tablet)14f else 12f
