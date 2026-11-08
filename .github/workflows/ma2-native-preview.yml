@@ -1,7 +1,7 @@
 name: MA2 native preview
 on:
   push:
-    branches: ['feat/friday-option2']
+    branches: ['feat/friday-option2', 'recovery/jumuah-one-day-20261108']
     paths:
       - '.github/workflows/ma2-native-preview.yml'
       - 'app/src/main/java/com/usman/miqaat/ui/WorshipApproved.kt'
