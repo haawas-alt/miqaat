@@ -172,7 +172,8 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
             horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             label(kicker,kickerSize,"friday-hero-kicker")
             label(if(s.jumuahEnabled && h.prayer==Prayer.DHUHR)"الجمعة" else h.arabic,
-                arabicSize,"friday-hero-arabic",c.accent,KiswahLandscapeArabic)
+                // Preserve connected Arabic shaping at every viewport.
+                arabicSize,"friday-hero-arabic",c.accent,Amiri)
             Box(Modifier.height((clockSize*1.28f*scale).dp).fillMaxWidth(),contentAlignment=Alignment.Center) {
                 FridayTime(state.heroTime,s,clockSize,Modifier.fillMaxWidth()
                     .padding(horizontal=if(tablet)24.dp else 20.dp).clickable(onClick=a.onToggleRelative),
@@ -192,6 +193,29 @@ internal const val KISWAH_FRIDAY_DHIKR = "سُبْحَانَ اللَّهِ   ا
                 label(if(ur)"◇ ── جمعہ ── ◇" else "◇ ── Friday ── ◇",daySize,"friday-hero-day",c.accent)
             }
         }
+    }
+}
+
+/** KA2's Asr glyph is a compact twin-minaret mosque, not a city block or crescent. */
+@Composable internal fun KiswahFridayAsrIcon(color: Color, modifier: Modifier = Modifier) {
+    Canvas(modifier) {
+        val w=size.width;val h=size.height;val base=h*.83f
+        drawRect(color,Offset(w*.30f,h*.50f),androidx.compose.ui.geometry.Size(w*.40f,base-h*.50f))
+        val dome=Path().apply {
+            moveTo(w*.30f,h*.51f)
+            quadraticBezierTo(w*.50f,h*.27f,w*.70f,h*.51f)
+            close()
+        }
+        drawPath(dome,color)
+        for(x in listOf(w*.15f,w*.75f)) {
+            drawRect(color,Offset(x,h*.38f),androidx.compose.ui.geometry.Size(w*.10f,base-h*.38f))
+            val cap=Path().apply {
+                moveTo(x-w*.025f,h*.38f);lineTo(x+w*.05f,h*.24f);lineTo(x+w*.125f,h*.38f);close()
+            }
+            drawPath(cap,color)
+            drawLine(color,Offset(x+w*.05f,h*.18f),Offset(x+w*.05f,h*.27f),maxOf(1f,w*.055f))
+        }
+        drawLine(color,Offset(w*.10f,base),Offset(w*.90f,base),maxOf(1f,h*.075f))
     }
 }
 
