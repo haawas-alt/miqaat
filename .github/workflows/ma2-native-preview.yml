@@ -5,6 +5,10 @@ on:
     paths:
       - '.github/workflows/ma2-native-preview.yml'
       - 'app/src/main/java/com/usman/miqaat/ui/WorshipApproved.kt'
+      # User-confirmed Friday MA2 uses the navy Gallery presentation after the
+      # page-1/page-4 identity correction, so its focused matrix must follow
+      # changes to this component as well.
+      - 'app/src/main/java/com/usman/miqaat/ui/GalleryFridayComponents.kt'
       - 'app/src/main/res/drawable/ma2_banner_*.xml'
       - 'app/src/main/java/com/usman/miqaat/ui/FridayOption2.kt'
       - 'app/src/main/java/com/usman/miqaat/ui/FridayLayoutMetrics.kt'
@@ -42,3 +46,4 @@ jobs:
             app/build/test-results/
             app/build/reports/tests/
           if-no-files-found: error
+
