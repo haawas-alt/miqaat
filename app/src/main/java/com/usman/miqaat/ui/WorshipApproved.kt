@@ -370,7 +370,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 if (s.theme == AppTheme.PRAYER_GALLERY) Spacer(Modifier.weight(.23f))
                 Column(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) .44f else .60f).fillMaxHeight()) {
                     hero(Modifier.weight(1f).fillMaxWidth(), true)
-                    if (s.theme != AppTheme.PRAYER_GALLERY) FridayDock(s, state, a, tablet, wide)
+                    FridayDock(s, state, a, tablet, wide)
                 }
             } else {
                 banner()
@@ -393,7 +393,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 Spacer(Modifier.height(6.dp))
                 prayers(Modifier.fillMaxWidth().then(if(s.theme==AppTheme.PRAYER_GALLERY)Modifier.padding(horizontal=if(tablet)36.dp else 12.dp) else Modifier).weight(1f))
             }
-            if(!short || s.theme == AppTheme.PRAYER_GALLERY) FridayDock(s, state, a, tablet, wide)
+            if(!short) FridayDock(s, state, a, tablet, wide)
         }
         if (s.nightDim && state.period == Prayer.ISHA) Box(Modifier.matchParentSize().background(Color.Black.copy(alpha = .22f)))
     }
