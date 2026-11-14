@@ -385,6 +385,13 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     val b = rule.onNodeWithTag("friday-action-$i", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("${theme.name} shortcut touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
                 }
+                if (theme == AppTheme.MIQAAT && dev == Dev.TABLET_LANDSCAPE) {
+                    rule.onNodeWithTag("friday-tablet-feature", true).assertIsDisplayed()
+                    readable("friday-action-title-2")
+                    val third = rule.onNodeWithTag("friday-action-2", true).fetchSemanticsNode().boundsInRoot
+                    assertTrue("MA2 tablet Friday-reminder shortcut <48dp",
+                        third.height >= 48 * app.resources.displayMetrics.density - .5f)
+                }
             } catch (e: AssertionError) { failures += "${theme.name}/$dev/$lang/${(fontScale * 100).toInt()}%/${if (use24) 24 else 12}h: ${e.message}" }
             finally { scenario.close() }
         }
@@ -392,3 +399,4 @@ class FridayQuietApprovedTest : ComposeSupport() {
     }
 
 }
+
