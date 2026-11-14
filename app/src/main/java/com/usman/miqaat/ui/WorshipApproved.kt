@@ -202,8 +202,13 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 }
                 Box {
                     IconButton(onClick = { more = true }, modifier = Modifier.size(48.dp)) {
-                        Icon(if (contextLinks.any { it.warn }) Icons.Outlined.WarningAmber else Icons.Outlined.MoreVert,
-                            words(s, "More actions and alerts", "مزید اختیارات اور انتباہات"), tint = c.accent)
+                        Box(Modifier.size(if(tablet)28.dp else 24.dp),contentAlignment=Alignment.Center) {
+                            Icon(Icons.Outlined.GridView,
+                                words(s, "More actions and alerts", "مزید اختیارات اور انتباہات"),
+                                Modifier.size(if(tablet)26.dp else 22.dp),tint=c.accent)
+                            if(contextLinks.any { it.warn }) Box(Modifier.align(Alignment.TopEnd).size(7.dp)
+                                .background(Color(0xFFD85C3C),RoundedCornerShape(50)))
+                        }
                     }
                     DropdownMenu(expanded = more, onDismissRequest = { more = false }) {
                         contextLinks.forEach { link -> DropdownMenuItem(text = { Text(link.label) }, onClick = {
