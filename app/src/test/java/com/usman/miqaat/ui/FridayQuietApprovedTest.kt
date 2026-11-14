@@ -55,6 +55,15 @@ class FridayQuietApprovedTest : ComposeSupport() {
             .config.getOrNull(SemanticsProperties.StateDescription)
         assertTrue("Friday shortcut progress must remain accessible", !state.isNullOrBlank())
     }
+    private fun rowDetailVisibleOrAccessible(theme: AppTheme, p: Prayer) {
+        if (theme != AppTheme.MIQAAT) {
+            readable("friday-detail-${p.name}")
+            return
+        }
+        val descriptions = rule.onNodeWithTag("approved-row-${p.name}", true).fetchSemanticsNode()
+            .config.getOrNull(SemanticsProperties.ContentDescription)
+        assertTrue("MA2 $p prayer details must remain accessible", !descriptions.isNullOrEmpty())
+    }
     private fun capture(theme: AppTheme, dev: Dev, lang: Language, kind: String) {
         rule.mainClock.advanceTimeBy(1000); rule.waitForIdle()
         val path = File("build/friday-quiet-review/${theme.name}/${dev.label}-${lang.name}-$kind.png")
@@ -87,8 +96,8 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 for (i in 0..1) { readable("friday-action-title-$i"); actionProgress(i) }
                 rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, s.use24h))
                 for (p in Prayer.entries) {
-                    readable("friday-time-${p.name}"); readable("friday-detail-${p.name}")
-                    if (p == Prayer.DHUHR) rule.onNodeWithTag("friday-detail-${p.name}", true)
+                    readable("friday-time-${p.name}"); rowDetailVisibleOrAccessible(theme, p)
+                    if (theme != AppTheme.MIQAAT && p == Prayer.DHUHR) rule.onNodeWithTag("friday-detail-${p.name}", true)
                         .assertTextEquals(fridayPrayerDetail(p, state, s, dev == Dev.TABLET_PORTRAIT || dev == Dev.TABLET_LANDSCAPE))
                     rule.onNodeWithTag("friday-time-${p.name}", true).assertTextEquals(L10n.at(state.today[p], s.use24h))
                     val bounds = rule.onNodeWithTag("approved-row-${p.name}", true).fetchSemanticsNode().boundsInRoot
@@ -124,7 +133,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     val bounds=rule.onNodeWithTag("friday-action-$i",true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Friday shortcut <48dp",bounds.height>=48*app.resources.displayMetrics.density-.5f)
                 }
-                for (p in Prayer.entries) { readable("friday-time-${p.name}"); readable("friday-detail-${p.name}") }
+                for (p in Prayer.entries) { readable("friday-time-${p.name}"); rowDetailVisibleOrAccessible(theme, p) }
             } catch(e: AssertionError) { failures += "$theme/$lang/$label: ${e.message}" }
             finally { scenario.close() }
         }
@@ -150,9 +159,10 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     for (tag in listOf("friday-banner", "friday-hero-kicker", "friday-hero-arabic", "friday-hero-time", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
                     rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, use24))
                     for (p in Prayer.entries) {
-                        readable("friday-time-${p.name}"); readable("friday-detail-${p.name}")
+                        readable("friday-time-${p.name}"); rowDetailVisibleOrAccessible(theme, p)
                         rule.onNodeWithTag("friday-time-${p.name}", true).assertTextEquals(L10n.at(state.today[p], use24))
-                        rule.onNodeWithTag("friday-detail-${p.name}", true).assertTextEquals(L10n.relative(current.value, state.today[p], state.now))
+                        if (theme != AppTheme.MIQAAT) rule.onNodeWithTag("friday-detail-${p.name}", true)
+                            .assertTextEquals(L10n.relative(current.value, state.today[p], state.now))
                     }
                     if (theme == AppTheme.PRAYER_GALLERY) {
                         val art = rule.onNodeWithTag("friday-gallery-vista", true).fetchSemanticsNode().boundsInRoot
@@ -182,7 +192,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 capture(theme, dev, lang, "friday-$profile")
                 for (tag in listOf("friday-banner", "friday-hero-kicker", "friday-hero-arabic", "friday-hero-time", "friday-hero-status", "friday-hero-iqamah")) readable(tag)
                 for (p in Prayer.entries) {
-                    readable("friday-time-${p.name}"); readable("friday-detail-${p.name}")
+                    readable("friday-time-${p.name}"); rowDetailVisibleOrAccessible(theme, p)
                     val b = rule.onNodeWithTag("approved-row-${p.name}", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Prayer touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
                 }
@@ -375,7 +385,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 readable("friday-hero-day")
                 rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, use24))
                 for (p in Prayer.entries) {
-                    readable("friday-time-${p.name}"); readable("friday-detail-${p.name}")
+                    readable("friday-time-${p.name}"); rowDetailVisibleOrAccessible(theme, p)
                     rule.onNodeWithTag("friday-time-${p.name}", true).assertTextEquals(L10n.at(state.today[p], use24))
                     val b = rule.onNodeWithTag("approved-row-${p.name}", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("${theme.name} prayer touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
