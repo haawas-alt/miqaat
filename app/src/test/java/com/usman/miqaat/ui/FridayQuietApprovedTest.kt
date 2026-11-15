@@ -372,7 +372,12 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     assertTrue("KA2 embroidery caps must retain their square reference proportions",kotlin.math.abs(left.width-left.height)<1f && kotlin.math.abs(right.width-right.height)<1f)
                     assertTrue("KA2 dhikr must stay between the physical embroidery caps in EN and UR",left.right<=text.left+1f && text.right<=right.left+1f)
                     readable("friday-hero-countdown")
-                    rule.onNodeWithTag("friday-hero-countdown",true).assertTextEquals("01:28:00")
+                    rule.onNodeWithTag("friday-hero-countdown",true).assertTextEquals(
+                        if(dev==Dev.TABLET_LANDSCAPE) L10n.inForState(s,state) else "01:28:00")
+                    if(dev==Dev.TABLET_LANDSCAPE) {
+                        for(tag in listOf("friday-tablet-feature","friday-action-0","friday-action-1","friday-action-2"))
+                            rule.onNodeWithTag(tag,true).assertIsDisplayed()
+                    }
                 }
                     val clockLayouts=mutableListOf<TextLayoutResult>();val statusLayouts=mutableListOf<TextLayoutResult>()
                     rule.onNodeWithTag("friday-hero-time",true).fetchSemanticsNode().config[SemanticsActions.GetTextLayoutResult].action?.invoke(clockLayouts)

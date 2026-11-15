@@ -147,9 +147,9 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
         val compact=short || maxHeight<(if(tablet)360.dp else 250.dp)*scale
         // The approved landscape arch gives the Arabic name roughly one and a
         // half times the vertical share of the previous native render.
-        val arabicSize=if(short) { if(ur)24f else 28f } else if(tablet && !compact)50f else if(ur)32f else 38f
+        val arabicSize=if(short) { if(ur)22f else 25f } else if(tablet && !compact)44f else if(ur)30f else 35f
         val kickerSize=if(short)8f else if(tablet)13f else 11f
-        val countSize=if(tablet)23f else if(short)13f else 20f
+        val countSize=if(tablet)20f else if(short)12f else 18f
         val daySize=if(compact) { if(short)8f else 10f } else if(tablet)14f else 12f
         val iqSize=if(compact) { if(short)7.5f else 9f } else if(tablet)11f else 9f
         val statusLine=if(short) { if(ur)16f else 12f } else if(ur)20f else 16f
@@ -159,7 +159,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
             else daySize*bodyLine+if(iq!=null)iqSize*bodyLine else 0f
         // One centred stack: the old weighted clock created large empty gaps and
         // pushed oversized bold numerals across the arch's embroidered rails.
-        val clockSize=minOf(if(tablet)78f else if(short)52f else 60f,
+        val clockSize=minOf(if(tablet)68f else if(short)46f else 54f,
             ((maxHeight.value*.88f-9f)/scale-fixed).div(1.28f).coerceAtLeast(12f))
         Column(Modifier.fillMaxSize().absolutePadding(left=0.dp,
             right=maxWidth*(if(wide).24f else if(tablet).20f else .15f))
@@ -220,12 +220,12 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
         FridayTime(state.heroTime, s, 54f, Modifier.fillMaxWidth().padding(horizontal = 22.dp),
             "friday-hero-time", c.ink, suffixRatio = if (ur) .30f else .48f)
         Box(Modifier.padding(top = 5.dp).clip(RoundedCornerShape(13.dp))
-            .background(Brush.verticalGradient(listOf(Color(0xFFE7B75E), Color(0xFFB77A28))))
-            .border(.8.dp, Color(0xFFF1D188), RoundedCornerShape(13.dp))
+            .background(Color(0xFF090A09).copy(alpha=.88f))
+            .border(1.dp, Color(0xFFE7B75E), RoundedCornerShape(13.dp))
             .padding(horizontal = 20.dp, vertical = 5.dp)) {
             Text(status, Modifier.testTag("friday-hero-countdown"),
                 fontFamily = if (ur) Amiri else Cormorant, fontSize = (if (ur) 15 else 16).sp,
-                lineHeight = 20.sp, color = Color(0xFF120D05), maxLines = 1)
+                lineHeight = 20.sp, color = c.ink, maxLines = 1)
         }
         Text(if (ur) "جمعہ تک" else "until Jumuʿah", Modifier.testTag("friday-hero-status"),
             fontFamily = if (ur) Amiri else Cormorant, fontSize = 14.sp, lineHeight = 19.sp,
