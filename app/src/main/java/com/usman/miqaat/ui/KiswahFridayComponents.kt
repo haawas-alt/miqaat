@@ -105,7 +105,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
     val measurer = rememberTextMeasurer(); val density=LocalDensity.current
     BoxWithConstraints(modifier,contentAlignment=Alignment.Center) {
         val style=TextStyle(fontFamily=font,fontSize=nominal.sp,lineHeight=(nominal*lineRatio).sp,
-            color=color,textAlign=TextAlign.Center,platformStyle=PlatformTextStyle(includeFontPadding=false))
+            color=color,textAlign=TextAlign.Center,platformStyle=PlatformTextStyle(includeFontPadding=true))
         val fitted=remember(value,nominal,maxWidth,density.fontScale,density.density) {
             val available=with(density){(maxWidth-2.dp).toPx()}.coerceAtLeast(1f)
             var size=nominal
@@ -187,6 +187,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
         }
     }
 }
+
 
 
 

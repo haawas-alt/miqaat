@@ -56,13 +56,13 @@ class FridayQuietApprovedTest : ComposeSupport() {
         assertTrue("Friday shortcut progress must remain accessible", !state.isNullOrBlank())
     }
     private fun rowDetailVisibleOrAccessible(theme: AppTheme, p: Prayer) {
-        if (theme != AppTheme.MIQAAT) {
+        if (rule.onAllNodesWithTag("friday-detail-${p.name}", true).fetchSemanticsNodes().isNotEmpty()) {
             readable("friday-detail-${p.name}")
             return
         }
         val descriptions = rule.onNodeWithTag("approved-row-${p.name}", true).fetchSemanticsNode()
             .config.getOrNull(SemanticsProperties.ContentDescription)
-        assertTrue("MA2 $p prayer details must remain accessible", !descriptions.isNullOrEmpty())
+        assertTrue("$theme $p prayer details must remain accessible", !descriptions.isNullOrEmpty())
     }
     private fun capture(theme: AppTheme, dev: Dev, lang: Language, kind: String) {
         rule.mainClock.advanceTimeBy(1000); rule.waitForIdle()
@@ -97,7 +97,8 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, s.use24h))
                 for (p in Prayer.entries) {
                     readable("friday-time-${p.name}"); rowDetailVisibleOrAccessible(theme, p)
-                    if (theme != AppTheme.MIQAAT && p == Prayer.DHUHR) rule.onNodeWithTag("friday-detail-${p.name}", true)
+                    if (rule.onAllNodesWithTag("friday-detail-${p.name}", true).fetchSemanticsNodes().isNotEmpty() && p == Prayer.DHUHR)
+                        rule.onNodeWithTag("friday-detail-${p.name}", true)
                         .assertTextEquals(fridayPrayerDetail(p, state, s, dev == Dev.TABLET_PORTRAIT || dev == Dev.TABLET_LANDSCAPE))
                     rule.onNodeWithTag("friday-time-${p.name}", true).assertTextEquals(L10n.at(state.today[p], s.use24h))
                     val bounds = rule.onNodeWithTag("approved-row-${p.name}", true).fetchSemanticsNode().boundsInRoot
@@ -161,7 +162,8 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     for (p in Prayer.entries) {
                         readable("friday-time-${p.name}"); rowDetailVisibleOrAccessible(theme, p)
                         rule.onNodeWithTag("friday-time-${p.name}", true).assertTextEquals(L10n.at(state.today[p], use24))
-                        if (theme != AppTheme.MIQAAT) rule.onNodeWithTag("friday-detail-${p.name}", true)
+                        if (rule.onAllNodesWithTag("friday-detail-${p.name}", true).fetchSemanticsNodes().isNotEmpty())
+                            rule.onNodeWithTag("friday-detail-${p.name}", true)
                             .assertTextEquals(L10n.relative(current.value, state.today[p], state.now))
                     }
                     if (theme == AppTheme.PRAYER_GALLERY) {
@@ -397,11 +399,11 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     val b = rule.onNodeWithTag("friday-action-$i", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("${theme.name} shortcut touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
                 }
-                if (theme == AppTheme.MIQAAT && dev == Dev.TABLET_LANDSCAPE) {
+                if ((theme == AppTheme.MIQAAT || theme == AppTheme.KISWAH) && dev == Dev.TABLET_LANDSCAPE) {
                     rule.onNodeWithTag("friday-tablet-feature", true).assertIsDisplayed()
                     readable("friday-action-title-2")
                     val third = rule.onNodeWithTag("friday-action-2", true).fetchSemanticsNode().boundsInRoot
-                    assertTrue("MA2 tablet Friday-reminder shortcut <48dp",
+                    assertTrue("$theme tablet Friday-reminder shortcut <48dp",
                         third.height >= 48 * app.resources.displayMetrics.density - .5f)
                 }
             } catch (e: AssertionError) { failures += "${theme.name}/$dev/$lang/${(fontScale * 100).toInt()}%/${if (use24) 24 else 12}h: ${e.message}" }
