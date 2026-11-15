@@ -71,7 +71,7 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
     modifier: Modifier = Modifier, center: Boolean = false) {
     Text(value, modifier, fontFamily = if (L10n.isUrdu(s)) Amiri else worshipFont(s),
         fontSize = size.sp, lineHeight = (size * if (L10n.isUrdu(s)) 1.18f else 1.22f).sp,
-        platformStyle = PlatformTextStyle(includeFontPadding = false), color = color,
+        style = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false)), color = color,
         textAlign = if (center) TextAlign.Center else TextAlign.Start,
         maxLines = 1, softWrap = false)
 }
