@@ -399,7 +399,8 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     val b = rule.onNodeWithTag("friday-action-$i", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("${theme.name} shortcut touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
                 }
-                if ((theme == AppTheme.MIQAAT || theme == AppTheme.KISWAH) && dev == Dev.TABLET_LANDSCAPE) {
+                if ((theme == AppTheme.MIQAAT || theme == AppTheme.KISWAH || theme == AppTheme.CELESTIAL_MERIDIAN) &&
+                    dev == Dev.TABLET_LANDSCAPE) {
                     rule.onNodeWithTag("friday-tablet-feature", true).assertIsDisplayed()
                     readable("friday-action-title-2")
                     val third = rule.onNodeWithTag("friday-action-2", true).fetchSemanticsNode().boundsInRoot
