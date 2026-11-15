@@ -374,6 +374,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 if (s.theme == AppTheme.PRAYER_GALLERY) Spacer(Modifier.weight(.23f))
                 Column(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) .44f else .60f).fillMaxHeight()) {
                     hero(Modifier.weight(1f).fillMaxWidth(), true)
+                    if (short) FridayDock(s, state, a, tablet, wide)
                 }
             } else {
                 banner()
