@@ -7,7 +7,9 @@ import com.usman.miqaat.data.AppTheme
 internal fun fridayBandHeight(theme:AppTheme,tablet:Boolean,wide:Boolean,fontScale:Float):Dp = when {
     // 33dp matches the approved inset band while preserving six native 48dp rows
     // at 115% text size on the 812x375 phone landscape viewport.
-    wide && !tablet && theme==AppTheme.KISWAH -> 36.dp*fontScale
+    // Keep the KA2 phone-landscape band fixed: scaling this container as well as
+    // its sp text stole just enough height to make the six 48dp prayer targets scroll.
+    wide && !tablet && theme==AppTheme.KISWAH -> 33.dp
     wide && !tablet -> 24.dp*fontScale
     tablet -> when(theme){AppTheme.MIQAAT->38.dp;AppTheme.KISWAH->54.dp;AppTheme.CELESTIAL_MERIDIAN->42.dp;AppTheme.PRAYER_GALLERY->38.dp}
     theme==AppTheme.MIQAAT -> 32.dp

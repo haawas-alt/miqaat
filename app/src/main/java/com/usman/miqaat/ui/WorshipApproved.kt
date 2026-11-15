@@ -65,6 +65,17 @@ private fun words(s: AppSettings, en: String, ur: String) = if (L10n.isUrdu(s)) 
         textAlign = if (center) TextAlign.Center else TextAlign.Start, maxLines = lines)
 }
 
+/** Compact Friday header type. Nastaliq is intentionally reserved for the larger
+ * KA2 content roles; its tall native metrics cannot fit the approved 48/62dp masthead. */
+@Composable private fun FridayHeaderText(value: String, s: AppSettings, size: Float, color: Color,
+    modifier: Modifier = Modifier, center: Boolean = false) {
+    Text(value, modifier, fontFamily = if (L10n.isUrdu(s)) Amiri else worshipFont(s),
+        fontSize = size.sp, lineHeight = (size * if (L10n.isUrdu(s)) 1.18f else 1.22f).sp,
+        platformStyle = PlatformTextStyle(includeFontPadding = false), color = color,
+        textAlign = if (center) TextAlign.Center else TextAlign.Start,
+        maxLines = 1, softWrap = false)
+}
+
 @Composable private fun WorshipSurface(s: AppSettings, modifier: Modifier = Modifier, selected: Boolean = false, ornate: Boolean = false, fill: Color? = null, framed: Boolean = true, cornerRadius: Dp = 14.dp,
     content: @Composable ColumnScope.() -> Unit) {
     val c = fridayOption2Palette(s.theme)
@@ -164,29 +175,29 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                         Icon(Icons.Outlined.LocationOn, null, Modifier.size(if(tablet) 18.dp else 13.dp), tint = c.accent)
                         Spacer(Modifier.width(3.dp))
                         Column(Modifier.weight(1f)) {
-                            WorshipText(if(onClosePreview != null) words(s,"Jumuʿah preview","جمعہ کا پیش منظر") else s.locationName,
-                                s,if(tablet) 16f else 11f,c.ink,Modifier.testTag("$headerTheme-header-location"),lines=1)
+                            FridayHeaderText(if(onClosePreview != null) words(s,"Jumuʿah preview","جمعہ کا پیش منظر") else s.locationName,
+                                s,if(tablet) 16f else 11f,c.ink,Modifier.testTag("$headerTheme-header-location"))
                             if(!wide && !compactGalleryPhone) {
-                            WorshipText(if(L10n.isUrdu(s)) L10n.fridayDate(state.now.toLocalDate()) else
+                            FridayHeaderText(if(L10n.isUrdu(s)) L10n.fridayDate(state.now.toLocalDate()) else
                                 state.now.format(java.time.format.DateTimeFormatter.ofPattern("d MMMM yyyy",Locale.ENGLISH)),
-                                s,if(tablet) 11f else 9f,c.secondary,Modifier.testTag("$headerTheme-header-date"),lines=1)
+                                s,if(tablet) 11f else 9f,c.secondary,Modifier.testTag("$headerTheme-header-date"))
                             }
                         }
                     }
                     if(wide)Column(Modifier.weight(.9f),horizontalAlignment=Alignment.CenterHorizontally) {
-                        WorshipText(words(s,"Friday","جمعہ"),s,if(tablet)13f else 10f,c.accent,
-                            Modifier.testTag("$headerTheme-header-day"),center=true,lines=1)
-                        WorshipText(if(L10n.isUrdu(s))L10n.fridayDate(state.now.toLocalDate()) else
+                        FridayHeaderText(words(s,"Friday","جمعہ"),s,if(tablet)13f else 10f,c.accent,
+                            Modifier.testTag("$headerTheme-header-day"),center=true)
+                        FridayHeaderText(if(L10n.isUrdu(s))L10n.fridayDate(state.now.toLocalDate()) else
                             state.now.format(java.time.format.DateTimeFormatter.ofPattern("d MMMM yyyy",Locale.ENGLISH)),s,
-                            if(tablet)11f else 9f,c.secondary,Modifier.testTag("$headerTheme-header-date"),center=true,lines=1)
+                            if(tablet)11f else 9f,c.secondary,Modifier.testTag("$headerTheme-header-date"),center=true)
                     }
                     if (!compactGalleryPhone) Column(Modifier.width(if(tablet) 160.dp else 100.dp),horizontalAlignment=Alignment.CenterHorizontally) {
-                        if(!wide)WorshipText(words(s,"Friday","جمعہ"),s,if(tablet) (if(L10n.isUrdu(s)) 11f else 13f) else 10f,c.accent,
-                            Modifier.testTag("$headerTheme-header-day"),center=true,lines=1)
-                        WorshipText(if(!L10n.isUrdu(s))
+                        if(!wide)FridayHeaderText(words(s,"Friday","جمعہ"),s,if(tablet) (if(L10n.isUrdu(s)) 11f else 13f) else 10f,c.accent,
+                            Modifier.testTag("$headerTheme-header-day"),center=true)
+                        FridayHeaderText(if(!L10n.isUrdu(s))
                             ((when(s.theme){AppTheme.KISWAH->LocalKiswahFridayNow.current;AppTheme.PRAYER_GALLERY->LocalGalleryFridayNow.current;else->LocalCelestialFridayNow.current})?:state.now).format(java.time.format.DateTimeFormatter.ofPattern(if(s.use24h)"HH:mm:ss" else "h:mm:ss a",Locale.ENGLISH))
                             else L10n.at(state.now,s.use24h),s,if(tablet) (if(L10n.isUrdu(s)) 17f else 19f) else 13f,c.ink,
-                            Modifier.testTag("$headerTheme-header-clock"),center=true,lines=1)
+                            Modifier.testTag("$headerTheme-header-clock"),center=true)
                     }
                 } else if (s.theme == AppTheme.MIQAAT) {
                     Row(Modifier.weight(.8f).heightIn(min = 48.dp).clickable(onClick = a.onOpenLocation),
@@ -231,7 +242,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                         horizontalArrangement=Arrangement.spacedBy(4.dp,Alignment.CenterHorizontally)) {
                         Icon(Icons.Outlined.Settings,Str[R.string.s_settings],
                             Modifier.size(if(tablet)24.dp else 20.dp),tint=c.accent)
-                        WorshipText(words(s,"Settings","ترتیبات"),s,if(tablet)12f else 9f,c.ink,lines=1)
+                        FridayHeaderText(words(s,"Settings","ترتیبات"),s,if(tablet)12f else 9f,c.ink)
                     }
                 } else IconButton(onClick = a.onOpenSettings, modifier = Modifier.size(48.dp)) {
                     Icon(Icons.Outlined.Settings, Str[R.string.s_settings], tint = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent)
