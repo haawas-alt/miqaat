@@ -48,7 +48,7 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
     else -> QuietPalette(Color(0xFF03152D), Color(0xFFF5ECD8), Color(0xFFE7C77E), Color(0xFFD8CFBD), Color(0xFF061C35).copy(alpha=.72f))
 }
 
-@Composable internal fun FridayOption2Backdrop(s: AppSettings, wide: Boolean, modifier: Modifier) {
+@Composable internal fun FridayOption2Backdrop(s: AppSettings, wide: Boolean, tablet: Boolean, modifier: Modifier) {
     val c = fridayOption2Palette(s.theme)
     Box(modifier.background(c.background).testTag("friday-option2-art-${s.theme.name}")) {
         if(s.theme==AppTheme.PRAYER_GALLERY) {
@@ -61,6 +61,12 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
         }
         if(s.theme == AppTheme.KISWAH) {
             KiswahFridayBackdrop(Modifier.fillMaxSize())
+            if (tablet && wide && s.artTheme != ArtTheme.MINIMAL) {
+                Image(painterResource(R.drawable.kiswah_tablet_approved), null,
+                    Modifier.fillMaxSize().testTag("kiswah-tablet-landscape-art"),
+                    contentScale = ContentScale.Crop, alignment = Alignment.Center)
+                Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = .08f)))
+            }
             return@Box
         }
         // Keep the pointed arch in the hero only. Repeating the complete painting

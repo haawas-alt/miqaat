@@ -159,7 +159,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
         val tabletPrayerRowHeight = if (L10n.isUrdu(s)) {
             if (s.theme == AppTheme.MIQAAT || s.theme == AppTheme.KISWAH) 56.dp else 64.dp
         } else if(s.theme==AppTheme.KISWAH)50.dp else 52.dp
-        FridayOption2Backdrop(s, wide, Modifier.matchParentSize())
+        FridayOption2Backdrop(s, wide, tablet, Modifier.matchParentSize())
         Column(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = if (tablet) 22.dp else 10.dp)
             .testTag("friday-home")) {
             val headerTheme=when(s.theme){AppTheme.CELESTIAL_MERIDIAN->"celestial";AppTheme.PRAYER_GALLERY->"gallery";else->"kiswah"}
@@ -349,17 +349,17 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                                 Prayer.ISHA -> Icons.Outlined.DarkMode
                                 else -> Icons.Outlined.WbSunny
                             } else if (p == Prayer.FAJR || p == Prayer.ISHA) Icons.Outlined.DarkMode else if (p == Prayer.ASR) Icons.Outlined.WbTwilight else Icons.Outlined.WbSunny,
-                                null, Modifier.size(if (tablet && s.theme==AppTheme.KISWAH) 22.dp else if (tablet) 24.dp else 18.dp), tint = if (s.theme == AppTheme.MIQAAT) Color(0xFFE66C20) else c.accent)
+                                null, Modifier.size(if (wide && tablet && s.theme==AppTheme.KISWAH) 28.dp else if (tablet && s.theme==AppTheme.KISWAH) 22.dp else if (tablet) 24.dp else 18.dp), tint = if (s.theme == AppTheme.MIQAAT) Color(0xFFE66C20) else c.accent)
                             Column(Modifier.weight(1f), horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center) {
-                                WorshipText(r.label, s, if (tablet && s.theme==AppTheme.KISWAH) (if(L10n.isUrdu(s))15f else 15.5f) else if (tablet) 17f else if (short && s.theme==AppTheme.KISWAH)13f else if (short) 14f else 15f, c.ink, lines = 1)
+                                WorshipText(r.label, s, if (wide && tablet && s.theme==AppTheme.KISWAH) (if(L10n.isUrdu(s))18f else 20f) else if (tablet && s.theme==AppTheme.KISWAH) (if(L10n.isUrdu(s))15f else 15.5f) else if (tablet) 17f else if (short && s.theme==AppTheme.KISWAH)13f else if (short) 14f else 15f, c.ink, lines = 1)
                                 if (tablet && !L10n.isUrdu(s) && (s.theme != AppTheme.PRAYER_GALLERY || wide) &&
                                     (s.theme != AppTheme.KISWAH || wide) &&
                                     (s.theme != AppTheme.CELESTIAL_MERIDIAN || wide) &&
                                     (s.theme != AppTheme.MIQAAT || wide)) Text(if (s.jumuahEnabled && p == Prayer.DHUHR) "الجمعة" else r.arabic,
-                                    fontFamily = Amiri, fontSize = (if(s.theme==AppTheme.KISWAH)13 else 14).sp, lineHeight = 21.sp, color = c.accent)
+                                    fontFamily = Amiri, fontSize = (if(wide && tablet && s.theme==AppTheme.KISWAH)15 else if(s.theme==AppTheme.KISWAH)13 else 14).sp, lineHeight = 21.sp, color = c.accent)
                             }
                             Column(Modifier.width(if (tablet && wide) 170.dp else if (tablet) 205.dp else if (short && s.theme==AppTheme.PRAYER_GALLERY) 100.dp else if (short) 112.dp else 128.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                                FridayTime(state.today[p], s, if (tablet && s.theme==AppTheme.KISWAH)19.5f else if (tablet) 22f else if(short && s.theme==AppTheme.KISWAH)16.5f else 18f,
+                                FridayTime(state.today[p], s, if (wide && tablet && s.theme==AppTheme.KISWAH)22f else if (tablet && s.theme==AppTheme.KISWAH)19.5f else if (tablet) 22f else if(short && s.theme==AppTheme.KISWAH)16.5f else 18f,
                                     Modifier.fillMaxWidth(), "friday-time-${p.name}", c.ink, TextAlign.Center, emphasized = selected && s.theme == AppTheme.MIQAAT)
                                 if ((s.showRelative || s.showEndTimes) && s.theme != AppTheme.PRAYER_GALLERY &&
                                     (s.theme != AppTheme.KISWAH || (wide && tablet && typeScale<=1.05f)) &&
@@ -369,7 +369,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                                     s, if (tablet) 11f else if (L10n.isUrdu(s)) 8.5f else 9f, c.secondary,
                                     Modifier.testTag("friday-detail-${p.name}"), center = true, lines = if (tablet) 2 else 1)
                             }
-                            Box(Modifier.width((if(s.theme==AppTheme.KISWAH)12.dp else if (tablet) 48.dp else if(short && s.theme==AppTheme.PRAYER_GALLERY)35.dp else 35.dp) * if (s.theme == AppTheme.MIQAAT || s.theme == AppTheme.KISWAH || s.theme == AppTheme.CELESTIAL_MERIDIAN || s.theme == AppTheme.PRAYER_GALLERY) typeScale else 1f), contentAlignment = Alignment.Center) {
+                            Box(Modifier.width((if(wide && tablet && s.theme==AppTheme.KISWAH)52.dp else if(s.theme==AppTheme.KISWAH)12.dp else if (tablet) 48.dp else if(short && s.theme==AppTheme.PRAYER_GALLERY)35.dp else 35.dp) * if (s.theme == AppTheme.MIQAAT || s.theme == AppTheme.KISWAH || s.theme == AppTheme.CELESTIAL_MERIDIAN || s.theme == AppTheme.PRAYER_GALLERY) typeScale else 1f), contentAlignment = Alignment.Center) {
                             if (s.theme == AppTheme.MIQAAT)
                                 Icon(Icons.AutoMirrored.Outlined.VolumeUp,
                                     words(s, "Prayer notification", "نماز کی اطلاع"),
@@ -377,7 +377,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                             else if ((r.isNow || r.isNext) && s.theme == AppTheme.CELESTIAL_MERIDIAN)
                                 Icon(Icons.Outlined.ChevronRight, words(s, "Prayer details", "نماز کی تفصیل"),
                                     tint = c.accent, modifier = Modifier.size(22.dp))
-                            else if ((r.isNow || r.isNext) && s.theme!=AppTheme.KISWAH) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"),
+                            else if ((r.isNow || r.isNext) && (s.theme!=AppTheme.KISWAH || (wide && tablet))) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"),
                                 Modifier.testTag(if (r.isNow) "home-status-now" else "home-status-next")
                                     .clip(RoundedCornerShape(8.dp)).background(c.accent).padding(horizontal = 5.dp, vertical = 3.dp),
                                 fontFamily = if (L10n.isUrdu(s)) Amiri else QuietBody, fontSize = 9.sp, color = c.background,
@@ -395,8 +395,17 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 }
             }
             if (wide) banner()
-            // MA2, KA2 and GA2 use a prayer rail, hero/feature and three full-width shortcuts.
-            if (wide && tablet && (s.theme == AppTheme.PRAYER_GALLERY || s.theme == AppTheme.KISWAH || s.theme == AppTheme.MIQAAT)) {
+            if (wide && tablet && s.theme == AppTheme.KISWAH) {
+                Row(Modifier.weight(1f).fillMaxWidth().padding(top = 8.dp, bottom = 6.dp),
+                    horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                    prayers(Modifier.weight(.49f).fillMaxHeight())
+                    KiswahTabletLandscapeFridayHero(state, s, a,
+                        Modifier.weight(.51f).fillMaxHeight()) { why = state.hero }
+                }
+                FridayTabletLandscapeFeature(s, a, Modifier.fillMaxWidth().height(76.dp))
+                FridayTabletLandscapeActions(s, state.now, a, Modifier.fillMaxWidth().height(94.dp))
+            // MA2 and GA2 keep their existing hero/feature column composition.
+            } else if (wide && tablet && (s.theme == AppTheme.PRAYER_GALLERY || s.theme == AppTheme.MIQAAT)) {
                 Row(Modifier.weight(1f).fillMaxWidth().padding(top = 8.dp, bottom = 6.dp),
                     horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                     val prayerWeight = when (s.theme) {
@@ -410,7 +419,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                         FridayTabletLandscapeFeature(s, a, Modifier.fillMaxWidth().height(76.dp))
                     }
                 }
-                FridayTabletLandscapeActions(s, a, Modifier.fillMaxWidth().height(84.dp))
+                FridayTabletLandscapeActions(s, state.now, a, Modifier.fillMaxWidth().height(84.dp))
             } else if (wide && tablet && s.theme == AppTheme.CELESTIAL_MERIDIAN) {
                 // CA2's p.7 adaptation keeps the feature and three shortcuts in the
                 // right art column while the prayer rail and dock remain independent.
@@ -420,7 +429,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                     Column(Modifier.weight(.60f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         FridayTabletLandscapeFeature(s, a, Modifier.fillMaxWidth().height(76.dp))
                         hero(Modifier.weight(1f).fillMaxWidth(), false)
-                        FridayTabletLandscapeActions(s, a, Modifier.fillMaxWidth().height(84.dp))
+                        FridayTabletLandscapeActions(s, state.now, a, Modifier.fillMaxWidth().height(84.dp))
                     }
                 }
             } else if (wide) Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -511,15 +520,15 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     val c = fridayOption2Palette(s.theme)
     WorshipSurface(s, modifier.clickable(role = Role.Button, onClick = a.onOpenFriday)
         .testTag("friday-tablet-feature"), selected = true, ornate = s.theme == AppTheme.KISWAH,
-        fill = c.panel.copy(alpha = .96f), cornerRadius = 10.dp) {
+        fill = c.panel.copy(alpha = .96f), cornerRadius = 4.dp) {
         Row(Modifier.fillMaxSize().padding(horizontal = if(s.theme==AppTheme.KISWAH)14.dp else 18.dp), verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(if(s.theme==AppTheme.KISWAH)10.dp else 14.dp)) {
-            Icon(Icons.Outlined.Mosque, null, Modifier.size(if(s.theme==AppTheme.KISWAH)34.dp else 38.dp), tint = c.accent)
+            Icon(Icons.Outlined.Mosque, null, Modifier.size(if(s.theme==AppTheme.KISWAH)42.dp else 38.dp), tint = c.accent)
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
-                WorshipText(words(s, "JUMUʿAH · الجمعة", "جمعہ"), s, if (L10n.isUrdu(s)) 15f else if(s.theme==AppTheme.KISWAH)18f else 19f,
+                WorshipText(words(s, "JUMUʿAH · الجمعة", "جمعہ"), s, if (L10n.isUrdu(s)) 18f else if(s.theme==AppTheme.KISWAH)24f else 19f,
                     c.ink, lines = 1)
                 WorshipText(words(s, "A day for prayer, remembrance and reflection", "نماز، ذکر اور غور و فکر کا دن"),
-                    s, if (L10n.isUrdu(s)) 10f else 12f, c.secondary, lines = 1)
+                    s, if (L10n.isUrdu(s)) 12f else if(s.theme==AppTheme.KISWAH)15f else 12f, c.secondary, lines = 1)
             }
             Icon(Icons.Outlined.ChevronRight, null, Modifier.size(26.dp), tint = c.accent)
         }
@@ -527,13 +536,17 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
 }
 
 /** Three full-width concept shortcuts sit below both tablet-landscape columns. */
-@Composable private fun FridayTabletLandscapeActions(s: AppSettings, a: HomeActions, modifier: Modifier = Modifier) {
+@Composable private fun FridayTabletLandscapeActions(s: AppSettings, now: ZonedDateTime, a: HomeActions, modifier: Modifier = Modifier) {
     val c = fridayOption2Palette(s.theme)
     val labels = listOf(words(s, "Al-Kahf", "سورۃ الکہف"), words(s, "Salawat", "درود شریف"),
         words(s, "Friday reminders", "جمعہ کی یاد دہانیاں"))
     val subtitles = listOf(words(s, "Read this Friday", "اس جمعہ پڑھیں"), words(s, "Make it a habit", "معمول بنائیں"),
         words(s, "Prepare for Jumuʿah", "جمعہ کی تیاری کریں"))
     val clicks = listOf(a.onOpenKahf, a.onOpenSalawat, a.onOpenFriday)
+    val prefs = LocalContext.current.getSharedPreferences("miqaat_friday", Context.MODE_PRIVATE)
+    val dayKey = now.toLocalDate().toString()
+    val progresses = listOf(if (prefs.getBoolean("kahf_$dayKey", false)) 1f else 0f,
+        (prefs.getInt("salawat_$dayKey", 0) / 100f).coerceIn(0f, 1f), 0f)
     Row(modifier.padding(vertical = 5.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
         repeat(3) { i ->
             WorshipSurface(s, Modifier.weight(1f).fillMaxHeight().testTag("friday-action-$i")
@@ -543,15 +556,21 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                 Row(Modifier.fillMaxSize().padding(horizontal = if(s.theme==AppTheme.KISWAH)10.dp else 14.dp), verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(if(s.theme==AppTheme.KISWAH)8.dp else 12.dp)) {
                     when (i) {
-                        0 -> Icon(Icons.Filled.MenuBook, null, Modifier.size(if(s.theme==AppTheme.KISWAH)28.dp else 32.dp), tint = c.accent)
-                        1 -> SalawatBeads(c.accent, Modifier.size(if(s.theme==AppTheme.KISWAH)28.dp else 32.dp))
-                        else -> Icon(Icons.Outlined.NotificationsActive, null, Modifier.size(if(s.theme==AppTheme.KISWAH)28.dp else 32.dp), tint = c.accent)
+                        0 -> Icon(Icons.Filled.MenuBook, null, Modifier.size(if(s.theme==AppTheme.KISWAH)38.dp else 32.dp), tint = c.accent)
+                        1 -> SalawatBeads(c.accent, Modifier.size(if(s.theme==AppTheme.KISWAH)38.dp else 32.dp))
+                        else -> Icon(Icons.Outlined.NotificationsActive, null, Modifier.size(if(s.theme==AppTheme.KISWAH)38.dp else 32.dp), tint = c.accent)
                     }
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
-                        WorshipText(labels[i], s, if (L10n.isUrdu(s)) (if(s.theme==AppTheme.KISWAH)13f else 15f) else if (s.theme == AppTheme.CELESTIAL_MERIDIAN) 14f else if(s.theme==AppTheme.KISWAH)15f else 16f, c.ink,
+                        WorshipText(labels[i], s, if (L10n.isUrdu(s)) (if(s.theme==AppTheme.KISWAH)16f else 15f) else if (s.theme == AppTheme.CELESTIAL_MERIDIAN) 14f else if(s.theme==AppTheme.KISWAH)20f else 16f, c.ink,
                             Modifier.testTag("friday-action-title-$i"),
                             lines = if (s.theme == AppTheme.CELESTIAL_MERIDIAN && i == 2) 2 else 1)
-                        WorshipText(subtitles[i], s, if (L10n.isUrdu(s)) (if(s.theme==AppTheme.KISWAH)9f else 10f) else 11f, c.secondary, lines = 1)
+                        WorshipText(subtitles[i], s, if (L10n.isUrdu(s)) (if(s.theme==AppTheme.KISWAH)11f else 10f) else if(s.theme==AppTheme.KISWAH)13f else 11f, c.secondary, lines = 1)
+                    }
+                    if (s.theme == AppTheme.KISWAH && i < 2) Box(Modifier.size(44.dp), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator(progress = { progresses[i] }, Modifier.fillMaxSize(),
+                            color = c.accent, trackColor = c.secondary.copy(alpha = .25f), strokeWidth = 3.dp)
+                        Text("${(progresses[i] * 100).roundToInt()}%", fontFamily = Cormorant,
+                            fontSize = 12.sp, color = c.ink, maxLines = 1)
                     }
                     Icon(Icons.Outlined.ChevronRight, null, Modifier.size(22.dp), tint = c.accent)
                 }

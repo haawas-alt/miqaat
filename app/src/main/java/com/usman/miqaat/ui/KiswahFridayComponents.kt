@@ -3,6 +3,7 @@ package com.usman.miqaat.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import com.usman.miqaat.data.*
 import java.util.Locale
 import java.time.ZonedDateTime
@@ -187,6 +189,54 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
                 label(if(ur)"◇ ── جمعہ ── ◇" else "◇ ── Friday ── ◇",daySize,"friday-hero-day",c.accent)
             }
         }
+    }
+}
+
+/** KA2 tablet landscape follows the supplied black-cloth concept: the hero is
+ * typography over the Kiswah backdrop, not a second portrait mihrab painting. */
+@Composable internal fun KiswahTabletLandscapeFridayHero(state: PrayerState, s: AppSettings,
+    a: HomeActions, modifier: Modifier, onDetails: () -> Unit) {
+    val c = fridayOption2Palette(s.theme)
+    val h = heroInfo(state, s, null)
+    val ur = L10n.isUrdu(s)
+    val iq = PrayerEngine.iqamah(s, state.today, h.prayer)
+    val detail = if (ur) "نماز کی تفصیل" else "View prayer details"
+    val title = if (ur) "جمعہ" else "JUMUʿAH"
+    val status = if (state.justPassed) L10n.ago(s, state.delta) else L10n.inForState(s, state)
+    Column(modifier.testTag("home-hero").clickable(role = Role.Button,
+        onClickLabel = detail, onClick = onDetails).padding(horizontal = 18.dp, vertical = 10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center) {
+        Text(if (ur) "اگلی نماز" else "Next Prayer", Modifier.testTag("friday-hero-kicker"),
+            fontFamily = if (ur) Amiri else Cormorant, fontSize = (if (ur) 18 else 17).sp,
+            lineHeight = 24.sp, color = c.ink, maxLines = 1)
+        Text(title, Modifier.testTag("friday-hero-arabic"),
+            fontFamily = if (ur) Nastaliq else Cormorant,
+            fontWeight = if (ur) FontWeight.Normal else FontWeight.Medium,
+            fontSize = (if (ur) 34 else 46).sp, lineHeight = (if (ur) 56 else 50).sp,
+            color = c.accent, maxLines = 1)
+        if (!ur) Text("الجمعة", fontFamily = Amiri, fontWeight = FontWeight.Bold,
+            fontSize = 29.sp, lineHeight = 35.sp, color = c.accent, maxLines = 1)
+        FridayTime(state.heroTime, s, 54f, Modifier.fillMaxWidth().padding(horizontal = 22.dp),
+            "friday-hero-time", c.ink, suffixRatio = if (ur) .30f else .48f)
+        Box(Modifier.padding(top = 5.dp).clip(RoundedCornerShape(13.dp))
+            .background(Brush.verticalGradient(listOf(Color(0xFFE7B75E), Color(0xFFB77A28))))
+            .border(.8.dp, Color(0xFFF1D188), RoundedCornerShape(13.dp))
+            .padding(horizontal = 20.dp, vertical = 5.dp)) {
+            Text(status, Modifier.testTag("friday-hero-countdown"),
+                fontFamily = if (ur) Amiri else Cormorant, fontSize = (if (ur) 15 else 16).sp,
+                lineHeight = 20.sp, color = Color(0xFF120D05), maxLines = 1)
+        }
+        Text(if (ur) "جمعہ تک" else "until Jumuʿah", Modifier.testTag("friday-hero-status"),
+            fontFamily = if (ur) Amiri else Cormorant, fontSize = 14.sp, lineHeight = 19.sp,
+            color = c.ink, maxLines = 1)
+        Text(iq?.let { "${L10n.word(s, "Iqamah")} ${L10n.at(it, s.use24h)}" }
+            ?: if (ur) "مسجد کا وقت" else "Masjid time", Modifier.testTag("friday-hero-iqamah"),
+            fontFamily = if (ur) Amiri else Cormorant, fontSize = 13.sp, lineHeight = 18.sp,
+            color = c.secondary, maxLines = 1)
+        Text(if (ur) "◇ جمعہ ◇" else "◇ Friday ◇", Modifier.testTag("friday-hero-day"),
+            fontFamily = if (ur) Amiri else Cormorant, fontSize = 13.sp, lineHeight = 18.sp,
+            color = c.accent, maxLines = 1)
     }
 }
 
