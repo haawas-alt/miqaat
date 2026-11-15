@@ -80,7 +80,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
         Image(painterResource(R.drawable.ka2_banner_right),null,
             Modifier.align(AbsoluteAlignment.CenterRight).size(cap).testTag("kiswah-banner-right-embroidery"))
         Row(
-            Modifier.fillMaxSize().padding(horizontal=cap + if (wide && !tablet) 4.dp else 2.dp)
+            Modifier.fillMaxSize().padding(horizontal=cap + if (wide && !tablet) 4.dp else 2.dp, vertical=2.dp)
                 .testTag("kiswah-calligraphy-band"),
             horizontalArrangement=Arrangement.SpaceEvenly,
             verticalAlignment=Alignment.CenterVertically,
@@ -155,7 +155,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
             else daySize*bodyLine+if(iq!=null)iqSize*bodyLine else 0f
         // One centred stack: the old weighted clock created large empty gaps and
         // pushed oversized bold numerals across the arch's embroidered rails.
-        val clockSize=minOf(if(tablet)82f else if(short)70f else 62f,
+        val clockSize=minOf(if(tablet)82f else if(short)54f else 62f,
             ((maxHeight.value*.88f-9f)/scale-fixed).div(1.28f).coerceAtLeast(12f))
         Column(Modifier.fillMaxSize().absolutePadding(left=0.dp,
             right=maxWidth*(if(wide).24f else if(tablet).20f else .15f))
