@@ -511,7 +511,8 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                     }
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
                         WorshipText(labels[i], s, if (L10n.isUrdu(s)) 15f else if (s.theme == AppTheme.CELESTIAL_MERIDIAN) 14f else 16f, c.ink,
-                            Modifier.testTag("friday-action-title-$i"), lines = 1)
+                            Modifier.testTag("friday-action-title-$i"),
+                            lines = if (s.theme == AppTheme.CELESTIAL_MERIDIAN && i == 2) 2 else 1)
                         WorshipText(subtitles[i], s, if (L10n.isUrdu(s)) 10f else 11f, c.secondary, lines = 1)
                     }
                     Icon(Icons.Outlined.ChevronRight, null, Modifier.size(22.dp), tint = c.accent)
