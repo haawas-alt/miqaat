@@ -355,7 +355,9 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     for(tag in listOf("celestial-header-location","celestial-header-date","celestial-header-day","celestial-header-clock","celestial-banner-left","celestial-banner-right")) readable(tag)
                 }
                 if(theme==AppTheme.MIQAAT) {
-                    for(tag in listOf("gallery-header-location","gallery-header-date","gallery-header-day","gallery-header-clock","gallery-home-tab")) readable(tag)
+                    for(tag in listOf("gallery-header-location","gallery-home-tab")) readable(tag)
+                    if (dev != Dev.PHONE_PORTRAIT)
+                        for(tag in listOf("gallery-header-date","gallery-header-day","gallery-header-clock")) readable(tag)
                     val band=rule.onNodeWithTag("kiswah-calligraphy-band",true)
                     if(lang==Language.EN)band.assertTextContains("La ilaha illallah",substring=true)
 
