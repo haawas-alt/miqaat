@@ -546,8 +546,8 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
                 WorshipText(words(s, "JUMUʿAH · الجمعة", "جمعہ"), s, if (L10n.isUrdu(s)) 15f else if(s.theme==AppTheme.KISWAH)20f else 19f,
                     c.ink, lines = 1)
-                WorshipText(words(s, "A day for prayer, remembrance and reflection", "نماز، ذکر اور غور و فکر کا دن"),
-                    s, if (L10n.isUrdu(s)) 10f else if(s.theme==AppTheme.KISWAH)12f else 12f, c.secondary, lines = 1)
+                if (!L10n.isUrdu(s)) WorshipText("A day for prayer, remembrance and reflection",
+                    s, if(s.theme==AppTheme.KISWAH)12f else 12f, c.secondary, lines = 1)
             }
             Icon(Icons.Outlined.ChevronRight, null, Modifier.size(26.dp), tint = c.accent)
         }

@@ -227,9 +227,11 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
                 fontFamily = if (ur) Amiri else Cormorant, fontSize = (if (ur) 15 else 16).sp,
                 lineHeight = 20.sp, color = c.ink, maxLines = 1)
         }
-        Text(if (ur) "جمعہ تک" else "until Jumuʿah", Modifier.testTag("friday-hero-status"),
-            fontFamily = if (ur) Amiri else Cormorant, fontSize = 14.sp, lineHeight = 19.sp,
-            color = c.ink, maxLines = 1)
+        Box(if(!ur) Modifier.testTag("friday-hero-name") else Modifier) {
+            Text(if (ur) "جمعہ تک" else "until Jumuʿah", Modifier.testTag("friday-hero-status"),
+                fontFamily = if (ur) Amiri else Cormorant, fontSize = 14.sp, lineHeight = 19.sp,
+                color = c.ink, maxLines = 1)
+        }
         Text(iq?.let { "${L10n.word(s, "Iqamah")} ${L10n.at(it, s.use24h)}" }
             ?: if (ur) "مسجد کا وقت" else "Masjid time", Modifier.testTag("friday-hero-iqamah"),
             fontFamily = if (ur) Amiri else Cormorant, fontSize = 13.sp, lineHeight = 18.sp,

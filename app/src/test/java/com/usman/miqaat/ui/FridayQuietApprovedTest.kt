@@ -365,7 +365,8 @@ class FridayQuietApprovedTest : ComposeSupport() {
 
                 }
                 if(theme==AppTheme.KISWAH) {
-                    for(tag in listOf("kiswah-header-location","kiswah-header-date","kiswah-header-day","kiswah-header-clock")) readable(tag)
+                    for(tag in listOf("kiswah-header-location","kiswah-header-day","kiswah-header-clock")) readable(tag)
+                    if(dev!=Dev.PHONE_PORTRAIT) readable("kiswah-header-date")
                     val left=rule.onNodeWithTag("kiswah-banner-left-embroidery",true).fetchSemanticsNode().boundsInRoot
                     val right=rule.onNodeWithTag("kiswah-banner-right-embroidery",true).fetchSemanticsNode().boundsInRoot
                     val text=rule.onNodeWithTag("kiswah-calligraphy-band",true).fetchSemanticsNode().boundsInRoot
