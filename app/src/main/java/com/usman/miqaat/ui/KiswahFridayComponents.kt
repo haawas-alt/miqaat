@@ -116,7 +116,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
             }
             size
         }
-        Text(value,Modifier.testTag(tag),style=style.copy(fontSize=fitted.sp),softWrap=false,maxLines=1)
+        Text(value,Modifier.offset(y=(-3).dp).testTag(tag),style=style.copy(fontSize=fitted.sp),softWrap=false,maxLines=1)
     }
 }
 
