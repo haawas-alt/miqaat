@@ -386,7 +386,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                                 FridayTime(state.today[p], s, if (wide && tablet && s.theme==AppTheme.KISWAH)22f else if (tablet && s.theme==AppTheme.KISWAH)19.5f else if (tablet) 22f else if(short && s.theme==AppTheme.KISWAH)16.5f else 18f,
                                     Modifier.fillMaxWidth(), "friday-time-${p.name}", c.ink, TextAlign.Center, emphasized = selected && s.theme == AppTheme.MIQAAT)
                                 if ((s.showRelative || s.showEndTimes) && s.theme != AppTheme.PRAYER_GALLERY &&
-                                    (s.theme != AppTheme.KISWAH || (wide && tablet && typeScale<=1.05f)) &&
+                                    (s.theme != AppTheme.KISWAH || (wide && tablet && typeScale<=1.05f && !L10n.isUrdu(s))) &&
                                     (s.theme != AppTheme.CELESTIAL_MERIDIAN || (wide && tablet)) &&
                                     s.theme != AppTheme.MIQAAT) WorshipText(
                                     if (s.showRelative) L10n.relative(s, state.today[p], state.now) else fridayPrayerDetail(p, state, s, tablet),
