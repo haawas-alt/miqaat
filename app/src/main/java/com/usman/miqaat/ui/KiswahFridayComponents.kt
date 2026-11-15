@@ -22,6 +22,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
@@ -33,6 +34,7 @@ import java.time.Duration
 import kotlin.math.*
 
 private val KiswahFridayGold = Color(0xFFE7C77E)
+private val KiswahBannerArabic = FontFamily(Font(R.font.layla_thuluth))
 /** Fresh UI tick; the prayer engine can keep its existing minute-level cache. */
 internal val LocalKiswahFridayNow = staticCompositionLocalOf<ZonedDateTime?> { null }
 
@@ -52,7 +54,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
 
 /** Text-free embroidery caps traced from the approved KA2 board, with live native dhikr. */
 @Composable internal fun KiswahFridayBanner(tablet: Boolean, wide: Boolean, modifier: Modifier) {
-    val horizontalInset=if(wide && !tablet)48.dp else if(tablet)12.dp else 6.dp
+    val horizontalInset=if(wide && !tablet)48.dp else if(tablet)24.dp else 10.dp
     BoxWithConstraints(modifier.padding(horizontal=horizontalInset).background(Color(0xFF050606))) {
         val cap=maxHeight
         Canvas(Modifier.matchParentSize().clip(RectangleShape)) {
@@ -80,7 +82,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
         Image(painterResource(R.drawable.ka2_banner_right),null,
             Modifier.align(AbsoluteAlignment.CenterRight).size(cap).testTag("kiswah-banner-right-embroidery"))
         Row(
-            Modifier.fillMaxSize().padding(horizontal=cap + if (wide && !tablet) 4.dp else 2.dp, vertical=2.dp)
+            Modifier.fillMaxSize().padding(horizontal=cap + if (wide && !tablet) 7.dp else 5.dp, vertical=3.dp)
                 .testTag("kiswah-calligraphy-band"),
             horizontalArrangement=Arrangement.SpaceEvenly,
             verticalAlignment=Alignment.CenterVertically,
@@ -88,11 +90,11 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
             KISWAH_FRIDAY_PHRASES.forEachIndexed { index, phrase ->
                 KiswahFridayFitText(
                     value=phrase,
-                    nominal=if(tablet)22f else if(wide)17f else 16f,
-                    font=Amiri,
-                    color=Color(0xFFF6E4B2),
-                    modifier=Modifier.weight(if(index==1)1.35f else 1f).fillMaxHeight(),
-                    lineRatio=1.55f,
+                    nominal=if(tablet)19f else if(wide)15f else 15f,
+                    font=KiswahBannerArabic,
+                    color=Color(0xFFF2D99A),
+                    modifier=Modifier.weight(when(index){1->1.48f;3->1.15f;else->1f}).fillMaxHeight(),
+                    lineRatio=1.34f,
                     tag="kiswah-calligraphy-phrase-$index",
                 )
             }
@@ -116,7 +118,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
             }
             size
         }
-        Text(value,Modifier.offset(y=(-3).dp).testTag(tag),style=style.copy(fontSize=fitted.sp),softWrap=false,maxLines=1)
+        Text(value,Modifier.offset(y=(-1).dp).testTag(tag),style=style.copy(fontSize=fitted.sp),softWrap=false,maxLines=1)
     }
 }
 
@@ -143,7 +145,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
         val compact=short || maxHeight<(if(tablet)360.dp else 250.dp)*scale
         // The approved landscape arch gives the Arabic name roughly one and a
         // half times the vertical share of the previous native render.
-        val arabicSize=if(short) { if(ur)24f else 30f } else if(tablet && !compact)54f else if(ur)34f else 40f
+        val arabicSize=if(short) { if(ur)24f else 28f } else if(tablet && !compact)50f else if(ur)32f else 38f
         val kickerSize=if(short)8f else if(tablet)13f else 11f
         val countSize=if(tablet)23f else if(short)13f else 20f
         val daySize=if(compact) { if(short)8f else 10f } else if(tablet)14f else 12f
@@ -155,7 +157,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
             else daySize*bodyLine+if(iq!=null)iqSize*bodyLine else 0f
         // One centred stack: the old weighted clock created large empty gaps and
         // pushed oversized bold numerals across the arch's embroidered rails.
-        val clockSize=minOf(if(tablet)82f else if(short)54f else 62f,
+        val clockSize=minOf(if(tablet)78f else if(short)52f else 60f,
             ((maxHeight.value*.88f-9f)/scale-fixed).div(1.28f).coerceAtLeast(12f))
         Column(Modifier.fillMaxSize().absolutePadding(left=0.dp,
             right=maxWidth*(if(wide).24f else if(tablet).20f else .15f))
@@ -169,7 +171,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
             Box(Modifier.height((clockSize*1.28f*scale).dp).fillMaxWidth(),contentAlignment=Alignment.Center) {
                 FridayTime(state.heroTime,s,clockSize,Modifier.fillMaxWidth()
                     .padding(horizontal=if(tablet)24.dp else 20.dp).clickable(onClick=a.onToggleRelative),
-                    "friday-hero-time",c.ink,suffixRatio=if(ur).24f else .60f)
+                    "friday-hero-time",c.ink,suffixRatio=if(ur).30f else .56f)
             }
             label(countdown,countSize,"friday-hero-countdown",c.ink,FontFamily.Serif)
             Box(if(!ur)Modifier.testTag("friday-hero-name") else Modifier) {

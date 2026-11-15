@@ -119,7 +119,7 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
             Canvas(Modifier.fillMaxSize().testTag("kiswah-portrait-artwork")) {
                 val w=size.width.roundToInt();val height=size.height.roundToInt()
                 val split=(w*(1f-kiswahPortraitPanel)).roundToInt()
-                val top=(height*.04f).roundToInt()
+                val top=0
                 val left=(art.width*100f/1536f).roundToInt()
                 val end=(art.width*1040f/1536f).roundToInt()
                 val strip=(art.width*.75f).roundToInt()
@@ -127,9 +127,14 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
                 // The approved portrait arch is broad; do not squash the complete
                 // landscape painting into it. Preserve the embroidery as its own strip.
                 val archHeight=height-top
-                val archWidth=minOf(split,((end-left).toFloat()/art.height*archHeight).roundToInt())
-                drawImage(art,IntOffset(left,0),IntSize(end-left,art.height),
-                    IntOffset((split-archWidth)/2,top),IntSize(archWidth,archHeight),alpha=opacity,filterQuality=FilterQuality.High)
+                // Crop the source mihrab to the destination ratio. The previous
+                // aspect-fit centred a narrower image and exposed a large black
+                // gutter beside the arch on tablet portrait.
+                val requiredSourceWidth=(art.height.toFloat()*split/archHeight).roundToInt()
+                    .coerceIn(1,end-left)
+                val sourceLeft=left+(end-left-requiredSourceWidth)/2
+                drawImage(art,IntOffset(sourceLeft,0),IntSize(requiredSourceWidth,art.height),
+                    IntOffset(0,top),IntSize(split,archHeight),alpha=opacity,filterQuality=FilterQuality.High)
                 drawImage(art,IntOffset(strip,0),IntSize(art.width-strip,art.height),
                     IntOffset(split,0),IntSize(w-split,height),alpha=opacity,filterQuality=FilterQuality.High)
             }
@@ -137,3 +142,4 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
             contentScale = artworkContentScale, alignment = Alignment.TopCenter,alpha=opacity)
     }
 }
+

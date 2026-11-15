@@ -7,12 +7,13 @@ import com.usman.miqaat.data.AppTheme
 internal fun fridayBandHeight(theme:AppTheme,tablet:Boolean,wide:Boolean,fontScale:Float):Dp = when {
     // 33dp matches the approved inset band while preserving six native 48dp rows
     // at 115% text size on the 812x375 phone landscape viewport.
-    wide && !tablet && theme==AppTheme.KISWAH -> 33.dp*fontScale
+    wide && !tablet && theme==AppTheme.KISWAH -> 36.dp*fontScale
     wide && !tablet -> 24.dp*fontScale
-    tablet -> when(theme){AppTheme.MIQAAT->38.dp;AppTheme.KISWAH->48.dp;AppTheme.CELESTIAL_MERIDIAN->42.dp;AppTheme.PRAYER_GALLERY->38.dp}
+    tablet -> when(theme){AppTheme.MIQAAT->38.dp;AppTheme.KISWAH->54.dp;AppTheme.CELESTIAL_MERIDIAN->42.dp;AppTheme.PRAYER_GALLERY->38.dp}
     theme==AppTheme.MIQAAT -> 32.dp
     theme==AppTheme.PRAYER_GALLERY -> 30.dp
-    else -> 38.dp
+    else -> if(theme==AppTheme.KISWAH)42.dp else 38.dp
 }
 internal fun fridayDockHeight(tablet:Boolean,wide:Boolean):Dp = if(tablet)66.dp else if(wide)48.dp else 56.dp
+
 
