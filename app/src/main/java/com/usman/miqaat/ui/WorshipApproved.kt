@@ -338,7 +338,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                                 if ((s.showRelative || s.showEndTimes) && s.theme != AppTheme.PRAYER_GALLERY &&
                                     (s.theme != AppTheme.KISWAH || (wide && tablet)) &&
                                     (s.theme != AppTheme.CELESTIAL_MERIDIAN || (wide && tablet)) &&
-                                    (s.theme != AppTheme.MIQAAT || (wide && tablet))) WorshipText(
+                                    s.theme != AppTheme.MIQAAT) WorshipText(
                                     if (s.showRelative) L10n.relative(s, state.today[p], state.now) else fridayPrayerDetail(p, state, s, tablet),
                                     s, if (tablet) 11f else if (L10n.isUrdu(s)) 8.5f else 9f, c.secondary,
                                     Modifier.testTag("friday-detail-${p.name}"), center = true, lines = if (tablet) 2 else 1)
