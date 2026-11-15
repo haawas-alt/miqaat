@@ -329,12 +329,14 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 }
             }
             val prayers: @Composable (Modifier) -> Unit = { m ->
+                val kiswahLandscapeCards = wide && tablet && s.theme == AppTheme.KISWAH
                 WorshipSurface(s, m.background(c.background.copy(alpha = .72f), RoundedCornerShape(6.dp)).testTag("home-prayers"),
-                    fill = if (s.theme == AppTheme.MIQAAT) Color.Transparent else if(s.theme == AppTheme.KISWAH) Color(0xFF050707).copy(alpha=.9f) else null,
-                    framed = s.theme != AppTheme.MIQAAT, cornerRadius = if (s.theme == AppTheme.MIQAAT) 0.dp else if(s.theme==AppTheme.KISWAH)12.dp else 14.dp) {
+                    fill = if (s.theme == AppTheme.MIQAAT || kiswahLandscapeCards) Color.Transparent else if(s.theme == AppTheme.KISWAH) Color(0xFF050707).copy(alpha=.9f) else null,
+                    framed = s.theme != AppTheme.MIQAAT && !kiswahLandscapeCards, cornerRadius = if (s.theme == AppTheme.MIQAAT) 0.dp else if(s.theme==AppTheme.KISWAH)12.dp else 14.dp) {
                     BoxWithConstraints(Modifier.fillMaxSize().testTag("friday-prayer-viewport")) {
                     val scrollPrayers = maxHeight < 48.dp * listedPrayers(s).size
-                    Column(Modifier.fillMaxSize().then(if(scrollPrayers)Modifier.verticalScroll(rememberScrollState()).testTag("friday-prayer-scroll") else Modifier)) {
+                    Column(Modifier.fillMaxSize().then(if(scrollPrayers)Modifier.verticalScroll(rememberScrollState()).testTag("friday-prayer-scroll") else Modifier),
+                        verticalArrangement = if(kiswahLandscapeCards) Arrangement.spacedBy(5.dp) else Arrangement.Top) {
                     listedPrayers(s).forEach { p ->
                         val r = fridayRowInfo(p, state, s)
                         val selected = r.isNow || r.isNext && listedPrayers(s).none { galleryRowInfo(it, state, s).isNow }
@@ -344,7 +346,10 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                                 else if(s.theme == AppTheme.KISWAH) listOf(Color(0xFF6B5125).copy(alpha=.72f),Color(0xFF2A2114).copy(alpha=.88f),Color(0xFF0B0A07).copy(alpha=.94f))
                                 else if(s.theme==AppTheme.PRAYER_GALLERY) listOf(Color(0xFFC49A50).copy(alpha=.92f),Color(0xFF60411F).copy(alpha=.94f),Color(0xFF36291C).copy(alpha=.94f))
                                 else listOf(Color(0xFFA67C3E).copy(alpha = .9f), Color(0xFF49301D).copy(alpha = .94f))))
-                                .then(if (s.theme == AppTheme.MIQAAT) Modifier else Modifier.border(if(s.theme==AppTheme.KISWAH).8.dp else 1.dp, c.accent.copy(alpha = if(s.theme==AppTheme.KISWAH).74f else .9f), RoundedCornerShape(if(s.theme==AppTheme.PRAYER_GALLERY)12.dp else if(s.theme==AppTheme.KISWAH)8.dp else 4.dp))) else Modifier)
+                                .then(if (s.theme == AppTheme.MIQAAT) Modifier else Modifier.border(if(s.theme==AppTheme.KISWAH).8.dp else 1.dp, c.accent.copy(alpha = if(s.theme==AppTheme.KISWAH).74f else .9f), RoundedCornerShape(if(s.theme==AppTheme.PRAYER_GALLERY)12.dp else if(s.theme==AppTheme.KISWAH)8.dp else 4.dp)))
+                            else if(kiswahLandscapeCards) Modifier.clip(RoundedCornerShape(7.dp))
+                                .background(c.panel.copy(alpha=.88f)).border(.45.dp,c.secondary.copy(alpha=.32f),RoundedCornerShape(7.dp))
+                            else Modifier)
                             .drawBehind { drawLine(c.accent.copy(alpha = .12f), Offset(8.dp.toPx(), size.height), Offset(size.width - 8.dp.toPx(), size.height), 1f) }
                             .testTag("approved-row-${p.name}").semantics(mergeDescendants = true) { contentDescription = r.spoken }
                             .clickable { why = p }.padding(horizontal = if (tablet) 14.dp else 8.dp),
@@ -540,6 +545,15 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     WorshipSurface(s, modifier.clickable(role = Role.Button, onClick = a.onOpenFriday)
         .testTag("friday-tablet-feature"), selected = true, ornate = s.theme == AppTheme.KISWAH,
         fill = c.panel.copy(alpha = .96f), cornerRadius = 4.dp) {
+        if (s.theme == AppTheme.KISWAH) Box(Modifier.fillMaxSize().padding(horizontal=14.dp)) {
+            Column(Modifier.align(Alignment.Center), horizontalAlignment=Alignment.CenterHorizontally,
+                verticalArrangement=Arrangement.Center) {
+                WorshipText(words(s, "JUMUʿAH · الجمعة", "جمعہ"), s, if(L10n.isUrdu(s))15f else 20f,
+                    c.ink, center=true, lines=1)
+                if(!L10n.isUrdu(s)) WorshipText("A day for prayer, remembrance and reflection",s,12f,c.secondary,center=true,lines=1)
+            }
+            Icon(Icons.Outlined.ChevronRight,null,Modifier.align(Alignment.CenterEnd).size(26.dp),tint=c.accent)
+        } else {
         Row(Modifier.fillMaxSize().padding(horizontal = if(s.theme==AppTheme.KISWAH)14.dp else 18.dp), verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(if(s.theme==AppTheme.KISWAH)10.dp else 14.dp)) {
             Icon(Icons.Outlined.Mosque, null, Modifier.size(if(s.theme==AppTheme.KISWAH)34.dp else 38.dp), tint = c.accent)
@@ -550,6 +564,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
                     s, if(s.theme==AppTheme.KISWAH)12f else 12f, c.secondary, lines = 1)
             }
             Icon(Icons.Outlined.ChevronRight, null, Modifier.size(26.dp), tint = c.accent)
+        }
         }
     }
 }
