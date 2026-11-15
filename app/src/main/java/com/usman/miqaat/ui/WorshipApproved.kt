@@ -375,10 +375,10 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 }
             } else {
                 banner()
-                val idealHeroHeight = if (tablet) (viewportHeight * .44f).coerceIn(440.dp, 600.dp)
+                val idealHeroHeight = if (tablet) (viewportHeight * if (s.theme == AppTheme.PRAYER_GALLERY) .48f else .44f).coerceIn(440.dp, 600.dp)
                     else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 250.dp else 320.dp)
                     else if (s.theme == AppTheme.KISWAH) (if (smallPortrait) 250.dp else 320.dp)
-                    else if(s.theme == AppTheme.PRAYER_GALLERY) (if(smallPortrait)240.dp else 288.dp)
+                    else if(s.theme == AppTheme.PRAYER_GALLERY) (if(smallPortrait)260.dp else 320.dp)
                     else (if (smallPortrait) 240.dp else 300.dp)
                 val mastheadHeight = fridayBandHeight(s.theme,tablet,wide,typeScale)
                 val headerHeight = (if(tablet)62.dp else 48.dp) + if(s.theme==AppTheme.MIQAAT) {
