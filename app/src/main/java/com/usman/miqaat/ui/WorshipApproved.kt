@@ -193,12 +193,22 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                             }
                         }
                     }
-                    if(wide)Column(Modifier.weight(.9f),horizontalAlignment=Alignment.CenterHorizontally) {
-                        FridayHeaderText(words(s,"Friday","جمعہ"),s,if(tablet)13f else 10f,c.accent,
-                            Modifier.testTag("$headerTheme-header-day"),center=true)
-                        FridayHeaderText(if(L10n.isUrdu(s))L10n.fridayDate(state.now.toLocalDate()) else
-                            state.now.format(java.time.format.DateTimeFormatter.ofPattern("d MMMM yyyy",Locale.ENGLISH)),s,
-                            if(tablet)11f else 9f,c.secondary,Modifier.testTag("$headerTheme-header-date"),center=true)
+                    if(wide) {
+                        if (s.theme == AppTheme.KISWAH && !tablet) Row(Modifier.weight(.9f),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterHorizontally)) {
+                            FridayHeaderText(words(s,"Friday","جمعہ"),s,10f,c.accent,
+                                Modifier.testTag("$headerTheme-header-day"),center=true)
+                            FridayHeaderText(if(L10n.isUrdu(s))L10n.fridayDate(state.now.toLocalDate()) else
+                                state.now.format(java.time.format.DateTimeFormatter.ofPattern("d MMMM yyyy",Locale.ENGLISH)),s,
+                                9f,c.secondary,Modifier.testTag("$headerTheme-header-date"),center=true)
+                        } else Column(Modifier.weight(.9f),horizontalAlignment=Alignment.CenterHorizontally) {
+                            FridayHeaderText(words(s,"Friday","جمعہ"),s,if(tablet)13f else 10f,c.accent,
+                                Modifier.testTag("$headerTheme-header-day"),center=true)
+                            FridayHeaderText(if(L10n.isUrdu(s))L10n.fridayDate(state.now.toLocalDate()) else
+                                state.now.format(java.time.format.DateTimeFormatter.ofPattern("d MMMM yyyy",Locale.ENGLISH)),s,
+                                if(tablet)11f else 9f,c.secondary,Modifier.testTag("$headerTheme-header-date"),center=true)
+                        }
                     }
                     if (!compactGalleryPhone) {
                         val headerNow = (when(s.theme){AppTheme.KISWAH->LocalKiswahFridayNow.current;AppTheme.PRAYER_GALLERY->LocalGalleryFridayNow.current;else->LocalCelestialFridayNow.current})?:state.now
@@ -213,7 +223,10 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                             }
                             FridayHeaderText(clock,s,if(L10n.isUrdu(s))17f else 19f,c.ink,
                                 Modifier.width(160.dp).testTag("$headerTheme-header-clock"),center=true)
-                        } else Column(Modifier.width(if(tablet)160.dp else 112.dp),horizontalAlignment=Alignment.CenterHorizontally) {
+                        } else {
+                            if (s.theme == AppTheme.KISWAH && wide && !tablet) Box(Modifier.width(1.dp).height(18.dp)
+                                .background(c.accent.copy(alpha=.55f)))
+                            Column(Modifier.width(if(tablet)160.dp else 112.dp),horizontalAlignment=Alignment.CenterHorizontally) {
                             if (kiswahPortrait) {
                                 FridayHeaderText(clock,s,13f,c.ink,Modifier.testTag("$headerTheme-header-clock"),center=true)
                                 FridayHeaderText(words(s,"Friday","جمعہ"),s,10f,c.accent,
@@ -223,6 +236,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                                     Modifier.testTag("$headerTheme-header-day"),center=true)
                                 FridayHeaderText(clock,s,if(tablet) (if(L10n.isUrdu(s))17f else 19f) else 13f,c.ink,
                                     Modifier.testTag("$headerTheme-header-clock"),center=true)
+                            }
                             }
                         }
                     }
@@ -473,8 +487,8 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 }
             } else if (wide && !tablet && s.theme == AppTheme.KISWAH) {
                 Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    prayers(Modifier.weight(.42f).fillMaxHeight())
-                    hero(Modifier.weight(.58f).fillMaxHeight(), true)
+                    prayers(Modifier.weight(.38f).fillMaxHeight())
+                    hero(Modifier.weight(.62f).fillMaxHeight(), true)
                 }
                 FridayDock(s, state, a, tablet, wide)
             } else if (wide) Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {

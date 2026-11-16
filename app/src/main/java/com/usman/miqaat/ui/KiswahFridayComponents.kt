@@ -56,7 +56,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
 
 /** Text-free embroidery caps traced from the approved KA2 board, with live native dhikr. */
 @Composable internal fun KiswahFridayBanner(tablet: Boolean, wide: Boolean, modifier: Modifier) {
-    val horizontalInset=if(wide && !tablet)48.dp else if(tablet)24.dp else 10.dp
+    val horizontalInset=if(wide && !tablet)48.dp else if(tablet)24.dp else 0.dp
     BoxWithConstraints(modifier.padding(horizontal=horizontalInset).background(Color(0xFF050606))) {
         val cap=maxHeight
         Canvas(Modifier.matchParentSize().clip(RectangleShape)) {
@@ -241,6 +241,7 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
             color = c.accent, maxLines = 1)
     }
 }
+
 
 
 
