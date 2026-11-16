@@ -338,7 +338,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
             }
             val prayers: @Composable (Modifier) -> Unit = { m ->
                 val kiswahLandscapeCards = wide && tablet && s.theme == AppTheme.KISWAH
-                val kiswahPhoneLandscapeRows = wide && !tablet && s.theme == AppTheme.KISWAH
+                val kiswahCompactPhoneRows = !tablet && s.theme == AppTheme.KISWAH
                 WorshipSurface(s, m.background(c.background.copy(alpha = .72f), RoundedCornerShape(6.dp)).testTag("home-prayers"),
                     fill = if (s.theme == AppTheme.MIQAAT || kiswahLandscapeCards) Color.Transparent else if(s.theme == AppTheme.KISWAH) Color(0xFF050707).copy(alpha=.9f) else null,
                     framed = s.theme != AppTheme.MIQAAT && !kiswahLandscapeCards, cornerRadius = if (s.theme == AppTheme.MIQAAT) 0.dp else if(s.theme==AppTheme.KISWAH)12.dp else 14.dp) {
@@ -351,7 +351,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                         val r = fridayRowInfo(p, state, s)
                         val selected = r.isNow || r.isNext && listedPrayers(s).none { galleryRowInfo(it, state, s).isNow }
                         Row(Modifier.fillMaxWidth().then(
-                            if (kiswahPhoneLandscapeRows) Modifier.height(40.dp)
+                            if (kiswahCompactPhoneRows) Modifier.height(40.dp)
                             else if(scrollPrayers) Modifier.height(48.dp)
                             else Modifier.weight(1f)
                         )
@@ -487,8 +487,8 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
             } else {
                 banner()
                 if (s.theme == AppTheme.KISWAH) {
-                    val exactHeroHeight = if (tablet) 500.dp else 320.dp
-                    val exactPrayerHeight = if (tablet) 278.dp else 288.dp
+                    val exactHeroHeight = if (tablet) 500.dp else 365.dp
+                    val exactPrayerHeight = if (tablet) 278.dp else 244.dp
                     hero(Modifier.fillMaxWidth().height(exactHeroHeight), true)
                     Spacer(Modifier.height(6.dp))
                     prayers(Modifier.fillMaxWidth().height(exactPrayerHeight))
