@@ -154,6 +154,14 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
         val typeScale = density.fontScale
         val safeHeight = maxHeight - with(density) { (WindowInsets.safeDrawing.getTop(density) + WindowInsets.safeDrawing.getBottom(density)).toDp() }
         val smallPortrait = !tablet && !wide && maxHeight < 800.dp
+        val headerHeight = when {
+            s.theme == AppTheme.KISWAH && tablet && !wide -> 77.dp
+            s.theme == AppTheme.KISWAH && tablet && wide -> 56.dp
+            s.theme == AppTheme.KISWAH && !tablet && !wide -> 65.dp
+            s.theme == AppTheme.KISWAH && !tablet && wide -> 44.dp
+            tablet -> 62.dp
+            else -> 48.dp
+        }
         // Urdu rows have two native lines too; 56dp fits their measured line
         // heights without taking the display clock's space at larger font scales.
         val tabletPrayerRowHeight = if (L10n.isUrdu(s)) {
@@ -165,7 +173,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
             val headerTheme=when(s.theme){AppTheme.CELESTIAL_MERIDIAN->"celestial";AppTheme.PRAYER_GALLERY->"gallery";else->"kiswah"}
             val header: @Composable () -> Unit = {
             val compactGalleryPhone = s.theme == AppTheme.PRAYER_GALLERY && !tablet && !wide
-            Row(Modifier.fillMaxWidth().height(if (tablet) 62.dp else 48.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth().height(headerHeight), verticalAlignment = Alignment.CenterVertically) {
                 if (onClosePreview != null) IconButton(onClick = onClosePreview, modifier = Modifier.size(48.dp).testTag("jummah-preview-close")) {
                     Icon(Icons.AutoMirrored.Outlined.ArrowBack, Str[R.string.s_back], tint = c.accent)
                 }
@@ -340,7 +348,8 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                     listedPrayers(s).forEach { p ->
                         val r = fridayRowInfo(p, state, s)
                         val selected = r.isNow || r.isNext && listedPrayers(s).none { galleryRowInfo(it, state, s).isNow }
-                        Row(Modifier.fillMaxWidth().then(if(scrollPrayers)Modifier.height(48.dp) else Modifier.weight(1f)).heightIn(min = 48.dp)
+                        Row(Modifier.fillMaxWidth().then(if(scrollPrayers)Modifier.height(48.dp) else Modifier.weight(1f))
+                            .heightIn(min = if (s.theme == AppTheme.KISWAH) 0.dp else 48.dp)
                             .then(if (selected) Modifier.clip(RoundedCornerShape(if(s.theme==AppTheme.PRAYER_GALLERY)12.dp else if(s.theme==AppTheme.KISWAH)8.dp else 4.dp)).background(Brush.horizontalGradient(
                                 if (s.theme == AppTheme.MIQAAT) listOf(Color(0xFFD5E3CE), Color(0xFFE7EDDC))
                                 else if(s.theme == AppTheme.KISWAH) listOf(Color(0xFF6B5125).copy(alpha=.72f),Color(0xFF2A2114).copy(alpha=.88f),Color(0xFF0B0A07).copy(alpha=.94f))
@@ -456,6 +465,12 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                         FridayTabletLandscapeActions(s, state.now, a, Modifier.fillMaxWidth().height(84.dp))
                     }
                 }
+            } else if (wide && !tablet && s.theme == AppTheme.KISWAH) {
+                Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    prayers(Modifier.weight(.42f).fillMaxHeight())
+                    hero(Modifier.weight(.58f).fillMaxHeight(), true)
+                }
+                FridayDock(s, state, a, tablet, wide)
             } else if (wide) Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 prayers(Modifier.weight(if (s.theme == AppTheme.PRAYER_GALLERY) .33f else .40f).fillMaxHeight())
                 if (s.theme == AppTheme.PRAYER_GALLERY) Spacer(Modifier.weight(.23f))
@@ -465,6 +480,13 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 }
             } else {
                 banner()
+                if (s.theme == AppTheme.KISWAH) {
+                    val exactHeroHeight = if (tablet) 500.dp else 365.dp
+                    val exactPrayerHeight = if (tablet) 278.dp else 244.dp
+                    hero(Modifier.fillMaxWidth().height(exactHeroHeight), true)
+                    Spacer(Modifier.height(6.dp))
+                    prayers(Modifier.fillMaxWidth().height(exactPrayerHeight))
+                } else {
                 val idealHeroHeight = if (tablet && s.theme == AppTheme.KISWAH) 410.dp
                     else if (tablet) (viewportHeight * if (s.theme == AppTheme.PRAYER_GALLERY) .48f else .44f).coerceIn(440.dp, 600.dp)
                     else if (s.theme == AppTheme.MIQAAT) (if (smallPortrait) 250.dp else 320.dp)
@@ -484,6 +506,7 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
                 hero(Modifier.fillMaxWidth().height(heroHeight), true)
                 Spacer(Modifier.height(6.dp))
                 prayers(Modifier.fillMaxWidth().then(if(s.theme==AppTheme.PRAYER_GALLERY)Modifier.padding(horizontal=if(tablet)36.dp else 12.dp) else Modifier).weight(1f))
+                }
             }
             if(!short) FridayDock(s, state, a, tablet, wide)
         }
@@ -621,7 +644,13 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     val c = fridayOption2Palette(s.theme)
     val mode = adhkarModes(state, s).firstOrNull() ?: AdhkarMode.MORNING
     val iconColor = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent
-    Row(Modifier.fillMaxWidth().height(fridayDockHeight(tablet,wide)).padding(vertical = 3.dp).background(c.background.copy(alpha = .94f), RoundedCornerShape(14.dp))
+    val exactKiswahHeight = when {
+        s.theme == AppTheme.KISWAH && tablet && !wide -> 80.dp
+        s.theme == AppTheme.KISWAH && !tablet && !wide -> 78.dp
+        s.theme == AppTheme.KISWAH && !tablet && wide -> 50.dp
+        else -> fridayDockHeight(tablet,wide)
+    }
+    Row(Modifier.fillMaxWidth().height(exactKiswahHeight).padding(vertical = 3.dp).background(c.background.copy(alpha = .94f), RoundedCornerShape(14.dp))
         .then(if(s.theme==AppTheme.CELESTIAL_MERIDIAN)Modifier.border(.7.dp,c.secondary.copy(alpha=.40f),RoundedCornerShape(14.dp)) else Modifier),
         horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
         val items: List<Triple<androidx.compose.ui.graphics.vector.ImageVector, String, () -> Unit>> = listOfNotNull(if (s.showQibla) Triple(Icons.Outlined.Explore, L10n.word(s, "Qibla"), a.onOpenQibla) else null,

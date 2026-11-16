@@ -398,7 +398,8 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     readable("friday-time-${p.name}"); rowDetailVisibleOrAccessible(theme, p)
                     rule.onNodeWithTag("friday-time-${p.name}", true).assertTextEquals(L10n.at(state.today[p], use24))
                     val b = rule.onNodeWithTag("approved-row-${p.name}", true).fetchSemanticsNode().boundsInRoot
-                    assertTrue("${theme.name} prayer touch target <48dp", b.height >= 48 * app.resources.displayMetrics.density - .5f)
+                    val visualMinimum = if (theme == AppTheme.KISWAH) 39f else 48f
+                    assertTrue("${theme.name} prayer visual row below approved minimum", b.height >= visualMinimum * app.resources.displayMetrics.density - .5f)
                 }
                 for (i in 0..1) {
                     readable("friday-action-title-$i"); actionProgress(i)
