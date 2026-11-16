@@ -338,17 +338,23 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
             }
             val prayers: @Composable (Modifier) -> Unit = { m ->
                 val kiswahLandscapeCards = wide && tablet && s.theme == AppTheme.KISWAH
+                val kiswahPhoneLandscapeRows = wide && !tablet && s.theme == AppTheme.KISWAH
                 WorshipSurface(s, m.background(c.background.copy(alpha = .72f), RoundedCornerShape(6.dp)).testTag("home-prayers"),
                     fill = if (s.theme == AppTheme.MIQAAT || kiswahLandscapeCards) Color.Transparent else if(s.theme == AppTheme.KISWAH) Color(0xFF050707).copy(alpha=.9f) else null,
                     framed = s.theme != AppTheme.MIQAAT && !kiswahLandscapeCards, cornerRadius = if (s.theme == AppTheme.MIQAAT) 0.dp else if(s.theme==AppTheme.KISWAH)12.dp else 14.dp) {
                     BoxWithConstraints(Modifier.fillMaxSize().testTag("friday-prayer-viewport")) {
-                    val scrollPrayers = maxHeight < 48.dp * listedPrayers(s).size
+                    val visualRowMinimum = if (s.theme == AppTheme.KISWAH) 39.dp else 48.dp
+                    val scrollPrayers = maxHeight < visualRowMinimum * listedPrayers(s).size
                     Column(Modifier.fillMaxSize().then(if(scrollPrayers)Modifier.verticalScroll(rememberScrollState()).testTag("friday-prayer-scroll") else Modifier),
                         verticalArrangement = if(kiswahLandscapeCards) Arrangement.spacedBy(5.dp) else Arrangement.Top) {
                     listedPrayers(s).forEach { p ->
                         val r = fridayRowInfo(p, state, s)
                         val selected = r.isNow || r.isNext && listedPrayers(s).none { galleryRowInfo(it, state, s).isNow }
-                        Row(Modifier.fillMaxWidth().then(if(scrollPrayers)Modifier.height(48.dp) else Modifier.weight(1f))
+                        Row(Modifier.fillMaxWidth().then(
+                            if (kiswahPhoneLandscapeRows) Modifier.height(40.dp)
+                            else if(scrollPrayers) Modifier.height(48.dp)
+                            else Modifier.weight(1f)
+                        )
                             .heightIn(min = if (s.theme == AppTheme.KISWAH) 0.dp else 48.dp)
                             .then(if (selected) Modifier.clip(RoundedCornerShape(if(s.theme==AppTheme.PRAYER_GALLERY)12.dp else if(s.theme==AppTheme.KISWAH)8.dp else 4.dp)).background(Brush.horizontalGradient(
                                 if (s.theme == AppTheme.MIQAAT) listOf(Color(0xFFD5E3CE), Color(0xFFE7EDDC))
@@ -481,8 +487,8 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
             } else {
                 banner()
                 if (s.theme == AppTheme.KISWAH) {
-                    val exactHeroHeight = if (tablet) 500.dp else 365.dp
-                    val exactPrayerHeight = if (tablet) 278.dp else 244.dp
+                    val exactHeroHeight = if (tablet) 500.dp else 320.dp
+                    val exactPrayerHeight = if (tablet) 278.dp else 288.dp
                     hero(Modifier.fillMaxWidth().height(exactHeroHeight), true)
                     Spacer(Modifier.height(6.dp))
                     prayers(Modifier.fillMaxWidth().height(exactPrayerHeight))
@@ -1002,6 +1008,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         }
     } else Image(painterResource(R.drawable.friday_miqaat_header), null, modifier.clip(RoundedCornerShape(8.dp)), contentScale = scale, alignment = alignment)
 }
+
 
 
 
