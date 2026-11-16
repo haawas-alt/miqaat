@@ -330,7 +330,9 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
             }
             val prayers: @Composable (Modifier) -> Unit = { m ->
                 val kiswahLandscapeCards = wide && tablet && s.theme == AppTheme.KISWAH
-                WorshipSurface(s, m.background(c.background.copy(alpha = .72f), RoundedCornerShape(6.dp)).testTag("home-prayers"),
+                if (kiswahLandscapeCards) {
+                    KiswahTabletLandscapePrayerGrid(state, s, m) { why = it }
+                } else WorshipSurface(s, m.background(c.background.copy(alpha = .72f), RoundedCornerShape(6.dp)).testTag("home-prayers"),
                     fill = if (s.theme == AppTheme.MIQAAT || kiswahLandscapeCards) Color.Transparent else if(s.theme == AppTheme.KISWAH) Color(0xFF050707).copy(alpha=.9f) else null,
                     framed = s.theme != AppTheme.MIQAAT && !kiswahLandscapeCards, cornerRadius = if (s.theme == AppTheme.MIQAAT) 0.dp else if(s.theme==AppTheme.KISWAH)12.dp else 14.dp) {
                     BoxWithConstraints(Modifier.fillMaxSize().testTag("friday-prayer-viewport")) {
@@ -420,14 +422,15 @@ internal fun fridayApprovedVisualTheme(theme: AppTheme): AppTheme = when (theme)
             }
             if (wide) banner()
             if (wide && tablet && s.theme == AppTheme.KISWAH) {
-                Row(Modifier.weight(1f).fillMaxWidth().padding(top = 8.dp, bottom = 6.dp),
+                Row(Modifier.fillMaxWidth().height(viewportHeight * .44f).padding(top = 8.dp, bottom = 6.dp)
+                    .testTag("kiswah-tablet-main"),
                     horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                    prayers(Modifier.weight(.49f).fillMaxHeight())
+                    prayers(Modifier.weight(.46f).fillMaxHeight())
                     KiswahTabletLandscapeFridayHero(state, s, a,
-                        Modifier.weight(.51f).fillMaxHeight()) { why = state.hero }
+                        Modifier.weight(.54f).fillMaxHeight()) { why = state.hero }
                 }
-                FridayTabletLandscapeFeature(s, a, Modifier.fillMaxWidth().height(64.dp))
-                FridayTabletLandscapeActions(s, state.now, a, Modifier.fillMaxWidth().height(82.dp))
+                FridayTabletLandscapeFeature(s, a, Modifier.fillMaxWidth().height(96.dp))
+                FridayTabletLandscapeActions(s, state.now, a, Modifier.fillMaxWidth().height(110.dp))
             // MA2 and GA2 keep their existing hero/feature column composition.
             } else if (wide && tablet && (s.theme == AppTheme.PRAYER_GALLERY || s.theme == AppTheme.MIQAAT)) {
                 Row(Modifier.weight(1f).fillMaxWidth().padding(top = 8.dp, bottom = 6.dp),
@@ -510,6 +513,62 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     return if (tablet) small else small.substringBefore(" · ")
 }
 
+/** KA2's tablet-landscape concept is a compact timetable grid, not the stacked
+ * portrait prayer cards. Keeping it separate prevents phone/tablet portrait
+ * typography changes from disturbing this adaptation. */
+@Composable private fun KiswahTabletLandscapePrayerGrid(state: PrayerState, s: AppSettings,
+    modifier: Modifier, onPrayer: (Prayer) -> Unit) {
+    val c = fridayOption2Palette(s.theme)
+    WorshipSurface(s, modifier.background(c.background.copy(alpha = .72f), RoundedCornerShape(6.dp))
+        .testTag("home-prayers"), fill = Color.Transparent, framed = false, cornerRadius = 6.dp) {
+        Column(Modifier.fillMaxSize().testTag("friday-prayer-viewport"),
+            verticalArrangement = Arrangement.spacedBy(5.dp)) {
+            listedPrayers(s).forEach { p ->
+                val r = fridayRowInfo(p, state, s)
+                val selected = r.isNow || (r.isNext && listedPrayers(s).none {
+                    galleryRowInfo(it, state, s).isNow
+                })
+                val shape = RoundedCornerShape(7.dp)
+                Row(Modifier.weight(1f).fillMaxWidth().heightIn(min = 48.dp).clip(shape)
+                    .background(if (selected) Color(0xFF3B2D18).copy(alpha = .94f)
+                        else c.panel.copy(alpha = .90f))
+                    .border(if (selected) .9.dp else .45.dp,
+                        if (selected) c.accent.copy(alpha = .86f) else c.secondary.copy(alpha = .30f), shape)
+                    .testTag("approved-row-${p.name}")
+                    .semantics(mergeDescendants = true) { contentDescription = r.spoken }
+                    .clickable { onPrayer(p) }.padding(horizontal = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                    Icon(when (p) {
+                        Prayer.FAJR, Prayer.ISHA -> Icons.Outlined.DarkMode
+                        Prayer.DHUHR -> Icons.Outlined.Mosque
+                        Prayer.ASR -> Icons.Outlined.LocationCity
+                        Prayer.MAGHRIB -> Icons.Outlined.WbTwilight
+                        else -> Icons.Outlined.WbSunny
+                    }, null, Modifier.size(25.dp), tint = c.accent)
+                    WorshipText(r.label, s, if (L10n.isUrdu(s)) 15f else 17f, c.ink,
+                        Modifier.width(78.dp), lines = 1)
+                    Text(if (s.jumuahEnabled && p == Prayer.DHUHR) "الجمعة" else r.arabic,
+                        fontFamily = Amiri, fontSize = 14.sp, lineHeight = 20.sp,
+                        color = c.secondary, maxLines = 1, modifier = Modifier.width(62.dp))
+                    FridayTime(state.today[p], s, 19f, Modifier.width(92.dp),
+                        "friday-time-${p.name}", c.ink, TextAlign.Center)
+                    if (selected) Text(L10n.word(s, if (r.isNow) "NOW" else "NEXT"),
+                        Modifier.testTag(if (r.isNow) "home-status-now" else "home-status-next")
+                            .clip(RoundedCornerShape(7.dp)).background(c.accent)
+                            .padding(horizontal = 5.dp, vertical = 3.dp),
+                        fontFamily = if (L10n.isUrdu(s)) Amiri else QuietBody,
+                        fontSize = 9.sp, color = c.background, maxLines = 1)
+                    else Spacer(Modifier.width(40.dp))
+                    WorshipText(fridayPrayerDetail(p, state, s, true), s,
+                        if (L10n.isUrdu(s)) 9f else 10f, c.secondary,
+                        Modifier.weight(1f).testTag("friday-detail-${p.name}"), center = true, lines = 2)
+                }
+            }
+        }
+    }
+}
+
 @Composable private fun FridayActions(s: AppSettings, now: ZonedDateTime, a: HomeActions, short: Boolean, tablet: Boolean, modifier: Modifier = Modifier) {
     val c = fridayOption2Palette(s.theme)
     val prefs = LocalContext.current.getSharedPreferences("miqaat_friday", Context.MODE_PRIVATE)
@@ -546,6 +605,7 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
         .testTag("friday-tablet-feature"), selected = true, ornate = s.theme == AppTheme.KISWAH,
         fill = c.panel.copy(alpha = .96f), cornerRadius = 4.dp) {
         if (s.theme == AppTheme.KISWAH) Box(Modifier.fillMaxSize().padding(horizontal=14.dp)) {
+            KiswahOrnamentalFrame(.55f, Modifier.matchParentSize())
             Column(Modifier.align(Alignment.Center), horizontalAlignment=Alignment.CenterHorizontally,
                 verticalArrangement=Arrangement.Center) {
                 WorshipText(words(s, "JUMUʿAH · الجمعة", "جمعہ"), s, if(L10n.isUrdu(s))15f else 20f,
@@ -621,7 +681,8 @@ internal fun fridayPrayerDetail(p: Prayer, state: PrayerState, s: AppSettings, t
     val c = fridayOption2Palette(s.theme)
     val mode = adhkarModes(state, s).firstOrNull() ?: AdhkarMode.MORNING
     val iconColor = if (s.theme == AppTheme.MIQAAT) c.ink else c.accent
-    Row(Modifier.fillMaxWidth().height(fridayDockHeight(tablet,wide)).padding(vertical = 3.dp).background(c.background.copy(alpha = .94f), RoundedCornerShape(14.dp))
+    val dockHeight = if (s.theme == AppTheme.KISWAH && tablet && wide) 72.dp else fridayDockHeight(tablet,wide)
+    Row(Modifier.fillMaxWidth().height(dockHeight).padding(vertical = 3.dp).testTag("friday-dock").background(c.background.copy(alpha = .94f), RoundedCornerShape(14.dp))
         .then(if(s.theme==AppTheme.CELESTIAL_MERIDIAN)Modifier.border(.7.dp,c.secondary.copy(alpha=.40f),RoundedCornerShape(14.dp)) else Modifier),
         horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
         val items: List<Triple<androidx.compose.ui.graphics.vector.ImageVector, String, () -> Unit>> = listOfNotNull(if (s.showQibla) Triple(Icons.Outlined.Explore, L10n.word(s, "Qibla"), a.onOpenQibla) else null,
