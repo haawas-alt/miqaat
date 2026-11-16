@@ -6,9 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Mosque
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -210,18 +207,17 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
         onClickLabel = detail, onClick = onDetails).padding(horizontal = 18.dp, vertical = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
-        Icon(Icons.Outlined.Mosque, null, Modifier.size(34.dp), tint = c.accent)
         Text(if (ur) "اگلی نماز" else "Next Prayer", Modifier.testTag("friday-hero-kicker"),
-            fontFamily = if (ur) Amiri else Cormorant, fontSize = (if (ur) 17 else 16).sp,
+            fontFamily = if (ur) Amiri else Cormorant, fontSize = (if (ur) 18 else 17).sp,
             lineHeight = 24.sp, color = c.ink, maxLines = 1)
         Text(title, Modifier.testTag("friday-hero-arabic"),
             fontFamily = if (ur) Nastaliq else Cormorant,
             fontWeight = if (ur) FontWeight.Normal else FontWeight.Medium,
-            fontSize = (if (ur) 32 else 40).sp, lineHeight = (if (ur) 52 else 45).sp,
+            fontSize = (if (ur) 34 else 46).sp, lineHeight = (if (ur) 56 else 50).sp,
             color = c.accent, maxLines = 1)
         if (!ur) Text("الجمعة", fontFamily = Amiri, fontWeight = FontWeight.Bold,
-            fontSize = 27.sp, lineHeight = 32.sp, color = c.accent, maxLines = 1)
-        FridayTime(state.heroTime, s, 48f, Modifier.fillMaxWidth().padding(horizontal = 22.dp),
+            fontSize = 29.sp, lineHeight = 35.sp, color = c.accent, maxLines = 1)
+        FridayTime(state.heroTime, s, 54f, Modifier.fillMaxWidth().padding(horizontal = 22.dp),
             "friday-hero-time", c.ink, suffixRatio = if (ur) .30f else .48f)
         Box(Modifier.padding(top = 5.dp).clip(RoundedCornerShape(13.dp))
             .background(Color(0xFF090A09).copy(alpha=.88f))
@@ -240,6 +236,9 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
             ?: if (ur) "مسجد کا وقت" else "Masjid time", Modifier.testTag("friday-hero-iqamah"),
             fontFamily = if (ur) Amiri else Cormorant, fontSize = 13.sp, lineHeight = 18.sp,
             color = c.secondary, maxLines = 1)
+        Text(if (ur) "◇ جمعہ ◇" else "◇ Friday ◇", Modifier.testTag("friday-hero-day"),
+            fontFamily = if (ur) Amiri else Cormorant, fontSize = 13.sp, lineHeight = 18.sp,
+            color = c.accent, maxLines = 1)
     }
 }
 

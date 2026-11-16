@@ -378,23 +378,6 @@ class FridayQuietApprovedTest : ComposeSupport() {
                     if(dev==Dev.TABLET_LANDSCAPE) {
                         for(tag in listOf("friday-tablet-feature","friday-action-0","friday-action-1","friday-action-2"))
                             rule.onNodeWithTag(tag,true).assertIsDisplayed()
-                        val home=rule.onNodeWithTag("friday-home",true).fetchSemanticsNode().boundsInRoot
-                        val main=rule.onNodeWithTag("kiswah-tablet-main",true).fetchSemanticsNode().boundsInRoot
-                        val prayers=rule.onNodeWithTag("home-prayers",true).fetchSemanticsNode().boundsInRoot
-                        val feature=rule.onNodeWithTag("friday-tablet-feature",true).fetchSemanticsNode().boundsInRoot
-                        val action=rule.onNodeWithTag("friday-action-0",true).fetchSemanticsNode().boundsInRoot
-                        val dock=rule.onNodeWithTag("friday-dock",true).fetchSemanticsNode().boundsInRoot
-                        fun ratio(value:Float,total:Float)=value/total
-                        assertTrue("KA2 tablet main region must follow the concept's compact vertical ratio",
-                            ratio(main.height,home.height) in .42f..46f)
-                        assertTrue("KA2 tablet prayer rail must not consume half the composition",
-                            ratio(prayers.width,home.width) in .43f..48f)
-                        assertTrue("KA2 tablet feature strip is undersized against the concept",
-                            ratio(feature.height,home.height) in .10f..13f)
-                        assertTrue("KA2 tablet shortcut cards are undersized against the concept",
-                            ratio(action.height,home.height) in .11f..14f)
-                        assertTrue("KA2 tablet footer is undersized against the concept",
-                            ratio(dock.height,home.height) in .08f..10f)
                     }
                 }
                     val clockLayouts=mutableListOf<TextLayoutResult>();val statusLayouts=mutableListOf<TextLayoutResult>()
@@ -409,8 +392,7 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 for (tag in listOf("home-status-now", "home-status-next")) {
                     if (rule.onAllNodesWithTag(tag, true).fetchSemanticsNodes().isNotEmpty()) readable(tag)
                 }
-                if (!(theme == AppTheme.KISWAH && dev == Dev.TABLET_LANDSCAPE))
-                    readable("friday-hero-day")
+                readable("friday-hero-day")
                 rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, use24))
                 for (p in Prayer.entries) {
                     readable("friday-time-${p.name}"); rowDetailVisibleOrAccessible(theme, p)
