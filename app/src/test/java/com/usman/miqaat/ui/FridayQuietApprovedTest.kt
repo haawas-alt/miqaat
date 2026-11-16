@@ -409,7 +409,8 @@ class FridayQuietApprovedTest : ComposeSupport() {
                 for (tag in listOf("home-status-now", "home-status-next")) {
                     if (rule.onAllNodesWithTag(tag, true).fetchSemanticsNodes().isNotEmpty()) readable(tag)
                 }
-                readable("friday-hero-day")
+                if (!(theme == AppTheme.KISWAH && dev == Dev.TABLET_LANDSCAPE))
+                    readable("friday-hero-day")
                 rule.onNodeWithTag("friday-hero-time", true).assertTextEquals(L10n.at(state.heroTime, use24))
                 for (p in Prayer.entries) {
                     readable("friday-time-${p.name}"); rowDetailVisibleOrAccessible(theme, p)

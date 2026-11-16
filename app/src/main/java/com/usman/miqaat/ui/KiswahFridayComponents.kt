@@ -240,10 +240,6 @@ private val KISWAH_FRIDAY_PHRASES = listOf(
             ?: if (ur) "مسجد کا وقت" else "Masjid time", Modifier.testTag("friday-hero-iqamah"),
             fontFamily = if (ur) Amiri else Cormorant, fontSize = 13.sp, lineHeight = 18.sp,
             color = c.secondary, maxLines = 1)
-        Text(if (ur) "◇ جمعہ ◇" else "◇ Friday ◇", Modifier.testTag("friday-hero-day"),
-            fontFamily = if (ur) Amiri else Cormorant, fontSize = 13.sp,
-            lineHeight = (if (ur) 28 else 18).sp,
-            color = c.accent, maxLines = 1)
     }
 }
 
