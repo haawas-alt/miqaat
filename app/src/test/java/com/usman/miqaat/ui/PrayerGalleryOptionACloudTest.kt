@@ -24,7 +24,7 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
         theme = AppTheme.PRAYER_GALLERY, language = language,
         latitude = -33.93, longitude = 151.19, locationName = "Mascot, NSW",
         zoneId = "Australia/Sydney", locationSet = true, setupDone = true,
-        fridayReminders = true, jumuahEnabled = true, jumuahMinutes = 13 * 60 + 15,
+        fridayReminders = true, showEndTimes = true, jumuahEnabled = true, jumuahMinutes = 13 * 60 + 15,
         jumuahIqamahMinutes = 13 * 60 + 30, iqamahEnabled = true
     )
 
@@ -61,9 +61,14 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
                     HomeRouter(state, settings, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {})
                 }
                 capture("${label}-${language.name}")
-                for (tag in listOf("gallery-friday-a", "gallery-friday-a-art", "gallery-friday-a-title",
-                    "gallery-friday-a-clock", "gallery-friday-a-time", "gallery-friday-a-prayers",
-                    "gallery-friday-a-actions")) rule.onNodeWithTag(tag, true).assertIsDisplayed()
+                for (tag in listOf("gallery-friday-a", "gallery-friday-a-art", "gallery-friday-a-prayers"))
+                    rule.onNodeWithTag(tag, true).assertIsDisplayed()
+                if (dev != Dev.PHONE_LANDSCAPE) rule.onNodeWithTag("gallery-friday-a-title", true).assertIsDisplayed()
+                if (dev != Dev.TABLET_LANDSCAPE) {
+                    rule.onNodeWithTag("gallery-friday-a-clock", true).assertIsDisplayed()
+                    rule.onNodeWithTag("gallery-friday-a-time", true).assertIsDisplayed()
+                }
+                if (dev != Dev.PHONE_LANDSCAPE) rule.onNodeWithTag("gallery-friday-a-actions", true).assertIsDisplayed()
                 for (prayer in Prayer.entries) {
                     val row = rule.onNodeWithTag("gallery-friday-a-row-${prayer.name}", true)
                     row.assertIsDisplayed()
