@@ -1,0 +1,157 @@
+Printing with useUnmergedTree = 'true'
+Node #1 at (l=0.0, t=0.0, r=780.0, b=1688.0)px
+ |-Node #2 at (l=0.0, t=0.0, r=780.0, b=1688.0)px, Tag: 'gallery-friday-a'
+    |-Node #4 at (l=20.0, t=116.0, r=760.0, b=620.0)px, Tag: 'gallery-friday-a-art'
+    |-Node #6 at (l=28.0, t=38.0, r=68.0, b=78.0)px
+    | Focused = 'false'
+    | Actions = [OnClick, RequestFocus]
+    | MergeDescendants = 'true'
+    |-Node #7 at (l=68.0, t=41.0, r=420.0, b=76.0)px
+    | Text = '[Mascot, NSW]'
+    | Focused = 'false'
+    | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus]
+    | MergeDescendants = 'true'
+    |-Node #8 at (l=420.0, t=45.0, r=559.0, b=72.0)px
+    | Text = '[Fri 30 Oct 2026]'
+    | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |-Node #10 at (l=579.0, t=47.0, r=672.0, b=69.0)px
+    | Text = '[⁨11:47 AM⁩]'
+    | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |-Node #11 at (l=672.0, t=18.0, r=752.0, b=98.0)px
+    | Focused = 'false'
+    | Actions = [OnClick, RequestFocus]
+    | MergeDescendants = 'true'
+    |-Node #12 at (l=60.0, t=590.0, r=720.0, b=702.0)px, Tag: 'gallery-friday-a-title'
+    |  |-Node #13 at (l=200.0, t=597.0, r=581.0, b=669.0)px
+    |  | Text = '[JUMU'AH / الجمعة]'
+    |  | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |-Node #14 at (l=196.0, t=669.0, r=584.0, b=696.0)px
+    |    Text = '[A day for prayer, remembrance and reflection]'
+    |    Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |-Node #15 at (l=60.0, t=724.0, r=720.0, b=900.0)px, Tag: 'gallery-friday-a-clock'
+    |  |-Node #17 at (l=60.0, t=734.0, r=176.0, b=758.0)px
+    |  | Text = '[NEXT PRAYER]'
+    |  | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |-Node #18 at (l=60.0, t=758.0, r=152.0, b=801.0)px
+    |  | Text = '[Dhuhr]'
+    |  | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |-Node #19 at (l=60.0, t=801.0, r=313.0, b=891.0)px, Tag: 'gallery-friday-a-time'
+    |  | Text = '[⁨1:15 PM⁩]'
+    |  | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |-Node #21 at (l=579.0, t=785.0, r=702.0, b=815.0)px
+    |  | Text = '[In 1 h 28 min]'
+    |  | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |-Node #22 at (l=611.0, t=825.0, r=720.0, b=849.0)px
+    |    Text = '[Iqamah 13:15]'
+    |    Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |-Node #23 at (l=28.0, t=928.0, r=752.0, b=1396.0)px, Tag: 'gallery-friday-a-prayers'
+    |  |-Node #25 at (l=28.0, t=928.0, r=752.0, b=1002.0)px, Tag: 'gallery-friday-a-row-FAJR'
+    |  | Focused = 'false'
+    |  | Actions = [OnClick, RequestFocus]
+    |  | MergeDescendants = 'true'
+    |  |  |-Node #28 at (l=112.0, t=951.0, r=655.0, b=980.0)px
+    |  |  | Text = '[Fajr]'
+    |  |  | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |  |-Node #29 at (l=655.0, t=954.0, r=740.0, b=976.0)px, Tag: 'gallery-friday-a-row-time-FAJR'
+    |  |    Text = '[⁨4:27 AM⁩]'
+    |  |    Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |-Node #31 at (l=28.0, t=1006.0, r=752.0, b=1080.0)px, Tag: 'gallery-friday-a-row-SUNRISE'
+    |  | Focused = 'false'
+    |  | Actions = [OnClick, RequestFocus]
+    |  | MergeDescendants = 'true'
+    |  |  |-Node #34 at (l=112.0, t=1029.0, r=655.0, b=1058.0)px
+    |  |  | Text = '[Sunrise]'
+    |  |  | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |  |-Node #35 at (l=655.0, t=1032.0, r=740.0, b=1054.0)px, Tag: 'gallery-friday-a-row-time-SUNRISE'
+    |  |    Text = '[⁨5:57 AM⁩]'
+    |  |    Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |-Node #37 at (l=28.0, t=1084.0, r=752.0, b=1159.0)px, Tag: 'gallery-friday-a-row-DHUHR'
+    |  | Focused = 'false'
+    |  | Actions = [OnClick, RequestFocus]
+    |  | MergeDescendants = 'true'
+    |  |  |-Node #40 at (l=112.0, t=1107.0, r=664.0, b=1136.0)px
+    |  |  | Text = '[Jumu'ah]'
+    |  |  | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |  |-Node #41 at (l=664.0, t=1111.0, r=740.0, b=1133.0)px, Tag: 'gallery-friday-a-row-time-DHUHR'
+    |  |    Text = '[⁨1:15 PM⁩]'
+    |  |    Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |-Node #43 at (l=28.0, t=1163.0, r=752.0, b=1238.0)px, Tag: 'gallery-friday-a-row-ASR'
+    |  | Focused = 'false'
+    |  | Actions = [OnClick, RequestFocus]
+    |  | MergeDescendants = 'true'
+    |  |  |-Node #46 at (l=112.0, t=1186.0, r=662.0, b=1215.0)px
+    |  |  | Text = '[Asr]'
+    |  |  | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |  |-Node #47 at (l=662.0, t=1190.0, r=740.0, b=1212.0)px, Tag: 'gallery-friday-a-row-time-ASR'
+    |  |    Text = '[⁨4:21 PM⁩]'
+    |  |    Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |-Node #49 at (l=28.0, t=1242.0, r=752.0, b=1317.0)px, Tag: 'gallery-friday-a-row-MAGHRIB'
+    |  | Focused = 'false'
+    |  | Actions = [OnClick, RequestFocus]
+    |  | MergeDescendants = 'true'
+    |  |  |-Node #52 at (l=112.0, t=1265.0, r=663.0, b=1294.0)px
+    |  |  | Text = '[Maghrib]'
+    |  |  | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |  |-Node #53 at (l=663.0, t=1269.0, r=740.0, b=1291.0)px, Tag: 'gallery-friday-a-row-time-MAGHRIB'
+    |  |    Text = '[⁨7:21 PM⁩]'
+    |  |    Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |-Node #55 at (l=28.0, t=1321.0, r=752.0, b=1396.0)px, Tag: 'gallery-friday-a-row-ISHA'
+    |    Focused = 'false'
+    |    Actions = [OnClick, RequestFocus]
+    |    MergeDescendants = 'true'
+    |     |-Node #58 at (l=112.0, t=1344.0, r=657.0, b=1373.0)px
+    |     | Text = '[Isha]'
+    |     | Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |     |-Node #59 at (l=657.0, t=1348.0, r=740.0, b=1370.0)px, Tag: 'gallery-friday-a-row-time-ISHA'
+    |       Text = '[⁨8:47 PM⁩]'
+    |       Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |-Node #60 at (l=28.0, t=1412.0, r=752.0, b=1552.0)px, Tag: 'gallery-friday-a-actions'
+    |  |-Node #61 at (l=28.0, t=1412.0, r=262.0, b=1552.0)px, Tag: 'gallery-friday-a-action-0'
+    |  | Focused = 'false'
+    |  | Actions = [OnClick, RequestFocus]
+    |  | MergeDescendants = 'true'
+    |  |  |-Node #64 at (l=102.0, t=1467.0, r=176.0, b=1497.0)px
+    |  |    Text = '[Al-Kahf]'
+    |  |    Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |-Node #65 at (l=274.0, t=1412.0, r=507.0, b=1552.0)px, Tag: 'gallery-friday-a-action-1'
+    |  | Focused = 'false'
+    |  | Actions = [OnClick, RequestFocus]
+    |  | MergeDescendants = 'true'
+    |  |  |-Node #68 at (l=348.0, t=1467.0, r=425.0, b=1497.0)px
+    |  |    Text = '[Salawat]'
+    |  |    Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |  |-Node #69 at (l=519.0, t=1412.0, r=752.0, b=1552.0)px, Tag: 'gallery-friday-a-action-2'
+    |    Focused = 'false'
+    |    Actions = [OnClick, RequestFocus]
+    |    MergeDescendants = 'true'
+    |     |-Node #72 at (l=593.0, t=1452.0, r=738.0, b=1512.0)px
+    |       Text = '[Friday reminders]'
+    |       Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |-Node #74 at (l=0.0, t=1572.0, r=195.0, b=1688.0)px
+    | Focused = 'false'
+    | Actions = [OnClick, RequestFocus]
+    | MergeDescendants = 'true'
+    |  |-Node #76 at (l=75.0, t=1639.0, r=121.0, b=1666.0)px
+    |    Text = '[Qibla]'
+    |    Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |-Node #77 at (l=195.0, t=1572.0, r=390.0, b=1688.0)px
+    | Focused = 'false'
+    | Actions = [OnClick, RequestFocus]
+    | MergeDescendants = 'true'
+    |  |-Node #79 at (l=262.0, t=1639.0, r=324.0, b=1666.0)px
+    |    Text = '[Adhkar]'
+    |    Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |-Node #80 at (l=390.0, t=1572.0, r=585.0, b=1688.0)px
+    | Focused = 'false'
+    | Actions = [OnClick, RequestFocus]
+    | MergeDescendants = 'true'
+    |  |-Node #82 at (l=463.0, t=1639.0, r=512.0, b=1666.0)px
+    |    Text = '[Learn]'
+    |    Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+    |-Node #83 at (l=585.0, t=1572.0, r=780.0, b=1688.0)px
+      Focused = 'false'
+      Actions = [OnClick, RequestFocus]
+      MergeDescendants = 'true'
+       |-Node #85 at (l=640.0, t=1639.0, r=726.0, b=1666.0)px
+         Text = '[Timetable]'
+         Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
