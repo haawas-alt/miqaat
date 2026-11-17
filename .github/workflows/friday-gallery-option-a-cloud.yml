@@ -19,8 +19,8 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v4
-      - name: Compile and run unit tests
-        run: ./gradlew --no-daemon testGithubDebugUnitTest
+      - name: Compile and capture Option A contract views
+        run: ./gradlew --no-daemon testGithubDebugUnitTest --tests 'com.usman.miqaat.ui.PrayerGalleryOptionACloudTest.*'
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -28,4 +28,5 @@ jobs:
           path: |
             app/build/test-results/
             app/build/reports/tests/
+            app/build/option-a-review/
           if-no-files-found: warn

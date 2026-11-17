@@ -110,7 +110,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         Column(Modifier.weight(1f)) {
             Text("NEXT PRAYER",fontSize=9.sp,color=gardenRust)
             Text(L10n.prayer(s,state.next),fontFamily=if(L10n.isUrdu(s))gardenArabic else gardenDisplay,fontSize=if(wide)14.sp else 18.sp,color=gardenInk,maxLines=1)
-            Text(L10n.iso(L10n.at(state.nextTime,s.use24h)),fontFamily=gardenClock,fontSize=if(tablet)42.sp else if(wide)34.sp else 43.sp,
+            Text(L10n.iso(L10n.at(state.nextTime,s.use24h)),Modifier.testTag("gallery-friday-a-time"),fontFamily=gardenClock,fontSize=if(tablet)42.sp else if(wide)34.sp else 43.sp,
                 lineHeight=if(tablet)46.sp else 45.sp,color=gardenInk,maxLines=1)
         }
         Column(horizontalAlignment=Alignment.End) {
@@ -128,7 +128,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         for(row in 0 until (6/columns)) Row(Modifier.weight(1f),horizontalArrangement=Arrangement.spacedBy(8.dp)) {
             for(col in 0 until columns) {
                 val index=row*columns+col;val prayer=prayers[index];val selected=prayer==state.next
-                Row(Modifier.weight(1f).fillMaxHeight().clip(RoundedCornerShape(10.dp)).background(if(selected)gardenSage else gardenPaper.copy(alpha=.97f))
+                Row(Modifier.weight(1f).fillMaxHeight().testTag("gallery-friday-a-row-${prayer.name}").clip(RoundedCornerShape(10.dp)).background(if(selected)gardenSage else gardenPaper.copy(alpha=.97f))
                     .border(1.dp,if(selected)gardenGold else gardenLine,RoundedCornerShape(10.dp))
                     .clickable { a.onPreparePrayer(prayer) }.padding(horizontal=6.dp),verticalAlignment=Alignment.CenterVertically) {
                     GardenMiniature(index,Modifier.size(if(tablet)52.dp else if(wide)29.dp else 30.dp).clip(RoundedCornerShape(8.dp)))
@@ -136,7 +136,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                     Text(if(prayer==Prayer.DHUHR&&s.jumuahEnabled)"Jumu'ah" else L10n.prayer(s,prayer),Modifier.weight(1f),
                         fontFamily=if(L10n.isUrdu(s))gardenArabic else gardenDisplay,fontSize=if(tablet)15.sp else if(wide)11.sp else 12.sp,
                         color=gardenInk,maxLines=1,overflow=TextOverflow.Ellipsis)
-                    Text(L10n.iso(L10n.at(state.today[prayer],s.use24h)),fontFamily=gardenClock,fontSize=if(tablet)17.sp else if(wide)12.sp else 13.sp,color=gardenInk,maxLines=1)
+                    Text(L10n.iso(L10n.at(state.today[prayer],s.use24h)),Modifier.testTag("gallery-friday-a-row-time-${prayer.name}"),fontFamily=gardenClock,fontSize=if(tablet)17.sp else if(wide)12.sp else 13.sp,color=gardenInk,maxLines=1)
                 }
             }
         }
@@ -157,7 +157,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         Triple("Friday reminders",Icons.Outlined.Event,a.onOpenFriday))
     Row(m.testTag("gallery-friday-a-actions"),horizontalArrangement=Arrangement.spacedBy(6.dp)) {
         items.forEachIndexed { i,item ->
-            Row(Modifier.weight(1f).fillMaxHeight().clip(RoundedCornerShape(12.dp)).background(if(i==0)gardenRust else gardenPaper)
+            Row(Modifier.weight(1f).fillMaxHeight().testTag("gallery-friday-a-action-$i").clip(RoundedCornerShape(12.dp)).background(if(i==0)gardenRust else gardenPaper)
                 .border(1.dp,if(i==0)gardenRust else gardenGold,RoundedCornerShape(12.dp)).clickable(onClick=item.third).padding(horizontal=7.dp),
                 verticalAlignment=Alignment.CenterVertically) {
                 Icon(item.second,null,Modifier.size(if(wide)18.dp else 25.dp),tint=if(i==0)Color.White else gardenInk)
