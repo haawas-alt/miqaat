@@ -44,7 +44,7 @@ import java.time.Duration
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-/** Friday-only Prayer Gallery presentation. Coordinates: Option A contract A-1.0. */
+/** Friday-only Prayer Gallery presentation. Coordinates: Option A contract A-1.1. */
 private val gardenInk = Color(0xFF073B34)
 private val gardenPaper = Color(0xFFFFF9EE)
 private val gardenRust = Color(0xFFA9472D)
@@ -63,9 +63,9 @@ private data class GLayout(val width: Int, val height: Int, val header: GBox, va
 
 private val gardenLayouts = listOf(
     GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,180),GBox(30,245,330,62),GBox(18,310,354,92),GBox(14,420,362,234),GBox(14,665,362,98),GBox(0,775,390,69)),
-    GLayout(844,390,GBox(0,0,844,44),GBox(300,0,544,390),GBox(0,0,0,0),GBox(598,137,232,226),GBox(14,46,300,288),GBox(0,0,0,0),GBox(0,340,590,50)),
+    GLayout(844,390,GBox(0,0,844,44),GBox(300,0,544,390),GBox(0,0,0,0),GBox(598,165,232,190),GBox(14,46,300,288),GBox(0,0,0,0),GBox(0,340,844,50)),
     GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,292),GBox(90,320,588,75),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
-    GLayout(1280,800,GBox(0,0,1280,80),GBox(480,0,800,640),GBox(620,520,600,110),GBox(0,0,0,0),GBox(20,140,500,490),GBox(20,632,1240,110),GBox(0,744,1280,56))
+    GLayout(1280,800,GBox(0,0,1280,80),GBox(480,0,800,510),GBox(590,395,660,110),GBox(0,0,0,0),GBox(20,140,500,350),GBox(20,515,1240,205),GBox(0,720,1280,80))
 )
 
 @Composable
@@ -83,10 +83,10 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
             contentScale=ContentScale.Crop)
         GardenHeader(state,s,a,layout.header.modifier(),wide,onClosePreview)
         if(layout.title.w>0) GardenTitle(s,layout.title.modifier(),wide,tablet)
-        if(layout.clock.w>0) GardenClock(state,s,layout.clock.modifier(),wide,tablet)
         GardenPrayers(state,s,a,layout.prayers.modifier(),wide,tablet)
         if(layout.actions.w>0) GardenActions(s,a,layout.actions.modifier(),wide,tablet)
         GardenNav(s,a,layout.nav.modifier(),wide,tablet)
+        if(layout.clock.w>0) GardenClock(state,s,layout.clock.modifier(),wide,tablet)
     }
 }
 
@@ -132,14 +132,49 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
 }
 
 @Composable private fun GardenTitle(s:AppSettings,m:Modifier,wide:Boolean,tablet:Boolean) {
-    Column(m.clip(RoundedCornerShape(topStart=24.dp,topEnd=24.dp,bottomStart=12.dp,bottomEnd=12.dp))
-        .background(gardenPaper.copy(alpha=.98f)).border(1.dp,gardenGold,RoundedCornerShape(topStart=24.dp,topEnd=24.dp,bottomStart=12.dp,bottomEnd=12.dp))
-        .testTag("gallery-friday-a-title"),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
-        Text(if(L10n.isUrdu(s))"JUMU’AH / جمعہ" else "JUMU’AH / الجمعة",
-            fontFamily=FontFamily.Serif,fontWeight=FontWeight.Bold,
-            fontSize=if(tablet)31.sp else 26.sp,lineHeight=if(tablet)35.sp else 29.sp,color=gardenRust,maxLines=1)
-        Text(if(L10n.isUrdu(s))"دعا، ذکر اور غور و فکر کا دن" else "A day for prayer, remembrance and reflection",
-            fontFamily=if(L10n.isUrdu(s))gardenArabic else gardenBody,fontSize=if(tablet)12.sp else 10.sp,color=gardenRust,maxLines=1)
+    Box(m.testTag("gallery-friday-a-title"),contentAlignment=Alignment.Center) {
+        Canvas(Modifier.fillMaxSize()) {
+            val w=size.width; val h=size.height
+            if(wide&&tablet) {
+                val wing=Path().apply {
+                    moveTo(0f,h*.5f); lineTo(w*.09f,h*.08f); lineTo(w*.91f,h*.08f)
+                    lineTo(w,h*.5f); lineTo(w*.91f,h*.92f); lineTo(w*.09f,h*.92f); close()
+                }
+                drawPath(wing,gardenInk)
+                drawPath(wing,gardenGold,style=Stroke(width=2.dp.toPx()))
+                for(i in 0..3) {
+                    val yy=h*(.22f+i*.18f)
+                    drawCircle(gardenGold,2.5.dp.toPx(),Offset(w*.065f,yy))
+                    drawCircle(gardenGold,2.5.dp.toPx(),Offset(w*.935f,yy))
+                }
+            }
+            val inset=if(wide&&tablet)w*.09f else 0f
+            val top=h*.08f; val bottom=h*.92f
+            val plaque=Path().apply {
+                moveTo(inset+w*.075f,top)
+                lineTo(w-inset-w*.075f,top)
+                quadraticTo(w-inset-w*.04f,top,w-inset-w*.035f,h*.22f)
+                quadraticTo(w-inset,h*.25f,w-inset,h*.5f)
+                quadraticTo(w-inset,h*.75f,w-inset-w*.035f,h*.78f)
+                quadraticTo(w-inset-w*.04f,bottom,w-inset-w*.075f,bottom)
+                lineTo(inset+w*.075f,bottom)
+                quadraticTo(inset+w*.04f,bottom,inset+w*.035f,h*.78f)
+                quadraticTo(inset,h*.75f,inset,h*.5f)
+                quadraticTo(inset,h*.25f,inset+w*.035f,h*.22f)
+                quadraticTo(inset+w*.04f,top,inset+w*.075f,top)
+                close()
+            }
+            drawPath(plaque,gardenPaper.copy(alpha=.98f))
+            drawPath(plaque,gardenGold,style=Stroke(width=1.5.dp.toPx()))
+        }
+        Column(Modifier.fillMaxSize().padding(horizontal=if(wide&&tablet)48.dp else 10.dp),
+            horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
+            Text(if(L10n.isUrdu(s))"JUMU’AH / جمعہ" else "JUMU’AH / الجمعة",
+                fontFamily=FontFamily.Serif,fontWeight=FontWeight.Bold,
+                fontSize=if(tablet)31.sp else 26.sp,lineHeight=if(tablet)35.sp else 29.sp,color=gardenRust,maxLines=1)
+            Text(if(L10n.isUrdu(s))"دعا، ذکر اور غور و فکر کا دن" else "A day for prayer, remembrance and reflection",
+                fontFamily=if(L10n.isUrdu(s))gardenArabic else gardenBody,fontSize=if(tablet)12.sp else 10.sp,color=gardenRust,maxLines=1)
+        }
     }
 }
 
@@ -232,12 +267,13 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                         val label=if(prayer==Prayer.DHUHR&&s.jumuahEnabled) {
                             if(L10n.isUrdu(s))"جمعہ" else "Jumu’ah"
                         } else info.label
+                        val rowArabic=if(prayer==Prayer.DHUHR&&s.jumuahEnabled) "الجمعة" else info.arabic
                         if(tablet&&!wide) Column(Modifier.weight(1f)) {
                             Row(verticalAlignment=Alignment.CenterVertically) {
                                 Text(label,fontFamily=if(L10n.isUrdu(s))gardenArabicBold else FontFamily.Serif,
                                     fontWeight=FontWeight.Bold,fontSize=15.sp,color=gardenInk,maxLines=1)
                                 Spacer(Modifier.width(6.dp))
-                                Text(info.arabic,fontFamily=gardenArabic,fontSize=12.sp,color=gardenInk,maxLines=1)
+                                Text(rowArabic,fontFamily=gardenArabic,fontSize=12.sp,color=gardenInk,maxLines=1)
                             }
                             Row(verticalAlignment=Alignment.CenterVertically) {
                                 Text(L10n.iso(L10n.at(state.today[prayer],s.use24h)),Modifier.testTag("gallery-friday-a-row-time-${prayer.name}"),
@@ -249,7 +285,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                             Text(label,Modifier.weight(.25f),fontFamily=if(L10n.isUrdu(s))gardenArabicBold else FontFamily.Serif,
                                 fontWeight=FontWeight.Bold,fontSize=if(tablet)15.sp else if(wide)11.sp else 12.sp,
                                 color=gardenInk,maxLines=1,overflow=TextOverflow.Ellipsis)
-                            Text(info.arabic,Modifier.weight(.18f),fontFamily=gardenArabic,
+                            Text(rowArabic,Modifier.weight(.18f),fontFamily=gardenArabic,
                                 fontSize=if(tablet)12.sp else 9.sp,color=gardenInk,maxLines=1)
                             Text(L10n.iso(L10n.at(state.today[prayer],s.use24h)),Modifier.weight(.31f).testTag("gallery-friday-a-row-time-${prayer.name}"),
                                 fontFamily=gardenClock,fontWeight=FontWeight.Bold,fontSize=if(tablet)16.sp else if(wide)11.sp else 12.sp,
@@ -311,14 +347,14 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                 .clip(RoundedCornerShape(12.dp)).background(gardenPaper)
                 .border(.8.dp,gardenLine,RoundedCornerShape(12.dp)).clickable(onClick=clicks[i])) {
                 GardenActionScene(i,Modifier.fillMaxWidth().weight(1f))
-                Row(Modifier.fillMaxWidth().height(40.dp).padding(horizontal=8.dp),verticalAlignment=Alignment.CenterVertically) {
+                Row(Modifier.fillMaxWidth().height(66.dp).padding(horizontal=12.dp),verticalAlignment=Alignment.CenterVertically) {
                     Box(Modifier.size(28.dp).clip(CircleShape).background(gardenGold.copy(alpha=.22f)),contentAlignment=Alignment.Center) {
-                        GardenActionIcon(i,20.dp)
+                        GardenActionIcon(i,24.dp)
                     }
                     Spacer(Modifier.width(7.dp))
                     Column(Modifier.weight(1f)) {
-                        Text(labels[i],fontFamily=FontFamily.Serif,fontWeight=FontWeight.Bold,fontSize=14.sp,color=gardenInk,maxLines=1)
-                        Text(sub[i],fontFamily=gardenBody,fontSize=9.sp,color=gardenInk,maxLines=1)
+                        Text(labels[i],fontFamily=FontFamily.Serif,fontWeight=FontWeight.Bold,fontSize=17.sp,color=gardenInk,maxLines=1)
+                        Text(sub[i],fontFamily=gardenBody,fontSize=11.sp,color=gardenInk,maxLines=1)
                     }
                     Icon(Icons.Outlined.ChevronRight,null,Modifier.size(18.dp),tint=gardenRust)
                 }
