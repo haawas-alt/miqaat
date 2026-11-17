@@ -3,9 +3,7 @@ package com.usman.miqaat.ui
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.view.View
-import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.fetchSemanticsNode
-import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.*
 import com.usman.miqaat.data.*
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
