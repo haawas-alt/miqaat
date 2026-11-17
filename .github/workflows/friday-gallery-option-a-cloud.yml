@@ -44,6 +44,14 @@ jobs:
         if: always()
         run: |
           if [ ! -d app/build/option-a-review ]; then exit 0; fi
+          python3 -m pip install --quiet pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          for source in Path('app/build/option-a-review').glob('*.png'):
+              with Image.open(source) as image:
+                  image.convert('RGB').save(source.with_suffix('.jpg'), quality=86, optimize=True)
+          PY
           mkdir -p /tmp/option-a-shots
           cp -r app/build/option-a-review/. /tmp/option-a-shots/
           cd /tmp/option-a-shots
