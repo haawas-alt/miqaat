@@ -56,6 +56,17 @@ internal fun fridayOption2Palette(theme: AppTheme): QuietPalette = when (theme) 
             return@Box
         }
         if(s.theme==AppTheme.CELESTIAL_MERIDIAN) {
+            if (tablet && wide && s.artTheme != ArtTheme.MINIMAL) {
+                Image(
+                    painterResource(R.drawable.celestial_tablet_constellation),
+                    null,
+                    Modifier.fillMaxSize().testTag("celestial-tablet-landscape-friday-art"),
+                    contentScale = ContentScale.Crop,
+                    alignment = Alignment.Center
+                )
+                Box(Modifier.fillMaxSize().background(Color(0xFF03152D).copy(alpha = .12f)))
+                return@Box
+            }
             CelestialFridayBackdrop(Modifier.fillMaxSize(),s.artTheme==ArtTheme.MINIMAL)
             return@Box
         }

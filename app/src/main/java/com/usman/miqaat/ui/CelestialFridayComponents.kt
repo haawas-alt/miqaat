@@ -103,7 +103,7 @@ internal const val CELESTIAL_FRIDAY_DHIKR="سُبْحَانَ اللَّهِ   �
         val compactFooter=short||compactUrdu
         // CA2's approved arch leaves visible sky around a compact live stack.
         // Keep its hierarchy distinct from KA2's larger embroidered lettering.
-        val ar=if(short){if(ur)18f else 20f}else if(compactUrdu){if(tablet)36f else 32f}else if(tablet)58f else 40f
+        val ar=if(short){if(ur)21f else 24f}else if(compactUrdu){if(tablet)40f else 36f}else if(tablet)68f else 52f
         val kicker=if(short)8f else if(compactUrdu){if(tablet)11f else 9f}else if(tablet)15f else 12f
         val relative=if(short)10f else if(compactUrdu){if(tablet)15f else 12f}else if(tablet)18f else 14f
         val metadata=if(short)7.5f else if(compactUrdu){if(tablet)10f else 8.5f}else if(tablet)11f else 9f
@@ -112,7 +112,7 @@ internal const val CELESTIAL_FRIDAY_DHIKR="سُبْحَانَ اللَّهِ   �
         // Reserve their measured ascent/descent before fitting the display clock.
         val line=if(ur)1.8f else 1.25f
         val fixed=ar*1.8f+kicker*line+relative*line+(if(compactFooter)maxOf(metadata,day) else metadata+day)*line+12f
-        val size=min(if(tablet)70f else if(short)48f else 56f,((maxHeight.value*.90f-6f)/scale-fixed).div(1.28f).coerceAtLeast(14f))
+        val size=min(if(tablet)84f else if(short)58f else 70f,((maxHeight.value*.93f-6f)/scale-fixed).div(1.28f).coerceAtLeast(14f))
         Column(Modifier.fillMaxSize().padding(top=maxHeight*.08f,bottom=4.dp).padding(horizontal=if(tablet)24.dp else 12.dp)
             .clickable(role=Role.Button,onClick=onDetails),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             label(if(s.jumuahEnabled && info.prayer==Prayer.DHUHR)"الجمعة" else info.arabic,ar,"friday-hero-arabic",c.ink,true)

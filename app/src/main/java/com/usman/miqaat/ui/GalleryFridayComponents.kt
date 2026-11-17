@@ -53,7 +53,9 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
             if(wide) {
                 val tablet=minOf(maxWidth,maxHeight)>=600.dp
                 FridayMihrabReveal(s,Modifier.fillMaxSize().padding(top=(if(tablet)62.dp else 48.dp)+fridayBandHeight(s.theme,tablet,true,LocalDensity.current.fontScale),bottom=if(tablet)fridayDockHeight(tablet,true) else 0.dp)
-                    .graphicsLayer{scaleX=if(L10n.isUrdu(s))-1f else 1f},R.drawable.friday_gallery_landscape,ContentScale.FillBounds)
+                    .graphicsLayer{scaleX=if(L10n.isUrdu(s))-1f else 1f},
+                    if(tablet)R.drawable.quiet_miqaat_landscape else R.drawable.friday_gallery_landscape,
+                    if(tablet)ContentScale.Crop else ContentScale.FillBounds)
                 Box(Modifier.matchParentSize().background(Brush.verticalGradient(0f to Color(0xFF03152D).copy(alpha=.40f),.25f to Color.Transparent,1f to Color(0xFF03152D).copy(alpha=.15f))))
             } else {
                 // Continue only the blue central courtyard texture. Excluding the
@@ -119,7 +121,7 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
         // a fixed six-line stack otherwise made the clock smaller than its countdown.
         val compactUrdu=ur && maxHeight.value/scale<360f
         val compactFooter=short||compactUrdu
-        val ar=if(short){if(ur)19f else 22f}else if(compactUrdu){if(tablet)38f else 34f}else if(tablet)60f else 44f
+        val ar=if(short){if(ur)21f else 24f}else if(compactUrdu){if(tablet)40f else 36f}else if(tablet)64f else 48f
         val kicker=if(short)8f else if(compactUrdu){if(tablet)11f else 9f}else if(tablet)15f else 12f
         val relative=if(short)10f else if(compactUrdu){if(tablet)15f else 12f}else if(tablet)18f else 14f
         val metadata=if(short)7.5f else if(compactUrdu){if(tablet)10f else 8.5f}else if(tablet)11f else 9f
@@ -128,7 +130,7 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
         // Reserve their measured ascent/descent before fitting the display clock.
         val line=if(ur)1.8f else 1.25f
         val fixed=ar*1.8f+kicker*line+relative*line+(if(compactFooter)maxOf(metadata,day) else metadata+day)*line+12f
-        val size=min(if(tablet)70f else if(short)52f else 58f,((maxHeight.value*.90f-6f)/scale-fixed).div(1.28f).coerceAtLeast(14f))
+        val size=min(if(tablet)82f else if(short)60f else 70f,((maxHeight.value*.93f-6f)/scale-fixed).div(1.28f).coerceAtLeast(14f))
         Column(Modifier.fillMaxSize().padding(top=maxHeight*.08f,bottom=4.dp).padding(horizontal=if(tablet)24.dp else 12.dp)
             .clickable(role=Role.Button,onClick=onDetails),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             label(if(s.jumuahEnabled && info.prayer==Prayer.DHUHR)"الجمعة" else info.arabic,ar,"friday-hero-arabic",c.accent,true)
@@ -149,7 +151,7 @@ private const val GALLERY_DHIKR_AR="سُبْحَانَ اللَّهِ   ◆   ا
     val c=fridayOption2Palette(s.theme);val ur=L10n.isUrdu(s)
     val mode=adhkarModes(state,s).firstOrNull()?:AdhkarMode.MORNING
     val inline=tablet
-    Row(Modifier.fillMaxWidth().height(fridayDockHeight(tablet,wide)).padding(vertical=3.dp)
+    Row(Modifier.fillMaxWidth().height(fridayApprovedDockHeight(s.theme,tablet,wide)).padding(vertical=3.dp)
         .background(c.background.copy(alpha=.92f),androidx.compose.foundation.shape.RoundedCornerShape(14.dp))
         .border(.7.dp,c.secondary.copy(alpha=.4f),androidx.compose.foundation.shape.RoundedCornerShape(14.dp)),
         verticalAlignment=Alignment.CenterVertically) {
