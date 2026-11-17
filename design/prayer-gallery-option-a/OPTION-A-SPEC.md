@@ -18,12 +18,12 @@ Coordinate system: logical dp inside Android's safe drawing area, origin top-lef
 | Region | Phone portrait 390×844 | Phone landscape 844×390 | Tablet portrait 768×1024 | Tablet landscape 1280×800 |
 |---|---:|---:|---:|---:|
 | Header | `[0,0,390,80]` | `[0,0,844,44]` | `[0,0,768,70]` | `[0,0,1280,80]` |
-| Garden artwork | `[10,80,370,180]` | `[300,0,544,390]` | `[18,70,732,292]` | `[480,0,800,640]` |
-| Friday title plaque | `[30,245,330,62]` | absent | `[90,320,588,75]` | `[620,520,600,110]` |
-| Next prayer/clock | `[18,310,354,92]` | `[598,137,232,226]` | `[24,415,340,220]` | absent |
-| Six-prayer area | `[14,420,362,234]` | `[14,46,300,288]` | `[20,665,728,238]` | `[20,140,500,490]` |
-| Friday actions | `[14,665,362,98]` | absent | `[380,415,360,220]` | `[20,632,1240,110]` |
-| Navigation | `[0,775,390,69]` | `[0,340,590,50]` | `[0,922,768,102]` | `[0,744,1280,56]` |
+| Garden artwork | `[10,80,370,180]` | `[300,0,544,390]` | `[18,70,732,292]` | `[480,50,800,460]` |
+| Friday title plaque | `[30,245,330,62]` | absent | `[90,320,588,75]` | `[590,395,660,110]` |
+| Next prayer/clock | `[18,310,354,92]` | `[598,165,232,190]` | `[24,415,340,220]` | absent |
+| Six-prayer area | `[14,420,362,234]` | `[14,46,300,288]` | `[20,665,728,238]` | `[20,120,500,370]` |
+| Friday actions | `[14,665,362,98]` | absent | `[380,415,360,220]` | `[20,515,1240,205]` |
+| Navigation | `[0,775,390,69]` | `[0,340,844,50]` | `[0,922,768,102]` | `[0,720,1280,80]` |
 
 Phone landscape has no separate Friday title or action cards: its clock card overlays the garden at the lower right, while navigation sits below the prayer rail. Tablet landscape has no large clock card: the artwork, ornamental Friday plaque and three illustrated action cards carry that composition. These differences are visible in the approved board and were missed in A-1.0.
 

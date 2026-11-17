@@ -13,6 +13,7 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.imageResource
@@ -38,6 +40,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.LayoutDirection
 import com.usman.miqaat.R
 import com.usman.miqaat.data.*
 import java.time.Duration
@@ -65,7 +68,7 @@ private val gardenLayouts = listOf(
     GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,180),GBox(30,245,330,62),GBox(18,310,354,92),GBox(14,420,362,234),GBox(14,665,362,98),GBox(0,775,390,69)),
     GLayout(844,390,GBox(0,0,844,44),GBox(300,0,544,390),GBox(0,0,0,0),GBox(598,165,232,190),GBox(14,46,300,288),GBox(0,0,0,0),GBox(0,340,844,50)),
     GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,292),GBox(90,320,588,75),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
-    GLayout(1280,800,GBox(0,0,1280,80),GBox(480,0,800,510),GBox(590,395,660,110),GBox(0,0,0,0),GBox(20,140,500,350),GBox(20,515,1240,205),GBox(0,720,1280,80))
+    GLayout(1280,800,GBox(0,0,1280,80),GBox(480,50,800,460),GBox(590,395,660,110),GBox(0,0,0,0),GBox(20,120,500,370),GBox(20,515,1240,205),GBox(0,720,1280,80))
 )
 
 @Composable
@@ -195,12 +198,14 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                 fontSize=if(tablet)13.sp else 11.sp,color=gardenInk,maxLines=1)
             Text(name,fontFamily=if(L10n.isUrdu(s))gardenArabicBold else FontFamily.Serif,
                 fontWeight=FontWeight.Bold,fontSize=if(tablet)18.sp else 15.sp,color=gardenInk,maxLines=1)
-            Row(verticalAlignment=Alignment.Bottom) {
-                Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
-                    fontFamily=gardenClock,fontWeight=FontWeight.Bold,fontSize=if(tablet)54.sp else 43.sp,
-                    lineHeight=if(tablet)57.sp else 46.sp,color=gardenInk,maxLines=1)
-                if(!s.use24h)Text(PrayerEngine.suffix(state.nextTime,false),fontFamily=FontFamily.Serif,
-                    fontSize=if(tablet)20.sp else 15.sp,color=gardenInk,maxLines=1)
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                Row(verticalAlignment=Alignment.Bottom) {
+                    Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
+                        fontFamily=gardenClock,fontWeight=FontWeight.Bold,fontSize=if(tablet)54.sp else 43.sp,
+                        lineHeight=if(tablet)57.sp else 46.sp,color=gardenInk,maxLines=1)
+                    if(!s.use24h)Text(PrayerEngine.suffix(state.nextTime,false),Modifier.padding(start=3.dp),fontFamily=FontFamily.Serif,
+                        fontSize=if(tablet)20.sp else 15.sp,color=gardenInk,maxLines=1)
+                }
             }
             Text(countdown,Modifier.clip(RoundedCornerShape(20.dp)).background(gardenRust)
                 .padding(horizontal=13.dp,vertical=4.dp),fontFamily=gardenBody,fontWeight=FontWeight.Bold,
@@ -214,12 +219,14 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                 Text(if(L10n.isUrdu(s))"اگلی نماز" else "Next Prayer",fontFamily=gardenBody,fontSize=9.sp,color=gardenInk,maxLines=1)
                 Text(name,fontFamily=if(L10n.isUrdu(s))gardenArabicBold else FontFamily.Serif,
                     fontWeight=FontWeight.Bold,fontSize=15.sp,color=gardenInk,maxLines=1)
-                Row(verticalAlignment=Alignment.Bottom) {
-                    Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
-                        fontFamily=gardenClock,fontWeight=FontWeight.Bold,fontSize=42.sp,lineHeight=45.sp,
-                        color=gardenInk,maxLines=1)
-                    if(!s.use24h)Text(PrayerEngine.suffix(state.nextTime,false),fontFamily=FontFamily.Serif,
-                        fontSize=16.sp,color=gardenInk,maxLines=1)
+                CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                    Row(verticalAlignment=Alignment.Bottom) {
+                        Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
+                            fontFamily=gardenClock,fontWeight=FontWeight.Bold,fontSize=42.sp,lineHeight=45.sp,
+                            color=gardenInk,maxLines=1)
+                        if(!s.use24h)Text(PrayerEngine.suffix(state.nextTime,false),Modifier.padding(start=3.dp),fontFamily=FontFamily.Serif,
+                            fontSize=16.sp,color=gardenInk,maxLines=1)
+                    }
                 }
             }
             Column(horizontalAlignment=Alignment.End) {
@@ -371,11 +378,12 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                 .padding(horizontal=if(tablet)10.dp else 4.dp,vertical=if(vertical)3.dp else 2.dp),
                 horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
                 if(vertical) {
-                    Box(Modifier.size(if(tablet)45.dp else 28.dp).clip(CircleShape).background(gardenGold.copy(alpha=.22f)),contentAlignment=Alignment.Center) {
-                        GardenActionIcon(i,if(tablet)30.dp else 21.dp)
+                    Box(Modifier.size(if(tablet)45.dp else 38.dp).clip(CircleShape).background(gardenGold.copy(alpha=.22f)),contentAlignment=Alignment.Center) {
+                        GardenActionIcon(i,if(tablet)30.dp else 29.dp)
                     }
                     Text(labels[i],fontFamily=if(L10n.isUrdu(s))gardenArabicBold else FontFamily.Serif,
-                        fontWeight=FontWeight.Bold,fontSize=if(tablet)16.sp else 10.sp,color=gardenInk,maxLines=1)
+                        fontWeight=FontWeight.Bold,fontSize=if(tablet)16.sp else 12.sp,color=gardenInk,
+                        maxLines=if(i==2&&!tablet)2 else 1,lineHeight=14.sp,textAlign=TextAlign.Center)
                     Text(sub[i],fontFamily=gardenBody,fontSize=if(tablet)10.sp else 8.sp,
                         color=gardenInk.copy(alpha=.7f),maxLines=if(tablet)1 else 2,textAlign=TextAlign.Center)
                 } else Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.Center) {
