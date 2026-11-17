@@ -54,11 +54,10 @@ private val gardenRust = Color(0xFFA9472D)
 private val gardenGold = Color(0xFFC99845)
 private val gardenSage = Color(0xFFDCE8D8)
 private val gardenLine = Color(0xFFD9C9AA)
-private val gardenDisplay = FontFamily(Font(R.font.sanctuary_display))
 private val gardenClock = FontFamily(Font(R.font.sanctuary_clock))
 private val gardenArabic = FontFamily(Font(R.font.amiri_regular))
 private val gardenArabicBold = FontFamily(Font(R.font.amiri_bold))
-private val gardenBody = FontFamily(Font(R.font.nunito_sans))
+private val gardenBody = FontFamily.Serif
 
 private data class GBox(val x: Int, val y: Int, val w: Int, val h: Int)
 private data class GLayout(val width: Int, val height: Int, val header: GBox, val art: GBox,

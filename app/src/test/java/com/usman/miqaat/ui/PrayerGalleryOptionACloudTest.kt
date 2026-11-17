@@ -98,4 +98,32 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
         }
         assertTrue(rule.onAllNodesWithTag("gallery-friday-a", true).fetchSemanticsNodes().isEmpty())
     }
+
+    @Test fun optionAUrduLargeTextAndTwentyFourHourCaptures() {
+        val profiles = listOf(
+            Triple(Dev.PHONE_PORTRAIT, "w390dp-h844dp-port-xhdpi", "phone-portrait"),
+            Triple(Dev.PHONE_LANDSCAPE, "w844dp-h390dp-land-xhdpi", "phone-landscape"),
+            Triple(Dev.TABLET_PORTRAIT, "w768dp-h1024dp-port-xhdpi", "tablet-portrait"),
+            Triple(Dev.TABLET_LANDSCAPE, "w1280dp-h800dp-land-xhdpi", "tablet-landscape")
+        )
+        for ((dev, qualifiers, label) in profiles) for (variant in listOf("UR-115", "EN-24h")) {
+            val language = if (variant == "UR-115") Language.UR else Language.EN
+            val settings = settings(language).copy(use24h = variant == "EN-24h")
+            val now = ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, settings.zone())
+            val state = PrayerEngine.state(settings, now)
+            try {
+                show(dev, AppTheme.PRAYER_GALLERY, fontScale = if (variant == "UR-115") 1.15f else 1f,
+                    rtl = language == Language.UR, language = language, qualifiers = qualifiers) {
+                    HomeRouter(state, settings, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {})
+                }
+                capture("${label}-${variant}")
+                for (prayer in Prayer.entries) {
+                    rule.onNodeWithTag("gallery-friday-a-row-${prayer.name}", true).assertIsDisplayed()
+                    rule.onNodeWithTag("gallery-friday-a-row-time-${prayer.name}", true).assertIsDisplayed()
+                }
+            } finally {
+                scenario.close()
+            }
+        }
+    }
 }
