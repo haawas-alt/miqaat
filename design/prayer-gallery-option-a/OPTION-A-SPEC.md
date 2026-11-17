@@ -4,6 +4,10 @@ Version `A-1.1`, 18 November 2026. Scope: Prayer Gallery's Friday **main homepag
 
 Coordinate system: logical dp inside Android's safe drawing area, origin top-left, x rightward, y downward. Viewport dimensions are design targets. Each box is `[x,y,w,h]`. Background and decorative layers can overlap foreground boxes intentionally. Child text coordinates are relative to the parent box. All touch areas at least 48×48 dp, even when the drawn icon is smaller.
 
+The approved AI concept board does not draw its four device frames at the aspect ratios printed in its captions. Approximate image-frame ratios are phone portrait 0.39 versus labelled 390/844 = 0.46, phone landscape 2.37 versus 844/390 = 2.16, tablet portrait 0.65 versus 768/1024 = 0.75, and tablet landscape 1.40 versus 1280/800 = 1.60. These are measurements of the concept-board pixels, not Android layout requirements. Direct pixel parity is therefore impossible without distorting the artwork or changing the requested device viewports. Preserve hierarchy and content while adapting geometry to the actual viewport; do not report a numerical parity percentage from unregistered screenshots.
+
+The phone portrait prayer area is 234dp high for six visible rows. Six independent 48dp-high rows require at least 288dp before gaps. The current 37dp visual rows fail the 48dp touch target check. This is an unresolved constraint conflict; the screen must be reflowed or provide a validated alternative hit-area treatment before acceptance. Do not weaken the test to hide it.
+
 ## Visual source, assets and tokens
 
 - Art source: `../artwork/option-a-friday-garden.png` (the garden and reflecting pool). Retain its blue sky, floral foreground, minarets, central dome and pool. `cover` scaling, no stretch.
