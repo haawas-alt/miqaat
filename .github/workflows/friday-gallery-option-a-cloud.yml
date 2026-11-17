@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   compile-and-test:
@@ -30,3 +30,29 @@ jobs:
             app/build/reports/tests/
             app/build/option-a-review/
           if-no-files-found: warn
+      - name: Print failed assertions
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import pathlib, xml.etree.ElementTree as ET
+          for path in pathlib.Path('app/build/test-results').rglob('TEST-*.xml'):
+              for case in ET.parse(path).getroot().findall('testcase'):
+                  for failure in case.findall('failure'):
+                      print(f'{case.attrib.get("name")}: {failure.attrib.get("message")}')
+          PY
+      - name: Publish native review captures
+        if: always()
+        run: |
+          if [ ! -d app/build/option-a-review ]; then exit 0; fi
+          mkdir -p /tmp/option-a-shots
+          cp -r app/build/option-a-review/. /tmp/option-a-shots/
+          cd /tmp/option-a-shots
+          git init -q
+          git checkout -q -b "ci-option-a-shots-${GITHUB_SHA:0:12}"
+          git config user.name ci
+          git config user.email ci@users.noreply.github.com
+          git add -A
+          git commit -qm "Option A captures ${GITHUB_SHA:0:12}"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
