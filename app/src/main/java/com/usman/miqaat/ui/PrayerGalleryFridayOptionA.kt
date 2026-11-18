@@ -18,9 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.StrokeCap
@@ -31,7 +28,6 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -392,15 +388,12 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
 }
 
 @Composable private fun GardenActionScene(index:Int,m:Modifier) {
-    val art=ImageBitmap.imageResource(R.drawable.prayer_gallery_friday_action_art)
-    Canvas(m) {
-        val rowHeight=art.height/3
-        val ratio=if(size.height>0f)size.width/size.height else 1f
-        val sourceWidth=minOf(art.width,(rowHeight*ratio).toInt()).coerceAtLeast(1)
-        drawImage(art,srcOffset=androidx.compose.ui.unit.IntOffset((art.width-sourceWidth)/2,index*rowHeight),
-            srcSize=androidx.compose.ui.unit.IntSize(sourceWidth,rowHeight),
-            dstSize=androidx.compose.ui.unit.IntSize(size.width.toInt(),size.height.toInt()),filterQuality=FilterQuality.High)
+    val art=when(index) {
+        0 -> R.drawable.prayer_gallery_friday_scene_kahf
+        1 -> R.drawable.prayer_gallery_friday_scene_salawat
+        else -> R.drawable.prayer_gallery_friday_scene_reminders
     }
+    Image(painterResource(art),null,m,contentScale=ContentScale.Crop)
 }
 
 @Composable private fun GardenActionIcon(index:Int,size:Dp) {
