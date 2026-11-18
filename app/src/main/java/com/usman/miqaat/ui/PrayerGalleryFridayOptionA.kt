@@ -435,11 +435,12 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
 }
 
 @Composable private fun GardenActionIcon(index:Int,size:Dp) {
-    when(index) {
-        0 -> Icon(Icons.Outlined.MenuBook,null,Modifier.size(size),tint=gardenInk)
-        1 -> GardenBeads(Modifier.size(size))
-        else -> Icon(Icons.Outlined.EventAvailable,null,Modifier.size(size),tint=gardenInk)
+    val art=when(index) {
+        0 -> R.drawable.prayer_gallery_friday_action_book
+        1 -> R.drawable.prayer_gallery_friday_action_beads
+        else -> R.drawable.prayer_gallery_friday_action_calendar
     }
+    Image(painterResource(art),null,Modifier.size(size),contentScale=ContentScale.Fit)
 }
 
 @Composable private fun GardenBeads(m:Modifier) {
