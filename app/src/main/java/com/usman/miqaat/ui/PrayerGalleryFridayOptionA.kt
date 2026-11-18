@@ -193,7 +193,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
     val name=if(isJumuah) { if(L10n.isUrdu(s))"جمعہ" else "JUMU’AH / الجمعة" } else L10n.prayer(s,state.next)
     val detail=if(isJumuah&&iq!=null)"Masjid time · Iqamah ${L10n.at(iq,s.use24h)}" else ""
     val shape=if(wide&&!tablet) GenericShape { size, _ ->
-        val w=size.width; val h=size.height; val r=20.dp.toPx(); val l=9.dp.toPx()
+        val w=size.width; val h=size.height; val r=h*.1f; val l=r*.45f
         moveTo(r,0f); lineTo(w-r,0f); quadraticTo(w-l,0f,w-l,r*.55f)
         quadraticTo(w,r,w,r*1.5f); lineTo(w,h-r*1.5f)
         quadraticTo(w,h-r,w-l,h-r*.55f); quadraticTo(w-l,h,w-r,h)
