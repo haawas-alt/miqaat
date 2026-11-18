@@ -3,7 +3,7 @@ package com.usman.miqaat.ui
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.view.View
-import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.*
 import androidx.compose.ui.test.*
 import androidx.compose.ui.text.TextLayoutResult
 import com.usman.miqaat.data.*
