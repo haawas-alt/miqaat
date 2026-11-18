@@ -120,16 +120,31 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
     }
 
     @Test fun optionAIsFridayOnly() {
-        val s = settings(Language.EN)
-        val friday = ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, s.zone())
-        val thursday = friday.minusDays(1)
-        assertTrue(fridayHomepageActive(s, friday))
-        assertFalse(fridayHomepageActive(s, thursday))
-        val weekday = PrayerEngine.state(s, thursday)
-        show(Dev.PHONE_PORTRAIT, AppTheme.PRAYER_GALLERY) {
-            HomeRouter(weekday, s, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {})
+        val profiles = listOf(
+            Triple(Dev.PHONE_PORTRAIT, "w390dp-h844dp-port-xhdpi", "phone-portrait"),
+            Triple(Dev.PHONE_LANDSCAPE, "w844dp-h390dp-land-xhdpi", "phone-landscape"),
+            Triple(Dev.TABLET_PORTRAIT, "w768dp-h1024dp-port-xhdpi", "tablet-portrait"),
+            Triple(Dev.TABLET_LANDSCAPE, "w1280dp-h800dp-land-xhdpi", "tablet-landscape")
+        )
+        for (language in Language.entries) for ((dev, qualifiers, label) in profiles) {
+            val s = settings(language)
+            val friday = ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, s.zone())
+            val thursday = friday.minusDays(1)
+            assertTrue(fridayHomepageActive(s, friday))
+            assertFalse(fridayHomepageActive(s, thursday))
+            val weekday = PrayerEngine.state(s, thursday)
+            try {
+                show(dev, AppTheme.PRAYER_GALLERY, rtl = language == Language.UR,
+                    language = language, qualifiers = qualifiers) {
+                    HomeRouter(weekday, s, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {})
+                }
+                rule.onRoot(true).assertIsDisplayed()
+                assertTrue("Friday Option A rendered on $language/$label weekday",
+                    rule.onAllNodesWithTag("gallery-friday-a", true).fetchSemanticsNodes().isEmpty())
+            } finally {
+                scenario.close()
+            }
         }
-        assertTrue(rule.onAllNodesWithTag("gallery-friday-a", true).fetchSemanticsNodes().isEmpty())
     }
 
     @Test fun optionAUrduLargeTextAndTwentyFourHourCaptures() {
