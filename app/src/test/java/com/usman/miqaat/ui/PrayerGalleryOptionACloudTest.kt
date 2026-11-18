@@ -37,8 +37,12 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
         assertTrue("No text layout result for $tag", layouts.isNotEmpty())
         layouts.forEach { layout ->
             assertFalse("$tag text clipped: ${layout.layoutInput.text}",
-                layout.didOverflowWidth || layout.didOverflowHeight || layout.multiParagraph.didExceedMaxLines ||
-                    layout.size.height > node.size.height + 1f)
+                layout.multiParagraph.didExceedMaxLines ||
+                    (0 until layout.lineCount).any { line ->
+                        layout.getLineRight(line) - layout.getLineLeft(line) > node.size.width + 1f
+                    } ||
+                    (layout.lineCount > 0 &&
+                        layout.getLineBottom(layout.lineCount - 1) - layout.getLineTop(0) > node.size.height + 1f))
         }
     }
 
@@ -168,3 +172,4 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
         }
     }
 }
+
