@@ -67,7 +67,7 @@ private data class GLayout(val width: Int, val height: Int, val header: GBox, va
     val title: GBox, val clock: GBox, val prayers: GBox, val actions: GBox, val nav: GBox)
 
 private val gardenLayouts = listOf(
-    GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,165),GBox(27,228,336,66),GBox(18,294,354,92),GBox(14,388,362,296),GBox(14,686,362,87),GBox(0,775,390,69)),
+    GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,190),GBox(27,228,336,66),GBox(18,294,354,92),GBox(14,386,362,300),GBox(14,686,362,87),GBox(0,775,390,69)),
     GLayout(844,390,GBox(0,0,844,44),GBox(330,0,514,390),GBox(0,0,0,0),GBox(598,165,232,190),GBox(14,42,326,298),GBox(0,0,0,0),GBox(0,340,844,50)),
     GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,292),GBox(90,305,588,100),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
     GLayout(1280,800,GBox(0,0,1280,80),GBox(530,50,750,460),GBox(570,400,660,100),GBox(0,0,0,0),GBox(20,120,500,370),GBox(20,515,1240,205),GBox(0,720,1280,80))
@@ -81,7 +81,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         val tablet = minOf(maxWidth,maxHeight) >= 600.dp
         val baseLayout = gardenLayouts[if (tablet) { if (wide) 3 else 2 } else { if (wide) 1 else 0 }]
         val layout = if(!tablet&&!wide&&LocalDensity.current.fontScale>=1.1f) baseLayout.copy(
-            art=GBox(10,80,370,155),title=GBox(27,218,336,64),clock=GBox(18,282,354,104))
+            art=GBox(10,80,370,180),title=GBox(27,218,336,64),clock=GBox(18,282,354,104))
             else baseLayout
         val sx = maxWidth.value / layout.width
         val sy = maxHeight.value / layout.height
@@ -91,13 +91,13 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         val artwork=when {
             tablet&&wide -> R.drawable.prayer_gallery_friday_approved_tablet_landscape
             tablet -> R.drawable.prayer_gallery_friday_approved_tablet_portrait
-            wide -> R.drawable.prayer_gallery_friday_approved_tablet_landscape
+            wide -> R.drawable.prayer_gallery_friday_approved_phone_landscape
             else -> R.drawable.prayer_gallery_friday_approved_phone_portrait
         }
         val crop=when {
-            tablet&&wide -> intArrayOf(580,80,780,430)
-            tablet -> intArrayOf(22,125,626,185)
-            wide -> intArrayOf(580,80,780,430)
+            tablet&&wide -> intArrayOf(580,80,700,430)
+            tablet -> intArrayOf(22,125,626,220)
+            wide -> intArrayOf(550,20,770,455)
             else -> intArrayOf(22,170,616,320)
         }
         Image(BitmapPainter(ImageBitmap.imageResource(artwork),
