@@ -65,10 +65,10 @@ private data class GLayout(val width: Int, val height: Int, val header: GBox, va
     val title: GBox, val clock: GBox, val prayers: GBox, val actions: GBox, val nav: GBox)
 
 private val gardenLayouts = listOf(
-    GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,165),GBox(30,230,330,60),GBox(18,291,354,92),GBox(14,386,362,298),GBox(14,686,362,87),GBox(0,775,390,69)),
+    GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,165),GBox(22,220,346,70),GBox(18,291,354,92),GBox(14,386,362,298),GBox(14,686,362,87),GBox(0,775,390,69)),
     GLayout(844,390,GBox(0,0,844,44),GBox(330,0,514,390),GBox(0,0,0,0),GBox(598,165,232,190),GBox(14,42,326,298),GBox(0,0,0,0),GBox(0,340,844,50)),
-    GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,292),GBox(90,320,588,75),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
-    GLayout(1280,800,GBox(0,0,1280,80),GBox(480,50,800,460),GBox(590,395,660,110),GBox(0,0,0,0),GBox(20,120,500,370),GBox(20,515,1240,205),GBox(0,720,1280,80))
+    GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,292),GBox(70,300,628,110),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
+    GLayout(1280,800,GBox(0,0,1280,80),GBox(480,50,800,460),GBox(540,395,720,110),GBox(0,0,0,0),GBox(20,120,500,370),GBox(20,515,1240,205),GBox(0,720,1280,80))
 )
 
 @Composable
@@ -79,7 +79,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         val tablet = minOf(maxWidth,maxHeight) >= 600.dp
         val baseLayout = gardenLayouts[if (tablet) { if (wide) 3 else 2 } else { if (wide) 1 else 0 }]
         val layout = if(!tablet&&!wide&&LocalDensity.current.fontScale>=1.1f) baseLayout.copy(
-            art=GBox(10,80,370,155),title=GBox(30,220,330,56),clock=GBox(18,277,354,106))
+            art=GBox(10,80,370,155),title=GBox(22,210,346,66),clock=GBox(18,277,354,106))
             else baseLayout
         val sx = maxWidth.value / layout.width
         val sy = maxHeight.value / layout.height
@@ -155,41 +155,10 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
 
 @Composable private fun GardenTitle(s:AppSettings,m:Modifier,wide:Boolean,tablet:Boolean) {
     Box(m.testTag("gallery-friday-a-title"),contentAlignment=Alignment.Center) {
-        Canvas(Modifier.fillMaxSize()) {
-            val w=size.width; val h=size.height
-            if(wide&&tablet) {
-                val wing=Path().apply {
-                    moveTo(0f,h*.5f); lineTo(w*.09f,h*.08f); lineTo(w*.91f,h*.08f)
-                    lineTo(w,h*.5f); lineTo(w*.91f,h*.92f); lineTo(w*.09f,h*.92f); close()
-                }
-                drawPath(wing,gardenInk)
-                drawPath(wing,gardenGold,style=Stroke(width=2.dp.toPx()))
-                for(i in 0..3) {
-                    val yy=h*(.22f+i*.18f)
-                    drawCircle(gardenGold,2.5.dp.toPx(),Offset(w*.065f,yy))
-                    drawCircle(gardenGold,2.5.dp.toPx(),Offset(w*.935f,yy))
-                }
-            }
-            val inset=if(wide&&tablet)w*.09f else 0f
-            val top=h*.08f; val bottom=h*.92f
-            val plaque=Path().apply {
-                moveTo(inset+w*.075f,top)
-                lineTo(w-inset-w*.075f,top)
-                quadraticTo(w-inset-w*.04f,top,w-inset-w*.035f,h*.22f)
-                quadraticTo(w-inset,h*.25f,w-inset,h*.5f)
-                quadraticTo(w-inset,h*.75f,w-inset-w*.035f,h*.78f)
-                quadraticTo(w-inset-w*.04f,bottom,w-inset-w*.075f,bottom)
-                lineTo(inset+w*.075f,bottom)
-                quadraticTo(inset+w*.04f,bottom,inset+w*.035f,h*.78f)
-                quadraticTo(inset,h*.75f,inset,h*.5f)
-                quadraticTo(inset,h*.25f,inset+w*.035f,h*.22f)
-                quadraticTo(inset+w*.04f,top,inset+w*.075f,top)
-                close()
-            }
-            drawPath(plaque,gardenPaper.copy(alpha=.98f))
-            drawPath(plaque,gardenGold,style=Stroke(width=1.5.dp.toPx()))
-        }
-        Column(Modifier.fillMaxSize().offset(y=(-3).dp).padding(horizontal=if(wide&&tablet)48.dp else 10.dp),
+        Image(painterResource(if(wide&&tablet)R.drawable.prayer_gallery_friday_title_landscape
+            else R.drawable.prayer_gallery_friday_title_portrait),null,Modifier.fillMaxSize(),
+            contentScale=ContentScale.FillBounds)
+        Column(Modifier.fillMaxSize().offset(y=(-3).dp).padding(horizontal=if(wide&&tablet)72.dp else 16.dp),
             horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             Text(if(L10n.isUrdu(s))"JUMU’AH / جمعہ" else "JUMU’AH / الجمعة",
                 fontFamily=FontFamily.Serif,fontWeight=FontWeight.Bold,
