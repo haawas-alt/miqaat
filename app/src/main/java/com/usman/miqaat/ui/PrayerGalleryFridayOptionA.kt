@@ -95,6 +95,15 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
             contentScale=ContentScale.Crop)
         GardenHeader(state,s,a,layout.header.modifier(),wide,onClosePreview)
         if(layout.title.w>0) GardenTitle(s,layout.title.modifier(),wide,tablet)
+        if(tablet&&!wide) Canvas(Modifier.offset((90*sx).dp,(646*sy).dp).size((588*sx).dp,(12*sy).dp)) {
+            val mid=size.width/2f; val cy=size.height/2f
+            drawLine(gardenGold.copy(alpha=.72f),Offset(0f,cy),Offset(mid-12.dp.toPx(),cy),1.dp.toPx())
+            drawLine(gardenGold.copy(alpha=.72f),Offset(mid+12.dp.toPx(),cy),Offset(size.width,cy),1.dp.toPx())
+            val diamond=Path().apply { moveTo(mid,cy-6.dp.toPx()); lineTo(mid+6.dp.toPx(),cy)
+                lineTo(mid,cy+6.dp.toPx()); lineTo(mid-6.dp.toPx(),cy); close() }
+            drawPath(diamond,gardenPaper)
+            drawPath(diamond,gardenGold,style=Stroke(width=1.dp.toPx()))
+        }
         GardenPrayers(state,s,a,layout.prayers.modifier(),wide,tablet)
         if(layout.actions.w>0) GardenActions(s,a,layout.actions.modifier(),wide,tablet)
         GardenNav(s,a,layout.nav.modifier(),wide,tablet)
@@ -326,18 +335,15 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
 }
 
 @Composable private fun GardenMiniature(index:Int,m:Modifier) {
-    val atlas=ImageBitmap.imageResource(R.drawable.tablet_gallery_atlas_181)
-    Canvas(m) {
-        val sceneTop=(atlas.height*.455f).toInt()
-        val tileWidth=atlas.width/3
-        val tileHeight=(atlas.height-sceneTop)/2
-        val side=minOf(tileWidth,tileHeight)
-        val x=(index%3)*tileWidth+(tileWidth-side)/2
-        val y=sceneTop+(index/3)*tileHeight
-        drawImage(atlas,srcOffset=androidx.compose.ui.unit.IntOffset(x,y),
-            srcSize=androidx.compose.ui.unit.IntSize(side,side),
-            dstSize=androidx.compose.ui.unit.IntSize(size.width.toInt(),size.height.toInt()),filterQuality=FilterQuality.High)
+    val scene=when(index) {
+        0 -> R.drawable.prayer_gallery_friday_mini_fajr
+        1 -> R.drawable.prayer_gallery_friday_mini_sunrise
+        2 -> R.drawable.prayer_gallery_friday_mini_jumuah
+        3 -> R.drawable.prayer_gallery_friday_mini_asr
+        4 -> R.drawable.prayer_gallery_friday_mini_maghrib
+        else -> R.drawable.prayer_gallery_friday_mini_isha
     }
+    Image(painterResource(scene),null,m,contentScale=ContentScale.Crop)
 }
 
 @Composable private fun GardenActions(s:AppSettings,a:HomeActions,m:Modifier,wide:Boolean,tablet:Boolean) {

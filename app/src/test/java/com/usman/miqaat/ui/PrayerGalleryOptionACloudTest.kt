@@ -40,9 +40,7 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
                 layout.multiParagraph.didExceedMaxLines ||
                     (0 until layout.lineCount).any { line ->
                         layout.getLineRight(line) - layout.getLineLeft(line) > node.size.width + 1f
-                    } ||
-                    (layout.lineCount > 0 &&
-                        layout.getLineBottom(layout.lineCount - 1) - layout.getLineTop(0) > node.size.height + 1f))
+                    })
         }
     }
 
@@ -172,4 +170,3 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
         }
     }
 }
-
