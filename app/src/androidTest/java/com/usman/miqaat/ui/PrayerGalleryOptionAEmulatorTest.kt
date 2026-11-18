@@ -1,6 +1,9 @@
 package com.usman.miqaat.ui
 
 import android.graphics.Bitmap
+import android.content.ContentValues
+import android.os.Environment
+import android.provider.MediaStore
 import androidx.compose.ui.test.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -8,7 +11,6 @@ import com.usman.miqaat.data.*
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.File
 import java.time.ZonedDateTime
 
 /** Full Android emulator screenshots for the four Friday layouts and their weekday counterparts. */
@@ -41,8 +43,15 @@ class PrayerGalleryOptionAEmulatorTest : ShotSupport() {
                 val bitmap = InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()
                 checkNotNull(bitmap) { "Android did not return a device screenshot" }
                 val name = "option-a-${device}-${if (friday) "friday" else "weekday"}-${language.name}.png"
-                val screenshotDir = File(app.getExternalFilesDir(null), "option-a-screens").also { it.mkdirs() }
-                File(screenshotDir, name).outputStream().use {
+                val values = ContentValues().apply {
+                    put(MediaStore.Images.Media.DISPLAY_NAME, name)
+                    put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+                    put(MediaStore.Images.Media.RELATIVE_PATH,
+                        Environment.DIRECTORY_PICTURES + "/MiqaatOptionA")
+                }
+                val uri = checkNotNull(app.contentResolver.insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values))
+                checkNotNull(app.contentResolver.openOutputStream(uri)).use {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
                 }
                 bitmap.recycle()

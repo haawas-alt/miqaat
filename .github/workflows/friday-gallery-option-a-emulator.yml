@@ -53,7 +53,7 @@ jobs:
             adb shell wm user-rotation lock ${{ matrix.rotation }}
             mkdir -p shots
             ./gradlew --no-daemon -Pandroid.testInstrumentationRunnerArguments.orientation=${{ matrix.orientation }} -Pandroid.testInstrumentationRunnerArguments.class=com.usman.miqaat.ui.PrayerGalleryOptionAEmulatorTest connectedGithubDebugAndroidTest
-            adb pull /sdcard/Android/data/com.usman.miqaat/files/option-a-screens/ shots/screens/
+            adb pull /sdcard/Pictures/MiqaatOptionA/ shots/screens/
       - uses: actions/upload-artifact@v4
         if: always()
         with:
