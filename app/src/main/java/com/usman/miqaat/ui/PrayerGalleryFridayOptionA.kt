@@ -64,8 +64,8 @@ private data class GLayout(val width: Int, val height: Int, val header: GBox, va
     val title: GBox, val clock: GBox, val prayers: GBox, val actions: GBox, val nav: GBox)
 
 private val gardenLayouts = listOf(
-    GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,180),GBox(30,245,330,62),GBox(18,310,354,92),GBox(14,420,362,234),GBox(14,665,362,98),GBox(0,775,390,69)),
-    GLayout(844,390,GBox(0,0,844,44),GBox(330,0,514,390),GBox(0,0,0,0),GBox(598,165,232,190),GBox(14,46,326,288),GBox(0,0,0,0),GBox(0,340,844,50)),
+    GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,170),GBox(30,235,330,60),GBox(18,296,354,88),GBox(14,390,362,298),GBox(14,691,362,82),GBox(0,775,390,69)),
+    GLayout(844,390,GBox(0,0,844,44),GBox(330,0,514,390),GBox(0,0,0,0),GBox(598,165,232,190),GBox(14,42,326,298),GBox(0,0,0,0),GBox(0,340,844,50)),
     GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,292),GBox(90,320,588,75),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
     GLayout(1280,800,GBox(0,0,1280,80),GBox(480,50,800,460),GBox(590,395,660,110),GBox(0,0,0,0),GBox(20,120,500,370),GBox(20,515,1240,205),GBox(0,720,1280,80))
 )
@@ -80,7 +80,13 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         val sx = maxWidth.value / layout.width
         val sy = maxHeight.value / layout.height
         fun GBox.modifier() = Modifier.offset((x*sx).dp,(y*sy).dp).size((w*sx).dp,(h*sy).dp)
-        Image(painterResource(R.drawable.prayer_gallery_friday_garden_a),null,
+        val artwork=when {
+            tablet&&wide -> R.drawable.prayer_gallery_friday_garden_tablet_landscape
+            tablet -> R.drawable.prayer_gallery_friday_garden_tablet_portrait
+            wide -> R.drawable.prayer_gallery_friday_garden_phone_landscape
+            else -> R.drawable.prayer_gallery_friday_garden_phone_portrait
+        }
+        Image(painterResource(artwork),null,
             layout.art.modifier().clip(RoundedCornerShape(if(wide)12.dp else 16.dp)).testTag("gallery-friday-a-art"),
             contentScale=ContentScale.Crop)
         GardenHeader(state,s,a,layout.header.modifier(),wide,onClosePreview)
