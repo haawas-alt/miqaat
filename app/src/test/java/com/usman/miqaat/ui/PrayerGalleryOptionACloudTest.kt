@@ -20,6 +20,14 @@ import java.time.ZonedDateTime
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk = [34])
 class PrayerGalleryOptionACloudTest : ComposeSupport() {
+    private fun assertInside(childTag: String, parentTag: String) {
+        val child = rule.onNodeWithTag(childTag, true).fetchSemanticsNode().boundsInRoot
+        val parent = rule.onNodeWithTag(parentTag, true).fetchSemanticsNode().boundsInRoot
+        assertTrue("$childTag outside $parentTag: $child versus $parent",
+            child.left >= parent.left - 1f && child.top >= parent.top - 1f &&
+                child.right <= parent.right + 1f && child.bottom <= parent.bottom + 1f)
+    }
+
     private fun settings(language: Language) = AppSettings(
         theme = AppTheme.PRAYER_GALLERY, language = language,
         latitude = -33.93, longitude = 151.19, locationName = "Mascot, NSW",
@@ -67,6 +75,7 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
                 if (dev != Dev.TABLET_LANDSCAPE) {
                     rule.onNodeWithTag("gallery-friday-a-clock", true).assertIsDisplayed()
                     rule.onNodeWithTag("gallery-friday-a-time", true).assertIsDisplayed()
+                    assertInside("gallery-friday-a-time", "gallery-friday-a-clock")
                 }
                 if (dev != Dev.PHONE_LANDSCAPE) rule.onNodeWithTag("gallery-friday-a-actions", true).assertIsDisplayed()
                 for (prayer in Prayer.entries) {
@@ -77,6 +86,8 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
                     assertTrue("${prayer.name} row below 48dp: ${bounds.height}",
                         bounds.height >= 48 * app.resources.displayMetrics.density - .5f)
                 }
+                if (dev != Dev.PHONE_LANDSCAPE)
+                    for (i in 0..2) assertInside("gallery-friday-a-action-sub-$i", "gallery-friday-a-action-$i")
             } catch (error: AssertionError) {
                 failures += "$language/$label: ${error.message}"
             } finally {
@@ -117,6 +128,10 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
                     HomeRouter(state, settings, HomeActions({}, {}, {}, {}, {}, {}, {}, false, {}, {}), false, {})
                 }
                 capture("${label}-${variant}")
+                if (dev != Dev.TABLET_LANDSCAPE)
+                    assertInside("gallery-friday-a-time", "gallery-friday-a-clock")
+                if (dev != Dev.PHONE_LANDSCAPE)
+                    for (i in 0..2) assertInside("gallery-friday-a-action-sub-$i", "gallery-friday-a-action-$i")
                 for (prayer in Prayer.entries) {
                     rule.onNodeWithTag("gallery-friday-a-row-${prayer.name}", true).assertIsDisplayed()
                     rule.onNodeWithTag("gallery-friday-a-row-time-${prayer.name}", true).assertIsDisplayed()
