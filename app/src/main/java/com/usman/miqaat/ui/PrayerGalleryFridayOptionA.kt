@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
@@ -18,8 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
@@ -29,6 +34,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -61,10 +67,10 @@ private data class GLayout(val width: Int, val height: Int, val header: GBox, va
     val title: GBox, val clock: GBox, val prayers: GBox, val actions: GBox, val nav: GBox)
 
 private val gardenLayouts = listOf(
-    GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,165),GBox(22,220,346,70),GBox(18,291,354,92),GBox(14,386,362,298),GBox(14,686,362,87),GBox(0,775,390,69)),
+    GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,165),GBox(27,228,336,66),GBox(18,294,354,92),GBox(14,388,362,296),GBox(14,686,362,87),GBox(0,775,390,69)),
     GLayout(844,390,GBox(0,0,844,44),GBox(330,0,514,390),GBox(0,0,0,0),GBox(598,165,232,190),GBox(14,42,326,298),GBox(0,0,0,0),GBox(0,340,844,50)),
-    GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,292),GBox(70,300,628,110),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
-    GLayout(1280,800,GBox(0,0,1280,80),GBox(480,50,800,460),GBox(540,395,720,110),GBox(0,0,0,0),GBox(20,120,500,370),GBox(20,515,1240,205),GBox(0,720,1280,80))
+    GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,292),GBox(90,305,588,100),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
+    GLayout(1280,800,GBox(0,0,1280,80),GBox(530,50,750,460),GBox(570,400,660,100),GBox(0,0,0,0),GBox(20,120,500,370),GBox(20,515,1240,205),GBox(0,720,1280,80))
 )
 
 @Composable
@@ -75,18 +81,27 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         val tablet = minOf(maxWidth,maxHeight) >= 600.dp
         val baseLayout = gardenLayouts[if (tablet) { if (wide) 3 else 2 } else { if (wide) 1 else 0 }]
         val layout = if(!tablet&&!wide&&LocalDensity.current.fontScale>=1.1f) baseLayout.copy(
-            art=GBox(10,80,370,155),title=GBox(22,210,346,66),clock=GBox(18,277,354,106))
+            art=GBox(10,80,370,155),title=GBox(27,218,336,64),clock=GBox(18,282,354,104))
             else baseLayout
         val sx = maxWidth.value / layout.width
         val sy = maxHeight.value / layout.height
         fun GBox.modifier() = Modifier.offset((x*sx).dp,(y*sy).dp).size((w*sx).dp,(h*sy).dp)
+        // Use the approved board's artwork pixels directly. The painter crops only
+        // the clean garden region; text, prayer data and controls remain live UI.
         val artwork=when {
-            tablet&&wide -> R.drawable.prayer_gallery_friday_garden_tablet_landscape
-            tablet -> R.drawable.prayer_gallery_friday_garden_tablet_portrait
-            wide -> R.drawable.prayer_gallery_friday_garden_phone_landscape
-            else -> R.drawable.prayer_gallery_friday_garden_phone_portrait
+            tablet&&wide -> R.drawable.prayer_gallery_friday_approved_tablet_landscape
+            tablet -> R.drawable.prayer_gallery_friday_approved_tablet_portrait
+            wide -> R.drawable.prayer_gallery_friday_approved_tablet_landscape
+            else -> R.drawable.prayer_gallery_friday_approved_phone_portrait
         }
-        Image(painterResource(artwork),null,
+        val crop=when {
+            tablet&&wide -> intArrayOf(580,80,780,430)
+            tablet -> intArrayOf(22,125,626,185)
+            wide -> intArrayOf(580,80,780,430)
+            else -> intArrayOf(22,170,616,320)
+        }
+        Image(BitmapPainter(ImageBitmap.imageResource(artwork),
+            srcOffset=IntOffset(crop[0],crop[1]),srcSize=IntSize(crop[2],crop[3])),null,
             layout.art.modifier().clip(RoundedCornerShape(if(wide)12.dp else 16.dp)).testTag("gallery-friday-a-art"),
             contentScale=ContentScale.Crop)
         GardenHeader(state,s,a,layout.header.modifier(),wide,onClosePreview)
@@ -158,7 +173,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
             horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             Text(if(L10n.isUrdu(s))"JUMU’AH / جمعہ" else "JUMU’AH / الجمعة",
                 fontFamily=FontFamily.Serif,fontWeight=FontWeight.Bold,
-                fontSize=if(L10n.isUrdu(s)) { if(tablet)32.sp else 25.sp } else if(tablet)36.sp else 28.sp,
+                fontSize=if(L10n.isUrdu(s)) { if(tablet)29.sp else 24.sp } else if(tablet)32.sp else 26.sp,
                 lineHeight=if(tablet)38.sp else 30.sp,color=gardenRust,maxLines=1)
             Text(if(L10n.isUrdu(s))"دعا، ذکر اور غور و فکر کا دن" else "A day for prayer, remembrance and reflection",
                 Modifier.testTag("gallery-friday-a-title-sub"),fontFamily=if(L10n.isUrdu(s))gardenArabic else gardenBody,
@@ -177,7 +192,15 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
     val iq=PrayerEngine.iqamah(s,state.today,Prayer.DHUHR)
     val name=if(isJumuah) { if(L10n.isUrdu(s))"جمعہ" else "JUMU’AH / الجمعة" } else L10n.prayer(s,state.next)
     val detail=if(isJumuah&&iq!=null)"Masjid time · Iqamah ${L10n.at(iq,s.use24h)}" else ""
-    val shape=RoundedCornerShape(if(wide&&!tablet)24.dp else 12.dp)
+    val shape=if(wide&&!tablet) GenericShape { size, _ ->
+        val w=size.width; val h=size.height; val r=20.dp.toPx(); val l=9.dp.toPx()
+        moveTo(r,0f); lineTo(w-r,0f); quadraticTo(w-l,0f,w-l,r*.55f)
+        quadraticTo(w,r,w,r*1.5f); lineTo(w,h-r*1.5f)
+        quadraticTo(w,h-r,w-l,h-r*.55f); quadraticTo(w-l,h,w-r,h)
+        lineTo(r,h); quadraticTo(l,h,l,h-r*.55f)
+        quadraticTo(0f,h-r,0f,h-r*1.5f); lineTo(0f,r*1.5f)
+        quadraticTo(0f,r,l,r*.55f); quadraticTo(l,0f,r,0f); close()
+    } else RoundedCornerShape(12.dp)
     val frame=m.clip(shape).background(gardenPaper.copy(alpha=.97f)).border(1.dp,gardenLine,shape)
         .testTag("gallery-friday-a-clock")
     if(wide&&!tablet || tablet&&!wide) {
@@ -232,10 +255,6 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
     val prayers=listOf(Prayer.FAJR,Prayer.SUNRISE,Prayer.DHUHR,Prayer.ASR,Prayer.MAGHRIB,Prayer.ISHA)
     val columns=if(tablet&&!wide)2 else 1
     Box(m.testTag("gallery-friday-a-prayers")) {
-        if(!tablet&&!wide)Canvas(Modifier.fillMaxSize()) {
-            val x=10.dp.toPx()
-            drawLine(gardenGold,Offset(x,10.dp.toPx()),Offset(x,size.height-10.dp.toPx()),1.4.dp.toPx())
-        }
         Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(if(tablet)5.dp else 2.dp)) {
             for(row in 0 until (6/columns)) Row(Modifier.weight(1f),horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                 for(col in 0 until columns) {
@@ -255,11 +274,11 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                         .clip(shape).background(if(selected)gardenSage else gardenPaper.copy(alpha=.96f))
                         .border(if(selected)1.dp else .5.dp,if(selected)gardenGold else gardenLine,shape)
                         .semantics { contentDescription=info.spoken }
-                        .clickable { a.onPreparePrayer(prayer) }.padding(horizontal=if(tablet)8.dp else 5.dp),
+                        .clickable { a.onPreparePrayer(prayer) }.padding(horizontal=if(tablet)8.dp else if(wide)5.dp else 14.dp),
                         verticalAlignment=Alignment.CenterVertically) {
-                        GardenMiniature(index,Modifier.size(if(tablet)if(wide)50.dp else 54.dp else if(wide)30.dp else 29.dp)
+                        GardenMiniature(index,Modifier.size(if(tablet)if(wide)50.dp else 54.dp else if(wide)30.dp else 34.dp)
                             .clip(CircleShape).border(1.dp,gardenGold,CircleShape))
-                        Spacer(Modifier.width(if(tablet)8.dp else 5.dp))
+                        Spacer(Modifier.width(if(tablet)8.dp else if(wide)5.dp else 8.dp))
                         val label=if(prayer==Prayer.DHUHR&&s.jumuahEnabled) {
                             if(L10n.isUrdu(s))"جمعہ" else "Jumu’ah"
                         } else info.label
@@ -294,6 +313,16 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                         else Icon(Icons.Outlined.Schedule,null,Modifier.size(if(tablet)18.dp else 14.dp),tint=gardenInk)
                     }
                 }
+            }
+        }
+        if(!tablet&&!wide) Canvas(Modifier.fillMaxSize()) {
+            val x=7.dp.toPx(); val rowH=size.height/6f
+            for(i in 0..4) drawLine(gardenGold,Offset(x,rowH*(i+.5f)+7.dp.toPx()),
+                Offset(x,rowH*(i+1.5f)-7.dp.toPx()),1.3.dp.toPx())
+            for(i in 0..5) {
+                val center=Offset(x,rowH*(i+.5f))
+                drawCircle(gardenPaper,4.dp.toPx(),center)
+                drawCircle(gardenGold,4.dp.toPx(),center,style=Stroke(width=1.4.dp.toPx()))
             }
         }
     }
@@ -341,7 +370,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                 .clip(RoundedCornerShape(12.dp)).background(gardenPaper)
                 .border(.8.dp,gardenLine,RoundedCornerShape(12.dp)).clickable(onClick=clicks[i])) {
                 GardenActionScene(i,Modifier.fillMaxWidth().weight(1f))
-                Row(Modifier.fillMaxWidth().height(66.dp).padding(horizontal=12.dp),verticalAlignment=Alignment.CenterVertically) {
+                Row(Modifier.fillMaxWidth().height(78.dp).padding(horizontal=12.dp),verticalAlignment=Alignment.CenterVertically) {
                     Box(Modifier.size(28.dp).clip(CircleShape).background(gardenGold.copy(alpha=.22f)),contentAlignment=Alignment.Center) {
                         GardenActionIcon(i,24.dp)
                     }

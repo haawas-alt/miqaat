@@ -6,6 +6,8 @@ on:
     paths:
       - 'app/src/androidTest/java/com/usman/miqaat/ui/PrayerGalleryOptionAEmulatorTest.kt'
       - '.github/workflows/friday-gallery-option-a-emulator.yml'
+      - 'app/src/main/java/com/usman/miqaat/ui/PrayerGalleryFridayOptionA.kt'
+      - 'app/src/main/res/drawable-nodpi/prayer_gallery_friday_*'
   workflow_dispatch:
 
 permissions:
@@ -51,8 +53,7 @@ jobs:
             adb shell wm user-rotation lock ${{ matrix.rotation }}
             mkdir -p shots
             ./gradlew --no-daemon -Pandroid.testInstrumentationRunnerArguments.orientation=${{ matrix.orientation }} -Pandroid.testInstrumentationRunnerArguments.class=com.usman.miqaat.ui.PrayerGalleryOptionAEmulatorTest connectedGithubDebugAndroidTest
-            adb exec-out run-as com.usman.miqaat tar c -C files screens > shots/screens.tar
-            tar xf shots/screens.tar -C shots
+            adb pull /sdcard/Android/data/com.usman.miqaat/files/option-a-screens/ shots/screens/
       - uses: actions/upload-artifact@v4
         if: always()
         with:

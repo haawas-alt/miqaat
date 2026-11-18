@@ -41,7 +41,8 @@ class PrayerGalleryOptionAEmulatorTest : ShotSupport() {
                 val bitmap = InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()
                 checkNotNull(bitmap) { "Android did not return a device screenshot" }
                 val name = "option-a-${device}-${if (friday) "friday" else "weekday"}-${language.name}.png"
-                File(out, name).outputStream().use {
+                val screenshotDir = File(app.getExternalFilesDir(null), "option-a-screens").also { it.mkdirs() }
+                File(screenshotDir, name).outputStream().use {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
                 }
                 bitmap.recycle()
