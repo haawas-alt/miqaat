@@ -4,7 +4,7 @@ Version A-1.2, 22 November 2026. This is the current implementation record, **no
 
 ## Artwork and positions
 
-Four approved-board rasters are bundled as `prayer_gallery_friday_approved_phone_portrait.png`, `...phone_landscape.png`, `...tablet_portrait.png` and `...tablet_landscape.png` in `drawable-nodpi`. `BitmapPainter` selects the garden regions at runtime. Prayer data and controls remain live. The phone-landscape source contains an illustrative clock; the live clock and footer cover it. Check the edges for an exposed duplicate ornament.
+Four approved-board rasters are bundled as `prayer_gallery_friday_approved_phone_portrait.png`, `...phone_landscape.png`, `...tablet_portrait.png` and `...tablet_landscape.png` in `drawable-nodpi`. `BitmapPainter` selects the garden regions at runtime. Prayer data and controls remain live. The phone-landscape source contains an illustrative clock; the live clock and footer cover it. A small paper underlay between the clock and footer covers baked red pixels exposed when the live clock moved upward. Check its edges for an exposed duplicate ornament.
 
 | View | Board image crop `[x,y,w,h]` px | Garden box `[x,y,w,h]` dp | Title box dp | Clock box dp | Prayer box dp | Actions box dp | Footer box dp |
 |---|---:|---:|---:|---:|---:|---:|---:|
