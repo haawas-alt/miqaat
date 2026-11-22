@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   capture:
@@ -54,6 +54,32 @@ jobs:
             mkdir -p shots
             ./gradlew --no-daemon -Pandroid.testInstrumentationRunnerArguments.orientation=${{ matrix.orientation }} -Pandroid.testInstrumentationRunnerArguments.class=com.usman.miqaat.ui.PrayerGalleryOptionAEmulatorTest connectedGithubDebugAndroidTest
             adb pull /sdcard/Pictures/MiqaatOptionA/ shots/screens/
+      - name: Publish emulator screenshots for visual audit
+        if: success()
+        run: |
+          python3 -m pip install --quiet pillow
+          mkdir -p /tmp/option-a-emulator-shots
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          source = list(Path('shots/screens').rglob('option-a-*.png'))
+          if len(source) != 4:
+              raise SystemExit(f'Expected four Friday/weekday English/Urdu captures, found {len(source)}')
+          for path in source:
+              with Image.open(path) as image:
+                  image.convert('RGB').save(Path('/tmp/option-a-emulator-shots') / path.with_suffix('.jpg').name,
+                                            quality=88, optimize=True)
+          PY
+          cd /tmp/option-a-emulator-shots
+          git init -q
+          git checkout -q -b "ci-option-a-emulator-${GITHUB_SHA:0:12}-${{ matrix.name }}"
+          git config user.name ci
+          git config user.email ci@users.noreply.github.com
+          git add -A
+          git commit -qm "Option A emulator screenshots ${GITHUB_SHA:0:12}"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:

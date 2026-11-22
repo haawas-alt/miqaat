@@ -9,9 +9,9 @@ Four approved-board rasters are bundled as `prayer_gallery_friday_approved_phone
 | View | Board image crop `[x,y,w,h]` px | Garden box `[x,y,w,h]` dp | Title box dp | Clock box dp | Prayer box dp | Actions box dp | Footer box dp |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Phone portrait 390×844 | `[22,170,616,320]` | `[10,80,370,190]` | `[27,228,336,66]` | `[18,294,354,92]` | `[14,386,362,300]` | `[14,686,362,87]` | `[0,775,390,69]` |
-| Phone landscape 844×390 | `[550,20,770,455]` | `[330,0,514,390]` | absent | `[598,165,232,190]` | `[14,42,326,298]` | absent | `[0,340,844,50]` |
-| Tablet portrait 768×1024 | `[22,125,626,220]` | `[18,70,732,292]` | `[90,305,588,100]` | `[24,415,340,220]` | `[20,665,728,238]` | `[380,415,360,220]` | `[0,922,768,102]` |
-| Tablet landscape 1280×800 | `[580,80,700,430]` | `[530,50,750,460]` | `[570,400,660,100]` | absent | `[20,120,500,370]` | `[20,515,1240,205]` | `[0,720,1280,80]` |
+| Phone landscape 844×390 | `[550,80,770,395]` | `[330,0,514,390]` | absent | `[598,165,232,190]` | `[14,42,326,298]` | absent | `[0,340,844,50]` |
+| Tablet portrait 768×1024 | `[22,125,626,185]` plus side strips `[22,310,48,55]`, `[600,310,48,55]` | `[18,70,732,235]` plus side strips `[18,305,72,57]`, `[678,305,72,57]` | `[90,305,588,100]` | `[24,415,340,220]` | `[20,665,728,238]` | `[380,415,360,220]` | `[0,922,768,102]` |
+| Tablet landscape 1280×800 | `[650,80,630,430]` | `[530,50,750,460]` | `[570,400,660,100]` | absent | `[20,120,500,370]` | `[20,515,1240,205]` | `[0,720,1280,80]` |
 
 Headers are `[0,0,390,80]`, `[0,0,844,44]`, `[0,0,768,70]` and `[0,0,1280,80]` dp in the same order. All positions are relative to `safeDrawingPadding()`. The four layouts are selected by shortest side ≥600dp and width greater than height, then scaled to the actual safe viewport. Artwork uses crop, not stretched pixels. At phone portrait font scale ≥1.1, art/title/clock change to `[10,80,370,180]`, `[27,218,336,64]`, `[18,282,354,104]`.
 
