@@ -169,7 +169,8 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         Image(painterResource(if(wide&&tablet)R.drawable.prayer_gallery_friday_title_landscape
             else R.drawable.prayer_gallery_friday_title_portrait),null,Modifier.fillMaxSize(),
             contentScale=ContentScale.FillBounds)
-        Column(Modifier.fillMaxSize().offset(y=(-3).dp).padding(horizontal=if(wide&&tablet)72.dp else 16.dp),
+        Column(Modifier.fillMaxSize().offset(y=(if(wide&&tablet)-9 else -3).dp)
+            .padding(horizontal=if(wide&&tablet)72.dp else 16.dp),
             horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             Text(if(L10n.isUrdu(s))"JUMU’AH / جمعہ" else "JUMU’AH / الجمعة",
                 fontFamily=FontFamily.Serif,fontWeight=FontWeight.Bold,
@@ -234,7 +235,8 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                 Text(name,fontFamily=if(L10n.isUrdu(s))gardenArabicBold else FontFamily.Serif,
                     fontWeight=FontWeight.Bold,fontSize=17.sp,color=gardenInk,maxLines=1)
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                    Row(verticalAlignment=Alignment.Bottom) {
+                    Row(Modifier.offset(y=(if(L10n.isUrdu(s)&&!wide&&!tablet)-10 else 0).dp),
+                        verticalAlignment=Alignment.Bottom) {
                         Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
                             fontFamily=gardenClock,fontWeight=FontWeight.Bold,
                             fontSize=if(largeText)40.sp else 45.sp,lineHeight=if(largeText)42.sp else 47.sp,
