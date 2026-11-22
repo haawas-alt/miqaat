@@ -68,7 +68,7 @@ private data class GLayout(val width: Int, val height: Int, val header: GBox, va
 
 private val gardenLayouts = listOf(
     GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,190),GBox(27,228,336,66),GBox(18,294,354,92),GBox(14,386,362,300),GBox(14,686,362,87),GBox(0,775,390,69)),
-    GLayout(844,390,GBox(0,0,844,44),GBox(330,0,514,390),GBox(0,0,0,0),GBox(598,165,232,190),GBox(14,42,326,298),GBox(0,0,0,0),GBox(0,340,844,50)),
+    GLayout(844,390,GBox(0,0,844,44),GBox(330,0,514,390),GBox(0,0,0,0),GBox(598,165,246,190),GBox(14,42,326,298),GBox(0,0,0,0),GBox(0,340,844,50)),
     GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,235),GBox(90,305,588,100),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
     GLayout(1280,800,GBox(0,0,1280,80),GBox(530,50,750,460),GBox(570,400,660,100),GBox(0,0,0,0),GBox(20,120,500,370),GBox(20,515,1240,205),GBox(0,720,1280,80))
 )
@@ -104,13 +104,6 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
             srcOffset=IntOffset(crop[0],crop[1]),srcSize=IntSize(crop[2],crop[3])),null,
             layout.art.modifier().clip(RoundedCornerShape(if(wide)12.dp else 16.dp)).testTag("gallery-friday-a-art"),
             contentScale=ContentScale.Crop)
-        if(tablet&&!wide) {
-            val board=ImageBitmap.imageResource(R.drawable.prayer_gallery_friday_approved_tablet_portrait)
-            Image(BitmapPainter(board,srcOffset=IntOffset(22,310),srcSize=IntSize(48,55)),null,
-                Modifier.offset((18*sx).dp,(305*sy).dp).size((72*sx).dp,(57*sy).dp),contentScale=ContentScale.Crop)
-            Image(BitmapPainter(board,srcOffset=IntOffset(600,310),srcSize=IntSize(48,55)),null,
-                Modifier.offset((678*sx).dp,(305*sy).dp).size((72*sx).dp,(57*sy).dp),contentScale=ContentScale.Crop)
-        }
         GardenHeader(state,s,a,layout.header.modifier(),wide,onClosePreview)
         if(layout.title.w>0) GardenTitle(s,layout.title.modifier(),wide,tablet)
         if(tablet&&!wide) Canvas(Modifier.offset((90*sx).dp,(646*sy).dp).size((588*sx).dp,(12*sy).dp)) {
@@ -132,7 +125,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
 @Composable private fun GardenHeader(state:PrayerState,s:AppSettings,a:HomeActions,m:Modifier,wide:Boolean,onClosePreview:(()->Unit)?) {
     val now=LocalGalleryFridayNow.current?:state.now
     val compact=LocalDensity.current.fontScale>=1.1f || L10n.isUrdu(s)
-    Row(m.testTag("gallery-friday-a-header").background(if(wide)Color.Transparent else gardenPaper.copy(alpha=.97f))
+    Row(m.testTag("gallery-friday-a-header").background(if(wide&&tablet)Color.Transparent else gardenPaper)
         .padding(horizontal=if(wide)10.dp else 12.dp),verticalAlignment=Alignment.CenterVertically) {
         Row(verticalAlignment=Alignment.CenterVertically) {
             GardenMosque(Modifier.size(if(wide)24.dp else 28.dp))

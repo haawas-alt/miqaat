@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.content.ContentValues
 import android.os.Environment
 import android.provider.MediaStore
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.test.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -40,8 +41,15 @@ class PrayerGalleryOptionAEmulatorTest : ShotSupport() {
                 }
                 rule.waitForIdle()
                 Thread.sleep(500)
-                val bitmap = InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()
-                checkNotNull(bitmap) { "Android did not return a device screenshot" }
+                // Capture the activity's actual Compose surface. UiAutomation can
+                // return the emulator's empty display while the test activity is
+                // rendered and its semantics are visible to Compose tests.
+                val bitmap = rule.onRoot().captureToImage().asAndroidBitmap()
+                val colours = mutableSetOf<Int>()
+                for (y in 0 until bitmap.height step maxOf(1, bitmap.height / 20))
+                    for (x in 0 until bitmap.width step maxOf(1, bitmap.width / 20))
+                        colours += bitmap.getPixel(x, y)
+                check(colours.size > 12) { "Captured a near-blank screen: ${colours.size} sampled colours" }
                 val name = "option-a-${device}-${if (friday) "friday" else "weekday"}-${language.name}.png"
                 val values = ContentValues().apply {
                     put(MediaStore.Images.Media.DISPLAY_NAME, name)
