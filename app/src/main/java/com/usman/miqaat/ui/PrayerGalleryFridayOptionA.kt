@@ -68,7 +68,7 @@ private data class GLayout(val width: Int, val height: Int, val header: GBox, va
 
 private val gardenLayouts = listOf(
     GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,190),GBox(27,228,336,66),GBox(18,294,354,92),GBox(14,386,362,300),GBox(14,686,362,87),GBox(0,775,390,69)),
-    GLayout(844,390,GBox(0,0,844,44),GBox(330,0,514,390),GBox(0,0,0,0),GBox(598,165,246,190),GBox(14,42,326,298),GBox(0,0,0,0),GBox(0,340,844,50)),
+    GLayout(844,390,GBox(0,0,844,44),GBox(330,0,514,390),GBox(0,0,0,0),GBox(598,148,246,185),GBox(14,42,326,298),GBox(0,0,0,0),GBox(0,340,844,50)),
     GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,235),GBox(90,305,588,100),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
     GLayout(1280,800,GBox(0,0,1280,80),GBox(530,50,750,460),GBox(570,400,660,100),GBox(0,0,0,0),GBox(20,120,500,370),GBox(20,515,1240,205),GBox(0,720,1280,80))
 )
@@ -235,7 +235,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                 Text(name,fontFamily=if(L10n.isUrdu(s))gardenArabicBold else FontFamily.Serif,
                     fontWeight=FontWeight.Bold,fontSize=17.sp,color=gardenInk,maxLines=1)
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                    Row(Modifier.offset(y=(if(L10n.isUrdu(s)&&!wide&&!tablet)-10 else 0).dp),
+                    Row(Modifier.offset(y=(if(!wide&&!tablet)-10 else 0).dp),
                         verticalAlignment=Alignment.Bottom) {
                         Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
                             fontFamily=gardenClock,fontWeight=FontWeight.Bold,
@@ -458,7 +458,8 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
 @Composable private fun GardenNav(s:AppSettings,a:HomeActions,m:Modifier,wide:Boolean,tablet:Boolean) {
     val labels=listOf(L10n.word(s,"Qibla"),L10n.word(s,"Adhkar"),L10n.word(s,"Learn"),L10n.word(s,"Timetable"))
     val clicks=listOf(a.onOpenQibla,{a.onOpenAdhkar(AdhkarMode.MORNING)},a.onOpenLearn,a.onOpenTimetable)
-    Row(m.background(gardenPaper).border(.8.dp,gardenLine),verticalAlignment=Alignment.CenterVertically) {
+    Row(m.testTag("gallery-friday-a-nav").background(gardenPaper).border(.8.dp,gardenLine),
+        verticalAlignment=Alignment.CenterVertically) {
         for(i in 0..3) {
             if(i>0)Box(Modifier.width(.5.dp).height(if(wide)22.dp else 28.dp).background(gardenLine))
             Column(Modifier.weight(1f).fillMaxHeight().clickable(onClick=clicks[i]),

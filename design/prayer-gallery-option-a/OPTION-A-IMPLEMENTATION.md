@@ -9,7 +9,7 @@ Four approved-board rasters are bundled as `prayer_gallery_friday_approved_phone
 | View | Board image crop `[x,y,w,h]` px | Garden box `[x,y,w,h]` dp | Title box dp | Clock box dp | Prayer box dp | Actions box dp | Footer box dp |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Phone portrait 390×844 | `[22,170,616,320]` | `[10,80,370,190]` | `[27,228,336,66]` | `[18,294,354,92]` | `[14,386,362,300]` | `[14,686,362,87]` | `[0,775,390,69]` |
-| Phone landscape 844×390 | `[550,80,770,395]` | `[330,0,514,390]` | absent | `[598,165,246,190]` | `[14,42,326,298]` | absent | `[0,340,844,50]` |
+| Phone landscape 844×390 | `[550,80,770,395]` | `[330,0,514,390]` | absent | `[598,148,246,185]` | `[14,42,326,298]` | absent | `[0,340,844,50]` |
 | Tablet portrait 768×1024 | `[22,125,626,185]` | `[18,70,732,235]` | `[90,305,588,100]` | `[24,415,340,220]` | `[20,665,728,238]` | `[380,415,360,220]` | `[0,922,768,102]` |
 | Tablet landscape 1280×800 | `[650,80,630,430]` | `[530,50,750,460]` | `[570,400,660,100]` | absent | `[20,120,500,370]` | `[20,515,1240,205]` | `[0,720,1280,80]` |
 
@@ -34,7 +34,7 @@ The phone and tablet title backgrounds are separate text-free ornamental WebP im
 | Action title/subtitle | phone 13/9sp; tablet 20/13sp |
 | Footer labels | phone landscape 11sp; others 12sp |
 
-At ≥115% text, phone portrait clock numeral is 40sp and action title/subtitle 12/8sp. Urdu uses Amiri for Arabic labels and a compact header date; its Iqamah detail omits the long English prefix and its portrait clock numeral is raised 10dp to clear the bottom border. The tablet-landscape title text is raised 6dp to clear its plaque border. Times keep left-to-right reading order in Urdu. The app's clock setting controls 12/24-hour display. All six prayer rows, the selected state, end and Iqamah times come from `PrayerEngine`; footer and action handlers reuse existing navigation.
+At ≥115% text, phone portrait clock numeral is 40sp and action title/subtitle 12/8sp. Urdu uses Amiri for Arabic labels and a compact header date; its Iqamah detail omits the long English prefix. Both English and Urdu portrait clock numerals are raised 10dp to clear the bottom border. The phone-landscape clock ends 7dp above the footer. The tablet-landscape title text is raised 6dp to clear its plaque border. Times keep left-to-right reading order in Urdu. The app's clock setting controls 12/24-hour display. All six prayer rows, the selected state, end and Iqamah times come from `PrayerEngine`; footer and action handlers reuse existing navigation.
 
 ## Whole-screen discrepancy audit before A-1.2 captures
 

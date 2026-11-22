@@ -96,6 +96,17 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
                     assertInside("gallery-friday-a-time", "gallery-friday-a-clock")
                     assertTextFits("gallery-friday-a-time")
                 }
+                if (dev == Dev.PHONE_LANDSCAPE) {
+                    val clock = rule.onNodeWithTag("gallery-friday-a-clock", true).fetchSemanticsNode().boundsInRoot
+                    val footer = rule.onNodeWithTag("gallery-friday-a-nav", true).fetchSemanticsNode().boundsInRoot
+                    assertTrue("Landscape clock overlaps footer: $clock versus $footer", clock.bottom <= footer.top + 1f)
+                }
+                if (dev == Dev.PHONE_PORTRAIT) {
+                    val clock = rule.onNodeWithTag("gallery-friday-a-clock", true).fetchSemanticsNode().boundsInRoot
+                    val time = rule.onNodeWithTag("gallery-friday-a-time", true).fetchSemanticsNode().boundsInRoot
+                    assertTrue("Portrait time touches clock border: $time versus $clock",
+                        clock.bottom - time.bottom >= 3 * app.resources.displayMetrics.density)
+                }
                 if (dev != Dev.PHONE_LANDSCAPE) rule.onNodeWithTag("gallery-friday-a-actions", true).assertIsDisplayed()
                 for (prayer in Prayer.entries) {
                     val row = rule.onNodeWithTag("gallery-friday-a-row-${prayer.name}", true)
