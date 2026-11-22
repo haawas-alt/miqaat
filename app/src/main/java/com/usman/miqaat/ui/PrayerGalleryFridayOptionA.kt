@@ -104,7 +104,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
             srcOffset=IntOffset(crop[0],crop[1]),srcSize=IntSize(crop[2],crop[3])),null,
             layout.art.modifier().clip(RoundedCornerShape(if(wide)12.dp else 16.dp)).testTag("gallery-friday-a-art"),
             contentScale=ContentScale.Crop)
-        GardenHeader(state,s,a,layout.header.modifier(),wide,onClosePreview)
+        GardenHeader(state,s,a,layout.header.modifier(),wide,tablet,onClosePreview)
         if(layout.title.w>0) GardenTitle(s,layout.title.modifier(),wide,tablet)
         if(tablet&&!wide) Canvas(Modifier.offset((90*sx).dp,(646*sy).dp).size((588*sx).dp,(12*sy).dp)) {
             val mid=size.width/2f; val cy=size.height/2f
@@ -122,7 +122,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
     }
 }
 
-@Composable private fun GardenHeader(state:PrayerState,s:AppSettings,a:HomeActions,m:Modifier,wide:Boolean,onClosePreview:(()->Unit)?) {
+@Composable private fun GardenHeader(state:PrayerState,s:AppSettings,a:HomeActions,m:Modifier,wide:Boolean,tablet:Boolean,onClosePreview:(()->Unit)?) {
     val now=LocalGalleryFridayNow.current?:state.now
     val compact=LocalDensity.current.fontScale>=1.1f || L10n.isUrdu(s)
     Row(m.testTag("gallery-friday-a-header").background(if(wide&&tablet)Color.Transparent else gardenPaper)
