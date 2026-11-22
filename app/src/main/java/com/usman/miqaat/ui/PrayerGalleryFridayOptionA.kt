@@ -191,7 +191,10 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
     val isJumuah=state.next==Prayer.DHUHR && s.jumuahEnabled
     val iq=PrayerEngine.iqamah(s,state.today,Prayer.DHUHR)
     val name=if(isJumuah) { if(L10n.isUrdu(s))"جمعہ" else "JUMU’AH / الجمعة" } else L10n.prayer(s,state.next)
-    val detail=if(isJumuah&&iq!=null)"Masjid time · Iqamah ${L10n.at(iq,s.use24h)}" else ""
+    val detail=if(isJumuah&&iq!=null) {
+        if(L10n.isUrdu(s)) "${L10n.word(s,"Iqamah")} ${L10n.iso(L10n.at(iq,s.use24h))}"
+        else "Masjid time · Iqamah ${L10n.at(iq,s.use24h)}"
+    } else ""
     val shape=if(wide&&!tablet) GenericShape { size, _ ->
         val w=size.width; val h=size.height; val r=h*.1f; val l=r*.45f
         moveTo(r,0f); lineTo(w-r,0f); quadraticTo(w-l,0f,w-l,r*.55f)
@@ -234,7 +237,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                     Row(verticalAlignment=Alignment.Bottom) {
                         Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
                             fontFamily=gardenClock,fontWeight=FontWeight.Bold,
-                            fontSize=if(largeText)45.sp else 50.sp,lineHeight=if(largeText)48.sp else 53.sp,
+                            fontSize=if(largeText)40.sp else 45.sp,lineHeight=if(largeText)42.sp else 47.sp,
                             color=gardenInk,maxLines=1)
                         if(!s.use24h)Text(PrayerEngine.suffix(state.nextTime,false),Modifier.padding(start=3.dp),fontFamily=FontFamily.Serif,
                             fontSize=18.sp,color=gardenInk,maxLines=1)

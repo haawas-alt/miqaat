@@ -28,13 +28,13 @@ The phone and tablet title backgrounds are separate text-free ornamental WebP im
 | Arabic | bundled `amiri_regular` and `amiri_bold` |
 | Header location/date | portrait 14/11sp; landscape 13/10sp; header time 15sp portrait, 14sp landscape |
 | Title main/subtitle | phone 26/11sp; tablet 32/15sp; Urdu title 24sp phone, 29sp tablet |
-| Clock prayer name/numeral/suffix | phone portrait 17/50/18sp; phone landscape 19/53/18sp; tablet portrait 24/72/24sp |
+| Clock prayer name/numeral/suffix | phone portrait 17/45/18sp; phone landscape 19/53/18sp; tablet portrait 24/72/24sp |
 | Clock countdown | 12sp phone portrait, 13sp phone landscape, 16sp tablet portrait |
 | Prayer name/Arabic/time/end | phone portrait 15/12/15/10sp; phone landscape 14/12/14/10sp; tablets 20/16/20/12sp |
 | Action title/subtitle | phone 13/9sp; tablet 20/13sp |
 | Footer labels | phone landscape 11sp; others 12sp |
 
-At ≥115% text, phone portrait clock numeral is 45sp and action title/subtitle 12/8sp. Urdu uses Amiri for Arabic labels and a compact header date. Times keep left-to-right reading order in Urdu. The app's clock setting controls 12/24-hour display. All six prayer rows, the selected state, end and Iqamah times come from `PrayerEngine`; footer and action handlers reuse existing navigation.
+At ≥115% text, phone portrait clock numeral is 40sp and action title/subtitle 12/8sp. Urdu uses Amiri for Arabic labels and a compact header date; its Iqamah detail omits the long English prefix to protect the clock card. Times keep left-to-right reading order in Urdu. The app's clock setting controls 12/24-hour display. All six prayer rows, the selected state, end and Iqamah times come from `PrayerEngine`; footer and action handlers reuse existing navigation.
 
 ## Whole-screen discrepancy audit before A-1.2 captures
 
