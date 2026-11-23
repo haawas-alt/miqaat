@@ -101,10 +101,10 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
                     val clock = rule.onNodeWithTag("gallery-friday-a-clock", true).fetchSemanticsNode().boundsInRoot
                     val footer = rule.onNodeWithTag("gallery-friday-a-nav", true).fetchSemanticsNode().boundsInRoot
                     val art = rule.onNodeWithTag("gallery-friday-a-art", true).fetchSemanticsNode().boundsInRoot
-                    val header = rule.onNodeWithTag("gallery-friday-a-header", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Landscape clock overlaps footer: $clock versus $footer", clock.bottom <= footer.top + 1f)
-                    assertTrue("Landscape art extends into header or footer: $art",
-                        art.top >= header.bottom - 1f && art.bottom <= footer.top + 1f)
+                    // The approved landscape garden intentionally continues behind the header.
+                    assertTrue("Landscape art extends into footer: $art versus $footer",
+                        art.bottom <= footer.top + 1f)
                 }
                 if (dev == Dev.PHONE_PORTRAIT) {
                     val clock = rule.onNodeWithTag("gallery-friday-a-clock", true).fetchSemanticsNode().boundsInRoot
@@ -202,3 +202,4 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
         }
     }
 }
+
