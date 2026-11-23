@@ -18,6 +18,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
@@ -57,7 +58,7 @@ private val gardenRust = Color(0xFFA9472D)
 private val gardenGold = Color(0xFFC99845)
 private val gardenSage = Color(0xFFDCE8D8)
 private val gardenLine = Color(0xFFD9C9AA)
-private val gardenClock = FontFamily(Font(R.font.sanctuary_clock))
+private val gardenTime = FontFamily.Serif
 private val gardenArabic = FontFamily(Font(R.font.amiri_regular))
 private val gardenArabicBold = FontFamily(Font(R.font.amiri_bold))
 private val gardenBody = FontFamily.Serif
@@ -67,10 +68,10 @@ private data class GLayout(val width: Int, val height: Int, val header: GBox, va
     val title: GBox, val clock: GBox, val prayers: GBox, val actions: GBox, val nav: GBox)
 
 private val gardenLayouts = listOf(
-    GLayout(390,844,GBox(0,0,390,80),GBox(10,80,370,190),GBox(27,228,336,66),GBox(18,294,354,92),GBox(14,386,362,300),GBox(14,686,362,87),GBox(0,775,390,69)),
-    GLayout(844,390,GBox(0,0,844,44),GBox(330,44,514,296),GBox(0,0,0,0),GBox(598,148,246,185),GBox(14,42,326,298),GBox(0,0,0,0),GBox(0,340,844,50)),
+    GLayout(390,844,GBox(0,0,390,60),GBox(10,60,370,200),GBox(30,230,330,62),GBox(18,292,354,90),GBox(14,385,362,288),GBox(14,675,362,98),GBox(0,775,390,69)),
+    GLayout(844,390,GBox(0,0,844,44),GBox(300,0,544,340),GBox(0,0,0,0),GBox(598,137,232,196),GBox(14,46,300,288),GBox(0,0,0,0),GBox(0,340,844,50)),
     GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,235),GBox(90,305,588,100),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
-    GLayout(1280,800,GBox(0,0,1280,80),GBox(530,50,750,460),GBox(570,400,660,100),GBox(0,0,0,0),GBox(20,120,500,370),GBox(20,515,1240,205),GBox(0,720,1280,80))
+    GLayout(1280,800,GBox(0,0,1280,80),GBox(480,0,800,640),GBox(620,520,600,110),GBox(0,0,0,0),GBox(20,140,500,490),GBox(20,632,1240,110),GBox(0,744,1280,56))
 )
 
 @Composable
@@ -81,7 +82,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         val tablet = minOf(maxWidth,maxHeight) >= 600.dp
         val baseLayout = gardenLayouts[if (tablet) { if (wide) 3 else 2 } else { if (wide) 1 else 0 }]
         val layout = if(!tablet&&!wide&&LocalDensity.current.fontScale>=1.1f) baseLayout.copy(
-            art=GBox(10,80,370,180),title=GBox(27,218,336,64),clock=GBox(18,282,354,104))
+            art=GBox(10,60,370,190),title=GBox(30,220,330,62),clock=GBox(18,282,354,100))
             else baseLayout
         val sx = maxWidth.value / layout.width
         val sy = maxHeight.value / layout.height
@@ -89,23 +90,23 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         // Use the approved board's artwork pixels directly. The painter crops only
         // the clean garden region; text, prayer data and controls remain live UI.
         val artwork=when {
-            tablet&&wide -> R.drawable.prayer_gallery_friday_approved_tablet_landscape
-            tablet -> R.drawable.prayer_gallery_friday_approved_tablet_portrait
             wide -> R.drawable.prayer_gallery_friday_approved_phone_landscape
             else -> R.drawable.prayer_gallery_friday_approved_phone_portrait
         }
         val crop=when {
-            tablet&&wide -> intArrayOf(650,80,630,430)
-            tablet -> intArrayOf(22,125,626,185)
-            wide -> intArrayOf(550,80,770,395)
+            wide -> intArrayOf(550,80,770,450)
             else -> intArrayOf(22,170,616,320)
         }
-        Image(BitmapPainter(ImageBitmap.imageResource(artwork),
-            srcOffset=IntOffset(crop[0],crop[1]),srcSize=IntSize(crop[2],crop[3])),null,
+        val gardenPainter=if(tablet) painterResource(if(wide)
+            R.drawable.prayer_gallery_friday_garden_tablet_landscape
+            else R.drawable.prayer_gallery_friday_garden_tablet_portrait)
+            else BitmapPainter(ImageBitmap.imageResource(artwork),
+                srcOffset=IntOffset(crop[0],crop[1]),srcSize=IntSize(crop[2],crop[3]))
+        Image(gardenPainter,null,
             layout.art.modifier().clip(RoundedCornerShape(if(wide)12.dp else 16.dp)).testTag("gallery-friday-a-art"),
             contentScale=ContentScale.Crop)
-        if(wide&&!tablet) Box(Modifier.offset((598*sx).dp,(315*sy).dp)
-            .size((246*sx).dp,(25*sy).dp).background(gardenPaper))
+        if(wide&&!tablet) Box(Modifier.offset((598*sx).dp,(333*sy).dp)
+            .size((232*sx).dp,(7*sy).dp).background(gardenPaper))
         GardenHeader(state,s,a,layout.header.modifier(),wide,tablet,onClosePreview)
         if(layout.title.w>0) GardenTitle(s,layout.title.modifier(),wide,tablet)
         if(tablet&&!wide) Canvas(Modifier.offset((90*sx).dp,(646*sy).dp).size((588*sx).dp,(12*sy).dp)) {
@@ -145,7 +146,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         }
         if(wide) {
             Spacer(Modifier.width(6.dp))
-            Text(PrayerEngine.clock(now,s.use24h)+" "+PrayerEngine.suffix(now,s.use24h),fontFamily=gardenClock,
+            Text(PrayerEngine.clock(now,s.use24h)+" "+PrayerEngine.suffix(now,s.use24h),fontFamily=gardenTime,
                 fontWeight=FontWeight.Bold,fontSize=14.sp,color=gardenInk,maxLines=1)
             Spacer(Modifier.width(6.dp))
         }
@@ -220,8 +221,8 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                 Row(verticalAlignment=Alignment.Bottom) {
                     Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
-                        fontFamily=gardenClock,fontWeight=FontWeight.Bold,fontSize=if(tablet)92.sp else 62.sp,
-                        lineHeight=if(tablet)96.sp else 65.sp,color=gardenInk,maxLines=1)
+                        fontFamily=gardenTime,fontWeight=FontWeight.Bold,fontSize=if(tablet)68.sp else 54.sp,
+                        lineHeight=if(tablet)74.sp else 58.sp,color=gardenInk,maxLines=1)
                     if(!s.use24h)Text(PrayerEngine.suffix(state.nextTime,false),Modifier.padding(start=3.dp),fontFamily=FontFamily.Serif,
                         fontSize=if(tablet)27.sp else 20.sp,color=gardenInk,maxLines=1)
                 }
@@ -242,7 +243,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                     Row(Modifier.offset(y=(if(!wide&&!tablet)-10 else 0).dp),
                         verticalAlignment=Alignment.Bottom) {
                         Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
-                            fontFamily=gardenClock,fontWeight=FontWeight.Bold,
+                            fontFamily=gardenTime,fontWeight=FontWeight.Bold,
                             fontSize=if(largeText)42.sp else 50.sp,lineHeight=if(largeText)44.sp else 52.sp,
                             color=gardenInk,maxLines=1)
                         if(!s.use24h)Text(PrayerEngine.suffix(state.nextTime,false),Modifier.padding(start=3.dp),fontFamily=FontFamily.Serif,
@@ -264,7 +265,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
     val prayers=listOf(Prayer.FAJR,Prayer.SUNRISE,Prayer.DHUHR,Prayer.ASR,Prayer.MAGHRIB,Prayer.ISHA)
     val columns=if(tablet&&!wide)2 else 1
     Box(m.testTag("gallery-friday-a-prayers")) {
-        Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(if(tablet)5.dp else 2.dp)) {
+        Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(if(tablet)5.dp else if(wide)2.dp else 0.dp)) {
             for(row in 0 until (6/columns)) Row(Modifier.weight(1f),horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                 for(col in 0 until columns) {
                     val index=row*columns+col
@@ -301,7 +302,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                             }
                             Row(verticalAlignment=Alignment.CenterVertically) {
                                 Text(L10n.iso(L10n.at(state.today[prayer],s.use24h)),Modifier.testTag("gallery-friday-a-row-time-${prayer.name}"),
-                                    fontFamily=gardenClock,fontWeight=FontWeight.Bold,fontSize=20.sp,color=gardenInk,maxLines=1)
+                                    fontFamily=gardenTime,fontWeight=FontWeight.Bold,fontSize=20.sp,color=gardenInk,maxLines=1)
                                 Spacer(Modifier.width(5.dp))
                                 Text(endLabel,fontFamily=gardenBody,fontSize=12.sp,color=gardenInk.copy(alpha=.75f),maxLines=1)
                             }
@@ -312,7 +313,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                             Text(rowArabic,Modifier.weight(.18f),fontFamily=gardenArabic,
                                 fontSize=if(tablet)16.sp else 12.sp,color=gardenInk,maxLines=1)
                             Text(L10n.iso(L10n.at(state.today[prayer],s.use24h)),Modifier.weight(.31f).testTag("gallery-friday-a-row-time-${prayer.name}"),
-                                fontFamily=gardenClock,fontWeight=FontWeight.Bold,fontSize=if(tablet)20.sp else if(wide)14.sp else 15.sp,
+                                fontFamily=gardenTime,fontWeight=FontWeight.Bold,fontSize=if(tablet)20.sp else if(wide)14.sp else 15.sp,
                                 color=gardenInk,maxLines=1)
                             Text(endLabel,Modifier.weight(.26f),fontFamily=gardenBody,
                                 fontSize=if(tablet)12.sp else 10.sp,color=gardenInk.copy(alpha=.75f),maxLines=1)
@@ -346,7 +347,9 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         4 -> R.drawable.prayer_gallery_friday_mini_maghrib
         else -> R.drawable.prayer_gallery_friday_mini_isha
     }
-    Image(painterResource(scene),null,m,contentScale=ContentScale.Crop)
+    Box(m,contentAlignment=Alignment.Center) {
+        Image(painterResource(scene),null,Modifier.fillMaxSize().scale(1.16f),contentScale=ContentScale.Crop)
+    }
 }
 
 @Composable private fun GardenActions(s:AppSettings,a:HomeActions,m:Modifier,wide:Boolean,tablet:Boolean) {
@@ -480,3 +483,4 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         }
     }
 }
+
