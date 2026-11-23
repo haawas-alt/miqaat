@@ -1,6 +1,6 @@
 # Option A — current Friday homepage implementation and audit
 
-Version A-1.2, 22 November 2026. This is the current implementation record, **not** an approval of visual parity. Approved reference: the Prayer Gallery Option A concept board supplied in the conversation; board crops for all four layouts are saved in the local `work` review folder. Scope is the Prayer Gallery **Friday main homepage**. The ordinary weekday screen remains on its existing route. The board uses illustrative data and drawn device shells, so pixel measurements below are source-image coordinates or app dp coordinates, as labelled.
+Version A-1.3, 23 November 2026. This is the current implementation record, **not** an approval of visual parity. Approved reference: the Prayer Gallery Option A concept board supplied in the conversation; board crops for all four layouts are saved in the local `work` review folder. Scope is the Prayer Gallery **Friday main homepage**. The ordinary weekday screen remains on its existing route. The board uses illustrative data and drawn device shells, so pixel measurements below are source-image coordinates or app dp coordinates, as labelled.
 
 ## Artwork and positions
 
@@ -9,7 +9,7 @@ Four approved-board rasters are bundled as `prayer_gallery_friday_approved_phone
 | View | Board image crop `[x,y,w,h]` px | Garden box `[x,y,w,h]` dp | Title box dp | Clock box dp | Prayer box dp | Actions box dp | Footer box dp |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Phone portrait 390×844 | `[22,170,616,320]` | `[10,80,370,190]` | `[27,228,336,66]` | `[18,294,354,92]` | `[14,386,362,300]` | `[14,686,362,87]` | `[0,775,390,69]` |
-| Phone landscape 844×390 | `[550,80,770,395]` | `[330,0,514,390]` | absent | `[598,148,246,185]` | `[14,42,326,298]` | absent | `[0,340,844,50]` |
+| Phone landscape 844×390 | `[550,80,770,395]` | `[330,44,514,296]` | absent | `[598,148,246,185]` | `[14,42,326,298]` | absent | `[0,340,844,50]` |
 | Tablet portrait 768×1024 | `[22,125,626,185]` | `[18,70,732,235]` | `[90,305,588,100]` | `[24,415,340,220]` | `[20,665,728,238]` | `[380,415,360,220]` | `[0,922,768,102]` |
 | Tablet landscape 1280×800 | `[650,80,630,430]` | `[530,50,750,460]` | `[570,400,660,100]` | absent | `[20,120,500,370]` | `[20,515,1240,205]` | `[0,720,1280,80]` |
 
@@ -28,8 +28,8 @@ The phone and tablet title backgrounds are separate text-free ornamental WebP im
 | Arabic | bundled `amiri_regular` and `amiri_bold` |
 | Header location/date | portrait 14/11sp; landscape 13/10sp; header time 15sp portrait, 14sp landscape |
 | Title main/subtitle | phone 26/11sp; tablet 32/15sp; Urdu title 24sp phone, 29sp tablet |
-| Clock prayer name/numeral/suffix | phone portrait 17/45/18sp; phone landscape 19/53/18sp; tablet portrait 24/72/24sp |
-| Clock countdown | 12sp phone portrait, 13sp phone landscape, 16sp tablet portrait |
+| Clock prayer name/numeral/suffix | phone portrait 17/50/18sp; phone landscape 21/62/20sp; tablet portrait 28/92/27sp |
+| Clock countdown | 12sp phone portrait, 14sp phone landscape, 18sp tablet portrait |
 | Prayer name/Arabic/time/end | phone portrait 15/12/15/10sp; phone landscape 14/12/14/10sp; tablets 20/16/20/12sp |
 | Action title/subtitle | phone 13/9sp; tablet 20/13sp |
 | Footer labels | phone landscape 11sp; others 12sp |

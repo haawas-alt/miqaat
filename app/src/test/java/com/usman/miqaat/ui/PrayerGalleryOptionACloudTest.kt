@@ -46,7 +46,7 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
 
     private fun settings(language: Language) = AppSettings(
         theme = AppTheme.PRAYER_GALLERY, language = language,
-        latitude = -33.93, longitude = 151.19, locationName = "Mascot, NSW",
+        latitude = -34.02, longitude = 150.80, locationName = "Gledswood Hills NSW",
         zoneId = "Australia/Sydney", locationSet = true, setupDone = true,
         fridayReminders = true, showEndTimes = true, jumuahEnabled = true, jumuahMinutes = 13 * 60 + 15,
         jumuahIqamahMinutes = 13 * 60 + 30, iqamahEnabled = true
@@ -88,6 +88,7 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
                 for (tag in listOf("gallery-friday-a", "gallery-friday-a-art", "gallery-friday-a-prayers"))
                     rule.onNodeWithTag(tag, true).assertIsDisplayed()
                 assertTextFits("gallery-friday-a-date")
+                if (dev == Dev.PHONE_PORTRAIT) assertTextFits("gallery-friday-a-location")
                 if (dev != Dev.PHONE_LANDSCAPE) rule.onNodeWithTag("gallery-friday-a-title", true).assertIsDisplayed()
                 if (dev != Dev.PHONE_LANDSCAPE) assertTextFits("gallery-friday-a-title-sub")
                 if (dev != Dev.TABLET_LANDSCAPE) {
@@ -99,7 +100,11 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
                 if (dev == Dev.PHONE_LANDSCAPE) {
                     val clock = rule.onNodeWithTag("gallery-friday-a-clock", true).fetchSemanticsNode().boundsInRoot
                     val footer = rule.onNodeWithTag("gallery-friday-a-nav", true).fetchSemanticsNode().boundsInRoot
+                    val art = rule.onNodeWithTag("gallery-friday-a-art", true).fetchSemanticsNode().boundsInRoot
+                    val header = rule.onNodeWithTag("gallery-friday-a-header", true).fetchSemanticsNode().boundsInRoot
                     assertTrue("Landscape clock overlaps footer: $clock versus $footer", clock.bottom <= footer.top + 1f)
+                    assertTrue("Landscape art extends into header or footer: $art",
+                        art.top >= header.bottom - 1f && art.bottom <= footer.top + 1f)
                 }
                 if (dev == Dev.PHONE_PORTRAIT) {
                     val clock = rule.onNodeWithTag("gallery-friday-a-clock", true).fetchSemanticsNode().boundsInRoot
@@ -177,6 +182,7 @@ class PrayerGalleryOptionACloudTest : ComposeSupport() {
                 }
                 capture("${label}-${variant}")
                 assertTextFits("gallery-friday-a-date")
+                if (dev == Dev.PHONE_PORTRAIT) assertTextFits("gallery-friday-a-location")
                 if (dev != Dev.PHONE_LANDSCAPE) assertTextFits("gallery-friday-a-title-sub")
                 if (dev != Dev.TABLET_LANDSCAPE)
                     assertInside("gallery-friday-a-time", "gallery-friday-a-clock")
