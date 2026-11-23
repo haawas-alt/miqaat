@@ -26,7 +26,7 @@ The phone and tablet title backgrounds are separate text-free ornamental WebP im
 | English body/wordmark | Android serif; wordmark 18sp bold |
 | Numeric clock | bundled `sanctuary_clock` |
 | Arabic | bundled `amiri_regular` and `amiri_bold` |
-| Header location/date | portrait 14/11sp; landscape 13/10sp; header time 15sp portrait, 14sp landscape |
+| Header location/date | portrait 14/11sp; landscape 13/10sp; app clock shown in landscape header at 14sp; portrait relies on the system status clock |
 | Title main/subtitle | phone 26/11sp; tablet 32/15sp; Urdu title 24sp phone, 29sp tablet |
 | Clock prayer name/numeral/suffix | phone portrait 17/50/18sp; phone landscape 21/62/20sp; tablet portrait 28/92/27sp |
 | Clock countdown | 12sp phone portrait, 14sp phone landscape, 18sp tablet portrait |

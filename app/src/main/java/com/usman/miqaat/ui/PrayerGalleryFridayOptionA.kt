@@ -178,11 +178,11 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
             horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             Text(if(L10n.isUrdu(s))"JUMU’AH / جمعہ" else "JUMU’AH / الجمعة",
                 fontFamily=FontFamily.Serif,fontWeight=FontWeight.Bold,
-                fontSize=if(L10n.isUrdu(s)) { if(tablet)32.sp else 25.sp } else if(tablet)36.sp else 28.sp,
+                fontSize=if(L10n.isUrdu(s)) { if(tablet)29.sp else 24.sp } else if(tablet)32.sp else 26.sp,
                 lineHeight=if(tablet)38.sp else 30.sp,color=gardenRust,maxLines=1)
             Text(if(L10n.isUrdu(s))"دعا، ذکر اور غور و فکر کا دن" else "A day for prayer, remembrance and reflection",
                 Modifier.testTag("gallery-friday-a-title-sub"),fontFamily=if(L10n.isUrdu(s))gardenArabic else gardenBody,
-                fontSize=if(L10n.isUrdu(s)) { if(tablet)13.sp else 10.sp } else if(tablet)16.sp else 12.sp,
+                fontSize=if(L10n.isUrdu(s)) { if(tablet)12.sp else 10.sp } else if(tablet)15.sp else 11.sp,
                 lineHeight=if(tablet)19.sp else 15.sp,color=gardenRust,maxLines=1)
         }
     }
