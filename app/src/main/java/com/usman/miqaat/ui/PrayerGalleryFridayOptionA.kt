@@ -68,7 +68,7 @@ private data class GLayout(val width: Int, val height: Int, val header: GBox, va
     val title: GBox, val clock: GBox, val prayers: GBox, val actions: GBox, val nav: GBox)
 
 private val gardenLayouts = listOf(
-    GLayout(390,844,GBox(0,0,390,60),GBox(10,60,370,200),GBox(30,230,330,62),GBox(18,292,354,90),GBox(14,385,362,288),GBox(14,675,362,98),GBox(0,775,390,69)),
+    GLayout(390,844,GBox(0,0,390,60),GBox(10,60,370,200),GBox(30,230,330,62),GBox(18,285,354,97),GBox(14,385,362,288),GBox(14,675,362,98),GBox(0,775,390,69)),
     GLayout(844,390,GBox(0,0,844,44),GBox(300,0,544,340),GBox(0,0,0,0),GBox(598,137,232,196),GBox(14,46,300,288),GBox(0,0,0,0),GBox(0,340,844,50)),
     GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,235),GBox(90,305,588,100),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
     GLayout(1280,800,GBox(0,0,1280,80),GBox(530,50,750,460),GBox(570,400,660,100),GBox(0,0,0,0),GBox(20,120,500,370),GBox(20,515,1240,205),GBox(0,720,1280,80))
@@ -240,8 +240,8 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                         verticalAlignment=Alignment.Bottom) {
                         Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
                             fontFamily=gardenTime,fontWeight=FontWeight.Bold,
-                            fontSize=if(!wide&&!tablet&&L10n.isUrdu(s))38.sp else if(largeText)42.sp else 50.sp,
-                            lineHeight=if(largeText||L10n.isUrdu(s))44.sp else 52.sp,
+                            fontSize=if(!wide&&!tablet&&L10n.isUrdu(s))38.sp else if(largeText)42.sp else if(!wide&&!tablet)46.sp else 50.sp,
+                            lineHeight=if(largeText||L10n.isUrdu(s))44.sp else if(!wide&&!tablet)50.sp else 52.sp,
                             color=gardenInk,maxLines=1)
                         if(!s.use24h)Text(PrayerEngine.suffix(state.nextTime,false),Modifier.padding(start=3.dp),fontFamily=FontFamily.Serif,
                             fontSize=18.sp,color=gardenInk,maxLines=1)
