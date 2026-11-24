@@ -1,7 +1,7 @@
 name: Signed candidate validation
 on:
   push:
-    branches: ['feat/friday-option2', 'recovery/jumuah-one-day-20261108']
+    branches: ['feat/friday-option2', 'recovery/jumuah-one-day-20261108', 'recovery/friday-gallery-option-a-20261117']
     paths: ['.github/workflows/signed-candidate.yml', 'app/**']
   workflow_dispatch:
 concurrency:
