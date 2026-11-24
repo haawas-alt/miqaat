@@ -258,7 +258,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
     val prayers=listOf(Prayer.FAJR,Prayer.SUNRISE,Prayer.DHUHR,Prayer.ASR,Prayer.MAGHRIB,Prayer.ISHA)
     val columns=if(tablet&&!wide)2 else 1
     Box(m.testTag("gallery-friday-a-prayers")) {
-        Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(if(tablet)5.dp else if(wide)2.dp else 0.dp)) {
+        Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(if(tablet)5.dp else 0.dp)) {
             for(row in 0 until (6/columns)) Row(Modifier.weight(1f),horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                 for(col in 0 until columns) {
                     val index=row*columns+col
