@@ -38,6 +38,14 @@ class FridayDevotionalCycleTest {
         assertEquals(1, cycle.advance(1))
     }
 
+    @Test fun interruptionRestartsFiveMinutesButKeepsTheNextDesign() {
+        val cycle = FridayDevotionalCycle()
+        assertEquals(1, cycle.advance(300_000))
+        cycle.interrupt()
+        assertNull(cycle.advance(299_999))
+        assertEquals(2, cycle.advance(1))
+    }
+
     @Test fun gaAndWeekdaysNeverEnterRotation() {
         val zone = ZoneId.of("Australia/Sydney")
         val friday = ZonedDateTime.of(2026, 10, 30, 11, 0, 0, 0, zone)

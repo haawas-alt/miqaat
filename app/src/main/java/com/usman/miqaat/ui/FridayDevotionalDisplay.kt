@@ -54,9 +54,9 @@ private fun devotionalSkin(theme: AppTheme): DevotionalSkin = when (theme) {
     AppTheme.PRAYER_GALLERY -> error("Prayer Gallery does not use the devotional rotation")
 }
 
-private fun devotionalArt(theme: AppTheme, design: Int): Int = when (theme) {
+private fun devotionalArt(theme: AppTheme, design: Int, wide: Boolean): Int = when (theme) {
     AppTheme.MIQAAT -> when (design) {
-        1 -> R.drawable.friday_devotional_ma_1
+        1 -> if (wide) R.drawable.friday_devotional_ma_1_landscape else R.drawable.friday_devotional_ma_1
         2 -> R.drawable.friday_devotional_ma_2
         3 -> R.drawable.friday_devotional_ma_3
         else -> R.drawable.friday_devotional_ma_4
@@ -103,7 +103,7 @@ internal fun FridayRotatingHome(state: PrayerState, settings: AppSettings, actio
     val active = allowed && resumed && fridayDevotionalEligible(settings, state.now)
     LaunchedEffect(active, settings.theme, date) {
         if (!active) {
-            cycle.reset()
+            cycle.interrupt()
             design = null
             return@LaunchedEffect
         }
@@ -158,7 +158,7 @@ internal fun FridayDevotionalDisplay(
             val prayerSize = listOf(18, 19, 32, 36)[profile]
             val solarSize = listOf(14, 14, 22, 23)[profile]
 
-            Image(painterResource(devotionalArt(settings.theme, design)), null,
+            Image(painterResource(devotionalArt(settings.theme, design, wide)), null,
                 Modifier.matchParentSize().testTag("friday-devotional-art"),
                 alignment = Alignment.CenterStart, contentScale = ContentScale.Crop)
             Box(Modifier.matchParentSize().background(if (wide)

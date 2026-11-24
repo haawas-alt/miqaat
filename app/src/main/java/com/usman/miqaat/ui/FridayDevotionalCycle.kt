@@ -49,6 +49,12 @@ internal class FridayDevotionalCycle(
         remainingMillis = homeMillis
     }
 
+    /** An interruption restarts the home interval without replaying the same design. */
+    fun interrupt() {
+        design = null
+        remainingMillis = homeMillis
+    }
+
     fun reset() {
         design = null
         nextDesign = 1
