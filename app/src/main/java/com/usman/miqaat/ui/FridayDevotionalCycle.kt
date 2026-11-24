@@ -1,9 +1,13 @@
 package com.usman.miqaat.ui
 
+import androidx.compose.runtime.compositionLocalOf
 import com.usman.miqaat.data.AppSettings
 import com.usman.miqaat.data.AppTheme
 import java.time.DayOfWeek
 import java.time.ZonedDateTime
+
+/** MainActivity disables the foreground timer while another screen or an azaan owns focus. */
+internal val LocalFridayDevotionalAllowed = compositionLocalOf { true }
 
 /** A foreground-only clock. It never changes prayer, alarm, or persisted theme state. */
 internal class FridayDevotionalCycle(

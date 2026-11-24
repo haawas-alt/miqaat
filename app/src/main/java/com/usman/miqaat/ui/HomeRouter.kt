@@ -14,8 +14,7 @@ import com.usman.miqaat.data.PrayerState
  * large-type → dedicated short landscape → the approved responsive phone/tablet compositions.
  */
 @Composable
-fun HomeRouter(state: PrayerState, settings: AppSettings, a: HomeActions, showLarge: Boolean,
-    rotationAllowed: Boolean = true, onLargeTap: () -> Unit) {
+fun HomeRouter(state: PrayerState, settings: AppSettings, a: HomeActions, showLarge: Boolean, onLargeTap: () -> Unit) {
     val cfg = LocalConfiguration.current
     val portrait = cfg.orientation == Configuration.ORIENTATION_PORTRAIT
     // The system font size is honoured in full: beyond ~115% the dense one-screen boards give way to a reflowing, scrolling page
@@ -25,7 +24,7 @@ fun HomeRouter(state: PrayerState, settings: AppSettings, a: HomeActions, showLa
         showLarge -> LargeHome(state, settings, onLargeTap)
         largeFont -> AccessibleHome(state, settings, a)
         fridayHomepageActive(settings, state.now) ->
-            if (settings.theme == AppTheme.MIQAAT) FridayRotatingHome(state, settings, a, rotationAllowed)
+            if (settings.theme == AppTheme.MIQAAT) FridayRotatingHome(state, settings, a, LocalFridayDevotionalAllowed.current)
             else FridayApprovedHome(state, settings, a)
         !portrait && cfg.screenHeightDp < 500 -> PhoneLandscapeHome(state, settings, a)
         else -> ApprovedHome(state, settings, a)

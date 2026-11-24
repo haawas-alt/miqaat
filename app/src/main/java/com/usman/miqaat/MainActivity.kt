@@ -153,25 +153,25 @@ class MainActivity : ComponentActivity() {
                         onOpenKahf = { fridaySection = "kahf"; screen = Screen.FRIDAY },
                         onOpenSalawat = { fridaySection = "salawat"; screen = Screen.FRIDAY }
                     )
+                    androidx.compose.runtime.CompositionLocalProvider(
+                        com.usman.miqaat.ui.LocalFridayDevotionalAllowed provides
+                            (screen == Screen.HOME && phase == null && ready)
+                    ) {
                     Crossfade(targetState = screen, label = "screen") { s ->
                         when (s) {
                             Screen.HOME -> if(settings.theme == com.usman.miqaat.data.AppTheme.KISWAH) {
                                 androidx.compose.runtime.CompositionLocalProvider(com.usman.miqaat.ui.LocalKiswahFridayNow provides now) {
-                                    com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek,
-                                        rotationAllowed = screen == Screen.HOME && phase == null && ready) { peek = true }
+                                    com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek) { peek = true }
                                 }
                             } else if(settings.theme == com.usman.miqaat.data.AppTheme.CELESTIAL_MERIDIAN) {
                                 androidx.compose.runtime.CompositionLocalProvider(com.usman.miqaat.ui.LocalCelestialFridayNow provides now) {
-                                    com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek,
-                                        rotationAllowed = screen == Screen.HOME && phase == null && ready) { peek = true }
+                                    com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek) { peek = true }
                                 }
                             } else if(settings.theme == com.usman.miqaat.data.AppTheme.PRAYER_GALLERY) {
                                 androidx.compose.runtime.CompositionLocalProvider(com.usman.miqaat.ui.LocalGalleryFridayNow provides now) {
-                                    com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek,
-                                        rotationAllowed = screen == Screen.HOME && phase == null && ready) { peek = true }
+                                    com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek) { peek = true }
                                 }
-                            } else com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek,
-                                rotationAllowed = screen == Screen.HOME && phase == null && ready) { peek = true }
+                            } else com.usman.miqaat.ui.HomeRouter(state, settings, homeActions, showLarge = settings.largeType && !peek) { peek = true }
                             Screen.QIBLA -> QiblaScreen(settings) { screen = Screen.HOME }
                             Screen.ADHKAR -> AdhkarScreen(adhkarMode) { screen = Screen.HOME }
                             Screen.FRIDAY -> com.usman.miqaat.ui.FridayScreen(settings, initialSection = fridaySection) { screen = Screen.HOME }
@@ -179,6 +179,7 @@ class MainActivity : ComponentActivity() {
                             Screen.TIMETABLE -> TimetableScreen(settings) { screen = Screen.HOME }
                             Screen.SETTINGS -> SettingsScreen(store, settings, settingsSection) { screen = Screen.HOME }
                         }
+                    }
                     }
                     phase?.let { ph ->
                         val preview = (ph as? AzaanService.Phase.Azaan)?.preview == true
