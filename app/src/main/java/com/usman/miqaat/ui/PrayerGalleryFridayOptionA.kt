@@ -168,12 +168,12 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         Image(painterResource(if(wide&&tablet)R.drawable.prayer_gallery_friday_title_landscape
             else R.drawable.prayer_gallery_friday_title_portrait),null,Modifier.fillMaxSize(),
             contentScale=ContentScale.FillBounds)
-        Column(Modifier.fillMaxSize().offset(y=(if(wide&&tablet)-9 else -3).dp)
+        Column(Modifier.fillMaxSize().offset(y=(if(wide&&tablet)-9 else -4).dp)
             .padding(horizontal=if(wide&&tablet)72.dp else 16.dp),
             horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             Text(if(L10n.isUrdu(s))"JUMU’AH / جمعہ" else "JUMU’AH / الجمعة",
                 fontFamily=FontFamily.Serif,fontWeight=FontWeight.Bold,
-                fontSize=if(L10n.isUrdu(s)) { if(tablet)29.sp else 24.sp } else if(tablet)32.sp else 26.sp,
+                fontSize=if(L10n.isUrdu(s)) { if(tablet)29.sp else 23.sp } else if(tablet)32.sp else 23.sp,
                 lineHeight=if(tablet)38.sp else 28.sp,color=gardenRust,maxLines=1)
             Text(if(L10n.isUrdu(s))"دعا، ذکر اور غور و فکر کا دن" else "A day for prayer, remembrance and reflection",
                 Modifier.testTag("gallery-friday-a-title-sub"),fontFamily=if(L10n.isUrdu(s))gardenArabic else gardenBody,
@@ -234,11 +234,12 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                 Text(name,fontFamily=if(L10n.isUrdu(s))gardenArabicBold else FontFamily.Serif,
                     fontWeight=FontWeight.Bold,fontSize=17.sp,color=gardenInk,maxLines=1)
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                    Row(Modifier.offset(y=(if(!wide&&!tablet)-10 else 0).dp),
+                    Row(Modifier.offset(y=(if(!wide&&!tablet&&!L10n.isUrdu(s))-10 else 0).dp),
                         verticalAlignment=Alignment.Bottom) {
                         Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
                             fontFamily=gardenTime,fontWeight=FontWeight.Bold,
-                            fontSize=if(largeText)42.sp else 50.sp,lineHeight=if(largeText)44.sp else 52.sp,
+                            fontSize=if(largeText||L10n.isUrdu(s))42.sp else 50.sp,
+                            lineHeight=if(largeText||L10n.isUrdu(s))44.sp else 52.sp,
                             color=gardenInk,maxLines=1)
                         if(!s.use24h)Text(PrayerEngine.suffix(state.nextTime,false),Modifier.padding(start=3.dp),fontFamily=FontFamily.Serif,
                             fontSize=18.sp,color=gardenInk,maxLines=1)
