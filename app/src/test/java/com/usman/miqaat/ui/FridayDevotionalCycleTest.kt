@@ -51,6 +51,7 @@ class FridayDevotionalCycleTest {
         val friday = ZonedDateTime.of(2026, 10, 30, 11, 0, 0, 0, zone)
         val settings = AppSettings(zoneId = zone.id, theme = AppTheme.MIQAAT, fridayReminders = true)
         assertTrue(fridayDevotionalEligible(settings, friday))
+        assertTrue(fridayDevotionalEligible(settings, friday.withHour(21)))
         assertFalse(fridayDevotionalEligible(settings.copy(theme = AppTheme.PRAYER_GALLERY), friday))
         assertFalse(fridayDevotionalEligible(settings, friday.minusDays(1)))
         assertFalse(fridayDevotionalEligible(settings, friday.plusDays(1)))

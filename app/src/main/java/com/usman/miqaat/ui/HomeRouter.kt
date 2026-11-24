@@ -23,9 +23,9 @@ fun HomeRouter(state: PrayerState, settings: AppSettings, a: HomeActions, showLa
     when {
         showLarge -> LargeHome(state, settings, onLargeTap)
         largeFont -> AccessibleHome(state, settings, a)
-        fridayHomepageActive(settings, state.now) ->
-            if (settings.theme == AppTheme.MIQAAT) FridayRotatingHome(state, settings, a, LocalFridayDevotionalAllowed.current)
-            else FridayApprovedHome(state, settings, a)
+        fridayDevotionalEligible(settings, state.now) ->
+            FridayRotatingHome(state, settings, a, LocalFridayDevotionalAllowed.current)
+        fridayHomepageActive(settings, state.now) -> FridayApprovedHome(state, settings, a)
         !portrait && cfg.screenHeightDp < 500 -> PhoneLandscapeHome(state, settings, a)
         else -> ApprovedHome(state, settings, a)
     }

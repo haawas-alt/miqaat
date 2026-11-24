@@ -1,6 +1,7 @@
 package com.usman.miqaat.ui
 
 import android.os.SystemClock
+import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,7 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
@@ -84,7 +85,8 @@ private fun devotionalCopy(design: Int, urdu: Boolean): DevotionalCopy = when (d
     2 -> DevotionalCopy("سُورَةُ الْكَهْفِ", if (urdu) "سورۃ الکہف" else "Surah Al-Kahf",
         if (urdu) "آج سورۃ الکہف کی تلاوت کریں۔" else "Recite Surah Al-Kahf today.")
     3 -> DevotionalCopy("اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ", if (urdu) "نبی محمد ﷺ پر درود بھیجیں" else "Send salawat upon Prophet Muhammad ﷺ", "")
-    else -> DevotionalCopy("رَبَّنَا تَقَبَّلْ مِنَّا", if (urdu) "اے ہمارے رب، ہم سے قبول فرما" else "O Allah, accept from us.", "")
+    else -> DevotionalCopy("رَبَّنَا تَقَبَّلْ مِنَّا", if (urdu) "اے ہمارے رب، ہم سے قبول فرما" else "O Allah, accept from us.",
+        if (urdu) "جمعہ کی نماز کی تیاری کریں" else "Prepare for Jumu’ah prayer")
 }
 
 /** The existing Friday home remains mounted and retains its actions and prayer state. */
@@ -118,7 +120,14 @@ internal fun FridayRotatingHome(state: PrayerState, settings: AppSettings, actio
         design = null
     }
     Box(Modifier.fillMaxSize()) {
-        FridayApprovedHome(state, settings, actions)
+        if (fridayHomepageActive(settings, state.now)) {
+            FridayApprovedHome(state, settings, actions)
+        } else {
+            val cfg = androidx.compose.ui.platform.LocalConfiguration.current
+            if (cfg.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE && cfg.screenHeightDp < 500)
+                PhoneLandscapeHome(state, settings, actions)
+            else ApprovedHome(state, settings, actions)
+        }
         design?.let { current ->
             FridayDevotionalDisplay(state, settings, actions, current) {
                 cycle.dismiss()
@@ -135,7 +144,18 @@ internal fun FridayDevotionalDisplay(
 ) {
     val skin = devotionalSkin(settings.theme)
     val copy = devotionalCopy(design, L10n.isUrdu(settings))
+    val artworkWide = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
     Box(Modifier.fillMaxSize().background(skin.base).testTag("friday-devotional-${settings.theme.name}-$design")) {
+        Image(painterResource(devotionalArt(settings.theme, design, artworkWide)), null,
+            Modifier.matchParentSize().testTag("friday-devotional-art"),
+            alignment = Alignment.CenterStart, contentScale = ContentScale.Crop)
+        Box(Modifier.matchParentSize().background(if (artworkWide)
+            Brush.horizontalGradient(0f to Color.Transparent, .43f to skin.base.copy(alpha = .10f), 1f to skin.base.copy(alpha = .78f))
+            else Brush.verticalGradient(0f to skin.base.copy(alpha = .46f), .28f to Color.Transparent,
+                .55f to skin.base.copy(alpha = .30f), 1f to skin.base.copy(alpha = .94f))))
+        Box(Modifier.matchParentSize().background(Brush.verticalGradient(
+            0f to Color.Transparent, .60f to Color.Transparent,
+            1f to skin.base.copy(alpha = .65f))))
         BoxWithConstraints(Modifier.fillMaxSize().clickable(onClick = onDismiss).safeDrawingPadding()) {
             val wide = maxWidth > maxHeight
             val tablet = minOf(maxWidth, maxHeight) >= 600.dp
@@ -155,14 +175,6 @@ internal fun FridayDevotionalDisplay(
             val messageSize = listOf(16, 16, 25, 28)[profile]
             val prayerSize = listOf(18, 19, 32, 36)[profile]
             val solarSize = listOf(14, 14, 22, 23)[profile]
-
-            Image(painterResource(devotionalArt(settings.theme, design, wide)), null,
-                Modifier.matchParentSize().testTag("friday-devotional-art"),
-                alignment = Alignment.CenterStart, contentScale = ContentScale.Crop)
-            Box(Modifier.matchParentSize().background(if (wide)
-                Brush.horizontalGradient(0f to Color.Transparent, .43f to skin.base.copy(alpha = .10f), 1f to skin.base.copy(alpha = .78f))
-                else Brush.verticalGradient(0f to skin.base.copy(alpha = .46f), .28f to Color.Transparent,
-                    .55f to skin.base.copy(alpha = .30f), 1f to skin.base.copy(alpha = .94f))))
 
             Row(region(if (wide) .035f else .045f, .025f, if (wide) .30f else .34f, .085f),
                 verticalAlignment = Alignment.CenterVertically) {
@@ -218,20 +230,37 @@ internal fun FridayDevotionalDisplay(
                     lineHeight = (arabicSize * 1.35f).sp, color = skin.gold,
                     textAlign = TextAlign.Center, maxLines = 2,
                     modifier = Modifier.fillMaxWidth().testTag("friday-devotional-arabic"))
-                Text(if (!L10n.isUrdu(settings) && settings.theme == AppTheme.MIQAAT && design <= 2)
+                if (!(settings.theme == AppTheme.MIQAAT && !wide && design == 3)) Text(if (!L10n.isUrdu(settings) && settings.theme == AppTheme.MIQAAT && design <= 2)
                         copy.heading.uppercase(Locale.ENGLISH) else copy.heading,
                     fontFamily = if (L10n.isUrdu(settings)) Nastaliq else Cormorant,
                     fontWeight = FontWeight.SemiBold, fontSize = headingSize.sp,
                     lineHeight = (headingSize * if (L10n.isUrdu(settings)) 1.65f else 1.18f).sp,
                     color = skin.pale, textAlign = TextAlign.Center, maxLines = 2,
                     modifier = Modifier.fillMaxWidth().testTag("friday-devotional-heading"))
-                if (copy.message.isNotEmpty()) {
+                val separateMA = settings.theme == AppTheme.MIQAAT && !wide && (design == 2 || design == 3 || design == 4)
+                if (copy.message.isNotEmpty() && !separateMA) {
                     Spacer(Modifier.height(if (tablet) 9.dp else 4.dp))
-                    Text(copy.message, fontFamily = if (L10n.isUrdu(settings)) Nastaliq else Nunito,
+                    Text(copy.message, modifier = if (settings.theme == AppTheme.MIQAAT && wide && design != 3)
+                            Modifier.fillMaxWidth().border(1.dp, skin.gold, RoundedCornerShape(8.dp))
+                                .background(skin.base.copy(alpha = .55f)).padding(6.dp).testTag("friday-devotional-message")
+                        else Modifier.fillMaxWidth().testTag("friday-devotional-message"),
+                        fontFamily = if (L10n.isUrdu(settings)) Nastaliq else Nunito,
                         fontSize = messageSize.sp, lineHeight = (messageSize * if (L10n.isUrdu(settings)) 1.65f else 1.25f).sp,
-                        color = skin.pale, textAlign = TextAlign.Center, maxLines = 3,
-                        modifier = Modifier.fillMaxWidth().testTag("friday-devotional-message"))
+                        color = skin.pale, textAlign = TextAlign.Center, maxLines = 3)
                 }
+            }
+
+            if (settings.theme == AppTheme.MIQAAT && !wide && design in 2..4) {
+                val text = if (design == 3) copy.heading else copy.message
+                Text(text,
+                    modifier = region(.10f, if (design == 3) .57f else .61f, .80f, .10f)
+                        .then(if (design == 3) Modifier else Modifier.border(1.dp, skin.gold, RoundedCornerShape(8.dp))
+                            .background(skin.base.copy(alpha = .72f)).padding(7.dp))
+                        .testTag("friday-devotional-message"),
+                    fontFamily = if (L10n.isUrdu(settings)) Nastaliq else Cormorant,
+                    fontSize = (if (design == 3) headingSize * .82f else messageSize).sp,
+                    lineHeight = (if (design == 3) headingSize * 1.1f else messageSize * 1.2f).sp,
+                    color = skin.pale, textAlign = TextAlign.Center, maxLines = 3)
             }
 
             val diskWidth = if (wide) if (tablet) .23f else .22f else .42f

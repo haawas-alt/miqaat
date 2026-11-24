@@ -66,5 +66,4 @@ internal class FridayDevotionalCycle(
 internal fun fridayDevotionalEligible(settings: AppSettings, now: ZonedDateTime): Boolean =
     settings.fridayReminders &&
         settings.theme == AppTheme.MIQAAT &&
-        now.withZoneSameInstant(settings.zone()).dayOfWeek == DayOfWeek.FRIDAY &&
-        fridayHomepageActive(settings, now)
+        now.withZoneSameInstant(settings.zone()).dayOfWeek == DayOfWeek.FRIDAY
