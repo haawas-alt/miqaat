@@ -71,7 +71,7 @@ private val gardenLayouts = listOf(
     GLayout(390,844,GBox(0,0,390,60),GBox(10,60,370,200),GBox(30,230,330,62),GBox(18,292,354,90),GBox(14,385,362,288),GBox(14,675,362,98),GBox(0,775,390,69)),
     GLayout(844,390,GBox(0,0,844,44),GBox(300,0,544,340),GBox(0,0,0,0),GBox(598,137,232,196),GBox(14,46,300,288),GBox(0,0,0,0),GBox(0,340,844,50)),
     GLayout(768,1024,GBox(0,0,768,70),GBox(18,70,732,235),GBox(90,305,588,100),GBox(24,415,340,220),GBox(20,665,728,238),GBox(380,415,360,220),GBox(0,922,768,102)),
-    GLayout(1280,800,GBox(0,0,1280,80),GBox(480,0,800,640),GBox(620,520,600,110),GBox(0,0,0,0),GBox(20,140,500,490),GBox(20,632,1240,110),GBox(0,744,1280,56))
+    GLayout(1280,800,GBox(0,0,1280,80),GBox(530,50,750,460),GBox(570,400,660,100),GBox(0,0,0,0),GBox(20,120,500,370),GBox(20,515,1240,205),GBox(0,720,1280,80))
 )
 
 @Composable
@@ -89,24 +89,17 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         fun GBox.modifier() = Modifier.offset((x*sx).dp,(y*sy).dp).size((w*sx).dp,(h*sy).dp)
         // Use the approved board's artwork pixels directly. The painter crops only
         // the clean garden region; text, prayer data and controls remain live UI.
-        val artwork=when {
-            wide -> R.drawable.prayer_gallery_friday_approved_phone_landscape
-            else -> R.drawable.prayer_gallery_friday_approved_phone_portrait
+        val gardenPainter=when {
+            tablet -> painterResource(if(wide) R.drawable.prayer_gallery_friday_garden_tablet_landscape
+                else R.drawable.prayer_gallery_friday_garden_tablet_portrait)
+            wide -> BitmapPainter(ImageBitmap.imageResource(R.drawable.prayer_gallery_friday_garden_phone_landscape),
+                srcOffset=IntOffset(0,40),srcSize=IntSize(1028,640))
+            else -> BitmapPainter(ImageBitmap.imageResource(R.drawable.prayer_gallery_friday_approved_phone_portrait),
+                srcOffset=IntOffset(22,170),srcSize=IntSize(616,320))
         }
-        val crop=when {
-            wide -> intArrayOf(550,80,770,450)
-            else -> intArrayOf(22,170,616,320)
-        }
-        val gardenPainter=if(tablet) painterResource(if(wide)
-            R.drawable.prayer_gallery_friday_garden_tablet_landscape
-            else R.drawable.prayer_gallery_friday_garden_tablet_portrait)
-            else BitmapPainter(ImageBitmap.imageResource(artwork),
-                srcOffset=IntOffset(crop[0],crop[1]),srcSize=IntSize(crop[2],crop[3]))
         Image(gardenPainter,null,
             layout.art.modifier().clip(RoundedCornerShape(if(wide)12.dp else 16.dp)).testTag("gallery-friday-a-art"),
             contentScale=ContentScale.Crop)
-        if(wide&&!tablet) Box(Modifier.offset((598*sx).dp,(333*sy).dp)
-            .size((232*sx).dp,(7*sy).dp).background(gardenPaper))
         GardenHeader(state,s,a,layout.header.modifier(),wide,tablet,onClosePreview)
         if(layout.title.w>0) GardenTitle(s,layout.title.modifier(),wide,tablet)
         if(tablet&&!wide) Canvas(Modifier.offset((90*sx).dp,(646*sy).dp).size((588*sx).dp,(12*sy).dp)) {
@@ -174,7 +167,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         Image(painterResource(if(wide&&tablet)R.drawable.prayer_gallery_friday_title_landscape
             else R.drawable.prayer_gallery_friday_title_portrait),null,Modifier.fillMaxSize(),
             contentScale=ContentScale.FillBounds)
-        Column(Modifier.fillMaxSize().offset(y=(if(wide&&tablet)-9 else -3).dp)
+        Column(Modifier.fillMaxSize().offset(y=(if(wide&&tablet)-9 else if(!wide&&!tablet)-8 else -3).dp)
             .padding(horizontal=if(wide&&tablet)72.dp else 16.dp),
             horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             Text(if(L10n.isUrdu(s))"JUMU’AH / جمعہ" else "JUMU’AH / الجمعة",
