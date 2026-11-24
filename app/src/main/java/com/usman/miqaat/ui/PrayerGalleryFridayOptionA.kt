@@ -100,6 +100,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         Image(gardenPainter,null,
             layout.art.modifier().clip(RoundedCornerShape(if(wide)12.dp else 16.dp)).testTag("gallery-friday-a-art"),
             contentScale=ContentScale.Crop)
+        if(wide&&!tablet) Box(Modifier.size((330*sx).dp,(44*sy).dp).background(gardenPaper))
         GardenHeader(state,s,a,layout.header.modifier(),wide,tablet,onClosePreview)
         if(layout.title.w>0) GardenTitle(s,layout.title.modifier(),wide,tablet)
         if(tablet&&!wide) Canvas(Modifier.offset((90*sx).dp,(646*sy).dp).size((588*sx).dp,(12*sy).dp)) {
@@ -121,7 +122,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
 @Composable private fun GardenHeader(state:PrayerState,s:AppSettings,a:HomeActions,m:Modifier,wide:Boolean,tablet:Boolean,onClosePreview:(()->Unit)?) {
     val now=LocalGalleryFridayNow.current?:state.now
     val compact=LocalDensity.current.fontScale>=1.1f || L10n.isUrdu(s)
-    Row(m.testTag("gallery-friday-a-header").background(if(wide&&tablet)Color.Transparent else gardenPaper)
+    Row(m.testTag("gallery-friday-a-header").background(if(wide)Color.Transparent else gardenPaper)
         .padding(horizontal=if(wide)10.dp else 12.dp),verticalAlignment=Alignment.CenterVertically) {
         Row(verticalAlignment=Alignment.CenterVertically) {
             GardenMosque(Modifier.size(if(wide)24.dp else 28.dp))
@@ -167,17 +168,17 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
         Image(painterResource(if(wide&&tablet)R.drawable.prayer_gallery_friday_title_landscape
             else R.drawable.prayer_gallery_friday_title_portrait),null,Modifier.fillMaxSize(),
             contentScale=ContentScale.FillBounds)
-        Column(Modifier.fillMaxSize().offset(y=(if(wide&&tablet)-9 else if(!wide&&!tablet)-8 else -3).dp)
+        Column(Modifier.fillMaxSize().offset(y=(if(wide&&tablet)-9 else -3).dp)
             .padding(horizontal=if(wide&&tablet)72.dp else 16.dp),
             horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
             Text(if(L10n.isUrdu(s))"JUMU’AH / جمعہ" else "JUMU’AH / الجمعة",
                 fontFamily=FontFamily.Serif,fontWeight=FontWeight.Bold,
                 fontSize=if(L10n.isUrdu(s)) { if(tablet)29.sp else 24.sp } else if(tablet)32.sp else 26.sp,
-                lineHeight=if(tablet)38.sp else 30.sp,color=gardenRust,maxLines=1)
+                lineHeight=if(tablet)38.sp else 28.sp,color=gardenRust,maxLines=1)
             Text(if(L10n.isUrdu(s))"دعا، ذکر اور غور و فکر کا دن" else "A day for prayer, remembrance and reflection",
                 Modifier.testTag("gallery-friday-a-title-sub"),fontFamily=if(L10n.isUrdu(s))gardenArabic else gardenBody,
                 fontSize=if(L10n.isUrdu(s)) { if(tablet)12.sp else 10.sp } else if(tablet)15.sp else 11.sp,
-                lineHeight=if(tablet)19.sp else 15.sp,color=gardenRust,maxLines=1)
+                lineHeight=if(tablet)19.sp else 13.sp,color=gardenRust,maxLines=1)
         }
     }
 }
