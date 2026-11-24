@@ -232,13 +232,15 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
             Column(Modifier.weight(1f)) {
                 Text(if(L10n.isUrdu(s))"اگلی نماز" else "Next Prayer",fontFamily=gardenBody,fontSize=11.sp,color=gardenInk,maxLines=1)
                 Text(name,fontFamily=if(L10n.isUrdu(s))gardenArabicBold else FontFamily.Serif,
-                    fontWeight=FontWeight.Bold,fontSize=17.sp,color=gardenInk,maxLines=1)
+                    fontWeight=FontWeight.Bold,
+                    fontSize=if(!wide&&!tablet&&L10n.isUrdu(s))14.sp else 17.sp,
+                    color=gardenInk,maxLines=1)
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                     Row(Modifier.offset(y=(if(!wide&&!tablet)-10 else 0).dp),
                         verticalAlignment=Alignment.Bottom) {
                         Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
                             fontFamily=gardenTime,fontWeight=FontWeight.Bold,
-                            fontSize=if(largeText||L10n.isUrdu(s))42.sp else 50.sp,
+                            fontSize=if(!wide&&!tablet&&L10n.isUrdu(s))38.sp else if(largeText)42.sp else 50.sp,
                             lineHeight=if(largeText||L10n.isUrdu(s))44.sp else 52.sp,
                             color=gardenInk,maxLines=1)
                         if(!s.use24h)Text(PrayerEngine.suffix(state.nextTime,false),Modifier.padding(start=3.dp),fontFamily=FontFamily.Serif,
