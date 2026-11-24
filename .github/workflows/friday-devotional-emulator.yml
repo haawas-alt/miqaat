@@ -6,6 +6,9 @@ on:
       - '.github/workflows/friday-devotional-emulator.yml'
       - 'app/src/androidTest/java/com/usman/miqaat/ui/FridayDevotionalEmulatorTest.kt'
       - 'app/src/main/java/com/usman/miqaat/ui/FridayDevotionalDisplay.kt'
+      - 'app/src/main/java/com/usman/miqaat/ui/FridayDevotionalCycle.kt'
+      - 'app/src/main/java/com/usman/miqaat/ui/HomeRouter.kt'
+      - 'app/src/main/java/com/usman/miqaat/MainActivity.kt'
       - 'app/src/main/res/drawable-nodpi/friday_devotional_ma_*'
   workflow_dispatch:
 permissions:
