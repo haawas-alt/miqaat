@@ -1,0 +1,293 @@
+package com.usman.miqaat.ui
+
+import android.os.SystemClock
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Mosque
+import androidx.compose.material.icons.outlined.VolumeUp
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import com.usman.miqaat.R
+import com.usman.miqaat.data.AppSettings
+import com.usman.miqaat.data.AppTheme
+import com.usman.miqaat.data.L10n
+import com.usman.miqaat.data.Prayer
+import com.usman.miqaat.data.PrayerEngine
+import com.usman.miqaat.data.PrayerState
+import kotlinx.coroutines.delay
+import java.time.Duration
+import java.time.format.DateTimeFormatter
+import java.util.Locale
+
+private data class DevotionalSkin(val base: Color, val gold: Color, val pale: Color, val muted: Color)
+
+private fun devotionalSkin(theme: AppTheme): DevotionalSkin = when (theme) {
+    AppTheme.MIQAAT -> DevotionalSkin(Color(0xFF062D25), Color(0xFFD9AF5D), Color(0xFFFFF4DC), Color(0xFFC7D8CA))
+    AppTheme.KISWAH -> DevotionalSkin(Color(0xFF11100F), Color(0xFFC99A42), Color(0xFFFFF5E2), Color(0xFFD5C8B4))
+    AppTheme.CELESTIAL_MERIDIAN -> DevotionalSkin(Color(0xFF081B37), Color(0xFFDBB46C), Color(0xFFF7F3EB), Color(0xFFC2D1E8))
+    AppTheme.PRAYER_GALLERY -> error("Prayer Gallery does not use the devotional rotation")
+}
+
+private fun devotionalArt(theme: AppTheme, design: Int): Int = when (theme) {
+    AppTheme.MIQAAT -> when (design) {
+        1 -> R.drawable.friday_devotional_ma_1
+        2 -> R.drawable.friday_devotional_ma_2
+        3 -> R.drawable.friday_devotional_ma_3
+        else -> R.drawable.friday_devotional_ma_4
+    }
+    AppTheme.KISWAH -> when (design) {
+        1 -> R.drawable.friday_devotional_ka_1
+        2 -> R.drawable.friday_devotional_ka_2
+        3 -> R.drawable.friday_devotional_ka_3
+        else -> R.drawable.friday_devotional_ka_4
+    }
+    AppTheme.CELESTIAL_MERIDIAN -> when (design) {
+        1 -> R.drawable.friday_devotional_ca_1
+        2 -> R.drawable.friday_devotional_ca_2
+        3 -> R.drawable.friday_devotional_ca_3
+        else -> R.drawable.friday_devotional_ca_4
+    }
+    AppTheme.PRAYER_GALLERY -> error("Prayer Gallery does not use the devotional rotation")
+}
+
+private data class DevotionalCopy(val arabic: String, val heading: String, val message: String)
+
+private fun devotionalCopy(design: Int, urdu: Boolean): DevotionalCopy = when (design) {
+    1 -> DevotionalCopy("جُمُعَةٌ مُبَارَكَةٌ", if (urdu) "جمعہ مبارک" else "Jumu’ah Mubarak",
+        if (urdu) "اللہ ہماری عبادت قبول فرمائے۔" else "May Allah accept our worship.")
+    2 -> DevotionalCopy("سُورَةُ الْكَهْفِ", if (urdu) "سورۃ الکہف" else "Surah Al-Kahf",
+        if (urdu) "آج سورۃ الکہف کی تلاوت کریں۔" else "Recite Surah Al-Kahf today.")
+    3 -> DevotionalCopy("اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ", if (urdu) "نبی محمد ﷺ پر درود بھیجیں" else "Send salawat upon Prophet Muhammad ﷺ",
+        if (urdu) "جمعہ کے دن درود پڑھیں۔" else "Send blessings upon the Prophet ﷺ today.")
+    else -> DevotionalCopy("رَبَّنَا تَقَبَّلْ مِنَّا", if (urdu) "اے ہمارے رب، ہم سے قبول فرما" else "Our Lord, accept from us",
+        if (urdu) "اے اللہ، ہماری عبادت قبول فرما۔" else "O Allah, accept from us.")
+}
+
+/** The existing Friday home remains mounted and retains its actions and prayer state. */
+@Composable
+internal fun FridayRotatingHome(state: PrayerState, settings: AppSettings, actions: HomeActions, allowed: Boolean) {
+    val date = state.now.withZoneSameInstant(settings.zone()).toLocalDate()
+    val cycle = remember(settings.theme, date) { FridayDevotionalCycle() }
+    var design by remember(settings.theme, date) { mutableStateOf<Int?>(null) }
+    var resumed by remember { mutableStateOf(false) }
+    LifecycleResumeEffect(Unit) {
+        resumed = true
+        onPauseOrDispose { resumed = false }
+    }
+    val active = allowed && resumed && fridayDevotionalEligible(settings, state.now)
+    LaunchedEffect(active, settings.theme, date) {
+        if (!active) {
+            cycle.reset()
+            design = null
+            return@LaunchedEffect
+        }
+        var previous = SystemClock.elapsedRealtime()
+        while (true) {
+            delay(minOf(cycle.remainingMillis, 1_000L))
+            val now = SystemClock.elapsedRealtime()
+            design = cycle.advance(now - previous)
+            previous = now
+        }
+    }
+    BackHandler(enabled = design != null) {
+        cycle.dismiss()
+        design = null
+    }
+    Box(Modifier.fillMaxSize()) {
+        FridayApprovedHome(state, settings, actions)
+        design?.let { current ->
+            FridayDevotionalDisplay(state, settings, actions, current) {
+                cycle.dismiss()
+                design = null
+            }
+        }
+    }
+}
+
+/** A single live-text composition; only artwork, colour, and message change across 12 variants. */
+@Composable
+internal fun FridayDevotionalDisplay(
+    state: PrayerState, settings: AppSettings, actions: HomeActions, design: Int, onDismiss: () -> Unit,
+) {
+    val skin = devotionalSkin(settings.theme)
+    val copy = devotionalCopy(design, L10n.isUrdu(settings))
+    Box(Modifier.fillMaxSize().background(skin.base).testTag("friday-devotional-${settings.theme.name}-$design")) {
+        BoxWithConstraints(Modifier.fillMaxSize().clickable(onClick = onDismiss).safeDrawingPadding()) {
+            val wide = maxWidth > maxHeight
+            val tablet = minOf(maxWidth, maxHeight) >= 600.dp
+            val profile = when {
+                tablet && wide -> 3
+                tablet -> 2
+                wide -> 1
+                else -> 0
+            }
+            fun region(x: Float, y: Float, w: Float, h: Float): Modifier = Modifier
+                .absoluteOffset(x = maxWidth * x, y = maxHeight * y)
+                .size(maxWidth * w, maxHeight * h)
+            val clockSize = listOf(38, 46, 66, 88)[profile]
+            val dateSize = listOf(12, 13, 21, 24)[profile]
+            val arabicSize = listOf(48, 50, 88, 96)[profile] * if (design == 3 || design == 4) .82f else 1f
+            val headingSize = listOf(21, 22, 36, 40)[profile]
+            val messageSize = listOf(16, 16, 25, 28)[profile]
+            val prayerSize = listOf(18, 19, 32, 36)[profile]
+            val solarSize = listOf(14, 14, 22, 23)[profile]
+
+            Image(painterResource(devotionalArt(settings.theme, design)), null,
+                Modifier.matchParentSize().testTag("friday-devotional-art"),
+                alignment = Alignment.CenterStart, contentScale = ContentScale.Crop)
+            Box(Modifier.matchParentSize().background(if (wide)
+                Brush.horizontalGradient(0f to Color.Transparent, .43f to skin.base.copy(alpha = .10f), 1f to skin.base.copy(alpha = .78f))
+                else Brush.verticalGradient(0f to skin.base.copy(alpha = .46f), .28f to Color.Transparent,
+                    .55f to skin.base.copy(alpha = .30f), 1f to skin.base.copy(alpha = .94f))))
+
+            Row(region(if (wide) .035f else .045f, .025f, if (wide) .30f else .34f, .085f),
+                verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Outlined.Mosque, null, Modifier.size(if (tablet) 28.dp else 20.dp), tint = skin.gold)
+                Spacer(Modifier.width(5.dp))
+                Text("Miqaat", fontFamily = Cormorant, fontSize = (if (tablet) 30 else 19).sp,
+                    color = skin.pale, maxLines = 1, modifier = Modifier.testTag("friday-devotional-brand"))
+            }
+            IconButton(onClick = actions.onOpenSettings,
+                modifier = region(if (wide) .32f else .035f, if (wide) .035f else .09f, .12f, .075f)
+                    .sizeIn(minWidth = 48.dp, minHeight = 48.dp).testTag("friday-devotional-audio-settings")) {
+                Icon(Icons.Outlined.VolumeUp, "Audio settings", tint = skin.gold)
+            }
+
+            Column(region(if (wide) .58f else .40f, .035f, if (wide) .38f else .55f, if (wide) .29f else .20f),
+                horizontalAlignment = Alignment.End) {
+                Row(verticalAlignment = Alignment.Bottom) {
+                    Text(PrayerEngine.clock(state.now, settings.use24h),
+                        fontFamily = Cormorant, fontSize = clockSize.sp, lineHeight = (clockSize * 1.05f).sp,
+                        color = skin.pale, maxLines = 1, style = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false)),
+                        modifier = Modifier.testTag("friday-devotional-clock"))
+                    if (!settings.use24h) Text(" ${PrayerEngine.suffix(state.now, false)}", fontFamily = Cormorant,
+                        fontSize = (clockSize * .4f).sp, color = skin.pale, maxLines = 1)
+                }
+                val gregorian = if (L10n.isUrdu(settings)) L10n.fridayDate(state.now.toLocalDate())
+                    else state.now.format(DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", Locale.ENGLISH))
+                val hijri = if (settings.showHijri) PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)
+                    .let { if (L10n.isUrdu(settings)) it.arabic else it.english } else null
+                Text(listOfNotNull(gregorian, hijri).joinToString("  ·  "), fontFamily = if (L10n.isUrdu(settings)) Amiri else Nunito,
+                    fontSize = dateSize.sp, lineHeight = (dateSize * 1.3f).sp, color = skin.muted,
+                    textAlign = TextAlign.End, maxLines = 2, modifier = Modifier.testTag("friday-devotional-date"))
+                val jummah = if (settings.jumuahEnabled) state.today[Prayer.DHUHR] else null
+                val relevant = jummah?.takeIf { it.isAfter(state.now) }
+                if (relevant != null) {
+                    val label = if (L10n.isUrdu(settings)) "جمعہ میں " else "Jumu’ah in "
+                    Text(label + L10n.duration(settings, Duration.between(state.now, relevant)),
+                        Modifier.padding(top = 3.dp).clip(RoundedCornerShape(50)).background(skin.gold)
+                            .padding(horizontal = 10.dp, vertical = 3.dp).testTag("friday-devotional-jummah-countdown"),
+                        fontFamily = Nunito, fontWeight = FontWeight.SemiBold,
+                        fontSize = (dateSize * .9f).sp, color = skin.base, maxLines = 1)
+                }
+            }
+
+            val heroX = if (wide) .49f else .07f
+            val heroW = if (wide) .47f else .86f
+            val heroY = if (wide) .32f else .30f
+            Column(region(heroX, heroY, heroW, if (wide) .54f else .36f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
+                Text(copy.arabic, fontFamily = Amiri, fontSize = arabicSize.sp,
+                    lineHeight = (arabicSize * 1.35f).sp, color = skin.gold,
+                    textAlign = TextAlign.Center, maxLines = 2,
+                    modifier = Modifier.fillMaxWidth().testTag("friday-devotional-arabic"))
+                Text(copy.heading, fontFamily = if (L10n.isUrdu(settings)) Nastaliq else Cormorant,
+                    fontWeight = FontWeight.SemiBold, fontSize = headingSize.sp,
+                    lineHeight = (headingSize * if (L10n.isUrdu(settings)) 1.65f else 1.18f).sp,
+                    color = skin.pale, textAlign = TextAlign.Center, maxLines = 2,
+                    modifier = Modifier.fillMaxWidth().testTag("friday-devotional-heading"))
+                Spacer(Modifier.height(if (tablet) 9.dp else 4.dp))
+                Text(copy.message, fontFamily = if (L10n.isUrdu(settings)) Nastaliq else Nunito,
+                    fontSize = messageSize.sp, lineHeight = (messageSize * if (L10n.isUrdu(settings)) 1.65f else 1.25f).sp,
+                    color = skin.pale, textAlign = TextAlign.Center, maxLines = 3,
+                    modifier = Modifier.fillMaxWidth().testTag("friday-devotional-message"))
+            }
+
+            val diskWidth = if (wide) if (tablet) .23f else .22f else .47f
+            val diskHeight = if (wide) .38f else .22f
+            val diskSize: Dp = minOf(maxWidth * diskWidth, maxHeight * diskHeight)
+            DevotionalPrayerDisk(state, settings, skin, prayerSize,
+                Modifier.absoluteOffset(x = maxWidth * .035f, y = maxHeight * if (wide) .57f else .73f)
+                    .size(diskSize).testTag("friday-devotional-prayer-disk"))
+            DevotionalSolar(state, settings, skin, solarSize,
+                region(if (wide) .28f else .55f, if (wide) .66f else .76f,
+                    if (wide) .18f else .40f, if (wide) .26f else .16f)
+                    .testTag("friday-devotional-solar"))
+        }
+    }
+}
+
+@Composable private fun DevotionalPrayerDisk(
+    state: PrayerState, settings: AppSettings, skin: DevotionalSkin, size: Int, modifier: Modifier,
+) {
+    val current = state.current ?: state.next
+    val next = state.next
+    val currentTime = if (state.current == null) state.nextTime else state.today[current]
+    Box(modifier.clip(CircleShape).background(skin.base.copy(alpha = .91f))
+        .border(if (size > 20) 2.dp else 1.dp, skin.gold, CircleShape), contentAlignment = Alignment.Center) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(L10n.prayer(settings, current), fontFamily = Nunito, fontSize = (size * .72f).sp,
+                color = skin.pale, maxLines = 1)
+            Text(L10n.at(currentTime, settings.use24h),
+                Modifier.clip(RoundedCornerShape(50)).background(skin.gold)
+                    .padding(horizontal = 8.dp, vertical = 1.dp),
+                fontFamily = Cormorant, fontSize = (size * 1.15f).sp,
+                lineHeight = (size * 1.18f).sp, color = skin.base, maxLines = 1)
+            Spacer(Modifier.height(3.dp))
+            if (next != current || state.current != null) {
+                Text(L10n.prayer(settings, next), fontFamily = Nunito, fontSize = (size * .72f).sp,
+                    color = skin.muted, maxLines = 1)
+                Text(L10n.at(state.nextTime, settings.use24h), fontFamily = Cormorant,
+                    fontSize = size.sp, color = skin.pale, maxLines = 1)
+            }
+        }
+    }
+}
+
+@Composable private fun DevotionalSolar(
+    state: PrayerState, settings: AppSettings, skin: DevotionalSkin, size: Int, modifier: Modifier,
+) {
+    Column(modifier.clip(RoundedCornerShape(12.dp)).background(skin.base.copy(alpha = .68f))
+        .border(1.dp, skin.gold.copy(alpha = .5f), RoundedCornerShape(12.dp))
+        .padding(horizontal = 6.dp, vertical = 4.dp), verticalArrangement = Arrangement.Center) {
+        for (prayer in listOf(Prayer.SUNRISE, Prayer.MAGHRIB)) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Text(if (prayer == Prayer.SUNRISE) "☀" else "☾", fontSize = size.sp, color = skin.gold)
+                Spacer(Modifier.width(3.dp))
+                Column {
+                    Text(L10n.prayer(settings, prayer), fontFamily = Nunito, fontSize = (size * .72f).sp,
+                        color = skin.muted, maxLines = 1)
+                    Text(L10n.at(state.today[prayer], settings.use24h), fontFamily = Cormorant,
+                        fontSize = size.sp, color = skin.pale, maxLines = 1)
+                }
+            }
+        }
+    }
+}
