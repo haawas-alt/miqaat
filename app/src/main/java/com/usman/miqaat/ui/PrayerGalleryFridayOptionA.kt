@@ -234,7 +234,7 @@ internal fun PrayerGalleryFridayOptionA(state: PrayerState, s: AppSettings, a: H
                 Text(name,fontFamily=if(L10n.isUrdu(s))gardenArabicBold else FontFamily.Serif,
                     fontWeight=FontWeight.Bold,fontSize=17.sp,color=gardenInk,maxLines=1)
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                    Row(Modifier.offset(y=(if(!wide&&!tablet&&!L10n.isUrdu(s))-10 else 0).dp),
+                    Row(Modifier.offset(y=(if(!wide&&!tablet)-10 else 0).dp),
                         verticalAlignment=Alignment.Bottom) {
                         Text(PrayerEngine.clock(state.nextTime,s.use24h),Modifier.testTag("gallery-friday-a-time"),
                             fontFamily=gardenTime,fontWeight=FontWeight.Bold,
