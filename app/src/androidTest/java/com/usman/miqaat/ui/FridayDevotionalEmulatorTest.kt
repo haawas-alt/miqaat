@@ -71,6 +71,15 @@ class FridayDevotionalEmulatorTest : ShotSupport() {
         for (design in 1..4) {
             shot("friday-accessibility-ma-$design", AppTheme.MIQAAT, scale = 1.15f, rtl = true,
                 verify = {
+                    val screen = rule.onNodeWithTag("friday-devotional-MIQAAT-$design", useUnmergedTree = true)
+                        .fetchSemanticsNode().boundsInRoot
+                    for (tag in listOf("brand", "clock", "date", "jummah-countdown", "arabic", "hero", "prayer-disk")) {
+                        val bounds = rule.onNodeWithTag("friday-devotional-$tag", useUnmergedTree = true)
+                            .fetchSemanticsNode().boundsInRoot
+                        check(bounds.left >= screen.left - 1f && bounds.right <= screen.right + 1f) {
+                            "MA$design Urdu $tag outside screen on $device: $bounds vs $screen"
+                        }
+                    }
                     val arabic = rule.onNodeWithTag("friday-devotional-arabic", useUnmergedTree = true)
                         .fetchSemanticsNode().boundsInRoot
                     val date = rule.onNodeWithTag("friday-devotional-date", useUnmergedTree = true)
