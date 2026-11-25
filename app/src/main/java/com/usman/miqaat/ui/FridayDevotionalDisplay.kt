@@ -161,7 +161,7 @@ internal fun FridayDevotionalDisplay(
             0f to Color.Transparent, .60f to Color.Transparent,
             1f to skin.base.copy(alpha = if (preservePortraitArtwork) .15f else .45f))))
         BoxWithConstraints(Modifier.fillMaxSize().clickable(onClick = onDismiss).safeDrawingPadding(),
-            contentAlignment = Alignment.TopStart) {
+            contentAlignment = Alignment.TopLeft) {
             val wide = maxWidth > maxHeight
             val tablet = minOf(maxWidth, maxHeight) >= 600.dp
             val profile = when {
@@ -171,7 +171,7 @@ internal fun FridayDevotionalDisplay(
                 else -> 0
             }
             fun region(x: Float, y: Float, w: Float, h: Float): Modifier = Modifier
-                .offset(x = maxWidth * x, y = maxHeight * y)
+                .absoluteOffset(x = maxWidth * x, y = maxHeight * y)
                 .size(maxWidth * w, maxHeight * h)
             // The raster boards have shorter aspect ratios than the target devices. Match the
             // type-to-width relationship, then let the artwork fill the extra safe height.
@@ -183,11 +183,24 @@ internal fun FridayDevotionalDisplay(
                 design == 3 || design == 4 -> .82f
                 else -> 1f
             }
-            val arabicSize = listOf(54f, 68f, 98f, 96f)[profile] * arabicScale
-            val headingSize = listOf(24f, 28f, 40f, 40f)[profile]
-            val messageSize = listOf(18f, 20f, 28f, 28f)[profile]
+            // Nastaliq uses a much taller line box than the Latin display face.
+            val urduWide = wide && L10n.isUrdu(settings)
+            val arabicSize = listOf(54f, 68f, 98f, 96f)[profile] * arabicScale * if (urduWide) .78f else 1f
+            val headingSize = listOf(24f, 28f, 40f, 40f)[profile] * if (urduWide) .80f else 1f
+            val messageSize = listOf(18f, 20f, 28f, 28f)[profile] * if (urduWide) .80f else 1f
             val prayerSize = listOf(20, 22, 36, 44)[profile]
             val solarSize = listOf(16, 19, 26, 30)[profile]
+
+            // Designs 3 and 4 have bright architectural details behind the calligraphy.
+            // Keep the subject visible while restoring the dark text field in their references.
+            if (!wide && settings.theme != AppTheme.MIQAAT && design >= 3) {
+                val field = skin.base.copy(alpha = .72f)
+                Box(region(.35f, .23f, .63f, .43f).background(
+                    if (L10n.isUrdu(settings)) Brush.horizontalGradient(
+                        0f to field, .75f to skin.base.copy(alpha = .45f), 1f to Color.Transparent)
+                    else Brush.horizontalGradient(
+                        0f to Color.Transparent, .25f to skin.base.copy(alpha = .45f), 1f to field)))
+            }
 
             Row(region(if (wide) .035f else .045f, .025f, if (wide) .30f else .34f, .085f),
                 verticalAlignment = Alignment.CenterVertically) {
@@ -239,9 +252,9 @@ internal fun FridayDevotionalDisplay(
 
             val heroX = if (wide) .49f else if (kiswahPortrait) .42f else .07f
             val heroW = if (wide) .47f else if (kiswahPortrait) .54f else .86f
-            val heroY = if (wide) (if (tablet) .32f else .34f)
+            val heroY = if (wide) (if (urduWide && tablet) .28f else if (urduWide) .32f else if (tablet) .32f else .34f)
                 else if (kiswahPortrait) .29f else if (tablet) .25f else .20f
-            Column(region(heroX, heroY, heroW, if (wide) (if (tablet) .43f else .59f) else if (tablet) .39f else .32f)
+            Column(region(heroX, heroY, heroW, if (wide) (if (urduWide && tablet) .47f else if (urduWide) .61f else if (tablet) .43f else .59f) else if (tablet) .39f else .32f)
                     .testTag("friday-devotional-hero"),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = if (wide) Arrangement.Top else Arrangement.Center) {
@@ -264,7 +277,7 @@ internal fun FridayDevotionalDisplay(
                                 .background(skin.base.copy(alpha = .70f)).padding(6.dp).testTag("friday-devotional-message")
                         else Modifier.fillMaxWidth().testTag("friday-devotional-message"),
                         fontFamily = if (L10n.isUrdu(settings)) Nastaliq else Nunito,
-                        fontSize = messageSize.sp, lineHeight = (messageSize * if (L10n.isUrdu(settings)) 1.65f else 1.25f).sp,
+                         fontSize = messageSize.sp, lineHeight = (messageSize * if (L10n.isUrdu(settings)) 1.65f else 1.25f).sp,
                         color = skin.pale, textAlign = TextAlign.Center, maxLines = 3)
                 }
             }
@@ -287,7 +300,7 @@ internal fun FridayDevotionalDisplay(
             val diskSize: Dp = minOf(maxWidth * diskWidth, maxHeight * diskHeight)
             val portraitDiskY = if (settings.theme == AppTheme.MIQAAT) .73f else .64f
             DevotionalPrayerDisk(state, settings, skin, prayerSize,
-                Modifier.offset(x = maxWidth * .035f, y = maxHeight * if (wide) .57f else portraitDiskY)
+                Modifier.absoluteOffset(x = maxWidth * .035f, y = maxHeight * if (wide) .57f else portraitDiskY)
                     .size(diskSize).testTag("friday-devotional-prayer-disk"))
             if (settings.theme == AppTheme.MIQAAT) {
                 DevotionalMAPrayerRows(state, settings, skin, solarSize, wide && tablet,

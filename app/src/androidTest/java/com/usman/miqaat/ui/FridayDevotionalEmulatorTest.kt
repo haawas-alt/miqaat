@@ -15,6 +15,32 @@ import java.time.ZonedDateTime
 /** Native captures at the emulator's actual viewport for all twelve devotional variants. */
 @RunWith(AndroidJUnit4::class)
 class FridayDevotionalEmulatorTest : ShotSupport() {
+    @Test fun standardHomesAndUnchangedGalleryFriday() {
+        for (theme in listOf(AppTheme.MIQAAT, AppTheme.KISWAH,
+            AppTheme.CELESTIAL_MERIDIAN, AppTheme.PRAYER_GALLERY)) {
+            shot("standard-weekday-home", theme) { settings, weekday ->
+                HomeRouter(weekday, settings, actions, showLarge = false) {}
+            }
+        }
+        shot("gallery-friday-home", AppTheme.PRAYER_GALLERY) { settings, _ ->
+            val friday = ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, settings.zone())
+            HomeRouter(PrayerEngine.state(settings, friday), settings, actions, showLarge = false) {}
+        }
+        val captures = out.listFiles().orEmpty().filter {
+            (it.name.startsWith("standard-weekday-home") || it.name.startsWith("gallery-friday-home")) && it.extension == "png"
+        }
+        check(captures.size == 5) { "Expected four weekday homes and unchanged Friday gallery, found ${captures.size}" }
+        for (file in captures) {
+            val values = ContentValues().apply {
+                put(MediaStore.Images.Media.DISPLAY_NAME, file.name)
+                put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+                put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/MiqaatDevotional")
+            }
+            val uri = checkNotNull(app.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values))
+            checkNotNull(app.contentResolver.openOutputStream(uri)).use { file.inputStream().use { source -> source.copyTo(it) } }
+        }
+    }
+
     @Test fun allThreeThemesFourDesigns() {
         for (theme in listOf(AppTheme.MIQAAT, AppTheme.KISWAH, AppTheme.CELESTIAL_MERIDIAN)) for (design in 1..4) {
             shot("friday-devotional-${theme.name.lowercase()}-$design", theme, verify = {
@@ -92,6 +118,15 @@ class FridayDevotionalEmulatorTest : ShotSupport() {
                             .fetchSemanticsNode().boundsInRoot
                         check(countdown.bottom <= arabic.top) {
                             "MA$design Urdu countdown/title overlap on $device: $countdown vs $arabic"
+                        }
+                        if (design != 3) {
+                            val hero = rule.onNodeWithTag("friday-devotional-hero", useUnmergedTree = true)
+                                .fetchSemanticsNode().boundsInRoot
+                            val message = rule.onNodeWithTag("friday-devotional-message", useUnmergedTree = true)
+                                .fetchSemanticsNode().boundsInRoot
+                            check(message.bottom <= hero.bottom && message.height >= 30f) {
+                                "MA$design Urdu message clipped on $device: $message vs $hero"
+                            }
                         }
                     }
                 }) { base, _ ->
