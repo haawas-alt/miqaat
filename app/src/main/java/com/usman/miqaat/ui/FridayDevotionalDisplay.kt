@@ -149,13 +149,17 @@ internal fun FridayDevotionalDisplay(
         Image(painterResource(devotionalArt(settings.theme, design, artworkWide)), null,
             Modifier.matchParentSize().testTag("friday-devotional-art"),
             alignment = Alignment.CenterStart, contentScale = ContentScale.Crop)
+        val preservePortraitArtwork = !artworkWide && settings.theme != AppTheme.MIQAAT
         Box(Modifier.matchParentSize().background(if (artworkWide)
             Brush.horizontalGradient(0f to Color.Transparent, .43f to skin.base.copy(alpha = .10f), 1f to skin.base.copy(alpha = .78f))
+            else if (preservePortraitArtwork) Brush.verticalGradient(
+                0f to skin.base.copy(alpha = .24f), .28f to Color.Transparent,
+                .55f to skin.base.copy(alpha = .06f), 1f to skin.base.copy(alpha = .32f))
             else Brush.verticalGradient(0f to skin.base.copy(alpha = .30f), .28f to Color.Transparent,
                 .55f to skin.base.copy(alpha = .12f), 1f to skin.base.copy(alpha = .80f))))
         Box(Modifier.matchParentSize().background(Brush.verticalGradient(
             0f to Color.Transparent, .60f to Color.Transparent,
-            1f to skin.base.copy(alpha = .45f))))
+            1f to skin.base.copy(alpha = if (preservePortraitArtwork) .15f else .45f))))
         BoxWithConstraints(Modifier.fillMaxSize().clickable(onClick = onDismiss).safeDrawingPadding()) {
             val wide = maxWidth > maxHeight
             val tablet = minOf(maxWidth, maxHeight) >= 600.dp
@@ -280,8 +284,9 @@ internal fun FridayDevotionalDisplay(
             val diskWidth = if (wide) if (tablet) .23f else .22f else .42f
             val diskHeight = if (wide) .38f else .22f
             val diskSize: Dp = minOf(maxWidth * diskWidth, maxHeight * diskHeight)
+            val portraitDiskY = if (settings.theme == AppTheme.MIQAAT) .73f else .64f
             DevotionalPrayerDisk(state, settings, skin, prayerSize,
-                Modifier.absoluteOffset(x = maxWidth * .035f, y = maxHeight * if (wide) .57f else .73f)
+                Modifier.absoluteOffset(x = maxWidth * .035f, y = maxHeight * if (wide) .57f else portraitDiskY)
                     .size(diskSize).testTag("friday-devotional-prayer-disk"))
             if (settings.theme == AppTheme.MIQAAT) {
                 DevotionalMAPrayerRows(state, settings, skin, solarSize, wide && tablet,
@@ -296,7 +301,7 @@ internal fun FridayDevotionalDisplay(
                         .testTag("friday-devotional-prayer-rows"))
             } else {
                 DevotionalSolar(state, settings, skin, solarSize,
-                    region(if (wide) .28f else .55f, if (wide) .66f else .76f,
+                    region(if (wide) .28f else .55f, if (wide) .66f else .67f,
                         if (wide) .18f else .40f, if (wide) .26f else .16f)
                         .testTag("friday-devotional-solar"))
             }
