@@ -10,3 +10,6 @@ The approved handoff ZIP contains flattened `views/` mockups and no separate bac
 | `friday_devotional_ma_4_landscape_refined.jpg` | `views/MA_phone_landscape_04.png` | Sunset courtyard, gold arcade, lantern and reflected light on the left; emerald right field. |
 
 All four images were created by editing the named visual references to remove the device frame and baked-in UI. They are bundled locally and require no network access at runtime. The mockups' artwork cannot be reproduced pixel for pixel from these flattened references. Native screenshot review remains required before accepting them.
+
+## Portrait artwork candidates (2026-11-26)
+The KA1, KA2, CA1, and CA2 portrait assets were reconstructed from the approved `views/*_phone_portrait_0[12].png` references with the built-in image editor. They are background-only raster assets; live text, dates, countdowns, and prayer data remain Compose content. KA3/KA4/CA3/CA4 stay on the previous assets because the new candidates left larger blank regions and failed visual selection. New assets are confined to portrait devotional views; regular homepages and landscape assets are unchanged. Exact source artwork was not included in the handoff, so these are reconstructions and must be compared with native captures before acceptance.

@@ -63,14 +63,14 @@ private fun devotionalArt(theme: AppTheme, design: Int, wide: Boolean): Int = wh
         else -> if (wide) R.drawable.friday_devotional_ma_4_landscape_refined else R.drawable.friday_devotional_ma_4_portrait
     }
     AppTheme.KISWAH -> when (design) {
-        1 -> R.drawable.friday_devotional_ka_1
-        2 -> R.drawable.friday_devotional_ka_2
+        1 -> if (wide) R.drawable.friday_devotional_ka_1 else R.drawable.friday_devotional_ka_1_portrait_refined
+        2 -> if (wide) R.drawable.friday_devotional_ka_2 else R.drawable.friday_devotional_ka_2_portrait_refined
         3 -> R.drawable.friday_devotional_ka_3
         else -> R.drawable.friday_devotional_ka_4
     }
     AppTheme.CELESTIAL_MERIDIAN -> when (design) {
-        1 -> R.drawable.friday_devotional_ca_1
-        2 -> R.drawable.friday_devotional_ca_2
+        1 -> if (wide) R.drawable.friday_devotional_ca_1 else R.drawable.friday_devotional_ca_1_portrait_refined
+        2 -> if (wide) R.drawable.friday_devotional_ca_2 else R.drawable.friday_devotional_ca_2_portrait_refined
         3 -> R.drawable.friday_devotional_ca_3
         else -> R.drawable.friday_devotional_ca_4
     }
@@ -197,9 +197,12 @@ internal fun FridayDevotionalDisplay(
                 Icon(Icons.Outlined.VolumeUp, "Audio settings", tint = skin.gold)
             }
 
-            Column(region(if (wide) .49f else .22f, if (wide) .035f else .08f,
-                if (wide) .47f else .56f, if (wide) .29f else .17f),
-                horizontalAlignment = if (wide) Alignment.End else Alignment.CenterHorizontally) {
+            val kiswahPortrait = !wide && settings.theme == AppTheme.KISWAH
+            Column(region(if (wide) .49f else if (kiswahPortrait) .48f else .22f,
+                if (wide) .035f else if (kiswahPortrait) .035f else .08f,
+                if (wide) .47f else if (kiswahPortrait) .48f else .56f,
+                if (wide) .29f else if (kiswahPortrait) .21f else .17f),
+                horizontalAlignment = if (wide || kiswahPortrait) Alignment.End else Alignment.CenterHorizontally) {
                 Row(verticalAlignment = Alignment.Bottom) {
                     Text(PrayerEngine.clock(state.now, settings.use24h),
                         fontFamily = Cormorant, fontSize = clockSize.sp, lineHeight = (clockSize * 1.05f).sp,
@@ -215,7 +218,7 @@ internal fun FridayDevotionalDisplay(
                     .let { if (L10n.isUrdu(settings)) it.arabic else it.english } else null
                 Text(listOfNotNull(gregorian, hijri).joinToString("  ·  "), fontFamily = if (L10n.isUrdu(settings)) Amiri else Nunito,
                     fontSize = dateSize.sp, lineHeight = (dateSize * 1.3f).sp, color = skin.muted,
-                    textAlign = if (wide) TextAlign.End else TextAlign.Center, maxLines = 2,
+                    textAlign = if (wide || kiswahPortrait) TextAlign.End else TextAlign.Center, maxLines = 2,
                     modifier = Modifier.testTag("friday-devotional-date"))
                 val jummah = if (settings.jumuahEnabled) state.today[Prayer.DHUHR] else null
                 val relevant = jummah?.takeIf { it.isAfter(state.now) }
@@ -229,9 +232,10 @@ internal fun FridayDevotionalDisplay(
                 }
             }
 
-            val heroX = if (wide) .49f else .07f
-            val heroW = if (wide) .47f else .86f
-            val heroY = if (wide) (if (tablet) .32f else .34f) else if (tablet) .25f else .20f
+            val heroX = if (wide) .49f else if (kiswahPortrait) .42f else .07f
+            val heroW = if (wide) .47f else if (kiswahPortrait) .54f else .86f
+            val heroY = if (wide) (if (tablet) .32f else .34f)
+                else if (kiswahPortrait) .29f else if (tablet) .25f else .20f
             Column(region(heroX, heroY, heroW, if (wide) (if (tablet) .43f else .59f) else if (tablet) .39f else .32f)
                     .testTag("friday-devotional-hero"),
                 horizontalAlignment = Alignment.CenterHorizontally,
