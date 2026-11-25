@@ -151,11 +151,11 @@ internal fun FridayDevotionalDisplay(
             alignment = Alignment.CenterStart, contentScale = ContentScale.Crop)
         Box(Modifier.matchParentSize().background(if (artworkWide)
             Brush.horizontalGradient(0f to Color.Transparent, .43f to skin.base.copy(alpha = .10f), 1f to skin.base.copy(alpha = .78f))
-            else Brush.verticalGradient(0f to skin.base.copy(alpha = .46f), .28f to Color.Transparent,
-                .55f to skin.base.copy(alpha = .30f), 1f to skin.base.copy(alpha = .94f))))
+            else Brush.verticalGradient(0f to skin.base.copy(alpha = .30f), .28f to Color.Transparent,
+                .55f to skin.base.copy(alpha = .12f), 1f to skin.base.copy(alpha = .80f))))
         Box(Modifier.matchParentSize().background(Brush.verticalGradient(
             0f to Color.Transparent, .60f to Color.Transparent,
-            1f to skin.base.copy(alpha = .65f))))
+            1f to skin.base.copy(alpha = .45f))))
         BoxWithConstraints(Modifier.fillMaxSize().clickable(onClick = onDismiss).safeDrawingPadding()) {
             val wide = maxWidth > maxHeight
             val tablet = minOf(maxWidth, maxHeight) >= 600.dp
@@ -168,13 +168,15 @@ internal fun FridayDevotionalDisplay(
             fun region(x: Float, y: Float, w: Float, h: Float): Modifier = Modifier
                 .absoluteOffset(x = maxWidth * x, y = maxHeight * y)
                 .size(maxWidth * w, maxHeight * h)
-            val clockSize = listOf(38, 46, 66, 88)[profile]
-            val dateSize = listOf(12, 13, 21, 24)[profile]
-            val arabicSize = listOf(48, 50, 88, 96)[profile] * if (design == 3 || design == 4) .82f else 1f
-            val headingSize = listOf(21, 22, 36, 40)[profile]
-            val messageSize = listOf(16, 16, 25, 28)[profile]
-            val prayerSize = listOf(18, 19, 32, 36)[profile]
-            val solarSize = listOf(14, 14, 22, 23)[profile]
+            // The raster boards have shorter aspect ratios than the target devices. Match the
+            // type-to-width relationship, then let the artwork fill the extra safe height.
+            val clockSize = listOf(44f, 58f, 76f, 105f)[profile]
+            val dateSize = listOf(14f, 16f, 23f, 27f)[profile]
+            val arabicSize = listOf(54f, 68f, 98f, 125f)[profile] * if (design == 3 || design == 4) .82f else 1f
+            val headingSize = listOf(24f, 28f, 40f, 52f)[profile]
+            val messageSize = listOf(18f, 20f, 28f, 34f)[profile]
+            val prayerSize = listOf(20, 22, 36, 44)[profile]
+            val solarSize = listOf(16, 19, 26, 30)[profile]
 
             Row(region(if (wide) .035f else .045f, .025f, if (wide) .30f else .34f, .085f),
                 verticalAlignment = Alignment.CenterVertically) {
@@ -222,8 +224,8 @@ internal fun FridayDevotionalDisplay(
 
             val heroX = if (wide) .49f else .07f
             val heroW = if (wide) .47f else .86f
-            val heroY = if (wide) .32f else if (tablet) .30f else .23f
-            Column(region(heroX, heroY, heroW, if (wide) .54f else if (tablet) .36f else .28f),
+            val heroY = if (wide) .22f else if (tablet) .25f else .20f
+            Column(region(heroX, heroY, heroW, if (wide) .57f else if (tablet) .39f else .32f),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center) {
                 Text(copy.arabic, fontFamily = Amiri, fontSize = arabicSize.sp,
@@ -241,8 +243,8 @@ internal fun FridayDevotionalDisplay(
                 if (copy.message.isNotEmpty() && !separateMA) {
                     Spacer(Modifier.height(if (tablet) 9.dp else 4.dp))
                     Text(copy.message, modifier = if (settings.theme == AppTheme.MIQAAT && wide && design != 3)
-                            Modifier.fillMaxWidth().border(1.dp, skin.gold, RoundedCornerShape(8.dp))
-                                .background(skin.base.copy(alpha = .55f)).padding(6.dp).testTag("friday-devotional-message")
+                            Modifier.fillMaxWidth().border(2.dp, skin.gold, RoundedCornerShape(8.dp))
+                                .background(skin.base.copy(alpha = .70f)).padding(6.dp).testTag("friday-devotional-message")
                         else Modifier.fillMaxWidth().testTag("friday-devotional-message"),
                         fontFamily = if (L10n.isUrdu(settings)) Nastaliq else Nunito,
                         fontSize = messageSize.sp, lineHeight = (messageSize * if (L10n.isUrdu(settings)) 1.65f else 1.25f).sp,
