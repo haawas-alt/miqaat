@@ -58,7 +58,7 @@ private fun devotionalSkin(theme: AppTheme): DevotionalSkin = when (theme) {
 private fun devotionalArt(theme: AppTheme, design: Int, wide: Boolean): Int = when (theme) {
     AppTheme.MIQAAT -> when (design) {
         1 -> if (wide) R.drawable.friday_devotional_ma_1_landscape_refined else R.drawable.friday_devotional_ma_1
-        2 -> if (wide) R.drawable.friday_devotional_ma_2_landscape_refined else R.drawable.friday_devotional_ma_2_portrait
+        2 -> if (wide) R.drawable.friday_devotional_ma_2_landscape_clean_pages else R.drawable.friday_devotional_ma_2_portrait
         3 -> if (wide) R.drawable.friday_devotional_ma_3_landscape_refined else R.drawable.friday_devotional_ma_3_portrait
         else -> if (wide) R.drawable.friday_devotional_ma_4_landscape_refined else R.drawable.friday_devotional_ma_4_portrait
     }
@@ -230,7 +230,7 @@ internal fun FridayDevotionalDisplay(
 
             val heroX = if (wide) .49f else .07f
             val heroW = if (wide) .47f else .86f
-            val heroY = if (wide) .28f else if (tablet) .25f else .20f
+            val heroY = if (wide) (if (tablet) .30f else .34f) else if (tablet) .25f else .20f
             Column(region(heroX, heroY, heroW, if (wide) .50f else if (tablet) .39f else .32f),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center) {
