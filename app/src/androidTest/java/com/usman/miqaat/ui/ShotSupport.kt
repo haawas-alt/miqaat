@@ -101,7 +101,8 @@ abstract class ShotSupport {
         check(expected == null || device.endsWith(expected)) { "Requested $expected, captured $device" }
     }
 
-    protected fun shot(name: String, theme: AppTheme, scale: Float = 1f, rtl: Boolean = false, content: @Composable (AppSettings, PrayerState) -> Unit) {
+    protected fun shot(name: String, theme: AppTheme, scale: Float = 1f, rtl: Boolean = false,
+                       verify: (() -> Unit)? = null, content: @Composable (AppSettings, PrayerState) -> Unit) {
         var label = "$name-$theme"
         var lastError: Throwable? = null
         // Emulators sometimes miss Compose's idle deadline for one frame. Retry once after a pause before failing the capture.
@@ -111,6 +112,7 @@ abstract class ShotSupport {
                 app.settings.update { s }
                 Learn.clear(app)
                 host(theme, scale, rtl) { content(s, st) }
+                verify?.invoke()
                 label = "${name}__${theme.name.lowercase()}__${device}__${(scale * 100).toInt()}${if (rtl) "__ur" else ""}"
                 Thread.sleep(700 + attempt * 1500L); rule.waitForIdle()
                 val bmp = rule.onRoot().captureToImage().asAndroidBitmap()

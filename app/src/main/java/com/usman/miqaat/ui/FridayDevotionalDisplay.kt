@@ -57,10 +57,10 @@ private fun devotionalSkin(theme: AppTheme): DevotionalSkin = when (theme) {
 
 private fun devotionalArt(theme: AppTheme, design: Int, wide: Boolean): Int = when (theme) {
     AppTheme.MIQAAT -> when (design) {
-        1 -> if (wide) R.drawable.friday_devotional_ma_1_landscape else R.drawable.friday_devotional_ma_1
-        2 -> if (wide) R.drawable.friday_devotional_ma_2 else R.drawable.friday_devotional_ma_2_portrait
-        3 -> if (wide) R.drawable.friday_devotional_ma_3 else R.drawable.friday_devotional_ma_3_portrait
-        else -> if (wide) R.drawable.friday_devotional_ma_4 else R.drawable.friday_devotional_ma_4_portrait
+        1 -> if (wide) R.drawable.friday_devotional_ma_1_landscape_refined else R.drawable.friday_devotional_ma_1
+        2 -> if (wide) R.drawable.friday_devotional_ma_2_landscape_refined else R.drawable.friday_devotional_ma_2_portrait
+        3 -> if (wide) R.drawable.friday_devotional_ma_3_landscape_refined else R.drawable.friday_devotional_ma_3_portrait
+        else -> if (wide) R.drawable.friday_devotional_ma_4_landscape_refined else R.drawable.friday_devotional_ma_4_portrait
     }
     AppTheme.KISWAH -> when (design) {
         1 -> R.drawable.friday_devotional_ka_1
@@ -172,7 +172,13 @@ internal fun FridayDevotionalDisplay(
             // type-to-width relationship, then let the artwork fill the extra safe height.
             val clockSize = listOf(44f, 58f, 76f, 105f)[profile]
             val dateSize = listOf(14f, 16f, 23f, 27f)[profile]
-            val arabicSize = listOf(54f, 68f, 98f, 125f)[profile] * if (design == 3 || design == 4) .82f else 1f
+            val arabicScale = when {
+                design == 3 && tablet && wide -> .60f
+                design == 3 && wide -> .72f
+                design == 3 || design == 4 -> .82f
+                else -> 1f
+            }
+            val arabicSize = listOf(54f, 68f, 98f, 125f)[profile] * arabicScale
             val headingSize = listOf(24f, 28f, 40f, 52f)[profile]
             val messageSize = listOf(18f, 20f, 28f, 34f)[profile]
             val prayerSize = listOf(20, 22, 36, 44)[profile]
@@ -224,8 +230,8 @@ internal fun FridayDevotionalDisplay(
 
             val heroX = if (wide) .49f else .07f
             val heroW = if (wide) .47f else .86f
-            val heroY = if (wide) .22f else if (tablet) .25f else .20f
-            Column(region(heroX, heroY, heroW, if (wide) .57f else if (tablet) .39f else .32f),
+            val heroY = if (wide) .28f else if (tablet) .25f else .20f
+            Column(region(heroX, heroY, heroW, if (wide) .50f else if (tablet) .39f else .32f),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center) {
                 Text(copy.arabic, fontFamily = Amiri, fontSize = arabicSize.sp,
@@ -277,6 +283,10 @@ internal fun FridayDevotionalDisplay(
                         if (wide) if (tablet) .76f else .66f else .76f,
                         if (wide) if (tablet) .64f else .22f else .42f,
                         if (wide) if (tablet) .14f else .28f else .16f)
+                        .then(if (wide) Modifier.clip(RoundedCornerShape(9.dp))
+                            .background(skin.base.copy(alpha = .78f))
+                            .border(1.dp, skin.gold.copy(alpha = .45f), RoundedCornerShape(9.dp))
+                            .padding(horizontal = 5.dp) else Modifier)
                         .testTag("friday-devotional-prayer-rows"))
             } else {
                 DevotionalSolar(state, settings, skin, solarSize,

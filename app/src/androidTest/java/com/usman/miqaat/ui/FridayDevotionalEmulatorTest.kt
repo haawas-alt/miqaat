@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.os.Environment
 import android.provider.MediaStore
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.compose.ui.test.onNodeWithTag
 import com.usman.miqaat.data.AppTheme
 import com.usman.miqaat.data.PrayerEngine
 import org.junit.Test
@@ -15,7 +16,13 @@ import java.time.ZonedDateTime
 class FridayDevotionalEmulatorTest : ShotSupport() {
     @Test fun maPilotFourDesigns() {
         for (design in 1..4) {
-            shot("friday-devotional-ma-$design", AppTheme.MIQAAT) { base, _ ->
+            shot("friday-devotional-ma-$design", AppTheme.MIQAAT, verify = {
+                val date = rule.onNodeWithTag("friday-devotional-date").fetchSemanticsNode().boundsInRoot
+                val arabic = rule.onNodeWithTag("friday-devotional-arabic").fetchSemanticsNode().boundsInRoot
+                check(date.bottom <= arabic.top) {
+                    "MA$design date overlaps Arabic title on $device: ${date.bottom} > ${arabic.top}"
+                }
+            }) { base, _ ->
                 val s = base.copy(jumuahEnabled = true, jumuahMinutes = 13 * 60 + 15)
                 val now = ZonedDateTime.of(2026, 10, 30, 11, 47, 0, 0, s.zone())
                 FridayDevotionalDisplay(PrayerEngine.state(s, now), s, actions, design) {}
