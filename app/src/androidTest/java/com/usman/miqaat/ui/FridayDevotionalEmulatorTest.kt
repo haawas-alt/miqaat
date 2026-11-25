@@ -17,8 +17,10 @@ class FridayDevotionalEmulatorTest : ShotSupport() {
     @Test fun maPilotFourDesigns() {
         for (design in 1..4) {
             shot("friday-devotional-ma-$design", AppTheme.MIQAAT, verify = {
-                val date = rule.onNodeWithTag("friday-devotional-date").fetchSemanticsNode().boundsInRoot
-                val arabic = rule.onNodeWithTag("friday-devotional-arabic").fetchSemanticsNode().boundsInRoot
+                val date = rule.onNodeWithTag("friday-devotional-date", useUnmergedTree = true)
+                    .fetchSemanticsNode().boundsInRoot
+                val arabic = rule.onNodeWithTag("friday-devotional-arabic", useUnmergedTree = true)
+                    .fetchSemanticsNode().boundsInRoot
                 check(date.bottom <= arabic.top) {
                     "MA$design date overlaps Arabic title on $device: ${date.bottom} > ${arabic.top}"
                 }
