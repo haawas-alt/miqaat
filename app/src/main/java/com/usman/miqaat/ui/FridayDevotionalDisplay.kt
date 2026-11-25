@@ -258,7 +258,7 @@ internal fun FridayDevotionalDisplay(
                             .background(skin.base.copy(alpha = .72f)).padding(7.dp))
                         .testTag("friday-devotional-message"),
                     fontFamily = if (L10n.isUrdu(settings)) Nastaliq else Cormorant,
-                    fontSize = (if (design == 3) headingSize * .82f else messageSize).sp,
+                    fontSize = (if (design == 3) headingSize * .82f else messageSize.toFloat()).sp,
                     lineHeight = (if (design == 3) headingSize * 1.1f else messageSize * 1.2f).sp,
                     color = skin.pale, textAlign = TextAlign.Center, maxLines = 3)
             }
