@@ -24,6 +24,13 @@ class FridayDevotionalEmulatorTest : ShotSupport() {
                 check(date.bottom <= arabic.top) {
                     "${theme.name} $design date overlaps Arabic title on $device: ${date.bottom} > ${arabic.top}"
                 }
+                if (device.contains("landscape")) {
+                    val countdown = rule.onNodeWithTag("friday-devotional-jummah-countdown", useUnmergedTree = true)
+                        .fetchSemanticsNode().boundsInRoot
+                    check(countdown.bottom <= arabic.top) {
+                        "${theme.name} $design countdown overlaps Arabic title on $device: $countdown vs $arabic"
+                    }
+                }
                 if (theme == AppTheme.MIQAAT && device.contains("landscape") && design != 3) {
                     val hero = rule.onNodeWithTag("friday-devotional-hero", useUnmergedTree = true)
                         .fetchSemanticsNode().boundsInRoot
@@ -31,6 +38,13 @@ class FridayDevotionalEmulatorTest : ShotSupport() {
                         .fetchSemanticsNode().boundsInRoot
                     check(message.height >= 40f && message.bottom <= hero.bottom) {
                         "${theme.name} $design message clipped on $device: message=$message hero=$hero"
+                    }
+                    if (device.startsWith("tablet")) {
+                        val prayers = rule.onNodeWithTag("friday-devotional-prayer-rows", useUnmergedTree = true)
+                            .fetchSemanticsNode().boundsInRoot
+                        check(message.bottom <= prayers.top) {
+                            "${theme.name} $design message overlaps prayer row on $device: $message vs $prayers"
+                        }
                     }
                 }
             }) { base, _ ->

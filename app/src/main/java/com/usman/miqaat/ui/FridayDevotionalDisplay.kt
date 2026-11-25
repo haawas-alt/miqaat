@@ -170,17 +170,17 @@ internal fun FridayDevotionalDisplay(
                 .size(maxWidth * w, maxHeight * h)
             // The raster boards have shorter aspect ratios than the target devices. Match the
             // type-to-width relationship, then let the artwork fill the extra safe height.
-            val clockSize = listOf(44f, 58f, 76f, 105f)[profile]
-            val dateSize = listOf(14f, 16f, 23f, 27f)[profile]
+            val clockSize = listOf(44f, 58f, 76f, 88f)[profile]
+            val dateSize = listOf(14f, 16f, 23f, 24f)[profile]
             val arabicScale = when {
                 design == 3 && tablet && wide -> .60f
                 design == 3 && wide -> .72f
                 design == 3 || design == 4 -> .82f
                 else -> 1f
             }
-            val arabicSize = listOf(54f, 68f, 98f, 125f)[profile] * arabicScale
-            val headingSize = listOf(24f, 28f, 40f, 52f)[profile]
-            val messageSize = listOf(18f, 20f, 28f, 34f)[profile]
+            val arabicSize = listOf(54f, 68f, 98f, 96f)[profile] * arabicScale
+            val headingSize = listOf(24f, 28f, 40f, 40f)[profile]
+            val messageSize = listOf(18f, 20f, 28f, 28f)[profile]
             val prayerSize = listOf(20, 22, 36, 44)[profile]
             val solarSize = listOf(16, 19, 26, 30)[profile]
 
@@ -197,8 +197,8 @@ internal fun FridayDevotionalDisplay(
                 Icon(Icons.Outlined.VolumeUp, "Audio settings", tint = skin.gold)
             }
 
-            Column(region(if (wide) .58f else .22f, if (wide) .035f else .08f,
-                if (wide) .38f else .56f, if (wide) .29f else .17f),
+            Column(region(if (wide) .49f else .22f, if (wide) .035f else .08f,
+                if (wide) .47f else .56f, if (wide) .29f else .17f),
                 horizontalAlignment = if (wide) Alignment.End else Alignment.CenterHorizontally) {
                 Row(verticalAlignment = Alignment.Bottom) {
                     Text(PrayerEngine.clock(state.now, settings.use24h),
@@ -209,7 +209,8 @@ internal fun FridayDevotionalDisplay(
                         fontSize = (clockSize * .4f).sp, color = skin.pale, maxLines = 1)
                 }
                 val gregorian = if (L10n.isUrdu(settings)) L10n.fridayDate(state.now.toLocalDate())
-                    else state.now.format(DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", Locale.ENGLISH))
+                    else state.now.format(DateTimeFormatter.ofPattern(
+                        if (wide) "EEE, d MMM yyyy" else "EEEE, d MMMM yyyy", Locale.ENGLISH))
                 val hijri = if (settings.showHijri) PrayerEngine.hijri(state.now.toLocalDate(), settings.hijriOffsetDays)
                     .let { if (L10n.isUrdu(settings)) it.arabic else it.english } else null
                 Text(listOfNotNull(gregorian, hijri).joinToString("  ·  "), fontFamily = if (L10n.isUrdu(settings)) Amiri else Nunito,
@@ -230,11 +231,11 @@ internal fun FridayDevotionalDisplay(
 
             val heroX = if (wide) .49f else .07f
             val heroW = if (wide) .47f else .86f
-            val heroY = if (wide) (if (tablet) .30f else .34f) else if (tablet) .25f else .20f
-            Column(region(heroX, heroY, heroW, if (wide) (if (tablet) .50f else .59f) else if (tablet) .39f else .32f)
+            val heroY = if (wide) (if (tablet) .32f else .34f) else if (tablet) .25f else .20f
+            Column(region(heroX, heroY, heroW, if (wide) (if (tablet) .43f else .59f) else if (tablet) .39f else .32f)
                     .testTag("friday-devotional-hero"),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = if (wide && !tablet) Arrangement.Top else Arrangement.Center) {
+                verticalArrangement = if (wide) Arrangement.Top else Arrangement.Center) {
                 Text(copy.arabic, fontFamily = Amiri, fontSize = arabicSize.sp,
                     lineHeight = (arabicSize * 1.35f).sp, color = skin.gold,
                     textAlign = TextAlign.Center, maxLines = 2,
