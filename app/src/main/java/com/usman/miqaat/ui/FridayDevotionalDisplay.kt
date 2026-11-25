@@ -160,8 +160,7 @@ internal fun FridayDevotionalDisplay(
         Box(Modifier.matchParentSize().background(Brush.verticalGradient(
             0f to Color.Transparent, .60f to Color.Transparent,
             1f to skin.base.copy(alpha = if (preservePortraitArtwork) .15f else .45f))))
-        BoxWithConstraints(Modifier.fillMaxSize().clickable(onClick = onDismiss).safeDrawingPadding(),
-            contentAlignment = Alignment.TopLeft) {
+        BoxWithConstraints(Modifier.fillMaxSize().clickable(onClick = onDismiss).safeDrawingPadding()) {
             val wide = maxWidth > maxHeight
             val tablet = minOf(maxWidth, maxHeight) >= 600.dp
             val profile = when {
@@ -170,8 +169,10 @@ internal fun FridayDevotionalDisplay(
                 wide -> 1
                 else -> 0
             }
+            val rtl = L10n.isUrdu(settings)
             fun region(x: Float, y: Float, w: Float, h: Float): Modifier = Modifier
-                .absoluteOffset(x = maxWidth * x, y = maxHeight * y)
+                .absoluteOffset(x = if (rtl) maxWidth * (x + w - 1f) else maxWidth * x,
+                    y = maxHeight * y)
                 .size(maxWidth * w, maxHeight * h)
             // The raster boards have shorter aspect ratios than the target devices. Match the
             // type-to-width relationship, then let the artwork fill the extra safe height.
@@ -196,9 +197,7 @@ internal fun FridayDevotionalDisplay(
             if (!wide && settings.theme != AppTheme.MIQAAT && design >= 3) {
                 val field = skin.base.copy(alpha = .72f)
                 Box(region(.35f, .23f, .63f, .43f).background(
-                    if (L10n.isUrdu(settings)) Brush.horizontalGradient(
-                        0f to field, .75f to skin.base.copy(alpha = .45f), 1f to Color.Transparent)
-                    else Brush.horizontalGradient(
+                    Brush.horizontalGradient(
                         0f to Color.Transparent, .25f to skin.base.copy(alpha = .45f), 1f to field)))
             }
 
@@ -300,7 +299,8 @@ internal fun FridayDevotionalDisplay(
             val diskSize: Dp = minOf(maxWidth * diskWidth, maxHeight * diskHeight)
             val portraitDiskY = if (settings.theme == AppTheme.MIQAAT) .73f else .64f
             DevotionalPrayerDisk(state, settings, skin, prayerSize,
-                Modifier.absoluteOffset(x = maxWidth * .035f, y = maxHeight * if (wide) .57f else portraitDiskY)
+                Modifier.absoluteOffset(x = if (rtl) diskSize + maxWidth * .035f - maxWidth else maxWidth * .035f,
+                    y = maxHeight * if (wide) .57f else portraitDiskY)
                     .size(diskSize).testTag("friday-devotional-prayer-disk"))
             if (settings.theme == AppTheme.MIQAAT) {
                 DevotionalMAPrayerRows(state, settings, skin, solarSize, wide && tablet,
