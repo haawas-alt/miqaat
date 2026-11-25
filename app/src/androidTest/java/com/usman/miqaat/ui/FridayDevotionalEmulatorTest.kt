@@ -11,18 +11,27 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.time.ZonedDateTime
 
-/** Native captures at the emulator's actual viewport; MA is the first visual gate. */
+/** Native captures at the emulator's actual viewport for all twelve devotional variants. */
 @RunWith(AndroidJUnit4::class)
 class FridayDevotionalEmulatorTest : ShotSupport() {
-    @Test fun maPilotFourDesigns() {
-        for (design in 1..4) {
-            shot("friday-devotional-ma-$design", AppTheme.MIQAAT, verify = {
+    @Test fun allThreeThemesFourDesigns() {
+        for (theme in listOf(AppTheme.MIQAAT, AppTheme.KISWAH, AppTheme.CELESTIAL_MERIDIAN)) for (design in 1..4) {
+            shot("friday-devotional-${theme.name.lowercase()}-$design", theme, verify = {
                 val date = rule.onNodeWithTag("friday-devotional-date", useUnmergedTree = true)
                     .fetchSemanticsNode().boundsInRoot
                 val arabic = rule.onNodeWithTag("friday-devotional-arabic", useUnmergedTree = true)
                     .fetchSemanticsNode().boundsInRoot
                 check(date.bottom <= arabic.top) {
-                    "MA$design date overlaps Arabic title on $device: ${date.bottom} > ${arabic.top}"
+                    "${theme.name} $design date overlaps Arabic title on $device: ${date.bottom} > ${arabic.top}"
+                }
+                if (theme == AppTheme.MIQAAT && device.contains("landscape") && design != 3) {
+                    val hero = rule.onNodeWithTag("friday-devotional-hero", useUnmergedTree = true)
+                        .fetchSemanticsNode().boundsInRoot
+                    val message = rule.onNodeWithTag("friday-devotional-message", useUnmergedTree = true)
+                        .fetchSemanticsNode().boundsInRoot
+                    check(message.height >= 40f && message.bottom <= hero.bottom) {
+                        "${theme.name} $design message clipped on $device: message=$message hero=$hero"
+                    }
                 }
             }) { base, _ ->
                 val s = base.copy(jumuahEnabled = true, jumuahMinutes = 13 * 60 + 15)
@@ -30,8 +39,8 @@ class FridayDevotionalEmulatorTest : ShotSupport() {
                 FridayDevotionalDisplay(PrayerEngine.state(s, now), s, actions, design) {}
             }
         }
-        val captures = out.listFiles().orEmpty().filter { it.name.startsWith("friday-devotional-ma-") && it.extension == "png" }
-        check(captures.size == 4) { "Expected four MA captures, found ${captures.size}" }
+        val captures = out.listFiles().orEmpty().filter { it.name.startsWith("friday-devotional-") && it.extension == "png" }
+        check(captures.size == 12) { "Expected twelve devotional captures, found ${captures.size}" }
         for (file in captures) {
             val values = ContentValues().apply {
                 put(MediaStore.Images.Media.DISPLAY_NAME, file.name)

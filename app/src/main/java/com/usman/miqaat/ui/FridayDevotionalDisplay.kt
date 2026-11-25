@@ -231,9 +231,10 @@ internal fun FridayDevotionalDisplay(
             val heroX = if (wide) .49f else .07f
             val heroW = if (wide) .47f else .86f
             val heroY = if (wide) (if (tablet) .30f else .34f) else if (tablet) .25f else .20f
-            Column(region(heroX, heroY, heroW, if (wide) .50f else if (tablet) .39f else .32f),
+            Column(region(heroX, heroY, heroW, if (wide) (if (tablet) .50f else .59f) else if (tablet) .39f else .32f)
+                    .testTag("friday-devotional-hero"),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center) {
+                verticalArrangement = if (wide && !tablet) Arrangement.Top else Arrangement.Center) {
                 Text(copy.arabic, fontFamily = Amiri, fontSize = arabicSize.sp,
                     lineHeight = (arabicSize * 1.35f).sp, color = skin.gold,
                     textAlign = TextAlign.Center, maxLines = 2,

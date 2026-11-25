@@ -1,4 +1,4 @@
-name: Friday devotional native pilot captures
+name: Friday devotional native captures
 on:
   push:
     branches: ['feat/friday-approved-devotional-20261125']
@@ -10,6 +10,8 @@ on:
       - 'app/src/main/java/com/usman/miqaat/ui/HomeRouter.kt'
       - 'app/src/main/java/com/usman/miqaat/MainActivity.kt'
       - 'app/src/main/res/drawable-nodpi/friday_devotional_ma_*'
+      - 'app/src/main/res/drawable-nodpi/friday_devotional_ka_*'
+      - 'app/src/main/res/drawable-nodpi/friday_devotional_ca_*'
   workflow_dispatch:
 permissions:
   contents: read
@@ -37,7 +39,7 @@ jobs:
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
-      - name: Capture four MA designs on native Android
+      - name: Capture twelve MA KA CA designs on native Android
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 36
@@ -57,7 +59,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: friday-devotional-ma-${{ matrix.name }}-${{ github.run_id }}
+          name: friday-devotional-all-${{ matrix.name }}-${{ github.run_id }}
           path: |
             shots/
             app/build/outputs/androidTest-results/connected/
