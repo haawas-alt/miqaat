@@ -113,12 +113,19 @@ class FridayDevotionalEmulatorTest : ShotSupport() {
                     check(date.bottom <= arabic.top) {
                         "MA$design Urdu date/title overlap on $device: $date vs $arabic"
                     }
+                    val countdown = rule.onNodeWithTag("friday-devotional-jummah-countdown", useUnmergedTree = true)
+                        .fetchSemanticsNode().boundsInRoot
+                    check(countdown.bottom <= arabic.top) {
+                        "MA$design Urdu countdown/title overlap on $device: $countdown vs $arabic"
+                    }
+                    val disk = rule.onNodeWithTag("friday-devotional-prayer-disk", useUnmergedTree = true)
+                        .fetchSemanticsNode().boundsInRoot
+                    val nextTime = rule.onNodeWithTag("friday-devotional-next-time", useUnmergedTree = true)
+                        .fetchSemanticsNode().boundsInRoot
+                    check(nextTime.bottom < disk.bottom - disk.height * .025f) {
+                        "MA$design Urdu next time touches prayer disk edge on $device: $nextTime vs $disk"
+                    }
                     if (device.contains("landscape")) {
-                        val countdown = rule.onNodeWithTag("friday-devotional-jummah-countdown", useUnmergedTree = true)
-                            .fetchSemanticsNode().boundsInRoot
-                        check(countdown.bottom <= arabic.top) {
-                            "MA$design Urdu countdown/title overlap on $device: $countdown vs $arabic"
-                        }
                         if (design != 3) {
                             val hero = rule.onNodeWithTag("friday-devotional-hero", useUnmergedTree = true)
                                 .fetchSemanticsNode().boundsInRoot

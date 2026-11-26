@@ -62,8 +62,8 @@ internal class FridayDevotionalCycle(
     }
 }
 
-/** MA pilot only. KA and CA are enabled after the four-profile visual gate; GA never rotates. */
+/** Only the three approved Friday devotional themes rotate; Prayer Gallery stays unchanged. */
 internal fun fridayDevotionalEligible(settings: AppSettings, now: ZonedDateTime): Boolean =
     settings.fridayReminders &&
-        settings.theme == AppTheme.MIQAAT &&
+        settings.theme in setOf(AppTheme.MIQAAT, AppTheme.KISWAH, AppTheme.CELESTIAL_MERIDIAN) &&
         now.withZoneSameInstant(settings.zone()).dayOfWeek == DayOfWeek.FRIDAY

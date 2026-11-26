@@ -20,6 +20,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -29,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -189,17 +191,10 @@ internal fun FridayDevotionalDisplay(
             val arabicSize = listOf(54f, 68f, 98f, 96f)[profile] * arabicScale * if (urduWide) .78f else 1f
             val headingSize = listOf(24f, 28f, 40f, 40f)[profile] * if (urduWide) .80f else 1f
             val messageSize = listOf(18f, 20f, 28f, 28f)[profile] * if (urduWide) .80f else 1f
-            val prayerSize = listOf(20, 22, 36, 44)[profile]
-            val solarSize = listOf(16, 19, 26, 30)[profile]
-
-            // Designs 3 and 4 have bright architectural details behind the calligraphy.
-            // Keep the subject visible while restoring the dark text field in their references.
-            if (!wide && settings.theme != AppTheme.MIQAAT && design >= 3) {
-                val field = skin.base.copy(alpha = .72f)
-                Box(region(.35f, .23f, .63f, .43f).background(
-                    Brush.horizontalGradient(
-                        0f to Color.Transparent, .25f to skin.base.copy(alpha = .45f), 1f to field)))
+            val prayerSize = listOf(20, 22, 36, 44)[profile].let {
+                if (urduWide) (it * .86f).toInt() else it
             }
+            val solarSize = listOf(16, 19, 26, 30)[profile]
 
             Row(region(if (wide) .035f else .045f, .025f, if (wide) .30f else .34f, .085f),
                 verticalAlignment = Alignment.CenterVertically) {
@@ -216,7 +211,7 @@ internal fun FridayDevotionalDisplay(
 
             val kiswahPortrait = !wide && settings.theme == AppTheme.KISWAH
             Column(region(if (wide) .49f else if (kiswahPortrait) .48f else .22f,
-                if (wide) .035f else if (kiswahPortrait) .035f else .08f,
+                if (urduWide && tablet) .0f else if (wide) .035f else if (kiswahPortrait) .035f else .08f,
                 if (wide) .47f else if (kiswahPortrait) .48f else .56f,
                 if (wide) .29f else if (kiswahPortrait) .21f else .17f),
                 horizontalAlignment = if (wide || kiswahPortrait) Alignment.End else Alignment.CenterHorizontally) {
@@ -252,7 +247,8 @@ internal fun FridayDevotionalDisplay(
             val heroX = if (wide) .49f else if (kiswahPortrait) .42f else .07f
             val heroW = if (wide) .47f else if (kiswahPortrait) .54f else .86f
             val heroY = if (wide) (if (urduWide && tablet) .28f else if (urduWide) .32f else if (tablet) .32f else .34f)
-                else if (kiswahPortrait) .29f else if (tablet) .25f else .20f
+                else if (kiswahPortrait) .29f else if (rtl) (if (tablet) .29f else .26f)
+                else if (tablet) .25f else .20f
             Column(region(heroX, heroY, heroW, if (wide) (if (urduWide && tablet) .47f else if (urduWide) .61f else if (tablet) .43f else .59f) else if (tablet) .39f else .32f)
                     .testTag("friday-devotional-hero"),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -260,6 +256,7 @@ internal fun FridayDevotionalDisplay(
                 Text(copy.arabic, fontFamily = Amiri, fontSize = arabicSize.sp,
                     lineHeight = (arabicSize * 1.35f).sp, color = skin.gold,
                     textAlign = TextAlign.Center, maxLines = 2,
+                    style = TextStyle(shadow = Shadow(skin.base.copy(alpha = .78f), Offset(0f, 2f), 9f)),
                     modifier = Modifier.fillMaxWidth().testTag("friday-devotional-arabic"))
                 if (!(settings.theme == AppTheme.MIQAAT && !wide && design == 3)) Text(if (!L10n.isUrdu(settings) && settings.theme == AppTheme.MIQAAT && design <= 2)
                         copy.heading.uppercase(Locale.ENGLISH) else copy.heading,
@@ -267,6 +264,7 @@ internal fun FridayDevotionalDisplay(
                     fontWeight = FontWeight.SemiBold, fontSize = headingSize.sp,
                     lineHeight = (headingSize * if (L10n.isUrdu(settings)) 1.65f else 1.18f).sp,
                     color = skin.pale, textAlign = TextAlign.Center, maxLines = 2,
+                    style = TextStyle(shadow = Shadow(skin.base.copy(alpha = .70f), Offset(0f, 2f), 7f)),
                     modifier = Modifier.fillMaxWidth().testTag("friday-devotional-heading"))
                 val separateMA = settings.theme == AppTheme.MIQAAT && !wide && (design == 2 || design == 3 || design == 4)
                 if (copy.message.isNotEmpty() && !separateMA) {
@@ -295,12 +293,12 @@ internal fun FridayDevotionalDisplay(
             }
 
             val diskWidth = if (wide) if (tablet) .23f else .22f else .42f
-            val diskHeight = if (wide) .38f else .22f
+            val diskHeight = if (wide) if (urduWide) .42f else .38f else .22f
             val diskSize: Dp = minOf(maxWidth * diskWidth, maxHeight * diskHeight)
             val portraitDiskY = if (settings.theme == AppTheme.MIQAAT) .73f else .64f
             DevotionalPrayerDisk(state, settings, skin, prayerSize,
                 Modifier.absoluteOffset(x = if (rtl) diskSize + maxWidth * .035f - maxWidth else maxWidth * .035f,
-                    y = maxHeight * if (wide) .57f else portraitDiskY)
+                    y = maxHeight * if (wide) (if (urduWide) .54f else .57f) else portraitDiskY)
                     .size(diskSize).testTag("friday-devotional-prayer-disk"))
             if (settings.theme == AppTheme.MIQAAT) {
                 DevotionalMAPrayerRows(state, settings, skin, solarSize, wide && tablet,
@@ -343,7 +341,8 @@ internal fun FridayDevotionalDisplay(
             if (next != current || state.current != null) {
                 Text(L10n.prayer(settings, next), fontFamily = Nunito, fontSize = (size * .72f).sp,
                     color = skin.muted, maxLines = 1)
-                Text(L10n.at(state.nextTime, settings.use24h), fontFamily = Cormorant,
+                Text(L10n.at(state.nextTime, settings.use24h), modifier = Modifier.testTag("friday-devotional-next-time"),
+                    fontFamily = Cormorant,
                     fontSize = size.sp, color = skin.pale, maxLines = 1)
             }
         }
